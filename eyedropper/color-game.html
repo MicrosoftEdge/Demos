@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+  html,
+  button {
+    font-family: cursive;
+    font-size: 20pt;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+  }
+  
+  .named-colors {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 2px;
+    background: black;
+    padding: 2px;
+    margin: 5vw;
+    border-radius: 3px;
+  }
+  
+  .game {
+    display: grid;
+    grid-template-columns: 10vw 10vw 10vw;
+    align-content: center;
+    justify-content: space-evenly;
+    grid-template-rows: 10vw;
+  }
+  
+  .color-to-guess,
+  .color-chosen {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  
+  .color-to-guess,
+  .color-chosen,
+  .play {
+    border: 2px solid black;
+    border-radius: 3px;
+  }
+  
+  .timer {
+    place-self: center;
+    font-size: 2rem;
+    color: #f06;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  .play {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  
+  .color-chosen {
+    display: none;
+    position: relative;
+    top: 5vw;
+    left: 5vw;
+  }
+</style>
+
+<div class="wrapper">
+  <div class="game">
+    <div class="color-to-guess"></div>
+    <div class="color-chosen"></div>
+    <div class="timer"></div>
+    <button class="play">Play</button>
+  </div>
+  <ul class="named-colors"></ul>
+</div>
+
+<script>
+  if (!('EyeDropper' in window)) {
+    alert('Your browser does not support the EyeDropper API yet. This demo will not work as intended');
+  }
+
+  const ROUND_MAX_TIME = 10 * 1000; // 10 seconds per round.
+  const MAX_COLORS = 40; // 20 colors to choose from.
+
+  const namedColors = ["aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
+  const namedColorsEl = document.querySelector('.named-colors');
+  const playBtn = document.querySelector('.play');
+  const colorToGuessEl = document.querySelector('.color-to-guess');
+  const colorChosenEl = document.querySelector('.color-chosen');
+  const timerEl = document.querySelector('.timer');
+
+  let roundTimer = null;
+  let selectedNamedColors = [];
+
+  function shuffle(array) {
+    let currentIndex = array.length;
+    let randomIndex;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]
+      ];
+    }
+
+    return array;
+  }
+
+  function selectRandomNamedColorsToPlayWith() {
+    const shuffled = shuffle(namedColors.slice());
+    selectedNamedColors = shuffled.splice(0, MAX_COLORS);
+  }
+
+  function pickRandomNamedColor() {
+    return selectedNamedColors[Math.floor(Math.random() * selectedNamedColors.length)];
+  }
+
+  function initGame() {
+    selectRandomNamedColorsToPlayWith();
+    resetColorToGuess();
+    resetChosenColor();
+
+    namedColorsEl.innerHTML = '';
+    for (const color of selectedNamedColors) {
+      const el = document.createElement('li');
+      el.style.background = color;
+      namedColorsEl.appendChild(el);
+    }
+  }
+
+  playBtn.addEventListener('click', async() => {
+    playBtn.setAttribute('disabled', true);
+
+    initGame();
+
+    setNextColorToGuess();
+    const endSignal = startTimer();
+
+    const won = await startEyeDropper(endSignal);
+
+    stopTimer();
+
+    if (won) {
+      timerEl.textContent = 'You won!';
+    } else {
+      timerEl.textContent = 'You lost!';
+    }
+
+    playBtn.removeAttribute('disabled');
+  });
+
+  function startTimer() {
+    const endController = new AbortController();
+    const startTime = Date.now();
+
+    function countDown() {
+      const now = Date.now();
+      if (now - startTime > ROUND_MAX_TIME) {
+        stopTimer();
+        endController.abort();
+        return;
+      }
+
+      timerEl.textContent = formatTimeLeft(now - startTime);
+
+      roundTimer = requestAnimationFrame(countDown);
+    }
+
+    countDown();
+
+    return endController.signal;
+  }
+
+  function stopTimer() {
+    cancelAnimationFrame(roundTimer);
+  }
+
+  function formatTimeLeft(timeSpent) {
+    const timeLeft = Math.round((ROUND_MAX_TIME - timeSpent) / 1000);
+    return timeLeft;
+  }
+
+  function setNextColorToGuess() {
+    colorToGuessEl.style.backgroundColor = pickRandomNamedColor();
+  }
+
+  function resetColorToGuess() {
+    colorToGuessEl.style.backgroundColor = 'transparent';
+  }
+
+  function resetChosenColor() {
+    colorChosenEl.style.display = 'none';
+  }
+
+  function showChosenColor(color) {
+    colorChosenEl.style.display = 'block';
+    colorChosenEl.style.backgroundColor = color;
+  }
+
+  async function startEyeDropper(endSignal) {
+    const eyeDropper = new EyeDropper();
+    let result = null;
+
+    try {
+      const result = await eyeDropper.open({
+        signal: endSignal
+      });
+      const color = result.sRGBHex;
+      showChosenColor(color);
+
+      return compareColors(color, colorToGuessEl.style.backgroundColor);
+    } catch (e) {
+      // Lost (either no time left, or escaped).
+      return false;
+    }
+  }
+
+  function compareColors(c1, c2) {
+    const c1El = document.createElement('div');
+    c1El.style.color = c1;
+    document.body.appendChild(c1El);
+    const computedC1 = getComputedStyle(c1El).color;
+    c1El.remove();
+
+    const c2El = document.createElement('div');
+    c2El.style.color = c2;
+    document.body.appendChild(c2El);
+    const computedC2 = getComputedStyle(c2El).color;
+    c2El.remove();
+
+    return computedC1 === computedC2;
+  }
+</script>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #666;
+  }
+  
+  body {
+    display: grid;
+    place-content: center;
+    grid-template-rows: 75vmin 10vmin;
+    grid-template-columns: 75vmin;
+    gap: 5vmin;
+    padding: 5vmin;
+    height: calc(100% - 10vmin);
+  }
+  
+  .canvas {
+    display: grid;
+    gap: 1vmin;
+    padding: 1vmin;
+    background: black;
+    grid-auto-flow: dense;
+  }
+  
+  .tile:hover,
+  .random:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1vmin white;
+  }
+  
+  .random {
+    background: black;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0;
+  }
+</style>
+
+<div class="canvas"></div>
+<button class="random">Randomize</button>
+
+<script>
+  if (!('EyeDropper' in window)) {
+    alert('Your browser does not support the EyeDropper API yet. This demo will not work as intended');
+  }
+
+  const ART_SIZE = 10;
+  const MAX_TILES = 15;
+  const MIN_DIM = 1;
+  const MAX_DIM = 4;
+  const COLORS = ['#f8da3f', '#e83d2e', '#d9ddde', '#1e4371'];
+
+  const canvas = document.querySelector('.canvas');
+  const randomBtn = document.querySelector('.random');
+
+  canvas.style.gridTemplateRows = `repeat(${ART_SIZE}, 1fr)`;
+  canvas.style.gridTemplateColumns = `repeat(${ART_SIZE}, 1fr)`;
+
+  function getRandomColor() {
+    return COLORS[Math.floor(Math.random() * COLORS.length)];
+  }
+
+  function getRandomDim(max) {
+    return MIN_DIM + Math.floor(Math.random() * max);
+  }
+
+  function getRandomStartPos() {
+    return Math.ceil(Math.random() * (MAX_TILES / 2))
+  }
+
+  function generateTiles() {
+    canvas.innerHTML = '';
+
+    for (let i = 0; i < MAX_TILES; i++) {
+      const tile = document.createElement('div');
+      tile.classList.add('tile');
+
+      tile.style.gridRow = `span ${getRandomDim(MAX_DIM)}`;
+      tile.style.gridColumn = `span ${getRandomDim(MAX_DIM)}`;
+
+      const color = getRandomColor();
+      tile.style.backgroundColor = color;
+      tile.dataset.color = color;
+
+      tile.title = 'Click to assign a new color';
+
+      canvas.appendChild(tile);
+    }
+  }
+
+  async function startEyeDropper() {
+    const eyeDropper = new EyeDropper();
+    try {
+      const result = await eyeDropper.open();
+      return result.sRGBHex;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function changeTilesColor(tiles) {
+    const color = await startEyeDropper();
+    if (!color || !tiles.length) {
+      return;
+    }
+
+    const oldColor = tiles[0].dataset.color;
+
+    for (const tile of tiles) {
+      tile.style.backgroundColor = color;
+      tile.dataset.color = color;
+    }
+
+    COLORS[COLORS.findIndex(c => c === oldColor)] = color;
+  }
+
+  addEventListener('click', e => {
+    const tile = e.target.closest('.tile');
+    if (!tile) {
+      return;
+    }
+
+    const color = tile.style.backgroundColor;
+    const sameColorTiles = [...canvas.children].filter(tile => tile.style.backgroundColor === color);
+
+    changeTilesColor(sameColorTiles);
+  });
+
+  randomBtn.addEventListener('click', generateTiles);
+
+  generateTiles();
+</script>
