@@ -1,6 +1,12 @@
 # Microsoft Edge Demos
 
-This is a set of demo pages and apps meant to show new Microsoft Edge platform, PWA, or DevTools features.
+This repository contains web pages and apps used to demo various DevTools, PWA, WebView, Extensions, and Web Platform features of Microsoft Edge.
+
+## Adding a new demo
+
+To add a new demo, make a copy of the `template` directory at the root of this repository and give it a name (e.g. `my-demo`). Then edit the `README.md`, `index.html`, `style.css`, etc. for your own needs. You can add any files you need.
+
+Demos can use the shared CSS, JS, and images from the `shared` directory. The template demo already links to them. This is helpful to avoid having to repeat basic styling, typography, and having to create your own images.
 
 ## Contributing
 
