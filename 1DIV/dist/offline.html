@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <title>1DIV</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+
+<body>
+  <div class="drag"></div>
+  <header>
+    <h1>1DIV</h1>
+    <p>You are offline. Please reconnect and try again.</p>
+  </header>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      }).then(reg => {
+        if (reg.installing) {
+          console.log('Service worker installing');
+        } else if (reg.waiting) {
+          console.log('Service worker installed');
+        } else if (reg.active) {
+          console.log('Service worker active');
+        }
+      }).catch(e => {
+        console.log('Registration failed with ' + e);
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <title>1DIV</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+
+<body>
+  <div class="drag"></div>
+  <header>
+    <h1>1DIV</h1>
+    <input type="text" placeholder="search" class="search-field">
+    <button class="new">new</button>
+  </header>
+  <div class="demos">
+    <ul class="grid" zoom-level="medium"></ul>
+  </div>
+  <div class="tools">
+    <div class="demo-meta-data">
+      <input type="text" class="demo-name" placeholder="Name your demo">
+      <button class="close" title="Close this 1DIV">close</button>
+      <button class="delete" title="Delete this 1DIV">delete</button>
+    </div>
+    <div class="resizer" title="Drag to resize the editor"></div>
+    <div class="code"></div>
+    <div class="color-picker editor-button">
+      <input type="color" title="Change the background color" value="#FFFFFF">
+    </div>
+  </div>
+  <footer>
+    <ul class="zoom">
+      <li><button title="Show more 1DIVs" class='zoom-small'>small</button></li>
+      <li><button title="Show some 1DIVs" class='zoom-medium'>medium</button></li>
+      <li><button title="Show fewer 1DIVs" class='zoom-large'>large</button></li>
+    </ul>
+  </footer>
+  <script src="./bundle.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      }).then(reg => {
+        if (reg.installing) {
+          console.log('Service worker installing');
+        } else if (reg.waiting) {
+          console.log('Service worker installed');
+        } else if (reg.active) {
+          console.log('Service worker active');
+        }
+      }).catch(e => {
+        console.log('Registration failed with ' + e);
+      });
+    }
+  </script>
+</body>
+
+</html>
