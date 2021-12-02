@@ -102,7 +102,6 @@ function closeRoom(id) {
             }
         }
 
-        rooms[id].destroy();
         rooms[id] = null;
     }
 }

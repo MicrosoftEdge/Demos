@@ -65,10 +65,6 @@ class Room {
         this.scrollToBottom();
     }
 
-    destroy() {
-        this.unmounted = [];
-    }
-
     scrollToBottom() {
         this.chatEl.scrollTop = this.chatEl.scrollHeight;
     }
