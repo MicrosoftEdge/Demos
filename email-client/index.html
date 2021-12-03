@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email inbox</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
+  <link rel="stylesheet" href="../shared/css/shared.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+  <div class="toolbar">
+    <h1>Messages</h1>
+    <button class="new">Compose</button>
+    <div class="compose">
+      <h2>New message</h2>
+      <form class="compose-form" action="#" method="get">
+        <input type="text" name="to" placeholder="To">
+        <input type="text" name="subject" placeholder="Subject">
+        <textarea name="body" rows="10"></textarea>
+        <div class="actions">
+          <button type="submit">Send</button>
+          <button type="reset">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ul class="emails">
+    <li class="email unread">
+      <span class="from">Danas Barkus</span>
+      <span class="subject-body">Ut faucibus pulvinar
+        <span class="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+      </span>
+      <span class="date">12/02/2021</span>
+    </li>
+    <li class="email unread">
+      <span class="from">Vladimir Zeman</span>
+      <span class="subject-body">Nisi
+        <span class="body">Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit</span>
+      </span>
+      <span class="date">11/29/2021</span>
+    </li>
+    <li class="email unread">
+      <span class="from">Hannah Haynes</span>
+      <span class="subject-body">Gravida rutrum
+        <span class="body">Est ullamcorper eget nulla facilisi etiam dignissim</span>
+      </span>
+      <span class="date">12/01/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Danas Barkus</span>
+      <span class="subject-body">Ut faucibus pulvinar
+        <span class="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+      </span>
+      <span class="date">12/02/2021</span>
+    </li>
+    <li class="email">
+      <span class="from unread">Vladimir Zeman</span>
+      <span class="subject-body">Nisi
+        <span class="body">Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit</span>
+      </span>
+      <span class="date">11/29/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Hannah Haynes</span>
+      <span class="subject-body">Gravida rutrum
+        <span class="body">Est ullamcorper eget nulla facilisi etiam dignissim</span>
+      </span>
+      <span class="date">12/01/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Diane Gabriene</span>
+      <span class="subject-body">In egestas erat imperdiet sed
+        <span class="body">Bibendum ut tristique et egestas quis. Sit amet dictum sit amet justo donec enim diam vulputate</span>
+      </span>
+      <span class="date">11/20/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Diane Gabriene</span>
+      <span class="subject-body">In egestas erat imperdiet sed
+        <span class="body">Bibendum ut tristique et egestas quis. Sit amet dictum sit amet justo donec enim diam vulputate</span>
+      </span>
+      <span class="date">11/20/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Amelie Garner</span>
+      <span class="subject-body">Ut tellus elementum
+        <span class="body">Mauris augue neque gravida in fermentum</span>
+      </span>
+      <span class="date">11/20/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Amelie Garner</span>
+      <span class="subject-body">Ut tellus elementum
+        <span class="body">Mauris augue neque gravida in fermentum</span>
+      </span>
+      <span class="date">11/20/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Joyikutty Thankachan</span>
+      <span class="subject-body">Augue ut lectus
+        <span class="body">Mi sit amet mauris commodo quis. Blandit volutpat maecenas volutpat blandit</span>
+      </span>
+      <span class="date">11/15/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Leela Parameswaran</span>
+      <span class="subject-body">Magnis dis parturient montes nascetur
+        <span class="body">Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing</span>
+      </span>
+      <span class="date">11/14/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Ahmad Hakiki</span>
+      <span class="subject-body">Vestibulum
+        <span class="body">Elementum facilisis leo vel fringilla est ullamcorper eget</span>
+      </span>
+      <span class="date">11/13/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Joyikutty Thankachan</span>
+      <span class="subject-body">Augue ut lectus
+        <span class="body">Mi sit amet mauris commodo quis. Blandit volutpat maecenas volutpat blandit</span>
+      </span>
+      <span class="date">11/15/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Leela Parameswaran</span>
+      <span class="subject-body">Magnis dis parturient montes nascetur
+        <span class="body">Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing</span>
+      </span>
+      <span class="date">11/14/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Zuzana Polaskova</span>
+      <span class="subject-body">Tortor posuere ac ut consequat semper viverra
+       <span class="body">Erat pellentesque adipiscing commodo elit at imperdiet dui</span>
+      </span>
+      <span class="date">11/10/2021</span>
+    </li>
+    <li class="email">
+      <span class="from">Zuzana Polaskova</span>
+      <span class="subject-body">Tortor posuere ac ut consequat semper viverra
+       <span class="body">Erat pellentesque adipiscing commodo elit at imperdiet dui</span>
+      </span>
+      <span class="date">11/10/2021</span>
+    </li>
+  </ul>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      }).then(reg => {
+        if (reg.installing) {
+          console.log('Service worker installing');
+        } else if (reg.waiting) {
+          console.log('Service worker installed');
+        } else if (reg.active) {
+          console.log('Service worker active');
+        }
+      }).catch(e => {
+        console.log('Registration failed with ' + e);
+      });
+    }
+  </script>
+</body>
+
+</html>

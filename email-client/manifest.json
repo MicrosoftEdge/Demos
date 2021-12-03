@@ -1,0 +1,33 @@
+{
+  "name": "Email inbox",
+  "description": "Email client demo app",
+  "lang": "en-US",
+  "start_url": "./index.html",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./img/icon-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./img/icon-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./img/icon-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./img/icon-512.png",
+      "sizes": "512x512"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "./?newmailto=%s"
+    }
+  ]
+}
