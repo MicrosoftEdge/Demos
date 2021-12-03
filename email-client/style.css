@@ -1,0 +1,129 @@
+html, body {
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+button {
+  border: 0;
+  background: #178011;
+  cursor: pointer;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  color: white;
+  font-weight: bold;
+  font-size: .9rem;
+  box-shadow: inset 0 0 0 0 #0004;
+  transition: box-shadow .05s linear;
+}
+
+button:active {
+  box-shadow: inset 0 0 0 .25rem #0004;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 2px solid #ccc;
+}
+
+h1 {
+  margin: 0;
+}
+
+.emails {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  row-gap: 2px;
+  background: #ccc;
+  cursor: pointer;
+}
+
+.emails .email {
+  display: contents;
+}
+
+.emails .email>* {
+  padding: 1rem;
+  background: #f5f7f7;
+}
+
+.emails .email.unread>* {
+  background: white;
+}
+
+.emails .email:hover>* {
+  background: #fff9d6;
+}
+
+.emails .unread .from,
+.emails .unread .subject-body,
+.emails .unread .date {
+  font-weight: bold;
+}
+
+.emails .subject-body .body {
+  font-weight: normal;
+  color: #666;
+}
+
+.emails .subject-body .body::before {
+  content: " - ";
+}
+
+.emails .subject-body {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.emails .from {
+  white-space: nowrap;
+}
+
+.compose {
+  position: absolute;
+  top: -100vh;
+  left: 2rem;
+  right: 2rem;
+  background: #fff9d6;
+  border: 2px solid #ccc;
+  box-shadow: 0 0 2rem 0 #0003;
+  clip-path: polygon(-2rem 0, calc(100% + 2rem) 0, calc(100% + 2rem) calc(100% + 2rem), -2rem calc(100% + 2rem));
+  opacity: 0;
+  transition: all .3s ease-out;
+}
+
+.compose.visible {
+  top: 100%;
+  opacity: 1;
+}
+
+.compose h2 {
+  margin: 1rem auto;
+  max-width: 600px;
+}
+
+.compose-form {
+  margin: 1rem auto;
+  max-width: 600px;
+  display: grid;
+  gap: 1rem;
+}
+
+.compose-form input, .compose-form textarea {
+  background: #f5f7f7;
+  border: 0;
+  padding: .5rem 1rem;
+  border-bottom: 2px solid #ccc;
+}
