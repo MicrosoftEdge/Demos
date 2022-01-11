@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open UI's selectmenu demos</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Open UI's <code>&lt;selectmenu&gt;</code> demos</h1>
+    <p>The purpose of <a href="https://open-ui.org/">Open UI</a> is to provide the web platform with UI controls that can be styled and extended by web developers.</p>
+    <p>These demos show how the new <code>&lt;selectmenu&gt;</code> UI control can be used to achieve what was once only possible with custom (and often inaccessible) selects.</p>
+    <p>The <code>&lt;selectmenu&gt;</code> (working name) is available in Chromium-based browsers. Make sure to use a Canary version of a Chromium browser, and turn on the <em>"Experimental Web Platform features"</em> flag in <strong>about:flags</strong>.</p>
+    <p>The control is still in its early days and these demos have been made to find bugs with the implementation and limitations in the architecture. They are not complete and have bugs.</p>
+  </header>
+
+  <div class="sample">
+    <h2>Vertically aligned options</h2>
+    <p>Vertically align the popup so the selected option's vertical position matches that of the selected-value.</p>
+    <p><strong>Note</strong>: this only works when the popup would normally appear below the button. The logic fails when the browser auto-places the popup above the button.</p>
+    <style>
+      .vertical-align {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        position: relative;
+      }
+      
+      .vertical-align::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 6px solid black;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        position: absolute;
+        top: calc(50% - 3px);
+        right: 8px;
+      }
+      
+      .vertical-align button {
+        font-family: inherit;
+        font-size: inherit;
+        border-radius: 3px;
+        border: 0;
+        background: #eee;
+        padding: 8px;
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        cursor: pointer;
+        min-width: 300px;
+        background-image: linear-gradient(to right, #ddd, #ddd);
+        background-size: 0 100%;
+        background-repeat: no-repeat;
+      }
+      
+      .vertical-align:focus-within button {
+        animation: 200ms ease-out fill-button forwards;
+      }
+      
+      @keyframes fill-button {
+        to {
+          background-size: 100% 100%;
+        }
+      }
+      
+      .vertical-align button label {
+        font-size: 12px;
+        color: #5f6368;
+      }
+      
+      .vertical-align popup {
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        box-shadow: 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12), 0px 5px 5px -3px rgba(0, 0, 0, 0.2);
+      }
+      
+      .vertical-align option {
+        padding: 0 8px;
+        height: 36px;
+        line-height: 36px;
+      }
+      
+      .vertical-align option:hover {
+        background-color: #eee;
+      }
+      
+      .vertical-align popup {
+        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popup;
+        opacity: 0;
+      }
+      
+      @keyframes reveal-popup {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <selectmenu class="vertical-align">
+      <button slot="button" behavior="button">
+    <label>Vegetable</label>
+    <span slot="selected-value" behavior="selected-value"></span>
+  </button>
+      <popup slot="listbox" behavior="listbox">
+        <option value="Courgette">Courgette</option>
+        <option value="Aubergine">Aubergine</option>
+        <option value="Carrot">Carrot</option>
+        <option value="Leek" selected>Leek</option>
+        <option value="Broccoli">Broccoli</option>
+        <option value="Lettuce">Lettuce</option>
+        <option value="Pumpkin">Pumpkin</option>
+        <option value="Pepper">Pepper</option>
+      </popup>
+    </selectmenu>
+    <script>
+      const verticalAlignSelect = document.querySelector('.vertical-align');
+      const verticalAlignButton = verticalAlignSelect.querySelector('button');
+      const verticalAlignPopup = verticalAlignSelect.querySelector('popup');
+
+      let optionHeight = null;
+
+      verticalAlignButton.addEventListener('click', () => {
+        // Initialize the height of an option.
+        if (!optionHeight) {
+          optionHeight = verticalAlignPopup.querySelector('option').offsetHeight;
+        }
+
+        // Calculate the vertical position of the selected option.
+        const index = [...verticalAlignPopup.children].indexOf(verticalAlignSelect.selectedOption);
+        const delta = optionHeight + (index * optionHeight) - 2;
+
+        // Set the popup's top position to match the selected option.
+        verticalAlignPopup.style.transform = `translateY(-${delta}px)`;
+      });
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>Combobox</h2>
+    <p>Add a input field to the popup that can be used to filter the options.</p>
+    <p><strong>Note</strong>: the button and popup have different styles whether the popup is visible or not, and whether it's above the button. But there isn't a way to detect this right now, so we rely on JavaScript polling.</p>
+
+    <style>
+      .combobox {
+        width: 300px;
+      }
+      
+      .combobox button {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background: #f6f4f7;
+        padding: 5px;
+        text-align: start;
+      }
+      
+      .combobox[open] button {
+        border-radius: 4px 4px 0 0;
+        border-bottom-color: #f6f4f7;
+      }
+      
+      .combobox[open][position="above"] button {
+        border-radius: 0 0 4px 4px;
+        border-bottom-color: #ccc;
+        border-top-color: #f6f4f7;
+      }
+      
+      .combobox popup {
+        box-shadow: none;
+        padding: 5px;
+        margin: -1px 0 0 0;
+        border-radius: 0 0 4px 4px;
+        border: 1px solid #ccc;
+        border-width: 0 1px 1px;
+        background: #f6f4f7;
+      }
+      
+      .combobox[position="above"] popup {
+        border-radius: 4px 4px 0 0;
+        border-width: 1px 1px 0;
+      }
+      
+      .combobox option {
+        padding: 5px;
+      }
+      
+      .combobox option:hover,
+      .combobox option:focus {
+        background: #097ff5;
+        color: white;
+        outline: 0;
+      }
+      
+      .combobox option .highlight {
+        text-decoration: underline;
+      }
+      
+      .combobox input[type="search"] {
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+      }
+      
+      .combobox .options {
+        max-height: 50vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    </style>
+
+    <selectmenu class="combobox">
+      <button slot="button" behavior="button">
+        <span behavior="selected-value" hidden></span>
+        <span class="visible-value">Felids</span>
+      </button>
+      <popup slot="listbox" behavior="listbox">
+        <input type="search">
+        <div class="options" tabindex="-1">
+          <option value="Asian golden cat">Asian golden cat</option>
+          <option value="Bay cat">Bay cat</option>
+          <option value="Marbled cat">Marbled cat</option>
+          <option value="African golden cat">African golden cat</option>
+          <option value="Caracal">Caracal</option>
+          <option value="Serval">Serval</option>
+          <option value="Andean mountain cat">Andean mountain cat</option>
+          <option value="Geoffroy's cat">Geoffroy's cat</option>
+          <option value="Kodkod">Kodkod</option>
+          <option value="Margay">Margay</option>
+          <option value="Ocelot">Ocelot</option>
+          <option value="Oncilla">Oncilla</option>
+          <option value="Pampas cat">Pampas cat</option>
+          <option value="Southern tiger cat">Southern tiger cat</option>
+          <option value="Bobcat">Bobcat</option>
+          <option value="Canada lynx">Canada lynx</option>
+          <option value="Eurasian lynx">Eurasian lynx</option>
+          <option value="Iberian lynx">Iberian lynx</option>
+          <option value="Cheetah">Cheetah</option>
+          <option value="Jaguarundi">Jaguarundi</option>
+          <option value="Cougar">Cougar</option>
+          <option value="Pallas's cat">Pallas's cat</option>
+          <option value="Fishing cat">Fishing cat</option>
+          <option value="Flat-headed cat">Flat-headed cat</option>
+          <option value="Leopard cat">Leopard cat</option>
+          <option value="Rusty-spotted cat">Rusty-spotted cat</option>
+          <option value="Sunda leopard cat">Sunda leopard cat</option>
+          <option value="African wildcat">African wildcat</option>
+          <option value="Black-footed cat">Black-footed cat</option>
+          <option value="Chinese mountain cat">Chinese mountain cat</option>
+          <option value="Domestic cat">Domestic cat</option>
+          <option value="European wildcat">European wildcat</option>
+          <option value="Jungle cat">Jungle cat</option>
+          <option value="Sand cat">Sand cat</option>
+          <option value="Clouded leopard">Clouded leopard</option>
+          <option value="Sunda clouded leopard">Sunda clouded leopard</option>
+          <option value="Jaguar">Jaguar</option>
+          <option value="Leopard">Leopard</option>
+          <option value="Lion">Lion</option>
+          <option value="Snow leopard">Snow leopard</option>
+          <option value="Tiger">Tiger</option>
+        </div>
+    </selectmenu>
+
+    <script>
+      const combobox = document.querySelector('.combobox');
+      const cbPopup = combobox.querySelector('popup');
+      const cbInput = combobox.querySelector('input[type="search"]');
+      const cbOptionsContainer = combobox.querySelector('.options');
+      const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
+      const cbValue = combobox.querySelector('.visible-value');
+
+      combobox.addEventListener('click', () => {
+        cbInput.focus();
+      });
+
+      cbInput.addEventListener('input', () => {
+        cbOptionsContainer.innerHTML = '';
+        let matchingOptions = 0;
+        cbOptionList.forEach(text => {
+          const index = text.toLowerCase().indexOf(cbInput.value.toLowerCase());
+          if (index !== -1) {
+            const optionElement = document.createElement('option');
+            optionElement.setAttribute('value', text);
+
+            const label = document.createElement('span');
+            label.appendChild(document.createTextNode(text.substring(0, index)));
+
+            const highlight = document.createElement('span');
+            highlight.classList.add('highlight');
+            highlight.textContent = text.slice(index, index + cbInput.value.length);
+            label.appendChild(highlight);
+
+            label.appendChild(document.createTextNode(text.substring(index + cbInput.value.length)));
+
+            optionElement.appendChild(label);
+            cbOptionsContainer.appendChild(optionElement);
+
+            matchingOptions++;
+          }
+        });
+
+        if (!matchingOptions) {
+          const optionElement = document.createElement('option');
+          optionElement.textContent = 'No matching options';
+          cbOptionsContainer.appendChild(optionElement);
+        }
+      });
+
+      combobox.addEventListener('change', () => {
+        cbValue.textContent = combobox.value;
+      });
+
+      let cbIsOpen = false;
+
+      function cbDetectPopup(callback) {
+        // There does not seem to be a way to detect if the popup is open or not.
+        // Even the intersection observer doesn't seem to work.
+        // So for now we poll.
+        const interval = setInterval(() => {
+          if (combobox.open != cbIsOpen) {
+            cbIsOpen = combobox.open;
+            callback(combobox.open);
+          }
+        }, 100);
+      }
+
+      cbDetectPopup(visible => {
+        if (visible) {
+          combobox.setAttribute('open', '');
+
+          const popupRect = cbPopup.getBoundingClientRect();
+          const selectRect = combobox.getBoundingClientRect();
+
+          combobox.setAttribute('position', popupRect.y + popupRect.height <= selectRect.y ? 'above' : 'below');
+        } else {
+          combobox.removeAttribute('open');
+        }
+      });
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>Multi-select</h2>
+    <p>Allow selecting multiple options from the list, displaying them in the button.</p>
+
+    <style>
+      .multiselect [slot="button"] {
+        background-color: rgb(255, 255, 255);
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(217, 217, 217);
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+        width: 300px;
+        min-height: 32px;
+      }
+      
+      .multiselect:focus-within [slot="button"] {
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        border-right-width: 1px !important;
+        border-color: #40a9ff;
+        outline: 0px;
+      }
+      
+      .multiselect .selected-values {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        margin: 0;
+        padding: 4px;
+        list-style: none;
+      }
+      
+      .multiselect .selected-values li {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        max-width: 100%;
+        height: 24px;
+        line-height: 22px;
+        cursor: default;
+        user-select: none;
+        margin-inline-end: 4px;
+        padding-inline-start: 8px;
+        padding-inline-end: 4px;
+        flex: 0 0 auto;
+        background: rgb(245, 245, 245);
+        border: 1px solid rgb(240, 240, 240);
+        border-radius: 2px;
+      }
+      
+      .multiselect .selected-values .label {
+        margin-right: 4px;
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      
+      .multiselect .selected-values .remove {
+        color: rgba(0, 0, 0, 0.45);
+        font-size: 10px;
+        cursor: pointer;
+      }
+      
+      .multiselect option {
+        position: relative;
+        display: flex;
+        min-height: 22px;
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        cursor: pointer;
+        padding: 5px 12px;
+        transition: background 0.3s ease 0s;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .multiselect option[selected] {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 600;
+        background-color: #e6f7ff;
+      }
+      
+      .multiselect option[selected]::after {
+        content: url('data:image/svg+xml;utf8,<svg viewBox="64 64 896 896" xmlns="http://www.w3.org/2000/svg" height="12" version="1.1" width="12"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>');
+      }
+    </style>
+
+    <selectmenu class="multiselect">
+      <div slot="button" behavior="button">
+        <ul class="selected-values"></ul>
+      </div>
+      <option value="Broccolini">Broccolini</option>
+      <option value="Pancetta">Pancetta</option>
+      <option value="Potato">Potato</option>
+      <option value="Sausage">Sausage</option>
+      <option value="Gorgonzola">Gorgonzola</option>
+      <option value="Mushroom">Mushroom</option>
+      <option value="Black olives">Black olives</option>
+      <option value="Anchovies">Anchovies</option>
+      <option value="Capers">Capers</option>
+      <option value="Radicchio">Radicchio</option>
+      <option value="Eggplant">Eggplant</option>
+      <option value="Capsicum">Capsicum</option>
+      <option value="Garlic">Garlic</option>
+      <option value="Onions">Onions</option>
+    </selectmenu>
+
+    <script>
+      const multiselect = document.querySelector('.multiselect');
+      const multiSelectedValuesContainer = multiselect.querySelector('.selected-values');
+      let multiValues = [];
+
+      multiselect.addEventListener('click', e => {
+        const option = e.target.closest('option');
+        if (!option) return;
+
+        const newValue = option.value;
+        if (multiValues.includes(newValue)) {
+          multiRemove(newValue);
+        } else {
+          multiAdd(newValue);
+        }
+      });
+
+      multiselect.addEventListener('click', e => {
+        const removeIcon = e.target.closest('.remove');
+        const selectedValue = e.target.closest('.selected-values li');
+        if (!removeIcon) return;
+
+        e.stopPropagation();
+
+        multiRemove(selectedValue.textContent);
+      }, true);
+
+      function multiAdd(value) {
+        multiValues.push(value);
+
+        multiRefreshSelectedValues();
+        multiRefreshOptions();
+      }
+
+      function multiRemove(toRemove) {
+        multiValues = multiValues.filter(value => value !== toRemove);
+
+        multiRefreshSelectedValues();
+        multiRefreshOptions();
+      }
+
+      function multiRefreshSelectedValues() {
+        multiSelectedValuesContainer.innerHTML = '';
+
+        multiValues.forEach(value => {
+          const label = document.createElement('span');
+          label.classList.add('label');
+          label.textContent = value;
+
+          const remove = document.createElement('span');
+          remove.classList.add('remove');
+          remove.innerHTML = '<svg viewBox="64 64 896 896" focusable="false" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>';
+
+          const li = document.createElement('li');
+          li.appendChild(label);
+          li.appendChild(remove);
+
+          multiSelectedValuesContainer.appendChild(li);
+        });
+      }
+
+      function multiRefreshOptions() {
+        const options = multiselect.querySelectorAll('option');
+        options.forEach(option => {
+          if (multiValues.includes(option.value)) {
+            option.setAttribute('selected', '');
+          } else {
+            option.removeAttribute('selected');
+          }
+        });
+      }
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>Account switcher</h2>
+    <p>Display more text within options, use a custom toggle button, and display an icon next to some options.</p>
+    <style>
+      .gitpod {
+        width: 250px;
+      }
+      
+      .gitpod option,
+      .gitpod button {
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        cursor: pointer;
+      }
+      
+      .gitpod button {
+        border: 0;
+        display: flex;
+        align-items: center;
+        width: max-content;
+        background: url(https://gitpod.io/static/media/CaretUpDown.7b205b53.svg) no-repeat center right;
+        padding-right: 20px;
+      }
+      
+      .gitpod popup {
+        padding: 0;
+        border-radius: 8px;
+        border: 1px solid #e7e5e4;
+        box-shadow: none;
+        margin-top: 8px;
+      }
+      
+      .gitpod option {
+        background-color: #fafaf9;
+        padding: 12px 16px;
+      }
+      
+      .gitpod option:not(:last-child) {
+        border-bottom: 1px solid #e7e5e4;
+      }
+      
+      .gitpod option:not(.action)::after {
+        content: attr(data-details);
+        display: block;
+        color: #a8a29e;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      
+      .gitpod option:hover {
+        background-color: #f5f5f4;
+      }
+      
+      .gitpod option.action {
+        color: #a8a29e;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .gitpod option.action svg {
+        width: 16px;
+      }
+    </style>
+
+    <selectmenu class="gitpod">
+      <button slot="button" behavior="button">
+    <span slot="selected-value" behavior="selected-value"></span>
+  </button>
+      <popup slot="listbox" behavior="listbox">
+        <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
+        <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
+        <option value="Microsoft" data-details="Organization Account">Microsoft</option>
+        <option value="new team" class="action">
+          New Team
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        </option>
+      </popup>
+    </selectmenu>
+  </div>
+
+  <div class="sample">
+    <h2>Scroll indicators</h2>
+    <p>Limit the max-height of the popup and provide scrolling.</p>
+
+    <style>
+      .scrollable::part(button) {
+        padding: .5rem;
+        border: 1px solid #ccc;
+      }
+      
+      .scrollable popup {
+        width: max-content;
+        height: max-content;
+        padding: 0;
+        border: 1px solid #ccc;
+        margin-top: .5rem;
+      }
+      
+      .scrollable .scroller {
+        max-height: 40vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      
+      .scrollable .indicator {
+        padding: .5rem;
+        text-align: center;
+      }
+      
+      .scrollable .indicator:hover {
+        background: #eee;
+      }
+      
+      .scrollable option {
+        padding: .5rem 1rem;
+      }
+      
+      .scrollable option:hover {
+        background: #097ff5;
+        color: white;
+      }
+    </style>
+
+    <selectmenu class="scrollable">
+      <popup slot="listbox" behavior="listbox">
+        <div class="indicator before">▲</div>
+        <div class="scroller">
+          <option value="afghanistan">Afghanistan</option>
+          <option value="albania">Albania</option>
+          <option value="algeria">Algeria</option>
+          <option value="andorra">Andorra</option>
+          <option value="angola">Angola</option>
+          <option value="antigua and barbuda">Antigua and Barbuda</option>
+          <option value="argentina">Argentina</option>
+          <option value="armenia">Armenia</option>
+          <option value="australia">Australia</option>
+          <option value="austria">Austria</option>
+          <option value="azerbaijan">Azerbaijan</option>
+          <option value="bahamas">Bahamas</option>
+          <option value="bahrain">Bahrain</option>
+          <option value="bangladesh">Bangladesh</option>
+          <option value="barbados">Barbados</option>
+          <option value="belarus">Belarus</option>
+          <option value="belgium">Belgium</option>
+          <option value="belize">Belize</option>
+          <option value="benin">Benin</option>
+          <option value="bhutan">Bhutan</option>
+          <option value="bolivia">Bolivia</option>
+          <option value="bosnia and herzegovina">Bosnia and Herzegovina</option>
+          <option value="botswana">Botswana</option>
+          <option value="brazil">Brazil</option>
+          <option value="brunei ">Brunei </option>
+          <option value="bulgaria">Bulgaria</option>
+          <option value="burkina faso">Burkina Faso</option>
+          <option value="burundi">Burundi</option>
+          <option value="côte d'ivoire">Côte d'Ivoire</option>
+          <option value="cabo verde">Cabo Verde</option>
+          <option value="cambodia">Cambodia</option>
+          <option value="cameroon">Cameroon</option>
+          <option value="canada">Canada</option>
+          <option value="central african republic">Central African Republic</option>
+          <option value="chad">Chad</option>
+          <option value="chile">Chile</option>
+          <option value="china">China</option>
+          <option value="colombia">Colombia</option>
+          <option value="comoros">Comoros</option>
+          <option value="congo (congo-brazzaville)">Congo (Congo-Brazzaville)</option>
+          <option value="costa rica">Costa Rica</option>
+          <option value="croatia">Croatia</option>
+          <option value="cuba">Cuba</option>
+          <option value="cyprus">Cyprus</option>
+          <option value="czechia (czech republic)">Czechia (Czech Republic)</option>
+          <option value="democratic republic of the congo">Democratic Republic of the Congo</option>
+          <option value="denmark">Denmark</option>
+          <option value="djibouti">Djibouti</option>
+          <option value="dominica">Dominica</option>
+          <option value="dominican republic">Dominican Republic</option>
+          <option value="ecuador">Ecuador</option>
+          <option value="egypt">Egypt</option>
+          <option value="el salvador">El Salvador</option>
+          <option value="equatorial guinea">Equatorial Guinea</option>
+          <option value="eritrea">Eritrea</option>
+          <option value="estonia">Estonia</option>
+          <option value="eswatini (fmr. " swaziland ")">Eswatini (fmr. "Swaziland")</option>
+          <option value="ethiopia">Ethiopia</option>
+          <option value="fiji">Fiji</option>
+          <option value="finland">Finland</option>
+          <option value="france">France</option>
+          <option value="gabon">Gabon</option>
+          <option value="gambia">Gambia</option>
+          <option value="georgia">Georgia</option>
+          <option value="germany">Germany</option>
+          <option value="ghana">Ghana</option>
+          <option value="greece">Greece</option>
+          <option value="grenada">Grenada</option>
+          <option value="guatemala">Guatemala</option>
+          <option value="guinea">Guinea</option>
+          <option value="guinea-bissau">Guinea-Bissau</option>
+          <option value="guyana">Guyana</option>
+          <option value="haiti">Haiti</option>
+          <option value="holy see">Holy See</option>
+          <option value="honduras">Honduras</option>
+          <option value="hungary">Hungary</option>
+          <option value="iceland">Iceland</option>
+          <option value="india">India</option>
+          <option value="indonesia">Indonesia</option>
+          <option value="iran">Iran</option>
+          <option value="iraq">Iraq</option>
+          <option value="ireland">Ireland</option>
+          <option value="israel">Israel</option>
+          <option value="italy">Italy</option>
+          <option value="jamaica">Jamaica</option>
+          <option value="japan">Japan</option>
+          <option value="jordan">Jordan</option>
+          <option value="kazakhstan">Kazakhstan</option>
+          <option value="kenya">Kenya</option>
+          <option value="kiribati">Kiribati</option>
+          <option value="kuwait">Kuwait</option>
+          <option value="kyrgyzstan">Kyrgyzstan</option>
+          <option value="laos">Laos</option>
+          <option value="latvia">Latvia</option>
+          <option value="lebanon">Lebanon</option>
+          <option value="lesotho">Lesotho</option>
+          <option value="liberia">Liberia</option>
+          <option value="libya">Libya</option>
+          <option value="liechtenstein">Liechtenstein</option>
+          <option value="lithuania">Lithuania</option>
+          <option value="luxembourg">Luxembourg</option>
+          <option value="madagascar">Madagascar</option>
+          <option value="malawi">Malawi</option>
+          <option value="malaysia">Malaysia</option>
+          <option value="maldives">Maldives</option>
+          <option value="mali">Mali</option>
+          <option value="malta">Malta</option>
+          <option value="marshall islands">Marshall Islands</option>
+          <option value="mauritania">Mauritania</option>
+          <option value="mauritius">Mauritius</option>
+          <option value="mexico">Mexico</option>
+          <option value="micronesia">Micronesia</option>
+          <option value="moldova">Moldova</option>
+          <option value="monaco">Monaco</option>
+          <option value="mongolia">Mongolia</option>
+          <option value="montenegro">Montenegro</option>
+          <option value="morocco">Morocco</option>
+          <option value="mozambique">Mozambique</option>
+          <option value="myanmar (formerly burma)">Myanmar (formerly Burma)</option>
+          <option value="namibia">Namibia</option>
+          <option value="nauru">Nauru</option>
+          <option value="nepal">Nepal</option>
+          <option value="netherlands">Netherlands</option>
+          <option value="new zealand">New Zealand</option>
+          <option value="nicaragua">Nicaragua</option>
+          <option value="niger">Niger</option>
+          <option value="nigeria">Nigeria</option>
+          <option value="north korea">North Korea</option>
+          <option value="north macedonia">North Macedonia</option>
+          <option value="norway">Norway</option>
+          <option value="oman">Oman</option>
+          <option value="pakistan">Pakistan</option>
+          <option value="palau">Palau</option>
+          <option value="palestine state">Palestine State</option>
+          <option value="panama">Panama</option>
+          <option value="papua new guinea">Papua New Guinea</option>
+          <option value="paraguay">Paraguay</option>
+          <option value="peru">Peru</option>
+          <option value="philippines">Philippines</option>
+          <option value="poland">Poland</option>
+          <option value="portugal">Portugal</option>
+          <option value="qatar">Qatar</option>
+          <option value="romania">Romania</option>
+          <option value="russia">Russia</option>
+          <option value="rwanda">Rwanda</option>
+          <option value="saint kitts and nevis">Saint Kitts and Nevis</option>
+          <option value="saint lucia">Saint Lucia</option>
+          <option value="saint vincent and the grenadines">Saint Vincent and the Grenadines</option>
+          <option value="samoa">Samoa</option>
+          <option value="san marino">San Marino</option>
+          <option value="sao tome and principe">Sao Tome and Principe</option>
+          <option value="saudi arabia">Saudi Arabia</option>
+          <option value="senegal">Senegal</option>
+          <option value="serbia">Serbia</option>
+          <option value="seychelles">Seychelles</option>
+          <option value="sierra leone">Sierra Leone</option>
+          <option value="singapore">Singapore</option>
+          <option value="slovakia">Slovakia</option>
+          <option value="slovenia">Slovenia</option>
+          <option value="solomon islands">Solomon Islands</option>
+          <option value="somalia">Somalia</option>
+          <option value="south africa">South Africa</option>
+          <option value="south korea">South Korea</option>
+          <option value="south sudan">South Sudan</option>
+          <option value="spain">Spain</option>
+          <option value="sri lanka">Sri Lanka</option>
+          <option value="sudan">Sudan</option>
+          <option value="suriname">Suriname</option>
+          <option value="sweden">Sweden</option>
+          <option value="switzerland">Switzerland</option>
+          <option value="syria">Syria</option>
+          <option value="tajikistan">Tajikistan</option>
+          <option value="tanzania">Tanzania</option>
+          <option value="thailand">Thailand</option>
+          <option value="timor-leste">Timor-Leste</option>
+          <option value="togo">Togo</option>
+          <option value="tonga">Tonga</option>
+          <option value="trinidad and tobago">Trinidad and Tobago</option>
+          <option value="tunisia">Tunisia</option>
+          <option value="turkey">Turkey</option>
+          <option value="turkmenistan">Turkmenistan</option>
+          <option value="tuvalu">Tuvalu</option>
+          <option value="uganda">Uganda</option>
+          <option value="ukraine">Ukraine</option>
+          <option value="united arab emirates">United Arab Emirates</option>
+          <option value="united kingdom">United Kingdom</option>
+          <option value="united states of america">United States of America</option>
+          <option value="uruguay">Uruguay</option>
+          <option value="uzbekistan">Uzbekistan</option>
+          <option value="vanuatu">Vanuatu</option>
+          <option value="venezuela">Venezuela</option>
+          <option value="vietnam">Vietnam</option>
+          <option value="yemen">Yemen</option>
+          <option value="zambia">Zambia</option>
+          <option value="zimbabwe">Zimbabwe</option>
+        </div>
+        <div class="indicator after">▼</div>
+      </popup>
+    </selectmenu>
+
+    <script>
+      const scrollableSelect = document.querySelector('.scrollable');
+      const scrollablePopup = scrollableSelect.querySelector('popup');
+      const scrollableScroller = scrollableSelect.querySelector('.scroller');
+
+      let scrollableDir = 0;
+      let spStart = null;
+      let spPreviousTime = null;
+
+      scrollablePopup.addEventListener('mouseover', e => {
+        const moveUp = e.target.closest('.indicator.before');
+        const moveDown = e.target.closest('.indicator.after');
+
+        scrollableDir = moveUp ? -1 : moveDown ? 1 : 0;
+        if (scrollableDir) {
+          spStart = null;
+
+        }
+      });
+
+      scrollablePopup.addEventListener('mouseout', e => {
+        const moveUp = e.target.closest('.indicator.before');
+        const moveDown = e.target.closest('.indicator.after');
+
+        if (moveDown || moveUp) {
+          scrollableDir = 0;
+        }
+      });
+
+      function scrollIfNeeded(timestamp) {
+        if (!spStart) {
+          spStart = timestamp;
+        }
+        const elapsed = timestamp - spPreviousTime;
+
+        if (scrollableDir !== 0) {
+          const amount = 0.4 * elapsed;
+          scrollableScroller.scrollTop += scrollableDir * amount;
+        }
+
+        spPreviousTime = timestamp
+        window.requestAnimationFrame(scrollIfNeeded);
+      }
+
+      window.requestAnimationFrame(scrollIfNeeded);
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>GitHub's issue filter</h2>
+    <p>Display icons for some options, support inline and list layouts within the same select, display groups of options.</p>
+    <p><strong>Note</strong>: optgroup's labels are not stylable yet, so the groups are done with divs.</p>
+
+    <style>
+      .gh-sort {
+        font-size: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      
+      .gh-sort::part(button) {
+        color: #57606a;
+        background-color: #f6f8fa;
+        font-size: 14px;
+        padding: 20px;
+      }
+      
+      .gh-sort::part(button)::before {
+        content: "Sort";
+      }
+      
+      .gh-sort::part(selected-value) {
+        display: none;
+      }
+      
+      .gh-sort option {
+        cursor: pointer;
+      }
+      
+      .gh-sort popup {
+        border-radius: 6px;
+        border: 1px solid #d0d7de;
+        box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+        padding: 0;
+        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 0ms 1 normal backwards running reveal;
+        /* I want max-width here, but this is somehow not working */
+        width: 250px;
+      }
+      
+      @keyframes reveal {
+        0% {
+          transform: translateY(-16px);
+          opacity: 0;
+        }
+      }
+      
+      .gh-sort .standard option {
+        color: #24292f;
+        padding: 7px 40px;
+        border-bottom: 1px solid rgb(216, 222, 228);
+      }
+      
+      .gh-sort .standard option:hover {
+        background-color: rgba(234, 238, 242, 0.5);
+      }
+      
+      .gh-sort .standard option:checked {
+        font-weight: bold;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 16 16" version="1.1" width="16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: 16px center;
+      }
+      /* Ideally, I'd want to use an optgroup and its label attribute instead, but this doesn't allow styling. */
+      
+      .gh-sort header {
+        font-weight: bold;
+        border-bottom: 1px solid rgb(216, 222, 228);
+        cursor: default;
+        background: #f6f8fa;
+        padding: 4px 16px;
+      }
+      
+      .gh-sort .reaction {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 8px;
+      }
+      
+      .gh-sort .reaction option {
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+      }
+      
+      .gh-sort .reaction option:hover {
+        background-color: #0969da;
+      }
+      
+      .gh-sort .reaction option:checked {
+        border-color: #0969da;
+        background-color: #ddf4ff;
+      }
+      
+      .gh-sort .reaction img {
+        width: 12px;
+      }
+    </style>
+    <selectmenu class="gh-sort">
+      <popup slot="listbox" behavior="listbox">
+        <header>Sort by</header>
+        <div class="standard">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="most-commented">Most commented</option>
+          <option value="least-commented">Least commented</option>
+          <option value="recently-updated">Recently updated</option>
+          <option value="least-recently-updated">Least recently updated</option>
+        </div>
+        <header>Most reactions</header>
+        <div class="reaction">
+          <option value="thumb-up"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png"></option>
+          <option value="thumb-down"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png"></option>
+          <option value="smile"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png"></option>
+          <option value="celebration"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png"></option>
+          <option value="sad"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f615.png"></option>
+          <option value="heart"><img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"></option>
+          <option value="ship"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png"></option>
+          <option value="looking"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f440.png"></option>
+        </div>
+      </popup>
+    </selectmenu>
+  </div>
+
+  <div class="sample">
+    <h2>Dribbble's filter</h2>
+    <p>Custom toggle button with animation, icons for options.</p>
+
+    <style>
+      .dribbble-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+        background: #efefef69;
+        border-radius: 1rem;
+      }
+      
+      .dribbble-filters .filter {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+      }
+      
+      .dribbble-filters .filter button {
+        padding: .5rem;
+        border-radius: .3rem;
+        width: 100%;
+        text-align: left;
+        box-shadow: 0px 0px 0px 1px #e7e7e9 inset;
+        border: 0;
+        background: white;
+        color: #6e6d7a;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        cursor: pointer;
+      }
+      
+      .dribbble-filters .filter button:active {
+        transform: translate(1px, 1px);
+      }
+      
+      .dribbble-filters .filter button:hover,
+      .dribbble-filters .filter selectmenu:focus-within button {
+        color: black;
+      }
+      
+      .dribbble-filters .filter button:hover,
+      .dribbble-filters .filter selectmenu:focus-within button:not(:active) {
+        box-shadow: 0 0 0 4px rgba(234, 76, 137, 0.1);
+      }
+      
+      .dribbble-filters .filter button::after {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background: #e7e7e9;
+        clip-path: polygon(10% 20%, 90% 20%, 50% 80%);
+        transform-origin: center;
+        transition: transform .2s ease-in-out;
+      }
+      
+      .dribbble-filters .filter selectmenu:focus-within button::after {
+        transform: scaleY(-1);
+      }
+      
+      .dribbble-filters .filter popup {
+        border-radius: .3rem;
+        border: none;
+        box-shadow: 0 0 .3rem rgba(0, 0, 0, .25);
+        padding: 0;
+        margin-top: .5rem;
+      }
+      
+      .dribbble-filters .filter option {
+        padding: .5rem;
+        color: #6e6d7a;
+        cursor: pointer;
+        padding-right: 2rem;
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+      }
+      
+      .dribbble-filters .filter option:hover {
+        background: #e7e7e9;
+      }
+      
+      .dribbble-filters .filter option:checked {
+        color: #ea4c89;
+      }
+      
+      .dribbble-filters .filter .color-type option::before {
+        content: '';
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="r"]::before {
+        background: red;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="g"]::before {
+        background: green;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="b"]::before {
+        background: blue;
+      }
+      
+      .dribbble-filters .filter .browser-type option::before {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="brave"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/c4/Brave_lion.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="edge"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/1200px-Microsoft_Edge_logo_%282019%29.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="chrome"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="firefox"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="safari"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Safari_browser_logo.svg/1200px-Safari_browser_logo.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="opera"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png");
+      }
+    </style>
+    <div class="dribbble-filters">
+
+      <div class="filter" style="width:12rem;">
+        <label for="timeframe-filter">Timeframe</label>
+        <selectmenu id="timeframe-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox">
+            <option value="now" checked>Now</option>
+            <option value="week">This Past Week</option>
+            <option value="month">This Past Month</option>
+            <option value="year">This Past Year</option>
+            <option value="all">All Time</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+      <div class="filter" style="width:6rem;">
+        <label for="color-filter">Color</label>
+        <selectmenu id="color-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox" class="color-type">
+            <option value="r" checked>Red</option>
+            <option value="g">Green</option>
+            <option value="b">Blue</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+      <div class="filter" style="width:8rem;">
+        <label for="browser-filter">Browser</label>
+        <selectmenu id="browser-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox" class="browser-type">
+            <option value="edge" checked>Edge</option>
+            <option value="chrome">Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="brave">Brave</option>
+            <option value="safari">Safari</option>
+            <option value="opera">Opera</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sample">
+    <h2>Word's color select</h2>
+    <p>Mix a grid of colors and a list of action items. Display a split button (click the A to set the color, click the arrow to open the drop-down).</p>
+
+    <style>
+      .word-toolbar {
+        background: #fafafa;
+        align-items: center;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+        --initial-font-color: #ffc000;
+        --initial-background-color: #2f5496;
+      }
+      
+      .word-toolbar .sample-text {
+        padding: 5px;
+        border-radius: 5px;
+        color: var(--initial-font-color);
+        background: var(--initial-background-color);
+      }
+      
+      .word-color [slot="button"] {
+        display: flex;
+        gap: 1px;
+        height: 35px;
+        border: .5px solid transparent;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      
+      .word-color [slot="button"]:hover {
+        border-color: #c7c7c7;
+        background: #c7c7c7;
+      }
+      
+      .word-color button {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: #fafafa;
+      }
+      
+      .word-color button:hover {
+        background: white;
+      }
+      
+      .word-color .apply-button {
+        aspect-ratio: 1;
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .word-color .open-button {
+        width: 15px;
+      }
+      
+      .word-color .apply-button::before {
+        content: "A";
+        font-size: 15px;
+      }
+      
+      .word-color.background-color .apply-button::before {
+        content: "";
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAABqElEQVQ4T2NkIAC6ujr/b9iwnkFcXJyhurqGwcTElBGXFpwSIA2rVq38P2FCP0NAQCDDpUsXGb5+/cqwfv1G8gybMmXy/2XLljIcO3aCEZlNsstev34tWViY/+zVq1cMu3btId8wZIOampoZLCwsGSdNmvh/xYrlYFcS7TJsBoE0Ixt2//W3ZdMP3I/8/OMPg4WSIEO8tRzYAhRbcBmEblheQ9//hTeYGT5yK4AdGWMhw7Ak1ZgRbhg+g9ANA7ly7YaNDBfE/OEGHq20gbiMkEHohp04cfx/XV0tw88//+AGtgRqMDASYxB6gMMMExMTY/hjksyw4vIXhkwHBQZ4lANjjKGvrx9vIgYZimxQf/9EqeUXPz/LW34ZYhhIQX197f/du3czODs7MzQ3t+I0EN0gUVHR55suPP/vN/kUwjBiDMRmENz7yRv/L0wyRE0auFyI1yCgiVLFO/8frbBdjuEldAMJGQRyXebii/+nx+oj0hlyjMEMBEXKlSuXGUCxBgpsUBhhy0qgHKEoyhWFM7BhBiopKeE1CNlwvEkBVOyEh0fgdBG6KwF34T4AD1LH3wAAAABJRU5ErkJggg==");
+        width: 19px;
+        height: 18px;
+        background-position: center;
+      }
+      
+      .word-color .apply-button::after {
+        content: "";
+        background-color: var(--selected-color);
+        width: 20px;
+        height: 4px;
+      }
+      
+      .word-color .open-button::before {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 5px;
+        border: 2px solid black;
+        border-width: 0 2px 2px 0;
+        transform: translateX(4px) rotate(45deg);
+      }
+      
+      .word-color popup {
+        padding: 0;
+        border: 1px solid #ddd;
+      }
+      
+      .word-color .section {
+        display: block;
+        padding: 5px;
+        border-top: 1px solid #ddd;
+      }
+      
+      .word-color .action {
+        padding: 5px 10px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      
+      .word-color .section:first-child {
+        border-top: 0;
+      }
+      
+      .word-color .theme::before,
+      .word-color .standard::before {
+        margin: 5px 5px 10px 5px;
+        display: block;
+        font-weight: bold;
+      }
+      
+      .word-color .theme::before {
+        content: "Theme Colors";
+      }
+      
+      .word-color .standard::before {
+        content: "Standard Colors";
+      }
+      
+      .word-color .theme .color-grid {
+        display: grid;
+        grid-template-columns: repeat(10, 20px);
+        grid-template-rows: 30px repeat(5, 20px);
+        column-gap: 5px;
+      }
+      
+      .word-color .standard .color-grid {
+        display: grid;
+        grid-template-columns: repeat(10, 20px);
+        grid-template-rows: 20px;
+        column-gap: 5px;
+      }
+      
+      .word-color .color-grid option {
+        width: 20px;
+        padding: 0;
+        aspect-ratio: 1;
+      }
+      
+      .word-color .color-grid option:hover {
+        box-shadow: inset 0 0 0 1px orange, inset 0 0 0 2px white;
+      }
+      
+      .word-color .action:hover {
+        background: #d9e3f1;
+      }
+      
+      .word-color .action[value="none"]::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        aspect-ratio: 1;
+        background: #e6eefa;
+        border: 1px solid #a3bde3;
+      }
+      
+      .word-color .action[value="more"]::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        aspect-ratio: 1;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADoUlEQVRIS51WW0gUURj+58XAS9SDGnRBLcmXVajMTfBBRykjLxSmq6DiJS1ZNy1Bd10j19X1ktewNddl9UHXglBTsnTxQUhJ88H1YUNF6UKiSEEq5Ms0/5E9NbujLs3DcObMf77vv/+HgQMem832a2zsnefCwgJYrfNU0sfHBwICzkJYWBhERbFB3t7en/aDYcR+bGxsnG9ra7GNj4+T3/7+/iCRBIO7uzv5Xl1dheXlJeDlwMPDA+LjEyAlRSZK5EQwPPyaa2lphu3tbTwELBsNgYGBogrOzX2EkZFhsFgsgFapVOUQGnpZgCn46O83E3A/Pz9eWL0vsCPb5OQktLY2E4sUivuQnJxCceliYmKCU6nKiDvq6hqA96uT1l3z/WQvOzjZ6R+Cl5Q8IO7TamsgMjKSYJMX+jw1NcWGoPX1T/YFN82/JMCZwUkHkiBZb6+ZxIQQ1NbquMHBAWhsbIILFy4SkIdvv8CA7SckBh2DhqunAbV3JPjxIh+2p43gIc2C47f15BzGpbi4CKKjo6GysophUPuEhDgby7KgVj+ipp9rsdL1kkJC1o4u+lrsRmVONe7StUbzmATeaDRtMUZjF2cwdEJnZ5cgqI4WiKWRmAUot7i4CLm52ZCTkwsMbw63tvYdTKYe0VT8383MzHTw8joKTEwMy0mlUoF77KCoicUyTgosNva6aPBRdrenmxxxS88QuGl6ehqY8HAphwWVn39XoGwPf4h3H93Dii0tVUJERIRADsF/d5vI3pGMTEqi1z8Ds7nP2QJMMb2+nQRJKr0CZWXKoM3NzVk+cJ7r6+ug0VTRTLNrfyBBW1sr19fXy7cElu8rnjA19Z5UJAYoKyubFqK9VrAn6XS1TlaIuchqte4VGpIMDQ2S/oNay2Qyp56Ccnl5d7g9+aeHxj4p6RaEhITsEbjyzMx84BSKQtIA7fGabbLCZ8s3OMOehEtFe7WCD/YmtVoFSqXKdYK0NBm3tbUF7e16mk2vboxS0JvD1+i6oOAe7+Z1GBgYYlyywN5lNRqtIIvELBgdfcPHqIZ2VZcIEhPjOV/fE4f6HvuQWl1Opl1Hx/O/3fSwGOxXK/+ew6LUajWws7ODbYdON5ctkEgkotVuD6pOV034qqtrBBnoEkFFRTmH89mxIaLWZnMvKUocVM3NrU5z2SUCvF3I5QWe2JNwRqMb8JaxsrJCh75cXiiK5RIBmo51YDAY6PUFKxqvLXFx8QdeW/4AWJ23TtYVND4AAAAASUVORK5CYII=");
+        background-size: contain;
+      }
+    </style>
+
+    <div class="word-toolbar">
+      <selectmenu class="word-color font-color" style="--selected-color:var(--initial-font-color);" title="Font color">
+        <div slot="button">
+          <button class="apply-button"></button>
+          <button behavior="button" class="open-button"></button>
+        </div>
+        <popup slot="listbox" behavior="listbox">
+          <div class="section theme">
+            <div class="color-grid"></div>
+          </div>
+          <div class="section standard">
+            <div class="color-grid"></div>
+          </div>
+          <option class="action" value="none">No Color</option>
+          <option class="action" value="more">More Colors...</option>
+        </popup>
+      </selectmenu>
+
+      <selectmenu class="word-color background-color" style="--selected-color:var(--initial-background-color);" title="Shading">
+        <div slot="button">
+          <button class="apply-button"></button>
+          <button behavior="button" class="open-button"></button>
+        </div>
+        <popup slot="listbox" behavior="listbox">
+          <div class="section theme">
+            <div class="color-grid"></div>
+          </div>
+          <div class="section standard">
+            <div class="color-grid"></div>
+          </div>
+          <option class="action" value="none">No Color</option>
+          <option class="action" value="more">More Colors...</option>
+        </popup>
+      </selectmenu>
+
+      <span class="sample-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+    </div>
+
+    <script>
+      const fcSelect = document.querySelector('.font-color');
+      const fcThemeGrid = fcSelect.querySelector('.theme .color-grid');
+      const fcStandardGrid = fcSelect.querySelector('.standard .color-grid');
+
+      const bcSelect = document.querySelector('.background-color');
+      const bcThemeGrid = bcSelect.querySelector('.theme .color-grid');
+      const bcStandardGrid = bcSelect.querySelector('.standard .color-grid');
+
+      const wordSampleText = document.querySelector('.sample-text');
+
+      const themeColors = [
+        ['#ffffff', '#f2f2f2', '#d8d8d8', '#bfbfbf', '#a5a5a5', '#7f7f7f'],
+        ['#000000', '#7f7f7f', '#595959', '#3f3f3f', '#262626', '#0c0c0c'],
+        ['#e7e6e6', '#d0cece', '#aeabab', '#757070', '#3a3838', '#171616'],
+        ['#44546a', '#d6dce4', '#adb9ca', '#8496b0', '#323f4f', '#222a35'],
+        ['#4472c4', '#d9e2f3', '#b4c6e7', '#8eaadb', '#2f5496', '#1f3864'],
+        ['#ed7d31', '#fbe5d5', '#f7cbac', '#f4b183', '#c55a11', '#833c0b'],
+        ['#a5a5a5', '#ededed', '#dbdbdb', '#c9c9c9', '#7b7b7b', '#525252'],
+        ['#ffc000', '#fff2cc', '#fee599', '#ffd965', '#bf9000', '#7f6000'],
+        ['#5b9bd5', '#deebf6', '#bdd7ee', '#9cc3e5', '#2e75b5', '#1e4e79'],
+        ['#70ad47', '#e2efd9', '#c5e0b3', '#a8d08d', '#538135', '#375623']
+      ];
+
+      const standardColors = [
+        '#c00000',
+        '#ff0000',
+        '#ffc000',
+        '#ffff00',
+        '#92d050',
+        '#00b050',
+        '#00b0f0',
+        '#0070c0',
+        '#002060',
+        '#7030a0'
+      ];
+
+      function genColors(parentTheme, parentStandard) {
+        for (let i = 0; i < themeColors[0].length; i++) {
+          for (const row of themeColors) {
+            const color = row[i];
+            const option = document.createElement('option');
+            option.value = color;
+            option.style.backgroundColor = color;
+
+            parentTheme.appendChild(option);
+          }
+        }
+
+        for (const color of standardColors) {
+          const option = document.createElement('option');
+          option.value = color;
+          option.style.backgroundColor = color;
+
+          parentStandard.appendChild(option);
+        }
+      }
+
+      genColors(fcThemeGrid, fcStandardGrid);
+      genColors(bcThemeGrid, bcStandardGrid);
+
+      fcSelect.addEventListener('change', () => {
+        const color = fcSelect.value.startsWith('#') ? fcSelect.value : 'transparent';
+        fcSelect.style.setProperty('--selected-color', color);
+        wordSampleText.style.color = color;
+      });
+
+      bcSelect.addEventListener('change', () => {
+        const color = bcSelect.value.startsWith('#') ? bcSelect.value : 'transparent';
+        bcSelect.style.setProperty('--selected-color', color);
+        wordSampleText.style.backgroundColor = color;
+      });
+    </script>
+  </div>
+</body>
+
+</html>

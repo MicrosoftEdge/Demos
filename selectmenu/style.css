@@ -1,0 +1,27 @@
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12pt;
+}
+
+body {
+  margin: 0;
+}
+
+.sample {
+  padding: 3rem;
+  border-bottom: 1px solid #eee;
+}
+
+.sample h2 {
+  margin-top: 0;
+  font-size: 1em;
+}
+
+header {
+  padding: 3rem;
+  border-bottom: 1px solid #eee;
+}
+
+footer {
+  padding: 3rem;
+}
