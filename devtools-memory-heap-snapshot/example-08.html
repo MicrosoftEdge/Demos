@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 8</title>
+  </head>
+  <body>
+    <h1>Example 8</h1>
+    <h2>Example 8: Recording heap allocations</h2>
+    <p>Analyze the impact of closures on memory</p>
+    <p>
+      See that <code>eval</code> retains a reference on all the variables of the
+      closure.
+    </p>
+    <ol>
+      <li>Start to record heap allocations</li>
+      <li>Start the creation of new closures</li>
+      <li>Analyze what happens</li>
+    </ol>
+    <p>
+      <button onclick="largeClosures()">
+        Closures maintain hold on large string
+      </button>
+    </p>
+    <p>
+      <button onclick="smallClosures()">
+        Closures maintain hold only on small strings
+      </button>
+    </p>
+    <p>
+      <button onclick="evalClosures()">Closures with <code>eval</code></button>
+    </p>
+    <p><button onclick="stopAndClear()">Stop and clear</button></p>
+    <script src="example-08.js"></script>
+    <hr />
+    <iframe src="example-08.js"></iframe>
+  </body>
+</html>

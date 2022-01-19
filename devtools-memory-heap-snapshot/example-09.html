@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 9</title>
+  </head>
+  <body>
+    <h1>Example 9</h1>
+    <h2>Example 9: DOM leaks bigger than expected</h2>
+    <ol>
+      <li>Start memory profiling. Watch node count.</li>
+      <li>
+        Create a subtree of dom nodes and save a reference to a leaf and subtree
+        route
+      </li>
+      <li>Detach tree</li>
+      <li>Watch the detached node count</li>
+      <li>Remove tree reference</li>
+      <li>Watch the detached node count</li>
+      <li>Remove leaf reference</li>
+      <li>Watch the detached node count</li>
+    </ol>
+    <p><button onclick="createTree()">Create tree</button></p>
+    <p><button onclick="detachTree()">Detach tree</button></p>
+    <p>
+      <button onclick="removeTreeReference()">Remove tree reference</button>
+    </p>
+    <p>
+      <button onclick="removeLeafReference()">Remove leaf reference</button>
+    </p>
+    <script src="example-09.js"></script>
+    <hr />
+    <iframe src="example-09.js"></iframe>
+  </body>
+</html>
