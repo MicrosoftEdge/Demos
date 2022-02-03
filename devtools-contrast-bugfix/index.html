@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../shared/img/logo.png"/>
+    <title>Testing all badges in DevTools for contrast issues</title>
+    <style>
+        html {
+          font-family: consolas, monospace;
+          font-size: 16px;
+        }
+        
+        ul, li {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+        }
+        
+        h2 {
+          margin: 0;
+        }
+        
+        body {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+          margin: 1rem;
+        }
+        
+        .badges {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          margin: 1rem 0 0 0;
+        }
+        
+        .badge {
+          padding: .5rem;
+          border-radius: 5px;
+          position: relative;
+        }
+        
+        .badge {
+          --command-menu-badge-color1: #f44336;
+          --command-menu-badge-color2: #e91e63;
+          --command-menu-badge-color3: #9c27b0;
+          --command-menu-badge-color4: #673ab7;
+          --command-menu-badge-color5: #3f51b5;
+          --command-menu-badge-color6: #03a9f4;
+          --command-menu-badge-color7: #00bcd4;
+          --command-menu-badge-color8: #009688;
+          --command-menu-badge-color9: #4caf50;
+          --command-menu-badge-color10: #8bc34a;
+          --command-menu-badge-color11: #cddc39;
+          --command-menu-badge-color12: #ffc107;
+          --command-menu-badge-color13: #ff9800;
+          --command-menu-badge-color14: #ff5722;
+          --command-menu-badge-color15: #795548;
+          --command-menu-badge-color16: #9e9e9e;
+          --command-menu-badge-color17: #607d8b;
+        }
+        
+        .light .badge {
+          color: white;
+          --command-menu-badge-color3: #ad4cbe;
+          --command-menu-badge-color4: #8561c5;
+          --command-menu-badge-color7: #0078d4;
+          --command-menu-badge-color9: #328800;
+        }
+        
+        .badge.low-contrast::before {
+            content: attr(data-contrast);
+            position: absolute;
+            background: #ee0000;
+            color: white;
+            font-weight: bold;
+            border-radius: 2px;
+            padding: .2rem;
+            top: -.5rem;
+            right: -.8rem;
+            box-shadow: 0 0 1px 0 black;
+            font-size: .7rem;
+        }
+        
+        .container {
+          padding: 1rem;
+          border-radius: 5px;
+        }
+        
+        .dark {
+          background: #202124;
+        }
+        
+        .dark h2 {
+          color: white;
+        }
+        </style></head>
+<body>
+
+<div class="container light">
+  <h2>Light theme</h2>
+  <ul class="badges">
+    <li class="badge" style="background-color:var(--command-menu-badge-color1)">Panel</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color2)">Drawer</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color3)">Appearance</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color4)">Console</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color5)">Debugger</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color6)">Elements</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color7)">Global</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color8)">Grid</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color9)">Help</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color10)">Mobile</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color11)">Navigation</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color12)">Network</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color13)">Performance</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color14)">Rendering</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color15)">Resources</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color16)">Screenshot</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color17)">Settings</li>
+  </ul>
+</div>
+
+<div class="container dark">
+  <h2>Dark theme</h2>
+  <ul class="badges">
+    <li class="badge" style="background-color:var(--command-menu-badge-color1)">Panel</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color2)">Drawer</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color3)">Appearance</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color4)">Console</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color5)">Debugger</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color6)">Elements</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color7)">Global</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color8)">Grid</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color9)">Help</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color10)">Mobile</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color11)">Navigation</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color12)">Network</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color13)">Performance</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color14)">Rendering</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color15)">Resources</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color16)">Screenshot</li>
+    <li class="badge" style="background-color:var(--command-menu-badge-color17)">Settings</li>
+  </ul>
+</div>
+
+
+<script>
+    function blendColors(fgRGBA, bgRGBA) {
+      const alpha = fgRGBA[3];
+      return [
+        ((1 - alpha) * bgRGBA[0]) + (alpha * fgRGBA[0]),
+        ((1 - alpha) * bgRGBA[1]) + (alpha * fgRGBA[1]),
+        ((1 - alpha) * bgRGBA[2]) + (alpha * fgRGBA[2]),
+        alpha + (bgRGBA[3] * (1 - alpha)),
+      ];
+    }
+    
+    function luminance([rSRGB, gSRGB, bSRGB]) {
+      const r = rSRGB <= 0.03928 ? rSRGB / 12.92 : Math.pow(((rSRGB + 0.055) / 1.055), 2.4);
+      const g = gSRGB <= 0.03928 ? gSRGB / 12.92 : Math.pow(((gSRGB + 0.055) / 1.055), 2.4);
+      const b = bSRGB <= 0.03928 ? bSRGB / 12.92 : Math.pow(((bSRGB + 0.055) / 1.055), 2.4);
+    
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+    
+    function contrastRatio(fgRGBA, bgRGBA) {
+      const blendedFg = blendColors(fgRGBA, bgRGBA);
+      const fgLuminance = luminance(blendedFg);
+      const bgLuminance = luminance(bgRGBA);
+      const contrastRatio = (Math.max(fgLuminance, bgLuminance) + 0.05) / (Math.min(fgLuminance, bgLuminance) + 0.05);
+      return contrastRatio;
+    }
+    
+    function rgbToArray(rgb) {
+      return [...rgb.substring(4).split(',').map(p => parseInt(p, 10) / 255), 1];
+    }
+    
+    setInterval(() => {
+      document.querySelectorAll('.badge').forEach(badge => {
+        const style = getComputedStyle(badge);
+        const f = style.color;
+        const b = style.backgroundColor;
+    
+        const ratio = contrastRatio(rgbToArray(f), rgbToArray(b));
+    
+        badge.dataset.contrast = ratio.toFixed(2);
+        badge.classList.toggle('low-contrast', ratio < 4.5);
+      });
+    }, 500);
+</script>
+</body>
+</html>
