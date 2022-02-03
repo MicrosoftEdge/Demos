@@ -1,0 +1,73 @@
+body {
+  margin: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+h1 {
+  text-align: right;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto 250px 250px;
+  background-color: #fff;
+  color: #444;
+}
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 150%;
+}
+.x {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+}
+.a {
+  grid-column: 2;
+}
+.b {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+}
+.c {
+  grid-column: 2;
+  grid-row: 1;
+  pointer-events: none;
+}
+.d {
+  grid-column: 2;
+  grid-row: 3;
+}
+nav ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0.2em 0.5em;
+  flex-direction: column;
+  gap: 0.5em;
+}
+nav ul li {
+  flex: 1;
+}
+nav a {
+  text-decoration: none;
+  color: #fff;
+  background: green;
+  display: block;
+  padding: 0.2em;
+  text-align: left;
+}
+.d .button {
+  color: #ccc;
+  font-size: 0.8em;
+  background: #999;
+  text-align: center;
+}
+button {
+  font-family: inherit;
+  font-size: 0.8em;
+  display: block;
+  margin: 0 auto;
+}
