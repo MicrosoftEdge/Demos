@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse movement without logging</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+</head>
+<body>
+  <h1>Console demos: no logging</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and set up live expressions for x and y.</p>
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+  <p>Then move your mouse around the screen.</p>
+<script>
+  let x = 0;
+  let y = 0;
+  document.addEventListener('mousemove', e => {
+    x = e.x;
+    y = e.y;
+  });
+</script>  
+</body>
+</html>

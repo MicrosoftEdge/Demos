@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console messages examples: logging different types</title>
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Console demos: Logging different types</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+
+<script>
+let x = 2;
+// logs the value of x
+console.log(x);
+// logs the name x and value of x
+console.log({x})   
+// logs a DOM reference  
+console.log(document.querySelector('body'));
+// logs an Object
+console.log({"type":"life", "meaning": 42});
+let w3techs = ['HTML', 'CSS', 'SVG', 'MathML'];
+// logs an Array
+console.log(w3techs);
+</script>
+</body>
+</html>

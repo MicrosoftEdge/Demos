@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console messages examples: Logging with specifiers</title>
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Console demos: Logging with specifiers</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+
+<script>
+// logs "10x console developer"
+console.log('%ix %s developer', 10, 'console');
+// logs PI => 3.141592653589793
+console.log(Math.PI); 
+// logs PI as an integer = 3
+console.log('%i', Math.PI); 
+// logs the document body as a DOM node
+console.log('%o', document.body); 
+// logs the body of the document as a JavaScript object with all properties
+console.log('%O', document.body); 
+// Shows the message as red and big
+console.log('%cImportant message follows','color:red;font-size:40px')
+</script>
+</body>
+</html>
