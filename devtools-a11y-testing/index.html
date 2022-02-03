@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo page with accessibility issues</title>
+  <link rel="stylesheet" href="css/light-theme.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+  <link rel="stylesheet" href="css/dark-theme.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+</head>
+<body>
+  <header>
+    <h1>Animal shelter</h1>
+    <form>
+      <label>Search</label>
+      <input type="search">
+      <input type="submit" value="go"> 
+    </form>           
+  </header>
+  <section>
+    <main>
+      <article id="cats"><h2>Cats</h2>
+        <img src="photos/cat.jpg" width="841" height="787" >
+        <div class="articletext">
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          
+          <a href="/cats" class="more">More
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor" d="M14.613,11.413,17.246,14H9.98A1.979,1.979,0,0,0,8,15.98v.04A1.979,1.979,0,0,0,9.98,18h6.963l-.042.26-2.227,2.248a2.091,2.091,0,0,0-.293,2.657,1.973,1.973,0,0,0,3.022.255l6.016-6.074a2.017,2.017,0,0,0,0-2.833l-6-5.934a1.97,1.97,0,0,0-2.806,0A2.016,2.016,0,0,0,14.613,11.413Z"/>
+                <path fill="currentColor" d="M0,16A16,16,0,1,0,16,0,16,16,0,0,0,0,16Zm28,0A12,12,0,1,1,16,4,12.013,12.013,0,0,1,28,16Z"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article id="dogs"><h2>Dogs</h2>
+        <img src="photos/socke.jpg" alt="Photo of Socke, a dog looking at the camera" width="1392" height="1392" >
+        <div class="articletext">
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <a href="/dogs" class="more">More
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor" d="M14.613,11.413,17.246,14H9.98A1.979,1.979,0,0,0,8,15.98v.04A1.979,1.979,0,0,0,9.98,18h6.963l-.042.26-2.227,2.248a2.091,2.091,0,0,0-.293,2.657,1.973,1.973,0,0,0,3.022.255l6.016-6.074a2.017,2.017,0,0,0,0-2.833l-6-5.934a1.97,1.97,0,0,0-2.806,0A2.016,2.016,0,0,0,14.613,11.413Z"/>
+                <path fill="currentColor" d="M0,16A16,16,0,1,0,16,0,16,16,0,0,0,0,16Zm28,0A12,12,0,1,1,16,4,12.013,12.013,0,0,1,28,16Z"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article id="sheep"><h2>Sheep</h2>
+        <img src="photos/sheep.jpg" width="960" height="960" >
+        <div class="articletext">
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <a href="/sheep" class="more">More
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor" d="M14.613,11.413,17.246,14H9.98A1.979,1.979,0,0,0,8,15.98v.04A1.979,1.979,0,0,0,9.98,18h6.963l-.042.26-2.227,2.248a2.091,2.091,0,0,0-.293,2.657,1.973,1.973,0,0,0,3.022.255l6.016-6.074a2.017,2.017,0,0,0,0-2.833l-6-5.934a1.97,1.97,0,0,0-2.806,0A2.016,2.016,0,0,0,14.613,11.413Z"/>
+                <path fill="currentColor" d="M0,16A16,16,0,1,0,16,0,16,16,0,0,0,0,16Zm28,0A12,12,0,1,1,16,4,12.013,12.013,0,0,1,28,16Z"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article id="horses"><h2>Horses</h2>
+        <img src="photos/horse.jpg" width="921" height="839" >
+        <div class="articletext">
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <a href="/horses" class="more">More
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor" d="M14.613,11.413,17.246,14H9.98A1.979,1.979,0,0,0,8,15.98v.04A1.979,1.979,0,0,0,9.98,18h6.963l-.042.26-2.227,2.248a2.091,2.091,0,0,0-.293,2.657,1.973,1.973,0,0,0,3.022.255l6.016-6.074a2.017,2.017,0,0,0,0-2.833l-6-5.934a1.97,1.97,0,0,0-2.806,0A2.016,2.016,0,0,0,14.613,11.413Z"/>
+                <path fill="currentColor" d="M0,16A16,16,0,1,0,16,0,16,16,0,0,0,0,16Zm28,0A12,12,0,1,1,16,4,12.013,12.013,0,0,1,28,16Z"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article id="alpacas"><h2>Alpacas</h2>
+        <img src="photos/alpaca.jpg" width="797" height="895" >
+        <div class="articletext">
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati quos corrupti ratione a aliquam est exercitationem, magni architecto dignissimos distinctio rem eligendi vitae tempora unde? Accusamus quod ut soluta voluptatibus.</p>
+          <a href="/alpacas" class="more">More
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor" d="M14.613,11.413,17.246,14H9.98A1.979,1.979,0,0,0,8,15.98v.04A1.979,1.979,0,0,0,9.98,18h6.963l-.042.26-2.227,2.248a2.091,2.091,0,0,0-.293,2.657,1.973,1.973,0,0,0,3.022.255l6.016-6.074a2.017,2.017,0,0,0,0-2.833l-6-5.934a1.97,1.97,0,0,0-2.806,0A2.016,2.016,0,0,0,14.613,11.413Z"/>
+                <path fill="currentColor" d="M0,16A16,16,0,1,0,16,0,16,16,0,0,0,0,16Zm28,0A12,12,0,1,1,16,4,12.013,12.013,0,0,1,28,16Z"/>
+              </g>
+            </svg>
+          </a>
+        </div> 
+      </article>
+
+    </main>
+    <div id="sidebar">
+      <nav>
+        <ul>
+          <li><a href="#cats">Cats</a></li>
+          <li><a href="#dogs">Dogs</a></li>
+          <li><a href="#sheep">Sheep</a></li>
+          <li><a href="#horses">Horses</a></li>
+          <li><a href="#alpacas">Alpacas</a></li>
+        </ul>
+      </nav>
+      <div id="donate">
+        <h3>Help us with a donation</h3>
+        <div class="donationrow">
+          <div class="donationbutton">50</div>
+          <div class="donationbutton">100</div>
+          <div class="donationbutton">200</div>
+        </div>
+        <div class="donationrow">
+          <label for="freedonation">Other</label>
+          <input id="freedonation" class="smallinput">
+        </div>
+        <div class="donationrow">
+          <div class="submitbutton">Donate</div>
+        </div>
+        
+        <h3>Donation Status</h3>
+        <ul id="fundingstatus">
+          <li class="high">Dogs</li>
+          <li class="medium">Cats</li>
+          <li class="low">Farm Animals</li>
+          <li class="medium">Small Pets</li>
+          <li class="low">Others</li>
+        </ul>
+      </div>
+    </div>
+    <nav id="sitenavigation">
+      <ul>
+        <li class="current"><a href="/">Home</a></li>
+        <li><a href="/">Adopt a Pet</a></li>
+        <li><a href="/">Donate</a></li>
+        <li><a href="/">Jobs</a></li>
+        <li><a href="/">About Us</a></li>
+      </ul>
+    </nav>
+    </section>
+    <footer>
+    <p>&copy; 2021 Amazing Company. Made with ❤️</p>
+  </footer>
+</section>
+<script src="buttons.js"></script>
+</body>
+</html>

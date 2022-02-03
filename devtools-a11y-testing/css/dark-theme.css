@@ -1,0 +1,29 @@
+:root{
+  --body-background: #111;
+  --body-foreground: #eee;
+  --header-background: #000;
+  --footer-background: #000;
+  --footer-foreground: #666;
+  --more-link: lime;
+  --navitems-background: mediumblue;
+  --navitems-links: #fff;
+  --navhover-background: green;
+  --navitems-link-current-background: skyblue; 
+  --navitems-link-current-foreground: #369; 
+  --funding-medium: yellow;
+  --funding-high: green;
+  --funding-low: red;
+  --funding-color: #000;
+  --donation-button: darkslategray;
+  --donation-button-color: white;
+  --donation-submit: green;
+  --donation-button-chosen: green;
+  --donation-button-focused: #1479a2 ;
+  --donation-button-chosen-color: white;
+  --sitenav-current: linear-gradient(to bottom,orange,red);
+  --sitenav-background: linear-gradient(to top,orange,yellow);
+  --sitenav-textshadow: 1px 0 2px #000;
+  --sitenav-arrow: red;
+  --sitenav-link: #fff;
+  --sitenav-link-highlight: #fff;
+}
