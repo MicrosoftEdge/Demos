@@ -295,7 +295,7 @@ delEl.addEventListener('click', async () => {
 // Don't try to squeeze our own titlebar if the window is too narrow.
 if (navigator.windowControlsOverlay) {
   navigator.windowControlsOverlay.addEventListener('geometrychange', () => {
-    const { width } = navigator.windowControlsOverlay.getBoundingClientRect();
+    const { width } = navigator.windowControlsOverlay.getTitlebarAreaRect();
 
     // Yes, we could do this with a media-query, but we only care
     // if the window-controls-overlay feature is being used.
