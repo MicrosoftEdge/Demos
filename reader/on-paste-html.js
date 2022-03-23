@@ -24,10 +24,14 @@ async function handlePaste() {
       }
     }
   } catch (e) {
-    console.log('Could not handle pasted item');
+    displayUnsupportedMessage('The async clipboard API is supported but failed to read the clipboard');
   }
 }
 
 export default function (callback) {
   cbs.push(callback);
+}
+
+function displayUnsupportedMessage(msg) {
+  document.querySelector('.reader p').textContent = msg;
 }

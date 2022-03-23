@@ -167,6 +167,8 @@ The scroll timeline is implemented in Chromium, behind the `Experimental Web Pla
 
 Browsers inconsistently support clipboard access. The Async Clipboard API is a new way to access the clipboard, securely and asynchronously, with a simpler and more future-proof API.
 
+[See this in the app's code here](./on-paste-html.js).
+
 ### Resources
 
 * [Unblocking clipboard access](https://web.dev/async-clipboard/)
