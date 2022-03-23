@@ -2,6 +2,7 @@ import styles from "./theme-selector.css" assert { type: "css" };
 import COLORS from "./themes.json" assert { type: "json" };
 
 const selectMenuSupported = window.HTMLSelectMenuElement != null;
+const eyeDropperSupported = 'EyeDropper' in window;
 
 class ThemeSelector extends HTMLElement {
   constructor() {
@@ -21,7 +22,7 @@ class ThemeSelector extends HTMLElement {
       this.selectMenu.appendChild(option);
     }
 
-    if ('EyeDroppper' in window) {
+    if (eyeDropperSupported) {
       this.starOption = createStarOption();
       this.selectMenu.appendChild(this.starOption);
     }
