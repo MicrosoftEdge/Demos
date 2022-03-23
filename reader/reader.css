@@ -1,0 +1,129 @@
+:root {
+  --theme-background: white;
+  --theme-text: black;
+  --theme-link: blue;
+  --theme-highlight-background: #f06;
+  --theme-highlight-text: white;
+}
+
+::selection {
+  background-color: var(--theme-highlight-background);
+  color: var(--theme-highlight-text);
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 1rem 200px;
+  background-color: var(--theme-background);
+}
+
+theme-selector {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+.initial-state theme-selector {
+  display: none;
+}
+
+.initial-state .reader {
+  text-align: center;
+}
+
+.reader {
+  max-width: 35rem;
+  margin: 0 auto;
+  color: var(--theme-text);
+}
+
+.reader a,
+.reader a:visited {
+  color: var(--theme-link);
+}
+
+.reader img {
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  display: block;
+}
+
+.highlight-btn {
+  position: absolute;
+  display: none;
+  border: none;
+  background: var(--theme-highlight-background);
+  color: var(--theme-highlight-text);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 0.25rem 0 #0003;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  font-size: 1rem;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+}
+
+.toolbar .highlighted ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toolbar .highlighted ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+::highlight(custom-highlight) {
+  background-color: var(--theme-highlight-background);
+  color: var(--theme-highlight-text);
+}
+
+#progressbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 0.5rem;
+  background: var(--theme-highlight-background);
+}
+
+.initial-state #progressbar {
+  display: none;
+}
+
+@supports (animation-timeline: scrollTimeline) {
+  #progressbar {
+    animation: 1s linear forwards adjust-progressbar;
+    animation-timeline: scrollTimeline;
+  }
+
+  @scroll-timeline scrollTimeline {
+    source: auto;
+    orientation: vertical;
+    scroll-offsets: 0%, 100%;
+  }
+
+  @keyframes adjust-progressbar {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+}

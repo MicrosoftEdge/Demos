@@ -1,0 +1,61 @@
+.snippet {
+  margin: 0px;
+  list-style: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background: var(--theme-highlight-background);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.snippet .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--theme-highlight-text);
+}
+
+.snippet .text::before,
+.snippet .text::after {
+  font-size: 3rem;
+  line-height: 0.4;
+  position: absolute;
+  color: var(--theme-highlight-text);
+  top: 1rem;
+  left: 0;
+}
+
+.snippet .text::after {
+  top: unset;
+  bottom: 1.5rem;
+  left: unset;
+  right: .5rem;
+}
+
+.snippet .text:hover {
+  text-decoration: underline;
+}
+
+.snippet button {
+  background: transparent;
+  border: 0px;
+  margin: 0px;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  align-self: end;
+  color: var(--theme-highlight-text);
+}
+
+.snippet button:hover {
+  text-decoration: underline;
+}

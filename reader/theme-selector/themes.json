@@ -1,0 +1,23 @@
+{
+  "default": {
+    "background": "white",
+    "text": "black",
+    "link": "blue",
+    "highlight-background": "#f06",
+    "highlight-text": "white"
+  },
+  "black": {
+    "background": "black",
+    "text": "white",
+    "link": "#00ffd4",
+    "highlight-background": "#96fefd",
+    "highlight-text": "black"
+  },
+  "solarized": {
+    "background": "#002b36",
+    "text": "#cccccc",
+    "link": "#1ea198",
+    "highlight-background": "#c6a700",
+    "highlight-text": "black"
+  }
+}

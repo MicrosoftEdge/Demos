@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reader</title>
+    <link rel="stylesheet" href="reader.css">
+    <link rel="icon" href="favicon.png">
+  </head>
+  <body class="initial-state">
+    <div id="progressbar"></div>
+    <main class="reader"><p>Paste an article to begin</p></main>
+    <button class="highlight-btn">Highlight</button>
+    <aside class="toolbar">
+      <div class="highlighted">
+        <ul></ul>
+      </div>
+    </aside>
+    <theme-selector></theme-selector>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js"></script>
+    <script type="esms-options">{ "shimMode": true, "polyfillEnable": ["css-modules", "json-modules"] }</script>
+    <script type="module-shim" src="reader.js"></script>
+    <script type="module-shim" src="highlighter.js"></script>
+    <script type="module-shim" src="theme-selector/theme-selector.js"></script>
+  </body>
+</html>
