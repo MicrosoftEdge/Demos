@@ -18,6 +18,8 @@ Basic support is provided in other browsers, where not all features will work.
 
 ## About the demo app
 
+➡️ **[Access the demo app here](https://microsoftedge.github.io/Demos/reader/)** ⬅️
+
 The demo app is a reader mode for articles published on the web. To use the reader, copy the text from an article on another website. Note that this does not work with all websites, but blogs tend to work well. Try this [Edge blog post](https://blogs.windows.com/msedgedev/2022/01/19/looking-back-at-microsoft-edge-for-developers-in-2021/) for instance.
 
 1. Copy the entire text from the web page.
