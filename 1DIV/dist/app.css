@@ -44,7 +44,7 @@ body {
 
 header,
 footer {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   height: var(--toolbar-height);
@@ -298,7 +298,7 @@ css-playground.full-size {
 }
 
 .drag {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: env(titlebar-area-height, 0);
