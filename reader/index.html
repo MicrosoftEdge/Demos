@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reader</title>
-    <link rel="stylesheet" href="reader.css">
-    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="reader.css" />
+    <link rel="icon" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body class="initial-state">
     <div id="progressbar"></div>
@@ -18,10 +19,20 @@
       </div>
     </aside>
     <theme-selector></theme-selector>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js"></script>
-    <script type="esms-options">{ "shimMode": true, "polyfillEnable": ["css-modules", "json-modules"] }</script>
+    <script
+      async
+      src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js"
+    ></script>
+    <script type="esms-options">
+      { "shimMode": true, "polyfillEnable": ["css-modules", "json-modules"] }
+    </script>
     <script type="module-shim" src="reader.js"></script>
     <script type="module-shim" src="highlighter.js"></script>
     <script type="module-shim" src="theme-selector/theme-selector.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
   </body>
 </html>

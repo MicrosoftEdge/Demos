@@ -1,0 +1,28 @@
+{
+  "name": "Reader",
+  "description": "A reader app to more comfortably read long articles",
+  "lang": "en-US",
+  "start_url": "./index.html",
+  "scope": "./",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./book-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./book-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./book-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./book-512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
