@@ -127,3 +127,32 @@ theme-selector {
     }
   }
 }
+
+@media screen and (max-width: 700px) {
+  /* On smaller screens, don't provide such a big side padding to accomodate the sidebar. */
+  body {
+    padding: 2rem;
+  }
+
+  /* Move the sidebar to the bottom of the screen instead, and make it smaller. */
+  .toolbar {
+    top: unset;
+    bottom: 0;
+    width: 100%;
+    max-height: 20vh;
+    height: unset;
+    background: var(--theme-background);
+    padding: 1rem;
+  }
+
+  /* Display the highlights in a grid instead. */
+  .toolbar .highlighted ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  /* And make them smaller. */
+  highlighted-text-snippet::part(text) {
+    -webkit-line-clamp: 3;
+  }
+}

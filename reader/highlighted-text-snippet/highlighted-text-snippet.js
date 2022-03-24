@@ -3,7 +3,7 @@ import styles from "./highlighted-text-snippet.css" assert { type: "css" };
 const template = document.createElement('template');
 template.innerHTML = `
 <li class="snippet">
-  <q class="text"><slot></slot></q>
+  <q class="text" part="text"><slot></slot></q>
   <button class="delete">Delete</button>
 </li>`;
 

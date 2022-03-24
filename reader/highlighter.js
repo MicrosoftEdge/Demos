@@ -29,9 +29,9 @@ function toggleButton() {
   highlightBtn.style.display = currentRange ? 'block' : 'none';
 
   if (currentRange) {
-    const { top, right } = currentRange.getBoundingClientRect();
-    highlightBtn.style.top = `${top + document.documentElement.scrollTop}px`;
-    highlightBtn.style.left = `${right + 20}px`;
+    const { top, left, width } = currentRange.getBoundingClientRect();
+    highlightBtn.style.top = `${top + document.documentElement.scrollTop - 40}px`;
+    highlightBtn.style.left = `${left + (width / 2) - 35}px`;
   }
 }
 
@@ -41,8 +41,12 @@ highlightBtn.addEventListener('click', () => {
   }
 
   highlight();
-  storeRanges([...document.querySelectorAll('highlighted-text-snippet')].map(snippet => serializeRange(ranges.get(snippet).range)));
+  updateRangesInStore();
 });
+
+function updateRangesInStore() {
+  return storeRanges([...document.querySelectorAll('highlighted-text-snippet')].map(snippet => serializeRange(ranges.get(snippet).range)));
+}
 
 function highlight() {
   customHighlightInstance.add(currentRange);
@@ -74,6 +78,8 @@ function deleteHighlight(snippet) {
   snippet.remove();
 
   customHighlightInstance.delete(range);
+
+  updateRangesInStore();
 }
 
 function scrollToHighlight(snippet) {
