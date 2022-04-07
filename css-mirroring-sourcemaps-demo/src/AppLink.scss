@@ -1,0 +1,10 @@
+@use 'mixins.scss';
+
+$link-color: #61dafb;
+$active-color: #fff;
+
+.App-link {
+  @include mixins.boxed();
+  color: $link-color;
+  font-style: italic;
+}

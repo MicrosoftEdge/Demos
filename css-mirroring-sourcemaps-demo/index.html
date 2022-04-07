@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Demo App for CSS Mirroring</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
+    <link rel="stylesheet" href="../shared/css/shared.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Demo app to test sourcemap support of the VS Code Edge DevTools extension</h1>
+    <img src="../shared/img/logo.png" alt="The Microsoft Edge logo">
+    <a>This is a basic app to test the sourcemap support for CSS mirroring in <a href="https://aka.ms/devtools-for-code">the Edge DevTools extension for Visual studio code</a>.</p>
+
+    <img alt="screenshot of the app inside VS code" src="sourcemaps-demo.png">
+    
+    <p>To run the app and test the functionality follow these steps:</p>
+    <ol>
+    <li>Make sure you have the Microsoft Edge DevTools for Visual Studio Code extension installed</li>
+    <li>Clone or download the zip of this app</li>
+    <li>Open the folder in Visual Studio Code</li>
+    <li>Run `npm i` in the Terminal</li>
+    <li>Run `npm start` in the Terminal</li>
+    <li>Switch VS Code to "Run and Debug" and run "Launch Edge and Attach DevTools" (the project is already configured to use <a href="https://www.microsoftedgeinsider.com/download/canary">Edge Canary</a>, just make sure you have it installed)</li>
+    <li>Start editing Styles in DevTools and watch them sync!</li>
+    </ol>
+    
+    <p>We have an <a href="https://github.com/microsoft/vscode-edge-devtools/issues/965">issue open in the Extension repository</a> and we'd love to get your feedback there!</p>
+    <script src="../shared/js/shared.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
