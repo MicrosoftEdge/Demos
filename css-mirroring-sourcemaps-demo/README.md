@@ -7,7 +7,7 @@ This is a basic app to test the sourcemap support for CSS mirroring in [the Edge
 To run the app and test the functionality follow these steps:
 
 1. Make sure you have the Microsoft Edge DevTools for Visual Studio Code extension installed
-1. Clone or download the zip of this app
+1. Clone this repo or [download the zip](demo.zip) of this app and unpack it</li>
 1. Open the folder in Visual Studio Code
 1. Run `npm i` in the Terminal
 1. Run `npm start` in the Terminal
