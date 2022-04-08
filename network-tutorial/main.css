@@ -1,0 +1,43 @@
+a {
+  color: #317efb;
+  font-weight: bold;
+}
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 0.1em;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1em 0 1em;
+}
+
+button {
+  padding: 0.5em 1em 0.5em 1em;
+  color: white;
+  background-color: #317efb;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+button:disabled {
+  background-color: grey;
+}
+
+code {
+  font-size: 1.2em;
+  background-color: lightgrey;
+}
+
+ul li {
+  list-style-type: disc;
+}
+
+.title--image {
+  vertical-align: sub;
+  height: 1em;
+}
+
+.title--link {
+  text-decoration: none;
+}

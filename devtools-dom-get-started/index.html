@@ -1,0 +1,228 @@
+<html>
+  <head>
+      <script type="text/javascript">
+      window.onload = function () {
+        document.getElementById("botm_button").addEventListener("click", function(e) {
+            e.target.disabled = true;
+            const botm_target = document.getElementById("botm_target");
+            if (botm_target) {
+                botm_target.style = "background-color:thistle";
+            }
+        });
+        
+        document.getElementById("delete_button").addEventListener("click", function(e) {
+            e.target.disabled = true;
+            const nli_target = document.getElementById("nli_target");
+            if (nli_target) {
+                nli_target.parentElement.removeChild(nli_target);
+            }
+        });
+        
+        document.getElementById("child_button").addEventListener("click", function(e) {
+            e.target.disabled = true;
+            const bosm_li = document.createElement("li");
+            bosm_li.textContent = "A Deepness in the Sky";
+            document.getElementById("ul_target").appendChild(bosm_li);
+        });
+      }
+      </script>
+    <style>
+      .demo--hover:hover {
+        background-color: orange;
+      }
+
+      div {
+        border-top: 3px solid gray;
+      }
+    </style>
+    <title>DOM Examples</title>
+  </head>
+  <body>
+    <h1>
+      DOM Examples
+    </h1>
+    <div id="inspect-a-node-1">
+      <h2>
+        Inspect a Node
+      </h2>
+      <ul>
+        <li>Michelangelo</li>
+        <li>Raphael</li>
+      </ul>
+    </div>
+
+    <div id="inspect-a-node-2">
+      <ul>
+        <li>Tokyo</li>
+        <li>Beirut</li>
+      </ul>
+    </div>
+
+    <div id="navigate-the-dom-tree-with-a-keyboard-1">
+      <h2>
+        Navigate the DOM Tree with a Keyboard
+      </h2>
+      <ul>
+        <li>George</li>
+        <li>Ringo</li>
+        <li>Paul</li>
+        <li>John</li>
+      </ul>
+    </div>
+
+    <div id="scroll-into-view-1">
+      <h2>
+        Scroll into View
+      </h2>
+      <ul>
+        <li>Magritte</li>
+        <li>Soutine</li>
+      </ul>
+    </div>
+
+    <div id="search-for-nodes-1">
+      <h2>
+        Search for Nodes
+      </h2>
+      <p><code>The Moon is a Harsh Mistress</code>.</p>
+    </div>
+
+    <div id="edit-content-1">
+      <h2>
+        Edit Content
+      </h2>
+      <ul>
+        <li>Fry</li>
+        <li>Michelle</li>
+      </ul>
+    </div>
+
+    <div id="edit-attributes-1">
+      <h2>
+        Edit Attributes
+      </h2>
+      <ul>
+        <li>Howard</li>
+        <li>Vince</li>
+      </ul>
+    </div>
+
+    <div id="edit-node-type-1">
+      <h2>
+        Edit Node Type
+      </h2>
+      <ul>
+        <li>Dean</li>
+        <li>Hank</li>
+        <li>Thaddeus</li>
+        <li>Brock</li>
+      </ul>
+    </div>
+
+    <div id="reorder-dom-nodes-1">
+      <h2>
+        Reorder DOM Nodes
+      </h2>
+      <ul>
+        <li>Stevie Wonder</li>
+        <li>Tom Waits</li>
+        <li>Chris Thile</li>
+        <li>Elvis Presley</li>
+      </ul>
+    </div>
+
+    <div id="force-state-1">
+      <h2>
+        Force state
+      </h2>
+      <ul>
+        <li class="demo--hover">The Lord of the Flies</li>
+        <li>Crime and Punishment</li>
+        <li>Moby Dick</li>
+      </ul>
+    </div>
+
+    <div id="hide-a-node-1">
+      <h2>
+        Hide a node
+      </h2>
+      <ul>
+        <li>The Count of Monte Cristo</li>
+        <li>The Stars My Destination</li>
+      </ul>
+    </div>
+
+    <div id="delete-a-node-1">
+      <h2>
+        Delete a Node
+      </h2>
+      <ul>
+        <li>The Illustrated Man</li>
+        <li>Through the Looking-Glass</li>
+        <li>Foundation</li>
+      </ul>
+    </div>
+
+    <div id="reference-the-currently-selected-node-with-$0-1">
+      <h2>
+        Reference the currently-selected node with $0
+      </h2>
+      <ul>
+        <li>The Left Hand of Darkness</li>
+        <li>Dune</li>
+      </ul>
+    </div>
+
+    <div id="store-as-global-variable-1">
+      <h2>
+        Store as global variable
+      </h2>
+      <ul>
+        <li>The Big Sleep</li>
+        <li>The Long Goodbye</li>
+      </ul>
+    </div>
+
+    <div id="copy-js-path-1">
+      <h2>
+        Copy JS path
+      </h2>
+      <ul>
+        <li>The Brothers Karamazov</li>
+        <li>Crime and Punishment</li>
+      </ul>
+    </div>
+
+    <div id="break-on-attribute-modifications-1">
+      <h2>
+        Break on attribute modifications
+      </h2>
+      <ul>
+        <li id="botm_target">Sauerkraut</li>
+        <li>Kimchi</li>
+      </ul>
+      <button id="botm_button">Set Background</button>
+    </div>
+
+    <div id="break-on-node-removal-1">
+      <h2>
+        Break on Node Removal
+      </h2>
+      <ul>
+        <li id="nli_target">Neuromancer</li>
+        <li>Stranger in a Strange Land</li>
+      </ul>
+      <button id="delete_button">Delete</button>
+    </div>
+
+    <div id="break-on-subtree-modifications-1">
+      <h2>
+        Break on Subtree Modifications
+      </h2>
+      <ul id="ul_target">
+        <li id="fire">A Fire Upon the Deep</li>
+      </ul>
+      <button id="child_button">Add Child</button>
+    </div>
+  </body>
+</html>

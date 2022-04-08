@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Custom Highlight API demo</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../shared/img/logo.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <label
+        >Search for
+        <input id="query" type="text" />
+      </label>
+    </div>
+    <main>
+      <header>
+        <h1>Custom Highlight API</h1>
+        <p>
+          The Custom Highlight API extends the concept of highlight
+          pseudo-elements by providing a way for web developers to style the
+          text of arbitrary Range objects, rather than being limited to the user
+          agent defined
+          <code>::selection</code>, <code>::inactive-selection</code>,
+          <code>::spelling-error</code>, and <code>::grammar-error</code>. This
+          is useful in a variety of scenarios, including editing frameworks that
+          wish to implement their own selection, find-on-page over virtualized
+          documents, multiple selection to represent online collaboration, or
+          spellchecking frameworks.
+        </p>
+        <p>
+          Read the
+          <a href="https://www.w3.org/TR/css-highlight-api-1/">specification</a>
+          for more details.
+        </p>
+      </header>
+      <article>
+        <h2>Demo</h2>
+        <p>
+          Try searching for text using the search field at the top of this page.
+          The matching text will be highlighted.
+        </p>
+        <p>
+          The Custom Highlight API relies on the
+          <code>::highlight(name)</code> pseudo-element, which can be used to
+          assigned highlighting styles to custom highlighted ranges created with
+          the <code>CSS.highlights</code> JavaScript API.
+        </p>
+      </article>
+      <footer>
+        <p>
+          Maxime debitis hic, delectus perspiciatis laborum molestiae labore,
+          deleniti, quam consequatur iure veniam alias voluptas nisi quo.
+          Dolorem eaque alias, quo vel quas repudiandae architecto deserunt
+          quidem, sapiente laudantium nulla. Maiores odit molestias,
+          necessitatibus doloremque dolor illum reprehenderit provident nostrum
+          laboriosam iste, tempore perferendis! Ab porro neque esse voluptas
+          libero necessitatibus fugiat, ex, minus atque deserunt veniam
+          molestiae tempora? Vitae.
+        </p>
+        <p>
+          Dolorum facilis voluptate eaque eius similique ducimus dignissimos
+          assumenda quos architecto. Doloremque deleniti non exercitationem
+          rerum quam alias harum, nisi obcaecati corporis temporibus vero
+          sapiente voluptatum est quibusdam id ipsa. Soluta quidem repellendus
+          autem vitae esse possimus et beatae, ipsum numquam quaerat mollitia
+          pariatur quibusdam quod hic architecto tempore aliquid quam maiores
+          nam ut officia expedita accusantium repellat laboriosam? Enim. Ea
+          culpa ad maxime magni error nulla atque necessitatibus accusamus eos
+          odit non, modi tempora magnam? Culpa officiis architecto soluta non
+          illum quos beatae similique quisquam maxime, reprehenderit mollitia
+          assumenda.
+        </p>
+      </footer>
+    </main>
+
+    <h2>Demo source code</h2>
+    <style class="code">
+      ::highlight(search-result-highlight) {
+        background-color: yellow;
+        color: black;
+      }
+    </style>
+    <script class="code">
+      const query = document.querySelector("#query");
+      const main = document.querySelector("main");
+
+      // Find all text nodes in the main element.
+      const treeWalker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+      const allTextNodes = [];
+      let currentNode = treeWalker.nextNode();
+      while (currentNode) {
+        allTextNodes.push(currentNode);
+        currentNode = treeWalker.nextNode();
+      }
+
+      query.addEventListener("input", () => {
+        CSS.highlights.clear();
+
+        const str = query.value.trim().toLowerCase();
+        if (!str) {
+          return;
+        }
+
+        const ranges = allTextNodes
+          .map((el) => {
+            return { el, text: el.textContent.toLowerCase() };
+          })
+          .filter(({ text }) => text.includes(str))
+          .map(({ text, el }) => {
+            // Find all instances of str in el.textContent
+            const indices = [];
+            let startPos = 0;
+            while (startPos < text.length) {
+              const index = text.indexOf(str, startPos);
+              if (index === -1) break;
+              indices.push(index);
+              startPos = index + str.length;
+            }
+
+            return indices.map((index) => {
+              const range = new Range();
+              range.setStart(el, index);
+              range.setEnd(el, index + str.length);
+              return range;
+            });
+          });
+
+        const highlight = new Highlight(...ranges.flat());
+        CSS.highlights.set("search-result-highlight", highlight);
+      });
+    </script>
+  </body>
+</html>

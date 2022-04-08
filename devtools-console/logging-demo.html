@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console messages examples: log, info, error and warn</title>
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Console demos: log, info, error, warn</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+
+<script>
+// prints the text to the console as  a log message
+console.log('This is a log message');
+
+// prints the text to the console as an informational message
+console.info('This is some information'); 
+
+// prints the text to the console as an error message
+console.error('This is an error');
+
+// prints the text to the console as a warning
+console.warn('This is a warning');
+
+// prints the geometry of the document body as an object
+console.log(document.body.getBoundingClientRect());
+
+// prints the geometry of the document body as a table
+console.table(document.body.getBoundingClientRect());
+
+// shows a list of techologies as a collapsed group
+let technologies = ["HTML", "CSS", "SVG", "ECMAScript"];
+console.groupCollapsed('Technolgies');
+technologies.forEach(tech => {console.info(tech);})
+console.groupEnd('Technolgies');
+</script>
+</body>
+</html>

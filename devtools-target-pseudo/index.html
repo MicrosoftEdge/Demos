@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>CSS :target demo for What's New in DevTools (Microsoft Edge 89)</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
+  <style>
+    :root {
+      --foreground: #111;
+      --background: #f8f8f8;
+      --para: red;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground: #f8f8f8;
+        --background: #111;
+        --para: lime;
+      }
+    }
+    body {
+      font-family: helvetica, sans-serif;
+      color: var(--foreground);
+      background: var(--background);
+    }
+    section, p {
+      margin: 1em 2em;
+      max-width: 50vw;
+      line-height: 1.3;
+    }
+    p {
+      color: var(--para);
+    }
+    section:target {
+      border: 2px solid yellow;
+    }
+    p:last-of-type {
+      border-bottom: 1px solid var(--para);
+      padding-bottom: .5em;
+    }
+  </style>
+</head>
+<body>
+  <p><strong>How to use:</strong> Each of these sections have an ID and a CSS target state associated defined them. You can try it by using the forced state functionality of developer tools.</p>
+  <p>Select an element using the element picker, activate the "force element state" button labelled ":hov" and select the ":target" checkbox</p>
+   
+  <section id="section-1">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos ullam error debitis beatae iure ab corrupti voluptates asperiores, facere doloremque dolorum, ratione delectus suscipit libero perspiciatis non odio rem vero!
+  </section>
+  <section id="section-2">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos ullam error debitis beatae iure ab corrupti voluptates asperiores, facere doloremque dolorum, ratione delectus suscipit libero perspiciatis non odio rem vero!
+  </section>
+  <section id="section-3">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos ullam error debitis beatae iure ab corrupti voluptates asperiores, facere doloremque dolorum, ratione delectus suscipit libero perspiciatis non odio rem vero!
+  </section>
+</body>
+</html>

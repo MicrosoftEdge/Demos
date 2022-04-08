@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      window.onload = function() {
+        let dm_target = document.getElementById("dm_target"),
+          dm_response = document.getElementById("dm_response");
+        dm_target.addEventListener("keyup", e => {
+          dm_response.style.display =
+            dm_target.value === "peekaboo!" ? "block" : "none";
+        });
+        let p_target = document.getElementById("p_target"),
+          p_response = document.getElementById("p_response");
+        p_target.addEventListener("keyup", e => {
+          p_response.style.display =
+            p_target.value === "1em" ? "block" : "none";
+        });
+        let bc_target = document.getElementById("bc_target"),
+          bc_response = document.getElementById("bc_response");
+        let bc_observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            bc_response.style.display =
+              bc_target.style.backgroundColor === "honeydew" ? "block" : "none";
+          });
+        });
+        let bc_observerConfig = {
+          attributes: true
+        };
+        bc_observer.observe(bc_target, bc_observerConfig);
+        let ac_target = document.getElementById("ac_target"),
+          ac_response = document.getElementById("ac_response");
+        let ac_observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            ac_response.style.display = ac_target.classList.contains("color_me")
+              ? "block"
+              : "none";
+          });
+        });
+        let ac_observerConfig = {
+          attributes: true
+        };
+        ac_observer.observe(ac_target, ac_observerConfig);
+        let cm_target = document.getElementById("cm_target"),
+          cm_response = document.getElementById("cm_response");
+        let cm_observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            cm_response.style.display =
+              cm_target.style.marginLeft === "100px" ? "block" : "none";
+          });
+        });
+        let cm_observerConfig = {
+          attributes: true
+        };
+        cm_observer.observe(cm_target, cm_observerConfig);
+      };
+    </script>
+    <style>
+      /* red orange yellow green blue indigo violet */
+      @keyframes rainbow {
+        0% {
+          background-color: violet;
+        }
+
+        14% {
+          background-color: red;
+        }
+
+        28% {
+          background-color: orange;
+        }
+
+        42% {
+          background-color: yellow;
+        }
+
+        56% {
+          background-color: green;
+        }
+
+        70% {
+          background-color: blue;
+        }
+
+        84% {
+          background-color: indigo;
+        }
+
+        100% {
+          background-color: violet;
+        }
+      }
+
+      .aloha {
+        padding: 1em;
+      }
+
+      .color_me {
+        animation: rainbow 10s linear infinite;
+      }
+
+      aside {
+        color: red;
+        text-shadow: 1px -1px darkviolet;
+      }
+
+      /*div {
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }*/
+
+      div#inspect-me,
+      div#inspect-me-responses {
+        vertical-align: top;
+        display: inline-block;
+        padding-right: 1em;
+      }
+
+      body {
+        background-color: black;
+        color: lightgray;
+        font-weight: bolder;
+        text-shadow: 0 0 1px black;
+      }
+
+      input[type="text"] {
+        background-color: gray;
+        border: 1px solid white;
+        border-radius: 4px;
+        color: black;
+        font-weight: bold;
+        text-shadow: 0 0 1px white;
+      }
+
+      p {
+        border: 1px dashed white;
+        border-radius: 4px;
+        display: inline-block;
+        padding: 1em;
+      }
+
+      p:hover {
+        background-color: cornflowerblue;
+      }
+    </style>
+    <title>CSS Examples</title>
+  </head>
+
+  <body>
+    <h1>CSS Examples</h1>
+
+    <div id="inspect-me">
+      <p class="aloha" data-message="peekaboo!">Inspect Me!</p>
+    </div>
+    <div id="inspect-me-responses">
+      <div id="data-message">
+        <form>
+          Value of <code>data-message</code>: <br />
+          <input id="dm_target" type="text" size="10" />
+        </form>
+        <aside id="dm_response" class="success" style="display:none">
+          Correct!
+        </aside>
+      </div>
+      <div id="padding">
+        <form>
+          Value of <code>padding</code>: <br />
+          <input id="p_target" type="text" size="10" />
+        </form>
+        <aside id="p_response" class="success" style="display:none">
+          Correct!
+        </aside>
+      </div>
+    </div>
+    <div id="background-color">
+      <p id="bc_target">Add A Background Color To Me!</p>
+      <aside id="bc_response" class="success" style="display:none">
+        Success!
+      </aside>
+    </div>
+
+    <div id="add-class">
+      <p id="ac_target">Add A Class To Me!</p>
+      <aside id="ac_response" class="success" style="display:none">
+        Success!
+      </aside>
+    </div>
+
+    <div id="hover">
+      <p>Hover Over Me!</p>
+    </div>
+
+    <div id="change-margin">
+      <p id="cm_target">Change My Margin!</p>
+      <aside id="cm_response" class="success" style="display:none">
+        Success!
+      </aside>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network error reported in Console</title>
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Something doesn't work 🤨</h1>
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+  
+  <table>
+    <thead>
+      <th>Number</th>
+      <th>Title</th>
+      <th>State</th>
+    </thead>
+    <tbody><tr><td colspan="3">Loading…</td></tr></tbody>
+  </table>
+  
+  <script>
+  
+  const url ='https://api.github.com/repos/';
+  const owner = 'microsoft'
+  const repo = 'vscode-edge-devtools'
+  const type = 'issues';
+  const params = {
+    state: 'all',
+    per_page: 10,
+    page: 1
+  }
+  let req_url = `${url}/${owner}/${repo}/${type}?`;
+  let parameters = [];
+  Object.keys(params).forEach(p => {
+    parameters.push(`${p}=${params[p]}`);
+  });
+  fetch(req_url+parameters.join('&'))
+  .then(response => response.json())
+  .then(data => {
+    let out = '';
+    data.forEach(d => {
+      out += `
+        <tr>
+          <td><a href="${d.url}">${d.number}</a></td>
+          <td>${d.title}</td>
+          <td>${d.state}</td>
+        </tr>
+      `;
+    });
+    document.querySelector('tbody').innerHTML = out;
+  });
+
+</script>
+
+
+</body>
+</html>

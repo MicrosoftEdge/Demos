@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console messages examples: grouping logs</title>
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Console demos: Grouping logs</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>
+<script>
+console.group("Passengers: Heart of Gold");
+console.log('Zaphod');
+console.log('Trillian');
+console.log('Ford');
+console.log('Arthur');
+console.log('Marvin');
+console.groupCollapsed("Hidden");
+console.log('(Frankie & Benjy)');
+console.groupEnd("Hidden");
+console.groupEnd("Passengers: Heart of Gold");
+
+let technologies = {
+  "Standards": ["HTML", "CSS", "SVG", "ECMAScript"],
+  "Others": ["jQuery", "Markdown", "Textile", "Sass", "Pug"]
+}
+for (tech in technologies) {
+  console.groupCollapsed(tech);
+  technologies[tech].forEach(t => console.log(t));
+  console.groupEnd(tech);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console messages examples: Using table</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="../shared/img/logo.png"/>
+</head>
+<body>
+  <h1>Console demos: Logging lots of information</h1>
+
+  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+  <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>  
+  <p>Then move your mouse around the screen. Uncheck the following to stop logging.</p>
+  <p><label><input type="checkbox" checked>Log mouse movement</label></p>
+<script>
+let x = 0;
+let y = 0;
+document.addEventListener('mousemove', e => {
+    x = e.x;
+    y = e.y;
+  if(document.querySelector('input').checked) {
+    console.log({x}, {y});
+  }
+});
+</script>  
+</body>
+</html>

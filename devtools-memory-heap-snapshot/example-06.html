@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 6</title>
+  </head>
+  <body>
+    <h1>Example 6</h1>
+    <h2>Example 6: Leaking DOM nodes</h2>
+    <p>
+      If the compiler uses hidden classes, your code runs MUCH faster and uses
+      MUCH LESS memory.
+    </p>
+    <ol>
+      <li>Open Timeline tab.</li>
+      <li>Start recording activity.</li>
+      <li>
+        Repeat the next steps and watch the Timeline
+        <ol>
+          <li>Create some nodes</li>
+          <li>GC</li>
+        </ol>
+      </li>
+    </ol>
+    <p>
+      <button onclick="createNodes()">
+        Create nodes (some of them leaked)
+      </button>
+    </p>
+    <script src="example-06.js"></script>
+    <hr />
+    <iframe src="example-06.js"></iframe>
+  </body>
+</html>

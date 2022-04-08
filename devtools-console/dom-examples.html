@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacting with the DOM</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      background: #111;
+      margin: 0;
+      padding: 1em 2em;
+    }
+    h1 {
+      background: #111;
+      margin: 0;
+      padding: 1em 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      height: 12em;
+    }
+    label {
+      flex: 1;
+    }
+    textarea {
+      flex: 8;
+      height: 6em;
+      background: #555;
+      border: none;
+      font-family: inherit;
+      color: #fff;
+    }
+    input[type=submit] {
+      flex: 1;
+      align-self: flex-end;
+      width: 10em;
+      font-family: inherit;
+      color: #fff;
+      border: none;
+      background-color: darkgreen;
+    }
+    #content {
+      position: relative;
+      display: flex;
+      max-width: 50em;
+      margin: 1em 0;
+    }
+    nav {
+      flex: 1;
+    }
+    nav ul {
+      margin: 0;
+      padding: 0;
+    }
+    nav li::marker {
+      content: '';
+    }
+    nav li {
+      padding: 0 1em 0 0;
+    }
+    nav li a {
+      color: #fff;
+      background: steelblue;
+      display: block;
+      padding: 2px 5px;
+      text-decoration: none;
+    }
+    section {
+      flex: 5;
+      position: relative;
+      overflow: hidden;
+      min-height: 20em;
+    }
+    article h2 {
+      margin: 0 0 .5em 0;
+    }
+    article {
+      position: absolute;
+      top: -100vw;
+      transition: 400ms;
+    }
+    article:target {
+      top: 0;
+    }
+    .current {background: darkblue;}
+   </style>
+</head>
+<body>
+  <h1>Interacting with the DOM</h1>
+  <form action="">
+    <label for="comment">Your Comment</label>
+    <textarea id="comment"></textarea>
+    <input type="submit" value="Send">
+  </form>
+
+  <div id="content">
+    <nav>
+      <ul>
+        <li><a href="#section1">Section 1</a></li>
+        <li><a href="#section2">Section 2</a></li>
+        <li><a href="#section3">Section 3</a></li>
+        <li><a href="#section4">Section 4</a></li>
+        <li><a href="#section5">Section 5</a></li>
+      </ul>
+    </nav>
+    <section>
+    <article id="section1">
+      <h2>Section 1</h2>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis, expedita omnis dolore facere alias, in harum similique reprehenderit minima cupiditate temporibus. Porro nesciunt, maxime suscipit quam explicabo molestiae fugiat nulla?</p>
+    </article>
+    <article id="section2">
+      <h2>Section 2</h2>
+      <p>Provident iusto mollitia quasi doloremque, qui eligendi nesciunt est, hic adipisci, totam animi voluptatum consequuntur odio omnis ullam autem debitis dolorem aliquam natus. Magni aut amet natus atque, ex at!</p>
+    </article>
+    <article id="section3">
+      <h2>Section 3</h2>
+      <p>Assumenda perspiciatis vitae quos, quibusdam, repellendus, deserunt officia alias reprehenderit reiciendis labore quae veritatis? Numquam dolorem exercitationem ipsam! Facilis natus architecto optio ut impedit nihil officia labore nisi excepturi dicta.</p>
+    </article>
+    <article id="section4">
+      <h2>Section 4</h2>
+      <p>Nihil odit doloribus beatae neque nulla. Perspiciatis earum quidem fuga! Quibusdam, quam sed necessitatibus quidem architecto assumenda cupiditate esse aspernatur. Obcaecati, explicabo suscipit aliquid fuga laudantium deserunt nesciunt ullam voluptas.</p>
+    </article>
+    <article id="section5">
+      <h2>Section 5</h2>
+      <p>Non aspernatur ipsam enim ducimus inventore! Aliquid, est unde. Impedit esse eaque amet! Nostrum sequi quae porro ipsa eligendi quo voluptatum! Minus vel facere quas, quae maiores a numquam rem?</p>
+    </article>
+    </section>
+  </div>
+  <button>Click example</button> 
+  <script>
+    let x = 0;
+    let y = 0;
+    let current = null;
+    let nav = document.querySelector('nav');
+    function setcurrent(e) {
+      if (e.target.href) {
+        if (current) {current.classList.remove('current')}
+        current = e.target;
+        current.classList.add('current');
+      }
+    };
+    nav.addEventListener('click', setcurrent);
+
+    let loc = document.location.href.split('#');
+    if (!loc[1]) {
+      document.querySelector('nav a').click();
+    } else {
+      current = document.querySelector(`nav a[href="#${loc[1]}"]`);
+      current.click();
+    }
+    function moved(e) {
+      x = e.x;
+      y = e.y;
+    }
+    let section = document.querySelector('section');
+    section.addEventListener('mousemove', moved);
+  </script> 
+</body>
+</html>

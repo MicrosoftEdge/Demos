@@ -1,0 +1,313 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--body-background);
+  color: var(--body-foreground);
+  margin: 0 auto;
+  padding: 0;
+  max-width: 80em; 
+}
+header {
+  display: flex;
+  background: var(--header-background);
+  padding: .5em 1em;
+  min-height: 2vh;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+#sidebar {
+  flex: 1;  
+  order: 2;
+  min-width: 10em;
+  padding: 0 1em;
+  margin-top: 2em;
+}
+main {
+  flex: 6;
+  order: 3;
+  min-width: 20em;
+  margin-top: 1em;
+}
+section {
+  min-height: 88vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+article {
+  padding: 1em 2em 0 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  scroll-snap-margin-top: 5em;
+  scroll-margin-top: 5em;
+}
+article img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: auto;
+}
+.articletext {
+  flex: 4;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+article:first-of-type {
+  padding-top: 0;
+}
+footer {
+  padding: 5px 10px;
+  min-height: 10vh;
+  display: block;
+  margin-top: 1em;
+  font-size: .8em;
+  background: var(--footer-background);
+  color: var(--footer-foreground);
+}
+
+/* =forms */ 
+header form {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-grow:inherit;
+  gap: 1em;
+}
+header label {
+  flex: 1;
+}
+header input[type=search] {
+  flex: 2;
+  font-family: inherit;
+  font-size: 1em;
+  border: none;
+}
+header input[type=submit] {
+  flex: 1;
+  font-family: inherit;
+  border: none;
+  font-size: 1em;
+  background: var(--donation-submit);
+  color: var(--donation-button-color);
+}
+#donate {
+  font-size: .8em;
+  margin-top: 2em;
+}
+#donate li {
+  margin: 0;
+  padding: 0 0 5px 0;
+}
+#donate ul {
+  margin: 0;
+  background: var(--funding-background);
+  padding: 5px;
+}
+.donationbutton {
+  background: var(--donation-button);
+  color: var(--donation-button-color);
+  display: inline-block;
+  padding: 2px 5px;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
+.donationbutton.current {
+  background: var(--donation-button-chosen);
+  color: var(--donation-button-chosen-color);
+}
+.donationrow {
+  display: flex;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+.submitbutton {
+  cursor: pointer;
+  background: var(--donation-submit);
+  color: var(--donation-button-color);
+  display: inline-block;
+  padding: 2px 5px;
+  flex: 1;
+  text-align: center;
+}
+.freedonation {
+  flex: 3;
+}
+.smallinput {
+  background: #ccc;
+  border: none;
+  flex: 1;
+  width: 5em;
+  font-family: inherit;
+}
+
+/* =navigation */
+
+#sitenavigation {
+  order: 1;
+  z-index: 3;
+  flex: 0 0 100%;
+  background: var(--sitenav-background);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 2.8em;
+}
+#sitenavigation ul {
+  display: flex;
+  margin: 0 0 0 1em;
+  padding: 0;
+  flex-direction: row;
+  gap: 0;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+#sitenavigation li {
+  margin: 0;
+  padding: 0;
+}
+#sitenavigation a {
+  align-self: center;
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: var(--sitenav-link);
+  text-shadow: var(--sitenav-textshadow);
+  position: relative;
+}
+#sitenavigation .current a, #sitenavigation a:hover {
+  background: var(--sitenav-current);
+  color: var(--sitenav-link-highlight);
+}
+#sitenavigation .current a::after, #sitenavigation a:hover::after{
+  content: '▼';
+  position: absolute;
+  left: calc(50% - .5em);
+  bottom: -0.8em;
+  color: var(--sitenav-arrow);
+  text-shadow: none;
+}
+#sidebar nav ul {
+  margin: 0;
+  padding: 0;
+}
+#sidebar nav li {
+  margin: 0 0 5px 0;
+  padding: 0 0 .2em 0;
+  background: var(--navitems-background);
+  position: relative;
+}
+#sidebar nav li a {
+  outline: none;
+  color: var(--navitems-links);
+  text-decoration: none;
+  z-index: 2;
+  padding:.2em .5em;
+  display: block;
+  position: relative;
+}
+#sidebar nav li a:hover {
+  color: var(--navitems-link-current-foreground);
+  background: var(--navitems-link-current-background);
+  transition: 400ms;
+}
+
+#sidebar nav li::after{
+  position: absolute;
+  z-index: 1;
+  content: '';
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 100%;
+  background: var(--navhover-background);
+  transition: 600ms;
+}
+#sidebar nav li:hover::after {
+  position: absolute;
+  z-index: 1;
+  content: '';
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: var(--navhover-background);
+}
+:is(#sidebar ,#sitenavigation) li::marker {
+  content: '';
+}
+
+/* =fundingstatus */
+.medium {
+  color: var(--funding-medium);
+}
+.high {
+  color: var(--funding-high);
+}
+.low {
+  color: var(--funding-low);
+}
+
+/* =typography */
+header h1 {
+  flex: 1;
+  font-size: 1.5em;
+  margin:0;
+  padding: 0;
+  font-weight: lighter;
+}
+h2 {
+  flex: 0 0 100%;
+  font-weight: lighter;
+  margin: 0 0 .5em 0;
+}
+
+.articletext p {
+  margin: 0;
+  padding: 0 0 .5em 0;
+  line-height: 1.3;
+}
+.more {
+  color: var(--more-link);
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+.more svg {
+  fill: inherit;
+  width: 1.5em;
+  height: 1.5em;
+}
+.more:hover svg {
+  transform: scale(1.5);
+  transition: 400ms;
+}
+
+/* =mediaqueries */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+article:target h2 {
+  animation: pop 1s;
+}
+@keyframes pop {
+  0% { opacity: 1; }
+  25% { opacity: 0.5; }
+  50% { opacity: 1; }
+  75% { opacity: 0.5; }
+  100% { opacity: 1 }
+}
+@media all and (min-width: 600px) {
+  article img {
+    max-width: 25%;
+    height: 100%;
+    flex: 2;
+    display: inline-block;
+  }
+}

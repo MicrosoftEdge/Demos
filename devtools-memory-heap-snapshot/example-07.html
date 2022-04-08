@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example 7</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <h1>Example 7</h1>
+    <h2>Example 7: Eval is evil (almost always)</h2>
+    <p>Analyze the impact of closures on memory</p>
+    <p>
+      See that <code>eval</code> retains a reference on all the variables of the
+      closure.
+    </p>
+    <ol>
+      <li>Start the creation of new closures</li>
+      <li>Take a heap snapshot</li>
+      <li>
+        Find the closures (named <code>lC</code>, <code>sC</code>, and
+        <code>eC</code>)
+      </li>
+    </ol>
+    <p>
+      <button onclick="largeClosures()">
+        Closures maintain hold on large string
+      </button>
+    </p>
+    <p>
+      <button onclick="smallClosures()">
+        Closures maintain hold only on small strings
+      </button>
+    </p>
+    <p>
+      <button onclick="evalClosures()">Closures with <code>eval</code></button>
+    </p>
+    <p><button onclick="stopAndClear()">Stop and clear</button></p>
+    <script src="example-07.js"></script>
+    <hr />
+    <iframe src="example-07.js"></iframe>
+  </body>
+</html>

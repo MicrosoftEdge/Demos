@@ -1,0 +1,33 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  background: #111;
+}
+
+code {
+  background: #ccc;
+  color: #000;
+  padding: 2px 5px;
+  display: inline-block;
+}
+body script {
+  display: block;
+  padding: 5px 10px;
+  background: #000;
+  white-space: pre;
+  font-family: monospace;
+  line-height: 1.5;
+  padding-bottom: calc(1em + 10px);
+}
+script::before {
+  content: 'Source Code';
+  color:lime;
+}
+table {
+  border: 1px solid #fff;
+  border-collapse: collapse;
+}
+td,th {
+  padding: 2px 5px;
+  border: 1px solid #fff;
+}  
