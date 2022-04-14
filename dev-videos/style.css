@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14pt;
+}
+
+body {
+  padding: 3rem;
+}
+
+.intro {
+  margin: 3rem 0;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.videos {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+}
+
+.videos h2 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.videos time {
+  display: block;
+  font-size: 0.8rem;
+  color: #494c5a;
+}
+
+.videos iframe {
+  border: 1rem solid #eee;
+  margin: 1rem 0;
+  width: 100%;
+}
