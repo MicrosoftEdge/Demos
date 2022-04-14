@@ -13,11 +13,11 @@
 <body>
   <header>
     <h1>Open UI's <code>&lt;selectmenu&gt;</code> demos</h1>
-    <p>The purpose of <a href="https://open-ui.org/">Open UI</a> is to provide the web platform with UI controls that can be styled and extended by web developers.</p>
-    <p>These demos show how the new <code>&lt;selectmenu&gt;</code> UI control can be used to achieve what was once only possible with custom (and often inaccessible) selects.</p>
-    <p>The <code>&lt;selectmenu&gt;</code> (working name) is available in Chromium-based browsers. Make sure to use a Canary version of a Chromium browser, and turn on the <em>"Experimental Web Platform features"</em> flag in <strong>about:flags</strong>.</p>
-    <p>The control is still in its early days and these demos have been made to find bugs with the implementation and limitations in the architecture. They are not complete and have bugs.</p>
-    <p><strong>Also note that some of the demos are not fully accessible.</strong> The experimental <code>&lt;selectmenu&gt;</code> control allows to go very far in extending its default behavior. Some of the demos extend and even replace the entire shadow DOM of the control in order to push the prototype to its limits. As a result some demos are inaccessible. <strong>These are currently serving as a way to provoke discussions aimed at evolving the specification and implementation.</strong></p>
+    <p>The purpose of the <a href="https://open-ui.org/">Open UI</a> group is to provide the web platform with UI controls that can be styled and extended by web developers. The <code>&lt;selectmenu&gt;</code> element is one of the early browser implementations of <a href="https://open-ui.org/components/select">the Open UI select specification</a>.</p>
+    <p class="info"><code>&lt;selectmenu&gt;</code> is available in Chromium-based browsers and requires a Canary version as well as the <em><strong>Experimental Web Platform features</strong></em> flag to be enabled in <strong>about:flags</strong>.</p>
+    <p>The demos below show how the <code>&lt;selectmenu&gt;</code> UI control can be used to achieve what was once only possible with custom selects.<br>
+      The control is still in its early days and these demos have been made to find bugs with the implementation and limitations in the architecture. They are not complete and have bugs.</p>
+    <p class="info"><strong>Also note that some of the demos are not fully accessible.</strong> The experimental <code>&lt;selectmenu&gt;</code> control allows to go very far in extending its default behavior. Some of the demos extend and even replace the entire shadow DOM of the control in order to push the prototype to its limits. As a result some demos are inaccessible. <strong>These are currently serving as a way to provoke discussions aimed at evolving the specification and implementation.</strong></p>
   </header>
 
   <div class="sample">
@@ -42,7 +42,7 @@
         cursor: pointer;
       }
       
-      .bubble popup {
+      .bubble [popup] {
         box-shadow: none;
         margin: 0;
         padding: 0;
@@ -120,7 +120,7 @@
       <div class="anchor" slot="button" behavior="button">
         <span behavior="selected-value"></span>
       </div>
-      <popup slot="listbox" behavior="listbox">
+      <div popup="popup" slot="listbox" behavior="listbox">
         <div class="listbox-inner">
           <div class="smileys">
             <div class="left"></div>
@@ -168,7 +168,7 @@
             <option value="">😜</option>
           </div>
         </div>
-      </popup>
+      </div>
     </selectmenu>
   </div>
 
@@ -228,7 +228,7 @@
         color: #5f6368;
       }
       
-      .vertical-align popup {
+      .vertical-align [popup] {
         padding: 0;
         border-radius: 0;
         border: 0;
@@ -245,7 +245,7 @@
         background-color: #eee;
       }
       
-      .vertical-align popup {
+      .vertical-align [popup] {
         animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popup;
         opacity: 0;
       }
@@ -258,10 +258,10 @@
     </style>
     <selectmenu class="vertical-align">
       <button slot="button" behavior="button">
-    <label>Vegetable</label>
-    <span slot="selected-value" behavior="selected-value"></span>
-  </button>
-      <popup slot="listbox" behavior="listbox">
+        <label>Vegetable</label>
+        <span slot="selected-value" behavior="selected-value"></span>
+      </button>
+      <div popup="popup" slot="listbox" behavior="listbox">
         <option value="Courgette">Courgette</option>
         <option value="Aubergine">Aubergine</option>
         <option value="Carrot">Carrot</option>
@@ -270,12 +270,12 @@
         <option value="Lettuce">Lettuce</option>
         <option value="Pumpkin">Pumpkin</option>
         <option value="Pepper">Pepper</option>
-      </popup>
+      </div>
     </selectmenu>
     <script>
       const verticalAlignSelect = document.querySelector('.vertical-align');
       const verticalAlignButton = verticalAlignSelect.querySelector('button');
-      const verticalAlignPopup = verticalAlignSelect.querySelector('popup');
+      const verticalAlignPopup = verticalAlignSelect.querySelector('[popup]');
 
       let optionHeight = null;
 
@@ -325,7 +325,7 @@
         border-top-color: #f6f4f7;
       }
       
-      .combobox popup {
+      .combobox [popup] {
         box-shadow: none;
         padding: 5px;
         margin: -1px 0 0 0;
@@ -335,7 +335,7 @@
         background: #f6f4f7;
       }
       
-      .combobox[position="above"] popup {
+      .combobox[position="above"] [popup] {
         border-radius: 4px 4px 0 0;
         border-width: 1px 1px 0;
       }
@@ -375,7 +375,7 @@
         <span behavior="selected-value" hidden></span>
         <span class="visible-value">Felids</span>
       </button>
-      <popup slot="listbox" behavior="listbox">
+      <div popup="popup" slot="listbox" behavior="listbox">
         <input type="search">
         <div class="options" tabindex="-1">
           <option value="Asian golden cat">Asian golden cat</option>
@@ -420,11 +420,12 @@
           <option value="Snow leopard">Snow leopard</option>
           <option value="Tiger">Tiger</option>
         </div>
+      </div>
     </selectmenu>
 
     <script>
       const combobox = document.querySelector('.combobox');
-      const cbPopup = combobox.querySelector('popup');
+      const cbPopup = combobox.querySelector('[popup]');
       const cbInput = combobox.querySelector('input[type="search"]');
       const cbOptionsContainer = combobox.querySelector('.options');
       const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
@@ -710,7 +711,7 @@
         padding-right: 20px;
       }
       
-      .gitpod popup {
+      .gitpod::part(listbox) {
         padding: 0;
         border-radius: 8px;
         border: 1px solid #e7e5e4;
@@ -753,17 +754,15 @@
 
     <selectmenu class="gitpod">
       <button slot="button" behavior="button">
-    <span slot="selected-value" behavior="selected-value"></span>
-  </button>
-      <popup slot="listbox" behavior="listbox">
-        <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
-        <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
-        <option value="Microsoft" data-details="Organization Account">Microsoft</option>
-        <option value="new team" class="action">
-          New Team
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-        </option>
-      </popup>
+        <span slot="selected-value" behavior="selected-value"></span>
+      </button>
+      <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
+      <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
+      <option value="Microsoft" data-details="Organization Account">Microsoft</option>
+      <option value="new team" class="action">
+        New Team
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+      </option>
     </selectmenu>
   </div>
 
@@ -777,7 +776,7 @@
         border: 1px solid #ccc;
       }
       
-      .scrollable popup {
+      .scrollable [popup] {
         width: max-content;
         height: max-content;
         padding: 0;
@@ -811,7 +810,7 @@
     </style>
 
     <selectmenu class="scrollable">
-      <popup slot="listbox" behavior="listbox">
+      <div popup="popup" slot="listbox" behavior="listbox">
         <div class="indicator before">▲</div>
         <div class="scroller">
           <option value="afghanistan">Afghanistan</option>
@@ -1011,12 +1010,12 @@
           <option value="zimbabwe">Zimbabwe</option>
         </div>
         <div class="indicator after">▼</div>
-      </popup>
+      </div>
     </selectmenu>
 
     <script>
       const scrollableSelect = document.querySelector('.scrollable');
-      const scrollablePopup = scrollableSelect.querySelector('popup');
+      const scrollablePopup = scrollableSelect.querySelector('[popup]');
       const scrollableScroller = scrollableSelect.querySelector('.scroller');
 
       let scrollableDir = 0;
@@ -1092,7 +1091,7 @@
         cursor: pointer;
       }
       
-      .gh-sort popup {
+      .gh-sort [popup] {
         border-radius: 6px;
         border: 1px solid #d0d7de;
         box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
@@ -1161,7 +1160,7 @@
       }
     </style>
     <selectmenu class="gh-sort">
-      <popup slot="listbox" behavior="listbox">
+      <div popup="popup" slot="listbox" behavior="listbox">
         <header>Sort by</header>
         <div class="standard">
           <option value="newest">Newest</option>
@@ -1182,7 +1181,7 @@
           <option value="ship"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png"></option>
           <option value="looking"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f440.png"></option>
         </div>
-      </popup>
+      </div>
     </selectmenu>
   </div>
 
@@ -1251,7 +1250,7 @@
         transform: scaleY(-1);
       }
       
-      .dribbble-filters .filter popup {
+      .dribbble-filters .filter [popup] {
         border-radius: .3rem;
         border: none;
         box-shadow: 0 0 .3rem rgba(0, 0, 0, .25);
@@ -1277,26 +1276,26 @@
         color: #ea4c89;
       }
       
-      .dribbble-filters .filter .color-type option::before {
+      .dribbble-filters .filter.color-type option::before {
         content: '';
         width: .5rem;
         height: .5rem;
         border-radius: 50%;
       }
       
-      .dribbble-filters .filter .color-type option[value="r"]::before {
+      .dribbble-filters .filter.color-type option[value="r"]::before {
         background: red;
       }
       
-      .dribbble-filters .filter .color-type option[value="g"]::before {
+      .dribbble-filters .filter.color-type option[value="g"]::before {
         background: green;
       }
       
-      .dribbble-filters .filter .color-type option[value="b"]::before {
+      .dribbble-filters .filter.color-type option[value="b"]::before {
         background: blue;
       }
       
-      .dribbble-filters .filter .browser-type option::before {
+      .dribbble-filters .filter.browser-type option::before {
         content: '';
         width: 1rem;
         height: 1rem;
@@ -1304,27 +1303,27 @@
         background-size: contain;
       }
       
-      .dribbble-filters .filter .browser-type option[value="brave"]::before {
+      .dribbble-filters .filter.browser-type option[value="brave"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/c4/Brave_lion.png");
       }
       
-      .dribbble-filters .filter .browser-type option[value="edge"]::before {
+      .dribbble-filters .filter.browser-type option[value="edge"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/1200px-Microsoft_Edge_logo_%282019%29.svg.png");
       }
       
-      .dribbble-filters .filter .browser-type option[value="chrome"]::before {
+      .dribbble-filters .filter.browser-type option[value="chrome"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png");
       }
       
-      .dribbble-filters .filter .browser-type option[value="firefox"]::before {
+      .dribbble-filters .filter.browser-type option[value="firefox"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png");
       }
       
-      .dribbble-filters .filter .browser-type option[value="safari"]::before {
+      .dribbble-filters .filter.browser-type option[value="safari"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Safari_browser_logo.svg/1200px-Safari_browser_logo.svg.png");
       }
       
-      .dribbble-filters .filter .browser-type option[value="opera"]::before {
+      .dribbble-filters .filter.browser-type option[value="opera"]::before {
         background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png");
       }
     </style>
@@ -1336,44 +1335,38 @@
           <div slot="button" behavior="button">
             <button behavior="selected-value"></button>
           </div>
-          <popup slot="listbox" behavior="listbox">
-            <option value="now" checked>Now</option>
-            <option value="week">This Past Week</option>
-            <option value="month">This Past Month</option>
-            <option value="year">This Past Year</option>
-            <option value="all">All Time</option>
-          </popup>
+          <option value="now" checked>Now</option>
+          <option value="week">This Past Week</option>
+          <option value="month">This Past Month</option>
+          <option value="year">This Past Year</option>
+          <option value="all">All Time</option>
         </selectmenu>
       </div>
 
-      <div class="filter" style="width:6rem;">
+      <div class="filter color-type" style="width:6rem;">
         <label for="color-filter">Color</label>
         <selectmenu id="color-filter">
           <div slot="button" behavior="button">
             <button behavior="selected-value"></button>
           </div>
-          <popup slot="listbox" behavior="listbox" class="color-type">
-            <option value="r" checked>Red</option>
-            <option value="g">Green</option>
-            <option value="b">Blue</option>
-          </popup>
+          <option value="r" checked>Red</option>
+          <option value="g">Green</option>
+          <option value="b">Blue</option>
         </selectmenu>
       </div>
 
-      <div class="filter" style="width:8rem;">
+      <div class="filter browser-type" style="width:8rem;">
         <label for="browser-filter">Browser</label>
         <selectmenu id="browser-filter">
           <div slot="button" behavior="button">
             <button behavior="selected-value"></button>
           </div>
-          <popup slot="listbox" behavior="listbox" class="browser-type">
-            <option value="edge" checked>Edge</option>
-            <option value="chrome">Chrome</option>
-            <option value="firefox">Firefox</option>
-            <option value="brave">Brave</option>
-            <option value="safari">Safari</option>
-            <option value="opera">Opera</option>
-          </popup>
+          <option value="edge" checked>Edge</option>
+          <option value="chrome">Chrome</option>
+          <option value="firefox">Firefox</option>
+          <option value="brave">Brave</option>
+          <option value="safari">Safari</option>
+          <option value="opera">Opera</option>
         </selectmenu>
       </div>
 
@@ -1471,7 +1464,7 @@
         transform: translateX(4px) rotate(45deg);
       }
       
-      .word-color popup {
+      .word-color [popup] {
         padding: 0;
         border: 1px solid #ddd;
       }
@@ -1562,7 +1555,7 @@
           <button class="apply-button"></button>
           <button behavior="button" class="open-button"></button>
         </div>
-        <popup slot="listbox" behavior="listbox">
+        <div popup="popup" slot="listbox" behavior="listbox">
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
@@ -1571,7 +1564,7 @@
           </div>
           <option class="action" value="none">No Color</option>
           <option class="action" value="more">More Colors...</option>
-        </popup>
+        </div>
       </selectmenu>
 
       <selectmenu class="word-color background-color" style="--selected-color:var(--initial-background-color);" title="Shading">
@@ -1579,7 +1572,7 @@
           <button class="apply-button"></button>
           <button behavior="button" class="open-button"></button>
         </div>
-        <popup slot="listbox" behavior="listbox">
+        <div popup="popup" slot="listbox" behavior="listbox">
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
@@ -1588,7 +1581,7 @@
           </div>
           <option class="action" value="none">No Color</option>
           <option class="action" value="more">More Colors...</option>
-        </popup>
+        </div>
       </selectmenu>
 
       <span class="sample-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>

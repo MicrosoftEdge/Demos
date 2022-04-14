@@ -25,3 +25,8 @@ header {
 footer {
   padding: 3rem;
 }
+
+.info {
+  background-color: rgb(237, 232, 203);
+  padding: 1rem;
+}
