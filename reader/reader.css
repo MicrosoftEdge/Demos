@@ -6,6 +6,18 @@
   --theme-highlight-text: white;
 }
 
+::highlight(custom-highlight) {
+  /* Custom highlights are using the new highlight inheritance model, where highlight styles are
+     inherited through a separate cascade: https://drafts.csswg.org/css-pseudo-4/#highlight-cascade.
+     While for the most part this provides a better author experience than the existing ::selection
+     behavior, it means that CSS variables set on :root currently don't apply to the highlight cascade.
+     This is a known issue that CSSWG is trying to decide how best to fix:
+     https://github.com/w3c/csswg-drafts/issues/6641.
+     So for now we need to re-define our variables in the ::highlight() ruleset. */
+  --theme-highlight-background: #f06;
+  --theme-highlight-text: white;
+}
+
 ::selection {
   background-color: var(--theme-highlight-background);
   color: var(--theme-highlight-text);
