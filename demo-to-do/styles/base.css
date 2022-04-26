@@ -1,0 +1,19 @@
+body {
+  font-size: calc(1em + 1vw);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--background);
+  color: var(--color);
+}
+ul,form {
+  margin: 1em auto;
+  padding: 20px;
+  max-width: 20em;
+}
+input, button {
+  border: none;
+  margin:  0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8em;
+}
