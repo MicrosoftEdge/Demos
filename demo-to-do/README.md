@@ -1,4 +1,4 @@
-# simple-to-do
+# Basic To Do App
 
 A quick demo of a bare vanilla JS todo app
 
