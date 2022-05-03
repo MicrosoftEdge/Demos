@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TODO app</title>
-  <link rel="stylesheet" href="styles/light-theme.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+  <link rel="stylesheet" href="styles/light-theme.css"
+    media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
   <link rel="stylesheet" href="styles/dark-theme.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/to-do-styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
 </head>
-<output></output>
+
 <body>
   <form>
+    <img src="" alt="">
     <div class="searchbar">
       <label for="task">Tasks:</label>
       <input id="task" autocomplete="off" type="text" placeholder="What do you want to do" pattern="[a-z|A-Z|0-9| ]+">
@@ -20,7 +24,9 @@
     </div>
     <ul id="tasks"></ul>
   </form>
+  <output></output>
 
   <script src="to-do.js"></script>
 </body>
+
 </html>

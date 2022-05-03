@@ -1,3 +1,4 @@
+
 body {
   font-size: calc(1em + 1vw);
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,4 +17,10 @@ input, button {
   background: transparent;
   font-family: inherit;
   font-size: 0.8em;
+}
+
+@media print {
+  body::before {
+    content: 'Print version!';
+  }
 }
