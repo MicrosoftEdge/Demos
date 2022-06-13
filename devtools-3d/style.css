@@ -49,6 +49,8 @@ li {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  /* This 3D transform will promote the list of images to its own 
+     composited layer. */
   transform: translateZ(0);
 }
 
