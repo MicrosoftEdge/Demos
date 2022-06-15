@@ -1,6 +1,6 @@
 import onPasteHtml from "./on-paste-html.js";
-import "./highlighted-text-snippet/highlighted-text-snippet.js";
-import { storeRanges, deleteRanges } from "./store.js";
+import "./text-snippet/text-snippet.js";
+import { storeRanges } from "./store.js";
 
 const isSupported = 'Highlight' in window;
 
@@ -14,7 +14,7 @@ const customHighlightInstance = isSupported ? new Highlight() : null;
 isSupported && CSS.highlights.set('custom-highlight', customHighlightInstance);
 
 document.addEventListener('selectionchange', () => {
-  if (!isSupported || document.body.classList.contains('initial-state')) {
+  if (!isSupported || document.body.classList.contains('home-page')) {
     return;
   }
 
@@ -45,7 +45,9 @@ highlightBtn.addEventListener('click', () => {
 });
 
 function updateRangesInStore() {
-  return storeRanges([...document.querySelectorAll('highlighted-text-snippet')].map(snippet => serializeRange(ranges.get(snippet).range)));
+  const rangesToStore = [...document.querySelectorAll('.toolbar text-snippet')];
+  const serialized = rangesToStore.map(snippet => serializeRange(ranges.get(snippet).range));
+  return storeRanges(serialized, window.currentIndex);
 }
 
 function highlight() {
@@ -61,7 +63,7 @@ function getRangeTextExcerpt(range) {
 }
 
 function addRangeToList(range) {
-  const snippet = document.createElement('highlighted-text-snippet');
+  const snippet = document.createElement('text-snippet');
   snippet.textContent = getRangeTextExcerpt(range);
 
   highlightedList.appendChild(snippet);
@@ -93,21 +95,22 @@ function scrollToHighlight(snippet) {
 }
 
 // Listen for delete events from the snippet.
-addEventListener('delete', e => {
+addEventListener('snippet-deleted', e => {
   deleteHighlight(e.target);
 });
 
-// Listen for scroll events from the snippet.
-addEventListener('scroll', e => {
+// Listen for click events from the snippet.
+addEventListener('snippet-clicked', e => {
   scrollToHighlight(e.target);
 });
 
 // Delete all highlights when new content is pasted.
 onPasteHtml(() => {
-  highlightedList.querySelectorAll('highlighted-text-snippet').forEach(snippet => {
+  highlightedList.querySelectorAll('text-snippet').forEach(snippet => {
     deleteHighlight(snippet);
   });
-  deleteRanges();
+  // TODO: when we support multi documents, no need for this.
+  // deleteRanges();
 });
 
 export function restoreRanges(ranges) {

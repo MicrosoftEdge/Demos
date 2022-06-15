@@ -3,8 +3,8 @@ const CACHE_NAME = `reader-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
   "./",
-  "./highlighted-text-snippet/highlighted-text-snippet.js",
-  "./highlighted-text-snippet/highlighted-text-snippet.css",
+  "./text-snippet/text-snippet.js",
+  "./text-snippet/text-snippet.css",
   "./theme-selector/theme-selector.js",
   "./theme-selector/theme-selector.css",
   "./theme-selector/themes.json",

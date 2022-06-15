@@ -13,7 +13,9 @@
      behavior, it means that CSS variables set on :root currently don't apply to the highlight cascade.
      This is a known issue that CSSWG is trying to decide how best to fix:
      https://github.com/w3c/csswg-drafts/issues/6641.
-     So for now we need to re-define our variables in the ::highlight() ruleset. */
+     So for now we need to re-define our variables in the ::highlight() ruleset.
+     We do this in setTheme in reader.js and that code depends on this CSS rule being in second
+     place in this file. So don't move it. */
   --theme-highlight-background: #f06;
   --theme-highlight-text: white;
 }
@@ -38,12 +40,33 @@ theme-selector {
   right: 1rem;
 }
 
-.initial-state theme-selector {
+.home-page .reader {
+  text-align: center;
+}
+
+body:not(.home-page) .existing-articles {
   display: none;
 }
 
-.initial-state .reader {
-  text-align: center;
+.existing-articles {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.existing-articles > li {
+  width: 15rem;
+  flex-grow: 0.5;
+}
+
+.existing-articles, .existing-articles li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.existing-articles text-snippet::part(delete) {
+  display: none;
 }
 
 .reader {
@@ -93,9 +116,6 @@ theme-selector {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.toolbar .highlighted ul {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -114,7 +134,7 @@ theme-selector {
   background: var(--theme-highlight-background);
 }
 
-.initial-state #progressbar {
+.home-page #progressbar {
   display: none;
 }
 
@@ -164,7 +184,7 @@ theme-selector {
   }
 
   /* And make them smaller. */
-  highlighted-text-snippet::part(text) {
+  text-snippet::part(text) {
     -webkit-line-clamp: 3;
   }
 }

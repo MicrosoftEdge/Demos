@@ -115,7 +115,7 @@ CSS modules make it possible to use the existing module loading/dependency syste
 1. Import styles: `import styles from "./style.css" assert { type: "css" };`
 1. Use them in a web component's shadow root: `this.shadowRoot.adoptedStyleSheets = [styles];`
 
-[See this API in the app's code here](./highlighted-text-snippet/highlighted-text-snippet.js).
+[See this API in the app's code here](./text-snippet/text-snippet.js).
 
 ### Resources
 
