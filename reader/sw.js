@@ -1,4 +1,4 @@
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE_NAME = `reader-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
