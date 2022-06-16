@@ -37,7 +37,16 @@ export async function getTheme() {
 }
 
 export async function getAllEntries() {
-  return (await get('content')) || [];
+  let entries = await get('content');
+
+  // In the first version, the 'content' key was just a string. 
+  // Now it's expected to be an array. Override it if it's not.
+  if (typeof entries === 'string') {
+    entries = [entries];
+    await set('content', entries);
+  }
+
+  return entries || [];
 }
 
 export async function deleteEntry(index) {
