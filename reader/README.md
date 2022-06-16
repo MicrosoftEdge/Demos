@@ -11,6 +11,7 @@ The following APIs are used in the demo app:
 * JSON modules.
 * Scroll animation timeline.
 * Async Clipboard API.
+* Navigation API.
 
 All of these APIs are new and not widely supported. Some even require a flag to be switched on before being usable. To use the demo app, use a Canary version of Microsoft Edge (or another Chromium-based browser) and enable the following flag in `about:flags`: **Experimental Web Platform features**.
 
@@ -30,6 +31,7 @@ The demo app is a reader mode for articles published on the web. To use the read
     1. A theme switcher drop-down is displayed in the top-right corner. Use it to switch to a different theme, or click the star icon to build your own theme using an eye dropper tool.
     1. Select text in the article and click **Highlight** to create highlighted snippets of text. Clicking on an existing snippet scrolls to it. You can also delete snippets.
     1. You can also reload the reader later to restore the latest article and highlights.
+1. You can paste multiple articles and they will all be stored locally. When accessing the app, all articles are listed, and you can go back and forth between them using the browser navigation buttons.
 
 ## About the APIs used
 
@@ -180,3 +182,18 @@ Browsers inconsistently support clipboard access. The Async Clipboard API is a n
 ### Browser support
 
 The API is supported in Chromium-browsers, Safari, and experimentally supported in Firefox behind the `dom.events.asyncClipboard` flags.
+
+## Navigation API
+
+The Navigation API is a new way to intercept browser navigation events, and is meant to replace the limited History API.
+
+[See this in the app's code here](./reader.js).
+
+### Resources
+
+* [Modern client-side routing: the Navigation API](https://developer.chrome.com/docs/web-platform/navigation-api/)
+* [Navigation API WICG spec](https://wicg.github.io/navigation-api/)
+
+### Browser support
+
+The API is supported in Chromium-browsers.

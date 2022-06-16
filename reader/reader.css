@@ -65,8 +65,9 @@ body:not(.home-page) .existing-articles {
   padding: 0;
 }
 
-.existing-articles text-snippet::part(delete) {
-  display: none;
+.existing-articles text-snippet::part(text) {
+  -webkit-line-clamp: 3;
+  font-size: 1.5rem;
 }
 
 .reader {

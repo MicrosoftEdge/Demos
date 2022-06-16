@@ -8,7 +8,7 @@ const highlightBtn = document.querySelector('.highlight-btn');
 const highlightedList = document.querySelector('.highlighted ul');
 
 let currentRange = null;
-const ranges = new WeakMap();
+const ranges = new Map();
 
 const customHighlightInstance = isSupported ? new Highlight() : null;
 isSupported && CSS.highlights.set('custom-highlight', customHighlightInstance);
@@ -71,6 +71,12 @@ function addRangeToList(range) {
   ranges.set(snippet, { range });
 }
 
+function deleteAllSnippets() {
+  for (const [snippet] of ranges) {
+    snippet.remove();
+  }
+}
+
 function deleteHighlight(snippet) {
   if (!ranges.has(snippet)) {
     return;
@@ -109,16 +115,16 @@ onPasteHtml(() => {
   highlightedList.querySelectorAll('text-snippet').forEach(snippet => {
     deleteHighlight(snippet);
   });
-  // TODO: when we support multi documents, no need for this.
-  // deleteRanges();
 });
 
-export function restoreRanges(ranges) {
-  if (!ranges) {
+export function restoreRanges(rangesToRestore) {
+  deleteAllSnippets();
+
+  if (!rangesToRestore) {
     return;
   }
 
-  for (const range of ranges) {
+  for (const range of rangesToRestore) {
     currentRange = unSerializeRange(range);
     highlight();
   }

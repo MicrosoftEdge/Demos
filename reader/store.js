@@ -1,4 +1,4 @@
-import { get, set, del } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
+import { get, set } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
 
 export async function storeContent(text, index) {
   const contentList = await getAllEntries();
@@ -38,4 +38,9 @@ export async function getTheme() {
 
 export async function getAllEntries() {
   return (await get('content')) || [];
+}
+
+export async function deleteEntry(index) {
+  await storeContent(null, index);
+  await storeRanges(null, index);
 }
