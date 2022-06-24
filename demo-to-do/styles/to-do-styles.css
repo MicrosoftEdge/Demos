@@ -20,6 +20,7 @@
 }
 .searchbar input[type="text"] {
     flex-grow: 3;
+    min-width: 0;
     background: #fff;
     border: 1px solid #ccc;
     border-width: 1px 0;
