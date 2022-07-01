@@ -26,13 +26,17 @@ const addTask = e => {
   if (task.value) {
     let t = task.value.replace(/[^A-Z|0-9| ]+/ig, '');
     if (t.value !== t) {
-      console.warn('cleaned up task value');
+      console.warn('Cleaned up task value');
       t.value = t;
     }
-    console.info('Adding Task :' + t);
-    tasks[t] = 'active';
-    updateList();
-    task.value = '';
+    if (!tasks[t]) {
+      console.info('Adding Task :' + t);
+      tasks[t] = 'active';
+      updateList();
+      task.value = '';
+    } else {
+      console.warn('Task already exists');
+    }
   }
   e.preventDefault();
 };
