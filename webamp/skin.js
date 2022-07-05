@@ -1,4 +1,5 @@
 import { setCustomSkin, getCustomSkin } from "./store.js";
+import { getCurrentSkinBackgroundColor } from "./utils.js";
 
 const defaultStyleSheet = document.getElementById('default-stylesheet');
 let customStyleSheet = null;
@@ -48,6 +49,8 @@ export async function loadCustomOrResetSkin() {
   const text = await file.text();
 
   await applyCustomSkin(text);
+
+  setThemeColorMeta();
 }
 
 async function applyCustomSkin(skin) {
@@ -74,9 +77,17 @@ async function revertToDefaultSkin() {
 
   // Remove the custom skin from the store.
   await setCustomSkin(null);
+
+  setThemeColorMeta();
 }
 
 function createInlineStyleSheet() {
   const style = document.createElement('style');
   return style;
+}
+
+function setThemeColorMeta() {
+  // Set the theme meta to make the titlebar match the skin.
+  const color = getCurrentSkinBackgroundColor();
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
 }

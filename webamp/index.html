@@ -7,9 +7,13 @@
     <title>WEBAMP</title>
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#181c25">
     <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
   </head>
   <body>
+    <div id="wco-drag" style="position:fixed;top:env(titlebar-area-y);left:env(titlebar-area-x);height:env(titlebar-area-height);width:env(titlebar-area-width);-webkit-app-region:drag;"></div>
+
     <section class="player">
       <div class="player-controls">
         <button class="player-control-button main-button" id="previous" title="Go to the previous song or the beginning of song">
@@ -86,5 +90,11 @@
 
     <script type="module-shim" src="components/playlist-song.js"></script>
     <script type="module-shim" src="app.js"></script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
   </body>
 </html>

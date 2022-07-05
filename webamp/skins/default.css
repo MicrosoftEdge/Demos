@@ -81,6 +81,8 @@ body {
 
 .player {
   padding: 1rem;
+  /* If WCO is enabled, push the player down a little to avoid overlapping the titlebar area */
+  padding-top: env(titlebar-area-height, 1rem);
 }
 
 .visualizing .player {
@@ -581,7 +583,7 @@ input[type="range"]:hover::-moz-range-thumb {
   background: var(--primary);
 }
 
-#add-song span {
+#add-songs span {
   background: 
     linear-gradient(to bottom, transparent 40%, var(--text) 40%, var(--text) 60%, transparent 0),
     linear-gradient(to right, transparent 40%, var(--text) 40%, var(--text) 60%, transparent 0);

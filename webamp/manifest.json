@@ -1,0 +1,31 @@
+{
+  "name": "webamp",
+  "description": "A web audio player app",
+  "lang": "en-US",
+  "start_url": "./index.html",
+  "scope": "./",
+  "theme_color": "#181c25",
+  "background_color": "#181c25",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "icons": [
+    {
+      "src": "./favicon-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./favicon-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./favicon-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./favicon-512.png",
+      "sizes": "512x512"
+    }
+  ]
+}

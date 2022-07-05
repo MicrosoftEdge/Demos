@@ -9,12 +9,10 @@ This is a web audio player demo application. It is meant to be a PWA that's grea
 
 ## TODO
 
-* Fall back to input[type=file] for browsers that don't support File System Access.
+* Use input[type=file] instead of File System Access to make it work everywhere.
 * Add the ability to drag/drop songs in the playlist to re-order them.
-* Make it installable.
 * Make use of PWA features to make it a great desktop experience:
-  * WCO.
-  * Shortcuts.
+  * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction).
   * Sharing and share target.
   * File handler for audio songs and loading custom skins.
   * Protocol handler to add new songs via remote URLs.
@@ -23,3 +21,4 @@ This is a web audio player demo application. It is meant to be a PWA that's grea
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/...
+* Default skin needs to better handle very wide windows, make use of all the empty space.

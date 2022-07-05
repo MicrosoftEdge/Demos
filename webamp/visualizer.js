@@ -80,7 +80,7 @@ export class Visualizer {
 
     // Draw the new line.
     this.ctx.save();
-    this.ctx.translate(W / 2, -H / 2);
+    this.ctx.translate(W / 2, -H / 4);
 
     this.ctx.strokeStyle = `hsl(${ms / 300}, 90%, 70%)`;
     this.ctx.lineWidth = 3;
