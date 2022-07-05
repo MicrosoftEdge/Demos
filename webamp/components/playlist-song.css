@@ -1,0 +1,20 @@
+input, button {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  border: inherit;
+  margin: 0;
+  padding: 0;
+  width: min-content;
+}
+
+
+@keyframes loading-field {
+  from {
+    background-position: -10em 0;
+  }
+  to {
+    background-position: 10em 0;
+  }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WEBAMP</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
+  </head>
+  <body>
+    <section class="player">
+      <div class="player-controls">
+        <button class="player-control-button main-button" id="previous" title="Go to the previous song or the beginning of song">
+          <span>Previous</span>
+        </button>
+        <button class="player-control-button main-button" id="playpause" title="Play or pause">
+          <span>Play</span>
+        </button>
+        <button class="player-control-button main-button" id="next" title="Go to the next song">
+          <span>Next</span>
+        </button>
+      </div>
+
+      <div class="playhead-control">
+        <span id="currenttime">00:00</span>
+        <input
+          type="range"
+          id="playhead"
+          aria-label="Current position in song"
+          value="0"
+        />
+        <span id="duration">00:00</span>
+      </div>
+
+      <canvas id="waveform" width="500" height="100"></canvas>
+    </section>
+
+    <section class="playlist">
+      <p class="empty-playlist">No songs in playlist, drag songs here or click <strong>+</strong></p>
+      <ol class="songs"></ol>
+    </section>
+
+    <section class="volume">
+      <label for="volume">Volume</label>
+      <input type="range" id="volume" min="0" max="10" value="10" />
+    </section>
+
+    <section class="app-controls">
+      <button class="main-button" id="add-song" title="Add new songs to the playlist">
+        <span>Add a new song</span>
+      </button>
+      <button class="main-button" id="load-custom-skin" title="Apply a custom skin">
+        <span>Apply a custom skin</span>
+      </button>
+      <button class="main-button" id="record-audio" title="Record an audio clip">
+        <span>Record an audio clip</span>
+      </button>
+      <button class="main-button" id="playlist-actions" title="More tools...">
+        <span>More tools...</span>
+      </button>
+    </section>
+
+    <div id="song-actions-popup" popup>
+      <button class="popup-item song-action" id="song-action-delete">Delete</button>
+      <button class="popup-item song-action" id="song-action-export">Export...</button>
+    </div>
+
+    <div id="playlist-actions-popup" popup>
+      <button class="popup-item playlist-action" id="playlist-action-delete">Delete all</button>
+      <button class="popup-item playlist-action" id="playlist-action-export">Export all...</button>
+    </div>
+
+    <script type="module" src="components/playlist-song.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
