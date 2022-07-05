@@ -1,6 +1,6 @@
-import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs } from "./store.js";
+import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFileNameWithoutExtension } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate } from "./utils.js";
 import { importSongFromFile } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -46,6 +46,7 @@ function updateUI() {
   playlistSongsContainer.querySelectorAll(".playing").forEach(el => el.classList.remove('playing'));
   playButton.classList.remove('playing');
   playButtonLabel.textContent = 'Play';
+  playButton.title = 'Play';
 
   if (!player.song) {
     // No song is loaded. Show the default UI.
@@ -74,6 +75,7 @@ function updateUI() {
   // A song is playing.
   playButton.classList.add('playing');
   playButtonLabel.textContent = 'Pause';
+  playButton.title = 'Pause';
 
   // Update the play state in the playlist.
   playlistSongsContainer.querySelector(`[id="${player.song.id}"]`).classList.add('playing');
@@ -247,8 +249,10 @@ recordAudioButton.addEventListener('click', async () => {
   recordAudioButton.querySelector('span').textContent = label;
 
   if (isRecording) {
-    const blob = await stopRecordingAudio();
-    await importSongFromFile(blob, 'Audio recording', 'Me');
+    const { blob, duration } = await stopRecordingAudio();
+    // Because audio recordings come with a duration already, no need to call
+    // importSongFromFile, we can go straight to addLocalFileSong.
+    await addLocalFileSong(blob, getFormattedDate(), 'Me', 'Audio recordings', formatTime(duration));
     await startApp();
   } else {
     await startRecordingAudio();
@@ -295,7 +299,7 @@ playlistEl.addEventListener('drop', async (e) => {
   }
 
   const files = dataTransfer.files;
-  
+
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
 
   for (const file of files) {

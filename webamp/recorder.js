@@ -2,6 +2,8 @@ let audioBlobs = [];
 let mediaRecorder = null;
 let stream = null;
 
+let start = 0;
+
 export async function startRecordingAudio() {
   if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
     console.log('mediaDevices API or getUserMedia method is not supported in this browser.');
@@ -17,6 +19,7 @@ export async function startRecordingAudio() {
     audioBlobs.push(event.data);
   });
 
+  start = Date.now();
   mediaRecorder.start();
 
   return true;
@@ -27,8 +30,9 @@ export function stopRecordingAudio() {
     const mimeType = mediaRecorder.mimeType;
 
     mediaRecorder.addEventListener("stop", () => {
+      const duration = (Date.now() - start) / 1000;
       const audioBlob = new Blob(audioBlobs, { type: mimeType });
-      resolve(audioBlob);
+      resolve({ blob: audioBlob, duration });
     });
 
     mediaRecorder.stop();
