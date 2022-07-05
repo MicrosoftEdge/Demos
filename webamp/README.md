@@ -9,7 +9,7 @@ This is a web audio player demo application. It is meant to be a PWA that's grea
 
 ## TODO
 
-* Make it work across browsers.
+* Fall back to input[type=file] for browsers that don't support File System Access.
 * Make one more skin.
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make it installable.

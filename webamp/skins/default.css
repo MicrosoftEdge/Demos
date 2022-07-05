@@ -43,6 +43,11 @@ body {
   grid-template-rows: auto 1fr auto auto;
 }
 
+.drop-target {
+  outline: .5rem dashed var(--primary);
+  outline-offset: -.5rem;
+}
+
 .main-button:active {
   box-shadow: inset 0 0 0 .25rem var(--back);
 }
@@ -430,8 +435,32 @@ input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 100vh;
 }
 
+/* Note: we have to repeat the entire rule for Firefox as combining the selectors
+   makes the rule not apply at all on chromium */
+input[type="range"]::-moz-range-track {
+  margin: 0;
+  appearance: none;
+  height: .5rem;
+  background: var(--secondary);
+  border-radius: 100vh;
+}
+
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
+  border: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  cursor: ew-resize;
+  background: var(--primary);
+  position: relative;
+  top: -.25rem;
+}
+
+/* Note: we have to repeat the entire rule for Firefox as combining the selectors
+   makes the rule not apply at all on chromium */
+input[type="range"]::-moz-range-thumb {
+  appearance: none;
   border: none;
   width: 1rem;
   height: 1rem;
@@ -447,6 +476,13 @@ input[type="range"]:hover::-webkit-slider-thumb {
   background: var(--text);
 }
 
+/* Note: we have to repeat the entire rule for Firefox as combining the selectors
+   makes the rule not apply at all on chromium */
+input[type="range"]:active::-moz-range-thumb,
+input[type="range"]:hover::-moz-range-thumb {
+  background: var(--text);
+}
+
 #playhead {
   width: 50%;
 }
@@ -456,6 +492,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
   align-items: center;
   justify-content: center;
   gap: .5rem;
+  position: relative;
+  inset-inline-start: -.7rem;
 }
 
 .volume label {
@@ -485,11 +523,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
   place-items: center;
   place-self: center;
   padding-inline-end: 1rem;
-}
-
-.playlist.drop-target {
-  outline: .5rem dashed var(--primary);
-  outline-offset: -.5rem;
 }
 
 .app-controls {
@@ -592,11 +625,6 @@ dialog form button {
   padding: .25rem .5rem;
 }
 
-[popup]:not(:top-layer) {
-  opacity: 0;
-  transition: opacity .1s linear;
-}
-
 [popup] {
   position: fixed;
   padding: 0;
@@ -605,8 +633,22 @@ dialog form button {
   flex-direction: column;
   gap: 1px;
   background: var(--back);
-  opacity: 1;
   box-shadow: 0 0 0 1px var(--back);
+  opacity: 1;
+  transition: opacity .1s linear;
+}
+
+/* Only for browsers which support popup, hide the popup if it's not
+   in the top layer yet. */
+@supports selector(:top-layer) {
+  [popup]:not(:top-layer) {
+    opacity: 0;
+  }
+}
+@supports not selector(:top-layer) {
+  [popup][hidden] {
+    opacity: 0;
+  }
 }
 
 .popup-item {

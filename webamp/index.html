@@ -72,7 +72,16 @@
       <button class="popup-item playlist-action" id="playlist-action-export">Export all...</button>
     </div>
 
-    <script type="module" src="components/playlist-song.js"></script>
-    <script type="module" src="app.js"></script>
+    <script src="popup-polyfill.js"></script>
+    <script
+      async
+      src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js"
+    ></script>
+    <script type="esms-options">
+      { "shimMode": true, "polyfillEnable": ["css-modules"] }
+    </script>
+
+    <script type="module-shim" src="components/playlist-song.js"></script>
+    <script type="module-shim" src="app.js"></script>
   </body>
 </html>

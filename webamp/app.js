@@ -280,18 +280,18 @@ playlistActionExportAll.addEventListener('click', async () => {
 
 
 // Manage drag/dropping songs from explorer to playlist.
-playlistEl.addEventListener('dragover', e => {
+addEventListener('dragover', e => {
   e.preventDefault();
-  playlistEl.classList.add('drop-target');
+  document.documentElement.classList.add('drop-target');
 });
 
-playlistEl.addEventListener('dragleave', e => {
-  playlistEl.classList.remove('drop-target');
+addEventListener('dragleave', e => {
+  document.documentElement.classList.remove('drop-target');
 });
 
-playlistEl.addEventListener('drop', async (e) => {
+addEventListener('drop', async (e) => {
   e.preventDefault();
-  playlistEl.classList.remove('drop-target');
+  document.documentElement.classList.remove('drop-target');
 
   const dataTransfer = e.dataTransfer;
   if (!dataTransfer) {
