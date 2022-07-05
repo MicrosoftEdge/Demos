@@ -172,11 +172,11 @@ nextButton.addEventListener("click", () => {
 
 // Listen to player playing/paused status to update the visualizer.
 player.addEventListener("canplay", () => {
-  visualizer.start();
+  isVisualizing() && visualizer.start();
 });
 
 player.addEventListener("paused", () => {
-  visualizer.stop();
+  isVisualizing() && visualizer.stop();
 });
 
 // Manage the add song button.
@@ -238,20 +238,26 @@ function updateSkinButton() {
   loadCustomSkinButton.querySelector('span').textContent = label;
 }
 
+function isVisualizing() {
+  return document.documentElement.classList.contains('visualizing');
+}
+
 // Manage the visualizer button.
 visualizerButton.addEventListener('click', () => {
-  const isVisualizing = document.documentElement.classList.contains('visualizing');
+  const isVis = isVisualizing();
 
   // If we're asked to visualize but no song is playing, start the first song.
-  if (!isVisualizing && !player.isPlaying) {
+  if (!isVis && !player.isPlaying) {
     player.play();
   }
 
-  const label = isVisualizing ? 'Show visualizer' : 'Stop visualizer';
+  const label = isVis ? 'Show visualizer' : 'Stop visualizer';
   visualizerButton.title = label;
   visualizerButton.querySelector('span').textContent = label;
 
   document.documentElement.classList.toggle('visualizing');
+
+  isVis ? visualizer.stop() : visualizer.start();
 });
 
 // Manage the record audio button.

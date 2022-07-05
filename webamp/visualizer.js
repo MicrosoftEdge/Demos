@@ -19,79 +19,91 @@ export class Visualizer {
     try {
       const stream = this.player.audio.captureStream();
       source = audioCtx.createMediaStreamSource(stream);
-      this.fakeStream = false;
     } catch (e) {
-      console.log('Could not create audio stream, drawing a fake visualization');
-      this.fakeStream = true;
-      return;
+      console.log('Could not create audio stream');
     }
 
     // Attach an analyser node.
     this.analyser = audioCtx.createAnalyser();
-    source.connect(this.analyser);
+    this.analyser.fftSize = 256;
 
-    this.analyser.fftSize = 2048;
-    this.bufferLength = this.analyser.fftSize;
-    this.dataArray = new Uint8Array(this.bufferLength);
+    source.connect(this.analyser);
   }
 
   start() {
+    this.frameIndex = 0;
     this.reinit();
+
+    this.resize();
     this.draw();
+
+    addEventListener('resize', this.start.bind(this), { once: true });
+  }
+
+  resize() {
+    this.canvasEl.width = window.innerWidth;
+    this.canvasEl.height = window.innerHeight;
   }
 
   stop() {
     cancelAnimationFrame(this.drawLoop);
   }
 
-  draw() {
+  draw(ms = 0) {
     this.drawLoop = requestAnimationFrame(this.draw.bind(this));
+    this.frameIndex++;
 
-    if (!this.fakeStream) {
-      this.analyser.getByteTimeDomainData(this.dataArray);
+    const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(dataArray);
+
+    const W = this.canvasEl.width;
+    const H = this.canvasEl.height;
+
+    // Draw a trail.
+    const moveOffset = 10;
+    this.ctx.drawImage(this.canvasEl, 0, 0, W, H, 0, moveOffset, W, H);
+
+    // Don't entirely clear the screen to get some motion blur.
+    this.ctx.fillStyle = '#00000011';
+    this.ctx.fillRect(0, 0, W, H);
+
+    if ((this.frameIndex % 2) !== 0) {
+      return;
     }
 
-    this.canvasEl.width = window.innerWidth;
-    this.canvasEl.height = window.innerHeight;
+    // Draw the new line.
+    this.ctx.save();
+    this.ctx.translate(W / 2, -H / 2);
 
-    this.ctx.fillStyle = '#FFF2';
+    this.ctx.strokeStyle = `hsl(${ms / 300}, 90%, 70%)`;
+    this.ctx.lineWidth = 3;
 
     this.ctx.beginPath();
 
-    const delta = 200;
-    const length = !this.fakeStream ? this.bufferLength : 2048;
-    const sliceWidth = delta * this.canvasEl.width / length;
-
-    let x = 0;
-    let initialY = 0;
+    const length = dataArray.length;
     let lastY = 0;
     let lastX = 0;
 
-    for (let i = 0; i < length; i += delta) {
-      const v = !this.fakeStream ? this.dataArray[i] / 128 : Math.random() * 2;
-      const y = v * this.canvasEl.height / 2;
-      
+    for (let i = 0; i < length; i += 2) {
+      // Mirror image.
+      const index = i < length / 2 ? i : length - 1 - i;
+
+      const x = (i / length - .5) * W;
+      const y = (1 - dataArray[index] / 256) * H;
+      const cX = (lastX + x) / 2;
+      const cY = (lastY + y) / 2;
+
       if (i === 0) {
         this.ctx.moveTo(x, y);
-        initialY = y;
       } else {
-        const xc = (lastX + x) / 2;
-        const yc = (lastY + y) / 2;
-        this.ctx.quadraticCurveTo(lastX, lastY, xc, yc);
+        this.ctx.quadraticCurveTo(lastX, lastY, cX, cY);
       }
 
-      lastY = y;
       lastX = x;
-      
-      x += sliceWidth;
+      lastY = y;
     }
 
-    this.ctx.lineTo(this.canvasEl.width, lastY);
-    this.ctx.lineTo(this.canvasEl.width, this.canvasEl.height);
-    this.ctx.lineTo(0, this.canvasEl.height);
-    this.ctx.lineTo(0, initialY);
-
-    this.ctx.lineTo(this.canvasEl.width, this.canvasEl.height / 2);
-    this.ctx.fill();
+    this.ctx.stroke();
+    this.ctx.restore();
   }
 }
