@@ -14,6 +14,7 @@ const playButtonLabel = playButton.querySelector("span");
 const previousButton = document.getElementById("previous");
 const nextButton = document.getElementById("next");
 const playHeadInput = document.getElementById("playhead");
+const visualizerButton = document.getElementById("toggle-visualizer");
 const visualizerEl = document.getElementById("waveform");
 const volumeInput = document.getElementById("volume");
 const currentTimeLabel = document.getElementById("currenttime");
@@ -47,6 +48,7 @@ function updateUI() {
   playButton.classList.remove('playing');
   playButtonLabel.textContent = 'Play';
   playButton.title = 'Play';
+  document.documentElement.classList.toggle('playing', false);
 
   if (!player.song) {
     // No song is loaded. Show the default UI.
@@ -67,15 +69,12 @@ function updateUI() {
   currentTimeLabel.innerText = formatTime(currentTime);
   durationLabel.innerText = formatTime(duration);
 
-  if (!player.isPlaying) {
-    // The song is not playing, bail out now.
-    return;
+  if (player.isPlaying) {
+    playButton.classList.add('playing');
+    playButtonLabel.textContent = 'Pause';
+    playButton.title = 'Pause';
+    document.documentElement.classList.toggle('playing', true);
   }
-
-  // A song is playing.
-  playButton.classList.add('playing');
-  playButtonLabel.textContent = 'Pause';
-  playButton.title = 'Pause';
 
   // Update the play state in the playlist.
   playlistSongsContainer.querySelector(`[id="${player.song.id}"]`).classList.add('playing');
@@ -239,6 +238,22 @@ function updateSkinButton() {
   loadCustomSkinButton.querySelector('span').textContent = label;
 }
 
+// Manage the visualizer button.
+visualizerButton.addEventListener('click', () => {
+  const isVisualizing = document.documentElement.classList.contains('visualizing');
+
+  // If we're asked to visualize but no song is playing, start the first song.
+  if (!isVisualizing && !player.isPlaying) {
+    player.play();
+  }
+
+  const label = isVisualizing ? 'Show visualizer' : 'Stop visualizer';
+  visualizerButton.title = label;
+  visualizerButton.querySelector('span').textContent = label;
+
+  document.documentElement.classList.toggle('visualizing');
+});
+
 // Manage the record audio button.
 recordAudioButton.addEventListener('click', async () => {
   const isRecording = recordAudioButton.classList.contains('recording');
@@ -281,15 +296,24 @@ playlistActionExportAll.addEventListener('click', async () => {
 
 // Manage drag/dropping songs from explorer to playlist.
 addEventListener('dragover', e => {
+  if (document.documentElement.classList.has('visualizing')) {
+    return;
+  }
   e.preventDefault();
   document.documentElement.classList.add('drop-target');
 });
 
 addEventListener('dragleave', e => {
+  if (document.documentElement.classList.has('visualizing')) {
+    return;
+  }
   document.documentElement.classList.remove('drop-target');
 });
 
 addEventListener('drop', async (e) => {
+  if (document.documentElement.classList.has('visualizing')) {
+    return;
+  }
   e.preventDefault();
   document.documentElement.classList.remove('drop-target');
 

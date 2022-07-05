@@ -23,4 +23,4 @@ This is a web audio player demo application. It is meant to be a PWA that's grea
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
-* Remove the visualizer from the main UI and instead add a button to toggle between the normal UI and a visualizer UI. In this mode, the visualizer would be full-screen, with only a simple overlay for pause/next/prev/volume/time.
+* Add keyboard shortcuts to play/pause/prev/next/visualize/...

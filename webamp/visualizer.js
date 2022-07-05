@@ -51,7 +51,8 @@ export class Visualizer {
       this.analyser.getByteTimeDomainData(this.dataArray);
     }
 
-    this.canvasEl.width = this.canvasEl.width;
+    this.canvasEl.width = window.innerWidth;
+    this.canvasEl.height = window.innerHeight;
 
     this.ctx.fillStyle = '#FFF2';
 

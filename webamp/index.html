@@ -33,8 +33,6 @@
         />
         <span id="duration">00:00</span>
       </div>
-
-      <canvas id="waveform" width="500" height="100"></canvas>
     </section>
 
     <section class="playlist">
@@ -57,10 +55,15 @@
       <button class="main-button" id="record-audio" title="Record an audio clip">
         <span>Record an audio clip</span>
       </button>
+      <button class="main-button" id="toggle-visualizer" title="Show visualizer">
+        <span>Show visualizer</span>
+      </button>
       <button class="main-button" id="playlist-actions" title="More tools...">
         <span>More tools...</span>
       </button>
     </section>
+
+    <canvas id="waveform"></canvas>
 
     <div id="song-actions-popup" popup>
       <button class="popup-item song-action" id="song-action-delete">Delete</button>

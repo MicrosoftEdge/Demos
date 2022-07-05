@@ -43,27 +43,17 @@ body {
   grid-template-rows: auto 1fr auto auto;
 }
 
+.visualizing body {
+  grid-template-rows: 1fr;
+  place-items: end stretch;
+}
+
 .drop-target {
   outline: .5rem dashed var(--primary);
   outline-offset: -.5rem;
 }
 
-.main-button:active {
-  box-shadow: inset 0 0 0 .25rem var(--back);
-}
-
-.player {
-  padding: 1rem;
-}
-
-.player-controls {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-block-end: 1rem;
-}
-
-.player-controls button {
+.main-button {
   border: none;
   background: none;
   border-radius: 50%;
@@ -76,13 +66,32 @@ body {
   place-content: center;
 }
 
-.player-controls button span {
+.main-button span {
   color: transparent;
   display: block;
   overflow: hidden;
   width: 1rem;
   height: 1rem;
   font-size: 0;
+}
+
+.main-button:active {
+  box-shadow: inset 0 0 0 .25rem var(--back);
+}
+
+.player {
+  padding: 1rem;
+}
+
+.visualizing .player {
+  padding: 0;
+}
+
+.player-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-block-end: 1rem;
 }
 
 .player-controls #playpause {
@@ -197,17 +206,6 @@ body {
   border-bottom: 0.5rem solid transparent;
 }
 
-#waveform {
-  width: 100%;
-  height: 6rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: scaleY(-1);
-  pointer-events: none;
-  z-index: -1;
-}
-
 .playlist .empty-playlist {
   display: none;
   text-align: center;
@@ -239,15 +237,16 @@ playlist-song.playing {
 }
 
 playlist-song::part(artist) {
-  grid-row: 1;
-  grid-column: 2;
-}
-
-playlist-song::part(album) {
   grid-row: 2;
   grid-column: 2;
   font-size: 0.8rem;
   color: var(--text-disabled);
+}
+
+playlist-song::part(album) {
+  grid-row: 1;
+  grid-column: 3;
+  align-self: center;
 }
 
 playlist-song.playing::part(album) {
@@ -256,8 +255,7 @@ playlist-song.playing::part(album) {
 
 playlist-song::part(title) {
   grid-row: 1;
-  grid-column: 3;
-  align-self: center;
+  grid-column: 2;
 }
 
 playlist-song::part(play) {
@@ -360,6 +358,16 @@ playlist-song.playing::part(actions)::before {
   }
 
   playlist-song::part(title) {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  playlist-song::part(artist) {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  playlist-song::part(album) {
     grid-row: 3;
     grid-column: 2;
   }
@@ -387,6 +395,16 @@ playlist-song.playing::part(actions)::before {
   }
 
   playlist-song::part(title) {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  playlist-song::part(artist) {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  playlist-song::part(album) {
     grid-row: 3;
     grid-column: 2;
   }
@@ -395,6 +413,25 @@ playlist-song.playing::part(actions)::before {
     grid-row: 1 / span 4;
     grid-column: 3;
   }
+}
+
+.visualizing playlist-song:not(.playing) {
+  display: none;
+}
+
+.visualizing playlist-song {
+  background: unset;
+  color: unset;
+}
+
+.visualizing playlist-song::part(play),
+.visualizing playlist-song::part(duration),
+.visualizing playlist-song::part(actions) {
+  display: none;
+}
+
+.visualizing playlist-song::part(album) {
+  color: var(--text);
 }
 
 .playhead-control {
@@ -487,6 +524,10 @@ input[type="range"]:hover::-moz-range-thumb {
   width: 50%;
 }
 
+.visualizing .volume {
+  display: none;
+}
+
 .volume {
   display: flex;
   align-items: center;
@@ -525,6 +566,10 @@ input[type="range"]:hover::-moz-range-thumb {
   padding-inline-end: 1rem;
 }
 
+.visualizing .app-controls {
+  padding-block-start: 0;
+}
+
 .app-controls {
   display: flex;
   justify-content: center;
@@ -533,25 +578,7 @@ input[type="range"]:hover::-moz-range-thumb {
 }
 
 .app-controls button {
-  border: none;
-  background: none;
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  place-content: center;
   background: var(--primary);
-}
-
-.app-controls button span {
-  color: transparent;
-  overflow: hidden;
-  width: 1rem;
-  height: 1rem;
-  font-size: 0;
 }
 
 #add-song span {
@@ -584,6 +611,27 @@ input[type="range"]:hover::-moz-range-thumb {
   background: radial-gradient(circle at center, var(--text) 20%, #0000 0);
   background-repeat: repeat-x;
   background-size: .33rem 1rem;
+}
+
+#toggle-visualizer span::before,
+#toggle-visualizer span::after {
+  content: '';
+  width: 50%;
+  height: 40%;
+  display: block;
+  border-radius: 50% 50% 0 0;
+  box-sizing: border-box;
+  border: 2px solid var(--text);
+  border-width: 2px 2px 0 4px;
+  position: relative;
+  top: 10%;
+}
+
+#toggle-visualizer span::after {
+  border-radius: 0 0 50% 50%;
+  position: relative;
+  left: calc(50% - 2px);
+  border-width: 0 4px 2px 2px;
 }
 
 dialog {
@@ -663,4 +711,18 @@ dialog form button {
 .popup-item:hover {
   background: var(--primary);
   color: var(--back);
+}
+
+#waveform {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+html:not(.visualizing) #waveform {
+  display: none;
 }
