@@ -1,3 +1,5 @@
+import { getCurrentSkinBackgroundColor } from './utils.js';
+
 export class Visualizer {
   constructor(player, canvasEl) {
     this.player = player;
@@ -28,6 +30,9 @@ export class Visualizer {
     this.analyser.fftSize = 256;
 
     source.connect(this.analyser);
+
+    // Get the skin color.
+    this.backColor = getCurrentSkinBackgroundColor();
   }
 
   start() {
@@ -47,6 +52,7 @@ export class Visualizer {
 
   stop() {
     cancelAnimationFrame(this.drawLoop);
+    this.ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
   }
 
   draw(ms = 0) {
@@ -64,7 +70,8 @@ export class Visualizer {
     this.ctx.drawImage(this.canvasEl, 0, 0, W, H, 0, moveOffset, W, H);
 
     // Don't entirely clear the screen to get some motion blur.
-    this.ctx.fillStyle = '#00000011';
+    const [r,g,b] = this.backColor;
+    this.ctx.fillStyle = `rgba(${r},${g},${b},0.1)`;
     this.ctx.fillRect(0, 0, W, H);
 
     if ((this.frameIndex % 2) !== 0) {

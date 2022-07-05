@@ -64,3 +64,36 @@ export async function openFilesFromDisk() {
 export function getFileNameWithoutExtension(fileName) {
   return fileName.split('.').slice(0, -1).join('.');
 }
+
+/**
+ * Skins are expected to have a `:root` CSS rule with a `--back` custom color property.
+ * This function returns the CSS value of that property, so it can be used from JS.
+ */
+export function getCurrentSkinBackgroundColor() {
+  let color = null;
+
+  const rules = document.styleSheets[0].cssRules;
+  for (const rule of rules) {
+    if (rule.selectorText === ':root') {
+      color = rule.style.getPropertyValue('--back');
+    }
+  }
+
+  return parseColor(color ? color : '#000');
+}
+
+function parseColor(color) {
+  const div = document.createElement('div');
+  document.body.appendChild(div);
+
+  div.style.color = color.trim();
+  const style = getComputedStyle(div).color;
+  const match = style.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+  div.remove();
+
+  if (match) {
+    return [match[1], match[2], match[3]];
+  }
+
+  throw new Error(`Color ${color} could not be parsed`);
+}

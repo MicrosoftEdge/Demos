@@ -4,9 +4,9 @@ import styles from "./playlist-song.css" assert { type: "css" };
 const template = document.createElement('template');
 template.innerHTML = `
 <button class="play" part="play"><span>Play</span></button>
+<input type="text" class="title" aria-label="Title" part="title" title="Click to edit">
 <input type="text" class="artist" aria-label="Artist" part="artist" title="Click to edit">
 <input type="text" class="album" aria-label="Album" part="album" title="Click to edit">
-<input type="text" class="title" aria-label="Title" part="title" title="Click to edit">
 <time class="duration" part="duration"></time>
 <button class="actions" part="actions" title="Song actions"><span>Actions</span></button>
 `;

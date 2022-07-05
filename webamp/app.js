@@ -21,7 +21,7 @@ const currentTimeLabel = document.getElementById("currenttime");
 const durationLabel = document.getElementById("duration");
 const playlistEl = document.querySelector(".playlist");
 const playlistSongsContainer = document.querySelector(".playlist .songs");
-const addSongButton = document.getElementById("add-song");
+const addSongsButton = document.getElementById("add-songs");
 const songActionsPopup = document.getElementById("song-actions-popup");
 const songActionDelete = document.getElementById("song-action-delete");
 const songActionExport = document.getElementById("song-action-export");
@@ -180,7 +180,7 @@ player.addEventListener("paused", () => {
 });
 
 // Manage the add song button.
-addSongButton.addEventListener("click", async () => {
+addSongsButton.addEventListener("click", async () => {
   const files = await openFilesFromDisk();
 
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
