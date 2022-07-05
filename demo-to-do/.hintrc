@@ -1,4 +1,0 @@
-{
-    "extends": ["development"],
-    "browserslist": "defaults, not IE 11"
-}
