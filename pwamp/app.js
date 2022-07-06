@@ -294,7 +294,7 @@ playlistActionExportAll.addEventListener('click', async () => {
 
 // Manage drag/dropping songs from explorer to playlist.
 addEventListener('dragover', e => {
-  if (document.documentElement.classList.has('visualizing')) {
+  if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
   e.preventDefault();
@@ -302,14 +302,14 @@ addEventListener('dragover', e => {
 });
 
 addEventListener('dragleave', e => {
-  if (document.documentElement.classList.has('visualizing')) {
+  if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
   document.documentElement.classList.remove('drop-target');
 });
 
 addEventListener('drop', async (e) => {
-  if (document.documentElement.classList.has('visualizing')) {
+  if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
   e.preventDefault();
