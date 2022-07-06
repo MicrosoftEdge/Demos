@@ -4,7 +4,7 @@ import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormatte
 import { importSongFromFile } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
-import { loadCustomOrResetSkin, reloadStoredCustomSkin, hasCustomSkinApplied } from "./skin.js";
+import { loadCustomOrResetSkin, reloadStoredCustomSkin } from "./skin.js";
 import { startRecordingAudio, stopRecordingAudio } from "./recorder.js";
 import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoadingSongPlaceholders } from "./song-ui-factory.js";
 
@@ -82,7 +82,7 @@ function updateUI() {
 
 // Calling this function starts (or reloads) the app.
 // If the store is changed, you can call this function again to reload the app.
-async function startApp() {
+export async function startApp() {
   clearInterval(updateLoop);
 
   removeLoadingSongPlaceholders(playlistSongsContainer);
@@ -94,7 +94,6 @@ async function startApp() {
 
   // Restore the skin from the store.
   await reloadStoredCustomSkin();
-  updateSkinButton();
 
   // Reload the playlist from the store.
   const songs = await player.loadPlaylist();
@@ -229,14 +228,7 @@ songActionExport.addEventListener("click", async () => {
 // Manage the custom skin button.
 loadCustomSkinButton.addEventListener('click', async () => {
   await loadCustomOrResetSkin();
-  updateSkinButton();
 });
-
-function updateSkinButton() {
-  const label = hasCustomSkinApplied() ? 'Reset to default skin' : 'Apply a custom skin';
-  loadCustomSkinButton.title = label;
-  loadCustomSkinButton.querySelector('span').textContent = label;
-}
 
 function isVisualizing() {
   return document.documentElement.classList.contains('visualizing');

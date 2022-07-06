@@ -1,12 +1,9 @@
 import { setCustomSkin, getCustomSkin } from "./store.js";
 import { getCurrentSkinBackgroundColor } from "./utils.js";
 
+const loadCustomSkinButton = document.getElementById("load-custom-skin");
 const defaultStyleSheet = document.getElementById('default-stylesheet');
 let customStyleSheet = null;
-
-export function hasCustomSkinApplied() {
-  return !!(customStyleSheet && customStyleSheet.parentNode);
-}
 
 export async function reloadStoredCustomSkin() {
   const previousSkin = await getCustomSkin();
@@ -49,11 +46,9 @@ export async function loadCustomOrResetSkin() {
   const text = await file.text();
 
   await applyCustomSkin(text);
-
-  setThemeColorMeta();
 }
 
-async function applyCustomSkin(skin) {
+export async function applyCustomSkin(skin) {
   // Remove the default stylesheet.
   defaultStyleSheet.remove();
 
@@ -66,6 +61,9 @@ async function applyCustomSkin(skin) {
   
   // Load the skin into the store.
   await setCustomSkin(skin);
+
+  setThemeColorMeta();
+  updateSkinButton();
 }
 
 async function revertToDefaultSkin() {
@@ -79,6 +77,7 @@ async function revertToDefaultSkin() {
   await setCustomSkin(null);
 
   setThemeColorMeta();
+  updateSkinButton();
 }
 
 function createInlineStyleSheet() {
@@ -90,4 +89,15 @@ function setThemeColorMeta() {
   // Set the theme meta to make the titlebar match the skin.
   const color = getCurrentSkinBackgroundColor();
   document.querySelector('meta[name="theme-color"]').setAttribute('content', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+}
+
+function hasCustomSkinApplied() {
+  return !!(customStyleSheet && customStyleSheet.parentNode);
+}
+
+function updateSkinButton() {
+  // Update the load skin button so it says the right thing depending on the state.
+  const label = hasCustomSkinApplied() ? 'Reset to default skin' : 'Apply a custom skin';
+  loadCustomSkinButton.title = label;
+  loadCustomSkinButton.querySelector('span').textContent = label;
 }
