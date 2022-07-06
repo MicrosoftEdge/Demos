@@ -21,7 +21,7 @@ input, button {
   font-size: inherit;
 }
 
-button, playlist-song::part(play) {
+button, .playlist-song .play {
   background: var(--text);
   color: var(--back);
   border: none;
@@ -29,7 +29,7 @@ button, playlist-song::part(play) {
   cursor: pointer;
 }
 
-button:hover, playlist-song::part(play):hover {
+button:hover, .playlist-song .play:hover {
   background-color: var(--highlight);
 }
 
@@ -73,31 +73,42 @@ button:hover, playlist-song::part(play):hover {
   border-bottom: none;
 }
 
-playlist-song {
+.playlist-song {
   padding: 1rem;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
-.songs li:has(playlist-song.playing) {
+.playlist-song input, .playlist-song button {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: min-content;
+}
+
+.playlist-song.playing {
   background: var(--text);
   color: var(--back);
 }
 
-playlist-song::part(actions) {
+.playlist-song .actions {
   color: transparent;
 }
 
-playlist-song::part(actions)::before {
+.playlist-song .actions::before {
   content: '...';
   color: var(--text);
 }
 
-playlist-song.playing::part(actions)::before {
+.playlist-song.playing .actions::before {
   color: var(--back);
 }
 
-playlist-song.playing::part(play) {
+.playlist-song.playing .play {
   visibility: hidden;
 }
 
