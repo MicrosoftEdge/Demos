@@ -1,6 +1,8 @@
 # PWAMP app demo
 
-This is a web audio player demo application. It is meant to be a PWA that's great to use on a desktop/laptop computer.
+PWAMP is a web audio player demo application. It is an installable web app that's great to use on a desktop or laptop computer.
+
+![Screenshot of the pwamp app](screenshot.png)
 
 ## User guide
 
