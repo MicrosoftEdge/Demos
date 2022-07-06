@@ -77,7 +77,8 @@ function updateUI() {
   }
 
   // Update the play state in the playlist.
-  playlistSongsContainer.querySelector(`[id="${player.song.id}"]`).classList.add('playing');
+  const currentSong = playlistSongsContainer.querySelector(`[id="${player.song.id}"]`);
+  currentSong && currentSong.classList.add('playing');
 }
 
 // Calling this function starts (or reloads) the app.

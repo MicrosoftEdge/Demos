@@ -15,8 +15,7 @@ A skin is a CSS file that gets applied to the app, replacing the default CSS.
 
 The best way to make a new skin is to open DevTools and look at the HTML structure of the page. Most elements should have handy classes and IDs that will make them easy to style.
 
-* Each song in the playlist is a custom element `<playlist-song>` and you can style its various elements by using the [`::part()` pseudo-element](https://developer.mozilla.org/docs/Web/CSS/::part). For example: `playlist-song::part(title)` can be used to style the song title.
-* Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background. This will be used at runtime, in JavaScript, by the app to apply the color to the visualizer and the title bar area.
+Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background. This will be used at runtime, in JavaScript, by the app to apply the color to the visualizer and the title bar area.
 
 ## What does the name mean
 

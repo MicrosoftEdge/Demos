@@ -1,10 +1,8 @@
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
   "./",
-  "./components/playlist-song.js",
-  "./components/playlist-song.css",
   "./skins/default.css",
   "./app.js",
   "./exporter.js",
