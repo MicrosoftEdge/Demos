@@ -65,6 +65,10 @@ export function getFileNameWithoutExtension(fileName) {
   return fileName.split('.').slice(0, -1).join('.');
 }
 
+export function getSongNameFromURL(url) {
+  return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+}
+
 /**
  * Skins are expected to have a `:root` CSS rule with a `--back` custom color property.
  * This function returns the CSS value of that property, so it can be used from JS.

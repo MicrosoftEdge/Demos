@@ -63,5 +63,11 @@
         ]
       }
     }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+amp",
+      "url": "./?addRemoteSong=%s"
+    }
   ]
 }

@@ -21,15 +21,15 @@ export class Visualizer {
     try {
       const stream = this.player.audio.captureStream();
       source = audioCtx.createMediaStreamSource(stream);
+
+      // Attach an analyser node.
+      this.analyser = audioCtx.createAnalyser();
+      this.analyser.fftSize = 256;
+  
+      source.connect(this.analyser);
     } catch (e) {
-      console.log('Could not create audio stream');
+      console.error('Could not analyze audio track. This might be a cross-origin audio URL.', e);
     }
-
-    // Attach an analyser node.
-    this.analyser = audioCtx.createAnalyser();
-    this.analyser.fftSize = 256;
-
-    source.connect(this.analyser);
 
     // Get the skin color.
     this.backColor = getCurrentSkinBackgroundColor();
@@ -59,8 +59,11 @@ export class Visualizer {
     this.drawLoop = requestAnimationFrame(this.draw.bind(this));
     this.frameIndex++;
 
-    const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
-    this.analyser.getByteFrequencyData(dataArray);
+    // Remote URL songs can't be analyzed (CORS), so we will just create empty data.
+    const dataArray = new Uint8Array(this.analyser ? this.analyser.frequencyBinCount : 128);
+    if (this.analyser) {
+      this.analyser.getByteFrequencyData(dataArray);
+    }
 
     const W = this.canvasEl.width;
     const H = this.canvasEl.height;
