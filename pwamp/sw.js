@@ -1,5 +1,5 @@
 const VERSION = "v1";
-const CACHE_NAME = `webamp-${VERSION}`;
+const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
   "./",
@@ -53,4 +53,22 @@ self.addEventListener("fetch", event => {
       return cachedResponse;
     }
   })());
+});
+
+// Special fetch handler for song file sharing.
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  if (event.request.method === 'POST' && url.pathname === '/handle-shared-song') {
+    event.respondWith((async () => {
+      const data = await event.request.formData();
+
+      const filename = data.get('title');
+      const file = data.get('audioFile');
+
+      // Do something with the shared data here.
+
+      return Response.redirect('../', 303);
+    })());
+  }
 });

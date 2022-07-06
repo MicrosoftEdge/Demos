@@ -1,5 +1,5 @@
 {
-  "name": "webamp",
+  "name": "pwamp",
   "description": "A web audio player app",
   "lang": "en-US",
   "start_url": "./",
@@ -33,7 +33,7 @@
       "action": "./",
       "accept": {
         "text/plain": [
-          ".webampskin"
+          ".pwampskin"
         ]
       }
     },
@@ -69,5 +69,27 @@
       "protocol": "web+amp",
       "url": "./?addRemoteSong=%s"
     }
-  ]
+  ],
+  "share_target": {
+    "action": "/handle-shared-song",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "files": [
+        {
+          "name": "audioFile",
+          "accept": [
+            "audio/wav",
+            "audio/mpeg",
+            "audio/mp4",
+            "audio/aac",
+            "audio/ogg",
+            "audio/webm",
+            "audio/flac"
+          ]
+        }
+      ]
+    }
+  }
 }

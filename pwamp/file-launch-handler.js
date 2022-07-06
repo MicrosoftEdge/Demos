@@ -7,7 +7,7 @@ async function handleFiles(files) {
   let needRestart = false;
 
   for (const file of files) {
-    if (file.name.endsWith(".webampskin")) {
+    if (file.name.endsWith(".pwampskin")) {
       // This is a skin file.
       const blob = await file.getFile();
       blob.handle = file;
