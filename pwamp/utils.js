@@ -38,12 +38,18 @@ export function getUniqueId() {
  */
 export async function openFilesFromDisk() {
   if (!('showOpenFilePicker' in window)) {
-    throw new Error('File System Access API not supported');
+    return await legacyOpenFilesFromDisk();
   }
 
   // TODO: how to allow selecting a folder?
   const handles = await window.showOpenFilePicker({
-    multiple: true
+    multiple: true,
+    types: [{
+      description: 'Audio files',
+      accept: {
+        "audio/*": ['.wav', '.mp3', '.mp4', '.aac', '.flac', '.ogg', '.webm']
+      }
+    }]
   });
 
   const files = [];
@@ -55,6 +61,29 @@ export async function openFilesFromDisk() {
   }
 
   return files;
+}
+
+function legacyOpenFilesFromDisk() {
+  // Create an input type file element.
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.multiple = true;
+  input.accept = 'audio/*';
+
+  // Simulate a click on the input element.
+  const event = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    view: window
+  });
+  input.dispatchEvent(event);
+
+  // Wait for the file to be selected.
+  return new Promise((resolve) => {
+    input.onchange = (event) => {
+      resolve(event.target.files);
+    }
+  });
 }
 
 /**

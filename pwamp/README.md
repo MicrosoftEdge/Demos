@@ -23,7 +23,6 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 ## TODO
 
-* Use input[type=file] instead of File System Access to make it work everywhere.
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
   * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction, so not sure what to use this for).
