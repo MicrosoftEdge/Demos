@@ -1,4 +1,4 @@
-const VERSION = "v2";
+const VERSION = "v6";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
@@ -6,10 +6,13 @@ const INITIAL_CACHED_RESOURCES = [
   "./skins/default.css",
   "./app.js",
   "./exporter.js",
+  "./file-launch-handler.js",
   "./importer.js",
   "./player.js",
   "./popup-polyfill.js",
+  "./protocol-launch-handler.js",
   "./recorder.js",
+  "./share-target-launch-handler.js",
   "./skin.js",
   "./song-ui-factory.js",
   "./store.js",
@@ -38,6 +41,10 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  if (event.request.method === 'POST') {
+    return;
+  }
+
   // On fetch, go to the network first (and cache the response), and then cache.
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
@@ -64,7 +71,21 @@ self.addEventListener('fetch', event => {
       const filename = data.get('title');
       const file = data.get('audioFile');
 
-      // Do something with the shared data here.
+      // Store the song in a special IDB place for the front-end to pick up later
+      // when it starts.
+      // Instead of importing idb-keyval here, we just have a few lines of manual
+      // IDB code, to store the file in the same keyval store that idb-keyval uses.
+      const openReq = indexedDB.open('keyval-store');
+      openReq.onupgradeneeded = e => {
+        const { target: { result: db } } = e;
+        db.createObjectStore("keyval");
+      }
+      openReq.onsuccess = e => {
+        const { target: { result: db } } = e;
+        const transaction = db.transaction("keyval", "readwrite");
+        const store = transaction.objectStore("keyval");
+        store.put(file, 'handled-shared-song');
+      }
 
       return Response.redirect('../', 303);
     })());
