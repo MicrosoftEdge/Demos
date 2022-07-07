@@ -1,4 +1,4 @@
-import { getUniqueId } from "../utils.js";
+import { getUniqueId } from "./utils.js";
 
 export function removeAllSongs(playlistSongsContainer) {
   playlistSongsContainer.innerHTML = '';
