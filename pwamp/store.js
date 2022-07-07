@@ -15,10 +15,10 @@ import { getUniqueId } from './utils.js';
  * Get the list of all songs stored in IDB.
  */
 export async function getSongs() {
-  let songs = await get('songs');
+  let songs = await get('pwamp-songs');
   if (!songs) {
     songs = [];
-    await set('songs', songs);
+    await set('pwamp-songs', songs);
   }
   return songs;
 }
@@ -63,7 +63,7 @@ async function addSong(type, id, title, artist, album, duration, data = null) {
 
   let songs = await getSongs();
   songs.push(song);
-  await set('songs', songs);
+  await set('pwamp-songs', songs);
 }
 
 /**
@@ -80,7 +80,7 @@ export async function editSong(id, title, artist, album) {
   song.artist = artist;
   song.album = album;
 
-  await set('songs', songs);
+  await set('pwamp-songs', songs);
 }
 
 /**
@@ -89,40 +89,40 @@ export async function editSong(id, title, artist, album) {
 export async function deleteSong(id) {
   let songs = await getSongs();
   songs = songs.filter(song => song.id !== id);
-  await set('songs', songs);
+  await set('pwamp-songs', songs);
 }
 
 /**
  * Delete all songs from IDB.
  */
 export async function deleteAllSongs() {
-  await del('songs');
+  await del('pwamp-songs');
 }
 
 /**
  * Set the volume in IDB so that we can remember it next time.
  */
 export async function setVolume(volume) {
-  await set('volume', volume);
+  await set('pwamp-volume', volume);
 }
 
 /**
  * Get the stored volume.
  */
 export async function getVolume() {
-  return await get('volume');
+  return await get('pwamp-volume');
 }
 
 /**
  * Set a custom skin in IDB.
  */
 export async function setCustomSkin(skin) {
-  await set('customSkin', skin);
+  await set('pwamp-customSkin', skin);
 }
 
 /**
  * Get the currently stored custom skin.
  */
 export async function getCustomSkin(skin) {
-  return await get('customSkin');
+  return await get('pwamp-customSkin');
 }

@@ -64,30 +64,31 @@ self.addEventListener("fetch", event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  if (event.request.method === 'POST' && url.pathname === '/handle-shared-song') {
-    event.respondWith((async () => {
-      const data = await event.request.formData();
-
-      const filename = data.get('title');
-      const file = data.get('audioFile');
-
-      // Store the song in a special IDB place for the front-end to pick up later
-      // when it starts.
-      // Instead of importing idb-keyval here, we just have a few lines of manual
-      // IDB code, to store the file in the same keyval store that idb-keyval uses.
-      const openReq = indexedDB.open('keyval-store');
-      openReq.onupgradeneeded = e => {
-        const { target: { result: db } } = e;
-        db.createObjectStore("keyval");
-      }
-      openReq.onsuccess = e => {
-        const { target: { result: db } } = e;
-        const transaction = db.transaction("keyval", "readwrite");
-        const store = transaction.objectStore("keyval");
-        store.put(file, 'handled-shared-song');
-      }
-
-      return Response.redirect('../', 303);
-    })());
+  if (event.request.method !== 'POST' || !url.pathname.includes('/handle-shared-song')) {
+    return;
   }
+
+  // Immediately redirect to the start URL, there's nothing to see here.
+  event.respondWith(Response.redirect('./'));
+
+  event.waitUntil(async function () {
+    const data = await event.request.formData();
+    const files = data.getAll('audioFiles');
+
+    // Store the song in a special IDB place for the front-end to pick up later
+    // when it starts.
+    // Instead of importing idb-keyval here, we just have a few lines of manual
+    // IDB code, to store the file in the same keyval store that idb-keyval uses.
+    const openReq = indexedDB.open('keyval-store');
+    openReq.onupgradeneeded = e => {
+      const { target: { result: db } } = e;
+      db.createObjectStore("keyval");
+    }
+    openReq.onsuccess = e => {
+      const { target: { result: db } } = e;
+      const transaction = db.transaction("keyval", "readwrite");
+      const store = transaction.objectStore("keyval");
+      store.put(files, 'handle-shared-files');
+    }
+  }());
 });

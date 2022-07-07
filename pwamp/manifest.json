@@ -78,7 +78,7 @@
       "title": "title",
       "files": [
         {
-          "name": "audioFile",
+          "name": "audioFiles",
           "accept": [
             "audio/wav",
             "audio/mpeg",
