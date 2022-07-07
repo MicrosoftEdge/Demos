@@ -725,9 +725,13 @@ dialog form button {
   padding: .25rem .5rem;
 }
 
-.popup-item:hover {
+.popup-item:not([disabled]):hover {
   background: var(--primary);
   color: var(--back);
+}
+
+.popup-item[disabled] {
+  color: var(--text-disabled);
 }
 
 #waveform {

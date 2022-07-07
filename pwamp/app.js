@@ -1,6 +1,6 @@
 import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate, canShare } from "./utils.js";
 import { importSongFromFile } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -25,6 +25,7 @@ const addSongsButton = document.getElementById("add-songs");
 const songActionsPopup = document.getElementById("song-actions-popup");
 const songActionDelete = document.getElementById("song-action-delete");
 const songActionExport = document.getElementById("song-action-export");
+const songActionShare = document.getElementById("song-action-share");
 const playlistActionsButton = document.getElementById("playlist-actions");
 const playlistActionsPopup = document.getElementById("playlist-actions-popup");
 const playlistActionDeleteAll = document.getElementById("playlist-action-delete");
@@ -123,6 +124,8 @@ export async function startApp() {
 
       songActionsPopup.showPopup();
       songActionsPopup.currentSong = song;
+
+      songActionShare.disabled = !canShare(song);
     });
   }
 
@@ -224,6 +227,21 @@ songActionExport.addEventListener("click", async () => {
   songActionsPopup.hidePopup();
 
   await exportSongToFile(song);
+});
+
+songActionShare.addEventListener("click", async () => {
+  const song = songActionsPopup.currentSong;  
+  if (!song || !canShare(song.data)) {
+    return;
+  }
+
+  songActionsPopup.currentSong = null;
+  songActionsPopup.hidePopup();
+
+  navigator.share({
+    title: song.title,
+    files: [song.data]
+  });
 });
 
 // Manage the custom skin button.

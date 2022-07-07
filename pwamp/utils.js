@@ -130,3 +130,10 @@ function parseColor(color) {
 
   throw new Error(`Color ${color} could not be parsed`);
 }
+
+export function canShare(file) {
+  return file &&
+    navigator.share &&
+    navigator.canShare &&
+    navigator.canShare({ files: [new File([file], 'test', { type: file.type })] });
+}
