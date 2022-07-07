@@ -17,7 +17,7 @@ The best way to make a new skin is to open DevTools and look at the HTML structu
 
 Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background. This will be used at runtime, in JavaScript, by the app to apply the color to the visualizer and the title bar area.
 
-## What does the name mean
+## What does the name mean?
 
 [Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAMP's name was inspired by it, we just replaced the `win` part with `PWA` which stands for [Progressive Web App](https://docs.microsoft.com/microsoft-edge/progressive-web-apps-chromium/). We decided not to name it webamp (which might have made more sense) because [webamp already exists](https://webamp.org/).
 
@@ -25,8 +25,8 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
+  * Sharing to other apps.
   * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction, so not sure what to use this for).
-  * Sharing and share target.
 * Submit to the store.
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
