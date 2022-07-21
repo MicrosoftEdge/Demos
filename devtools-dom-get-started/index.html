@@ -1,228 +1,207 @@
 <html>
   <head>
-      <script type="text/javascript">
+    <script type="text/javascript">
       window.onload = function () {
-        document.getElementById("botm_button").addEventListener("click", function(e) {
+        document
+          .getElementById("botm_button")
+          .addEventListener("click", (e) => {
             e.target.disabled = true;
             const botm_target = document.getElementById("botm_target");
             if (botm_target) {
-                botm_target.style = "background-color:thistle";
+              botm_target.style = "background-color:thistle";
             }
-        });
-        
-        document.getElementById("delete_button").addEventListener("click", function(e) {
+          });
+
+        document
+          .getElementById("delete_button")
+          .addEventListener("click", (e) => {
             e.target.disabled = true;
-            const nli_target = document.getElementById("nli_target");
-            if (nli_target) {
-                nli_target.parentElement.removeChild(nli_target);
+            const p_target = document.getElementById("p_target");
+            if (p_target) {
+              p_target.parentElement.removeChild(p_target);
             }
-        });
-        
-        document.getElementById("child_button").addEventListener("click", function(e) {
+          });
+
+        document
+          .getElementById("child_button")
+          .addEventListener("click", (e) => {
             e.target.disabled = true;
-            const bosm_li = document.createElement("li");
-            bosm_li.textContent = "A Deepness in the Sky";
-            document.getElementById("ul_target").appendChild(bosm_li);
-        });
-      }
-      </script>
+            const bosm_p = document.createElement("p");
+            bosm_p.textContent = "A Deepness in the Sky";
+            document.getElementById("ul_target").appendChild(bosm_p);
+          });
+      };
+    </script>
     <style>
       .demo--hover:hover {
         background-color: orange;
       }
 
-      div {
+      section {
         border-top: 3px solid gray;
+        padding: 1rem 0;
+      }
+
+      section h2 {
+        margin-top: 0;
+      }
+
+      section p {
+        margin: 0 0 0 1rem;
       }
     </style>
     <title>DOM Examples</title>
   </head>
   <body>
-    <h1>
-      DOM Examples
-    </h1>
-    <div id="inspect-a-node-1">
-      <h2>
-        Inspect a Node
-      </h2>
-      <ul>
-        <li>Michelangelo</li>
-        <li>Raphael</li>
-      </ul>
-    </div>
+    <h1>DOM Examples</h1>
+    <section id="inspect-a-node-1">
+      <h2>Inspect a Node</h2>
+      <div>
+        <p>Michelangelo</p>
+        <p>Raphael</p>
+      </div>
+    </section>
 
-    <div id="inspect-a-node-2">
-      <ul>
-        <li>Tokyo</li>
-        <li>Beirut</li>
-      </ul>
-    </div>
+    <section id="inspect-a-node-2">
+      <div>
+        <p>Tokyo</p>
+        <p>Beirut</p>
+      </div>
+    </section>
 
-    <div id="navigate-the-dom-tree-with-a-keyboard-1">
-      <h2>
-        Navigate the DOM Tree with a Keyboard
-      </h2>
-      <ul>
-        <li>George</li>
-        <li>Ringo</li>
-        <li>Paul</li>
-        <li>John</li>
-      </ul>
-    </div>
+    <section id="navigate-the-dom-tree-with-a-keyboard-1">
+      <h2>Navigate the DOM Tree with a Keyboard</h2>
+      <div>
+        <p>George</p>
+        <p>Ringo</p>
+        <p>Paul</p>
+        <p>John</p>
+      </div>
+    </section>
 
-    <div id="scroll-into-view-1">
-      <h2>
-        Scroll into View
-      </h2>
-      <ul>
-        <li>Magritte</li>
-        <li>Soutine</li>
-      </ul>
-    </div>
+    <section id="scroll-into-view-1">
+      <h2>Scroll into View</h2>
+      <div>
+        <p>Magritte</p>
+        <p>Soutine</p>
+      </div>
+    </section>
 
-    <div id="search-for-nodes-1">
-      <h2>
-        Search for Nodes
-      </h2>
+    <section id="search-for-nodes-1">
+      <h2>Search for Nodes</h2>
       <p><code>The Moon is a Harsh Mistress</code>.</p>
-    </div>
+    </section>
 
-    <div id="edit-content-1">
-      <h2>
-        Edit Content
-      </h2>
-      <ul>
-        <li>Fry</li>
-        <li>Michelle</li>
-      </ul>
-    </div>
+    <section id="edit-content-1">
+      <h2>Edit Content</h2>
+      <div>
+        <p>Fry</p>
+        <p>Michelle</p>
+      </div>
+    </section>
 
-    <div id="edit-attributes-1">
-      <h2>
-        Edit Attributes
-      </h2>
-      <ul>
-        <li>Howard</li>
-        <li>Vince</li>
-      </ul>
-    </div>
+    <section id="edit-attributes-1">
+      <h2>Edit Attributes</h2>
+      <div>
+        <p>Howard</p>
+        <p>Vince</p>
+      </div>
+    </section>
 
-    <div id="edit-node-type-1">
-      <h2>
-        Edit Node Type
-      </h2>
-      <ul>
-        <li>Dean</li>
-        <li>Hank</li>
-        <li>Thaddeus</li>
-        <li>Brock</li>
-      </ul>
-    </div>
+    <section id="edit-node-type-1">
+      <h2>Edit Node Type</h2>
+      <div>
+        <p>Dean</p>
+        <p>Hank</p>
+        <p>Thaddeus</p>
+        <p>Brock</p>
+      </div>
+    </section>
 
-    <div id="reorder-dom-nodes-1">
-      <h2>
-        Reorder DOM Nodes
-      </h2>
-      <ul>
-        <li>Stevie Wonder</li>
-        <li>Tom Waits</li>
-        <li>Chris Thile</li>
-        <li>Elvis Presley</li>
-      </ul>
-    </div>
+    <section id="reorder-dom-nodes-1">
+      <h2>Reorder DOM Nodes</h2>
+      <div>
+        <p>Stevie Wonder</p>
+        <p>Tom Waits</p>
+        <p>Chris Thile</p>
+        <p>Elvis Presley</p>
+      </div>
+    </section>
 
-    <div id="force-state-1">
-      <h2>
-        Force state
-      </h2>
-      <ul>
-        <li class="demo--hover">The Lord of the Flies</li>
-        <li>Crime and Punishment</li>
-        <li>Moby Dick</li>
-      </ul>
-    </div>
+    <section id="force-state-1">
+      <h2>Force state</h2>
+      <div>
+        <p class="demo--hover">The Lord of the Flies</p>
+        <p>Crime and Punishment</p>
+        <p>Moby Dick</p>
+      </div>
+    </section>
 
-    <div id="hide-a-node-1">
-      <h2>
-        Hide a node
-      </h2>
-      <ul>
-        <li>The Count of Monte Cristo</li>
-        <li>The Stars My Destination</li>
-      </ul>
-    </div>
+    <section id="hide-a-node-1">
+      <h2>Hide a node</h2>
+      <div>
+        <p>The Count of Monte Cristo</p>
+        <p>The Stars My Destination</p>
+      </div>
+    </section>
 
-    <div id="delete-a-node-1">
-      <h2>
-        Delete a Node
-      </h2>
-      <ul>
-        <li>The Illustrated Man</li>
-        <li>Through the Looking-Glass</li>
-        <li>Foundation</li>
-      </ul>
-    </div>
+    <section id="delete-a-node-1">
+      <h2>Delete a Node</h2>
+      <div>
+        <p>The Illustrated Man</p>
+        <p>Through the Looking-Glass</p>
+        <p>Foundation</p>
+      </div>
+    </section>
 
-    <div id="reference-the-currently-selected-node-with-$0-1">
-      <h2>
-        Reference the currently-selected node with $0
-      </h2>
-      <ul>
-        <li>The Left Hand of Darkness</li>
-        <li>Dune</li>
-      </ul>
-    </div>
+    <section id="reference-the-currently-selected-node-with-$0-1">
+      <h2>Reference the currently-selected node with $0</h2>
+      <div>
+        <p>The Left Hand of Darkness</p>
+        <p>Dune</p>
+      </div>
+    </section>
 
-    <div id="store-as-global-variable-1">
-      <h2>
-        Store as global variable
-      </h2>
-      <ul>
-        <li>The Big Sleep</li>
-        <li>The Long Goodbye</li>
-      </ul>
-    </div>
+    <section id="store-as-global-variable-1">
+      <h2>Store as global variable</h2>
+      <div>
+        <p>The Big Sleep</p>
+        <p>The Long Goodbye</p>
+      </div>
+    </section>
 
-    <div id="copy-js-path-1">
-      <h2>
-        Copy JS path
-      </h2>
-      <ul>
-        <li>The Brothers Karamazov</li>
-        <li>Crime and Punishment</li>
-      </ul>
-    </div>
+    <section id="copy-js-path-1">
+      <h2>Copy JS path</h2>
+      <div>
+        <p>The Brothers Karamazov</p>
+        <p>Crime and Punishment</p>
+      </div>
+    </section>
 
-    <div id="break-on-attribute-modifications-1">
-      <h2>
-        Break on attribute modifications
-      </h2>
-      <ul>
-        <li id="botm_target">Sauerkraut</li>
-        <li>Kimchi</li>
-      </ul>
+    <section id="break-on-attribute-modifications-1">
+      <h2>Break on attribute modifications</h2>
+      <div>
+        <p id="botm_target">Sauerkraut</p>
+        <p>Kimchi</p>
+      </div>
       <button id="botm_button">Set Background</button>
-    </div>
+    </section>
 
-    <div id="break-on-node-removal-1">
-      <h2>
-        Break on Node Removal
-      </h2>
-      <ul>
-        <li id="nli_target">Neuromancer</li>
-        <li>Stranger in a Strange Land</li>
-      </ul>
+    <section id="break-on-node-removal-1">
+      <h2>Break on Node Removal</h2>
+      <div>
+        <p id="p_target">Neuromancer</p>
+        <p>Stranger in a Strange Land</p>
+      </div>
       <button id="delete_button">Delete</button>
-    </div>
+    </section>
 
-    <div id="break-on-subtree-modifications-1">
-      <h2>
-        Break on Subtree Modifications
-      </h2>
-      <ul id="ul_target">
-        <li id="fire">A Fire Upon the Deep</li>
-      </ul>
+    <section id="break-on-subtree-modifications-1">
+      <h2>Break on Subtree Modifications</h2>
+      <div id="ul_target">
+        <p id="fire">A Fire Upon the Deep</p>
+      </div>
       <button id="child_button">Add Child</button>
-    </div>
+    </section>
   </body>
 </html>
