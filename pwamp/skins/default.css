@@ -36,6 +36,16 @@ body {
   overflow: hidden;
 }
 
+::-webkit-scrollbar, ::-webkit-scrollbar-track {
+  background: transparent;
+  width: .5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 100vh;
+}
+
 body {
   background: var(--back);
   color: var(--text);
@@ -701,6 +711,7 @@ dialog form button {
   box-shadow: 0 0 0 1px var(--back);
   opacity: 1;
   transition: opacity .1s linear;
+  pointer-events: all;
 }
 
 /* Only for browsers which support popup, hide the popup if it's not
@@ -708,11 +719,13 @@ dialog form button {
 @supports selector(:top-layer) {
   [popup]:not(:top-layer) {
     opacity: 0;
+    pointer-events: none;
   }
 }
 @supports not selector(:top-layer) {
   [popup][hidden] {
     opacity: 0;
+    pointer-events: none;
   }
 }
 
