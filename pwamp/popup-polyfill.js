@@ -1,11 +1,10 @@
-
-(function () {
-  if (!!document.createElement('div').showPopup) {
+window.onload = function () {
+  if (Element.prototype.hasOwnProperty("popUp")) {
     return;
   }
 
   const popups = [...document.querySelectorAll('[popup]')];
-  
+
   popups.forEach(popup => {
     popup.showPopup = function () {
       popup.removeAttribute('hidden');
@@ -23,4 +22,4 @@
       popup.hidePopup();
     }
   }, true);
-})();
+}
