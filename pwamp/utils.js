@@ -98,6 +98,19 @@ export function getSongNameFromURL(url) {
   return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
 }
 
+export function guessSongInfoFromString(str) {
+  // Test for the following pattern: 04 - artist - title
+  const match = str.match(/[0-9]+\s*-\s*([^-]+)\s*-\s*(.+)/);
+  if (match && match.length === 3) {
+    return {
+      artist: match[1],
+      title: match[2]
+    }
+  }
+
+  return {}
+}
+
 /**
  * Skins are expected to have a `:root` CSS rule with a `--back` custom color property.
  * This function returns the CSS value of that property, so it can be used from JS.

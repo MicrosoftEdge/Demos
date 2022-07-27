@@ -1,6 +1,6 @@
 import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate, canShare } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate, canShare, guessSongInfoFromString } from "./utils.js";
 import { importSongFromFile } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -129,6 +129,8 @@ export async function startApp() {
     });
   }
 
+  playlistEl.classList.toggle('has-songs', songs.length > 0);
+
   // Start the update loop.
   updateLoop = setInterval(updateUI, 500);
 }
@@ -190,7 +192,9 @@ addSongsButton.addEventListener("click", async () => {
 
   const importErrors = [];
   for (const file of files) {
-    const importResult = await importSongFromFile(file, getFileNameWithoutExtension(file.name));
+    const name = getFileNameWithoutExtension(file.name);
+    const { artist, album, title } = guessSongInfoFromString(name);
+    const importResult = await importSongFromFile(file, title, artist, album);
     if (importResult.error && importResult.message) {
       importErrors.push(importResult.message);
     }
@@ -230,7 +234,7 @@ songActionExport.addEventListener("click", async () => {
 });
 
 songActionShare.addEventListener("click", async () => {
-  const song = songActionsPopup.currentSong;  
+  const song = songActionsPopup.currentSong;
   if (!song || !canShare(song.data)) {
     return;
   }
