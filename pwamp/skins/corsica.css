@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+html {
+  font-family: 'VT323', monospace;
+  font-size: 18pt;
+}
+
+input, button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+:root {
+  --back: #28a4d1;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+html {
+  background-color: var(--back);
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+section {
+  padding: .5rem;
+  border-bottom: 2px solid #0003;
+  border-top: 2px solid #FFF5;
+  border-right: 2px solid #0002;
+  border-left: 2px solid #FFF2;
+}
+
+.player {
+  grid-row: 1;
+  grid-column: 1;
+  padding-top: env(titlebar-area-height, .5rem);
+}
+
+.volume {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: env(titlebar-area-height, .5rem);
+}
+
+.app-controls {
+  grid-row: 2;
+  grid-column: 1 / 3;
+}
+
+.playlist {
+  grid-row: 3;
+  grid-column: 1 / 3;
+  overflow-y: auto;
+}
+
+#waveform {
+  position: fixed;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  animation: r 30s linear infinite;
+}
+
+@keyframes r {
+  0% {
+    transform: rotate(0turn) scale(1);
+  }
+  50% {
+    transform: rotate(.5turn) scale(2);
+  }
+  100% {
+    transform: rotate(1turn) scale(1);
+  }
+}
+
+input[type="range"] {
+  appearance: none;
+  background-color: transparent;
+}
+
+input[type="range"]::-webkit-slider-container {
+  -webkit-user-modify: read-write !important;
+  margin: 0;
+  height: 1rem;
+  outline: 2px solid #0009;
+  outline-offset: -2px;
+  background: #fff2;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  margin: 0;
+  -webkit-appearance: none;
+  height: 1rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  width: 1rem;
+  height: 1rem;
+  cursor: ew-resize;
+  background: black;
+  position: relative;
+  border-left: 2px solid #FFF3;
+  border-top: 2px solid #FFF3;
+}
+
+.playlist-song input {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.playhead-control {
+  display: flex;
+  align-items: center;
+}
+
+.playhead-control #playhead {
+  flex: 1;
+}
+
+.player-controls button, 
+.playlist .play {
+  border: none;
+  background: transparent;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  display: inline-grid;
+  place-content: center;
+}
+
+.player-controls button span,
+.playlist .play span {
+  display: none;
+}
+
+.player-controls button::before,
+.playlist .play::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+}
+
+.player-controls, .app-controls {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+}
+
+#playpause::before,
+.playlist .play::before {
+  background-image: 
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black);
+  background-size: 
+    20% 100%,
+    20% 80%,
+    20% 60%,
+    20% 40%,
+    20% 20%;
+  background-position:
+    0 50%,
+    20% 50%,
+    40% 50%,
+    60% 50%,
+    80% 50%;
+  background-repeat: no-repeat;
+}
+
+#playpause.playing::before {
+  background-image: 
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black);
+  background-size: 
+    30% 100%,
+    30% 100%;
+  background-position:
+    0 0,
+    70% 0;
+}
+
+#next::before {
+  background-image: 
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black);
+  background-size: 
+    10% 100%,
+    10% 80%,
+    10% 60%,
+    10% 40%,
+    10% 20%,
+    20% 100%;
+  background-position:
+    0 50%,
+    10% 50%,
+    20% 50%,
+    30% 50%,
+    40% 50%,
+    70% 0;
+  background-repeat: no-repeat;
+}
+
+#previous::before {
+  background-image: 
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black),
+    linear-gradient(to bottom, black, black);
+  background-size: 
+    20% 100%,
+    10% 20%,
+    10% 40%,
+    10% 60%,
+    10% 80%,
+    10% 100%;
+  background-position:
+    0 0,
+    30% 50%,
+    40% 50%,
+    50% 50%,
+    60% 50%,
+    70% 50%;
+  background-repeat: no-repeat;
+}
+
+.app-controls button,
+.playlist .actions {
+  color: black;
+  border: 2px solid currentColor;
+  background: #FFF2;
+  font-size: 12pt;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 4px 4px;
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+  padding-left: 10px;
+}
+
+#record-audio.recording {
+  color: red;
+}
+
+.songs {
+  padding: 0;
+  margin: 0;
+}
+
+.playlist-song {
+  display: flex;
+  gap: .5rem;
+  justify-content: space-between;
+  margin: 0 0 .5rem 0;
+}
+
+.playlist.has-songs .empty-playlist,
+.playlist:not(.has-songs) .songs {
+  display: none;
+}
+
+.playlist:not(.has-songs) .empty-playlist,
+.playlist.has-songs .songs {
+  display: block;
+}
