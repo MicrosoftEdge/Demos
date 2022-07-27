@@ -17,30 +17,27 @@ export function createSongUI(playlistSongsContainer, song) {
   li.appendChild(playButton);
 
   // Song title
-  const titleInput = document.createElement("input");
+  const titleInput = document.createElement("span");
   titleInput.classList.add('title');
-  titleInput.setAttribute('type', 'text');
-  titleInput.setAttribute('aria-label', 'Title');
-  titleInput.setAttribute('title', 'Click to edit');
-  titleInput.value = song.title;
+  titleInput.setAttribute('title', 'Song title - click to edit');
+  titleInput.textContent = song.title;
+  titleInput.setAttribute('contenteditable', true);
   li.appendChild(titleInput);
 
   // Artist name
-  const artistInput = document.createElement("input");
+  const artistInput = document.createElement("span");
   artistInput.classList.add('artist');
-  artistInput.setAttribute('type', 'text');
-  artistInput.setAttribute('aria-label', 'Artist');
-  artistInput.setAttribute('title', 'Click to edit');
-  artistInput.value = song.artist;
+  artistInput.setAttribute('title', 'Artist - click to edit');
+  artistInput.textContent = song.artist;
+  artistInput.setAttribute('contenteditable', true);
   li.appendChild(artistInput);
 
   // Album name
-  const albumInput = document.createElement("input");
+  const albumInput = document.createElement("span");
   albumInput.classList.add('album');
-  albumInput.setAttribute('type', 'text');
-  albumInput.setAttribute('aria-label', 'Album');
-  albumInput.setAttribute('title', 'Click to edit');
-  albumInput.value = song.album;
+  albumInput.setAttribute('title', 'Album - click to edit');
+  albumInput.textContent = song.album;
+  albumInput.setAttribute('contenteditable', true);
   li.appendChild(albumInput);
 
   // Duration label
@@ -67,15 +64,15 @@ export function createSongUI(playlistSongsContainer, song) {
   function handleDetailsEdit() {
     li.dispatchEvent(new CustomEvent("edit-song", {
       detail: {
-        artist: this.artistInput.value,
-        album: this.albumInput.value,
-        title: this.titleInput.value
+        artist: artistInput.textContent,
+        album: albumInput.textContent,
+        title: titleInput.textContent
       }
     }));
   }
-  titleInput.addEventListener('change', handleDetailsEdit);
-  artistInput.addEventListener('change', handleDetailsEdit);
-  albumInput.addEventListener('change', handleDetailsEdit);
+  titleInput.addEventListener('input', handleDetailsEdit);
+  artistInput.addEventListener('input', handleDetailsEdit);
+  albumInput.addEventListener('input', handleDetailsEdit);
 
   // Actions button event listener
   actionsButton.addEventListener('click', () => {

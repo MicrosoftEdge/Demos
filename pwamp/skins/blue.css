@@ -265,6 +265,10 @@ input[type="range"]::-webkit-slider-thumb {
   padding-left: 10px;
 }
 
+.playlist .actions {
+  align-self: start;
+}
+
 #record-audio.recording {
   color: red;
 }
@@ -277,8 +281,15 @@ input[type="range"]::-webkit-slider-thumb {
 .playlist-song {
   display: flex;
   gap: .5rem;
-  justify-content: space-between;
   margin: 0 0 .5rem 0;
+}
+
+.playlist-song .duration {
+  margin-inline-start: auto;
+}
+
+.playlist-song .title::after, .playlist-song .artist::after {
+  content: " - ";
 }
 
 .playlist.has-songs .empty-playlist,

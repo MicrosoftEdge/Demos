@@ -14,7 +14,7 @@ import { formatTime } from "./utils.js";
  * If the song already exists (based on URL) or if the URL didn't return a
  * valid audio file, then an error message is returned.
  */
-export async function importSongFromURL(url, title = 'Unknown', artist = 'Unknown', album = 'Unknown') {
+export async function importSongFromURL(url, title = 'Unknown', artist = 'Unknown artist', album = 'Unknown album') {
   const alreadyExists = await hasRemoteURLSong(url);
   if (alreadyExists) {
     return { error: true, message: 'Song already exists' };
@@ -44,7 +44,7 @@ function turnFileIntoURL(file) {
  * Attempt to import a new song into the store from a File object.
  * If the file could not be read as an audio file an error message is returned.
  */
-export async function importSongFromFile(file, title = 'Unknown', artist = 'Unknown', album = 'Unknown') {
+export async function importSongFromFile(file, title = 'Unknown', artist = 'Unknown artist', album = 'Unknown album') {
   const url = await turnFileIntoURL(file);
 
   const duration = await getSongDuration(url);

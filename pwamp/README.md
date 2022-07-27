@@ -23,6 +23,8 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 ## TODO
 
+* Fix popup bug (showPopup not defined).
+* Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
   * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction, so not sure what to use this for).
@@ -30,5 +32,6 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
-* Add keyboard shortcuts to play/pause/prev/next/visualize/...
+* Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
 * Default skin needs to better handle very wide windows, make use of all the empty space.
+* Artwork support.

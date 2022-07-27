@@ -236,14 +236,20 @@ body {
   width: max-content;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2rem 1fr 1fr 2rem 2rem;
+  grid-template-columns: 2rem 15rem 10rem 2rem 2rem;
   grid-template-rows: 1fr 1fr;
   column-gap: 1rem;
   background-color: var(--back);
   transition: background-color .1s linear;
 }
 
-.playlist-song input, .playlist-song button {
+.playlist-song > span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.playlist-song button {
   font-size: inherit;
   font-family: inherit;
   color: inherit;
@@ -371,7 +377,7 @@ body {
 
 @media (max-width: 800px) {
   .playlist-song {
-    grid-template-columns: 2rem 1fr 2rem 2rem;
+    grid-template-columns: 2rem 20rem 2rem 2rem;
     grid-template-rows: 1fr 1fr 1fr;
   }
 
@@ -405,9 +411,9 @@ body {
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
   .playlist-song {
-    grid-template-columns: 2rem 1fr 2rem;
+    grid-template-columns: 2rem 15rem 2rem;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
 
@@ -419,6 +425,7 @@ body {
     grid-row: 4;
     grid-column: 2;
     justify-self: start;
+    padding-left: unset;
   }
 
   .playlist-song .title {
