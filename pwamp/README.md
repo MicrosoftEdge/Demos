@@ -28,6 +28,7 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
   * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction, so not sure what to use this for).
+  * Web Widgets
 * Submit to the store.
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
