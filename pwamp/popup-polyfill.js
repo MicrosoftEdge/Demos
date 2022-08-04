@@ -6,10 +6,10 @@ window.onload = function () {
   const popups = [...document.querySelectorAll('[popup]')];
 
   popups.forEach(popup => {
-    popup.showPopup = function () {
+    popup.showPopUp = function () {
       popup.removeAttribute('hidden');
     }
-    popup.hidePopup = function () {
+    popup.hidePopUp = function () {
       popup.setAttribute('hidden', '');
     };
 
@@ -19,7 +19,7 @@ window.onload = function () {
   addEventListener('click', e => {
     const popup = popups.find(popup => !popup.hasAttribute('hidden'));
     if (popup) {
-      popup.hidePopup();
+      popup.hidePopUp();
     }
   }, true);
 }

@@ -122,7 +122,7 @@ export async function startApp() {
       songActionsPopup.style.left = `${e.detail.x}px`;
       songActionsPopup.style.top = `${e.detail.y - playlistEl.scrollTop}px`;
 
-      songActionsPopup.showPopup();
+      songActionsPopup.showPopUp();
       songActionsPopup.currentSong = song;
 
       songActionShare.disabled = !canShare(song);
@@ -215,7 +215,7 @@ songActionDelete.addEventListener("click", async () => {
   }
 
   songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopup();
+  songActionsPopup.hidePopUp();
 
   await deleteSong(song.id);
   await startApp();
@@ -228,7 +228,7 @@ songActionExport.addEventListener("click", async () => {
   }
 
   songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopup();
+  songActionsPopup.hidePopUp();
 
   await exportSongToFile(song);
 });
@@ -240,7 +240,7 @@ songActionShare.addEventListener("click", async () => {
   }
 
   songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopup();
+  songActionsPopup.hidePopUp();
 
   navigator.share({
     title: song.title,
@@ -299,19 +299,19 @@ recordAudioButton.addEventListener('click', async () => {
 playlistActionsButton.addEventListener('click', () => {
   playlistActionsPopup.style.left = `${playlistActionsButton.offsetLeft + (playlistActionsButton.offsetWidth / 2) - (playlistActionsPopup.offsetWidth / 2)}px`;
   playlistActionsPopup.style.top = `calc(${playlistActionsButton.offsetTop - playlistActionsPopup.offsetHeight}px - 1rem)`;
-  playlistActionsPopup.showPopup();
+  playlistActionsPopup.showPopUp();
 });
 
 playlistActionDeleteAll.addEventListener('click', async () => {
   await deleteAllSongs();
-  playlistActionsPopup.hidePopup();
+  playlistActionsPopup.hidePopUp();
   await startApp();
 });
 
 playlistActionExportAll.addEventListener('click', async () => {
   const songs = await getSongs();
   await Promise.all(songs.map(song => exportSongToFile(song)));
-  playlistActionsPopup.hidePopup();
+  playlistActionsPopup.hidePopUp();
 });
 
 
@@ -348,7 +348,9 @@ addEventListener('drop', async (e) => {
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
 
   for (const file of files) {
-    await importSongFromFile(file, getFileNameWithoutExtension(file.name));
+    const name = getFileNameWithoutExtension(file.name);
+    const { artist, album, title } = guessSongInfoFromString(name);
+    await importSongFromFile(file, title, artist, album);
   }
 
   await startApp();

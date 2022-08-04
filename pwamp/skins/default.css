@@ -272,7 +272,7 @@ body {
   color: var(--text-disabled);
 }
 
-.playlist-song.playing .artist {
+html:not(.visualizing) .playlist-song.playing .artist {
   color: var(--back);
 }
 

@@ -22,6 +22,7 @@ export function createSongUI(playlistSongsContainer, song) {
   titleInput.setAttribute('title', 'Song title - click to edit');
   titleInput.textContent = song.title;
   titleInput.setAttribute('contenteditable', true);
+  titleInput.setAttribute('spellcheck', false);
   li.appendChild(titleInput);
 
   // Artist name
@@ -30,6 +31,7 @@ export function createSongUI(playlistSongsContainer, song) {
   artistInput.setAttribute('title', 'Artist - click to edit');
   artistInput.textContent = song.artist;
   artistInput.setAttribute('contenteditable', true);
+  artistInput.setAttribute('spellcheck', false);
   li.appendChild(artistInput);
 
   // Album name
@@ -38,6 +40,7 @@ export function createSongUI(playlistSongsContainer, song) {
   albumInput.setAttribute('title', 'Album - click to edit');
   albumInput.textContent = song.album;
   albumInput.setAttribute('contenteditable', true);
+  albumInput.setAttribute('spellcheck', false);
   li.appendChild(albumInput);
 
   // Duration label
@@ -59,6 +62,20 @@ export function createSongUI(playlistSongsContainer, song) {
   playButton.addEventListener('click', () => {
     li.dispatchEvent(new CustomEvent("play-song", { bubbles: true }));
   });
+
+  // Auto-select text on focus
+  function focusText() {
+    window.setTimeout(function () {
+      const range = document.createRange();
+      range.selectNodeContents(document.activeElement);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }, 1);
+  }
+  titleInput.addEventListener('focus', focusText);
+  artistInput.addEventListener('focus', focusText);
+  albumInput.addEventListener('focus', focusText);
 
   // Song details change listener
   function handleDetailsEdit() {

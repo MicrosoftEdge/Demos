@@ -23,7 +23,6 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 ## TODO
 
-* Fix popup bug (showPopup not defined).
 * Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
