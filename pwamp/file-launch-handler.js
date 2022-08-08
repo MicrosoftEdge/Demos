@@ -1,10 +1,23 @@
 import { applyCustomSkin } from "./skin.js";
 import { importSongFromFile } from "./importer.js";
-import { startApp } from "./app.js";
-import { getFileNameWithoutExtension } from "./utils.js";
+import { startApp, playlistSongsContainer } from "./app.js";
+import { getFileNameWithoutExtension, guessSongInfoFromString } from "./utils.js";
+import { createLoadingSongPlaceholders } from "./song-ui-factory.js";
+
+const AUDIO_EXTENSIONS = [".wav", ".mp3", ".mp4", ".adts", ".ogg", ".webm", ".flac"];
 
 async function handleFiles(files) {
-  let needRestart = false;
+  // Check if there will be song files to import, and how many.
+  let songFilesToImport = 0;
+  for (const file of files) {
+    if (AUDIO_EXTENSIONS.includes(file.name.substring(file.name.lastIndexOf(".")).toLowerCase())) {
+      songFilesToImport++;
+    }
+  }
+
+  if (songFilesToImport > 0) {
+    createLoadingSongPlaceholders(playlistSongsContainer, songFilesToImport);
+  }
 
   for (const file of files) {
     if (file.name.endsWith(".pwampskin")) {
@@ -16,12 +29,14 @@ async function handleFiles(files) {
     } else {
       // Otherwise it's an audio file.
       const blob = await file.getFile();
-      await importSongFromFile(blob, getFileNameWithoutExtension(file.name));
-      needRestart = true;
+
+      const name = getFileNameWithoutExtension(file.name);
+      const { artist, album, title } = guessSongInfoFromString(name);
+      await importSongFromFile(blob, title, artist, album);
     }
   }
 
-  if (needRestart) {
+  if (songFilesToImport > 0) {
     await startApp();
   }
 }
