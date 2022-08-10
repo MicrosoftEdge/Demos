@@ -1,6 +1,6 @@
 import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFileNameWithoutExtension, getFormattedDate, canShare, guessSongInfoFromString } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFormattedDate, canShare, guessSongInfo } from "./utils.js";
 import { importSongFromFile } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -192,8 +192,7 @@ addSongsButton.addEventListener("click", async () => {
 
   const importErrors = [];
   for (const file of files) {
-    const name = getFileNameWithoutExtension(file.name);
-    const { artist, album, title } = guessSongInfoFromString(name);
+    const { artist, album, title } = await guessSongInfo(file);
     const importResult = await importSongFromFile(file, title, artist, album);
     if (importResult.error && importResult.message) {
       importErrors.push(importResult.message);
@@ -348,8 +347,7 @@ addEventListener('drop', async (e) => {
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
 
   for (const file of files) {
-    const name = getFileNameWithoutExtension(file.name);
-    const { artist, album, title } = guessSongInfoFromString(name);
+    const { artist, album, title } = await guessSongInfo(file);
     await importSongFromFile(file, title, artist, album);
   }
 

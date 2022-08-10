@@ -90,7 +90,7 @@ function legacyOpenFilesFromDisk() {
  * Given a string with at least one dot and some text after it, return the part between
  * the start of the string and the last dot.
  */
-export function getFileNameWithoutExtension(fileName) {
+function getFileNameWithoutExtension(fileName) {
   return fileName.split('.').slice(0, -1).join('.');
 }
 
@@ -98,7 +98,7 @@ export function getSongNameFromURL(url) {
   return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
 }
 
-export function guessSongInfoFromString(str) {
+function guessSongInfoFromString(str) {
   // Test for the following pattern: 04 - artist - title
   const match = str.match(/[0-9]+\s*-\s*([^-]+)\s*-\s*(.+)/);
   if (match && match.length === 3) {
@@ -109,6 +109,48 @@ export function guessSongInfoFromString(str) {
   }
 
   return {}
+}
+
+let audioMetadataParseWorker = null;
+
+/**
+ * Use the parse-audio-metadata library to parse an audio file.
+ * Do this in a worker thread, spawning it first if needed.
+ * @param {File} The audio file to parse.
+ * @return {Promise} A promise that resolves to the song info.
+ */
+function guessSongInfoFromFile(file) {
+  return new Promise((resolve, reject) => {
+    if (!audioMetadataParseWorker) {
+      audioMetadataParseWorker = new Worker('./audio-metadata-parse-worker.js', { type: "module" });
+    }
+
+    audioMetadataParseWorker.addEventListener('message', event => {
+      resolve({
+        artist: event.data.artist,
+        title: event.data.title,
+        album: event.data.album
+      });
+    }, { once: true });
+
+    audioMetadataParseWorker.postMessage(file);
+  });
+}
+
+export async function guessSongInfo(file) {
+  // First try from the file name.
+  const name = getFileNameWithoutExtension(file.name);
+  const fromFileName = guessSongInfoFromString(name);
+
+  // Next parse the audio metadata.
+  const fromMetadata = await guessSongInfoFromFile(file);
+
+  // If anything is missing from the metadata, complete it from the file name.
+  return {
+    album: fromMetadata.album || fromFileName.album,
+    artist: fromMetadata.artist || fromFileName.artist,
+    title: fromMetadata.title || fromFileName.title
+  };
 }
 
 /**

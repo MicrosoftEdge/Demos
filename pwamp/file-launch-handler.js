@@ -1,7 +1,7 @@
 import { applyCustomSkin } from "./skin.js";
 import { importSongFromFile } from "./importer.js";
 import { startApp, playlistSongsContainer } from "./app.js";
-import { getFileNameWithoutExtension, guessSongInfoFromString } from "./utils.js";
+import { guessSongInfo } from "./utils.js";
 import { createLoadingSongPlaceholders } from "./song-ui-factory.js";
 
 const AUDIO_EXTENSIONS = [".wav", ".mp3", ".mp4", ".adts", ".ogg", ".webm", ".flac"];
@@ -30,8 +30,7 @@ async function handleFiles(files) {
       // Otherwise it's an audio file.
       const blob = await file.getFile();
 
-      const name = getFileNameWithoutExtension(file.name);
-      const { artist, album, title } = guessSongInfoFromString(name);
+      const { artist, album, title } = await guessSongInfo(file);
       await importSongFromFile(blob, title, artist, album);
     }
   }

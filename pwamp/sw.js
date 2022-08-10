@@ -1,4 +1,4 @@
-const VERSION = "v6";
+const VERSION = "v7";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
@@ -18,6 +18,8 @@ const INITIAL_CACHED_RESOURCES = [
   "./store.js",
   "./utils.js",
   "./visualizer.js",
+  "./audio-metadata-parse-worker.js",
+  "./parseAudioMetadata.js"
 ];
 
 // On install, fill the cache with all the resources we know we need.

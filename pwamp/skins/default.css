@@ -711,6 +711,7 @@ dialog form button {
   position: fixed;
   padding: 0;
   border: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 1px;

@@ -21,6 +21,8 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 [Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAMP's name was inspired by it, we just replaced the `win` part with `PWA` which stands for [Progressive Web App](https://docs.microsoft.com/microsoft-edge/progressive-web-apps-chromium/). We decided not to name it webamp (which might have made more sense) because [webamp already exists](https://webamp.org/).
 
+You can think of this as the Progressive Web Amp.
+
 ## TODO
 
 * Add current song playing info in player.
