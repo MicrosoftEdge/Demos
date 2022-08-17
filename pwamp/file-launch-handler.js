@@ -30,7 +30,7 @@ async function handleFiles(files) {
       // Otherwise it's an audio file.
       const blob = await file.getFile();
 
-      const { artist, album, title } = await guessSongInfo(file);
+      const { artist, album, title } = await guessSongInfo(blob);
       await importSongFromFile(blob, title, artist, album);
     }
   }
