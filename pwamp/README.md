@@ -25,6 +25,9 @@ You can think of this as the Progressive Web Amp.
 
 ## TODO
 
+* Add ability to edit: checkboxes for songs, select 1 or more songs, click edit, and change artist/album/artwork in a dialog.
+* Improve song adding performance.
+  * Parallelize them. They are done in a sequence which is not useful.
 * Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
 * Make use of PWA features to make it a great desktop experience:
