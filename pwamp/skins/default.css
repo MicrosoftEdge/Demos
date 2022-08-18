@@ -236,11 +236,15 @@ body {
   width: max-content;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2rem 15rem 10rem 2rem 2rem;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2rem 30vw 30vw 20vw 2rem 2rem;
+  grid-template-rows: 1fr;
   column-gap: 1rem;
   background-color: var(--back);
   transition: background-color .1s linear;
+}
+
+.playlist-song:nth-child(2n) {
+  background: #ffffff04;
 }
 
 .playlist-song > span {
@@ -253,8 +257,8 @@ body {
   font-size: inherit;
   font-family: inherit;
   color: inherit;
-  background-color: inherit;
-  border: inherit;
+  background-color: transparent;
+  border: 0;
   margin: 0;
   padding: 0;
   width: min-content;
@@ -266,8 +270,7 @@ body {
 }
 
 .playlist-song .artist {
-  grid-row: 2;
-  grid-column: 2;
+  grid-column: 3;
   font-size: 0.8rem;
   color: var(--text-disabled);
 }
@@ -277,8 +280,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .album {
-  grid-row: 1;
-  grid-column: 3;
+  grid-column: 4;
   align-self: center;
 }
 
@@ -287,12 +289,10 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .title {
-  grid-row: 1;
   grid-column: 2;
 }
 
 .playlist-song .play {
-  grid-row: 1;
   grid-column: 1;
   place-self: center;
   color: transparent;
@@ -314,8 +314,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .duration {
-  grid-row: 1;
-  grid-column: 4;
+  grid-column: 5;
   place-self: center;
   font-size: .7rem;
   padding-left: .25rem;
@@ -327,8 +326,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .actions {
-  grid-row: 1;
-  grid-column: 5;
+  grid-column: 6;
   width: 1rem;
   height: 1rem;
   overflow: hidden;
@@ -372,6 +370,44 @@ html:not(.visualizing) .playlist-song.playing .artist {
   }
   to {
     background-position: 10em 0;
+  }
+}
+
+@media (max-width: 1300px) {
+  .playlist-song {
+    grid-template-columns: 2rem 15rem 10rem 2rem 2rem;
+    grid-template-rows: 1fr 1fr;
+    border-bottom: 0;
+  }
+
+  .playlist-song .play {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .playlist-song .artist {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  
+  .playlist-song .album {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  
+  .playlist-song .title {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .playlist-song .duration {
+    grid-row: 1;
+    grid-column: 4;
+  }
+
+  .playlist-song .actions {
+    grid-row: 1;
+    grid-column: 5;
   }
 }
 

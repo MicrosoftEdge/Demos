@@ -1,5 +1,5 @@
-import { hasRemoteURLSong, addRemoteURLSong, addLocalFileSong } from "./store.js";
-import { formatTime } from "./utils.js";
+import { hasRemoteURLSong, addRemoteURLSong, addLocalFileSong, addMultipleLocalFileSongs } from "./store.js";
+import { formatTime, guessSongInfo } from "./utils.js";
 
 // To add new songs into the store, the app uses this importer instead of the
 // store functions directly.
@@ -41,10 +41,35 @@ function turnFileIntoURL(file) {
 }
 
 /**
+ * Import multiple songs from files at once into the store.
+ * @param {Array} files 
+ */
+export async function importSongsFromFiles(files) {
+  const songs = [];
+
+  // We can do this part in parallel.
+  await Promise.all(files.map(async file => {
+    const { title, artist, album } = await guessSongInfo(file)
+
+    const url = await turnFileIntoURL(file);
+    const duration = await getSongDuration(url);
+
+    songs.push({ title, artist, album, duration: formatTime(duration), file });
+  }));
+
+  // And then add all songs in one go in the storage.
+  await addMultipleLocalFileSongs(songs);
+}
+
+/**
+ * DO NOT LOOP OVER THIS FUNCTION TO IMPORT SEVERAL SONGS, THIS WILL LEAD TO
+ * AN INCONSISTENT STORE STATE. USE importSongsFromFiles() INSTEAD.
  * Attempt to import a new song into the store from a File object.
  * If the file could not be read as an audio file an error message is returned.
  */
-export async function importSongFromFile(file, title = 'Unknown', artist = 'Unknown artist', album = 'Unknown album') {
+export async function importSongFromFile(file) {
+  const { title, artist, album } = await guessSongInfo(file)
+
   const url = await turnFileIntoURL(file);
 
   const duration = await getSongDuration(url);

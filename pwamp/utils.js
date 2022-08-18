@@ -111,8 +111,6 @@ function guessSongInfoFromString(str) {
   return {}
 }
 
-let audioMetadataParseWorker = null;
-
 /**
  * Use the parse-audio-metadata library to parse an audio file.
  * Do this in a worker thread, spawning it first if needed.
@@ -121,11 +119,11 @@ let audioMetadataParseWorker = null;
  */
 function guessSongInfoFromFile(file) {
   return new Promise((resolve, reject) => {
-    if (!audioMetadataParseWorker) {
-      audioMetadataParseWorker = new Worker('./audio-metadata-parse-worker.js', { type: "module" });
-    }
+    // Create a new one for every file, to avoid receiving messages about other songs.
+    const worker = new Worker('./audio-metadata-parse-worker.js', { type: "module" });
 
-    audioMetadataParseWorker.addEventListener('message', event => {
+    worker.addEventListener('message', event => {
+      worker.terminate();
       resolve({
         artist: event.data.artist,
         title: event.data.title,
@@ -133,7 +131,7 @@ function guessSongInfoFromFile(file) {
       });
     }, { once: true });
 
-    audioMetadataParseWorker.postMessage(file);
+    worker.postMessage(file);
   });
 }
 

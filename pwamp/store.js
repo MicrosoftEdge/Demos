@@ -39,6 +39,8 @@ export async function addRemoteURLSong(url, title, artist, album, duration) {
 }
 
 /**
+ * DO NOT LOOP OVER THIS FUNCTION TO IMPORT SEVERAL FILES, THIS WILL LEAD TO
+ * AN INCONSISTENT STORE STATE. USE addMultipleLocalFileSongs() INSTEAD.
  * Add a new file song to the list of songs in IDB.
  * The song is expected to be passed as a File object.
  */
@@ -46,6 +48,28 @@ export async function addLocalFileSong(file, title, artist, album, duration) {
   const id = getUniqueId();
   await addSong('file', id, title, artist, album, duration, file);
 }
+
+/**
+ * Add several new file songs to the list of songs in IDB.
+ */
+ export async function addMultipleLocalFileSongs(fileSongs) {
+  fileSongs = fileSongs.map(fileSong => {
+    return {
+      title: fileSong.title,
+      artist: fileSong.artist,
+      album: fileSong.album,
+      duration: fileSong.duration,
+      data: fileSong.file,
+      type: 'file',
+      id: getUniqueId()
+    }
+  });
+
+  let songs = await getSongs();
+  songs = [...songs, ...fileSongs];
+  await set('pwamp-songs', songs);
+}
+
 
 /**
  * Private implementation of addSong.

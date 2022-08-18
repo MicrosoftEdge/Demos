@@ -1,7 +1,7 @@
 import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFormattedDate, canShare, guessSongInfo } from "./utils.js";
-import { importSongFromFile } from "./importer.js";
+import { formatTime, openFilesFromDisk, getFormattedDate, canShare } from "./utils.js";
+import { importSongsFromFiles } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
 import { loadCustomOrResetSkin, reloadStoredCustomSkin } from "./skin.js";
@@ -190,20 +190,9 @@ addSongsButton.addEventListener("click", async () => {
 
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
 
-  const importErrors = [];
-  for (const file of files) {
-    const { artist, album, title } = await guessSongInfo(file);
-    const importResult = await importSongFromFile(file, title, artist, album);
-    if (importResult.error && importResult.message) {
-      importErrors.push(importResult.message);
-    }
-  }
+  await importSongsFromFiles(files);
 
-  if (!importErrors.length) {
-    await startApp();
-  } else {
-    console.error(importErrors.join('\n'));
-  }
+  await startApp();
 });
 
 // Manage the song actions.
@@ -342,14 +331,11 @@ addEventListener('drop', async (e) => {
     return;
   }
 
-  const files = dataTransfer.files;
+  const files = [...dataTransfer.files];
 
   createLoadingSongPlaceholders(playlistSongsContainer, files.length);
 
-  for (const file of files) {
-    const { artist, album, title } = await guessSongInfo(file);
-    await importSongFromFile(file, title, artist, album);
-  }
+  await importSongsFromFiles(files);
 
   await startApp();
 });
