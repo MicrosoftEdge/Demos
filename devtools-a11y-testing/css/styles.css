@@ -5,6 +5,8 @@ body {
   margin: 0 auto;
   padding: 0;
   max-width: 80em; 
+  display: grid;
+  grid-column: auto;
 }
 header {
   display: flex;
@@ -41,6 +43,8 @@ article {
   gap: 10px;
   scroll-snap-margin-top: 5em;
   scroll-margin-top: 5em;
+  display: grid;
+  display: -ms-grid;
 }
 article img {
   flex: 0 0 100%;
