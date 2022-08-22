@@ -1,0 +1,445 @@
+:root {
+  --back: #11101a;
+  --text: #3ccf3a;
+
+  --groove: #000;
+  --bezel: #505050;
+  --line: 2px;
+  --space-unit: 1.5rem;
+  --button: #bfd0da;
+
+  --min-width: 500px;
+  --visualizer-height: 100px;
+
+  --inset-box-gradient:
+    linear-gradient(to top, var(--bezel) var(--line), transparent 0),
+    linear-gradient(to left, var(--bezel) var(--line), transparent 0),
+    linear-gradient(to top, var(--groove) calc(var(--line) * 2), transparent 0),
+    linear-gradient(to left, var(--groove) calc(var(--line) * 2), transparent 0),
+    linear-gradient(to bottom, var(--groove) var(--line), transparent 0),
+    linear-gradient(to right, var(--groove) var(--line), transparent 0),
+    linear-gradient(to bottom, var(--bezel) calc(var(--line) * 2), transparent 0),
+    linear-gradient(to right, var(--bezel) calc(var(--line) * 2), transparent 0);
+}
+
+html, body {
+  margin: 0;
+  font-family: courier, monospace;
+  font-size: 11pt;
+}
+
+body {
+  background: var(--back);
+  color: var(--text);
+  box-sizing: border-box;
+  display: grid;
+  min-width: var(--min-width);
+}
+
+* {
+  cursor: default;
+}
+
+section {
+  position: relative;
+  margin: calc(2 * var(--space-unit)) var(--space-unit) var(--space-unit);
+  background: linear-gradient(to right, var(--back), #373857, var(--back));
+}
+
+section::before, section::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+
+  background-color: var(--back);
+}
+
+section::before {
+  top: calc(-2 * var(--space-unit));
+  left: calc(-1 * var(--space-unit));
+  width: calc(100% + (2 * var(--space-unit)));
+  height: calc(100% + (3 * var(--space-unit)));
+
+  background-image:
+    var(--inset-box-gradient),
+    linear-gradient(var(--back), var(--back)),
+    linear-gradient(to bottom,
+      var(--groove) 1px,
+      var(--text) 1px,
+      var(--text) calc(50% - .5px),
+      var(--groove) calc(50% - .5px),
+      var(--groove) calc(50% + .5px),
+      var(--bezel) calc(50% + .5px),
+      var(--bezel) calc(100% - 1px),
+      var(--groove) 0
+    );
+  
+  background-repeat: no-repeat;
+  background-size:
+    100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
+    20% 100%,
+    calc(100% - 2 * var(--space-unit)) calc(var(--space-unit) / 2);
+  background-position:
+    0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0,
+    50% 0,
+    var(--space-unit) calc(var(--space-unit) / 1.5);
+}
+
+section::after {
+  top: calc(-0.5 * var(--space-unit));
+  left: calc(-0.5 * var(--space-unit));
+  width: calc(100% + var(--space-unit));
+  height: calc(100% + var(--space-unit));
+
+  background-image: var(--inset-box-gradient);
+}
+
+section:last-of-type {
+  border-bottom: 0;
+}
+
+.main-button, [popup] button {
+  font-family: inherit;
+  font-size: .8rem;
+  font-weight: bold;
+  border: 0;
+  margin: 1px;
+  padding: 1px;
+  background: #bfd0da;
+  color: #2b2e41;
+  text-transform: uppercase;
+
+  box-shadow:
+    inset 1px 1px 0 0 #fffb,
+    inset -1px -1px 0 0 #0004,
+    0 0 0 1px #66737a,
+    1px 1px 0 1px #373d41;
+}
+
+.main-button:active, [popup] button:active {
+  box-shadow:
+    inset -1px -1px 0 0 #fffb,
+    inset 1px 1px 0 0 #0004,
+    0 0 0 1px #66737a,
+    1px 1px 0 1px #373d41;
+}
+
+button, button * {
+  cursor: pointer;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-container {
+  -webkit-user-modify: read-write !important;
+  margin: 0;
+  height: var(--space-unit);
+  background-color: var(--back);
+  background-image: var(--inset-box-gradient);
+  padding: calc(2 * var(--line));
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  width: calc(2 * var(--space-unit));
+  height: calc(var(--space-unit) - 3 * var(--line));
+  cursor: ew-resize;
+  background-color: #f7eacb;
+  box-shadow:
+    inset 0 0 0 1px #a89f89,
+    inset 2px 2px 0 0 #6f6754,
+    1px 1px 0 1px #0006;
+  background-image:
+    linear-gradient(to bottom,
+      transparent 50%,
+      #0009 50%, 
+      #0009 calc(50% + 1px),
+      #0005 calc(50% + 1px),
+      #0005 calc(50% + 2px),
+      transparent 0
+    );
+  background-size: calc(100% - 6px) 100%;
+  background-repeat: no-repeat;
+  background-position: calc(50% + .5px) -.5px;
+}
+
+.playlist {
+  background: var(--back);
+}
+
+.playlist.has-songs .empty-playlist {
+  display: none;
+}
+
+.songs {
+  counter-reset: nb;
+}
+
+.songs, .playlist-song {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.playlist-song::before {
+  counter-increment: nb;
+  content: counter(nb, decimal-leading-zero);
+}
+
+.playlist-song {
+  display: flex;
+  position: relative;
+}
+
+.playlist-song.playing {
+  color: white;
+  background: var(--back);
+}
+
+.playlist-song .album {
+  margin-right: auto;
+}
+
+.playlist-song .title::before {
+  content: ".";
+}
+
+.playlist-song .title::after, .playlist-song .artist::after {
+  content: "-";
+  display: inline-block;
+  width: var(--space-unit);
+  text-align: center;
+}
+
+.playlist-song span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-song button {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  background-color: transparent;
+}
+
+.playlist-song .actions {
+  z-index: 1;
+}
+
+.playlist-song .actions::before {
+  content: "...";
+}
+
+.playlist-song .actions span {
+  display: none;
+}
+
+.playlist-song .play {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.playlist-song .play span {
+  display: none;
+}
+
+.playlist-song .play:hover {
+  border: 1px solid;
+}
+
+.drop-target .playlist {
+  outline: var(--line) dashed var(--text);
+}
+
+#waveform {
+  position: absolute;
+  top: calc(var(--space-unit) * 2);
+  left: var(--space-unit);
+  width: calc(100% - 2 * var(--space-unit));
+  height: var(--visualizer-height);
+  border: var(--line) solid;
+  border-color: var(--groove) var(--bezel) var(--bezel) var(--groove);
+  background: var(--back);
+}
+
+.player {
+  padding-top: calc(var(--visualizer-height) + var(--space-unit) * 1.5 + 2 * var(--line));
+  padding-bottom: calc(var(--space-unit) * 1.5);
+}
+
+#duration {
+  display: none;
+}
+
+#currenttime {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 4rem;
+  line-height: 4rem;
+  z-index: 1;
+}
+
+.player-controls {
+  display: flex;
+  justify-content: center;
+  --groove: #0009;
+  --bezel: white;
+}
+
+.playhead-control {
+  margin-top: calc(var(--space-unit) / 2);
+}
+
+[popup] {
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.player-controls button {
+  height: calc(var(--space-unit) * 1.5);
+  width: calc(var(--space-unit) * 1.5);
+  display: grid;
+  place-content: center;
+}
+
+.player-controls button span {
+  display: none;
+}
+
+.player-controls button::before {
+  content: '';
+  width: var(--space-unit);
+  height: var(--space-unit);
+  --icon: #96a8b8;
+  --thickness: 1.5px;
+}
+
+#playpause::before {
+  --distance: 65%;
+  background-image:
+    linear-gradient(25deg, transparent var(--distance), var(--groove) var(--distance), var(--groove) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(155deg, transparent var(--distance), var(--bezel) var(--distance), var(--bezel) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(to right, var(--groove) var(--thickness), var(--icon) var(--thickness), var(--icon));
+}
+
+#playpause.playing::before {
+  background-color: var(--icon);
+  background-image:
+    linear-gradient(var(--button), var(--button)),
+    linear-gradient(to bottom, var(--groove) var(--thickness), transparent var(--thickness), transparent calc(100% - var(--thickness)), var(--bezel) calc(100% - var(--thickness)), var(--bezel) 0),
+    linear-gradient(to right, var(--groove) var(--thickness), transparent 0, transparent calc(50% - 2 * var(--thickness)), var(--bezel) calc(50% - 2 * var(--thickness)), var(--bezel) calc(50% - var(--thickness)), transparent 0, var(--groove) calc(50% + var(--thickness)), var(--groove) calc(50% + 2 * var(--thickness)),transparent 0,transparent calc(100% - var(--thickness)),var(--bezel) calc(100% - var(--thickness)));
+  background-position:
+    center,
+    0 0,
+    0 0;
+  background-repeat: no-repeat;
+  background-size:
+    calc(2 * var(--thickness)) 100%,
+    100% 100%,
+    100% 100%;
+}
+
+#next::before {
+  --distance: 50%;
+  background-image:
+    linear-gradient(to bottom, var(--groove) var(--thickness), transparent 0, transparent calc(100% - var(--thickness)), var(--bezel) 0),
+    linear-gradient(to right, var(--groove) var(--thickness), var(--icon) 0, var(--icon) calc(3 * var(--thickness)), var(--bezel) 0, var(--bezel) calc(4 * var(--thickness)), var(--button) 0),
+    linear-gradient(40deg, transparent var(--distance), var(--groove) var(--distance), var(--groove) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(140deg, transparent var(--distance), var(--bezel) var(--distance), var(--bezel) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(to right, var(--groove) var(--thickness), var(--icon) var(--thickness), var(--icon));
+  background-repeat: no-repeat;
+  background-size:
+    calc(4 * var(--thickness)) calc(100% - 2 * var(--thickness)),
+    calc(8 * var(--thickness)) calc(100% - 2 * var(--thickness)),
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  background-position:
+    calc(100% - 3 * var(--thickness)) 50%,
+    calc(100% + var(--thickness)) 50%,
+    0 0,
+    0 0,
+    0 0;
+}
+
+#previous::before {
+  --distance: 50%;
+  background-image:
+    linear-gradient(to bottom, var(--groove) var(--thickness), transparent 0, transparent calc(100% - var(--thickness)), var(--bezel) 0),
+    linear-gradient(to right, var(--button) calc(2 * var(--thickness)), var(--groove) calc(2 * var(--thickness)), var(--groove) calc(3 * var(--thickness)), var(--icon) 0, var(--icon) calc(5 * var(--thickness)), var(--bezel) 0, var(--bezel) calc(6 * var(--thickness)), transparent 0),
+    linear-gradient(-40deg, transparent var(--distance), var(--groove) var(--distance), var(--groove) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(-140deg, transparent var(--distance), var(--bezel) var(--distance), var(--bezel) calc(var(--distance) + var(--thickness)), var(--button) 0),
+    linear-gradient(to left, var(--bezel) var(--thickness), var(--icon) var(--thickness), var(--icon));
+  background-repeat: no-repeat;
+  background-size:
+    calc(4 * var(--thickness)) calc(100% - 2 * var(--thickness)),
+    calc(8 * var(--thickness)) calc(100% - 2 * var(--thickness)),
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  background-position:
+    calc(2 * var(--thickness)) 50%,
+    0 50%,
+    0 0,
+    0 0,
+    0 0;
+}
+
+.app-controls {
+  display: flex;
+  margin: 0;
+  background: none;
+  position: absolute;
+  top: calc(var(--space-unit) * 2 + var(--visualizer-height) + 4 * var(--line));
+  left: var(--space-unit);
+  width: calc(100% - 2 * var(--space-unit));
+  height: var(--space-unit);
+  z-index: 2;
+  justify-content: center;
+}
+
+.app-controls::before, .app-controls::after {
+  display: none;
+}
+
+.app-controls button {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.volume label {
+  display: none;
+}
+
+.volume {
+  margin: 0;
+  background: none;
+  position: absolute;
+  top: calc(var(--space-unit) * 7 + var(--visualizer-height) + 4 * var(--line));
+  left: var(--space-unit);
+  width: calc(100% - 2 * var(--space-unit));
+  height: var(--space-unit);
+}
+
+.volume::before, .volume::after {
+  display: none;
+}
