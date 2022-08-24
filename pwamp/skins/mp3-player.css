@@ -1,0 +1,160 @@
+:root {
+  --back: black;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.player {
+  margin: 20px;
+  position: relative;
+  width: 260px;
+  height: 600px;
+  background: linear-gradient(to right, #475788, #273452);
+  border-radius: 25px;
+  outline: 1px solid black;
+  outline-offset: -5px;
+  box-shadow: 0 0 0px 1px, 0 0 7px 3px #0008, inset 0 0 0 3px #475788, inset 0 0 0 4px #FFF6;
+  z-index: 1;
+}
+
+.playhead-control {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  width: 229px;
+  height: 330px;
+  border-radius: 15px;
+  border: 1px solid black;
+  outline: 1px solid #fff5;
+}
+
+.playhead-control::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  border-radius: 3px;
+  background: var(--back);
+  pointer-events: none;
+}
+
+.playhead-control::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(104deg, #FFF9 0, #FFF1 35%, transparent 0);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.player-controls {
+  position: absolute;
+  top: 400px;
+}
+
+#waveform {
+  position: absolute;
+  top: 41px;
+  left: 36px;
+  width: 227px;
+  height: 328px;
+  pointer-events: none;
+  border: 20px solid #ff7dbd;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #0009, 0 0 0 2px #fff7;
+  z-index: 1;
+}
+
+.playlist {
+  position: absolute;
+  left: 275px;
+  top: 45px;
+  background: #38466e;
+  height: 550px;
+  width: 250px;
+  border-radius: 0 25px 25px 0;
+  box-shadow: 0 0 0px 1px, 0 0 7px 3px #0008, inset 0 0 0 3px #475788, inset 0 0 0 4px #FFF6;
+  padding: 5px;
+}
+
+.playlist.has-songs .empty-playlist {
+  display: none;
+}
+
+.songs {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  width: 222px;
+  height: 520px;
+  overflow-y: auto;
+}
+
+.songs, .songs li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track {
+  background: transparent;
+  width: 5px;
+  position: relative;
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 100vh;
+}
+
+#playhead {
+  position: absolute;
+  top: 240px;
+  left: 18px;
+  width: 187px;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-container {
+  -webkit-user-modify: read-write !important;
+  margin: 0;
+  height: 2px;
+  background-color: white;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  margin: 0;
+  -webkit-appearance: none;
+  background: red;
+  padding: 0 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #fff5;
+}

@@ -38,3 +38,4 @@ You can think of this as the Progressive Web Amp.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
 * Artwork support.
+* First use, when IDB is empty, preload a song so first time users can already use the app.
