@@ -21,7 +21,7 @@ export async function importSongFromURL(url, title = 'Unknown', artist = 'Unknow
   }
 
   if (!url.startsWith('http')) {
-    url = 'http://' + url;
+    url = 'https://' + url;
   }
 
   const duration = await getSongDuration(url);
