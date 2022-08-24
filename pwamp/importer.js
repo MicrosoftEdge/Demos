@@ -20,6 +20,10 @@ export async function importSongFromURL(url, title = 'Unknown', artist = 'Unknow
     return { error: true, message: 'Song already exists' };
   }
 
+  if (!url.startsWith('http')) {
+    url = 'http://' + url;
+  }
+
   const duration = await getSongDuration(url);
   if (duration === -1) {
     return { error: true, message: 'URL is not a valid audio file' };
