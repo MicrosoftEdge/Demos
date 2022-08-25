@@ -1,5 +1,7 @@
 # 2022 upcoming web platform APIs
 
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/reader/)** ⬅️
+
 🌟 _This demo app was made in 2022, and was meant to showcase some of the APIs coming to the web platform at this time. If you are using this demo app at a later time, better APIs might exist, and more browsers might be supported._ 🌟
 
 The following APIs are used in the demo app:
@@ -18,8 +20,6 @@ All of these APIs are new and not widely supported. Some even require a flag to 
 Basic support is provided in other browsers, where not all features will work.
 
 ## About the demo app
-
-➡️ **[Access the demo app here](https://microsoftedge.github.io/Demos/reader/)** ⬅️
 
 The demo app is a reader mode for articles published on the web. To use the reader, copy the text from an article on another website. Note that this does not work with all websites, but blogs tend to work well. Try this [Edge blog post](https://blogs.windows.com/msedgedev/2022/01/19/looking-back-at-microsoft-edge-for-developers-in-2021/) for instance.
 

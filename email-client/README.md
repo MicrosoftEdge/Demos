@@ -1,5 +1,7 @@
 # Protocol handling demo - Email client
 
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/email-client/)** ⬅️
+
 This is an email client installable app (which doesn't actually send and receive emails) meant to demonstrate the PWA protocol handling feature.
 
 ## App

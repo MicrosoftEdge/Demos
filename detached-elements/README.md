@@ -1,11 +1,12 @@
 # Investigating detached DOM elements memory leaks
 
-* [Live demo](https://microsoftedge.github.io/Demos/detached-elements/)
-* [DevTools What's New](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/whats-new/2021/07/devtools#debug-dom-node-memory-leaks-with-the-new-detached-elements-tool) announcement.
-* [Announcement blog post](https://blogs.windows.com/msedgedev/2021/12/09/debug-memory-leaks-detached-elements-tool-devtools/).
-* [Documentation](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/memory-problems/dom-leaks).
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/detached-elements/)** ⬅️
 
-Microsoft Edge DevTools added a new panel called __Detached Elements__. This panel helps investigate common DOM memory leaks in long running web applications.
+* [DevTools What's New](https://docs.microsoft.com/microsoft-edge/devtools-guide-chromium/whats-new/2021/07/devtools#debug-dom-node-memory-leaks-with-the-new-detached-elements-tool) announcement.
+* [Announcement blog post](https://blogs.windows.com/msedgedev/2021/12/09/debug-memory-leaks-detached-elements-tool-devtools/).
+* [Documentation](https://docs.microsoft.com/microsoft-edge/devtools-guide-chromium/memory-problems/dom-leaks).
+
+Microsoft Edge DevTools added a new panel called **Detached Elements**. This panel helps investigate common DOM memory leaks in long running web applications.
 
 This repo contains a simple web page aimed at demonstrating the Detached Elements panel.
 

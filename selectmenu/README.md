@@ -1,5 +1,7 @@
 # Open UI's `<selectmenu>` demos
 
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/selectmenu/)** ⬅️
+
 The purpose of [Open UI](https://open-ui.org/) is to provide the web platform with UI controls that can be styled and extended by web developers.
 
 Open UI is working on [a specification of a new `<select>` element](https://open-ui.org/components/select) and it is being [prototyped in Chromium](https://chromestatus.com/feature/5737365999976448) by the Microsoft Edge team.

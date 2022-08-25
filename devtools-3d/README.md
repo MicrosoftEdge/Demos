@@ -1,8 +1,9 @@
 # DevTools 3D View tool demo
 
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-3d/)** ⬅️
+
 This demo page is useful to show some of the most useful features of the 3D View tool in Microsoft Edge DevTools.
 
-* Access the demo page [here](https://microsoftedge.github.io/Demos/devtools-3d/).
 * Read the blog post about the tool here (link coming soon).
 * Watch the video about the tool here (link coming soon).
 * Read documentation about the tool [here](https://docs.microsoft.com/microsoft-edge/devtools-guide-chromium/3d-view/).
