@@ -16,6 +16,13 @@ export function createSongUI(playlistSongsContainer, song) {
   playButton.innerHTML = '<span>Play</span>';
   li.appendChild(playButton);
 
+  // Album artwork
+  const albumArt = document.createElement("img");
+  albumArt.classList.add('artwork');
+  albumArt.setAttribute('loading', 'lazy');
+  albumArt.setAttribute('src', './album-art-placeholder.png');
+  li.appendChild(albumArt);
+
   // Song title
   const titleInput = document.createElement("span");
   titleInput.classList.add('title');
