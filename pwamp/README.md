@@ -9,7 +9,24 @@ PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an inst
 ## User guide
 
 * Open the app: https://microsoftedge.github.io/Demos/pwamp/
-* Drag and drop audio files from your explorer onto the playlist area (or hit the `+` button).
+* To add new songs:
+  * Either drag and drop audio files from your explorer onto the playlist area.
+  * Or click the `+` button in the bottom toolbar.
+* Artist, title, and album information are parsed from the song files (if available).
+* To edit song information, click on the artist, title, or album fields and edit the text.
+* To add custom artworks for albums, drag and drop image files onto songs.
+* Use the top toolbar to play, pause, and go to the next or previous songs.
+* The bottom toolbar contains the following extra features:
+  * Apply a custom skin: select a .css or .pwampskin file to replace the look and feel of the app with your own.
+  * Record an audio clip: click once to start recording, click once more to stop recording.
+  * Show visualizer: click to toggle the visualizer mode.
+  * More tools: options to download all songs or delete all songs.
+* If you install the PWA locally on desktop, the following features become available:
+  * Audio files are handled natively. Just double-click an audio file to add it to your PWAmp library.
+  * *.pwampskin files are also handled natively, Double-click one such file to change the look and feel of the app.
+  * The custom `web+pwamp://` protocol is handled natively. Share links of remote songs with other people by using `web+pwamp://uri-to-song` links.
+  * The title bar becomes toggleable. Click the chevron icon in the toolbar to hide it.
+  * The app becomes a share target for audio files. If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
 
 ## Making a new skin
 
@@ -27,7 +44,6 @@ You can think of this app as the "Progressive Web Amp".
 
 ## TODO
 
-* Add ability to edit: checkboxes for songs, select 1 or more songs, click edit, and change artist/album/artwork in a dialog.
 * Improve song adding performance again: only get duration later, after song has been added.
 * Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
@@ -39,5 +55,4 @@ You can think of this app as the "Progressive Web Amp".
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
-* Artwork support.
 * First use, when IDB is empty, preload a song so first time users can already use the app.
