@@ -199,11 +199,19 @@ input[type="range"]::-webkit-slider-thumb {
 .playlist-song {
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .playlist-song.playing {
   color: white;
   background: var(--back);
+}
+
+.playlist-song .artwork {
+  width: var(--space-unit);
+  height: var(--space-unit);
+  order: -1;
+  margin-right: calc(var(--space-unit) / 2);
 }
 
 .playlist-song .album {

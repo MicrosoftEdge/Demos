@@ -284,6 +284,12 @@ input[type="range"]::-webkit-slider-thumb {
   margin: 0 0 .5rem 0;
 }
 
+.playlist-song .artwork {
+  width: 1rem;
+  background: black;
+  height: 1rem;
+}
+
 .playlist-song .duration {
   margin-inline-start: auto;
 }
