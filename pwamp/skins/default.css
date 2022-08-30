@@ -236,7 +236,7 @@ body {
   width: max-content;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2rem 30vw 30vw 20vw 2rem 2rem;
+  grid-template-columns: 2rem 2rem 30vw 30vw 20vw 2rem 2rem;
   grid-template-rows: 1fr;
   column-gap: 1rem;
   background-color: var(--back);
@@ -270,7 +270,7 @@ body {
 }
 
 .playlist-song .artist {
-  grid-column: 3;
+  grid-column: 4;
   font-size: 0.8rem;
   color: var(--text-disabled);
 }
@@ -280,7 +280,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .album {
-  grid-column: 4;
+  grid-column: 5;
   align-self: center;
 }
 
@@ -289,7 +289,12 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .title {
+  grid-column: 3;
+}
+
+.playlist-song .artwork {
   grid-column: 2;
+  width: 100%;
 }
 
 .playlist-song .play {
@@ -314,7 +319,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .duration {
-  grid-column: 5;
+  grid-column: 6;
   place-self: center;
   font-size: .7rem;
   padding-left: .25rem;
@@ -326,7 +331,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 }
 
 .playlist-song .actions {
-  grid-column: 6;
+  grid-column: 7;
   width: 1rem;
   height: 1rem;
   overflow: hidden;
@@ -375,8 +380,8 @@ html:not(.visualizing) .playlist-song.playing .artist {
 
 @media (max-width: 1300px) {
   .playlist-song {
-    grid-template-columns: 2rem 15rem 10rem 2rem 2rem;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2rem 2rem 15rem 10rem 2rem 2rem;
+    grid-template-rows: auto auto;
     border-bottom: 0;
   }
 
@@ -385,35 +390,41 @@ html:not(.visualizing) .playlist-song.playing .artist {
     grid-column: 1;
   }
 
+  .playlist-song .artwork {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+
+
   .playlist-song .artist {
     grid-row: 2;
-    grid-column: 2;
+    grid-column: 3;
   }
   
   .playlist-song .album {
     grid-row: 1;
-    grid-column: 3;
+    grid-column: 4;
   }
   
   .playlist-song .title {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .duration {
     grid-row: 1;
-    grid-column: 4;
+    grid-column: 5;
   }
 
   .playlist-song .actions {
     grid-row: 1;
-    grid-column: 5;
+    grid-column: 6;
   }
 }
 
 @media (max-width: 800px) {
   .playlist-song {
-    grid-template-columns: 2rem 20rem 2rem 2rem;
+    grid-template-columns: 2rem  2rem 20rem 2rem 2rem;
     grid-template-rows: 1fr 1fr 1fr;
   }
 
@@ -421,35 +432,41 @@ html:not(.visualizing) .playlist-song.playing .artist {
     grid-row: 1 / span 3;
   }
 
+  .playlist-song .artwork {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+    place-self: center;
+  }
+
   .playlist-song .duration {
     grid-row: 1 / span 3;
-    grid-column: 3;
+    grid-column: 4;
   }
 
   .playlist-song .title {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .artist {
     grid-row: 2;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .album {
     grid-row: 3;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .actions {
     grid-row: 1 / span 3;
-    grid-column: 4;
+    grid-column: 5;
   }
 }
 
 @media (max-width: 600px) {
   .playlist-song {
-    grid-template-columns: 2rem 15rem 2rem;
+    grid-template-columns: 2rem 2rem 15rem 2rem;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
 
@@ -457,31 +474,36 @@ html:not(.visualizing) .playlist-song.playing .artist {
     grid-row: 1 / span 4;
   }
 
+  .playlist-song .artwork {
+    grid-row: 1 / span 4;
+    grid-column: 2;
+  }
+
   .playlist-song .duration {
     grid-row: 4;
-    grid-column: 2;
+    grid-column: 3;
     justify-self: start;
     padding-left: unset;
   }
 
   .playlist-song .title {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .artist {
     grid-row: 2;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .album {
     grid-row: 3;
-    grid-column: 2;
+    grid-column: 3;
   }
 
   .playlist-song .actions {
     grid-row: 1 / span 4;
-    grid-column: 3;
+    grid-column: 4;
   }
 }
 
