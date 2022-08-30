@@ -1,4 +1,4 @@
-const VERSION = "v8";
+const VERSION = "v9";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
@@ -22,6 +22,11 @@ const INITIAL_CACHED_RESOURCES = [
   "./parseAudioMetadata.js",
   "./album-art-placeholder.png"
 ];
+
+// Bust the cache when the version changes.
+for (let i = 0; i < INITIAL_CACHED_RESOURCES.length; i++) {
+  INITIAL_CACHED_RESOURCES[i] = INITIAL_CACHED_RESOURCES[i] + "?v=" + VERSION;
+}
 
 // On install, fill the cache with all the resources we know we need.
 self.addEventListener("install", event => {
