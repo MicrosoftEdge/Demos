@@ -95,7 +95,9 @@ function getFileNameWithoutExtension(fileName) {
 }
 
 export function getSongNameFromURL(url) {
-  return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+  const parsed = new URL(url);
+  let name = parsed.pathname.substring(parsed.pathname.lastIndexOf('/') + 1, parsed.pathname.lastIndexOf('.'));
+  return decodeURI(name);
 }
 
 function guessSongInfoFromString(str) {

@@ -24,6 +24,7 @@ export const playlistSongsContainer = document.querySelector(".playlist .songs")
 const addSongsButton = document.getElementById("add-songs");
 const songActionsPopup = document.getElementById("song-actions-popup");
 const songActionDelete = document.getElementById("song-action-delete");
+const songActionCopyUri = document.getElementById("song-action-copy-uri");
 const songActionExport = document.getElementById("song-action-export");
 const songActionShare = document.getElementById("song-action-share");
 const playlistActionsButton = document.getElementById("playlist-actions");
@@ -126,6 +127,7 @@ export async function startApp() {
       songActionsPopup.currentSong = song;
 
       songActionShare.disabled = !canShare(song);
+      songActionCopyUri.disabled = song.type !== 'url';
     });
   }
 
@@ -234,6 +236,23 @@ songActionShare.addEventListener("click", async () => {
     title: song.title,
     files: [song.data]
   });
+});
+
+songActionCopyUri.addEventListener("click", async () => {
+  const song = songActionsPopup.currentSong;
+  if (!song || song.type !== 'url') {
+    return;
+  }
+
+  songActionsPopup.currentSong = null;
+  songActionsPopup.hidePopUp();
+  
+  // The current song is a remote one. Let's create a web+amp link for it.
+  let url = song.id;
+  url = url.replace(/^https?:\/\//, 'web+amp://');
+  
+  // And put it into the clipboard.
+  await navigator.clipboard.writeText(url);
 });
 
 // Manage the custom skin button.
