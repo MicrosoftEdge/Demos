@@ -25,6 +25,7 @@ PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an inst
   * Audio files are handled natively. Just double-click an audio file to add it to your PWAmp library.
   * *.pwampskin files are also handled natively, Double-click one such file to change the look and feel of the app.
   * The custom `web+pwamp://` protocol is handled natively. Share links of remote songs with other people by using `web+pwamp://uri-to-song` links.
+    [Example link](web+amp://ia803003.us.archive.org/17/items/78_by-the-light-of-the-silvery-moon_fats-waller-and-his-rhythm-fats-waller-the-dee_gbia0153541a/BY%20THE%20LIGHT%20OF%20THE%20SILVERY%20-%20%22Fats%22%20Waller%20and%20his%20Rhythm.mp3)
   * The title bar becomes toggleable. Click the chevron icon in the toolbar to hide it.
   * The app becomes a share target for audio files. If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
 
