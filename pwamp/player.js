@@ -1,10 +1,19 @@
-import { getSongs } from "./store.js";
+import { getSongs, getArtworks } from "./store.js";
 
 let songs = [];
+let artworks = {};
 let currentIndex = 0;
 
 async function initializePlaylist() {
+  artworks = await getArtworks();
+
   songs = await getSongs();
+  for (const song of songs) {
+    const artwork = artworks[`${song.artist}-${song.album}`];
+    if (artwork) {
+      song.artworkUrl = URL.createObjectURL(artwork);
+    }
+  }
 }
 
 export class Player extends EventTarget {

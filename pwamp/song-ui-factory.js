@@ -20,7 +20,7 @@ export function createSongUI(playlistSongsContainer, song) {
   const albumArt = document.createElement("img");
   albumArt.classList.add('artwork');
   albumArt.setAttribute('loading', 'lazy');
-  albumArt.setAttribute('src', './album-art-placeholder.png');
+  albumArt.setAttribute('src', song.artworkUrl || './album-art-placeholder.png');
   li.appendChild(albumArt);
 
   // Song title

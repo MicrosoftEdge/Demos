@@ -58,7 +58,7 @@ body {
   place-items: end stretch;
 }
 
-.drop-target {
+.dropping-songs {
   outline: .5rem dashed var(--primary);
   outline-offset: -.5rem;
 }
@@ -295,6 +295,11 @@ html:not(.visualizing) .playlist-song.playing .artist {
 .playlist-song .artwork {
   grid-column: 2;
   width: 100%;
+}
+
+.dropping-artwork .playlist-song .artwork {
+  outline: .2rem dashed var(--primary);
+  outline-offset: -.2rem;
 }
 
 .playlist-song .play {

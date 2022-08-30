@@ -271,7 +271,7 @@ input[type="range"]::-webkit-slider-thumb {
   border: 1px solid;
 }
 
-.drop-target .playlist {
+.dropping-songs .playlist {
   outline: var(--line) dashed var(--text);
 }
 

@@ -1,6 +1,6 @@
-import { getSongs, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong } from "./store.js";
+import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFormattedDate, canShare } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFormattedDate, canShare, analyzeDataTransfer } from "./utils.js";
 import { importSongsFromFiles } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -302,42 +302,84 @@ playlistActionExportAll.addEventListener('click', async () => {
   playlistActionsPopup.hidePopUp();
 });
 
-
 // Manage drag/dropping songs from explorer to playlist.
 addEventListener('dragover', e => {
+  e.preventDefault();
+
+  // If we're visualizing, don't allow dropping.
   if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
-  e.preventDefault();
-  document.documentElement.classList.add('drop-target');
+
+  // If both songs and images are being dragged, or if other file types are being dragged, don't allow dropping.
+  const { containsImages, containsSongs, containsOthers } = analyzeDataTransfer(e);
+  if (containsOthers || (containsImages && containsSongs)) {
+    return;
+  }
+
+  if (containsImages) {
+    document.documentElement.classList.add('dropping-artwork');
+  } else if (containsSongs) {
+    document.documentElement.classList.add('dropping-songs');
+  }
 });
 
 addEventListener('dragleave', e => {
+  e.preventDefault();
+
+  // If we're visualizing, don't allow dropping.
   if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
-  document.documentElement.classList.remove('drop-target');
+
+  // If both songs and images are being dragged, or if other file types are being dragged, don't allow dropping.
+  const { containsImages, containsSongs, containsOthers } = analyzeDataTransfer(e);
+  if (containsOthers || (containsImages && containsSongs)) {
+    return;
+  }
+
+  document.documentElement.classList.remove('dropping-songs');
+  document.documentElement.classList.remove('dropping-artwork');
 });
 
 addEventListener('drop', async (e) => {
+  e.preventDefault();
+
+  // If we're visualizing, don't allow dropping.
   if (document.documentElement.classList.contains('visualizing')) {
     return;
   }
-  e.preventDefault();
-  document.documentElement.classList.remove('drop-target');
 
-  const dataTransfer = e.dataTransfer;
-  if (!dataTransfer) {
+  // If both songs and images are being dragged, or if other file types are being dragged, don't allow dropping.
+  const { containsImages, containsSongs, containsOthers, files } = analyzeDataTransfer(e);
+  if (containsOthers || (containsImages && containsSongs)) {
     return;
   }
 
-  const files = [...dataTransfer.files];
+  if (containsSongs) {
+    document.documentElement.classList.remove('dropping-songs');
+    
+    createLoadingSongPlaceholders(playlistSongsContainer, files.length);
+    
+    await importSongsFromFiles(files);
+    
+    await startApp();
+  } else if (containsImages) {
+    document.documentElement.classList.remove('dropping-artwork');
 
-  createLoadingSongPlaceholders(playlistSongsContainer, files.length);
+    // Only the first artwork is imported.
+    const image = files[0];
 
-  await importSongsFromFiles(files);
+    const targetSong = e.target.closest('.playlist-song');
+    if (targetSong) {
+      const song = await getSong(targetSong.id);
+      if (song) {
+        await setArtwork(song.artist, song.album, image);
+      }
+    }
 
-  await startApp();
+    await startApp();
+  }
 });
 
 // Start the app.

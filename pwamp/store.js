@@ -24,6 +24,14 @@ export async function getSongs() {
 }
 
 /**
+ * Get a song by its ID.
+ */
+export async function getSong(id) {
+  const songs = await getSongs();
+  return songs.find(song => song.id === id);
+}
+
+/**
  * Check if the given remote song URL is already in IDB.
  */
 export async function hasRemoteURLSong(url) {
@@ -69,7 +77,6 @@ export async function addLocalFileSong(file, title, artist, album, duration) {
   songs = [...songs, ...fileSongs];
   await set('pwamp-songs', songs);
 }
-
 
 /**
  * Private implementation of addSong.
@@ -149,4 +156,23 @@ export async function setCustomSkin(skin) {
  */
 export async function getCustomSkin(skin) {
   return await get('pwamp-customSkin');
+}
+
+/**
+ * Store a new artwork for the given artist and album.
+ */
+export async function setArtwork(artist, album, image) {
+  let artworks = await get('pwamp-artworks');
+  if (!artworks) {
+    artworks = {};
+  }
+  artworks[`${artist}-${album}`] = image;
+  await set('pwamp-artworks', artworks);
+}
+
+/**
+ * Get the stored artworks.
+ */
+export async function getArtworks() {
+  return await get('pwamp-artworks') || {};
 }

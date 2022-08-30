@@ -190,3 +190,28 @@ export function canShare(file) {
     navigator.canShare &&
     navigator.canShare({ files: [new File([file], 'test', { type: file.type })] });
 }
+
+export function analyzeDataTransfer(event) {
+  const items = [...event.dataTransfer.items];
+  let containsSongs = false;
+  let containsImages = false;
+  let containsOthers = false;
+
+  for (const item of items) {
+    if (item.kind !== 'file') {
+      continue;
+    }
+
+    if (item.type.startsWith('audio/')) {
+      containsSongs = true;
+    } else if (item.type.startsWith('image/')) {
+      containsImages = true;
+    } else {
+      containsOthers = true;
+    }
+  }
+
+  const files = [...event.dataTransfer.files];
+
+  return { containsImages, containsSongs, containsOthers, files };
+}
