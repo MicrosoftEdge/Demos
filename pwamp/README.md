@@ -51,9 +51,7 @@ You can think of this app as the "Progressive Web Amp".
 * Make use of PWA features to make it a great desktop experience:
   * Shortcuts (caveat: shortcuts launch a new instance, and can't autoplay music since this requires user interaction, so not sure what to use this for).
   * Web Widgets
-* Submit to the store.
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
-* First use, when IDB is empty, preload a song so first time users can already use the app.
