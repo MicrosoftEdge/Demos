@@ -1,4 +1,4 @@
-const VERSION = "v10";
+const VERSION = "v11";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 const INITIAL_CACHED_RESOURCES = [
