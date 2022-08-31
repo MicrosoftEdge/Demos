@@ -11,7 +11,7 @@ async function initializePlaylist() {
   for (const song of songs) {
     const artwork = artworks[`${song.artist}-${song.album}`];
     if (artwork) {
-      song.artworkUrl = URL.createObjectURL(artwork);
+      song.artworkUrl = typeof artwork === 'string' ? artwork : URL.createObjectURL(artwork);
     }
   }
 }

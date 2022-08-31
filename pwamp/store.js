@@ -17,8 +17,46 @@ import { getUniqueId } from './utils.js';
 export async function getSongs() {
   let songs = await get('pwamp-songs');
   if (!songs) {
-    songs = [];
+    // The songs array doesn't even exist, so this is the first time we're running.
+    // Add a couple of songs to get started so the app isn't empty.
+    songs = [{
+      type: 'url',
+      id: 'https://archive.org/serve/DWK382/Noi2er_-_01_-_Opening.mp3',
+      title: 'Opening',
+      artist: 'Noi2er',
+      album: 'Beyond Reality (Vacuum) (LP)',
+      duration: '03:34'
+    },
+    {
+      type: 'url',
+      id: 'https://archive.org/download/DWK382/Noi2er_-_06_-_Aloe-Almond_Butter_And_Space_Pesto.mp3',
+      title: 'Aloe-Almond Butter And Space Pesto',
+      artist: 'Noi2er',
+      album: 'Beyond Reality (Vacuum) (LP)',
+      duration: '01:29'
+    },
+    {
+      type: 'url',
+      id: 'https://archive.org/download/DWK367/Lost_Soul_Refuge_-_01_-_Paranoia.mp3',
+      title: 'Eyes wide shut',
+      artist: 'Lost Soul Refuge',
+      album: 'Subconscious (EP)',
+      duration: '03:06'
+    },
+    {
+      type: 'url',
+      id: 'https://archive.org/download/DWK367/Lost_Soul_Refuge_-_02_-_Eyes_Wide_Shut.mp3',
+      title: 'Sleepwalker',
+      artist: 'Lost Soul Refuge',
+      album: 'Subconscious (EP)',
+      duration: '05:50'
+    }];
+
     await set('pwamp-songs', songs);
+
+    // And store the artwork for those songs.
+    await setArtwork('Noi2er', 'Beyond Reality (Vacuum) (LP)', 'https://ia803401.us.archive.org/11/items/DWK382/Noi2er_-_Beyond_Reality_Vacuum_Front.jpg');
+    await setArtwork('Lost Soul Refuge', 'Subconscious (EP)', 'https://ia802802.us.archive.org/5/items/DWK367/Lost_Soul_Refuge_-_Subconscious_1.jpg');
   }
   return songs;
 }
