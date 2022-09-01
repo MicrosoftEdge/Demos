@@ -42,14 +42,15 @@ body {
   background: var(--theme-color);
 }
 
-header,
-footer {
+header, footer {
   position: fixed;
   left: 0;
   right: 0;
   height: var(--toolbar-height);
   padding: var(--padding);
   box-sizing: border-box;
+  box-shadow: 0 0 .5rem 0 #0003;
+  z-index: 1;
 }
 
 header {
