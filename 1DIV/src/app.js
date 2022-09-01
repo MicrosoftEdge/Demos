@@ -86,8 +86,11 @@ editor.getModel().onDidChangeContent(async () => {
   if (!selectedPlayground || !currentPlayground) {
     return;
   }
-  updatePlayground(editor.getValue(), null, selectedPlayground);
-  updatePlayground(editor.getValue(), null, currentPlayground);
+
+  const color = colorEl.value;
+
+  updatePlayground(editor.getValue(), color, selectedPlayground);
+  updatePlayground(editor.getValue(), color, currentPlayground);
 
   await store.set(currentId, editor.getValue(), colorEl.value);
 });
