@@ -45,6 +45,7 @@ You can think of this app as the "Progressive Web Amp".
 
 ## TODO
 
+* Add an "install this app" button.
 * Improve song adding performance again: only get duration later, after song has been added.
 * Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
