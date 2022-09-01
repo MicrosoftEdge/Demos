@@ -29,13 +29,15 @@
         width: 300px;
         margin: 0 auto;
         display: block;
+
+        --main-color: #24aaa0;
       }
       
       .bubble .anchor {
         width: 10%;
         margin: 0 auto;
         aspect-ratio: 1;
-        background: #24aaa0;
+        background: var(--main-color);
         border-radius: 50%;
         transform: translateY(47%);
         text-align: center;
@@ -49,14 +51,31 @@
         border: none;
         transform: translateY(-6px);
         background: transparent;
+        overflow: hidden;
+      }
+
+      .bubble.above [popup] {
+        transform: translateY(35px);
       }
       
       .bubble .listbox-inner {
         aspect-ratio: 1;
         border-radius: 50%;
-        background: #24aaa0;
+        background: var(--main-color);
         position: relative;
         margin-top: 10px;
+      }
+
+      .bubble.above .listbox-inner {
+        margin-bottom: 10px;
+        margin-top: unset;
+        /* When the listbox is above the button, some of it hides the selected-value.
+           We can't fix this with z-index because the listbox is in the top-layer.
+           So instead we clip a little hole at the bottom of the listbox to make sure
+           the selected-value is still visible. Making sure that the before/after pseudo
+           don't get hidden because that's where we display the curve that links the listbox
+           to the button. */
+        clip-path: polygon(0 0, 100% 0, 100% 100%, calc(50% + 15px) calc(100% + 15px), calc(50% + 14px) 100%, 50% calc(100% - 10px), calc(50% - 14px) 100%, calc(50% - 15px) calc(100% + 15px), 0 100%);
       }
       
       .bubble .listbox-inner::before,
@@ -66,14 +85,29 @@
         aspect-ratio: 1;
         position: absolute;
         left: 106px;
-        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(135deg, transparent 70%, #24aaa0 0);
+        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(135deg, transparent 70%, var(--main-color) 0);
         top: -28px;
+        bottom: unset;
       }
       
       .bubble .listbox-inner::after {
         right: 106px;
-        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(-135deg, transparent 70%, #24aaa0 0);
+        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(-135deg, transparent 70%, var(--main-color) 0);
         left: unset;
+      }
+
+      .bubble.above .listbox-inner::before,
+      .bubble.above .listbox-inner::after {
+        bottom: -28px;
+        top: unset;
+      }
+
+      .bubble.above .listbox-inner::before {
+        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(45deg, transparent 70%, var(--main-color) 0);
+      }
+      
+      .bubble.above .listbox-inner::after {
+        background: radial-gradient(circle, white 71%, transparent 0), linear-gradient(-45deg, transparent 70%, var(--main-color) 0);
       }
       
       .bubble .smileys {
@@ -112,6 +146,16 @@
       
       .bubble .smileys option:hover {
         background: #0003;
+      }
+
+      /* When the document scrolls, remove the before/after pseudos
+         since they won't be positioned correctly. */
+      .bubble.scrolled .listbox-inner::before,
+      .bubble.scrolled .listbox-inner::after {
+        display: none;
+      }
+      .bubble.scrolled .listbox-inner {
+        clip-path: none;
       }
     </style>
     <selectmenu class="bubble">
@@ -168,6 +212,36 @@
         </div>
       </div>
     </selectmenu>
+    <script>
+      const bubbleSelect = document.querySelector('.bubble');
+      const bubbleButton = bubbleSelect.querySelector('[slot="button"]');
+      const bubbleListbox = bubbleSelect.querySelector('[slot="listbox"]');
+
+      bubbleListbox.addEventListener('show', e => {
+        // Reset the class we use to know if the document was scrolled.
+        bubbleSelect.classList.remove('scrolled');
+
+        // Unfortunately we need to bump this on the event loop to make sure the
+        // popup is really positioned.
+        setTimeout(() => {
+          // Remove scrollTop to compare apples to apples. The popup is in the top-layer
+          // and fixed positioned, so it's not affected by the scroll position.
+          // Whereas the button is in the normal static flow of the document, so it is.
+          const popupTop = bubbleListbox.offsetTop;
+          const buttonTop = bubbleButton.offsetTop - document.documentElement.scrollTop;
+          
+          bubbleSelect.classList.toggle('above', popupTop < buttonTop);
+        }, 0);
+      });
+
+      // On scroll, the popup won't move, because it's in the top-layer.
+      // So the before/after pseudos we use to draw a curve between the listbox and the button
+      // won't be positioned correctly anymore. So just hide them by setting a class on the
+      // selectmenu.
+      addEventListener('scroll', () => {
+        bubbleSelect.classList.add('scrolled');
+      });
+    </script>
   </div>
 
   <div class="sample">
