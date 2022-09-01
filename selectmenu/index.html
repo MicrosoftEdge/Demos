@@ -370,7 +370,7 @@
   <div class="sample">
     <h2>Combobox</h2>
     <p>Add a input field to the popup that can be used to filter the options.</p>
-    <p><strong>Note</strong>: the button and popup have different styles whether the popup is visible or not, and whether it's above the button. But there isn't a way to detect this right now, so we rely on JavaScript polling.</p>
+    <p><strong>Note</strong>: the button and popup have different styles whether the popup is visible or not, and whether it's above the button. Some custom JavaScript code is used to detect this using the show/hide popup events.</p>
 
     <style>
       .combobox {
@@ -391,7 +391,7 @@
         border-bottom-color: #f6f4f7;
       }
       
-      .combobox[open][position="above"] button {
+      .combobox[open].above button {
         border-radius: 0 0 4px 4px;
         border-bottom-color: #ccc;
         border-top-color: #f6f4f7;
@@ -405,9 +405,10 @@
         border: 1px solid #ccc;
         border-width: 0 1px 1px;
         background: #f6f4f7;
+        box-sizing: border-box;
       }
       
-      .combobox[position="above"] [popup] {
+      .combobox.above [popup] {
         border-radius: 4px 4px 0 0;
         border-width: 1px 1px 0;
       }
@@ -497,6 +498,7 @@
 
     <script>
       const combobox = document.querySelector('.combobox');
+      const cbButton = combobox.querySelector('button');
       const cbPopup = combobox.querySelector('[popup]');
       const cbInput = combobox.querySelector('input[type="search"]');
       const cbOptionsContainer = combobox.querySelector('.options');
@@ -544,31 +546,25 @@
         cbValue.textContent = combobox.value;
       });
 
-      let cbIsOpen = false;
+      // Detecting if the popup is shown or hidden.
+      // There should be a :open pseudo-class in CSS to do this, but it doesn't
+      // seem to be implemented yet. There is :-internal-popup-hidden that could be
+      // used, but for now, let's do our own thing using the show/hide events.
+      cbPopup.addEventListener('show', () => combobox.setAttribute('open', ''));
+      cbPopup.addEventListener('hide', () => combobox.removeAttribute('open'));
 
-      function cbDetectPopup(callback) {
-        // There does not seem to be a way to detect if the popup is open or not.
-        // Even the intersection observer doesn't seem to work.
-        // So for now we poll.
-        const interval = setInterval(() => {
-          if (combobox.open != cbIsOpen) {
-            cbIsOpen = combobox.open;
-            callback(combobox.open);
-          }
-        }, 100);
-      }
-
-      cbDetectPopup(visible => {
-        if (visible) {
-          combobox.setAttribute('open', '');
-
-          const popupRect = cbPopup.getBoundingClientRect();
-          const selectRect = combobox.getBoundingClientRect();
-
-          combobox.setAttribute('position', popupRect.y + popupRect.height <= selectRect.y ? 'above' : 'below');
-        } else {
-          combobox.removeAttribute('open');
-        }
+      // Detecting if the popup is above the button or not.
+      // It would be great if there was a pseudo-class for this too.
+      // But for now, let's do our own thing.
+      cbPopup.addEventListener('show', () => {
+        // This requires to move our code back onto the event queue to make sure
+        // the popup has had the time to be displayed.
+        setTimeout(() => {
+          const popupTop = cbPopup.offsetTop;
+          const buttonTop = cbButton.offsetTop - document.documentElement.scrollTop;
+          
+          combobox.classList.toggle('above', popupTop < buttonTop);
+        }, 0);
       });
     </script>
   </div>
