@@ -49,8 +49,6 @@ header, footer {
   height: var(--toolbar-height);
   padding: var(--padding);
   box-sizing: border-box;
-  box-shadow: 0 0 .5rem 0 #0003;
-  z-index: 1;
 }
 
 header {
@@ -137,6 +135,7 @@ header .new::after {
   right: 0;
   overflow: auto;
   z-index: 0;
+  box-shadow: inset 0 0 .5rem 0 #0003;
 }
 
 .narrow .demos {
