@@ -21,6 +21,22 @@ export async function getSongs() {
     // Add a couple of songs to get started so the app isn't empty.
     songs = [{
       type: 'url',
+      id: 'https://microsoftedge.github.io/pwamp/songs/Reunion.mp3',
+      title: 'Reunion',
+      artist: 'David Rousset',
+      album: 'Davrous Universe',
+      duration: '03:40'
+    },
+    {
+      type: 'url',
+      id: 'https://microsoftedge.github.io/pwamp/songs/OverTheStargates.mp3',
+      title: 'Over The Stargates',
+      artist: 'David Rousset',
+      album: 'Davrous Universe',
+      duration: '01:40'
+    },
+    {
+      type: 'url',
       id: 'https://archive.org/serve/DWK382/Noi2er_-_01_-_Opening.mp3',
       title: 'Opening',
       artist: 'Noi2er',
@@ -34,29 +50,13 @@ export async function getSongs() {
       artist: 'Noi2er',
       album: 'Beyond Reality (Vacuum) (LP)',
       duration: '01:29'
-    },
-    {
-      type: 'url',
-      id: 'https://archive.org/download/DWK367/Lost_Soul_Refuge_-_01_-_Paranoia.mp3',
-      title: 'Eyes wide shut',
-      artist: 'Lost Soul Refuge',
-      album: 'Subconscious (EP)',
-      duration: '03:06'
-    },
-    {
-      type: 'url',
-      id: 'https://archive.org/download/DWK367/Lost_Soul_Refuge_-_02_-_Eyes_Wide_Shut.mp3',
-      title: 'Sleepwalker',
-      artist: 'Lost Soul Refuge',
-      album: 'Subconscious (EP)',
-      duration: '05:50'
     }];
 
     await set('pwamp-songs', songs);
 
     // And store the artwork for those songs.
     await setArtwork('Noi2er', 'Beyond Reality (Vacuum) (LP)', 'https://ia803401.us.archive.org/11/items/DWK382/Noi2er_-_Beyond_Reality_Vacuum_Front.jpg');
-    await setArtwork('Lost Soul Refuge', 'Subconscious (EP)', 'https://ia802802.us.archive.org/5/items/DWK367/Lost_Soul_Refuge_-_Subconscious_1.jpg');
+    await setArtwork('David Rousset', 'Davrous Universe', 'https://microsoftedge.github.io/pwamp/songs/Reunion.jpg');
   }
   return songs;
 }

@@ -43,6 +43,15 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 You can think of this app as the "Progressive Web Amp".
 
+## Song credits
+
+The first time you open the app, a few songs are pre-loaded. These are remote URL songs, so they will only play when you are online.
+
+Credits for those songs:
+
+* "Reunion", and "Over The Stargates" by David Rousset, used with the author's approval. More information and songs on [soundcloud](https://soundcloud.com/david-rousset).
+* "Opening" and "Aloe-Almond Butter And Space Pesto" by Noi2er, from the [Internet Archive](https://archive.org/details/DWK382).
+
 ## TODO
 
 * Add an "install this app" button.
@@ -56,3 +65,4 @@ You can think of this app as the "Progressive Web Amp".
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
+* Make remote URL songs appear differently (maybe with a cloud icon), and make it clear they can't be played while offline.
