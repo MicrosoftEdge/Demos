@@ -1,11 +1,8 @@
 :root {
-    --background: lightblue;
+    --background: #5e72c1;
     --color: black;
-    --dropshadow: #333;
-    --hoverdone: #000;
-    --hovershadow: #999;
-    --separator: #000;
-    --done: #666;
-    --remove: #369;
-    --hovertext: #333;
+    --task-background: #eeeff3;
+    --task-hover-background: #f9fafe;
+    --task-completed-color: #666;
+    --delete-color: firebrick;
 }

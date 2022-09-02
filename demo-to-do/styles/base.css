@@ -1,22 +1,28 @@
-
 body {
-  font-size: calc(1em + 1vw);
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14pt;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--background);
   color: var(--color);
+  --spacing: .5rem;
 }
-ul, form {
-  margin: 1em auto;
-  padding: 20px;
-  max-width: 20em;
+
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
+
+* {
+  box-sizing: content-box;
+}
+
 input, button {
   border: none;
   margin:  0;
   padding: 0;
   background: transparent;
   font-family: inherit;
-  font-size: 0.8em;
+  font-size: inherit;
 }
 
 @media print {

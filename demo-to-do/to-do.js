@@ -1,24 +1,67 @@
 const form = document.querySelector('form');
 const list = document.querySelector('#tasks');
-const task = document.querySelector('#task');
+const task = document.querySelector('#new-task');
+
+const STORAGE_KEY = 'mytasks';
+
+function sortTasksByDate(tasks) {
+  return tasks.sort((a, b) => {
+    return b.date - a.date;
+  });
+}
 
 const updateList = () => {
-  window.localStorage.setItem(
-    'mytasks', 
+  localStorage.setItem(
+    STORAGE_KEY,
     JSON.stringify(tasks)
   );
+
+  let todo = [];
+  let done = [];
+  for (t of Object.keys(tasks)) {
+    if (tasks[t].status === 'done') {
+      done.push({
+        text: t,
+        done: true,
+        date: tasks[t].date
+      });
+    } else {
+      todo.push({
+        text: t,
+        done: true,
+        date: tasks[t].date
+      });
+    }
+  }
+  // Sort the 2 lists by date.
+  todo = sortTasksByDate(todo);
+  done = sortTasksByDate(done);
+
   let out = '';
-  for(t of Object.keys(tasks)) {
+  for (const item of todo) {
     out += `
-    <li>
-      <label>
+    <li class="task">
+      <label title="Complete task">
         <input type="checkbox" 
-        ${tasks[t] === 'done' ? 'checked' : ''}
-        value="${t}"><span>${t}</span>
-        <button type="button" data-task="${t}">ｘ</button>
-        </label>
+        value="${item.text}" class="box">
+        <span class="text">${item.text}</span>
+      </label>
+      <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
     </li>`;
   }
+  for (const item of done) {
+    out += `
+    <li class="task completed">
+      <label title="Reopen task">
+        <input type="checkbox" 
+        checked
+        value="${item.text}" class="box">
+        <span class="text">${item.text}</span>
+      </label>
+      <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
+    </li>`;
+  }
+
   list.innerHTML = out;
 };
 
@@ -30,8 +73,8 @@ const addTask = e => {
       t.value = t;
     }
     if (!tasks[t]) {
-      console.info('Adding Task :' + t);
-      tasks[t] = 'active';
+      console.info('Adding Task: ' + t);
+      tasks[t] = { status: 'active', date: Date.now() };
       updateList();
       task.value = '';
     } else {
@@ -39,7 +82,10 @@ const addTask = e => {
     }
   }
   e.preventDefault();
+
+  task.focus();
 };
+
 const changeTask = e => {
   let t = e.target;
   if (t.dataset.task) {
@@ -47,17 +93,24 @@ const changeTask = e => {
     console.info(`Removed: ${t.dataset.task}`);
     updateList();
     e.preventDefault();
-  } 
+  }
   if (t.nodeName.toLowerCase() === 'input') {
-    tasks[t.value] = t.checked ? 'done' : 'active';
-    console.info(t.value + ': '+ tasks[t.value])
+    tasks[t.value].status = t.checked ? 'done' : 'active';
+    tasks[t.value].date = Date.now();
+    console.info(t.value + ': ' + tasks[t.value].status)
     updateList();
     e.preventDefault();
-  }      
+  }
 }
 
-let tasks = window.localStorage.getItem('mytasks') ?
-JSON.parse(window.localStorage.getItem('mytasks')) : {} ;
+let tasks = localStorage.getItem(STORAGE_KEY) ?
+  JSON.parse(localStorage.getItem(STORAGE_KEY)) : {};
+
+// Backward compat with old data structure.
+if (tasks.length && !tasks[0].status) {
+  tasks = {};
+}
+
 updateList(tasks)
 
 list.addEventListener('click', changeTask);
