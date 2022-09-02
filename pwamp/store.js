@@ -21,7 +21,7 @@ export async function getSongs() {
     // Add a couple of songs to get started so the app isn't empty.
     songs = [{
       type: 'url',
-      id: 'https://microsoftedge.github.io/pwamp/songs/Reunion.mp3',
+      id: 'https://microsoftedge.github.io/Demos/pwamp/songs/Reunion.mp3',
       title: 'Reunion',
       artist: 'David Rousset',
       album: 'Davrous Universe',
@@ -29,7 +29,7 @@ export async function getSongs() {
     },
     {
       type: 'url',
-      id: 'https://microsoftedge.github.io/pwamp/songs/OverTheStargates.mp3',
+      id: 'https://microsoftedge.github.io/Demos/pwamp/songs/OverTheStargates.mp3',
       title: 'Over The Stargates',
       artist: 'David Rousset',
       album: 'Davrous Universe',
