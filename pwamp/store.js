@@ -56,7 +56,7 @@ export async function getSongs() {
 
     // And store the artwork for those songs.
     await setArtwork('Noi2er', 'Beyond Reality (Vacuum) (LP)', 'https://ia803401.us.archive.org/11/items/DWK382/Noi2er_-_Beyond_Reality_Vacuum_Front.jpg');
-    await setArtwork('David Rousset', 'Davrous Universe', 'https://microsoftedge.github.io/pwamp/songs/Reunion.jpg');
+    await setArtwork('David Rousset', 'Davrous Universe', 'https://microsoftedge.github.io/Demos/pwamp/songs/Reunion.jpg');
   }
   return songs;
 }
