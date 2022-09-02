@@ -6,6 +6,11 @@ const url = document.location.href;
 const remoteSongProtocol = new URL(url).searchParams.get('addRemoteSong');
 
 if (remoteSongProtocol) {
-  const songUrl = remoteSongProtocol.substring('web+amp://'.length);
+  let songUrl = remoteSongProtocol.substring('web+amp://'.length);
+
+  if (!songUrl.startsWith('http')) {
+    songUrl = 'https://' + songUrl;
+  }
+
   importSongFromURL(songUrl, getSongNameFromURL(songUrl)).then(startApp);
 }
