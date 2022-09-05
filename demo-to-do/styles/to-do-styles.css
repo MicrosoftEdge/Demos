@@ -1,102 +1,133 @@
-@media screen and (min-width: 401px) {
-  .searchbar {
-    display: flex;
-    color: #fff;
-    background: black;
-    border-radius: 10px;
-    flex-direction: row;
-    box-shadow: 0 8px 8px var(--dropshadow);
-  } 
-  .searchbar label, .searchbar input {
-      flex-grow: 1;
-      padding: .2em .5em;
-  }
-  .searchbar input[type="submit"] {
-      background: #369;
-      color: #fff;
-      border-radius: 10px;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-  }
-  .searchbar input[type="text"] {
-      display: block;
-      flex-grow: 3;
-      min-width: 0;
-      background: #fff;
-  }
-}
-@media screen and (max-width: 400px) {
-  .searchbar {
-    display: flex;
-    color: var(--color);
-    flex-direction: column;
-    gap: .5em;
-  } 
-  .searchbar input[type="text"] {
-    background: #fff;
-    padding: 5px;
-    border-radius: 10px;
-  }
-  .searchbar input[type="submit"] {
-    flex: 1;
-    padding: .2em .5em;
-    max-width: 5em;
-    align-self: flex-end;
-    background: #369;
-    color: #fff;
-    border-radius: 10px;
-  }
+body {
+  margin: calc(2 * var(--spacing));
 }
 
-li {
-  list-style: none;
-  padding: 5px;
-  line-height: 1.3;
-  position: relative;
-  transition: 200ms;
-  border-bottom: 1px solid var(--separator);
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+  margin: 0 auto;
+  gap: calc(2 * var(--spacing));
 }
-li:hover {
-  background: #eee;
-  box-shadow: 0 2px 6px var(--hovershadow);
-  color: #000;
+
+.new-task-form {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  color: var(--color);
+  background: var(--task-background);
+  padding: calc(2 * var(--spacing));
+  border-radius: calc(var(--spacing) / 2);
+  position: fixed;
+  width: calc(100% - 4 * var(--spacing));
+  max-width: 50rem;
+  box-sizing: border-box;
+  box-shadow: 0 calc(-2 * var(--spacing)) 0 calc(3 * var(--spacing)) var(--background);
 }
-input[type=checkbox] {
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute !important;
-    white-space: nowrap;
-    width: 1px;
+
+.new-task-form:hover {
+  background-color: var(--task-hover-background);
 }
-input[type=checkbox] + span {
-  fill: black;
-} 
-li:hover input[type=checkbox]:checked + span {
-  color: var(--hoverdone)
+
+.new-task-form label {
+  cursor: text;
+  flex-shrink: 0;
 }
-input[type=checkbox]:checked + span  {
-  color: var(--done);
+
+.new-task-form #new-task {
+  padding: var(--spacing);
+  opacity: 0;
+  flex: 1;
+  color: var(--color);
+}
+
+.new-task-form:focus-within {
+  outline: 2px solid var(--color);
+}
+
+.new-task-form:focus-within #new-task {
+  opacity: 1;
+  outline: none;
+}
+
+#tasks {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) / 2);
+  margin-top: calc(2rem + 7 * var(--spacing));
+}
+
+.task {
+  background: var(--task-background);
+  border-radius: calc(var(--spacing) / 2);
+  display: flex;
+  gap: var(--spacing);
+  align-items: center;
+  padding: calc(2 * var(--spacing));
+}
+
+.task.completed .text {
+  color: var(--task-completed-color);
   text-decoration: line-through;
-} 
-input[type=checkbox]:checked + span + button  {
-  color:var(--remove);
-} 
-input[type=checkbox]:checked + span + button  {
-  color:var(--remove);
-} 
-label:hover button, label:hover input[type=checkbox]:checked + span + button {
-  color: firebrick;
 }
-li label {
-  display: block;
+
+.task:hover {
+  background: var(--task-hover-background);
 }
-li button {
-  color: transparent;
+
+.task label {
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  gap: var(--spacing);
+  align-items: center;
+}
+
+.task .box {
+  display: none;
+}
+
+.task label::before {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border: 2px solid var(--color);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  font-size: .9rem;
   font-weight: bold;
-  position: absolute;
-  right: 5px;
-  top: 5px;
+}
+
+.task:hover label::before {
+  content: '✓';
+}
+
+.task.completed label::before {
+  color: var(--task-background);
+  background: var(--color);
+  content: '✓';
+  text-decoration: none;
+}
+
+.task .delete {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: .5rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  
+  transition: all .2s;
+  color: transparent;
+  border: 2px solid transparent;
+}
+
+.task:hover .delete {
+  color: var(--delete-color);
+  border-color: var(--delete-color);
 }
