@@ -16,6 +16,7 @@ import { getUniqueId } from './utils.js';
  */
 export async function getSongs() {
   let songs = await get('pwamp-songs');
+
   if (!songs) {
     // The songs array doesn't even exist, so this is the first time we're running.
     // Add a couple of songs to get started so the app isn't empty.
@@ -58,6 +59,7 @@ export async function getSongs() {
     await setArtwork('Noi2er', 'Beyond Reality (Vacuum) (LP)', 'https://ia803401.us.archive.org/11/items/DWK382/Noi2er_-_Beyond_Reality_Vacuum_Front.jpg');
     await setArtwork('David Rousset', 'Davrous Universe', 'https://microsoftedge.github.io/Demos/pwamp/songs/Reunion.jpg');
   }
+
   return songs;
 }
 

@@ -5,9 +5,8 @@ let artworks = {};
 let currentIndex = 0;
 
 async function initializePlaylist() {
-  artworks = await getArtworks();
-
   songs = await getSongs();
+  artworks = await getArtworks();
   for (const song of songs) {
     const artwork = artworks[`${song.artist}-${song.album}`];
     if (artwork) {
