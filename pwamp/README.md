@@ -65,4 +65,3 @@ Credits for those songs:
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
 * Add keyboard shortcuts to play/pause/prev/next/visualize/focus playlist/...
-* Make remote URL songs appear differently (maybe with a cloud icon), and make it clear they can't be played while offline.

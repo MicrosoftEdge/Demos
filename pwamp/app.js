@@ -34,6 +34,8 @@ const playlistActionExportAll = document.getElementById("playlist-action-export"
 const loadCustomSkinButton = document.getElementById("load-custom-skin");
 const recordAudioButton = document.getElementById("record-audio");
 
+let currentSongEl = null;
+
 // Instantiate the player object. It will be used to play/pause/seek/... songs. 
 const player = new Player();
 
@@ -109,6 +111,7 @@ export async function startApp() {
     playlistSongEl.addEventListener('play-song', () => {
       player.pause();
       player.play(song);
+      currentSongEl = playlistSongEl;
     });
 
     playlistSongEl.addEventListener('edit-song', e => {
@@ -184,6 +187,18 @@ player.addEventListener("canplay", () => {
 
 player.addEventListener("paused", () => {
   isVisualizing() && visualizer.stop();
+});
+
+// Listen to song errors to let the user know they can't play remote songs while offline.
+player.addEventListener("error", () => {
+  if (currentSongEl) {
+    currentSongEl.classList.add('error');
+  }
+});
+player.addEventListener("playing", () => {
+  if (currentSongEl) {
+    currentSongEl.classList.remove('error');
+  }
 });
 
 // Manage the add song button.

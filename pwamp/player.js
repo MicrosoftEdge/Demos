@@ -28,6 +28,14 @@ export class Player extends EventTarget {
       this.isPlaying = false;
       this.playNext();
     });
+
+    this.audio.addEventListener('error', e => {
+      this.dispatchEvent(new Event('error'));
+    });
+
+    this.audio.addEventListener('play', e => {
+      this.dispatchEvent(new Event('playing'));
+    });
   }
 
   async loadPlaylist() {

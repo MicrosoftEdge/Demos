@@ -370,6 +370,15 @@ html:not(.visualizing) .playlist-song.playing .artist {
   animation: loading-field 2s linear infinite;
 }
 
+.playlist-song.remote .title::before {
+  content: '☁ ';
+  font-size: .9rem;
+}
+
+.playlist-song.remote.error {
+  color: var(--text-disabled);
+}
+
 .playlist-song.loading-placeholder .duration {
   display: none;
 }

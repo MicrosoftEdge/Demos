@@ -7,6 +7,7 @@ export function removeAllSongs(playlistSongsContainer) {
 export function createSongUI(playlistSongsContainer, song) {
   const li = document.createElement("li");
   li.classList.add('playlist-song');
+  li.classList.add(song.type === 'file' ? 'file' : 'remote');
   li.id = song.id;
 
   // Play button
