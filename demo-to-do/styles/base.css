@@ -24,9 +24,3 @@ input, button {
   font-family: inherit;
   font-size: inherit;
 }
-
-@media print {
-  body::before {
-    content: 'Print version!';
-  }
-}

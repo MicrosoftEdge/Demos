@@ -27,6 +27,7 @@ form {
 
 .new-task-form:hover {
   background-color: var(--task-hover-background);
+  outline: 2px solid var(--color);
 }
 
 .new-task-form label {
@@ -34,11 +35,32 @@ form {
   flex-shrink: 0;
 }
 
+@media (max-width: 450px) {
+  body {
+    font-size: 12pt;
+    --spacing: .4rem;
+  }
+
+  .new-task-form label {
+    width: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 2000px) {
+  body {
+    font-size: 18pt;
+    --spacing: 1rem;
+  }
+}
+
 .new-task-form #new-task {
   padding: var(--spacing);
   opacity: 0;
   flex: 1;
   color: var(--color);
+  width: 100%;
 }
 
 .new-task-form:focus-within {
@@ -130,4 +152,37 @@ form {
 .task:hover .delete {
   color: var(--delete-color);
   border-color: var(--delete-color);
+}
+
+@media print {
+  body {
+    background: none;
+  }
+
+  form {
+    margin: 0;
+    max-width: none;
+  }
+
+  .new-task-form {
+    display: none;
+  }
+
+  #tasks {
+    margin-top: 0;
+  }
+
+  .task {
+    background: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+  }
+
+  .task:hover {
+    background: none;
+  }
+
+  .task .delete {
+    display: none;
+  }
 }
