@@ -1,4 +1,4 @@
-import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork } from "./store.js";
+import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork, isFirstUse } from "./store.js";
 import { Player } from "./player.js";
 import { formatTime, openFilesFromDisk, getFormattedDate, canShare, analyzeDataTransfer } from "./utils.js";
 import { importSongsFromFiles } from "./importer.js";
@@ -7,6 +7,9 @@ import { exportSongToFile } from "./exporter.js";
 import { loadCustomOrResetSkin, reloadStoredCustomSkin } from "./skin.js";
 import { startRecordingAudio, stopRecordingAudio } from "./recorder.js";
 import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoadingSongPlaceholders } from "./song-ui-factory.js";
+
+// Whether we are running as an installed PWA or not (see start_url in manifest)
+const isInstalledPWA = (new URL(document.location)).searchParams.get('mode') === 'standalone';
 
 // All of the UI DOM elements we need.
 const playButton = document.getElementById("playpause");
@@ -31,8 +34,11 @@ const playlistActionsButton = document.getElementById("playlist-actions");
 const playlistActionsPopup = document.getElementById("playlist-actions-popup");
 const playlistActionDeleteAll = document.getElementById("playlist-action-delete");
 const playlistActionExportAll = document.getElementById("playlist-action-export");
+const playlistActionAbout = document.getElementById("playlist-action-about");
 const loadCustomSkinButton = document.getElementById("load-custom-skin");
 const recordAudioButton = document.getElementById("record-audio");
+const aboutDialog = document.getElementById("about-dialog");
+const installButton = document.getElementById("install-button");
 
 let currentSongEl = null;
 
@@ -138,6 +144,11 @@ export async function startApp() {
 
   // Start the update loop.
   updateLoop = setInterval(updateUI, 500);
+
+  // Show the about dialog if this is the first time the app is started.
+  if (isFirstUse) {
+    aboutDialog.showModal();
+  }
 }
 
 // Below are the event handlers for the UI.
@@ -261,11 +272,11 @@ songActionCopyUri.addEventListener("click", async () => {
 
   songActionsPopup.currentSong = null;
   songActionsPopup.hidePopUp();
-  
+
   // The current song is a remote one. Let's create a web+amp link for it.
   let url = song.id;
   url = url.replace(/^https?:\/\//, 'web+amp://');
-  
+
   // And put it into the clipboard.
   await navigator.clipboard.writeText(url);
 });
@@ -336,6 +347,28 @@ playlistActionExportAll.addEventListener('click', async () => {
   playlistActionsPopup.hidePopUp();
 });
 
+playlistActionAbout.addEventListener('click', () => {
+  if (typeof aboutDialog.showModal === "function") {
+    aboutDialog.showModal();
+  }
+});
+
+if (!isInstalledPWA) {
+  window.addEventListener("beforeinstallprompt", e => {
+    // Don't let the default prompt go.
+    e.preventDefault();
+
+    // Instead, wait for the user to click the install button.
+    aboutDialog.addEventListener('close', () => {
+      if (aboutDialog.returnValue === "install") {
+        e.prompt();
+      }
+    });
+  });
+} else {
+  installButton.disabled = true;
+}
+
 // Manage drag/dropping songs from explorer to playlist.
 addEventListener('dragover', e => {
   e.preventDefault();
@@ -392,11 +425,11 @@ addEventListener('drop', async (e) => {
 
   if (containsSongs) {
     document.documentElement.classList.remove('dropping-songs');
-    
+
     createLoadingSongPlaceholders(playlistSongsContainer, files.length);
-    
+
     await importSongsFromFiles(files);
-    
+
     await startApp();
   } else if (containsImages) {
     document.documentElement.classList.remove('dropping-artwork');

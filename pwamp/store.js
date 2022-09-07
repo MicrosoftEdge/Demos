@@ -1,6 +1,8 @@
 import { get, set, del } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
 import { getUniqueId } from './utils.js';
 
+export let isFirstUse = false;
+
 // Songs are stored in IDB as an array under the 'songs' key.
 //
 // Songs have unique IDs to identify them. Songs also have a title, artist, album, and duration.
@@ -18,6 +20,8 @@ export async function getSongs() {
   let songs = await get('pwamp-songs');
 
   if (!songs) {
+    isFirstUse = true;
+
     // The songs array doesn't even exist, so this is the first time we're running.
     // Add a couple of songs to get started so the app isn't empty.
     songs = [{
@@ -100,7 +104,7 @@ export async function addLocalFileSong(file, title, artist, album, duration) {
 /**
  * Add several new file songs to the list of songs in IDB.
  */
- export async function addMultipleLocalFileSongs(fileSongs) {
+export async function addMultipleLocalFileSongs(fileSongs) {
   fileSongs = fileSongs.map(fileSong => {
     return {
       title: fileSong.title,

@@ -1,4 +1,5 @@
 :root {
+  /* Please keep this in sync with about.css */
   --back: #181c25;
   --secondary: #444;
   --text: #fefefe;
@@ -738,45 +739,6 @@ input[type="range"]:hover::-moz-range-thumb {
   position: relative;
   left: calc(50% - 2px);
   border-width: 0 4px 2px 2px;
-}
-
-dialog {
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
-  border-radius: .25rem;
-  box-shadow: 0 0 3rem 1rem #000a;
-  background: var(--back);
-  color: var(--text);
-  padding: 1rem;
-}
-
-dialog::backdrop {
-  background-color: #0008;
-}
-
-dialog form {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: max-content 1fr;
-}
-
-dialog form label {
-  display: contents;
-}
-
-dialog form .submit-buttons {
-  grid-column: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-dialog form button {
-  background: var(--primary);
-  border-radius: .25rem;
-  border: 0;
-  padding: .25rem .5rem;
 }
 
 [popup] {

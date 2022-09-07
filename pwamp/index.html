@@ -5,24 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pwamp</title>
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#181c25">
+    <meta name="theme-color" content="#181c25" />
+    <link rel="stylesheet" href="about.css" />
     <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
   </head>
   <body>
-    <div id="wco-drag" style="position:fixed;top:env(titlebar-area-y);left:env(titlebar-area-x);height:env(titlebar-area-height);width:env(titlebar-area-width);-webkit-app-region:drag;"></div>
+    <div
+      id="wco-drag"
+      style="
+        position: fixed;
+        top: env(titlebar-area-y);
+        left: env(titlebar-area-x);
+        height: env(titlebar-area-height);
+        width: env(titlebar-area-width);
+        -webkit-app-region: drag;
+      "
+    ></div>
 
     <section class="player">
       <div class="player-controls">
-        <button class="player-control-button main-button" id="previous" title="Go to the previous song or the beginning of song">
+        <button
+          class="player-control-button main-button"
+          id="previous"
+          title="Go to the previous song or the beginning of song"
+        >
           <span>Previous</span>
         </button>
-        <button class="player-control-button main-button" id="playpause" title="Play">
+        <button
+          class="player-control-button main-button"
+          id="playpause"
+          title="Play"
+        >
           <span>Play</span>
         </button>
-        <button class="player-control-button main-button" id="next" title="Go to the next song">
+        <button
+          class="player-control-button main-button"
+          id="next"
+          title="Go to the next song"
+        >
           <span>Next</span>
         </button>
       </div>
@@ -40,7 +63,9 @@
     </section>
 
     <section class="playlist">
-      <p class="empty-playlist">No songs in playlist, drag songs here or click <strong>+</strong></p>
+      <p class="empty-playlist">
+        No songs in playlist, drag songs here or click <strong>+</strong>
+      </p>
       <ol class="songs"></ol>
     </section>
 
@@ -50,16 +75,32 @@
     </section>
 
     <section class="app-controls">
-      <button class="main-button" id="add-songs" title="Add new songs to the playlist">
+      <button
+        class="main-button"
+        id="add-songs"
+        title="Add new songs to the playlist"
+      >
         <span>Add new songs</span>
       </button>
-      <button class="main-button" id="load-custom-skin" title="Apply a custom skin">
+      <button
+        class="main-button"
+        id="load-custom-skin"
+        title="Apply a custom skin"
+      >
         <span>Apply a custom skin</span>
       </button>
-      <button class="main-button" id="record-audio" title="Record an audio clip">
+      <button
+        class="main-button"
+        id="record-audio"
+        title="Record an audio clip"
+      >
         <span>Record an audio clip</span>
       </button>
-      <button class="main-button" id="toggle-visualizer" title="Show visualizer">
+      <button
+        class="main-button"
+        id="toggle-visualizer"
+        title="Show visualizer"
+      >
         <span>Show visualizer</span>
       </button>
       <button class="main-button" id="playlist-actions" title="More tools...">
@@ -70,16 +111,53 @@
     <canvas id="waveform"></canvas>
 
     <div id="song-actions-popup" popup>
-      <button class="popup-item song-action" id="song-action-delete">Delete</button>
-      <button class="popup-item song-action" id="song-action-copy-uri">Copy link</button>
-      <button class="popup-item song-action" id="song-action-export">Export...</button>
-      <button class="popup-item song-action" id="song-action-share">Share...</button>
+      <button class="popup-item song-action" id="song-action-delete">
+        Delete
+      </button>
+      <button class="popup-item song-action" id="song-action-copy-uri">
+        Copy link
+      </button>
+      <button class="popup-item song-action" id="song-action-export">
+        Export...
+      </button>
+      <button class="popup-item song-action" id="song-action-share">
+        Share...
+      </button>
     </div>
 
     <div id="playlist-actions-popup" popup>
-      <button class="popup-item playlist-action" id="playlist-action-delete">Delete all</button>
-      <button class="popup-item playlist-action" id="playlist-action-export">Export all...</button>
+      <button class="popup-item playlist-action" id="playlist-action-delete">
+        Delete all
+      </button>
+      <button class="popup-item playlist-action" id="playlist-action-export">
+        Export all...
+      </button>
+      <button class="popup-item playlist-action" id="playlist-action-about">
+        About...
+      </button>
     </div>
+
+    <dialog id="about-dialog">
+      <div class="screenshot"></div>
+      <img class="logo" src="./favicon-128.png" alt="The PWAmp logo" />
+      <section class="about">
+        <h1>PWAmp</h1>
+        <h2>The Progressive Web Amp</h2>
+        <p>
+          Listen to your favorite local song files, play online songs, share
+          with friends, customize the app, and more...
+        </p>
+        <p>
+          PWAmp is a simple audio player app for the web, and desktop operating
+          systems. It is built with HTML, CSS, JavaScript, and Progressive Web
+          App features.
+        </p>
+      </section>
+      <form class="actions" method="dialog">
+        <button value="cancel">Cancel</button>
+        <button value="install" id="install-button">Install app</button>
+      </form>
+    </dialog>
 
     <script src="popup-polyfill.js"></script>
 

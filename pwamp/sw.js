@@ -1,4 +1,4 @@
-const VERSION = "v15";
+const VERSION = "v16";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -6,6 +6,7 @@ const CACHE_NAME = `pwamp-${VERSION}`;
 const INITIAL_CACHED_RESOURCES = [
   "./",
   "./skins/default.css",
+  "./about.css",
   "./album-art-placeholder.png",
   "./app.js",
   "./audio-metadata-parse-worker.js",
@@ -24,6 +25,7 @@ const INITIAL_CACHED_RESOURCES = [
   "./store.js",
   "./utils.js",
   "./visualizer.js",
+  "./visualizer.png",
   "https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm"
 ];
 
@@ -95,7 +97,7 @@ self.addEventListener('fetch', event => {
   }
 
   // Immediately redirect to the start URL, there's nothing to see here.
-  event.respondWith(Response.redirect('./'));
+  event.respondWith(Response.redirect('./?mode=standalone'));
 
   event.waitUntil(async function () {
     const data = await event.request.formData();

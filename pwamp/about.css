@@ -1,0 +1,83 @@
+/* Colors in this CSS are hardcoded because we want the about
+screen to always look the same, no matter what skin is used. */
+
+#about-dialog {
+  /* Please keep these colors in sync with skins/default.css */
+  --back: #181c25;
+  --text: #fefefe;
+  --primary: #ffbb50;
+}
+
+#about-dialog::backdrop {
+  background-color: #0008;
+}
+
+#about-dialog {
+  max-width: 900px;
+  border: 1px solid black;
+  border-radius: .5rem;
+  background: var(--back);
+  color: var(--text);
+  box-shadow: 0 0 1rem 0 #0008;
+  overflow: hidden;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 2fr;
+  grid-template-rows: min-content auto auto;
+}
+
+#about-dialog:not([open]) {
+  display: none;
+}
+
+#about-dialog > * {
+  grid-column: 1;
+}
+
+#about-dialog .screenshot {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  background-image: url(./visualizer.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#about-dialog .logo {
+  place-self: center;
+  margin: 2rem 0 1rem 0;
+}
+
+#about-dialog h1, #about-dialog h2 {
+  text-align: center;
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+#about-dialog h2 {
+  font-weight: normal;
+  font-size: .8rem;
+  margin: 2rem;
+}
+
+#about-dialog p {
+  font-size: .8rem;
+  margin: 1rem 2rem;
+}
+
+#about-dialog .actions {
+  margin: 0 1rem 2rem 1rem;
+  text-align: center;
+}
+
+#about-dialog button {
+  font-size: .8rem;
+  background: var(--primary);
+  color: var(--back);
+  border-radius: .25rem;
+  padding: .3rem;
+  cursor: pointer;
+}
+
+#about-dialog button[disabled] {
+  display: none;
+}
