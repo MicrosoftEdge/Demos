@@ -4,7 +4,7 @@
 
 PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an installable web app (PWA) specifically made to demonstrate desktop-integration features.
 
-![Screenshot of the pwamp app](screenshot.png)
+![Screenshot of the pwamp app](screenshot-playlist.png)
 
 ## User guide
 
