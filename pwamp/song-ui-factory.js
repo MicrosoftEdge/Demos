@@ -114,7 +114,7 @@ export function createSongUI(playlistSongsContainer, song) {
 
 export function createLoadingSongPlaceholders(playlistSongsContainer, nbOfPlaceholders) {
   for (let i = 0; i < nbOfPlaceholders; i++) {
-    const playlistSongEl = createSongUI(playlistSongsContainer, { title: '', artist: '', album: '' });
+    const playlistSongEl = createSongUI(playlistSongsContainer, { title: '', artist: '', album: '', id: getUniqueId(), type: 'file' });
     playlistSongEl.classList.add('loading-placeholder');
     playlistSongsContainer.appendChild(playlistSongEl);
   }

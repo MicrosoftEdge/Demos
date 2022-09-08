@@ -49,6 +49,10 @@ function turnFileIntoURL(file) {
  * @param {Array} files 
  */
 export async function importSongsFromFiles(files) {
+  if (!Array.isArray(files)) {
+    files = [...files];
+  }
+
   const songs = [];
 
   // We can do this part in parallel.
