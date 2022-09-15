@@ -54,6 +54,7 @@ Credits for those songs:
 
 ## TODO
 
+* Make it possible to download remote songs locally (fetch -> readablestream -> store chunks in IDB. And then fetch handler in SW to serve these chunks back from IDB when offline).
 * Improve song adding performance again: only get duration later, after song has been added.
 * Add current song playing info in player.
 * Add the ability to drag/drop songs in the playlist to re-order them.
