@@ -1,0 +1,383 @@
+/* Variables */
+
+:root {
+  --background-color: white;
+  --sidebar-width: minmax(20%, 250px);
+  --main-color: hsl(201, 71%, 24%);
+  --clear-background-color: hsl(201, 71%, 94%);
+  --sidebar-text-color: white;
+  --text-color: black;
+}
+
+/* Typography */
+
+html {
+  background: var(--background-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12pt;
+  color: var(--text-color);
+}
+
+/* Reset */
+
+* {
+  user-select: none;
+}
+
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-size: 1rem;
+}
+
+ul, li {
+  list-style: none;
+}
+
+button, input, select {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Icon buttons */
+
+button {
+  color: transparent;
+  font-size: 0;
+  overflow: hidden;
+  background: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .25rem;
+}
+
+button:hover {
+  outline: 2px solid var(--clear-background-color);
+}
+
+.add-icon::before {
+  content: '';
+  width: .5rem;
+  height: .5rem;
+  background-image:
+   linear-gradient(to top, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+   linear-gradient(to right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0);
+}
+
+.delete-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background-image:
+    linear-gradient(to right, var(--main-color) 0 20%, transparent 20% 40%, var(--main-color) 40% 60%, transparent 60% 80%, var(--main-color) 0),
+    linear-gradient(to bottom, transparent 0 10%, var(--sidebar-text-color) 10% 20%, transparent 0),
+    linear-gradient(to bottom, transparent 0 20%, var(--sidebar-text-color) 20% 30%, transparent 0),
+    linear-gradient(to bottom, transparent 0 30%, var(--sidebar-text-color) 0);
+  background-size:
+    50% 60%,
+    50% 100%,
+    100% 100%,
+    70% 100%;
+  background-position:
+    center 80%,
+    top center,
+    top left,
+    top center;
+  background-repeat: no-repeat;
+}
+
+.close-icon::before {
+  width: .5rem;
+  height: .5rem;
+  background-image:
+   linear-gradient(to top right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+   linear-gradient(to bottom right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0);
+}
+
+.run-icon::before {
+  width: 0;
+  height: 0;
+  border-left: .5rem solid var(--sidebar-text-color);
+  border-top: .3rem solid transparent;
+  border-bottom: .3rem solid transparent;
+}
+
+/* App layout */
+
+body {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas:
+    "logo  main"
+    "flows main";
+}
+
+h1 {
+  grid-area: logo;
+}
+
+.flows {
+  grid-area: flows;
+}
+
+.welcome, .editor {
+  grid-area: main;
+}
+
+/* Flows sidebar */
+
+h1, .flows {
+  background: var(--main-color);
+  color: var(--sidebar-text-color);
+}
+
+h1 {
+  padding: 1rem;
+}
+
+h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.flows {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  overflow: hidden;
+}
+
+.flows h2 {
+  display: none;
+}
+
+.flows ul {
+  display: grid;
+  align-content: start;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.flows .flow-in-list a {
+  padding: 1rem;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.flows .flow-in-list a:hover {
+  background-color: #fff4;
+}
+
+.add-flow {
+  margin: 1rem;
+  place-self: center;
+  background-color: var(--sidebar-text-color);
+}
+
+.add-flow::before {
+  filter: invert(100);
+}
+
+/* Welcome screen */
+
+.welcome {
+  place-self: center;
+  padding: 1rem;
+  border-radius: .5rem;
+  background: var(--clear-background-color);
+}
+
+/* Editor screen */
+
+.editor input, .editor select {
+  padding: .25rem;
+  border-radius: .25rem;
+  border: 2px solid #0004;
+  background: var(--background-color);
+}
+
+.editor {
+  padding: 1rem;
+  overflow-y: auto;
+  position: relative;
+
+  --step-color: var(--clear-background-color);
+}
+
+.editor .flow-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.editor .flow-actions .flow-name {
+  margin-right: auto;
+}
+
+.editor .steps {
+  margin: 1rem 0;
+  background-image: linear-gradient(to right, transparent 0 calc(50% - .5rem), var(--step-color) calc(50% - .5rem) calc(50% + .5rem), transparent 0);
+  display: grid;
+  gap: .5rem;
+}
+
+.editor .steps::before,
+.editor .steps::after {
+  content: 'Start';
+  background: var(--step-color);
+  justify-self: center;
+  padding: .5rem;
+  font-size: .8rem;
+  font-weight: bold;
+  border-radius: .5rem;
+}
+
+.editor .steps::after {
+  content: 'End';
+}
+
+.editor .step {
+  padding: 1rem;
+  border-radius: .5rem;
+  background: var(--step-color);
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  gap: 1rem;
+  cursor: grab;
+}
+
+.editor .step.moving {
+  z-index: 1;
+  position: absolute;
+  width: calc(100% - 4rem);
+}
+
+.editor .step.moving.started-moving {
+  box-shadow: 0 0 1rem 0 #0004;
+}
+
+.editor .add-step {
+  place-self: center;
+}
+
+.editor .add-step button {
+  visibility: hidden;
+}
+
+.editor .add-step:hover button {
+  visibility: visible;
+}
+
+.editor .placeholder {
+  border-radius: .5rem;
+  border: 6px dashed var(--main-color);
+  background: var(--clear-background-color);
+  box-sizing: border-box;
+}
+
+.editor .step .step-description {
+  grid-column: 1 / 3;
+  font-size: .8rem;
+}
+
+.editor .step .step-params {
+  grid-column: 1 / 3;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.editor .step label {
+  display: flex;
+  gap: .5rem;
+  justify-content: end;
+  align-items: center;
+}
+
+.editor .step .remove-step {
+  grid-column: 2;
+  grid-row: 1;
+  visibility: hidden;
+}
+
+.editor .step:hover .remove-step {
+  visibility: visible;
+}
+
+.editor .output-images {
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.editor .output-images img {
+  width: 100%;
+}
+
+.editor button::before {
+  content: '';
+  font-size: 1rem;
+  color: var(--sidebar-text-color);
+}
+
+.running .editor .run-flow {
+  pointer-events: none;
+  background-color: var(--clear-background-color);
+}
+
+/* Step chooser */
+
+.step-chooser {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 1rem;
+}
+
+.step-chooser h2 {
+  margin-bottom: 1rem;
+}
+
+.step-chooser .steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.step-chooser .step-to-choose {
+  padding: .5rem;
+  border-radius: .5rem;
+  background-color: var(--clear-background-color);
+  width: unset;
+  height: unset;
+  color: var(--text-color);
+  font-size: inherit;
+  flex-direction: column;
+  gap: .5rem;
+  text-align: start;
+  justify-content: start;
+  align-items: start;
+}
+
+.step-chooser .step-to-choose:hover {
+  outline: 2px solid var(--main-color);
+}

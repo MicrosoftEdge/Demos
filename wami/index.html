@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>wami</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1><a href="/wami/">wami</a></h1>
+    <section class="flows">
+      <h2>flows</h2>
+      <ul></ul>
+      <button class="add-flow add-icon" title="Add a new flow">+</button>
+    </section>
+    <section class="welcome">
+      <h2>Welcome to wami</h2>
+      <p>Select a flow to get started or create a new one</p>
+    </section>
+    <section class="editor hidden">
+      <div class="flow-actions">
+        <input class="flow-name" type="text" />
+        <button class="run-flow run-icon" title="Run this flow">Run</button>
+        <button class="close-flow close-icon" title="Close this flow">Close</button>
+        <button class="delete-flow delete-icon" title="Delete this flow">Delete</button>
+      </div>
+      <ul class="steps"></ul>
+      <ul class="output-images"></ul>
+    </section>
+    <dialog class="step-chooser">
+      <h2>Choose a step</h2>
+      <form class="steps" method="dialog"></form>
+    </dialog>
+    <script type="module" src="app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+  </body>
+</html>
