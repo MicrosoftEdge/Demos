@@ -9,7 +9,7 @@ export async function runFlow(flow, images) {
     inputImages.push({ content, name });
   }
 
-  let cmd = ['convert', '*'];
+  let cmd = ['mogrify'];
 
   for (const step of flow.steps) {
     let stepCmd = [];
@@ -23,7 +23,7 @@ export async function runFlow(flow, images) {
     cmd = [...cmd, ...stepCmd];
   }
 
-  cmd.push('out-%d.png');
+  cmd.push('*');
 
   try {
     const processedFiles = await Magick.call(inputImages, cmd);

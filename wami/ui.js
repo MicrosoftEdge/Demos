@@ -249,10 +249,10 @@ function populateImages(imageSources, container) {
   container.innerHTML = '';
 
   for (const src of imageSources) {
-    const li = document.createElement('li');
+    const div = document.createElement('div');
     const img = document.createElement('img');
     img.src = src;
-    li.appendChild(img);
-    container.appendChild(li);
+    div.appendChild(img);
+    container.appendChild(div);
   }
 }

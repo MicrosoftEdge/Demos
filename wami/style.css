@@ -122,6 +122,35 @@ button:hover {
   border-bottom: .3rem solid transparent;
 }
 
+.save-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background: var(--sidebar-text-color);
+  border-radius: .05rem;
+
+  background-image: 
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(to bottom left, var(--main-color) 0 .15rem, transparent 0);
+  background-repeat: no-repeat;
+  background-size: .8rem .45rem, .5rem .3rem, 100%;
+  background-position: .1rem .5rem, .2rem .05rem, 0 0;
+}
+
+.download-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background: var(--sidebar-text-color);
+  background-image:
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(to top right, var(--main-color) 0 .35rem, transparent 0),
+    linear-gradient(to top left, var(--main-color) 0 .35rem, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 30% 50%, 30% 50%, 100%, 100%;
+  background-position: 0 0, 105% 0, 0 0, 0 0;
+}
+
 /* App layout */
 
 body {
@@ -408,4 +437,21 @@ h1 a {
 
 .step-chooser .step-to-choose:hover {
   outline: 2px solid var(--main-color);
+}
+
+/* Image actions */
+
+.editor:has(.output-images:empty) .output-image-actions {
+  display: none;
+}
+
+.editor .output-image-actions {
+  padding: .5rem;
+  margin: 0 auto;
+  border-radius: 0 0 .5rem .5rem;
+  background: var(--step-color);
+  width: 4.5rem;
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
 }

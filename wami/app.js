@@ -1,7 +1,7 @@
 import { runFlow } from './flow-runner.js';
 import { populateEditor, populateFlowList, populateOutputImages, insertStep, removeStep, populateInputImages } from './ui.js';
 import { getFlows, saveFlows } from './store.js';
-import { getUniqueId, extractImagesFromDataTransfer } from './utils.js';
+import { getUniqueId, extractImagesFromDataTransfer, download } from './utils.js';
 
 const welcomePage = document.querySelector('.welcome');
 const editorPage = document.querySelector('.editor');
@@ -9,6 +9,8 @@ const closeFlowButton = editorPage.querySelector('.close-flow');
 const runFlowButton = editorPage.querySelector('.run-flow');
 const addFlowButton = document.querySelector('.add-flow');
 const deleteFlowButton = document.querySelector('.delete-flow');
+const downloadImagesButton = document.querySelector('.download-images');
+const saveImagesButton = document.querySelector('.save-images');
 
 let flowsPromise = getFlows();
 let currentFlow = null;
@@ -90,8 +92,14 @@ runFlowButton.addEventListener('click', async e => {
 
   document.documentElement.classList.add('running');
 
-  const processedFiles = await runFlow(currentFlow, currentImages);
+  const processedFiles = await runFlow(currentFlow, currentImages.map(i => i.file));
   if (processedFiles) {
+    // Store the new images in the currentImages array.
+    for (const image of currentImages) {
+      image.processed = processedFiles.outputFiles.find(f => f.name === image.file.name);
+    }
+
+    // Display the images.
     const imageSources = processedFiles.outputFiles.map(file => {
       return URL.createObjectURL(file.blob);
     });
@@ -204,7 +212,7 @@ addEventListener('dragover', e => {
   if (!images.length) {
     return;
   }
-  
+
   document.documentElement.classList.add('dropping-images');
 });
 
@@ -229,16 +237,48 @@ addEventListener('drop', async (e) => {
 
   document.documentElement.classList.remove('dropping-images');
 
+  // Store the current images.
   currentImages = images;
-  populateInputImages(images.map(blob => {
-    return URL.createObjectURL(blob);
+  populateInputImages(images.map(image => {
+    return URL.createObjectURL(image.file);
   }));
+});
+
+// Handle save/save-as/download.
+const hasImagesToSave = () => currentImages.length && currentImages[0].processed !== undefined;
+
+saveImagesButton.addEventListener('click', async e => {
+  if (!hasImagesToSave()) {
+    return;
+  }
+
+  for (const image of currentImages) {
+    const handle = await image.fsHandlePromise;
+    const writable = await handle.createWritable();
+    await writable.write(image.processed.blob);
+    await writable.close();
+  }
+});
+
+downloadImagesButton.addEventListener('click', async e => {
+  if (!hasImagesToSave()) {
+    return;
+  }
+
+  for (const image of currentImages) {
+    download(image.processed.blob, image.file.name);
+  }
 });
 
 // When the app starts, get the flows and display them in the sidebar.
 async function startApp() {
   const flows = await flowsPromise;
   populateFlowList(flows);
+
+  // Also toggle the download/save buttons depending on capabilities.
+  if (!('showOpenFilePicker' in window)) {
+    saveImagesButton.remove();
+  }
 }
 
 startApp();

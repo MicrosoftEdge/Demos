@@ -17,9 +17,21 @@ export function extractImagesFromDataTransfer(event) {
     }
 
     if (item.type.startsWith('image/')) {
-      images.push(item.getAsFile());
+      images.push({
+        file: item.getAsFile(),
+        fsHandlePromise: item.getAsFileSystemHandle ? item.getAsFileSystemHandle() : null,
+      });
     }
   }
 
   return images;
+}
+
+export function download(file, name) {
+  const url = URL.createObjectURL(file);
+
+  const link = document.createElement('a');
+  link.setAttribute('download', name);
+  link.setAttribute('href', url);
+  link.click();
 }
