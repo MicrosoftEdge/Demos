@@ -12,7 +12,7 @@ export const STEPS = {
     name: 'Colorize',
     description: 'Colorize the image by an amount specified by value, using a specified color.',
     params: [
-      { name: 'color', type: 'color', default: 'lime' },
+      { name: 'color', type: 'color', default: '#00FF59' },
       { name: 'value', type: 'number', default: 0 }
     ],
     getCmd: (step) => ['-fill', step.params[0], '-colorize', step.params[1]]

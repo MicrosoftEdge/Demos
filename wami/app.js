@@ -1,7 +1,7 @@
 import { runFlow } from './flow-runner.js';
-import { populateEditor, populateFlowList, populateOutputImages, insertStep, removeStep } from './ui.js';
+import { populateEditor, populateFlowList, populateOutputImages, insertStep, removeStep, populateInputImages } from './ui.js';
 import { getFlows, saveFlows } from './store.js';
-import { getUniqueId } from './utils.js';
+import { getUniqueId, extractImagesFromDataTransfer } from './utils.js';
 
 const welcomePage = document.querySelector('.welcome');
 const editorPage = document.querySelector('.editor');
@@ -13,6 +13,7 @@ const deleteFlowButton = document.querySelector('.delete-flow');
 let flowsPromise = getFlows();
 let currentFlow = null;
 let currentId = null;
+let currentImages = [];
 
 function shouldNotIntercept(navigationEvent) {
   return (
@@ -83,9 +84,13 @@ if (flowToLoad) {
 
 // Run the current flow.
 runFlowButton.addEventListener('click', async e => {
+  if (!currentImages.length) {
+    return;
+  }
+
   document.documentElement.classList.add('running');
 
-  const processedFiles = await runFlow(currentFlow);
+  const processedFiles = await runFlow(currentFlow, currentImages);
   if (processedFiles) {
     const imageSources = processedFiles.outputFiles.map(file => {
       return URL.createObjectURL(file.blob);
@@ -189,6 +194,45 @@ deleteFlowButton.addEventListener('click', async e => {
   populateFlowList(flows);
 
   await navigation.navigate('/wami/');
+});
+
+// Handle drag/drop images in the app.
+addEventListener('dragover', e => {
+  e.preventDefault();
+
+  const images = extractImagesFromDataTransfer(e);
+  if (!images.length) {
+    return;
+  }
+  
+  document.documentElement.classList.add('dropping-images');
+});
+
+addEventListener('dragleave', e => {
+  e.preventDefault();
+
+  const images = extractImagesFromDataTransfer(e);
+  if (!images.length) {
+    return;
+  }
+
+  document.documentElement.classList.remove('dropping-images');
+});
+
+addEventListener('drop', async (e) => {
+  e.preventDefault();
+
+  const images = extractImagesFromDataTransfer(e);
+  if (!images.length) {
+    return;
+  }
+
+  document.documentElement.classList.remove('dropping-images');
+
+  currentImages = images;
+  populateInputImages(images.map(blob => {
+    return URL.createObjectURL(blob);
+  }));
 });
 
 // When the app starts, get the flows and display them in the sidebar.

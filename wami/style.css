@@ -251,6 +251,7 @@ h1 a {
 }
 
 .editor .step {
+  box-sizing: border-box;
   max-width: 50rem;
   padding: 1rem;
   border-radius: .5rem;
@@ -333,9 +334,32 @@ h1 a {
   gap: 1rem;
 }
 
+.editor .input-images:empty,
+.editor .output-images:empty {
+  grid-template-columns: 1fr;
+  place-items: center;
+}
+
 .editor .input-images img,
 .editor .output-images img {
   width: 100%;
+}
+
+.editor .input-images:empty::before {
+  content: "Drop images here";
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.editor .output-images:empty::before {
+  content: "Run this flow to get output images";
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.dropping-images .editor .input-images {
+  outline: .25rem dashed var(--main-color);
+  outline-offset: -.5rem;
 }
 
 .editor button::before {

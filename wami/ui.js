@@ -3,6 +3,7 @@ import { STEPS } from './steps.js';
 const flowList = document.querySelector('.flows ul');
 const flowEditorName = document.querySelector('.editor .flow-name');
 const flowEditorSteps = document.querySelector('.editor .steps');
+const inputImages = document.querySelector('.input-images');
 const outputImages = document.querySelector('.output-images');
 const stepChooserDialog = document.querySelector('.step-chooser');
 const stepChooserList = stepChooserDialog.querySelector('.steps');
@@ -138,13 +139,14 @@ addEventListener('mousedown', mouseDownEvent => {
   const mouseDelta = mouseDownEvent.clientY - movingStep.offsetTop;
   movingStep.style.top = `${movingStep.offsetTop}px`;
   movingStep.style.left = `${movingStep.offsetLeft}px`;
+  movingStep.style.width = `${movingStep.offsetWidth}px`;
   movingStep.classList.add('moving');
 
-  // Create a placeholder with the same height.
-  const stepRect = movingStep.offsetHeight;
+  // Create a placeholder with the same heightxwidth.
   const placeholder = document.createElement('li');
   placeholder.classList.add('placeholder');
-  placeholder.style.height = `${stepRect}px`;
+  placeholder.style.height = `${movingStep.offsetHeight}px`;
+  placeholder.style.width = `${movingStep.offsetWidth}px`;
   movingStep.parentNode.insertBefore(placeholder, movingStep);
 
   const stepElements = [...flowEditorSteps.querySelectorAll('.step')];
@@ -183,18 +185,6 @@ addEventListener('mousedown', mouseDownEvent => {
     dispatchEvent(new Event('flow-change'));
   }, { once: true });
 });
-
-export function populateOutputImages(imageSources) {
-  outputImages.innerHTML = '';
-
-  for (const src of imageSources) {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-    img.src = src;
-    li.appendChild(img);
-    outputImages.appendChild(li);
-  }
-}
 
 // List of flows
 
@@ -244,3 +234,25 @@ function populateStepChooserDialog() {
 }
 
 populateStepChooserDialog();
+
+// List of images.
+
+export function populateInputImages(imageSources) {
+  populateImages(imageSources, inputImages);
+}
+
+export function populateOutputImages(imageSources) {
+  populateImages(imageSources, outputImages);
+}
+
+function populateImages(imageSources, container) {
+  container.innerHTML = '';
+
+  for (const src of imageSources) {
+    const li = document.createElement('li');
+    const img = document.createElement('img');
+    img.src = src;
+    li.appendChild(img);
+    container.appendChild(li);
+  }
+}
