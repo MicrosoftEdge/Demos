@@ -237,22 +237,37 @@ populateStepChooserDialog();
 
 // List of images.
 
-export function populateInputImages(imageSources) {
-  populateImages(imageSources, inputImages);
+export function populateInputImages(images) {
+  populateImages(images, inputImages);
 }
 
-export function populateOutputImages(imageSources) {
-  populateImages(imageSources, outputImages);
+export function populateOutputImages(images) {
+  populateImages(images, outputImages);
 }
 
-function populateImages(imageSources, container) {
+function populateImages(images, container) {
   container.innerHTML = '';
 
-  for (const src of imageSources) {
+  for (const { src, name } of images) {
     const div = document.createElement('div');
+
     const img = document.createElement('img');
     img.src = src;
     div.appendChild(img);
+
+    const nameP = document.createElement('p');
+    nameP.classList.add('image-name');
+    nameP.textContent = name;
+    div.appendChild(nameP);
+
+    const sizeP = document.createElement('p');
+    sizeP.classList.add('image-size');
+    div.appendChild(sizeP);
+
+    img.onload = () => {
+      sizeP.textContent = `${img.naturalWidth} x ${img.naturalHeight}`;
+    }
+
     container.appendChild(div);
   }
 }

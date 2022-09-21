@@ -100,7 +100,7 @@ runFlowButton.addEventListener('click', async e => {
 
     // Display the images.
     const imageSources = processedFiles.outputFiles.map(file => {
-      return URL.createObjectURL(file.blob);
+      return { src: URL.createObjectURL(file.blob), name: file.name };
     });
     populateOutputImages(imageSources);
   }
@@ -239,7 +239,7 @@ addEventListener('drop', async (e) => {
   // Store the current images.
   currentImages = images;
   populateInputImages(images.map(image => {
-    return URL.createObjectURL(image.file);
+    return { src: URL.createObjectURL(image.file), name: image.file.name };
   }));
 });
 
