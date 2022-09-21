@@ -16,6 +16,7 @@ let flowsPromise = getFlows();
 let currentFlow = null;
 let currentId = null;
 let currentImages = [];
+let outputImages = [];
 
 function shouldNotIntercept(navigationEvent) {
   return (
@@ -94,10 +95,8 @@ runFlowButton.addEventListener('click', async e => {
 
   const processedFiles = await runFlow(currentFlow, currentImages.map(i => i.file));
   if (processedFiles) {
-    // Store the new images in the currentImages array.
-    for (const image of currentImages) {
-      image.processed = processedFiles.outputFiles.find(f => f.name === image.file.name);
-    }
+    // Store the new images in the outputImages array.
+    outputImages = processedFiles.outputFiles;
 
     // Display the images.
     const imageSources = processedFiles.outputFiles.map(file => {
@@ -245,17 +244,24 @@ addEventListener('drop', async (e) => {
 });
 
 // Handle save/save-as/download.
-const hasImagesToSave = () => currentImages.length && currentImages[0].processed !== undefined;
+const hasImagesToSave = () => outputImages.length;
 
 saveImagesButton.addEventListener('click', async e => {
   if (!hasImagesToSave()) {
     return;
   }
 
-  for (const image of currentImages) {
-    const handle = await image.fsHandlePromise;
+  // If the input images were cloned, we can't save the new images
+  // back to disk. They don't have a handle. Just bail out for now.
+  if (currentImages.length !== outputImages.length) {
+    return;
+  }
+
+  for (const outputImage of outputImages) {
+    // Find the handle.
+    const handle = await currentImages.find(i => i.file.name === outputImage.name).handle;
     const writable = await handle.createWritable();
-    await writable.write(image.processed.blob);
+    await writable.write(outputImage.blob);
     await writable.close();
   }
 });
@@ -265,8 +271,8 @@ downloadImagesButton.addEventListener('click', async e => {
     return;
   }
 
-  for (const image of currentImages) {
-    download(image.processed.blob, image.file.name);
+  for (const image of outputImages) {
+    download(image.blob, image.name);
   }
 });
 

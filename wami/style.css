@@ -254,10 +254,9 @@ h1 a {
 }
 
 .editor {
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem 1rem 1rem;
   overflow-y: auto;
   position: relative;
-
   --step-color: var(--clear-background-color);
 }
 

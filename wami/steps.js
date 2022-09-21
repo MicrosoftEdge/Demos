@@ -82,5 +82,12 @@ export const STEPS = {
     params: [
       { name: 'method', type: 'select', default: 'Rec709Luma', options: ['Rec601Luma', 'Rec601Luminance', 'Rec709Luma', 'Rec709Luminance', 'Brightness', 'Lightness'] }
     ]
+  },
+  'clone': {
+    name: 'Clone',
+    description: 'Make a clone of an image, referenced by its index. The position of this step in a flow has no effect, the input image is cloned first and then the other steps are run.',
+    params: [
+      { name: 'index', type: 'number', default: 0 }
+    ]
   }
 };

@@ -10,8 +10,28 @@ export async function runFlow(flow, images) {
   }
 
   let cmd = ['mogrify'];
+  let clonedIndex = 1;
 
   for (const step of flow.steps) {
+    // The clone step is special. It works with imagemagick but
+    // not with mogrify. So we don't actually generate an IM
+    // command for it. Instead we just add the image to the
+    // inputImages array.
+    if (step.type === 'clone') {
+      const sourceImage = inputImages[step.params[0]];
+      const destImage = { ...sourceImage };
+      destImage.name =
+        sourceImage.name.substring(0, sourceImage.name.lastIndexOf('.')) +
+        '-' +
+        clonedIndex +
+        sourceImage.name.substring(sourceImage.name.lastIndexOf('.'));
+
+      clonedIndex++;
+
+      inputImages.splice(step.params[0] + 1, 0, destImage);
+      continue;
+    }
+
     let stepCmd = [];
 
     if (STEPS[step.type] && STEPS[step.type].getCmd) {
