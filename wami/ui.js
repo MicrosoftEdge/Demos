@@ -137,6 +137,7 @@ addEventListener('mousedown', mouseDownEvent => {
   // Mark the step as "moving" so it's taken out of the flow.
   const mouseDelta = mouseDownEvent.clientY - movingStep.offsetTop;
   movingStep.style.top = `${movingStep.offsetTop}px`;
+  movingStep.style.left = `${movingStep.offsetLeft}px`;
   movingStep.classList.add('moving');
 
   // Create a placeholder with the same height.
