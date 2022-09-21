@@ -1,0 +1,32 @@
+{
+  "name": "wami",
+  "short_name": "wami",
+  "description": "wami - The Web App for Manipulating Images",
+  "lang": "en-US",
+  "start_url": "./",
+  "scope": "./",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "icons": [
+    {
+      "src": "./favicon-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./favicon-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./favicon-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./favicon-512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
