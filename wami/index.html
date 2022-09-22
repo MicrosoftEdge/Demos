@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>wami</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-96.png" />
     <link rel="manifest" href="manifest.json" />
   </head>
@@ -49,8 +49,8 @@
     </h1>
     <section class="flows">
       <h2>flows</h2>
+      <button class="add-flow add-icon" title="Add a new flow">Create a flow</button>
       <ul></ul>
-      <button class="add-flow add-icon" title="Add a new flow">+</button>
     </section>
     <section class="welcome">
       <h2>Welcome to wami</h2>
@@ -60,27 +60,29 @@
     <section class="editor hidden">
       <div class="flow-actions">
         <input class="flow-name" type="text" />
-        <button class="run-flow run-icon" title="Run this flow">Run</button>
-        <button class="close-flow close-icon" title="Close this flow">
-          Close
-        </button>
-        <button class="delete-flow delete-icon" title="Delete this flow">
+        <button class="delete-flow delete-icon no-text" title="Delete this flow">
           Delete
         </button>
       </div>
-      <div class="input-images"></div>
       <ul class="steps"></ul>
+      <button class="add-icon add-step" title="Add a new step to this flow">Add a step</button>
+    </section>
+    <section class="images hidden">
+      <button class="run-flow run-icon" disabled title="Run this flow">Run</button>
+      <div class="input-images"></div>
       <div class="output-images"></div>
       <div class="output-image-actions">
         <button
           class="download-images download-icon"
           title="Download the output images"
+          disabled
         >
           Download
         </button>
-        <button class="save-images save-icon" title="Save the output images">
+        <button class="save-images save-icon" title="Save the output images" disabled>
           Save
         </button>
+        <button class="use-output-as-input up-icon" title="Use output images as input" disabled>Use as input</button>
       </div>
     </section>
     <dialog class="step-chooser">

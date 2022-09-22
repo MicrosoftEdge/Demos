@@ -5,12 +5,13 @@ import { getUniqueId, extractImagesFromDataTransfer, download } from './utils.js
 
 const welcomePage = document.querySelector('.welcome');
 const editorPage = document.querySelector('.editor');
-const closeFlowButton = editorPage.querySelector('.close-flow');
-const runFlowButton = editorPage.querySelector('.run-flow');
+const imagesPage = document.querySelector('.images');
+const runFlowButton = document.querySelector('.run-flow');
 const addFlowButton = document.querySelector('.add-flow');
 const deleteFlowButton = document.querySelector('.delete-flow');
 const downloadImagesButton = document.querySelector('.download-images');
 const saveImagesButton = document.querySelector('.save-images');
+const useOutputAsInputButton = document.querySelector('.use-output-as-input');
 
 let flowsPromise = getFlows();
 let currentFlow = null;
@@ -53,6 +54,9 @@ navigation.addEventListener('navigate', navigateEvent => {
 
         welcomePage.classList.remove('hidden');
         editorPage.classList.add('hidden');
+        imagesPage.classList.add('hidden');
+
+        document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
       }
     });
   } else if (url.pathname.startsWith('/wami/flow/')) {
@@ -62,14 +66,19 @@ navigation.addEventListener('navigate', navigateEvent => {
         currentId = id;
         const flows = await flowsPromise;
         currentFlow = flows.find(f => id === f.id + '');
-
-        welcomePage.classList.add('hidden');
-        editorPage.classList.remove('hidden');
-
+        
         if (!currentFlow) {
           await navigation.navigate('/wami/');
           return;
         }
+
+        welcomePage.classList.add('hidden');
+        editorPage.classList.remove('hidden');
+        imagesPage.classList.remove('hidden');
+
+        // Mark the current flow as selected in the sidebar.
+        document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
+        document.querySelector(`.flow-in-list[data-id="${id}"]`).classList.add('selected');
 
         populateEditor(currentFlow);
       }
@@ -91,9 +100,15 @@ runFlowButton.addEventListener('click', async e => {
     return;
   }
 
+  populateOutputImages([]);
   document.documentElement.classList.add('running');
 
-  const processedFiles = await runFlow(currentFlow, currentImages.map(i => i.file));
+  const processedFiles = await runFlow(currentFlow, currentImages.map(i => {
+    if (!i.file.name) {
+      i.file.name = i.name;
+    }
+    return i.file;
+  }));
   if (processedFiles) {
     // Store the new images in the outputImages array.
     outputImages = processedFiles.outputFiles;
@@ -102,17 +117,13 @@ runFlowButton.addEventListener('click', async e => {
     const imageSources = processedFiles.outputFiles.map(file => {
       return { src: URL.createObjectURL(file.blob), name: file.name };
     });
-    populateOutputImages(imageSources);
+    populateOutputImages(imageSources, currentImages[0].fsHandlePromise);
   }
 
   document.documentElement.classList.remove('running');
 });
 
-// Navigate back to the home page when the current flow is closed.
-closeFlowButton.addEventListener('click', e => {
-  navigation.navigate('/wami/');
-});
-
+// Handle flow changes.
 addEventListener('change', async e => {
   if (e.target.closest('.editor')) {
     await handleFlowChange();
@@ -241,6 +252,8 @@ addEventListener('drop', async (e) => {
   populateInputImages(images.map(image => {
     return { src: URL.createObjectURL(image.file), name: image.file.name };
   }));
+
+  runFlowButton.disabled = false;
 });
 
 // Handle save/save-as/download.
@@ -259,7 +272,7 @@ saveImagesButton.addEventListener('click', async e => {
 
   for (const outputImage of outputImages) {
     // Find the handle.
-    const handle = await currentImages.find(i => i.file.name === outputImage.name).handle;
+    const handle = await currentImages.find(i => i.file.name === outputImage.name).fsHandlePromise;
     const writable = await handle.createWritable();
     await writable.write(outputImage.blob);
     await writable.close();
@@ -274,6 +287,23 @@ downloadImagesButton.addEventListener('click', async e => {
   for (const image of outputImages) {
     download(image.blob, image.name);
   }
+});
+
+// Handle the output-as-input button.
+useOutputAsInputButton.addEventListener('click', async e => {
+  if (!hasImagesToSave()) {
+    return;
+  }
+
+  currentImages = outputImages.map(img => {
+    return { file: img.blob, name: img.name };
+  });
+  outputImages = [];
+
+  populateInputImages(currentImages.map(image => {
+    return { src: URL.createObjectURL(image.file), name: image.name };
+  }));
+  populateOutputImages([]);
 });
 
 // When the app starts, get the flows and display them in the sidebar.

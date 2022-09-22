@@ -7,6 +7,9 @@ const inputImages = document.querySelector('.input-images');
 const outputImages = document.querySelector('.output-images');
 const stepChooserDialog = document.querySelector('.step-chooser');
 const stepChooserList = stepChooserDialog.querySelector('.steps');
+const downloadImagesButton = document.querySelector('.download-images');
+const saveImagesButton = document.querySelector('.save-images');
+const useOutputAsInputButton = document.querySelector('.use-output-as-input');
 
 // Editor UI
 
@@ -14,12 +17,8 @@ export function populateEditor(flow) {
   flowEditorSteps.innerHTML = '';
   flowEditorName.value = flow.name;
 
-  populateOutputImages([]);
-
-  flowEditorSteps.appendChild(createAddStepButton(0));
   flow.steps.forEach((step, i) => {
     flowEditorSteps.appendChild(createStep(step, i));
-    flowEditorSteps.appendChild(createAddStepButton(i + 1));
   });
 }
 
@@ -27,6 +26,12 @@ function createStep(step, index) {
   const li = document.createElement('li');
   li.dataset.type = step.type;
   li.classList.add('step');
+
+  const icon = document.createElement('img');
+  icon.classList.add('step-icon');
+  icon.height = '40';
+  icon.src = `/wami/icons/step-${step.type}.png`;
+  li.appendChild(icon);
 
   const type = document.createElement('h3');
   type.classList.add('step-type');
@@ -51,23 +56,10 @@ function createStep(step, index) {
   removeButton.dataset.index = index;
   removeButton.classList.add('remove-step')
   removeButton.classList.add('delete-icon');
-  removeButton.textContent = 'Remove step';
+  removeButton.classList.add('no-text');
+  removeButton.textContent = 'Remove';
   removeButton.setAttribute('title', 'Remove this step');
   li.appendChild(removeButton);
-
-  return li;
-}
-
-function createAddStepButton(index) {
-  const li = document.createElement('li');
-  li.dataset.index = index;
-  li.classList.add('add-step');
-
-  const button = document.createElement('button');
-  button.classList.add('add-icon');
-  button.textContent = 'Add step';
-  button.setAttribute('title', 'Add a step');
-  li.appendChild(button);
 
   return li;
 }
@@ -136,13 +128,16 @@ addEventListener('mousedown', mouseDownEvent => {
   }
 
   // Mark the step as "moving" so it's taken out of the flow.
+  // And give it a real size since it will become absolutely positioned.
   const mouseDelta = mouseDownEvent.clientY - movingStep.offsetTop;
   movingStep.style.top = `${movingStep.offsetTop}px`;
   movingStep.style.left = `${movingStep.offsetLeft}px`;
   movingStep.style.width = `${movingStep.offsetWidth}px`;
   movingStep.classList.add('moving');
 
-  // Create a placeholder with the same heightxwidth.
+  // Create a placeholder with the same height x width.
+  // The placeholder is the one that will be moving, creating
+  // a visible gap in the list, where the moving step can be dropped.
   const placeholder = document.createElement('li');
   placeholder.classList.add('placeholder');
   placeholder.style.height = `${movingStep.offsetHeight}px`;
@@ -163,12 +158,12 @@ addEventListener('mousedown', mouseDownEvent => {
 
       if (mouseMoveEvent.clientY > otherStep.offsetTop &&
         mouseMoveEvent.clientY < otherStep.offsetTop + otherStep.offsetHeight / 2) {
-        otherStep.parentNode.insertBefore(placeholder, otherStep.previousSibling);
-        otherStep.parentNode.insertBefore(movingStep, otherStep.previousSibling);
+        otherStep.parentNode.insertBefore(placeholder, otherStep);
+        otherStep.parentNode.insertBefore(movingStep, otherStep);
       } else if (mouseMoveEvent.clientY > otherStep.offsetTop + otherStep.offsetHeight / 2 &&
         mouseMoveEvent.clientY < otherStep.offsetTop + otherStep.offsetHeight) {
-        otherStep.parentNode.insertBefore(placeholder, otherStep.nextSibling.nextSibling);
-        otherStep.parentNode.insertBefore(movingStep, otherStep.nextSibling.nextSibling);
+        otherStep.parentNode.insertBefore(placeholder, otherStep.nextSibling);
+        otherStep.parentNode.insertBefore(movingStep, otherStep.nextSibling);
       }
     }
   }
@@ -201,11 +196,22 @@ function createFlowListEntry(flow) {
 
   li.classList.add('flow-in-list');
   li.setAttribute('title', 'Open flow');
+  li.dataset.id = flow.id;
 
   const a = document.createElement('a');
   a.href = `/wami/flow/${flow.id}`;
-  a.textContent = flow.name;
   li.appendChild(a);
+
+  const name = document.createElement('span');
+  name.classList.add('flow-name');
+  name.textContent = flow.name;
+  a.appendChild(name);
+
+  const nbOfSteps = document.createElement('span');
+  nbOfSteps.classList.add('flow-nb-of-steps');
+  nbOfSteps.textContent =
+    `${flow.steps.length} step${flow.steps.length > 1 ? 's' : ''}: ${flow.steps.map((step) => step.type).join(', ')}`;
+  a.appendChild(nbOfSteps);
 
   return li;
 }
@@ -218,6 +224,11 @@ function populateStepChooserDialog() {
     button.setAttribute('type', 'submit');
     button.setAttribute('value', key);
     button.classList.add('step-to-choose');
+
+    const icon = document.createElement('img');
+    icon.src = `/wami/icons/step-${key}.png`;
+    icon.width = 40;
+    button.appendChild(icon);
 
     const type = document.createElement('h3');
     type.classList.add('step-type');
@@ -241,12 +252,19 @@ export function populateInputImages(images) {
   populateImages(images, inputImages);
 }
 
-export function populateOutputImages(images) {
+export function populateOutputImages(images, supportsFSHandleSave) {
   populateImages(images, outputImages);
+
+  downloadImagesButton.toggleAttribute('disabled', images.length === 0);
+  useOutputAsInputButton.toggleAttribute('disabled', images.length === 0);
+  saveImagesButton.toggleAttribute('disabled', !supportsFSHandleSave || images.length === 0);
 }
 
 function populateImages(images, container) {
   container.innerHTML = '';
+
+  // Sort the images by name so input and output are in the same order.
+  images.sort((a, b) => a.name.localeCompare(b.name));
 
   for (const { src, name } of images) {
     const div = document.createElement('div');

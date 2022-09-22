@@ -44,12 +44,21 @@ export const STEPS = {
   },
   'resize': {
     name: 'Resize',
-    description: 'Resize the image to the width and height specified.',
+    description: 'Resize the image to the specified width and height, preserving the aspect ratio.',
     params: [
       { name: 'width', type: 'number', default: 900 },
       { name: 'height', type: 'number', default: 450 }
     ],
     getCmd: (step) => ['-resize', `${step.params[0]}x${step.params[1]}`]
+  },
+  'resize-exactly': {
+    name: 'Resize (no aspect ratio)',
+    description: 'Resize the image to the specified width and height, irrespective of the aspect ratio.',
+    params: [
+      { name: 'width', type: 'number', default: 900 },
+      { name: 'height', type: 'number', default: 450 }
+    ],
+    getCmd: (step) => ['-resize', `${step.params[0]}x${step.params[1]}!`]
   },
   'resize-width-if-larger': {
     name: 'Resize width if larger than',
