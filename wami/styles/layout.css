@@ -1,0 +1,24 @@
+body {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) var(--sidebar-width) 1fr;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas:
+    "logo  editor images"
+    "flows editor images";
+}
+
+h1 {
+  grid-area: logo;
+}
+
+.flows {
+  grid-area: flows;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.images {
+  grid-area: images;
+}

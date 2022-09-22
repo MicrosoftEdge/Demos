@@ -1,0 +1,12 @@
+.welcome {
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
+  place-self: center;
+  padding: 1rem;
+  border-radius: .5rem;
+  background: var(--clear-background-color);
+}
+
+.welcome p, .welcome h2 {
+  margin: 1rem;
+}

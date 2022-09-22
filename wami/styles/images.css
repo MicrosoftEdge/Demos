@@ -1,0 +1,127 @@
+.images {
+  overflow: hidden;
+  padding: 1rem;
+  padding-top: env(titlebar-area-height, 1rem);
+  grid-template-rows: min-content 1fr  1fr min-content;
+  gap: 1rem;
+  transform: translateX(-100vw);
+  position: relative;
+}
+
+.images::before {
+  content: '';
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: calc(50% - 1rem);
+  left: calc(50% - 1rem);
+  background: linear-gradient(to bottom, var(--clear-background-color), var(--main-color) 60%);
+  clip-path: polygon(0 0, 30% 0, 30% 30%, 0 30%, 50% 100%, 100% 30%, 70% 30%, 70% 0);
+}
+
+.running .images::before {
+  animation: move-down 1s linear infinite;
+}
+
+@keyframes move-down {
+  to { transform: translateY(1rem); }
+}
+
+.images:not(.hidden) {
+  display: grid;
+  animation: appear .1s ease-out forwards;
+}
+
+.images .run-flow {
+  margin: 0 auto;
+  -webkit-app-region: no-drag;
+}
+
+.running .images .run-flow {
+  pointer-events: none;
+  background-color: var(--clear-background-color);
+}
+
+.images .input-images,
+.images .output-images {
+  padding: .5rem;
+  border-radius: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--clear-background-color);
+  align-content: center;
+}
+
+.images .image-name {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-block-start: auto;
+}
+
+.images .input-images div,
+.images .output-images div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: .8rem;
+  border: 2px solid white;
+  background: white;
+}
+
+.images .input-images:empty,
+.images .output-images:empty {
+  place-items: center;
+}
+
+.images .input-images img,
+.images .output-images img {
+  max-height: 100px;
+}
+
+.images .input-images:empty::before,
+.images .output-images:empty::before {
+  content: "Drop input images here";
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.images .output-images:empty::before {
+  content: "Run this flow to get output images";
+}
+
+.running .images .output-images::before {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  background-size: contain;
+  background-image: url('/wami/favicon-96.png');
+  margin: 2rem;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 .5rem 0 #0006;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+
+.dropping-images .images .input-images {
+  outline: .25rem dashed var(--main-color);
+  outline-offset: -.5rem;
+}
+
+.images .output-image-actions {
+  margin: 0 auto;
+  border-radius: 0 0 .5rem .5rem;
+  background: var(--step-color);
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+}

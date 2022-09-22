@@ -1,0 +1,33 @@
+.step-chooser {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 1rem;
+}
+
+.step-chooser h2 {
+  margin-bottom: 1rem;
+}
+
+.step-chooser .steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.step-chooser .step-to-choose {
+  padding: .5rem;
+  border-radius: .5rem;
+  background-color: var(--clear-background-color);
+  width: unset;
+  height: unset;
+  color: var(--text-color);
+  font-size: inherit;
+  flex-direction: column;
+  gap: .5rem;
+  text-align: start;
+  justify-content: start;
+}
+
+.step-chooser .step-to-choose:hover {
+  outline: 2px solid var(--main-color);
+}

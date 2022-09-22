@@ -1,0 +1,130 @@
+button {
+  color: var(--sidebar-text-color);
+  font-size: 0.8rem;
+  overflow: hidden;
+  background: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  border-radius: .25rem;
+  gap: .5rem;
+  padding: .5rem;
+  flex-shrink: 0;
+}
+
+button[class*="-icon"]:not([disabled], .add-flow):hover {
+  filter: brightness(1.5);
+}
+
+.add-flow::before {
+  filter: invert(100);
+}
+
+.add-flow:hover {
+  filter: brightness(.8);
+}
+
+button[disabled] {
+  filter: grayscale(1);
+  opacity: .6;
+}
+
+button.no-text {
+  font-size: 0;
+  color: transparent;
+  gap: 0;
+}
+
+button[class*="-icon"]:before {
+  content: '';
+}
+
+.add-icon::before {
+  width: .5rem;
+  height: .5rem;
+  background-image:
+   linear-gradient(to top, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+   linear-gradient(to right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0);
+}
+
+.delete-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background-image:
+    linear-gradient(to right, var(--main-color) 0 20%, transparent 20% 40%, var(--main-color) 40% 60%, transparent 60% 80%, var(--main-color) 0),
+    linear-gradient(to bottom, transparent 0 10%, var(--sidebar-text-color) 10% 20%, transparent 0),
+    linear-gradient(to bottom, transparent 0 20%, var(--sidebar-text-color) 20% 30%, transparent 0),
+    linear-gradient(to bottom, transparent 0 30%, var(--sidebar-text-color) 0);
+  background-size:
+    50% 60%,
+    50% 100%,
+    100% 100%,
+    70% 100%;
+  background-position:
+    center 80%,
+    top center,
+    top left,
+    top center;
+  background-repeat: no-repeat;
+}
+
+.close-icon::before {
+  width: .5rem;
+  height: .5rem;
+  background-image:
+   linear-gradient(to top right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+   linear-gradient(to bottom right, transparent 0 calc(50% - 1px), var(--sidebar-text-color) calc(50% - 1px) calc(50% + 1px), transparent 0);
+}
+
+.run-icon::before {
+  width: 0;
+  height: 0;
+  border-left: .5rem solid var(--sidebar-text-color);
+  border-top: .3rem solid transparent;
+  border-bottom: .3rem solid transparent;
+}
+
+.save-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background: var(--sidebar-text-color);
+  border-radius: .05rem;
+
+  background-image: 
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(to bottom left, var(--main-color) 0 .15rem, transparent 0);
+  background-repeat: no-repeat;
+  background-size: .8rem .45rem, .5rem .3rem, 100%;
+  background-position: .1rem .5rem, .2rem .05rem, 0 0;
+}
+
+.download-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background: var(--sidebar-text-color);
+  background-image:
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(to top right, var(--main-color) 0 .35rem, transparent 0),
+    linear-gradient(to top left, var(--main-color) 0 .35rem, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 30% 50%, 30% 50%, 100%, 100%;
+  background-position: 0 0, 105% 0, 0 0, 0 0;
+}
+
+.up-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background: var(--sidebar-text-color);
+  background-image:
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(var(--main-color), var(--main-color)),
+    linear-gradient(to top right, var(--main-color) 0 .35rem, transparent 0),
+    linear-gradient(to top left, var(--main-color) 0 .35rem, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 30% 50%, 30% 50%, 100%, 100%;
+  background-position: 0 0, 105% 0, 0 0, 0 0;
+  transform: rotate(.5turn);
+}

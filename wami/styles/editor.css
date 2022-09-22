@@ -1,0 +1,130 @@
+.editor {
+  padding: 2.5rem 0 0 0;
+  overflow: hidden;
+  border: 1px solid #0003;
+  border-width: 0 1px;
+  flex-direction: column;
+  transform: translateX(-50vw);
+  z-index: 1;
+}
+
+.editor:not(.hidden) {
+  display: flex;
+  animation: appear .1s ease-out forwards;
+}
+
+@keyframes appear {
+  to { transform: translateX(0); }
+}
+
+.editor input, .editor select {
+  padding: .25rem;
+  border-radius: .25rem;
+  border: 2px solid #0004;
+  background: var(--background-color);
+  max-width: 50%;
+}
+
+.editor .flow-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.editor .flow-actions .flow-name {
+  margin-right: auto;
+  max-width: unset;
+  flex: 1;
+  border: 0;
+  background: #2a364711;
+  line-height: 2;
+}
+
+.editor .step {
+  box-sizing: border-box;
+  padding: .5rem;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: 40px 1fr min-content;
+  border: 1px solid #0003;
+  border-width: 1px 0 0;
+  background: var(--background-color);
+  cursor: grab;
+}
+
+.editor .steps {
+  margin-block-end: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.editor .step:last-child {
+  border-bottom-width: 1px;
+}
+
+.editor .step .step-icon {
+  grid-column: 1;
+}
+
+.editor .step.moving {
+  z-index: 1;
+  position: absolute;
+  width: calc(100% - 4rem);
+}
+
+.editor .step.moving.started-moving {
+  box-shadow: 0 0 1rem 0 #0004;
+}
+
+.editor .add-step {
+  place-self: center;
+  margin-block-start: auto;
+  margin-block-end: 1rem;
+  flex-shrink: 0;
+}
+
+.editor .placeholder {
+  border-radius: .5rem;
+  border: .25rem dashed var(--main-color);
+  background: var(--clear-background-color);
+  box-sizing: border-box;
+}
+
+.editor .step .step-type {
+  align-self: center;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.editor .step .step-description {
+  grid-column: 1 / 4;
+  font-size: .8rem;
+}
+
+.editor .step .step-params {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  display: grid;
+  gap: .5rem;
+  cursor: unset;
+}
+
+.editor .step label {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor .step .remove-step {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  visibility: hidden;
+}
+
+.editor .step:not(.moving):hover .remove-step {
+  visibility: visible;
+}

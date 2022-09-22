@@ -1,0 +1,24 @@
+@import "reset.css";
+@import "buttons.css";
+@import "layout.css";
+@import "list-of-flows.css";
+@import "editor.css";
+@import "welcome.css";
+@import "step-chooser.css";
+@import "images.css";
+
+:root {
+  --background-color: white;
+  --sidebar-width: minmax(20%, 250px);
+  --main-color: hsl(201, 71%, 24%);
+  --clear-background-color: hsl(201, 71%, 94%);
+  --sidebar-text-color: white;
+  --text-color: black;
+}
+
+html {
+  background: var(--background-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11pt;
+  color: var(--text-color);
+}

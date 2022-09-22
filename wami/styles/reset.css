@@ -1,0 +1,35 @@
+* {
+  user-select: none;
+}
+
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-size: 1rem;
+}
+
+ul, li {
+  list-style: none;
+}
+
+button, input, select {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.hidden {
+  display: none;
+}
