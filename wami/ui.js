@@ -3,13 +3,14 @@ import { STEPS } from './steps.js';
 const flowList = document.querySelector('.flows ul');
 const flowEditorName = document.querySelector('.editor .flow-name');
 const flowEditorSteps = document.querySelector('.editor .steps');
-const inputImages = document.querySelector('.input-images');
-const outputImages = document.querySelector('.output-images');
+const inputImages = document.querySelector('.input');
+const outputImages = document.querySelector('.output');
 const stepChooserDialog = document.querySelector('.step-chooser');
 const stepChooserList = stepChooserDialog.querySelector('.steps');
 const downloadImagesButton = document.querySelector('.download-images');
 const saveImagesButton = document.querySelector('.save-images');
 const useOutputAsInputButton = document.querySelector('.use-output-as-input');
+const runFlowButton = document.querySelector('.run-flow');
 
 // Editor UI
 
@@ -215,7 +216,7 @@ function createFlowListEntry(flow, selectId) {
   const nbOfSteps = document.createElement('span');
   nbOfSteps.classList.add('flow-nb-of-steps');
   nbOfSteps.textContent =
-    `${flow.steps.length} step${flow.steps.length > 1 ? 's' : ''}: ${flow.steps.map((step) => step.type).join(', ')}`;
+    `${flow.steps.length} step${flow.steps.length > 1 ? 's' : ''}: ${flow.steps.map((step) => STEPS[step.type].name.toLowerCase()).join(', ')}`;
   a.appendChild(nbOfSteps);
 
   return li;
@@ -255,6 +256,8 @@ populateStepChooserDialog();
 
 export function populateInputImages(images) {
   populateImages(images, inputImages);
+
+  runFlowButton.disabled = images.length === 0;
 }
 
 export function populateOutputImages(images, supportsFSHandleSave) {
@@ -263,16 +266,26 @@ export function populateOutputImages(images, supportsFSHandleSave) {
   downloadImagesButton.toggleAttribute('disabled', images.length === 0);
   useOutputAsInputButton.toggleAttribute('disabled', images.length === 0);
   saveImagesButton.toggleAttribute('disabled', !supportsFSHandleSave || images.length === 0);
+
+  outputImages.parentNode.classList.toggle('has-output-images', images.length > 0);
 }
 
 function populateImages(images, container) {
-  container.innerHTML = '';
+  container.classList.toggle('empty', images.length === 0);
+
+  // Remove all elements from the container except the instructions.
+  [...container.children].forEach((child) => {
+    if (!child.classList.contains('instructions')) {
+      child.remove();
+    }
+  });
 
   // Sort the images by name so input and output are in the same order.
   images.sort((a, b) => a.name.localeCompare(b.name));
 
   for (const { src, name } of images) {
     const div = document.createElement('div');
+    div.classList.add('image');
 
     const img = document.createElement('img');
     img.src = src;

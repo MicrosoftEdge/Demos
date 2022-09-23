@@ -9,7 +9,7 @@ export async function getFlows() {
   if (!flows) {
     flows = [
       {
-        name: 'Resize to 1300px',
+        name: 'Resize to 1300px wide max',
         id: getUniqueId(),
         steps: [
           {
@@ -19,35 +19,21 @@ export async function getFlows() {
         ],
       },
       {
-        name: 'Greenify',
-        id: getUniqueId(),
-        steps: [{
-          type: 'grayscale',
-          params: ['Rec709Luminance']
-        }, {
-          type: 'colorize',
-          params: ['#00ff59', 50]
-        }, {
-          type: 'resize',
-          params: [300, 300]
-        }],
-      },
-      {
         name: 'Pixelate',
         id: getUniqueId(),
         steps: [{
           type: 'scale',
-          params: ['10%']
+          params: [10]
         }, {
           type: 'scale',
-          params: ['1000%']
+          params: [1000]
         }],
       },
       {
         name: 'Resize to 200x200',
         id: getUniqueId(),
         steps: [{
-          type: 'resize',
+          type: 'resize-exactly',
           params: [200, 200]
         }]
       }

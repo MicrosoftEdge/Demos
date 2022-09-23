@@ -48,10 +48,23 @@ export async function runFlow(flow, images) {
   cmd.push('*');
 
   try {
-    const processedFiles = await Magick.call(inputImages, cmd);
+    // This is counter-intuitive but it actually feels better to users if the flow takes a bit
+    // of time to run. Here we wait both for ImageMagick to run AND for a timer to finish.
+    // If the flow is complicated and ImageMagick takes a while to run, we'll just wait for this to
+    // be done.
+    // But if the flow is trivial and runs in a few milliseconds, the user won't be able to tell that
+    // anything has run at all. We want to make sure that the user can see the "running" state.
+    const res = await Promise.all([getFakeWaitingTimePromise(), Magick.call(inputImages, cmd)]);
+    const processedFiles = res[1];
     return processedFiles;
   } catch (e) {
     // FIXME: handle errors.
     return null;
   }
+}
+
+function getFakeWaitingTimePromise() {
+  return new Promise(r => {
+    setTimeout(r, 700);
+  });
 }

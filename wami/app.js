@@ -12,6 +12,8 @@ const deleteFlowButton = document.querySelector('.delete-flow');
 const downloadImagesButton = document.querySelector('.download-images');
 const saveImagesButton = document.querySelector('.save-images');
 const useOutputAsInputButton = document.querySelector('.use-output-as-input');
+const browseImagesButton = document.querySelector('.browse-images');
+const removeInputButton = document.querySelector('.remove-input');
 
 let flowsPromise = getFlows();
 let currentFlow = null;
@@ -68,7 +70,7 @@ navigation.addEventListener('navigate', navigateEvent => {
         currentFlow = flows.find(f => id === f.id + '');
 
         populateFlowList(flows);
-        
+
         if (!currentFlow) {
           await navigation.navigate('/wami/');
           return;
@@ -103,7 +105,9 @@ runFlowButton.addEventListener('click', async e => {
   }
 
   populateOutputImages([]);
+
   document.documentElement.classList.add('running');
+  runFlowButton.disabled = true;
 
   const processedFiles = await runFlow(currentFlow, currentImages.map(i => {
     if (!i.file.name) {
@@ -123,6 +127,7 @@ runFlowButton.addEventListener('click', async e => {
   }
 
   document.documentElement.classList.remove('running');
+  runFlowButton.disabled = false;
 });
 
 // Handle flow changes.
@@ -250,8 +255,51 @@ addEventListener('drop', async (e) => {
   populateInputImages(images.map(image => {
     return { src: URL.createObjectURL(image.file), name: image.file.name };
   }));
+});
 
-  runFlowButton.disabled = false;
+// Handle browse images button.
+browseImagesButton.addEventListener('click', async e => {
+  if (!('showOpenFilePicker' in window)) {
+    // Browser doesn't support the File System Access API.
+    // Use the legacy file input.
+
+    // TODO.
+  } else {
+    // Browser supports the File System Access API.
+    const handles = await showOpenFilePicker({
+      multiple: true,
+      types: [
+        {
+          description: 'Images',
+          accept: {
+            'image/*': ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg']
+          }
+        }
+      ]
+    });
+
+    const imagesToStore = [];
+    for (const handle of handles) {
+      imagesToStore.push({
+        file: await handle.getFile(),
+        fsHandlePromise: Promise.resolve(handle)
+      });
+    }
+
+    // Store the current images.
+    currentImages = imagesToStore;
+    populateInputImages(imagesToStore.map(image => {
+      return { src: URL.createObjectURL(image.file), name: image.file.name };
+    }));
+  }
+});
+
+// Handle remove input images button.
+removeInputButton.addEventListener('click', async e => {
+  currentImages = [];
+  populateInputImages([]);
+
+  runFlowButton.disabled = true;
 });
 
 // Handle save/save-as/download.

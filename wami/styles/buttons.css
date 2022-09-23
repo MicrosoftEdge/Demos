@@ -1,6 +1,5 @@
 button {
   color: var(--sidebar-text-color);
-  font-size: 0.8rem;
   overflow: hidden;
   background: var(--main-color);
   display: flex;
@@ -13,7 +12,7 @@ button {
   flex-shrink: 0;
 }
 
-button[class*="-icon"]:not([disabled], .add-flow):hover {
+button:not([disabled], .add-flow):hover {
   filter: brightness(1.5);
 }
 

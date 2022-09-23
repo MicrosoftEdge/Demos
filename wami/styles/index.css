@@ -9,11 +9,18 @@
 
 :root {
   --background-color: white;
-  --sidebar-width: minmax(20%, 250px);
+  --flows-sidebar-width: minmax(200px, 15%);
+  --steps-sidebar-width: minmax(200px, 20%);
   --main-color: hsl(201, 71%, 24%);
   --clear-background-color: hsl(201, 71%, 94%);
   --sidebar-text-color: white;
   --text-color: black;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --flows-sidebar-width: 120px;
+  }
 }
 
 html {

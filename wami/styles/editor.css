@@ -1,5 +1,5 @@
 .editor {
-  padding: 2.5rem 0 0 0;
+  padding: env(titlebar-area-height, 1rem) 0 0 0;
   overflow: hidden;
   border: 1px solid #0003;
   border-width: 0 1px;
@@ -20,7 +20,7 @@
 .editor input, .editor select {
   padding: .25rem;
   border-radius: .25rem;
-  border: 2px solid #0004;
+  border: 1px solid #0004;
   background: var(--background-color);
   max-width: 50%;
 }
@@ -40,28 +40,31 @@
   border: 0;
   background: #2a364711;
   line-height: 2;
+  min-width: 0;
 }
 
 .editor .step {
   box-sizing: border-box;
-  padding: .5rem;
+  padding: 1rem;
   display: grid;
   gap: .5rem;
   grid-template-columns: 40px 1fr min-content;
-  border: 1px solid #0003;
-  border-width: 1px 0 0;
   background: var(--background-color);
   cursor: grab;
+  background-image: linear-gradient(to bottom, #0003 1px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 80% 1px;
+  background-position: center 0;
 }
 
 .editor .steps {
   margin-block-end: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.editor .step:last-child {
-  border-bottom-width: 1px;
+  background: linear-gradient(to bottom, #0003 1px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 80% 1px;
+  background-position: center bottom;
 }
 
 .editor .step .step-icon {
@@ -72,6 +75,7 @@
   z-index: 1;
   position: absolute;
   width: calc(100% - 4rem);
+  background-image: none;
 }
 
 .editor .step.moving.started-moving {
@@ -109,13 +113,18 @@
   display: grid;
   gap: .5rem;
   cursor: unset;
+  overflow: hidden;
+}
+
+.editor .step .step-param {
+  overflow: hidden;
 }
 
 .editor .step label {
   display: flex;
   gap: .5rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .editor .step .remove-step {

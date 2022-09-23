@@ -2,48 +2,20 @@
   overflow: hidden;
   padding: 1rem;
   padding-top: env(titlebar-area-height, 1rem);
-  grid-template-rows: min-content 1fr  1fr min-content;
-  gap: 1rem;
   transform: translateX(-100vw);
   position: relative;
-}
-
-.images::before {
-  content: '';
-  position: absolute;
-  width: 2rem;
-  height: 2rem;
-  top: calc(50% - 1rem);
-  left: calc(50% - 1rem);
-  background: linear-gradient(to bottom, var(--clear-background-color), var(--main-color) 60%);
-  clip-path: polygon(0 0, 30% 0, 30% 30%, 0 30%, 50% 100%, 100% 30%, 70% 30%, 70% 0);
-}
-
-.running .images::before {
-  animation: move-down 1s linear infinite;
-}
-
-@keyframes move-down {
-  to { transform: translateY(1rem); }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .images:not(.hidden) {
-  display: grid;
   animation: appear .1s ease-out forwards;
+  display: flex;
 }
 
-.images .run-flow {
-  margin: 0 auto;
-  -webkit-app-region: no-drag;
-}
-
-.running .images .run-flow {
-  pointer-events: none;
-  background-color: var(--clear-background-color);
-}
-
-.images .input-images,
-.images .output-images {
+.images .image-container {
   padding: .5rem;
   border-radius: .5rem;
   display: flex;
@@ -53,8 +25,45 @@
   flex-wrap: wrap;
   overflow-x: hidden;
   overflow-y: auto;
-  background: var(--clear-background-color);
   align-content: center;
+  background: #00000006;
+  flex: 1;
+  width: 100%;
+}
+
+.images .input:not(.empty) .instructions {
+  display: none;
+}
+
+.images .input .instructions {
+  border: 2px dashed #0002;
+  background-image: url("/wami/icons/add-images.png");
+  background-repeat: no-repeat;
+  background-position: center 2rem;
+  background-size: 60px;
+  padding: calc(60px + 2rem) 2rem 2rem 2rem;
+  border-radius: .5rem;
+}
+
+.dropping-images .images .input .instructions {
+  border-color: var(--main-color);
+}
+
+.dropping-images .images .input {
+  background: #fffae0;
+}
+
+.images .input .instructions p {
+  font-size: 1.2rem;
+}
+
+.images .input .instructions button {
+  display: inline;
+  background: none;
+  color: var(--main-color);
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .images .image-name {
@@ -65,38 +74,18 @@
   margin-block-start: auto;
 }
 
-.images .input-images div,
-.images .output-images div {
+.images .image-container .image {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: .8rem;
-  border: 2px solid white;
-  background: white;
 }
 
-.images .input-images:empty,
-.images .output-images:empty {
-  place-items: center;
-}
-
-.images .input-images img,
-.images .output-images img {
+.images .image-container img {
   max-height: 100px;
 }
 
-.images .input-images:empty::before,
-.images .output-images:empty::before {
-  content: "Drop input images here";
-  font-size: .8rem;
-  font-style: italic;
-}
-
-.images .output-images:empty::before {
-  content: "Run this flow to get output images";
-}
-
-.running .images .output-images::before {
+.running .images .output::before {
   content: "";
   width: 2rem;
   height: 2rem;
@@ -112,15 +101,8 @@
   to { transform: rotate(1turn); }
 }
 
-.dropping-images .images .input-images {
-  outline: .25rem dashed var(--main-color);
-  outline-offset: -.5rem;
-}
-
-.images .output-image-actions {
-  margin: 0 auto;
-  border-radius: 0 0 .5rem .5rem;
-  background: var(--step-color);
+.images .flow-actions,
+.images .save-actions {
   display: flex;
   justify-content: center;
   gap: .5rem;

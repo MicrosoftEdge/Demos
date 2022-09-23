@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>wami</title>
-    <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-96.png" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-96.png" />
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
@@ -49,7 +49,9 @@
     </h1>
     <section class="flows">
       <h2>flows</h2>
-      <button class="add-flow add-icon" title="Add a new flow">Create a flow</button>
+      <button class="add-flow add-icon" title="Add a new flow">
+        Create a flow
+      </button>
       <ul></ul>
     </section>
     <section class="welcome">
@@ -60,18 +62,45 @@
     <section class="editor hidden">
       <div class="flow-actions">
         <input class="flow-name" type="text" />
-        <button class="delete-flow delete-icon no-text" title="Delete this flow">
+        <button
+          class="delete-flow delete-icon no-text"
+          title="Delete this flow"
+        >
           Delete
         </button>
       </div>
       <ul class="steps"></ul>
-      <button class="add-icon add-step" title="Add a new step to this flow">Add a step</button>
+      <button class="add-icon add-step" title="Add a new step to this flow">
+        Add a step
+      </button>
     </section>
     <section class="images hidden">
-      <button class="run-flow run-icon" disabled title="Run this flow">Run</button>
-      <div class="input-images"></div>
-      <div class="output-images"></div>
-      <div class="output-image-actions">
+      <div class="input image-container empty">
+        <div class="instructions">
+          <p>
+            Drop your image(s) here or
+            <button
+              class="browse-images"
+              title="Select images from your computer"
+            >
+              browse
+            </button>
+          </p>
+        </div>
+      </div>
+      <div class="flow-actions">
+        <button
+          class="remove-input delete-icon"
+          title="Remove the input images"
+        >
+          Remove input
+        </button>
+        <button class="run-flow run-icon" disabled title="Run this flow">
+          Run flow
+        </button>
+      </div>
+      <div class="output image-container empty"></div>
+      <div class="save-actions">
         <button
           class="download-images download-icon"
           title="Download the output images"
@@ -79,10 +108,20 @@
         >
           Download
         </button>
-        <button class="save-images save-icon" title="Save the output images" disabled>
+        <button
+          class="save-images save-icon"
+          title="Save the output images"
+          disabled
+        >
           Save
         </button>
-        <button class="use-output-as-input up-icon" title="Use output images as input" disabled>Use as input</button>
+        <button
+          class="use-output-as-input up-icon"
+          title="Use output images as input"
+          disabled
+        >
+          Use as input
+        </button>
       </div>
     </section>
     <dialog class="step-chooser">

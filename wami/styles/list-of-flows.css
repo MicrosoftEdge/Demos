@@ -5,7 +5,13 @@ h1, .flows {
 }
 
 h1 {
-  padding: 2rem 3rem 0rem 3rem;
+  padding: calc(env(titlebar-area-height, 1rem) + 0.3rem) 3rem 0 3rem;
+}
+
+@media (max-width: 900px) {
+  h1 {
+    padding: 2rem 1rem 0 1rem;
+  }
 }
 
 h1 a {
@@ -14,6 +20,8 @@ h1 a {
   display: block;
   width: 100%;
   height: 100%;
+  max-width: 10rem;
+  margin: 0 auto;
 }
 
 .flows {
@@ -72,6 +80,12 @@ h1 a {
   text-overflow: ellipsis;
 }
 
+@media (max-width: 900px) {
+  .flows .flow-in-list .flow-nb-of-steps {
+    display: none;
+  }
+}
+
 .flows .flow-in-list.selected .flow-nb-of-steps {
   color: inherit;
 }
@@ -90,3 +104,8 @@ h1 a {
   color: var(--text-color);
 }
 
+@media (max-width: 900px) {
+  .add-flow {
+    margin: 1rem 0;
+  }
+}

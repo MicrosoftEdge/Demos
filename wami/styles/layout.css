@@ -1,6 +1,6 @@
 body {
   display: grid;
-  grid-template-columns: var(--sidebar-width) var(--sidebar-width) 1fr;
+  grid-template-columns: var(--flows-sidebar-width) var(--steps-sidebar-width) 1fr;
   grid-template-rows: min-content 1fr;
   grid-template-areas:
     "logo  editor images"
