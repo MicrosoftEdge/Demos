@@ -13,6 +13,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [Demo](https://microsoftedge.github.io/Demos/1DIV/dist/) |
 | **Email client** | A fake email client PWA that demonstrates how to use PWA protocol handlers | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
 | **PWAmp** | A music player PWA demo to read your local music files | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
+| **wami** | An image manipulation demo app to crop, resize, or add effects to images | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
 
 #### DevTools
 
