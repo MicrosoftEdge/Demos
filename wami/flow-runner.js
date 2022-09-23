@@ -36,8 +36,10 @@ export async function runFlow(flow, images) {
 
     if (STEPS[step.type] && STEPS[step.type].getCmd) {
       stepCmd = STEPS[step.type].getCmd(step);
-    } else {
+    } else if (step.params.length) {
       stepCmd = [`-${step.type}`, step.params[0] + ''];
+    } else {
+      stepCmd = [`-${step.type}`];
     }
 
     cmd = [...cmd, ...stepCmd];

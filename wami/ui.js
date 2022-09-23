@@ -43,13 +43,15 @@ function createStep(step, index) {
   description.textContent = STEPS[step.type].description;
   li.appendChild(description);
 
-  const params = document.createElement('div');
-  params.classList.add('step-params');
-  li.appendChild(params);
+  if (step.params && step.params.length) {
+    const params = document.createElement('div');
+    params.classList.add('step-params');
+    li.appendChild(params);
 
-  for (let i = 0; i < step.params.length; i++) {
-    const param = createParam(step.params[i], STEPS[step.type].params[i]);
-    params.appendChild(param);
+    for (let i = 0; i < step.params.length; i++) {
+      const param = createParam(step.params[i], STEPS[step.type].params[i]);
+      params.appendChild(param);
+    }
   }
 
   const removeButton = document.createElement('button');
@@ -70,7 +72,7 @@ export function insertStep(index) {
   return new Promise((resolve) => {
     stepChooserDialog.addEventListener('close', (e) => {
       const type = stepChooserDialog.returnValue;
-      const params = STEPS[type].params.map((param) => param.default);
+      const params = STEPS[type].params && STEPS[type].params.length ? STEPS[type].params.map((param) => param.default) : null;
 
       const li = createStep({ type, params });
   
@@ -183,19 +185,22 @@ addEventListener('mousedown', mouseDownEvent => {
 
 // List of flows
 
-export function populateFlowList(flows) {
+export function populateFlowList(flows, selectId) {
   flowList.innerHTML = '';
 
   flows.forEach((flow) => {
-    flowList.appendChild(createFlowListEntry(flow));
+    flowList.appendChild(createFlowListEntry(flow, selectId));
   });
 }
 
-function createFlowListEntry(flow) {
+function createFlowListEntry(flow, selectId) {
   const li = document.createElement('li');
 
   li.classList.add('flow-in-list');
   li.setAttribute('title', 'Open flow');
+  if (selectId && flow.id === selectId) {
+    li.classList.add('selected');
+  }
   li.dataset.id = flow.id;
 
   const a = document.createElement('a');

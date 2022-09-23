@@ -66,6 +66,8 @@ navigation.addEventListener('navigate', navigateEvent => {
         currentId = id;
         const flows = await flowsPromise;
         currentFlow = flows.find(f => id === f.id + '');
+
+        populateFlowList(flows);
         
         if (!currentFlow) {
           await navigation.navigate('/wami/');
@@ -143,7 +145,6 @@ async function handleFlowChange() {
   });
 
   const newName = editorPage.querySelector('.flow-name').value;
-  const nameChanged = currentFlow.name !== newName;
   currentFlow.name = newName;
 
   const flows = await flowsPromise;
@@ -152,10 +153,7 @@ async function handleFlowChange() {
 
   await saveFlows(flows);
 
-  if (nameChanged) {
-    populateFlowList(flows);
-  }
-
+  populateFlowList(flows, currentId);
   populateEditor(currentFlow);
 }
 
