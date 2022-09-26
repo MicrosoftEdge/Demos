@@ -741,6 +741,10 @@ input[type="range"]:hover::-moz-range-thumb {
   border-width: 0 4px 2px 2px;
 }
 
+[popup]:not(:open) {
+  display: none;
+}
+
 [popup] {
   position: fixed;
   padding: 0;
