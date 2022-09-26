@@ -2,6 +2,10 @@ body {
   margin: calc(2 * var(--spacing));
 }
 
+h1 {
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -18,11 +22,8 @@ form {
   background: var(--task-background);
   padding: calc(2 * var(--spacing));
   border-radius: calc(var(--spacing) / 2);
-  position: fixed;
   width: calc(100% - 4 * var(--spacing));
   max-width: 50rem;
-  box-sizing: border-box;
-  box-shadow: 0 calc(-2 * var(--spacing)) 0 calc(3 * var(--spacing)) var(--background);
 }
 
 .new-task-form:hover {
@@ -37,14 +38,8 @@ form {
 
 @media (max-width: 450px) {
   body {
-    font-size: 12pt;
-    --spacing: .4rem;
-  }
-
-  .new-task-form label {
-    width: 1.5rem;
-    white-space: nowrap;
-    overflow: hidden;
+    font-size: 11pt;
+    --spacing: .3rem;
   }
 }
 
@@ -76,7 +71,11 @@ form {
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) / 2);
-  margin-top: calc(2rem + 7 * var(--spacing));
+}
+
+.divider {
+  padding: var(--spacing);
+  text-align: center;
 }
 
 .task {
@@ -86,6 +85,7 @@ form {
   gap: var(--spacing);
   align-items: center;
   padding: calc(2 * var(--spacing));
+  position: relative;
 }
 
 .task.completed .text {
@@ -106,7 +106,12 @@ form {
 }
 
 .task .box {
-  display: none;
+  appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 1rem - 3 * var(--spacing));
+  height: 100%;
 }
 
 .task label::before {
@@ -149,7 +154,8 @@ form {
   border: 2px solid transparent;
 }
 
-.task:hover .delete {
+.task:hover .delete,
+.task .delete:focus-within {
   color: var(--delete-color);
   border-color: var(--delete-color);
 }

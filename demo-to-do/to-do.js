@@ -38,28 +38,40 @@ const updateList = () => {
   done = sortTasksByDate(done);
 
   let out = '';
-  for (const item of todo) {
-    out += `
-    <li class="task">
-      <label title="Complete task">
-        <input type="checkbox" 
-        value="${item.text}" class="box">
-        <span class="text">${item.text}</span>
-      </label>
-      <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
-    </li>`;
+
+  if (todo.length) {
+    out += '<li class="divider">To do</li>';
+    for (const item of todo) {
+      out += `
+      <li class="task">
+        <label title="Complete task">
+          <input type="checkbox" 
+          value="${item.text}" class="box"
+          title="Complete task">
+          <span class="text">${item.text}</span>
+        </label>
+        <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
+      </li>`;
+    }
+  } else {
+    out += '<li class="divider">No tasks defined</li>';
   }
-  for (const item of done) {
-    out += `
-    <li class="task completed">
-      <label title="Reopen task">
-        <input type="checkbox" 
-        checked
-        value="${item.text}" class="box">
-        <span class="text">${item.text}</span>
-      </label>
-      <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
-    </li>`;
+
+  if (done.length) {
+    out += '<li class="divider">Completed</li>';
+    for (const item of done) {
+      out += `
+      <li class="task completed">
+        <label title="Reopen task">
+          <input type="checkbox" 
+          checked
+          value="${item.text}" class="box"
+          title="Reopen task">
+          <span class="text">${item.text}</span>
+        </label>
+        <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
+      </li>`;
+    }
   }
 
   list.innerHTML = out;
