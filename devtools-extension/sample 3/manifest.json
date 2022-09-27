@@ -1,0 +1,10 @@
+{
+    "name": "DevTools Sample Extension",
+    "description": "A Basic DevTools Extension invoking CDP APIs",
+    "manifest_version": 3,
+    "version": "1.0",
+    "devtools_page": "devtools.html",
+    "permissions": [
+        "system.memory"
+    ]
+}
