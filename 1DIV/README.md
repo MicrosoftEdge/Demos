@@ -6,7 +6,7 @@
 
 ## Requirements
 
-The main goal of this demo is to showcase the [Window Controls Overlay PWA feature](https://docs.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/window-controls-overlay), so to make the most use of it, you will need the following things:
+The main goal of this demo is to showcase the [Window Controls Overlay PWA feature](https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/window-controls-overlay), so to make the most use of it, you will need the following things:
 
 * Use a 93+ Chromium-based browser.
 * Enable the Window Controls Overlay feature in about:flags (`Desktop PWA Window Controls Overlay`).

@@ -39,7 +39,7 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 ## What does the name mean?
 
-[Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAmp's name was inspired by it, we just replaced the `win` part with `PW` which are the 2 first letters of PWA (which stands for [Progressive Web App](https://docs.microsoft.com/microsoft-edge/progressive-web-apps-chromium/)). The name Webamp might have made more sense but was [already used](https://webamp.org/).
+[Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAmp's name was inspired by it, we just replaced the `win` part with `PW` which are the 2 first letters of PWA (which stands for [Progressive Web App](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/)). The name Webamp might have made more sense but was [already used](https://webamp.org/).
 
 You can think of this app as the "Progressive Web Amp".
 
