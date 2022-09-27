@@ -46,6 +46,12 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Reader app** | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, Async Clipboard. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Demo](https://microsoftedge.github.io/Demos/reader/) |
 | **Selectmenu demos** | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Demo](https://microsoftedge.github.io/Demos/selectmenu/) |
 
+#### Extensions
+
+| Demo | Description | Code | Live URL |
+| ---- | ----------- | ---- | -------- |
+| **Create a DevTools extension** | Learn to build a Microsoft Edge extension that extends DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | N/A |
+
 ## Adding a new demo
 
 To add a new demo:
