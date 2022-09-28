@@ -233,7 +233,7 @@ function populateStepChooserDialog() {
     button.classList.add('step-to-choose');
 
     const icon = document.createElement('img');
-    icon.src = `/wami/icons/step-${key}.png`;
+    icon.src = `/Demos/wami/icons/step-${key}.png`;
     icon.width = 40;
     button.appendChild(icon);
 
