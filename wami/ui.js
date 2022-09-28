@@ -32,7 +32,7 @@ function createStep(step, index) {
   const icon = document.createElement('img');
   icon.classList.add('step-icon');
   icon.height = '40';
-  icon.src = `/wami/icons/step-${step.type}.png`;
+  icon.src = `/Demos/wami/icons/step-${step.type}.png`;
   li.appendChild(icon);
 
   const type = document.createElement('h3');
