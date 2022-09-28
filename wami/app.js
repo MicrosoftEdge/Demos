@@ -2,6 +2,7 @@ import { runFlow } from './flow-runner.js';
 import { populateEditor, populateFlowList, populateOutputImages, insertStep, removeStep, populateInputImages } from './ui.js';
 import { getFlows, saveFlows } from './store.js';
 import { getUniqueId, extractImagesFromDataTransfer, download } from './utils.js';
+import { ImageViewer } from './image-viewer.js';
 
 const welcomePage = document.querySelector('.welcome');
 const editorPage = document.querySelector('.editor');
@@ -13,13 +14,17 @@ const downloadImagesButton = document.querySelector('.download-images');
 const saveImagesButton = document.querySelector('.save-images');
 const useOutputAsInputButton = document.querySelector('.use-output-as-input');
 const browseImagesButton = document.querySelector('.browse-images');
+const randomImagesButton = document.querySelector('.use-random-images');
 const removeInputButton = document.querySelector('.remove-input');
+const viewImagesButton = document.querySelector('.view-images');
+const imageViewerDialog = document.querySelector('.image-viewer');
 
 let flowsPromise = getFlows();
 let currentFlow = null;
 let currentId = null;
 let currentImages = [];
 let outputImages = [];
+const imageViewer = new ImageViewer(imageViewerDialog);
 
 function shouldNotIntercept(navigationEvent) {
   return (
@@ -294,6 +299,31 @@ browseImagesButton.addEventListener('click', async e => {
   }
 });
 
+// Handle random image button.
+randomImagesButton.addEventListener('click', async e => {
+  const nb = Math.ceil(Math.random() * 5);
+
+  const imagesToStore = [];
+  for (let i = 0; i < nb; i++) {
+    const w = Math.floor(200 + Math.random() * 800);
+    const h = Math.floor(200 + Math.random() * 800);
+
+    const image = await fetch(`https://picsum.photos/${w}/${h}`);
+    const blob = await image.blob();
+    const file = new File([blob], `random-${i + 1}.jpg`, { type: 'image/jpeg' });
+
+    imagesToStore.push({
+      file,
+      fsHandlePromise: Promise.resolve(null)
+    });
+  }
+
+  currentImages = imagesToStore;
+  populateInputImages(imagesToStore.map(image => {
+    return { src: URL.createObjectURL(image.file), name: image.file.name };
+  }));
+});
+
 // Handle remove input images button.
 removeInputButton.addEventListener('click', async e => {
   currentImages = [];
@@ -350,6 +380,31 @@ useOutputAsInputButton.addEventListener('click', async e => {
     return { src: URL.createObjectURL(image.file), name: image.name };
   }));
   populateOutputImages([]);
+});
+
+// Handle the view images button.
+viewImagesButton.addEventListener('click', async e => {
+  if (!hasImagesToSave()) {
+    return;
+  }
+
+  const output = outputImages.map(image => {
+    return { src: URL.createObjectURL(image.blob), name: image.name };
+  });
+  const input = currentImages.map(image => {
+    return { src: URL.createObjectURL(image.file), name: image.name };
+  });
+  
+  imageViewer.show();
+
+  // 2 modes: either we matching inputs and outputs in which case we can 
+  // go into the swipe mode. Or we don't, in which case we just show the
+  // output images.
+  if (input.length === output.length) {
+    imageViewer.populateFromInputAndOutput(input, output);
+  } else {
+    imageViewer.populateFromOutput(output);
+  }
 });
 
 // When the app starts, get the flows and display them in the sidebar.

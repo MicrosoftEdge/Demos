@@ -1,0 +1,90 @@
+.image-viewer {
+  --padding: calc(2 * env(titlebar-area-height, 1rem));
+  --pos: 50%;
+
+  width: calc(100vw - calc(2 * var(--padding)));
+  height: calc(100vh - calc(2 * var(--padding)));
+  border-radius: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1rem 80px;
+  grid-template-areas:
+    "diff"
+    "slider"
+    "imgs";
+  margin: var(--padding) 0 0 var(--padding);
+  box-sizing: border-box;
+  padding: .5rem;
+}
+
+.image-viewer[open] {
+  display: grid;
+}
+
+.image-viewer .close-image-viewer {
+  grid-area: button;
+}
+
+.image-viewer .current-image {
+  grid-area: diff;
+  display: grid;
+  place-content: end center;
+  overflow: hidden;
+}
+
+.image-viewer .list-of-images {
+  grid-area: imgs;
+
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-viewer .list-of-images img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image-viewer .current-image > div {
+  grid-row: 1;
+  grid-column: 1;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-viewer .before {
+  z-index: 1;
+}
+
+.image-viewer .after {
+  z-index: 2;
+  position: relative;
+}
+
+.image-viewer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-viewer .slider {
+  grid-area: slider;
+  text-align: center;
+}
+
+.image-viewer .slider input {
+  width: 100%;
+}
+
+.image-viewer .current-image .after::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 2px;
+  background: red;
+  height: 100%;
+  left: var(--pos);
+  z-index: 1;
+}

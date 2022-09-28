@@ -78,13 +78,19 @@
       <div class="input image-container empty">
         <div class="instructions">
           <p>
-            Drop your image(s) here or
+            Drop your image(s) here, or
             <button
               class="browse-images"
               title="Select images from your computer"
             >
-              browse
-            </button>
+              browse</button
+            >, or
+            <button
+              class="use-random-images"
+              title="Use random images from the internet"
+            >
+              use random images</button
+            >.
           </p>
         </div>
       </div>
@@ -122,11 +128,28 @@
         >
           Use as input
         </button>
+        <button
+          class="view-images eye-icon"
+          title="View and compare input and output images"
+          disabled
+        >
+          View images
+        </button>
       </div>
     </section>
     <dialog class="step-chooser">
       <h2>Choose a step</h2>
       <form class="steps" method="dialog"></form>
+    </dialog>
+    <dialog class="image-viewer">
+      <div class="current-image">
+        <div class="before"><img src="" alt="The input image" /></div>
+        <div class="after"><img src="" alt="The output image, after the flow ran" /></div>
+      </div>
+      <div class="slider">
+        <input type="range" min="0" max="1000" step="1" value="500">
+      </div>
+      <ul class="list-of-images"></ul>
     </dialog>
     <script type="module" src="app.js"></script>
     <script>

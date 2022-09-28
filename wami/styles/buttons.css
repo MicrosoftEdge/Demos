@@ -127,3 +127,13 @@ button[class*="-icon"]:before {
   background-position: 0 0, 105% 0, 0 0, 0 0;
   transform: rotate(.5turn);
 }
+
+.eye-icon::before {
+  width: 1rem;
+  height: 1rem;
+  background-image:
+    radial-gradient(white 10%, transparent 0),
+    radial-gradient(var(--main-color) 35%, transparent 0),
+    radial-gradient(circle at 50% 10%, transparent 70%, var(--main-color) 0),
+    radial-gradient(circle at 50% 93%, white 70%, transparent 0);
+}

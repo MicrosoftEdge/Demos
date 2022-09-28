@@ -11,6 +11,7 @@ const downloadImagesButton = document.querySelector('.download-images');
 const saveImagesButton = document.querySelector('.save-images');
 const useOutputAsInputButton = document.querySelector('.use-output-as-input');
 const runFlowButton = document.querySelector('.run-flow');
+const viewImagesButton = document.querySelector('.view-images');
 
 // Editor UI
 
@@ -266,6 +267,7 @@ export function populateOutputImages(images, supportsFSHandleSave) {
   downloadImagesButton.toggleAttribute('disabled', images.length === 0);
   useOutputAsInputButton.toggleAttribute('disabled', images.length === 0);
   saveImagesButton.toggleAttribute('disabled', !supportsFSHandleSave || images.length === 0);
+  viewImagesButton.toggleAttribute('disabled', images.length === 0);
 
   outputImages.parentNode.classList.toggle('has-output-images', images.length > 0);
 }

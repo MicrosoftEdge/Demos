@@ -22,7 +22,11 @@
   border-radius: .25rem;
   border: 1px solid #0004;
   background: var(--background-color);
-  max-width: 50%;
+  max-width: 3rem;
+}
+
+.editor select {
+  max-width: 40%;
 }
 
 .editor .flow-actions {
@@ -100,6 +104,9 @@
   align-self: center;
   grid-column: 2;
   grid-row: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .editor .step .step-description {
