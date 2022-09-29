@@ -18,6 +18,7 @@
 
 .image-viewer[open] {
   display: grid;
+  overflow: hidden;
 }
 
 .image-viewer .close-image-viewer {

@@ -65,6 +65,7 @@ export class ImageViewer {
     this.afterImage.onload = () => {
       this.sliderRange.style.width = this.afterImage.offsetWidth + 'px';
     };
+    this.sliderRange.style.width = this.afterImage.offsetWidth + 'px';
 
     this.updateSwipe();
   }

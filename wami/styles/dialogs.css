@@ -10,6 +10,15 @@ dialog {
   margin-top: 5vh;
 }
 
+dialog[open] {
+  animation: dialog-appear .1s linear forwards;
+}
+
+@keyframes dialog-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 dialog::backdrop {
   background-color: white;
 }
@@ -18,4 +27,5 @@ dialog .close-dialog {
   position: fixed;
   top: 1rem;
   left: 1rem;
+  -webkit-app-region: no-drag;
 }
