@@ -104,14 +104,25 @@ runFlowButton.addEventListener('click', async e => {
 
 // Handle flow changes.
 addEventListener('change', async e => {
+  // One of the inputs changed in the editor. This could be the name of the flow
+  // or one of the params for a step.
   if (e.target.closest('.editor')) {
-    await handleFlowChange();
+    await handleFlowChange(true);
   }
 });
 
+// A step was moved within the flow. Update.
 addEventListener('flow-change', handleFlowChange);
 
-async function handleFlowChange() {
+/**
+ * When a flow was changed (title, steps, order of steps, params, etc.), call
+ * this function to save the changes and reload the UI.
+ * @param {Boolean} dontUpdateEditor Pass true if you don't need the editor UI part
+ * to be reloaded. This is useful when a param was changed for example. This doesn't
+ * require to reload the editor since the param is already updated in the input.
+ * And reloading the editor would reset the focus.
+ */
+async function handleFlowChange(dontUpdateEditor) {
   // Something changed in the editor.
   // Save the current flow to the local flows variable, and to the store.
   const stepElements = [...editorPage.querySelectorAll('.step')];
@@ -131,7 +142,9 @@ async function handleFlowChange() {
   await saveFlows(flows);
 
   populateFlowList(flows, currentId);
-  populateEditor(currentFlow);
+  if (!dontUpdateEditor) {
+    populateEditor(currentFlow);
+  }
 }
 
 // Adding a step to the current flow.

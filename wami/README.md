@@ -40,4 +40,3 @@ The app uses the [WASM-ImageMagick](https://github.com/KnicKnic/WASM-ImageMagick
 * Implement real sw.js.
 * Share images.
 * Fix step drag/drop when there is a scrollbar.
-* Fix focus loss on flow-change.
