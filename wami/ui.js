@@ -32,7 +32,7 @@ function createStep(step, index) {
   const icon = document.createElement('img');
   icon.classList.add('step-icon');
   icon.height = '40';
-  icon.src = `/Demos/wami/icons/step-${step.type}.png`;
+  icon.src = `./icons/step-${step.type}.png`;
   li.appendChild(icon);
 
   const type = document.createElement('h3');
@@ -70,10 +70,19 @@ function createStep(step, index) {
 
 export function insertStep(index) {
   stepChooserDialog.showModal();
+  // For some reason the dialog's returnValue isn't reset when it's closed.
+  // So if the user opens the dialog again after having chosen a value before,
+  // even if they ESCape from it, the returnValue will still contain the
+  // previous value.
+  stepChooserDialog.returnValue = '';
 
   return new Promise((resolve) => {
     stepChooserDialog.addEventListener('close', (e) => {
       const type = stepChooserDialog.returnValue;
+      if (!type) {
+        return resolve();
+      }
+
       const params = STEPS[type].params && STEPS[type].params.length ? STEPS[type].params.map((param) => param.default) : null;
 
       const li = createStep({ type, params });
@@ -206,7 +215,8 @@ function createFlowListEntry(flow, selectId) {
   li.dataset.id = flow.id;
 
   const a = document.createElement('a');
-  a.href = `/wami/flow/${flow.id}`;
+  a.href = `#`;
+  a.dataset.id = flow.id;
   li.appendChild(a);
 
   const name = document.createElement('span');
@@ -233,7 +243,7 @@ function populateStepChooserDialog() {
     button.classList.add('step-to-choose');
 
     const icon = document.createElement('img');
-    icon.src = `/Demos/wami/icons/step-${key}.png`;
+    icon.src = `./icons/step-${key}.png`;
     icon.width = 40;
     button.appendChild(icon);
 

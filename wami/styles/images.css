@@ -37,7 +37,7 @@
 
 .images .input .instructions {
   border: 2px dashed #0002;
-  background-image: url("/Demos/wami/icons/add-images.png");
+  background-image: url("../icons/add-images.png");
   background-repeat: no-repeat;
   background-position: center 2rem;
   background-size: 60px;
@@ -90,7 +90,7 @@
   width: 2rem;
   height: 2rem;
   background-size: contain;
-  background-image: url('/wami/favicon-96.png');
+  background-image: url('../favicon-96.png');
   margin: 2rem;
   animation: spin 1s linear infinite;
   box-shadow: 0 0 .5rem 0 #0006;

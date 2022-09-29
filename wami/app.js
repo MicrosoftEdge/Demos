@@ -4,6 +4,7 @@ import { getFlows, saveFlows } from './store.js';
 import { getUniqueId, extractImagesFromDataTransfer, download } from './utils.js';
 import { ImageViewer } from './image-viewer.js';
 
+const homeLink = document.querySelector('h1 a');
 const welcomePage = document.querySelector('.welcome');
 const editorPage = document.querySelector('.editor');
 const imagesPage = document.querySelector('.images');
@@ -26,82 +27,48 @@ let currentImages = [];
 let outputImages = [];
 const imageViewer = new ImageViewer(imageViewerDialog);
 
-function shouldNotIntercept(navigationEvent) {
-  return (
-    // If we can't intercept, let the navigation go through.
-    !navigationEvent.canIntercept ||
-    // If this is not in the wami scope, let the navigation go through.
-    new URL(navigationEvent.destination.url).pathname.indexOf('/wami') !== 0 ||
-    // If this is just a hashChange,
-    // just let the browser handle scrolling to the content.
-    navigationEvent.hashChange ||
-    // If this is a download,
-    // let the browser perform the download.
-    navigationEvent.downloadRequest ||
-    // If this is a form submission,
-    // let that go to the server.
-    navigationEvent.formData
-  );
+async function navigateToHome() {
+  currentFlow = null;
+  currentId = null;
+
+  welcomePage.classList.remove('hidden');
+  editorPage.classList.add('hidden');
+  imagesPage.classList.add('hidden');
+
+  document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
 }
 
-// On navigate event, intercept the navigation to the home page and the flow page.
-// Hide/show the right DOM elements, and set the currentId and currentFlow variables.
-navigation.addEventListener('navigate', navigateEvent => {
-  if (shouldNotIntercept(navigateEvent)) {
+async function navigateToFlow(id) {
+  currentId = id;
+  const flows = await flowsPromise;
+  currentFlow = flows.find(f => id === f.id + '');
+
+  populateFlowList(flows);
+
+  if (!currentFlow) {
+    await navigateToHome();
     return;
   }
 
-  const url = new URL(navigateEvent.destination.url);
+  welcomePage.classList.add('hidden');
+  editorPage.classList.remove('hidden');
+  imagesPage.classList.remove('hidden');
 
-  if (url.pathname === '/wami/') {
-    navigateEvent.intercept({
-      async handler() {
-        currentFlow = null;
-        currentId = null;
+  // Mark the current flow as selected in the sidebar.
+  document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
+  document.querySelector(`.flow-in-list[data-id="${id}"]`).classList.add('selected');
 
-        welcomePage.classList.remove('hidden');
-        editorPage.classList.add('hidden');
-        imagesPage.classList.add('hidden');
+  populateEditor(currentFlow);
+}
 
-        document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
-      }
-    });
-  } else if (url.pathname.startsWith('/wami/flow/')) {
-    navigateEvent.intercept({
-      async handler() {
-        const id = url.pathname.substring('/wami/flow/'.length);
-        currentId = id;
-        const flows = await flowsPromise;
-        currentFlow = flows.find(f => id === f.id + '');
-
-        populateFlowList(flows);
-
-        if (!currentFlow) {
-          await navigation.navigate('/wami/');
-          return;
-        }
-
-        welcomePage.classList.add('hidden');
-        editorPage.classList.remove('hidden');
-        imagesPage.classList.remove('hidden');
-
-        // Mark the current flow as selected in the sidebar.
-        document.querySelectorAll(`.flow-in-list.selected`).forEach(f => f.classList.remove('selected'));
-        document.querySelector(`.flow-in-list[data-id="${id}"]`).classList.add('selected');
-
-        populateEditor(currentFlow);
-      }
-    });
+// Handle links.
+homeLink.addEventListener('click', navigateToHome);
+addEventListener('click', async e => {
+  const flowLink = e.target.closest('.flow-in-list');
+  if (flowLink) {
+    await navigateToFlow(flowLink.dataset.id);
   }
 });
-
-// On start, we may be launched with the loadFlow query parameter.
-// If so, redirect to /wami/flow/id
-const url = new URL(document.location);
-const flowToLoad = url.searchParams.get('loadFlow');
-if (flowToLoad) {
-  navigation.navigate(`/wami/flow/${flowToLoad}`);
-}
 
 // Run the current flow.
 runFlowButton.addEventListener('click', async e => {
@@ -207,7 +174,7 @@ addFlowButton.addEventListener('click', async e => {
 
   populateFlowList(flows);
 
-  await navigation.navigate(`/wami/flow/${newFlow.id}`);
+  await navigateToFlow(newFlow.id);
 });
 
 // Deleting the current flow.
@@ -219,7 +186,7 @@ deleteFlowButton.addEventListener('click', async e => {
 
   populateFlowList(flows);
 
-  await navigation.navigate('/wami/');
+  await navigateToHome();
 });
 
 // Handle drag/drop images in the app.

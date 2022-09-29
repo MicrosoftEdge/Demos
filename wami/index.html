@@ -19,7 +19,7 @@
       "
     ></div>
     <h1>
-      <a href="/wami/">
+      <a href="#">
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -137,11 +137,15 @@
         </button>
       </div>
     </section>
-    <dialog class="step-chooser">
-      <h2>Choose a step</h2>
-      <form class="steps" method="dialog"></form>
+    <dialog class="step-chooser" autofocus>
+      <form class="steps" method="dialog">
+        <button class="close-icon close-dialog" title="Close this dialog">Close</button>
+      </form>
     </dialog>
-    <dialog class="image-viewer">
+    <dialog class="image-viewer" autofocus>
+      <form method="dialog">
+        <button class="close-icon close-dialog" title="Close this dialog">Close</button>
+      </form>
       <div class="current-image">
         <div class="before"><img src="" alt="The input image" /></div>
         <div class="after"><img src="" alt="The output image, after the flow ran" /></div>
