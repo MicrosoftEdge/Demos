@@ -37,5 +37,5 @@ The app uses the [WASM-ImageMagick](https://github.com/KnicKnic/WASM-ImageMagick
 ## TODO
 
 * Categorize steps and add a way to search through them.
-* Implement real sw.js.
 * Share images.
+* Export/import flows as JSON files.
