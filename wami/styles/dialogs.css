@@ -1,0 +1,21 @@
+dialog {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background-color: var(--background-color);
+  width: 90vw;
+  height: 90vh;
+  margin-left: 5vw;
+  margin-top: 5vh;
+}
+
+dialog::backdrop {
+  background-color: white;
+}
+
+dialog .close-dialog {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}

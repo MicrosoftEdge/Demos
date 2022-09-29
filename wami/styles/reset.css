@@ -33,11 +33,3 @@ button, input, select {
 .hidden {
   display: none;
 }
-
-dialog::backdrop {
-  background: transparent;
-}
-
-dialog {
-  box-shadow: 0 0 1rem 0 #0006;
-}

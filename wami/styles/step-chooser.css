@@ -1,9 +1,3 @@
-.step-chooser {
-  max-width: 80vw;
-  max-height: 80vh;
-  border-radius: 1rem;
-}
-
 .step-chooser h2 {
   margin-bottom: 1rem;
 }
@@ -12,6 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+  padding: 1rem;
 }
 
 .step-chooser .step-to-choose {
