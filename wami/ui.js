@@ -140,10 +140,13 @@ addEventListener('mousedown', mouseDownEvent => {
     return;
   }
 
+  // Record the initial scroll position.
+  const initialScroll = flowEditorSteps.scrollTop;
+
   // Mark the step as "moving" so it's taken out of the flow.
   // And give it a real size since it will become absolutely positioned.
-  const mouseDelta = mouseDownEvent.clientY - movingStep.offsetTop;
-  movingStep.style.top = `${movingStep.offsetTop}px`;
+  const mouseDelta = mouseDownEvent.clientY - movingStep.offsetTop + flowEditorSteps.scrollTop;
+  movingStep.style.top = `${movingStep.offsetTop - flowEditorSteps.scrollTop}px`;
   movingStep.style.left = `${movingStep.offsetLeft}px`;
   movingStep.style.width = `${movingStep.offsetWidth}px`;
   movingStep.classList.add('moving');
@@ -159,6 +162,10 @@ addEventListener('mousedown', mouseDownEvent => {
 
   const stepElements = [...flowEditorSteps.querySelectorAll('.step')];
 
+  // Restore the initial scroll position, because the DOM changes we just made
+  // have caused the scroll position to be reset.
+  flowEditorSteps.scrollTop = initialScroll;
+
   function moveStep(mouseMoveEvent) {
     movingStep.classList.toggle('started-moving', true);
     movingStep.style.top = `${mouseMoveEvent.clientY - mouseDelta}px`;
@@ -169,12 +176,12 @@ addEventListener('mousedown', mouseDownEvent => {
         continue;
       }
 
-      if (mouseMoveEvent.clientY > otherStep.offsetTop &&
-        mouseMoveEvent.clientY < otherStep.offsetTop + otherStep.offsetHeight / 2) {
+      if (mouseMoveEvent.clientY > otherStep.offsetTop - flowEditorSteps.scrollTop &&
+        mouseMoveEvent.clientY < otherStep.offsetTop - flowEditorSteps.scrollTop + otherStep.offsetHeight / 2) {
         otherStep.parentNode.insertBefore(placeholder, otherStep);
         otherStep.parentNode.insertBefore(movingStep, otherStep);
-      } else if (mouseMoveEvent.clientY > otherStep.offsetTop + otherStep.offsetHeight / 2 &&
-        mouseMoveEvent.clientY < otherStep.offsetTop + otherStep.offsetHeight) {
+      } else if (mouseMoveEvent.clientY > otherStep.offsetTop - flowEditorSteps.scrollTop + otherStep.offsetHeight / 2 &&
+        mouseMoveEvent.clientY < otherStep.offsetTop - flowEditorSteps.scrollTop + otherStep.offsetHeight) {
         otherStep.parentNode.insertBefore(placeholder, otherStep.nextSibling);
         otherStep.parentNode.insertBefore(movingStep, otherStep.nextSibling);
       }

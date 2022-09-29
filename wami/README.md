@@ -39,4 +39,3 @@ The app uses the [WASM-ImageMagick](https://github.com/KnicKnic/WASM-ImageMagick
 * Categorize steps and add a way to search through them.
 * Implement real sw.js.
 * Share images.
-* Fix step drag/drop when there is a scrollbar.
