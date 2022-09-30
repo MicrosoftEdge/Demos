@@ -368,10 +368,10 @@ viewImagesButton.addEventListener('click', async e => {
     return;
   }
 
-  const output = outputImages.map(image => {
+  const output = outputImages.sort((a, b) => a.name.localeCompare(b.name)).map(image => {
     return { src: URL.createObjectURL(image.blob), name: image.name };
   });
-  const input = currentImages.map(image => {
+  const input = currentImages.sort((a, b) => a.name.localeCompare(b.name)).map(image => {
     return { src: URL.createObjectURL(image.file), name: image.name };
   });
   
