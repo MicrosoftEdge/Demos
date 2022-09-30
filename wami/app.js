@@ -371,8 +371,8 @@ viewImagesButton.addEventListener('click', async e => {
   const output = outputImages.sort((a, b) => a.name.localeCompare(b.name)).map(image => {
     return { src: URL.createObjectURL(image.blob), name: image.name };
   });
-  const input = currentImages.sort((a, b) => a.name.localeCompare(b.name)).map(image => {
-    return { src: URL.createObjectURL(image.file), name: image.name };
+  const input = currentImages.sort((a, b) => a.file.name.localeCompare(b.file.name)).map(image => {
+    return { src: URL.createObjectURL(image.file), name: image.file.name };
   });
   
   imageViewer.show();
