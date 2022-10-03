@@ -17,6 +17,6 @@ if (commandUrl) {
   if (command === 'remote-song') {
     importSongFromURL(arg, getSongNameFromURL(arg)).then(startApp);
   } else if (command === 'skin') {
-    fetch(url).then(response => response.text()).then(applyCustomSkin);
+    fetch(arg).then(response => response.text()).then(applyCustomSkin);
   }
 }
