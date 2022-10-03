@@ -244,11 +244,33 @@ addEventListener('drop', async (e) => {
 
 // Handle browse images button.
 browseImagesButton.addEventListener('click', async e => {
+  const imagesToStore = [];
+
   if (!('showOpenFilePicker' in window)) {
     // Browser doesn't support the File System Access API.
     // Use the legacy file input.
 
-    // TODO.
+    const button = document.createElement('input');
+    button.type = 'file';
+    button.multiple = true;
+    button.accept = 'image/*';
+    button.style.display = 'none';
+
+    await new Promise(resolve => {
+      button.addEventListener('change', async e => {
+        const files = [...e.target.files];
+
+        for (const file of files) {
+          imagesToStore.push({
+            file,
+            fsHandlePromise: Promise.resolve(null)
+          });
+          resolve();
+        }
+      }, { once: true });
+
+      button.click();
+    });
   } else {
     // Browser supports the File System Access API.
     const handles = await showOpenFilePicker({
@@ -263,20 +285,19 @@ browseImagesButton.addEventListener('click', async e => {
       ]
     });
 
-    const imagesToStore = [];
     for (const handle of handles) {
       imagesToStore.push({
         file: await handle.getFile(),
         fsHandlePromise: Promise.resolve(handle)
       });
     }
-
-    // Store the current images.
-    currentImages = imagesToStore;
-    populateInputImages(imagesToStore.map(image => {
-      return { src: URL.createObjectURL(image.file), name: image.file.name };
-    }));
   }
+
+  // Store the current images.
+  currentImages = imagesToStore;
+  populateInputImages(imagesToStore.map(image => {
+    return { src: URL.createObjectURL(image.file), name: image.file.name };
+  }));
 });
 
 // Handle random image button.
@@ -374,7 +395,7 @@ viewImagesButton.addEventListener('click', async e => {
   const input = currentImages.sort((a, b) => a.file.name.localeCompare(b.file.name)).map(image => {
     return { src: URL.createObjectURL(image.file), name: image.file.name };
   });
-  
+
   imageViewer.show();
 
   // 2 modes: either we matching inputs and outputs in which case we can 
