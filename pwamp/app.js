@@ -274,8 +274,7 @@ songActionCopyUri.addEventListener("click", async () => {
   songActionsPopup.hidePopUp();
 
   // The current song is a remote one. Let's create a web+amp link for it.
-  let url = song.id;
-  url = url.replace(/^https?:\/\//, 'web+amp://');
+  const url = `web+amp:remote-song:${song.id}`;
 
   // And put it into the clipboard.
   await navigator.clipboard.writeText(url);

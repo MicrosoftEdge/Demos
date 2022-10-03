@@ -82,7 +82,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+amp",
-      "url": "./?mode=standalone&addRemoteSong=%s"
+      "url": "./?mode=standalone&cmd=%s"
     }
   ],
   "share_target": {

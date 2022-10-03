@@ -39,3 +39,4 @@ The app uses the [WASM-ImageMagick](https://github.com/KnicKnic/WASM-ImageMagick
 * Categorize steps and add a way to search through them.
 * Share images.
 * Export/import flows as JSON files.
+* Submit to MS store.
