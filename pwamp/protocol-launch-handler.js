@@ -12,7 +12,8 @@ const commandUrl = new URL(url).searchParams.get('cmd');
 
 if (commandUrl) {
   const commandAndArg = commandUrl.substring('web+amp:'.length);
-  const [command, arg] = commandAndArg.split(':');
+  // Split the commandAndArg string around the first colon.
+  const [command, arg] = commandAndArg.split(/:(.+)/);
 
   if (command === 'remote-song') {
     importSongFromURL(arg, getSongNameFromURL(arg)).then(startApp);
