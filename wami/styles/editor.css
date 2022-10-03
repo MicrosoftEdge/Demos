@@ -6,6 +6,7 @@
   flex-direction: column;
   transform: translateX(-50vw);
   z-index: 1;
+  box-shadow: 0 0 1rem 0 #0003;
 }
 
 .editor:not(.hidden) {

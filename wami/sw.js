@@ -1,4 +1,4 @@
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE_NAME = `wami-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -14,6 +14,7 @@ const INITIAL_CACHED_RESOURCES = [
   './styles/index.css',
   './styles/layout.css',
   './styles/list-of-flows.css',
+  './styles/mobile.css',
   './styles/reset.css',
   './styles/step-chooser.css',
   './styles/welcome.css',

@@ -1,0 +1,44 @@
+@media (max-width: 600px) {
+  html {
+    font-size: 20pt;
+  }
+
+  body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 2fr 3fr 5fr;
+    grid-template-areas:
+      "logo"
+      "flows"
+      "editor"
+      "images";
+  }
+
+  .welcome {
+    grid-column: 1;
+    grid-row: 2 / 5;
+  }
+
+  h1 {
+    padding: 1rem 1rem 0;
+  }
+
+  .images .input .instructions {
+    padding: 1rem;
+    background: none;
+  }
+
+  .images .input .instructions p {
+    font-size: .9rem;
+  }
+
+  .editor .step .step-description {
+    display: none;
+  }
+
+  .editor .step .step-params {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

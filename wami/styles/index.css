@@ -8,6 +8,7 @@
 @import "step-chooser.css";
 @import "images.css";
 @import "image-viewer.css";
+@import "mobile.css";
 
 :root {
   --background-color: white;
