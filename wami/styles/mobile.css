@@ -1,6 +1,6 @@
 @media only screen and (max-device-width: 600px) {
   html {
-    font-size: 20pt;
+    font-size: 23pt;
   }
 
   body {
@@ -40,5 +40,29 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .step-chooser .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .editor .step .step-icon {
+    place-self: center;
+  }
+
+  .editor .step .remove-step {
+    visibility: visible;
+  }
+
+  .editor {
+    transform: translateY(-50vh);
+  }
+
+  .images {
+    transform: translateY(-100vh);
+  }
+
+  @keyframes appear {
+    to { transform: translateY(0); }
   }
 }

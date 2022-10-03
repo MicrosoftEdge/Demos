@@ -25,10 +25,3 @@
     --flows-sidebar-width: 120px;
   }
 }
-
-html {
-  background: var(--background-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 11pt;
-  color: var(--text-color);
-}
