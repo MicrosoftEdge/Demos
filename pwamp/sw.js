@@ -1,4 +1,4 @@
-const VERSION = "v20";
+const VERSION = "v21";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.

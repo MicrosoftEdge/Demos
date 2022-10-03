@@ -160,7 +160,14 @@ export async function guessSongInfo(file) {
 export function getCurrentSkinBackgroundColor() {
   let color = null;
 
-  const rules = document.styleSheets[0].cssRules;
+  // Get the current skin stylesheet. It's the one that's not about.css.
+  const sheets = [...document.styleSheets].filter(s => !s.href || !s.href.includes('about.css'));
+  if (sheets.length !== 1) {
+    console.error('Could not find skin stylesheet.');
+    return parseColor('#000');
+  }
+
+  const rules = sheets[0].cssRules;
   for (const rule of rules) {
     if (rule.selectorText === ':root') {
       color = rule.style.getPropertyValue('--back');
