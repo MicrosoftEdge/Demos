@@ -5,6 +5,7 @@ body {
   grid-template-areas:
     "logo  editor images"
     "flows editor images";
+  border-block-start: env(titlebar-area-y, 1px) solid var(--separator-color);
 }
 
 h1 {

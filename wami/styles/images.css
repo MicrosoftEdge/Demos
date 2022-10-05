@@ -36,7 +36,7 @@
 }
 
 .images .input .instructions {
-  border: 2px dashed #0002;
+  border: 2px dashed var(--separator-color);
   background-image: url("../icons/add-images.png");
   background-repeat: no-repeat;
   background-position: center 2rem;

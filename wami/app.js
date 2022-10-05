@@ -203,6 +203,12 @@ deleteFlowButton.addEventListener('click', async e => {
 });
 
 // Handle drag/drop images in the app.
+addEventListener('dragstart', e => {
+  // We only handle images being dragged from outside the app.
+  // So disable any drag/drop inside the app.
+  e.preventDefault();
+});
+
 addEventListener('dragover', e => {
   e.preventDefault();
 
@@ -302,12 +308,12 @@ browseImagesButton.addEventListener('click', async e => {
 
 // Handle random image button.
 randomImagesButton.addEventListener('click', async e => {
-  const nb = Math.ceil(Math.random() * 5);
+  const nb = Math.ceil(Math.random() * 3) + 2;
 
   const imagesToStore = [];
   for (let i = 0; i < nb; i++) {
-    const w = Math.floor(200 + Math.random() * 800);
-    const h = Math.floor(200 + Math.random() * 800);
+    const w = Math.floor(600 + Math.random() * 800);
+    const h = Math.floor(400 + Math.random() * 800);
 
     const image = await fetch(`https://picsum.photos/${w}/${h}`);
     const blob = await image.blob();

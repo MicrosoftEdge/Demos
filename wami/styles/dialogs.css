@@ -8,6 +8,7 @@ dialog {
   height: 90vh;
   margin-left: 5vw;
   margin-top: 5vh;
+  box-sizing: border-box;
 }
 
 dialog[open] {

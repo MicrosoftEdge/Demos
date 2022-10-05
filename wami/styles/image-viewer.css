@@ -2,18 +2,26 @@
   --padding: calc(2 * env(titlebar-area-height, 1rem));
   --pos: 50%;
 
-  width: calc(100vw - calc(2 * var(--padding)));
-  height: calc(100vh - calc(2 * var(--padding)));
   border-radius: 1rem;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1rem 80px;
+  grid-template-rows: 1fr 100px;
+  gap: .5rem;
   grid-template-areas:
     "diff"
-    "slider"
     "imgs";
-  margin: var(--padding) 0 0 var(--padding);
-  box-sizing: border-box;
+
   padding: .5rem;
+  background: transparent;
+}
+
+.image-viewer::backdrop {
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 30px 30px;
+  background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
 }
 
 .image-viewer[open] {
@@ -28,17 +36,19 @@
 .image-viewer .current-image {
   grid-area: diff;
   display: grid;
-  place-content: end center;
   overflow: hidden;
 }
 
 .image-viewer .list-of-images {
   grid-area: imgs;
-
   display: flex;
-  gap: .5rem;
+  gap: .25rem;
   justify-content: center;
   overflow: hidden;
+  background: var(--clear-background-color);
+  border-radius: .25rem;
+  padding: .5rem;
+  justify-self: center;
 }
 
 .image-viewer .list-of-images img {
@@ -70,22 +80,34 @@
   object-fit: contain;
 }
 
-.image-viewer .slider {
-  grid-area: slider;
-  text-align: center;
-}
-
-.image-viewer .slider input {
-  width: 100%;
-}
-
 .image-viewer .current-image .after::before {
   content: "";
   position: absolute;
   top: 0;
-  width: 2px;
-  background: red;
+  width: 3rem;
   height: 100%;
-  left: var(--pos);
+  left: calc(var(--pos) - 1.5rem);
   z-index: 1;
+
+  cursor: ew-resize;
+
+  background:
+    linear-gradient(45deg, transparent 50%, var(--clear-background-color) 0),
+    linear-gradient(135deg, transparent 50%, var(--clear-background-color) 0),
+    linear-gradient(-45deg, transparent 50%, var(--clear-background-color) 0),
+    linear-gradient(-135deg, transparent 50%, var(--clear-background-color) 0),
+    linear-gradient(#0008, #0008);
+  background-repeat: no-repeat;
+  background-size:
+    1rem 1rem,
+    1rem 1rem,
+    1rem 1rem,
+    1rem 1rem,
+    .5rem 100%;
+  background-position:
+    0 calc(50% + .5rem),
+    0 calc(50% + -.5rem),
+    2rem calc(50% + .5rem),
+    2rem calc(50% + -.5rem),
+    center;
 }

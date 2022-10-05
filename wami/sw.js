@@ -1,4 +1,4 @@
-const VERSION = 'v6';
+const VERSION = 'v7';
 const CACHE_NAME = `wami-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -98,6 +98,18 @@ self.addEventListener('activate', event => {
 // The static resources fetched here will not have the cache-busting query
 // string. So we need to add it to match the cache.
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // Don't care about other-origin URLs.
+  if (url.origin !== location.origin) {
+    return;
+  }
+
+  // Don't care about anything else than GET.
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   // On fetch, go to the cache first, and then network.
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);

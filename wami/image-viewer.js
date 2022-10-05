@@ -1,13 +1,22 @@
 export class ImageViewer {
   constructor(containerDialog) {
     this.containerDialog = containerDialog;
+    this.currentImageContainer = containerDialog.querySelector('.current-image');
     this.listOfImagesElement = containerDialog.querySelector('.list-of-images');
     this.beforeImage = containerDialog.querySelector('.before img');
     this.afterImage = containerDialog.querySelector('.after img');
-    this.sliderRange = containerDialog.querySelector('.slider input');
 
-    this.sliderRange.addEventListener('input', () => {
-      this.updateSwipe();
+    this.containerDialog.addEventListener('close', () => {
+      this.sliderRange.style.width = 'unset';
+    });
+
+    this.updateSwipe = this.updateSwipe.bind(this);
+
+    this.containerDialog.addEventListener('mousedown', () => {
+      addEventListener('mousemove', this.updateSwipe);
+      addEventListener('mouseup', () => {
+        removeEventListener('mousemove', this.updateSwipe);
+      }, { once: true });
     });
 
     this.input = [];
@@ -59,20 +68,19 @@ export class ImageViewer {
     this.beforeImage.src = this.input[index].src;
     this.afterImage.src = this.output[index].src;
 
-    this.sliderRange.value = this.sliderRange.max / 2;
-
-    // Wait for the after image to load before resizing the slider.
-    this.afterImage.onload = () => {
-      this.sliderRange.style.width = this.afterImage.offsetWidth + 'px';
-    };
-    this.sliderRange.style.width = this.afterImage.offsetWidth + 'px';
-
     this.updateSwipe();
   }
 
-  updateSwipe() {
-    const value = Math.round(this.sliderRange.value / 10);
+  updateSwipe(e) {
+    let value = 50;
+    if (e) {
+      // Calculate the position of the mouse relative to the image container.
+      value = (e.layerX - this.currentImageContainer.offsetLeft) * 100 / this.currentImageContainer.offsetWidth;
+    }
 
+    // Clamp value between 0 and 100.
+    value = Math.round(Math.max(0, Math.min(100, value)));
+    
     const beforeClip = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
     const afterClip = `polygon(${value}% 0, 100% 0, 100% 100%, ${value}% 100%)`;
     
