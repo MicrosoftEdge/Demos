@@ -16,19 +16,17 @@
 }
 
 .images .image-container {
-  padding: .5rem;
-  border-radius: .5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  flex-wrap: wrap;
+  display: grid;
   overflow-x: hidden;
   overflow-y: auto;
-  align-content: center;
-  background: #00000006;
   flex: 1;
   width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 2px;
+  padding: 2px;
+  border-radius: .25rem;
+  grid-auto-rows: 150px;
+  position: relative;
 }
 
 .images .input:not(.empty) .instructions {
@@ -42,7 +40,12 @@
   background-position: center 2rem;
   background-size: 60px;
   padding: calc(60px + 2rem) 2rem 2rem 2rem;
-  border-radius: .5rem;
+  border-radius: .25rem;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
 }
 
 .dropping-images .images .input .instructions {
@@ -66,23 +69,33 @@
   text-decoration: underline;
 }
 
-.images .image-name {
+.images .image-name, .images .image-size {
   white-space: nowrap;
-  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-block-start: auto;
+  background: #fff6;
+  text-align: center;
+  border-block-start: 2px solid #fff3;
+}
+
+.images .image-size {
+  border: none;
+  border-block-end: 2px solid #fff3;
+  color: #0009;
 }
 
 .images .image-container .image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 1fr min-content min-content;
   font-size: .8rem;
+  background: var(--clear-background-color);
 }
 
-.images .image-container img {
-  max-height: 100px;
+.images .image-container .thumb {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin: 3px;
 }
 
 .running .images .output::before {
@@ -95,6 +108,9 @@
   animation: spin 1s linear infinite;
   box-shadow: 0 0 .5rem 0 #0006;
   border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: calc(50% - 1rem);
 }
 
 @keyframes spin {

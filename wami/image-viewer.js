@@ -6,10 +6,6 @@ export class ImageViewer {
     this.beforeImage = containerDialog.querySelector('.before img');
     this.afterImage = containerDialog.querySelector('.after img');
 
-    this.containerDialog.addEventListener('close', () => {
-      this.sliderRange.style.width = 'unset';
-    });
-
     this.updateSwipe = this.updateSwipe.bind(this);
 
     this.containerDialog.addEventListener('mousedown', () => {

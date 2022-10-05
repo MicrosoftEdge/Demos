@@ -1,4 +1,4 @@
-const VERSION = 'v7';
+const VERSION = 'v8';
 const CACHE_NAME = `wami-${VERSION}`;
 
 // Those are all the resources our app needs to work.

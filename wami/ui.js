@@ -306,9 +306,10 @@ function populateImages(images, container) {
     const div = document.createElement('div');
     div.classList.add('image');
 
-    const img = document.createElement('img');
-    img.src = src;
-    div.appendChild(img);
+    const thumbnail = document.createElement('div');
+    thumbnail.classList.add('thumb');
+    thumbnail.style.backgroundImage = `url("${src}")`;
+    div.appendChild(thumbnail);
 
     const nameP = document.createElement('p');
     nameP.classList.add('image-name');
@@ -319,6 +320,8 @@ function populateImages(images, container) {
     sizeP.classList.add('image-size');
     div.appendChild(sizeP);
 
+    const img = new Image();
+    img.src = src;
     img.onload = () => {
       sizeP.textContent = `${img.naturalWidth} x ${img.naturalHeight}`;
     }
