@@ -1,10 +1,11 @@
-const VERSION = "v21";
+const VERSION = "v22";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
 // We'll cache them on install.
 const INITIAL_CACHED_RESOURCES = [
   "./",
+  "./?mode=standalone",
   "./skins/default.css",
   "./about.css",
   "./album-art-placeholder.png",
@@ -76,13 +77,14 @@ self.addEventListener("fetch", event => {
   // On fetch, go to the cache first, and then network.
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(`${event.request.url}?v=${VERSION}`);
+    const versionedUrl = `${event.request.url}?v=${VERSION}`;
+    const cachedResponse = await cache.match(versionedUrl);
 
     if (cachedResponse) {
       return cachedResponse;
     } else {
-      const fetchResponse = await fetch(event.request);
-      cache.put(event.request, fetchResponse.clone());
+      const fetchResponse = await fetch(versionedUrl);
+      cache.put(versionedUrl, fetchResponse.clone());
       return fetchResponse;
     }
   })());
