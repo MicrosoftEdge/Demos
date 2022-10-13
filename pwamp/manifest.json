@@ -13,6 +13,10 @@
   ],
   "icons": [
     {
+      "src": "./favicon-48.png",
+      "sizes": "48x48"
+    },
+    {
       "src": "./favicon-96.png",
       "sizes": "96x96"
     },
@@ -41,6 +45,11 @@
       "sizes": "1280x720",
       "platform": "wide",
       "label": "The PWAmp visualizer, showing the current song, the playback buttons, and a colorful visualization of the current song."
+    },
+    {
+      "src": "./screenshot-widget.png",
+      "sizes": "600x400",
+      "label": "The PWAmp mini-player widget"
     }
   ],
   "file_handlers": [
@@ -109,21 +118,41 @@
   },
   "widgets": [
     {
-      "name": "PWAmp music",
+      "name": "PWAmp mini player",
       "short_name": "PWAmp",
-      "description": "Your current music",
-      "tag": "pwamp-widget",
+      "description": "Widget to control the PWAmp player",
+      "tag": "pwamp",
       "template": "test",
-      "ms_ac_template": "./widgets/current-music.ac.json",
-      "data": "./widgets/get-current-music.json",
+      "ms_ac_template": "widgets/mini-player.json",
+      "data": "widgets/mini-player-data.json",
       "type": "application/json",
-      "auth": false,
-      "update": 180,
-      "actions": [],
+      "screenshots": [
+        {
+          "src": "./screenshot-widget.png",
+          "sizes": "600x400",
+          "label": "The PWAmp mini-player widget"
+        }
+      ],
       "icons": [
         {
           "src": "./favicon-48.png",
           "sizes": "48x48"
+        },
+        {
+          "src": "./favicon-96.png",
+          "sizes": "96x96"
+        },
+        {
+          "src": "./favicon-128.png",
+          "sizes": "128x128"
+        },
+        {
+          "src": "./favicon-256.png",
+          "sizes": "256x256"
+        },
+        {
+          "src": "./favicon-512.png",
+          "sizes": "512x512"
         }
       ],
       "backgrounds": [
@@ -132,11 +161,12 @@
           "sizes": "600x400"
         }
       ],
-      "screenshots": [
+      "auth": false,
+      "update": 100,
+      "actions": [
         {
-          "src": "./screenshot-playlist.png",
-          "sizes": "1280x720",
-          "label": "Test screenshot"
+          "action": "buttonClick",
+          "title": "Button Click"
         }
       ]
     }

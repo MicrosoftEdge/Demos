@@ -1,0 +1,21 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "PWAmp mini player loading..."
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Execute",
+            "title": "Increment",
+            "verb": "inc",
+            "style": "positive"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5"
+}

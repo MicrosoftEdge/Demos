@@ -1,7 +1,7 @@
-import { get, set, del } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
+import { get, set } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
 import { getUniqueId } from './utils.js';
 
-export let isFirstUse = false;
+export let wasStoreEmpty = false;
 
 // Songs are stored in IDB as an array under the 'songs' key.
 //
@@ -20,7 +20,7 @@ export async function getSongs() {
   let songs = await get('pwamp-songs');
 
   if (!songs) {
-    isFirstUse = true;
+    wasStoreEmpty = true;
 
     // The songs array doesn't even exist, so this is the first time we're running.
     // Add a couple of songs to get started so the app isn't empty.
@@ -171,7 +171,7 @@ export async function deleteSong(id) {
  * Delete all songs from IDB.
  */
 export async function deleteAllSongs() {
-  await del('pwamp-songs');
+  await set('pwamp-songs', []);
 }
 
 /**

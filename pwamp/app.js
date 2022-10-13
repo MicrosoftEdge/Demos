@@ -1,6 +1,6 @@
-import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork, isFirstUse } from "./store.js";
+import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork, wasStoreEmpty } from "./store.js";
 import { Player } from "./player.js";
-import { formatTime, openFilesFromDisk, getFormattedDate, canShare, analyzeDataTransfer } from "./utils.js";
+import { formatTime, openFilesFromDisk, getFormattedDate, canShare, analyzeDataTransfer, getImageAsDataURI } from "./utils.js";
 import { importSongsFromFiles } from "./importer.js";
 import { Visualizer } from "./visualizer.js";
 import { exportSongToFile } from "./exporter.js";
@@ -41,6 +41,8 @@ const aboutDialog = document.getElementById("about-dialog");
 const installButton = document.getElementById("install-button");
 
 let currentSongEl = null;
+
+let isFirstUse = true;
 
 // Instantiate the player object. It will be used to play/pause/seek/... songs. 
 const player = new Player();
@@ -146,8 +148,9 @@ export async function startApp() {
   updateLoop = setInterval(updateUI, 500);
 
   // Show the about dialog if this is the first time the app is started.
-  if (isFirstUse) {
+  if (wasStoreEmpty && isFirstUse) {
     aboutDialog.showModal();
+    isFirstUse = false;
   }
 }
 
@@ -174,7 +177,7 @@ volumeInput.addEventListener("input", () => {
 });
 
 // Manage the previous and next buttons.
-previousButton.addEventListener("click", () => {
+function goPrevious() {
   // If this happened in the first few seconds of the song, go to the previous one.
   // Otherwise just restart the current song.
   const time = player.currentTime;
@@ -185,19 +188,62 @@ previousButton.addEventListener("click", () => {
   } else {
     player.currentTime = 0;
   }
+}
+
+previousButton.addEventListener("click", () => {
+  goPrevious();
 });
 
 nextButton.addEventListener("click", () => {
   player.playNext();
 });
 
+// Also go to the next or previous songs if the SW asks us to do so.
+navigator.serviceWorker.addEventListener('message', (event) => {
+  switch (event.data.action) {
+    case 'next':
+      player.playNext();
+      break;
+    case 'previous':
+      goPrevious();
+      break;
+  }
+});
+
+async function sendCurrentSongToSW() {
+  if (!player.song) {
+    return;
+  }
+
+  const artworkUrl = await getImageAsDataURI(player.song.artworkUrl);
+
+  // Also tell the SW which song is playing.
+  const registration = await navigator.serviceWorker.getRegistration();
+  
+  registration.active.postMessage({
+    action: 'playing',
+    song: player.song.title,
+    artist: player.song.artist,
+    artworkUrl
+  });
+}
+
 // Listen to player playing/paused status to update the visualizer.
 player.addEventListener("canplay", () => {
   isVisualizing() && visualizer.start();
+
+  sendCurrentSongToSW();
 });
 
 player.addEventListener("paused", () => {
   isVisualizing() && visualizer.stop();
+
+  // Also tell the SW we're paused.
+  navigator.serviceWorker.getRegistration().then(registration => {
+    registration.active.postMessage({
+      action: 'paused'
+    });
+  });
 });
 
 // Listen to song errors to let the user know they can't play remote songs while offline.

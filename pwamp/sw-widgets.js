@@ -1,0 +1,105 @@
+const emptyTemplate = {
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Nothing playing",
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5"
+};
+
+const playingTemplate = {
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "text": "Now playing...",
+      "horizontalAlignment": "Center"
+    },
+    {
+      "type": "Image",
+      "spacing": "Medium",
+      "horizontalAlignment": "Center",
+      "size": "Large",
+      "url": "${artworkUrl}"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "Large",
+      "weight": "Bolder",
+      "horizontalAlignment": "Center",
+      "text": "${song}, by ${artist}",
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Previous",
+      "verb": "previous",
+      "style": "positive",
+      "iconUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAKtQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDW0RAAAADl0Uk5TABNDbJGwyt/v/8sZXp3YHXLCUbFr2Wrg4VDQ0lIbpadg8PJiAZqcAitKX2kgnzBwzxBvrx8PL09/cGjnjwAAA05JREFUeJzl2nl32jAMAHBzJuK+B6MtRymFlrJQSrfv/8lGEsIVyZYdJ+/tTf8i91dC4ki2hfjvIpcvFEtlx4VjuE6lVCzkc1aBaq3eACQa9VrVjtBstTEginarmZjodGVCGN1OIqKHXqV49AvGxOAHj/BjaMaMfvIJP8YP2sTjkx7hx0TzFpjO9A2A+bMGsXgxIfxYvnKNVdnUAKiseMbaNTcAZmuO8ZaE8ONNbbyz/pA7FZsP6sN3S8bWz/1lqPCuVWgcb3QqQXrF1izD2Ub5pCL59VesR9DbXUZQyoy8k18rugatVKincqlv0MoSN55NDFpB57Hm3MgQ4hNPnWNz8sTQEDsieRJPfWAYe8wQX1R6/C02VhsfGCHEnsof32cWjA1yCgO4f+8PUzBgqPtFDIz7r9JPxYD+dW7HzDgoDIDr2lJVi05xw1MZ0L1kN9MyAC6PfSs1A1rnfGlvkMiAdpRfTc8AiLqkWooG1E4j6nSKixvfDteA+mkI3em4W9zQqDEb4ZBcmgZA2CPnUzUgHwyiJkc7xmmSLKZqQDEYVkrVgFIwDi3pvA1qGPQV5WAgds+jZYlZ7+IEI5EL4NgzwA2GIh/8tmcAUAhqbMwMEsG/CdmNmCHOwaJC/fDg2VPCHx6dtr1vXNHv8cNbGF9/cHFlq61UgnH4tGJNCacVYoK0pYQTJFkH21HCqZ58adlRwpcW/fq1opyWqCVLpi6+gLFlV0RRISEriahlkh1biUoiaXGXVImKO3mZmlA5L+bLC+5EyrngVrUOSZRL66BqguDTWLla+1BuLeA9407ZM161c+rG1LD7vWlMZc9jEqVxk9tTIkZK7zaXsVWirzh3qQM1oq8M7lM5WzJ7tLwg6zEvljpiIHgRc6CyR/Fc1tYPphBrkPCE/EOPvJXnmEJVyO4jdm15ldu9QlbhU8wQgrfJdKuQxgtuiAVvm+laIY3ygkDEilcgXMoL0nAlW1trFnJW6K5IurHFbKZC5Q/5uWJbi7fddCyVDl/korOtTS1pKI1stgCz2czMZls2mw1mYdQbguZWuchm0/8YI357EITB8QU/Bvw1U9ODGH5kcKTEjwwOx/iRwTGfINI/sHSK4OhVJTp6VbZ/9OqfiL8mJfvCZv9EYwAAAABJRU5ErkJggg=="
+    },
+    {
+      "type": "Action.Execute",
+      "title": "Next",
+      "verb": "next",
+      "style": "positive",
+      "iconUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAKtQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDW0RAAAADl0Uk5TABNDbJGwy9/v/8oZXp3YHXLCUbHZa+HgalLS0FCnpRti8vBgApyaAStKX2mfIHAwEM9vH68PL09/xxtnogAAA09JREFUeJzl2uly4jAMAOBwJg5HOHrRg1KgFFLYQgvdff8nW3JAA5FsSQmZ2Vn9jT0fR2JLkS3rv4tSuVKt1W1H7cOx3Vq1Ui7lCjSarbYCot1qNvIRvE4XAg7R7XiZiV5fJ0TR72UiKldmIvzdruXEDY0I4vZORAzu6UQQD49swnviEUEMn3nG6IVvKDWeMIjpq4QIYvZGNeZ1qaGUO6cZi7Hc2C85C4rhZyGC8M3GOzZ3ubImDkl5Fxu/gqsfuSjobxXfnERF+4stDMZesUmK5t+fY/dV4iFbbyjIGL2Tp9jzcfIg05T6FEGw5/xssaApr7AxohlUZQQZHrImfqaHkpQXaFvG1vY1MJakPKXnDbCxX9DXXm8JyiA1Dd0HtxBiWUszcn8+p4KPXYqVytkUXc4gVm7IXySLcvpVDPmVVLlKju6ZRi93MiWZW5pz0Q2sTAzT+j9DPaMhVn4e+w4BESqd40BtbZBN6R6GNUiGUDlUSU0iIlKa8aAWFVH2N6xo0otWPAasB+FwYEWTxLSjESW6IVGiGrnMQfhKObyuXxwzK9EiWeUhXKUaXq0xEaZSCy+6XATLdVdgelEPr9GyW4oCJjF2eImWqNMU4AM74RWJgSm/gZEZELUClXwRuGTP95vAxg66icR/PGJAd1f0x/NvYQc2vsHnJLqF2e8fnA/YgH8SN7zIXVZ4RrysMBdIphEvkLylnmvESz1r02Ib8abF2X75Rrz9MhKJDWz4GiNOJOgp0QYqUg0vrw4pETW5kxjH5I6YpoqMY5pKS7hlxjHhJpUOMiNROhCKIMT4NM1LvPswlnNL2DDWjIlyzliYimvsk6aH/nkUG+2T8dcXMdRZW0WzPcqN27MpdxcwVKpxg74mA/OrHeV910Nq2iM2FCpGwbQkFUBraIgMBd5B0owh8OmesU0hlfXSjDHYfELLcV9iIPmfNSMpRGMGG9YbWnP5bMNFm1tzdK8+KrqUIRGOprW1QGf5LEPX2tDtQX84hqGthbab1PZrp0t9kiFvatHDaBTTAiymmVlMW7aYBrMlbZUjtSQaRTT9Lf7xhQ3/+EIQnIMYtuwgRshc/khJEAUcjgmigGM+YVz+wFIc4dEr93D0qp7/0at/Iv4CMoH8A0+ejq4AAAAASUVORK5CYII="
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5"
+};
+
+async function sendClientMessage(data) {
+  const allClients = await clients.matchAll({});
+  allClients.forEach(client => {
+    client.postMessage(data);
+  })
+}
+
+self.addEventListener('widgetclick', (event) => {
+  switch (event.action) {
+    // Update the widget on install.
+    case 'widget-install':
+      event.waitUntil(updateMiniPlayer(emptyTemplate));
+      break;
+    // Respond to widget actions.
+    case 'next':
+      event.waitUntil(sendClientMessage({ action: 'next' }));
+      break;
+    case 'previous':
+      event.waitUntil(sendClientMessage({ action: 'previous' }));
+      break;
+  }
+});
+
+// Update the widget when a new song is playing.
+self.onmessage = (event) => {
+  switch (event.data.action) {
+    case 'playing':
+      event.waitUntil(updateMiniPlayer(playingTemplate, event.data));
+      break;
+    case 'paused':
+      event.waitUntil(updateMiniPlayer(emptyTemplate));
+      break;
+  }
+};
+
+async function updateMiniPlayer(template, data) {
+  const payload = {
+    template: JSON.stringify(template),
+    data: JSON.stringify(data),
+  };
+
+  try {
+    await self.widgets.updateByTag('pwamp', payload);
+  } catch (error) {
+    console.log(error);
+  }
+}

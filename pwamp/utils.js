@@ -224,3 +224,16 @@ export function analyzeDataTransfer(event) {
 
   return { containsImages, containsSongs, containsOthers, files };
 }
+
+export async function getImageAsDataURI(url) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+
+  const dataURI = await new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+
+  return dataURI;
+}

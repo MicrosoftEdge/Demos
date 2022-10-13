@@ -1,4 +1,4 @@
-const VERSION = "v23";
+const VERSION = "v24";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -135,3 +135,6 @@ self.addEventListener('fetch', event => {
     }
   }());
 });
+
+// Handle the mini-player widget updates in another script.
+importScripts('./sw-widgets.js');
