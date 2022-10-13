@@ -106,5 +106,39 @@
         }
       ]
     }
-  }
+  },
+  "widgets": [
+    {
+      "name": "PWAmp music",
+      "short_name": "PWAmp",
+      "description": "Your current music",
+      "tag": "pwamp-widget",
+      "template": "test",
+      "ms_ac_template": "./widgets/current-music.ac.json",
+      "data": "./widgets/get-current-music.json",
+      "type": "application/json",
+      "auth": false,
+      "update": 180,
+      "actions": [],
+      "icons": [
+        {
+          "src": "./favicon-48.png",
+          "sizes": "48x48"
+        }
+      ],
+      "backgrounds": [
+        {
+          "src": "./widgets/background.png",
+          "sizes": "600x400"
+        }
+      ],
+      "screenshots": [
+        {
+          "src": "./screenshot-playlist.png",
+          "sizes": "1280x720",
+          "label": "Test screenshot"
+        }
+      ]
+    }
+  ]
 }
