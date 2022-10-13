@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const list = document.querySelector('#tasks');
 const task = document.querySelector('#new-task');
 
-const STORAGE_KEY = 'mytasks';
+const STORAGE_KEY = 'demo-to-do-tasks';
 
 function sortTasksByDate(tasks) {
   return tasks.sort((a, b) => {
@@ -18,22 +18,24 @@ const updateList = () => {
 
   let todo = [];
   let done = [];
-  for (t of Object.keys(tasks)) {
-    if (tasks[t].status === 'done') {
+
+  for (const id in tasks) {
+    if (tasks[id].status === 'done') {
       done.push({
-        text: t,
-        done: true,
-        date: tasks[t].date
+        text: tasks[id].text,
+        date: tasks[id].date,
+        id
       });
     } else {
       todo.push({
-        text: t,
-        done: true,
-        date: tasks[t].date
+        text: tasks[id].text,
+        date: tasks[id].date,
+        id
       });
     }
   }
-  // Sort the 2 lists by date.
+
+  // Sort the 2 lists by dates.
   todo = sortTasksByDate(todo);
   done = sortTasksByDate(done);
 
@@ -46,11 +48,11 @@ const updateList = () => {
       <li class="task">
         <label title="Complete task">
           <input type="checkbox" 
-          value="${item.text}" class="box"
+          value="${item.id}" class="box"
           title="Complete task">
           <span class="text">${item.text}</span>
         </label>
-        <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
+        <button type="button" data-task="${item.id}" class="delete" title="Delete task">╳</button>
       </li>`;
     }
   } else {
@@ -65,11 +67,11 @@ const updateList = () => {
         <label title="Reopen task">
           <input type="checkbox" 
           checked
-          value="${item.text}" class="box"
+          value="${item.id}" class="box"
           title="Reopen task">
           <span class="text">${item.text}</span>
         </label>
-        <button type="button" data-task="${item.text}" class="delete" title="Delete task">╳</button>
+        <button type="button" data-task="${item.id}" class="delete" title="Delete task">╳</button>
       </li>`;
     }
   }
@@ -77,20 +79,28 @@ const updateList = () => {
   list.innerHTML = out;
 };
 
+const escapeHTML = str => {
+  var p = document.createElement("p");
+  p.appendChild(document.createTextNode(str));
+  return p.innerHTML;
+}
+
+const uniqueID = () => {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 const addTask = e => {
   if (task.value) {
-    let t = task.value.replace(/[^A-Z|0-9| ]+/ig, '');
-    if (t.value !== t) {
-      console.warn('Cleaned up task value');
-      t.value = t;
-    }
-    if (!tasks[t]) {
-      console.info('Adding Task: ' + t);
-      tasks[t] = { status: 'active', date: Date.now() };
+    const text = escapeHTML(task.value);
+    const id = uniqueID();
+
+    if (!tasks[id]) {
+      console.info(`Adding task ${id}: ${text}`);
+      tasks[id] = { status: 'active', date: Date.now(), text: text };
       updateList();
       task.value = '';
     } else {
-      console.warn('Task already exists');
+      console.warn(`Task ID ${id} already exists`);
     }
   }
   e.preventDefault();
@@ -100,16 +110,22 @@ const addTask = e => {
 
 const changeTask = e => {
   let t = e.target;
+
+  // Deleting a task.
   if (t.dataset.task) {
+    console.info(`Removing tasks: ${t.dataset.task}`);
+
     delete tasks[t.dataset.task];
-    console.info(`Removed: ${t.dataset.task}`);
     updateList();
     e.preventDefault();
   }
+
+  // Change a task's state.
   if (t.nodeName.toLowerCase() === 'input') {
+    console.log(`Marking task ${t.value} as ${t.checked ? 'done' : 'active'}`);
+
     tasks[t.value].status = t.checked ? 'done' : 'active';
     tasks[t.value].date = Date.now();
-    console.info(t.value + ': ' + tasks[t.value].status)
     updateList();
     e.preventDefault();
   }
