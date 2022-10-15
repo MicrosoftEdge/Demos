@@ -16,6 +16,12 @@ html {
   font-size: 14pt;
 }
 
+@media (max-width: 600px) {
+  html {
+    font-size: 12pt;
+  }
+}
+
 input,
 button {
   font-size: inherit;
@@ -237,7 +243,7 @@ body {
   width: max-content;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2rem 2rem 30vw 30vw 20vw 2rem 2rem;
+  grid-template-columns: 2rem 2rem 30vw calc(30vw - 2rem) 20vw 2rem 2rem;
   grid-template-rows: 1fr;
   column-gap: 1rem;
   background-color: var(--back);
@@ -439,7 +445,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
 
 @media (max-width: 800px) {
   .playlist-song {
-    grid-template-columns: 2rem  2rem 20rem 2rem 2rem;
+    grid-template-columns: 2rem  2rem 17rem 2rem 2rem;
     grid-template-rows: 1fr 1fr 1fr;
   }
 
@@ -481,8 +487,11 @@ html:not(.visualizing) .playlist-song.playing .artist {
 
 @media (max-width: 600px) {
   .playlist-song {
-    grid-template-columns: 2rem 2rem 15rem 2rem;
+    width: unset;
+    margin: 0;
+    grid-template-columns: 2rem 2rem 1fr 2rem;
     grid-template-rows: 1fr 1fr 1fr 1fr;
+    column-gap: .5rem;
   }
 
   .playlist-song .play {
@@ -670,7 +679,13 @@ input[type="range"]:hover::-moz-range-thumb {
   display: grid;
   place-items: center;
   place-self: center;
-  padding-inline-end: 1rem;
+  padding-inline: 1rem;
+}
+
+@media (max-width: 600px) {
+  .playlist {
+    padding-inline: .5rem;
+  } 
 }
 
 .visualizing .app-controls {
