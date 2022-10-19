@@ -91,15 +91,27 @@ self.onmessage = (event) => {
   }
 };
 
-async function updateMiniPlayer(template, data) {
-  const payload = {
-    template: JSON.stringify(template),
-    data: JSON.stringify(data),
-  };
+// Also update the widget when a new service worker is activated.
+self.addEventListener('activate', (event) => {
+  event.waitUntil(updateMiniPlayer(emptyTemplate));
+});
 
-  try {
-    await self.widgets.updateByTag('pwamp', payload);
-  } catch (error) {
-    console.log(error);
-  }
+async function updateMiniPlayer(template, data) {
+  // This may be called on activate. But there may, or may not be
+  // a widget at this point. Check first.
+  // const widgetDef = await self.widgets.getByTag('pwamp');
+  // const widgetDef = await self.widgets.matchAll({ tag: 'pwamp' });
+  // console.log(widgetDef);
+  // return;
+
+  // const payload = {
+  //   template: JSON.stringify(template),
+  //   data: JSON.stringify(data),
+  // };
+
+  // try {
+  //   await self.widgets.updateByTag('pwamp', payload);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 }

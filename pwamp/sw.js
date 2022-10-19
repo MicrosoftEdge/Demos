@@ -1,4 +1,4 @@
-const VERSION = "v25";
+const VERSION = "v26";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -15,6 +15,7 @@ const INITIAL_CACHED_RESOURCES = [
   "./file-launch-handler.js",
   "./importer.js",
   "./index.html",
+  "./media-session.js",
   "./parseAudioMetadata.js",
   "./player.js",
   "./popup-polyfill.js",

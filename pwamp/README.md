@@ -54,7 +54,6 @@ Credits for those songs:
 
 ## TODO
 
-* Add mediasession: https://whatpwacando.today/audio
 * Add sorting options to sort by album, artist, ...
 * Make it possible to download remote songs locally (fetch -> readablestream -> store chunks in IDB. And then fetch handler in SW to serve these chunks back from IDB when offline).
 * Improve song adding performance again: only get duration later, after song has been added.

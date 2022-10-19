@@ -7,6 +7,7 @@ import { exportSongToFile } from "./exporter.js";
 import { loadCustomOrResetSkin, reloadStoredCustomSkin } from "./skin.js";
 import { startRecordingAudio, stopRecordingAudio } from "./recorder.js";
 import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoadingSongPlaceholders } from "./song-ui-factory.js";
+import { initMediaSession } from "./media-session.js";
 
 // Whether we are running as an installed PWA or not (see start_url in manifest)
 const isInstalledPWA = (new URL(document.location)).searchParams.get('mode') === 'standalone';
@@ -46,6 +47,9 @@ let isFirstUse = true;
 
 // Instantiate the player object. It will be used to play/pause/seek/... songs. 
 const player = new Player();
+
+// Initialize the media session.
+initMediaSession(player);
 
 // Instantiate the visualizer object to draw the waveform.
 const visualizer = new Visualizer(player, visualizerEl);
@@ -215,11 +219,13 @@ async function sendCurrentSongToSW() {
     return;
   }
 
-  const artworkUrl = await getImageAsDataURI(player.song.artworkUrl);
+  const artworkUrl = player.song.artworkUrl
+    ? await getImageAsDataURI(player.song.artworkUrl)
+    : 'https://microsoftedge.github.io/Demos/pwamp/album-art-placeholder.png';
 
   // Also tell the SW which song is playing.
   const registration = await navigator.serviceWorker.getRegistration();
-  
+
   registration.active.postMessage({
     action: 'playing',
     song: player.song.title,
