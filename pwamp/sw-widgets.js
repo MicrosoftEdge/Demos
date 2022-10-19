@@ -6,6 +6,15 @@ const emptyTemplate = {
       "size": "Medium",
       "weight": "Bolder",
       "text": "Nothing playing",
+      "horizontalAlignment": "Center"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Start playing",
+      "verb": "play",
+      "style": "positive"
     }
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -60,7 +69,7 @@ async function sendClientMessage(data) {
   const allClients = await clients.matchAll({});
   allClients.forEach(client => {
     client.postMessage(data);
-  })
+  });
 }
 
 self.addEventListener('widgetclick', (event) => {
@@ -76,6 +85,8 @@ self.addEventListener('widgetclick', (event) => {
     case 'previous':
       event.waitUntil(sendClientMessage({ action: 'previous' }));
       break;
+    case 'play':
+      event.waitUntil(sendClientMessage({ action: 'play' }));
   }
 });
 
@@ -92,26 +103,21 @@ self.onmessage = (event) => {
 };
 
 // Also update the widget when a new service worker is activated.
+// Widgets may be installed before the SW is activated, and if we
+// don't update it now, it will be empty.
 self.addEventListener('activate', (event) => {
   event.waitUntil(updateMiniPlayer(emptyTemplate));
 });
 
 async function updateMiniPlayer(template, data) {
-  // This may be called on activate. But there may, or may not be
-  // a widget at this point. Check first.
-  // const widgetDef = await self.widgets.getByTag('pwamp');
-  // const widgetDef = await self.widgets.matchAll({ tag: 'pwamp' });
-  // console.log(widgetDef);
-  // return;
+  const payload = {
+    template: JSON.stringify(template),
+    data: JSON.stringify(data),
+  };
 
-  // const payload = {
-  //   template: JSON.stringify(template),
-  //   data: JSON.stringify(data),
-  // };
-
-  // try {
-  //   await self.widgets.updateByTag('pwamp', payload);
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    await self.widgets.updateByTag('pwamp', payload);
+  } catch (error) {
+    console.log(error);
+  }
 }

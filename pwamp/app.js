@@ -205,6 +205,9 @@ nextButton.addEventListener("click", () => {
 // Also go to the next or previous songs if the SW asks us to do so.
 navigator.serviceWorker.addEventListener('message', (event) => {
   switch (event.data.action) {
+    case 'play':
+      player.play();
+      break;
     case 'next':
       player.playNext();
       break;

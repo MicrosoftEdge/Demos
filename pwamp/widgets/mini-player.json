@@ -5,14 +5,15 @@
             "type": "TextBlock",
             "size": "Medium",
             "weight": "Bolder",
-            "text": "PWAmp mini player loading..."
+            "text": "Nothing playing",
+            "horizontalAlignment": "Center"
         }
     ],
     "actions": [
         {
             "type": "Action.Execute",
-            "title": "Increment",
-            "verb": "inc",
+            "title": "Start playing",
+            "verb": "play",
             "style": "positive"
         }
     ],
