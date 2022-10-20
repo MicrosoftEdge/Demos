@@ -15,10 +15,13 @@ export function initMediaSession(player) {
   }
 
   async function updateMediaSessionMetadata() {
-    const image = await getImageAsDataURI(player.song.artworkUrl);
+    const artworkUrl = player.song.artworkUrl
+    ? await getImageAsDataURI(player.song.artworkUrl)
+    : 'https://microsoftedge.github.io/Demos/pwamp/album-art-placeholder.png';
+
     const artwork = {
-      src: image,
-      type: image.substring(image.indexOf(':') + 1, image.indexOf(';')),
+      src: artworkUrl,
+      type: artworkUrl.substring(artworkUrl.indexOf(':') + 1, artworkUrl.indexOf(';')),
     };
 
     navigator.mediaSession.metadata = new MediaMetadata({

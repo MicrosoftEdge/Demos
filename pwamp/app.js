@@ -217,42 +217,39 @@ navigator.serviceWorker.addEventListener('message', (event) => {
   }
 });
 
-async function sendCurrentSongToSW() {
-  if (!player.song) {
-    return;
-  }
+// Listen to player playing/paused status to update the visualizer.
+player.addEventListener("canplay", async () => {
+  isVisualizing() && visualizer.start();
 
+  // Also tell the SW we're playing.
   const artworkUrl = player.song.artworkUrl
     ? await getImageAsDataURI(player.song.artworkUrl)
     : 'https://microsoftedge.github.io/Demos/pwamp/album-art-placeholder.png';
 
-  // Also tell the SW which song is playing.
-  const registration = await navigator.serviceWorker.getRegistration();
-
-  registration.active.postMessage({
+  await sendMessageToSW({
     action: 'playing',
     song: player.song.title,
     artist: player.song.artist,
+    playing: true,
     artworkUrl
   });
-}
-
-// Listen to player playing/paused status to update the visualizer.
-player.addEventListener("canplay", () => {
-  isVisualizing() && visualizer.start();
-
-  sendCurrentSongToSW();
 });
 
 player.addEventListener("paused", () => {
   isVisualizing() && visualizer.stop();
 
   // Also tell the SW we're paused.
-  navigator.serviceWorker.getRegistration().then(registration => {
-    registration.active.postMessage({
-      action: 'paused'
-    });
-  });
+  sendMessageToSW({ action: 'paused' });
+});
+
+async function sendMessageToSW(data) {
+  const registration = await navigator.serviceWorker.getRegistration();
+  registration.active.postMessage(data);
+}
+
+// Listen to beforeunload to clean things up.
+addEventListener('beforeunload', () => {
+  sendMessageToSW({ action: 'paused' });
 });
 
 // Listen to song errors to let the user know they can't play remote songs while offline.
@@ -505,3 +502,6 @@ addEventListener('drop', async (e) => {
 
 // Start the app.
 startApp();
+
+// When we first start, tell the SW we're not playing.
+sendMessageToSW({ action: 'paused' });

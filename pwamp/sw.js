@@ -1,4 +1,4 @@
-const VERSION = "v27";
+const VERSION = "v28";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -28,6 +28,8 @@ const INITIAL_CACHED_RESOURCES = [
   "./utils.js",
   "./visualizer.js",
   "./visualizer.png",
+  "./widgets/mini-player.json",
+  "./widgets/mini-player-data.json",
   "https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm"
 ];
 
