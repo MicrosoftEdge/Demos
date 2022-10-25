@@ -244,7 +244,9 @@ player.addEventListener("paused", () => {
 
 async function sendMessageToSW(data) {
   const registration = await navigator.serviceWorker.getRegistration();
-  registration.active.postMessage(data);
+  if (registration.active) {
+    registration.active.postMessage(data);
+  }
 }
 
 // Listen to beforeunload to clean things up.

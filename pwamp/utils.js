@@ -1,3 +1,6 @@
+const AUDIO_EXT = ['.wav', '.mp3', '.mp4', '.aac', '.flac', '.ogg', 'webm'];
+const AUDIO_MIME = ['audio/wav', 'audio/x-wav', 'audio/mpeg', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'application/ogg', 'audio/webm'];
+
 /**
  * Given a time in seconds, return a string in the format MM:SS.
  */
@@ -47,7 +50,7 @@ export async function openFilesFromDisk() {
     types: [{
       description: 'Audio files',
       accept: {
-        "audio/*": ['.wav', '.mp3', '.mp4', '.aac', '.flac', '.ogg', '.webm']
+        "audio/*": AUDIO_EXT
       }
     }]
   });
@@ -68,7 +71,7 @@ function legacyOpenFilesFromDisk() {
   const input = document.createElement('input');
   input.type = 'file';
   input.multiple = true;
-  input.accept = 'audio/*';
+  input.accept = [...AUDIO_EXT, ...AUDIO_MIME].join(',');
 
   // Simulate a click on the input element.
   const event = new MouseEvent('click', {
@@ -110,7 +113,19 @@ function guessSongInfoFromString(str) {
     }
   }
 
-  return {}
+  return { title: str };
+}
+
+function supportsModulesInWorkers() {
+  let supports = false;
+  const tester = {
+    get type() { supports = true; }
+  };
+  try {
+    const worker = new Worker('blob://', tester);
+  } finally {
+    return supports;
+  }
 }
 
 /**
@@ -120,7 +135,15 @@ function guessSongInfoFromString(str) {
  * @return {Promise} A promise that resolves to the song info.
  */
 function guessSongInfoFromFile(file) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
+    if (!supportsModulesInWorkers()) {
+      // Our metadata parser is imported in the worker.
+      // Modules are not supported in workers in Firefox (and Safari?).
+      // So for now, just bail out.
+      resolve({});
+      return;
+    }
+
     // Create a new one for every file, to avoid receiving messages about other songs.
     const worker = new Worker('./audio-metadata-parse-worker.js', { type: "module" });
 
@@ -147,9 +170,9 @@ export async function guessSongInfo(file) {
 
   // If anything is missing from the metadata, complete it from the file name.
   return {
-    album: fromMetadata.album || fromFileName.album,
-    artist: fromMetadata.artist || fromFileName.artist,
-    title: fromMetadata.title || fromFileName.title
+    album: fromMetadata.album || fromFileName.album || 'Unknown album',
+    artist: fromMetadata.artist || fromFileName.artist || 'Unknown artist',
+    title: fromMetadata.title || fromFileName.title || 'Unknown song'
   };
 }
 

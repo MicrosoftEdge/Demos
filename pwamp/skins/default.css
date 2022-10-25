@@ -226,15 +226,14 @@ body {
 }
 
 .playlist .empty-playlist {
-  display: none;
   text-align: center;
   font-style: italic;
   color: var(--text-disabled);
   width: max-content;
 }
 
-.playlist .empty-playlist:has(+ .songs:empty) {
-  display: block;
+.playlist.has-songs .empty-playlist {
+  display: none;
 }
 
 .playlist-song {

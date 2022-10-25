@@ -67,6 +67,9 @@
         "audio/wav": [
           ".wav"
         ],
+        "audio/x-wav": [
+          ".wav"
+        ],
         "audio/mpeg": [
           ".mp3"
         ],
@@ -77,6 +80,9 @@
           ".adts"
         ],
         "audio/ogg": [
+          ".ogg"
+        ],
+        "application/ogg": [
           ".ogg"
         ],
         "audio/webm": [
@@ -105,10 +111,12 @@
           "name": "audioFiles",
           "accept": [
             "audio/wav",
+            "audio/x-wav",
             "audio/mpeg",
             "audio/mp4",
             "audio/aac",
             "audio/ogg",
+            "application/ogg",
             "audio/webm",
             "audio/flac"
           ]
