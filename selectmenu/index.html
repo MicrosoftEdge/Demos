@@ -217,7 +217,7 @@
       const bubbleButton = bubbleSelect.querySelector('[slot="button"]');
       const bubbleListbox = bubbleSelect.querySelector('[slot="listbox"]');
 
-      bubbleListbox.addEventListener('show', e => {
+      bubbleSelect.addEventListener('popupshow', e => {
         // Reset the class we use to know if the document was scrolled.
         bubbleSelect.classList.remove('scrolled');
 
@@ -550,13 +550,13 @@
       // There should be a :open pseudo-class in CSS to do this, but it doesn't
       // seem to be implemented yet. There is :-internal-popup-hidden that could be
       // used, but for now, let's do our own thing using the show/hide events.
-      cbPopup.addEventListener('show', () => combobox.setAttribute('open', ''));
-      cbPopup.addEventListener('hide', () => combobox.removeAttribute('open'));
+      combobox.addEventListener('popupshow', () => combobox.setAttribute('open', ''));
+      combobox.addEventListener('popuphide', () => combobox.removeAttribute('open'));
 
       // Detecting if the popup is above the button or not.
       // It would be great if there was a pseudo-class for this too.
       // But for now, let's do our own thing.
-      cbPopup.addEventListener('show', () => {
+      combobox.addEventListener('popupshow', () => {
         // This requires to move our code back onto the event queue to make sure
         // the popup has had the time to be displayed.
         setTimeout(() => {
@@ -775,8 +775,8 @@
         display: flex;
         align-items: center;
         width: max-content;
-        background: url(https://gitpod.io/static/media/CaretUpDown.7b205b53.svg) no-repeat center right;
-        padding-right: 20px;
+        background: url(https://i.stack.imgur.com/jJa0Y.png) no-repeat center right/contain;
+        padding-right: 30px;
       }
       
       .gitpod::part(listbox) {
