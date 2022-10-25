@@ -77,13 +77,8 @@ export async function importSongsFromFiles(files) {
  */
 export async function importSongFromFile(file) {
   const { title, artist, album } = await guessSongInfo(file)
-
   const url = await turnFileIntoURL(file);
-
   const duration = await getSongDuration(url);
-  if (duration === -1) {
-    return { error: true, message: 'Could not load the audio file' };
-  }
 
   await addLocalFileSong(file, title, artist, album, formatTime(duration));
 
@@ -106,12 +101,16 @@ async function getSongDuration(url) {
     }
   });
   const loadedPromise = new Promise(r => tempAudio.oncanplaythrough = r);
+  const timeoutPromise = new Promise(r => setTimeout(() => {
+    error = 'Timeout';
+    r();
+  }, 2000));
 
   // Load the audio file.
   tempAudio.src = url;
 
   // Wait for either an error or the audio to load.
-  await Promise.race([errorPromise, loadedPromise]);
+  await Promise.race([errorPromise, loadedPromise, timeoutPromise]);
 
   return error ? -1 : tempAudio.duration;
 }

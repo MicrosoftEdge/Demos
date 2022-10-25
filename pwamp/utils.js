@@ -5,6 +5,10 @@ const AUDIO_MIME = ['audio/wav', 'audio/x-wav', 'audio/mpeg', 'audio/mp4', 'audi
  * Given a time in seconds, return a string in the format MM:SS.
  */
 export function formatTime(time) {
+  if (time === -1) {
+    return '00:00';
+  }
+
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
   return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
