@@ -1,4 +1,4 @@
-const AUDIO_EXT = ['.wav', '.mp3', '.mp4', '.aac', '.flac', '.ogg', 'webm'];
+const AUDIO_EXT = ['.wav', '.mp3', '.mp4', '.aac', '.flac', '.ogg', '.webm'];
 const AUDIO_MIME = ['audio/wav', 'audio/x-wav', 'audio/mpeg', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'application/ogg', 'audio/webm'];
 
 /**
