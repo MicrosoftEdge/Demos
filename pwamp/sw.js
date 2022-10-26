@@ -5,7 +5,7 @@ const CACHE_NAME = `pwamp-${VERSION}`;
 // We'll cache them on install.
 const INITIAL_CACHED_RESOURCES = [
   "./",
-  "./?mode=standalone",
+  "./index.html",
   "./skins/default.css",
   "./about.css",
   "./album-art-placeholder.png",
@@ -115,7 +115,7 @@ self.addEventListener('fetch', event => {
   }
 
   // Immediately redirect to the start URL, there's nothing to see here.
-  event.respondWith(Response.redirect('./?mode=standalone'));
+  event.respondWith(Response.redirect('./'));
 
   event.waitUntil(async function () {
     const data = await event.request.formData();

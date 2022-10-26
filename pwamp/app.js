@@ -10,7 +10,8 @@ import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoad
 import { initMediaSession } from "./media-session.js";
 
 // Whether we are running as an installed PWA or not (see start_url in manifest)
-const isInstalledPWA = (new URL(document.location)).searchParams.get('mode') === 'standalone';
+const isInstalledPWA = window.matchMedia('(display-mode: window-controls-overlay)').matches ||
+                       window.matchMedia('(display-mode: standalone)').matches;
 
 // All of the UI DOM elements we need.
 const playButton = document.getElementById("playpause");
@@ -152,7 +153,7 @@ export async function startApp() {
   updateLoop = setInterval(updateUI, 500);
 
   // Show the about dialog if this is the first time the app is started.
-  if (wasStoreEmpty && isFirstUse) {
+  if (wasStoreEmpty && isFirstUse && !isInstalledPWA) {
     aboutDialog.showModal();
     isFirstUse = false;
   }
@@ -407,7 +408,7 @@ playlistActionAbout.addEventListener('click', () => {
 });
 
 if (!isInstalledPWA) {
-  window.addEventListener("beforeinstallprompt", e => {
+  window.addEventListener('beforeinstallprompt', e => {
     // Don't let the default prompt go.
     e.preventDefault();
 
@@ -421,6 +422,10 @@ if (!isInstalledPWA) {
 } else {
   installButton.disabled = true;
 }
+
+addEventListener('appinstalled', () => {
+  aboutDialog.close();
+});
 
 // Manage drag/dropping songs from explorer to playlist.
 addEventListener('dragover', e => {

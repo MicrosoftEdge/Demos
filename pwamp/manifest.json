@@ -3,7 +3,7 @@
   "short_name": "PWAmp",
   "description": "A skinable music player app to play your favorite mp3 files",
   "lang": "en-US",
-  "start_url": "./?mode=standalone",
+  "start_url": "./",
   "scope": "./",
   "theme_color": "#181c25",
   "background_color": "#181c25",
@@ -54,7 +54,7 @@
   ],
   "file_handlers": [
     {
-      "action": "./?mode=standalone",
+      "action": "./",
       "accept": {
         "text/plain": [
           ".pwampskin"
@@ -62,7 +62,7 @@
       }
     },
     {
-      "action": "./?mode=standalone",
+      "action": "./",
       "accept": {
         "audio/wav": [
           ".wav"
@@ -97,7 +97,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+amp",
-      "url": "./?mode=standalone&cmd=%s"
+      "url": "./?cmd=%s"
     }
   ],
   "share_target": {
