@@ -44,6 +44,7 @@ const loadCustomSkinButton = document.getElementById("load-custom-skin");
 const recordAudioButton = document.getElementById("record-audio");
 const aboutDialog = document.getElementById("about-dialog");
 const installButton = document.getElementById("install-button");
+const currentSongSection = document.querySelector('.current-song');
 
 let currentSongEl = null;
 
@@ -237,6 +238,10 @@ player.addEventListener("canplay", async () => {
     playing: true,
     artworkUrl
   });
+
+  // Update the current song section.
+  currentSongSection.innerHTML = '';
+  createSongUI(currentSongSection, player.song, true);
 });
 
 player.addEventListener("paused", () => {

@@ -99,11 +99,7 @@ body {
 .player {
   padding: 1rem;
   /* If WCO is enabled, push the player down a little to avoid overlapping the titlebar area */
-  padding-top: env(titlebar-area-height, 1rem);
-}
-
-.visualizing .player {
-  padding: 0;
+  padding-top: calc(2 * env(titlebar-area-height, 1rem));
 }
 
 .player-controls {
@@ -530,23 +526,8 @@ html:not(.visualizing) .playlist-song.playing .artist {
   }
 }
 
-.visualizing .playlist-song:not(.playing) {
-  display: none;
-}
-
 .visualizing .playlist-song {
-  background: unset;
-  color: unset;
-}
-
-.visualizing .playlist-song .play,
-.visualizing .playlist-song .duration,
-.visualizing .playlist-song .actions {
   display: none;
-}
-
-.visualizing .playlist-song .album {
-  color: var(--text);
 }
 
 .playhead-control {
@@ -650,6 +631,7 @@ input[type="range"]:hover::-moz-range-thumb {
   gap: .5rem;
   position: relative;
   inset-inline-start: -.7rem;
+  padding-block-start: 1rem;
 }
 
 .volume label {
@@ -818,5 +800,76 @@ input[type="range"]:hover::-moz-range-thumb {
 }
 
 html:not(.visualizing) #waveform {
+  display: none;
+}
+
+.current-song {
+  display: none;
+  position: fixed;
+  top: env(titlebar-area-y, 0);
+  left: env(titlebar-area-x, 0);
+  width: env(titlebar-area-width, 100%);
+  height: env(titlebar-area-height, 1rem);
+  pointer-events: none;
+}
+
+.visualizing .current-song {
+  top: calc(50% - 1rem);
+  height: 2rem;
+  width: 100%;
+  left: 0;
+}
+
+@media (display-mode: window-controls-overlay) {
+  .current-song {
+    display: block;
+  }
+}
+
+.current-song .playlist-song {
+  display: flex;
+  justify-content: center;
+  gap: .25rem;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@media (display-mode: window-controls-overlay) {
+  .current-song .playlist-song {
+    justify-content: start;
+  }
+}
+
+.current-song .playlist-song * {
+  font-size: .7rem;
+  color: var(--text-disabled);
+  align-self: center;
+}
+
+.current-song .playlist-song .title::after,
+.current-song .playlist-song .artist::after {
+  content: ",";
+}
+
+.current-song .playlist-song .artwork {
+  width: unset;
+  height: 100%;
+}
+
+@media (display-mode: window-controls-overlay) {
+  .current-song .playlist-song .artwork {
+    padding: .125rem;
+  }  
+}
+
+.current-song .playlist-song .duration {
+  display: none;
+}
+
+.current-song .playlist-song.remote .title::before {
   display: none;
 }
