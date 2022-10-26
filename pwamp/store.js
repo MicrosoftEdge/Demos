@@ -30,7 +30,8 @@ export async function getSongs() {
       title: 'Reunion',
       artist: 'David Rousset',
       album: 'Davrous Universe',
-      duration: '03:40'
+      duration: '03:40',
+      dateAdded: Date.now()
     },
     {
       type: 'url',
@@ -38,7 +39,8 @@ export async function getSongs() {
       title: 'Over The Stargates',
       artist: 'David Rousset',
       album: 'Davrous Universe',
-      duration: '01:40'
+      duration: '01:40',
+      dateAdded: Date.now()
     },
     {
       type: 'url',
@@ -46,7 +48,8 @@ export async function getSongs() {
       title: 'Opening',
       artist: 'Noi2er',
       album: 'Beyond Reality (Vacuum) (LP)',
-      duration: '03:34'
+      duration: '03:34',
+      dateAdded: Date.now()
     },
     {
       type: 'url',
@@ -54,7 +57,8 @@ export async function getSongs() {
       title: 'Aloe-Almond Butter And Space Pesto',
       artist: 'Noi2er',
       album: 'Beyond Reality (Vacuum) (LP)',
-      duration: '01:29'
+      duration: '01:29',
+      dateAdded: Date.now()
     }];
 
     await set('pwamp-songs', songs);
@@ -62,6 +66,20 @@ export async function getSongs() {
     // And store the artwork for those songs.
     await setArtwork('Noi2er', 'Beyond Reality (Vacuum) (LP)', 'https://ia803401.us.archive.org/11/items/DWK382/Noi2er_-_Beyond_Reality_Vacuum_Front.jpg');
     await setArtwork('David Rousset', 'Davrous Universe', 'https://microsoftedge.github.io/Demos/pwamp/songs/Reunion.jpg');
+  }
+
+  // Verify that all songs have the new dateAdded field,
+  // If not, set it to the current date.
+  for (let i = 0; i < songs.length; i++) {
+    let needToStore = false;
+    if (!songs[i].dateAdded) {
+      songs[i].dateAdded = Date.now();
+      needToStore = true;
+    }
+
+    if (needToStore) {
+      await set('pwamp-songs', songs);
+    }
   }
 
   return songs;
@@ -113,7 +131,8 @@ export async function addMultipleLocalFileSongs(fileSongs) {
       duration: fileSong.duration,
       data: fileSong.file,
       type: 'file',
-      id: getUniqueId()
+      id: getUniqueId(),
+      dateAdded: Date.now()
     }
   });
 
@@ -133,6 +152,7 @@ async function addSong(type, id, title, artist, album, duration, data = null) {
     artist,
     album,
     duration,
+    dateAdded: Date.now(),
     data
   };
 
@@ -172,6 +192,25 @@ export async function deleteSong(id) {
  */
 export async function deleteAllSongs() {
   await set('pwamp-songs', []);
+}
+
+export async function sortSongsBy(field) {
+  if (['dateAdded', 'title', 'artist', 'album'].indexOf(field) === -1) {
+    return;
+  }
+
+  let songs = await getSongs();
+
+  songs = songs.sort((a, b) => {
+    if (a[field] < b[field]) {
+      return field === 'dateAdded' ? 1 : -1;
+    } else if (a[field] > b[field]) {
+      return field === 'dateAdded' ? -1 : 1;
+    } else {
+      return 0;
+    }
+  });
+  await set('pwamp-songs', songs);
 }
 
 /**

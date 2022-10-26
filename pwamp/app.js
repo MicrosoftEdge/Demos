@@ -1,4 +1,4 @@
-import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork, wasStoreEmpty } from "./store.js";
+import { getSongs, getSong, editSong, setVolume, getVolume, deleteSong, deleteAllSongs, addLocalFileSong, setArtwork, wasStoreEmpty, sortSongsBy } from "./store.js";
 import { Player } from "./player.js";
 import { formatTime, openFilesFromDisk, getFormattedDate, canShare, analyzeDataTransfer, getImageAsDataURI } from "./utils.js";
 import { importSongsFromFiles } from "./importer.js";
@@ -37,6 +37,9 @@ const playlistActionsPopup = document.getElementById("playlist-actions-popup");
 const playlistActionDeleteAll = document.getElementById("playlist-action-delete");
 const playlistActionExportAll = document.getElementById("playlist-action-export");
 const playlistActionAbout = document.getElementById("playlist-action-about");
+const playlistActionSortByArtist = document.getElementById("playlist-action-sortbyartist");
+const playlistActionSortByAlbum = document.getElementById("playlist-action-sortbyalbum");
+const playlistActionSortByDateAdded = document.getElementById("playlist-action-sortbydateadded");
 const loadCustomSkinButton = document.getElementById("load-custom-skin");
 const recordAudioButton = document.getElementById("record-audio");
 const aboutDialog = document.getElementById("about-dialog");
@@ -391,6 +394,24 @@ playlistActionsButton.addEventListener('click', () => {
 
 playlistActionDeleteAll.addEventListener('click', async () => {
   await deleteAllSongs();
+  playlistActionsPopup.hidePopUp();
+  await startApp();
+});
+
+playlistActionSortByArtist.addEventListener('click', async () => {
+  await sortSongsBy('artist');
+  playlistActionsPopup.hidePopUp();
+  await startApp();
+});
+
+playlistActionSortByAlbum.addEventListener('click', async () => {
+  await sortSongsBy('album');
+  playlistActionsPopup.hidePopUp();
+  await startApp();
+});
+
+playlistActionSortByDateAdded.addEventListener('click', async () => {
+  await sortSongsBy('dateAdded');
   playlistActionsPopup.hidePopUp();
   await startApp();
 });
