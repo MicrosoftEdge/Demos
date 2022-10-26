@@ -13,6 +13,15 @@ async function initializePlaylist() {
       song.artworkUrl = typeof artwork === 'string' ? artwork : URL.createObjectURL(artwork);
     }
   }
+
+  // If there was a current index set, set it to the correct value.
+  // The current song might have moved to a new position.
+  if (currentIndex) {
+    const currentSong = songs[currentIndex];
+    if (currentSong) {
+      currentIndex = songs.indexOf(currentSong);
+    }
+  }
 }
 
 export class Player extends EventTarget {
