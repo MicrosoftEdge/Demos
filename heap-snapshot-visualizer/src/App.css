@@ -1,0 +1,226 @@
+.App {
+    display: flex;
+    background-color: #fff;
+    height: 100vh;
+    font-size: 1em;
+    color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background: #0178cd;
+    color: #fff;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #1725c1;
+}
+
+.section.file-input.snapshot-info:first-child {
+    margin-top: 0;
+}
+
+.controls {
+    overflow: auto;
+    flex-basis: 400px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.controls ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.controls ul li {
+    border-bottom: 1px solid #555;
+    cursor: default;
+    padding: 3px 0;
+}
+
+.controls ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.visualization {
+    padding: 10px;
+    background-color: #cbe4ff;
+    position: relative;
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+.visualization svg text {
+    fill: #000;
+    stroke: none;
+}
+
+.visualization .info {
+    top: 80px;
+    position: absolute;
+    left: 10px;
+}
+
+.visualization .info p {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.viz-button {
+    margin-right: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-left: 12px;
+}
+
+h2 {
+    font-size: 1em;
+    color: #0178cd;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1em;
+    margin: 0;
+}
+
+.file-input {
+    margin-top: 40px;
+}
+
+.node-input {
+    margin-top: 25px;
+}
+
+.node-input button {
+    margin-left: 15px;
+}
+
+.roots-input {
+    margin-top: 25px;
+}
+
+.section {
+    border: 1px solid #e8e8e8;
+    padding: 10px;
+    margin: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.section button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.section input[type='text'] {
+    margin-left: 10px;
+    line-height: 20px;
+}
+
+.snapshot-info p span {
+    font-weight: 600;
+    color: #d28800;
+}
+
+svg.container {
+    cursor: move;
+}
+
+svg.container circle {
+    cursor: auto;
+}
+
+svg.container circle.fixed {
+    fill: #f00;
+}
+
+.controls ul li :first-child {
+    margin-bottom: 5px;
+}
+
+.controls ul li span {
+    margin: 0 3px;
+    display: inline-block;
+    border: 1px solid #555;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+.controls ul li span:hover {
+    background-color: #d28800;
+    cursor: pointer;
+}
+
+.filter-container {
+    display: flex;
+}
+
+.node-filters {
+    height: 200px;
+    width: 150px;
+    overflow: auto;
+}
+
+.edge-filters {
+    height: 200px;
+    width: 150px;
+    overflow: auto;
+}
+
+.status {
+    background-color: #fff;
+    color: #000;
+    width: 500px;
+    height: 200px;
+    z-index: 4;
+    position: relative;
+    top: 40%;
+}
+
+.section .info {
+    padding: 1px;
+    border-radius: 50%;
+    cursor: default;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #d28800;
+    text-align: center;
+    color: #fff;
+    line-height: 12px;
+    margin-right: 5px;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.detached {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detached .item {
+    border: 1px solid #555;
+    padding: 3px;
+    text-align: center;
+    margin: 2px;
+}
+
+.detached .item:hover {
+    background-color: #d28800;
+    cursor: pointer;
+}
+
+.aggregates {
+    max-height: 250px;
+    overflow: auto;
+}
