@@ -42,7 +42,7 @@ export class Visualizer {
     this.resize();
     this.draw();
 
-    addEventListener('resize', this.start.bind(this), { once: true });
+    addEventListener('resize', this.resize.bind(this));
   }
 
   resize() {
