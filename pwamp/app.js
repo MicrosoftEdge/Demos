@@ -27,13 +27,13 @@ const durationLabel = document.getElementById("duration");
 const playlistEl = document.querySelector(".playlist");
 export const playlistSongsContainer = document.querySelector(".playlist .songs");
 const addSongsButton = document.getElementById("add-songs");
-const songActionsPopup = document.getElementById("song-actions-popup");
+const songActionsPopover = document.getElementById("song-actions-popover");
 const songActionDelete = document.getElementById("song-action-delete");
 const songActionCopyUri = document.getElementById("song-action-copy-uri");
 const songActionExport = document.getElementById("song-action-export");
 const songActionShare = document.getElementById("song-action-share");
 const playlistActionsButton = document.getElementById("playlist-actions");
-const playlistActionsPopup = document.getElementById("playlist-actions-popup");
+const playlistActionsPopover = document.getElementById("playlist-actions-popover");
 const playlistActionDeleteAll = document.getElementById("playlist-action-delete");
 const playlistActionExportAll = document.getElementById("playlist-action-export");
 const playlistActionAbout = document.getElementById("playlist-action-about");
@@ -136,15 +136,16 @@ export async function startApp() {
     });
 
     playlistSongEl.addEventListener('show-actions', e => {
+      songActionsPopover.showPopover();
+
       // TODO: anchoring is not yet supported. Once it is, use the ID passed in the event.
       // This is the ID for the button that was clicked.
-      // songActionsPopup.setAttribute('anchor', e.detail.id);
+      // songActionsPopover.setAttribute('anchor', e.detail.id);
       // In the meantime, anchor manually.
-      songActionsPopup.style.left = `${e.detail.x}px`;
-      songActionsPopup.style.top = `${e.detail.y - playlistEl.scrollTop}px`;
+      songActionsPopover.style.left = `${e.detail.x - songActionsPopover.offsetWidth}px`;
+      songActionsPopover.style.top = `${e.detail.y - playlistEl.scrollTop}px`;
 
-      songActionsPopup.showPopUp();
-      songActionsPopup.currentSong = song;
+      songActionsPopover.currentSong = song;
 
       songActionShare.disabled = !canShare(song);
       songActionCopyUri.disabled = song.type !== 'url';
@@ -288,38 +289,38 @@ addSongsButton.addEventListener("click", async () => {
 
 // Manage the song actions.
 songActionDelete.addEventListener("click", async () => {
-  const song = songActionsPopup.currentSong;
+  const song = songActionsPopover.currentSong;
   if (!song) {
     return;
   }
 
-  songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopUp();
+  songActionsPopover.currentSong = null;
+  songActionsPopover.hidePopover();
 
   await deleteSong(song.id);
   await startApp();
 });
 
 songActionExport.addEventListener("click", async () => {
-  const song = songActionsPopup.currentSong;
+  const song = songActionsPopover.currentSong;
   if (!song) {
     return;
   }
 
-  songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopUp();
+  songActionsPopover.currentSong = null;
+  songActionsPopover.hidePopover();
 
   await exportSongToFile(song);
 });
 
 songActionShare.addEventListener("click", async () => {
-  const song = songActionsPopup.currentSong;
+  const song = songActionsPopover.currentSong;
   if (!song || !canShare(song.data)) {
     return;
   }
 
-  songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopUp();
+  songActionsPopover.currentSong = null;
+  songActionsPopover.hidePopover();
 
   navigator.share({
     title: song.title,
@@ -328,13 +329,13 @@ songActionShare.addEventListener("click", async () => {
 });
 
 songActionCopyUri.addEventListener("click", async () => {
-  const song = songActionsPopup.currentSong;
+  const song = songActionsPopover.currentSong;
   if (!song || song.type !== 'url') {
     return;
   }
 
-  songActionsPopup.currentSong = null;
-  songActionsPopup.hidePopUp();
+  songActionsPopover.currentSong = null;
+  songActionsPopover.hidePopover();
 
   // The current song is a remote one. Let's create a web+amp link for it.
   const url = `web+amp:remote-song:${song.id}`;
@@ -392,39 +393,39 @@ recordAudioButton.addEventListener('click', async () => {
 
 // Manage the more tools button.
 playlistActionsButton.addEventListener('click', () => {
-  playlistActionsPopup.style.left = `${playlistActionsButton.offsetLeft + (playlistActionsButton.offsetWidth / 2) - (playlistActionsPopup.offsetWidth / 2)}px`;
-  playlistActionsPopup.style.top = `calc(${playlistActionsButton.offsetTop - playlistActionsPopup.offsetHeight}px - 1rem)`;
-  playlistActionsPopup.showPopUp();
+  playlistActionsPopover.showPopover();
+  playlistActionsPopover.style.left = `${playlistActionsButton.offsetLeft + (playlistActionsButton.offsetWidth / 2) - (playlistActionsPopover.offsetWidth / 2)}px`;
+  playlistActionsPopover.style.top = `calc(${playlistActionsButton.offsetTop - playlistActionsPopover.offsetHeight}px - 1rem)`;
 });
 
 playlistActionDeleteAll.addEventListener('click', async () => {
   await deleteAllSongs();
-  playlistActionsPopup.hidePopUp();
+  playlistActionsPopover.hidePopover();
   await startApp();
 });
 
 playlistActionSortByArtist.addEventListener('click', async () => {
   await sortSongsBy('artist');
-  playlistActionsPopup.hidePopUp();
+  playlistActionsPopover.hidePopover();
   await startApp();
 });
 
 playlistActionSortByAlbum.addEventListener('click', async () => {
   await sortSongsBy('album');
-  playlistActionsPopup.hidePopUp();
+  playlistActionsPopover.hidePopover();
   await startApp();
 });
 
 playlistActionSortByDateAdded.addEventListener('click', async () => {
   await sortSongsBy('dateAdded');
-  playlistActionsPopup.hidePopUp();
+  playlistActionsPopover.hidePopover();
   await startApp();
 });
 
 playlistActionExportAll.addEventListener('click', async () => {
   const songs = await getSongs();
   await Promise.all(songs.map(song => exportSongToFile(song)));
-  playlistActionsPopup.hidePopUp();
+  playlistActionsPopover.hidePopover();
 });
 
 playlistActionAbout.addEventListener('click', () => {

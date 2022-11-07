@@ -99,7 +99,7 @@ section:last-of-type {
   border-bottom: 0;
 }
 
-.main-button, [popup] button {
+.main-button, [popover] button {
   font-family: inherit;
   font-size: .8rem;
   font-weight: bold;
@@ -117,7 +117,7 @@ section:last-of-type {
     1px 1px 0 1px #373d41;
 }
 
-.main-button:active, [popup] button:active {
+.main-button:active, [popover] button:active {
   box-shadow:
     inset -1px -1px 0 0 #fffb,
     inset 1px 1px 0 0 #0004,
@@ -315,7 +315,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: calc(var(--space-unit) / 2);
 }
 
-[popup] {
+[popover] {
   padding: 0;
   background: none;
   border: 0;

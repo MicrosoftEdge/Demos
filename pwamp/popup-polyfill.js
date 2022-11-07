@@ -1,25 +1,28 @@
 window.onload = function () {
-  if (Element.prototype.hasOwnProperty("popUp")) {
+  if (HTMLElement.prototype.hasOwnProperty("popover")) {
+    document.documentElement.classList.toggle('no-popup', false);
     return;
   }
+  
+  document.documentElement.classList.toggle('no-popup', true);
 
-  const popups = [...document.querySelectorAll('[popup]')];
+  const popovers = [...document.querySelectorAll('[popover]')];
 
-  popups.forEach(popup => {
-    popup.showPopUp = function () {
-      popup.removeAttribute('hidden');
+  popovers.forEach(popover => {
+    popover.showPopover = function () {
+      popover.removeAttribute('hidden');
     }
-    popup.hidePopUp = function () {
-      popup.setAttribute('hidden', '');
+    popover.hidePopover = function () {
+      popover.setAttribute('hidden', '');
     };
 
-    popup.setAttribute('hidden', '');
+    popover.setAttribute('hidden', '');
   });
 
   addEventListener('click', e => {
-    const popup = popups.find(popup => !popup.hasAttribute('hidden'));
-    if (popup) {
-      popup.hidePopUp();
+    const popover = popovers.find(popover => !popover.hasAttribute('hidden'));
+    if (popover) {
+      popover.hidePopover();
     }
   }, true);
 }

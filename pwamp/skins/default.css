@@ -737,11 +737,7 @@ input[type="range"]:hover::-moz-range-thumb {
   border-width: 0 4px 2px 2px;
 }
 
-[popup]:not(:open) {
-  display: none;
-}
-
-[popup] {
+[popover] {
   position: fixed;
   padding: 0;
   border: 0;
@@ -756,22 +752,19 @@ input[type="range"]:hover::-moz-range-thumb {
   pointer-events: all;
 }
 
-/* Only for browsers which support popup, hide the popup if it's not
-   in the top layer yet. */
-@supports selector(:top-layer) {
-  [popup]:not(:top-layer) {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-@supports not selector(:top-layer) {
-  [popup][hidden] {
-    opacity: 0;
-    pointer-events: none;
-  }
+html:not(.no-popup) [popover]:not(:open) {
+  pointer-events: none;
+  opacity: 0;
 }
 
-.popup-item {
+/* This rule is only used in browsers that don't support popover
+   See popup-polyfill.js */
+[popover][hidden] {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.popover-item {
   background: var(--secondary);
   color: var(--text);
   text-align: left;
@@ -780,12 +773,12 @@ input[type="range"]:hover::-moz-range-thumb {
   padding: .25rem .5rem;
 }
 
-.popup-item:not([disabled]):hover {
+.popover-item:not([disabled]):hover {
   background: var(--primary);
   color: var(--back);
 }
 
-.popup-item[disabled] {
+.popover-item[disabled] {
   color: var(--text-disabled);
 }
 
