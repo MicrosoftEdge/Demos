@@ -44,7 +44,7 @@
         cursor: pointer;
       }
       
-      .bubble [popup] {
+      .bubble [popover] {
         box-shadow: none;
         margin: 0;
         padding: 0;
@@ -54,7 +54,7 @@
         overflow: hidden;
       }
 
-      .bubble.above [popup] {
+      .bubble.above [popover] {
         transform: translateY(35px);
       }
       
@@ -162,7 +162,7 @@
       <div class="anchor" slot="button" behavior="button">
         <span behavior="selected-value"></span>
       </div>
-      <div popup slot="listbox" behavior="listbox">
+      <div popover slot="listbox" behavior="listbox">
         <div class="listbox-inner">
           <div class="smileys">
             <div class="left"></div>
@@ -217,24 +217,24 @@
       const bubbleButton = bubbleSelect.querySelector('[slot="button"]');
       const bubbleListbox = bubbleSelect.querySelector('[slot="listbox"]');
 
-      bubbleSelect.addEventListener('popupshow', e => {
+      bubbleSelect.addEventListener('popovershow', e => {
         // Reset the class we use to know if the document was scrolled.
         bubbleSelect.classList.remove('scrolled');
 
         // Unfortunately we need to bump this on the event loop to make sure the
-        // popup is really positioned.
+        // popover is really positioned.
         setTimeout(() => {
-          // Remove scrollTop to compare apples to apples. The popup is in the top-layer
+          // Remove scrollTop to compare apples to apples. The popover is in the top-layer
           // and fixed positioned, so it's not affected by the scroll position.
           // Whereas the button is in the normal static flow of the document, so it is.
-          const popupTop = bubbleListbox.offsetTop;
+          const popoverTop = bubbleListbox.offsetTop;
           const buttonTop = bubbleButton.offsetTop - document.documentElement.scrollTop;
           
-          bubbleSelect.classList.toggle('above', popupTop < buttonTop);
+          bubbleSelect.classList.toggle('above', popoverTop < buttonTop);
         }, 0);
       });
 
-      // On scroll, the popup won't move, because it's in the top-layer.
+      // On scroll, the popover won't move, because it's in the top-layer.
       // So the before/after pseudos we use to draw a curve between the listbox and the button
       // won't be positioned correctly anymore. So just hide them by setting a class on the
       // selectmenu.
@@ -246,8 +246,8 @@
 
   <div class="sample">
     <h2>Vertically aligned options</h2>
-    <p>Vertically align the popup so the selected option's vertical position matches that of the selected-value.</p>
-    <p><strong>Note</strong>: this only works when the popup would normally appear below the button. The logic fails when the browser auto-places the popup above the button.</p>
+    <p>Vertically align the popover so the selected option's vertical position matches that of the selected-value.</p>
+    <p><strong>Note</strong>: this only works when the popover would normally appear below the button. The logic fails when the browser auto-places the popover above the button.</p>
     <style>
       .vertical-align {
         font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -300,7 +300,7 @@
         color: #5f6368;
       }
       
-      .vertical-align [popup] {
+      .vertical-align [popover] {
         padding: 0;
         border-radius: 0;
         border: 0;
@@ -317,12 +317,12 @@
         background-color: #eee;
       }
       
-      .vertical-align [popup] {
-        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popup;
+      .vertical-align [popover] {
+        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popover;
         opacity: 0;
       }
       
-      @keyframes reveal-popup {
+      @keyframes reveal-popover {
         to {
           opacity: 1;
         }
@@ -333,7 +333,7 @@
         <label>Vegetable</label>
         <span slot="selected-value" behavior="selected-value"></span>
       </button>
-      <div popup slot="listbox" behavior="listbox">
+      <div popover slot="listbox" behavior="listbox">
         <option value="Courgette">Courgette</option>
         <option value="Aubergine">Aubergine</option>
         <option value="Carrot">Carrot</option>
@@ -347,30 +347,30 @@
     <script>
       const verticalAlignSelect = document.querySelector('.vertical-align');
       const verticalAlignButton = verticalAlignSelect.querySelector('button');
-      const verticalAlignPopup = verticalAlignSelect.querySelector('[popup]');
+      const verticalAlignpopover = verticalAlignSelect.querySelector('[popover]');
 
       let optionHeight = null;
 
       verticalAlignButton.addEventListener('click', () => {
         // Initialize the height of an option.
         if (!optionHeight) {
-          optionHeight = verticalAlignPopup.querySelector('option').offsetHeight;
+          optionHeight = verticalAlignpopover.querySelector('option').offsetHeight;
         }
 
         // Calculate the vertical position of the selected option.
-        const index = [...verticalAlignPopup.children].indexOf(verticalAlignSelect.selectedOption);
+        const index = [...verticalAlignpopover.children].indexOf(verticalAlignSelect.selectedOption);
         const delta = optionHeight + (index * optionHeight) - 2;
 
-        // Set the popup's top position to match the selected option.
-        verticalAlignPopup.style.transform = `translateY(-${delta}px)`;
+        // Set the popover's top position to match the selected option.
+        verticalAlignpopover.style.transform = `translateY(-${delta}px)`;
       });
     </script>
   </div>
 
   <div class="sample">
     <h2>Combobox</h2>
-    <p>Add a input field to the popup that can be used to filter the options.</p>
-    <p><strong>Note</strong>: the button and popup have different styles whether the popup is visible or not, and whether it's above the button. Some custom JavaScript code is used to detect this using the show/hide popup events.</p>
+    <p>Add a input field to the popover that can be used to filter the options.</p>
+    <p><strong>Note</strong>: the button and popover have different styles whether the popover is visible or not, and whether it's above the button. Some custom JavaScript code is used to detect this using the show/hide popover events.</p>
 
     <style>
       .combobox {
@@ -397,7 +397,7 @@
         border-top-color: #f6f4f7;
       }
       
-      .combobox [popup] {
+      .combobox [popover] {
         box-shadow: none;
         padding: 5px;
         margin: -1px 0 0 0;
@@ -408,7 +408,7 @@
         box-sizing: border-box;
       }
       
-      .combobox.above [popup] {
+      .combobox.above [popover] {
         border-radius: 4px 4px 0 0;
         border-width: 1px 1px 0;
       }
@@ -448,7 +448,7 @@
         <span behavior="selected-value" hidden></span>
         <span class="visible-value">Felids</span>
       </button>
-      <div popup slot="listbox" behavior="listbox">
+      <div popover slot="listbox" behavior="listbox">
         <input type="search">
         <div class="options" tabindex="-1">
           <option value="Asian golden cat">Asian golden cat</option>
@@ -499,7 +499,7 @@
     <script>
       const combobox = document.querySelector('.combobox');
       const cbButton = combobox.querySelector('button');
-      const cbPopup = combobox.querySelector('[popup]');
+      const cbpopover = combobox.querySelector('[popover]');
       const cbInput = combobox.querySelector('input[type="search"]');
       const cbOptionsContainer = combobox.querySelector('.options');
       const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
@@ -546,24 +546,24 @@
         cbValue.textContent = combobox.value;
       });
 
-      // Detecting if the popup is shown or hidden.
+      // Detecting if the popover is shown or hidden.
       // There should be a :open pseudo-class in CSS to do this, but it doesn't
-      // seem to be implemented yet. There is :-internal-popup-hidden that could be
+      // seem to be implemented yet. There is :-internal-popover-hidden that could be
       // used, but for now, let's do our own thing using the show/hide events.
-      combobox.addEventListener('popupshow', () => combobox.setAttribute('open', ''));
-      combobox.addEventListener('popuphide', () => combobox.removeAttribute('open'));
+      combobox.addEventListener('popovershow', () => combobox.setAttribute('open', ''));
+      combobox.addEventListener('popoverhide', () => combobox.removeAttribute('open'));
 
-      // Detecting if the popup is above the button or not.
+      // Detecting if the popover is above the button or not.
       // It would be great if there was a pseudo-class for this too.
       // But for now, let's do our own thing.
-      combobox.addEventListener('popupshow', () => {
+      combobox.addEventListener('popovershow', () => {
         // This requires to move our code back onto the event queue to make sure
-        // the popup has had the time to be displayed.
+        // the popover has had the time to be displayed.
         setTimeout(() => {
-          const popupTop = cbPopup.offsetTop;
+          const popoverTop = cbpopover.offsetTop;
           const buttonTop = cbButton.offsetTop - document.documentElement.scrollTop;
           
-          combobox.classList.toggle('above', popupTop < buttonTop);
+          combobox.classList.toggle('above', popoverTop < buttonTop);
         }, 0);
       });
     </script>
@@ -836,7 +836,7 @@
 
   <div class="sample">
     <h2>Scroll indicators</h2>
-    <p>Limit the max-height of the popup and provide scrolling.</p>
+    <p>Limit the max-height of the popover and provide scrolling.</p>
 
     <style>
       .scrollable::part(button) {
@@ -844,7 +844,7 @@
         border: 1px solid #ccc;
       }
       
-      .scrollable [popup] {
+      .scrollable [popover] {
         width: max-content;
         height: max-content;
         padding: 0;
@@ -878,7 +878,7 @@
     </style>
 
     <selectmenu class="scrollable">
-      <div popup slot="listbox" behavior="listbox">
+      <div popover slot="listbox" behavior="listbox">
         <div class="indicator before">▲</div>
         <div class="scroller">
           <option value="afghanistan">Afghanistan</option>
@@ -1083,14 +1083,14 @@
 
     <script>
       const scrollableSelect = document.querySelector('.scrollable');
-      const scrollablePopup = scrollableSelect.querySelector('[popup]');
+      const scrollablepopover = scrollableSelect.querySelector('[popover]');
       const scrollableScroller = scrollableSelect.querySelector('.scroller');
 
       let scrollableDir = 0;
       let spStart = null;
       let spPreviousTime = null;
 
-      scrollablePopup.addEventListener('mouseover', e => {
+      scrollablepopover.addEventListener('mouseover', e => {
         const moveUp = e.target.closest('.indicator.before');
         const moveDown = e.target.closest('.indicator.after');
 
@@ -1101,7 +1101,7 @@
         }
       });
 
-      scrollablePopup.addEventListener('mouseout', e => {
+      scrollablepopover.addEventListener('mouseout', e => {
         const moveUp = e.target.closest('.indicator.before');
         const moveDown = e.target.closest('.indicator.after');
 
@@ -1159,7 +1159,7 @@
         cursor: pointer;
       }
       
-      .gh-sort [popup] {
+      .gh-sort [popover] {
         border-radius: 6px;
         border: 1px solid #d0d7de;
         box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
@@ -1228,7 +1228,7 @@
       }
     </style>
     <selectmenu class="gh-sort">
-      <div popup slot="listbox" behavior="listbox">
+      <div popover slot="listbox" behavior="listbox">
         <header>Sort by</header>
         <div class="standard">
           <option value="newest">Newest</option>
@@ -1318,7 +1318,7 @@
         transform: scaleY(-1);
       }
       
-      .dribbble-filters .filter [popup] {
+      .dribbble-filters .filter [popover] {
         border-radius: .3rem;
         border: none;
         box-shadow: 0 0 .3rem rgba(0, 0, 0, .25);
@@ -1532,7 +1532,7 @@
         transform: translateX(4px) rotate(45deg);
       }
       
-      .word-color [popup] {
+      .word-color [popover] {
         padding: 0;
         border: 1px solid #ddd;
       }
@@ -1623,7 +1623,7 @@
           <button class="apply-button"></button>
           <button behavior="button" class="open-button"></button>
         </div>
-        <div popup slot="listbox" behavior="listbox">
+        <div popover slot="listbox" behavior="listbox">
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
@@ -1640,7 +1640,7 @@
           <button class="apply-button"></button>
           <button behavior="button" class="open-button"></button>
         </div>
-        <div popup slot="listbox" behavior="listbox">
+        <div popover slot="listbox" behavior="listbox">
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
