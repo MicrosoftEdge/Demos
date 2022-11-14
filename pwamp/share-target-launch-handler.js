@@ -1,4 +1,4 @@
-import { get, del } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
+import { get, del } from './idb-keyval.js';
 import { importSongsFromFiles } from "./importer.js";
 import { startApp } from "./app.js";
 import { createLoadingSongPlaceholders } from "./song-ui-factory.js";

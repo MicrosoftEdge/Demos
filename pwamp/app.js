@@ -8,6 +8,7 @@ import { loadCustomOrResetSkin, reloadStoredCustomSkin } from "./skin.js";
 import { startRecordingAudio, stopRecordingAudio } from "./recorder.js";
 import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoadingSongPlaceholders } from "./song-ui-factory.js";
 import { initMediaSession } from "./media-session.js";
+import { initKeyboardShortcuts } from "./keys.js";
 
 // Whether we are running as an installed PWA or not (see start_url in manifest)
 const isInstalledPWA = window.matchMedia('(display-mode: window-controls-overlay)').matches ||
@@ -68,7 +69,7 @@ function updateUI() {
   playlistSongsContainer.querySelectorAll(".playing").forEach(el => el.classList.remove('playing'));
   playButton.classList.remove('playing');
   playButtonLabel.textContent = 'Play';
-  playButton.title = 'Play';
+  playButton.title = 'Play (space)';
   document.documentElement.classList.toggle('playing', false);
 
   if (!player.song) {
@@ -93,7 +94,7 @@ function updateUI() {
   if (player.isPlaying) {
     playButton.classList.add('playing');
     playButtonLabel.textContent = 'Pause';
-    playButton.title = 'Pause';
+    playButton.title = 'Pause (space)';
     document.documentElement.classList.toggle('playing', true);
   }
 
@@ -354,7 +355,9 @@ function isVisualizing() {
 }
 
 // Manage the visualizer button.
-visualizerButton.addEventListener('click', () => {
+visualizerButton.addEventListener('click', toggleVisualizer);
+
+function toggleVisualizer() {
   const isVis = isVisualizing();
 
   // If we're asked to visualize but no song is playing, start the first song.
@@ -362,14 +365,14 @@ visualizerButton.addEventListener('click', () => {
     player.play();
   }
 
-  const label = isVis ? 'Show visualizer' : 'Stop visualizer';
+  const label = isVis ? 'Show visualizer (V)' : 'Stop visualizer (V)';
   visualizerButton.title = label;
   visualizerButton.querySelector('span').textContent = label;
 
   document.documentElement.classList.toggle('visualizing');
 
   isVis ? visualizer.stop() : visualizer.start();
-});
+}
 
 // Manage the record audio button.
 recordAudioButton.addEventListener('click', async () => {
@@ -539,3 +542,6 @@ startApp();
 
 // When we first start, tell the SW we're not playing.
 sendMessageToSW({ action: 'paused' });
+
+// Initialize the shortcuts.
+initKeyboardShortcuts(player, toggleVisualizer);

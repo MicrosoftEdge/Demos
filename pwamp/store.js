@@ -1,4 +1,4 @@
-import { get, set } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
+import { get, set } from './idb-keyval.js';
 import { getUniqueId } from './utils.js';
 
 export let wasStoreEmpty = false;

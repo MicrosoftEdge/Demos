@@ -1,4 +1,4 @@
-const VERSION = "v35";
+const VERSION = "v36";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -15,6 +15,7 @@ const INITIAL_CACHED_RESOURCES = [
   "./file-launch-handler.js",
   "./importer.js",
   "./index.html",
+  "./keys.js",
   "./media-session.js",
   "./parseAudioMetadata.js",
   "./player.js",
@@ -30,7 +31,7 @@ const INITIAL_CACHED_RESOURCES = [
   "./visualizer.png",
   "./widgets/mini-player.json",
   "./widgets/mini-player-data.json",
-  "https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm"
+  "./idb-keyval.js"
 ];
 
 // Add a cache-busting query string to the pre-cached resources.
