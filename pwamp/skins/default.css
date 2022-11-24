@@ -7,6 +7,13 @@
   --primary: #ffbb50;
 }
 
+@media (forced-colors: active) {
+  button {
+    background-color: CanvasText !important;
+    --primary: Canvas;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -83,7 +90,7 @@ body {
   place-content: center;
 }
 
-.main-button span {
+button span {
   color: transparent;
   display: block;
   overflow: hidden;
@@ -134,6 +141,13 @@ body {
 
   /* Hide the central part between the 2 bars */
   transition: all 0.3s;
+}
+
+@media (forced-colors: active) {
+  .player-controls #playpause span  {
+    --primary: CanvasText;
+    --text: Canvas;
+  }
 }
 
 .player-controls #playpause.playing span {
@@ -273,6 +287,12 @@ body {
   color: var(--back);
 }
 
+@media (forced-colors: active) {
+  .playlist-song.playing {
+    background-color: Highlight;
+  }
+}
+
 .playlist-song .artist {
   grid-column: 4;
   font-size: 0.8rem;
@@ -322,6 +342,18 @@ html:not(.visualizing) .playlist-song.playing .artist {
   border-left-color: var(--back);
 }
 
+@media (forced-colors: active) {
+  .playlist-song .play {
+    border-color: Canvas !important;
+    border-left-color: CanvasText !important;
+  }
+  
+  .playlist-song.playing .play {
+    border-color: Highlight !important;
+    border-left-color: CanvasText !important;
+  }
+}
+
 .playlist-song .play:hover,
 .playlist-song.playing .play {
   border-left-color: var(--text);
@@ -350,6 +382,14 @@ html:not(.visualizing) .playlist-song.playing .artist {
   display: grid;
   align-content: end;
   cursor: pointer;
+}
+
+@media (forced-colors: active) {
+  .playlist-song .actions {
+    background: Canvas !important;
+    /* --text: CanvasText !important;
+    --primary: CanvasText !important; */
+  }
 }
 
 .playlist-song .actions::before {
@@ -550,6 +590,12 @@ html:not(.visualizing) .playlist-song.playing .artist {
   text-align: left;
 }
 
+@media (forced-colors: active) {
+  input[type="range"] {
+    --secondary: CanvasText;
+  }
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   background: none;
@@ -605,6 +651,15 @@ input[type="range"]::-moz-range-thumb {
   background: var(--primary);
   position: relative;
   top: -.25rem;
+}
+
+@media (forced-colors: active) {
+  input[type="range"]::-webkit-slider-thumb {
+    border: 1px solid;
+  }
+  input[type="range"]::-moz-range-thumb {
+    border: 1px solid;
+  }
 }
 
 input[type="range"]:active::-webkit-slider-thumb,
