@@ -14,6 +14,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Email client** | A fake email client PWA that demonstrates how to use PWA protocol handlers | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
 | **PWAmp** | A music player PWA demo to read your local music files | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
 | **wami** | An image manipulation demo app to crop, resize, or add effects to images | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
+| **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Demo](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 
 #### DevTools
 
