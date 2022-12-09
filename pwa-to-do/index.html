@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PWA To Do</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <header>
+      <h1>PWA To Do</h1>
+      <form class="search-form" title="search tasks">
+        <label for="search-query">Search tasks</label>
+        <input type="text" id="search-query" />
+        <button type="submit" class="search-button no-label">Search</button>
+      </form>
+      <dialog class="search-results">
+        <ul class="tasks"></ul>
+      </dialog>
+    </header>
+    <section class="sidebar" title="Task lists">
+      <ul class="lists"></ul>
+      <form class="new-list-form" title="Add a new list">
+        <button type="submit" class="add-button">New list</button>
+      </form>
+    </section>
+    <main>
+      <form class="edit-list-form">
+        <input type="hidden" id="edit-list-id" />
+        <label for="edit-list-title">Title</label>
+        <input type="text" id="edit-list-title" />
+        <button type="submit" class="edit-button no-label">Rename</button>
+        <button type="button" id="delete-list-button" class="delete-button">Delete list</button>
+      </form>
+      <ul class="tasks"></ul>
+      <form class="new-task-form" title="Add a new task">
+        <label for="new-task">Add a task</label>
+        <input type="text" id="new-task" />
+        <button type="submit" class="add-button no-label">Add</button>
+      </form>
+    </main>
+    <form
+      class="edit-task-form"
+      title="Edit the current task, select a task first."
+    >
+      <button
+        type="reset"
+        class="close-button no-label"
+        id="close-edit-task-form"
+        title="Close the task edit form"
+      >
+        Close
+      </button>
+      <input type="hidden" id="edit-task-id" />
+      <p>
+        <input type="checkbox" id="edit-task-completed" />
+        <label for="edit-task-completed">Completed</label>
+      </p>
+      <p>
+        <label for="edit-task-title">Title</label>
+        <input type="text" id="edit-task-title" />
+      </p>
+      <p>
+        <label for="edit-task-notes">Notes</label>
+        <textarea id="edit-task-notes"></textarea>
+      </p>
+      <p>
+        <button
+          type="submit"
+          id="edit-task-button"
+          title="Save task changes"
+          class="save-button"
+          disabled
+        >
+          Save
+        </button>
+        <button
+          type="reset"
+          id="delete-task-button"
+          title="Delete task"
+          class="delete-button"
+          disabled
+        >
+          Delete
+        </button>
+      </p>
+    </form>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+    <script type="module" src="./app.js" async></script>
+  </body>
+</html>
