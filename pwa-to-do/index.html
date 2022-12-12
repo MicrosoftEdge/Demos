@@ -174,7 +174,16 @@
         <label for="edit-task-notes">Notes</label>
         <textarea id="edit-task-notes"></textarea>
       </p>
-      <p>
+      <p class="upload">
+        <label for="edit-task-file">Attachment</label>
+        <input type="file" id="edit-task-file" />
+      </p>
+      <p class="download">
+        <label for="task-file-download">Attachment</label>
+        <a href="" id="task-file-download" title="Download the attached file">Download</a>
+        <button id="delete-task-file-button" title="Removed this task's attached file" class="delete-button">Remove attachment</button>
+      </p>
+      <p class="submit">
         <button
           type="submit"
           id="edit-task-button"

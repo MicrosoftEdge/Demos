@@ -1,8 +1,8 @@
-const DB_FILE_NAME = 'pwa-to-do/db-v3';
+const DB_FILE_NAME = 'pwa-to-do/db-v4';
 const DEFAULT_LIST_NAME = 'Things to do'
 const DEFAULT_LIST_COLOR = 'peachpuff';
 const SQL_NEW_TABLES = `
-  CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, notes TEXT, list_id INTEGER);
+  CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, notes TEXT, has_file INTEGER NOT NULL DEFAULT 0, list_id INTEGER);
   CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY, title TEXT, color TEXT);
   INSERT INTO lists (title, color) SELECT '${DEFAULT_LIST_NAME}', '${DEFAULT_LIST_COLOR}' WHERE NOT EXISTS (SELECT * FROM lists);
 `;
@@ -51,7 +51,7 @@ export async function initDB() {
 
 export async function createTask(title, listId) {
   await sqlitePromiser("exec", {
-    sql: `INSERT INTO tasks (title, completed, notes, list_id) VALUES ('${title}', 0, '', ${listId});`
+    sql: `INSERT INTO tasks (title, completed, notes, has_file, list_id) VALUES ('${title}', 0, '', 0, ${listId});`
   });
 }
 
@@ -70,6 +70,12 @@ export async function renameTask(taskId, title) {
 export async function completeTask(taskId, completed) {
   await sqlitePromiser("exec", {
     sql: `UPDATE tasks SET completed = ${completed ? 1 : 0} WHERE id = ${taskId};`
+  });
+}
+
+export async function setTaskHasFile(taskId, hasFile) {
+  await sqlitePromiser("exec", {
+    sql: `UPDATE tasks SET has_file = ${hasFile ? 1 : 0} WHERE id = ${taskId};`
   });
 }
 

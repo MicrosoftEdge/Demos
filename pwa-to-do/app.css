@@ -13,7 +13,6 @@ html {
   font-size: 1em;
   margin: 0;
   height: 100%;
-  accent-color: var(--main-color);
 }
 
 input, select, button, textarea {
@@ -161,22 +160,33 @@ main {
 .task .title {
   margin-inline-end: auto;
   line-height: 1.6;
+  display: flex;
+  align-items: center;
 }
 
 .task.is-completed .title {
   text-decoration: line-through;
 }
 
-.task.has-notes .title::after {
+.task.has-notes .title::after,
+.task.has-file .title::before {
   content: 'Note';
-  padding-inline-start: 1rem;
+  padding-inline-start: 1.5rem;
   background: linear-gradient(135deg, var(--disabled-color) 0.9rem, transparent 0);
   background-size: 0.7rem 0.8rem;
   background-repeat: no-repeat;
-  background-position: left center;
+  background-position: .5rem center;
   font-size: .7rem;
   color: var(--disabled-color);
-  display: block;
+}
+
+.task.has-file .title::before {
+  content: 'Attachment';
+  order: 2;
+}
+
+.task .edit-button {
+  flex-shrink: 0;
 }
 
 .new-list-form button {
@@ -226,7 +236,7 @@ main {
   background: none;
 }
 
-.edit-task-form p:nth-of-type(4) {
+.edit-task-form p.submit {
   flex-direction: row;
   justify-content: space-between;
   background: none;

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pwa-to-do-v2';
+const CACHE_NAME = 'pwa-to-do-v4';
 const INITIAL_RESOURCES = [];
 
 self.addEventListener('install', event => {
