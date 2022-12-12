@@ -53,7 +53,7 @@ header {
 
 h1 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding-inline-start: 1rem;
 }
 
@@ -101,7 +101,7 @@ h1 {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: .25rem;
-  background: var(--darker-background-color);
+  background: var(--list-color, var(--darker-background-color));
   font-size: .8rem;
   display: grid;
   place-content: center;
@@ -116,6 +116,7 @@ main {
   padding: 2rem;
   display: grid;
   grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: 1fr min-content;
   gap: 2rem;
   background: var(--main-color);
   border-top-left-radius: .5rem;
@@ -123,6 +124,7 @@ main {
 }
 
 .tasks {
+  grid-column: 1 / 3;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -237,6 +239,7 @@ main {
 }
 
 .new-task-form {
+  grid-column: 1 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,18 +253,25 @@ main {
 .edit-list-form {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.edit-list-form label, .edit-list-form .edit-button {
+.edit-list-form > label, .edit-list-form .edit-button {
   display: none;
 }
 
 #edit-list-title {
-  background: var(--lighter-background-color);
+  background: none;
   border: 0;
   font-weight: bold;
   padding: .5rem;
+  font-size: 1.5rem;
 }
+
+#edit-list-title:focus, #edit-list-title:hover {
+  background: var(--lighter-background-color);
+}
+
 
 #delete-list-button {
   margin-inline-start: auto;
@@ -287,6 +297,46 @@ main {
 
 .search-results .list-title::before {
   content: "In list: ";
+}
+
+.more-list-actions {
+  place-self: center;
+}
+
+.more-list-actions::before {
+  content: '...';
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  background: var(--background-color);
+  text-align: center;
+  font-weight: bold;
+  border-radius: .25rem;
+}
+
+.more-list-actions-dialog {
+  padding: .5rem;
+  border: 0;
+  border-radius: .25rem;
+}
+
+.list-colors {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 3rem);
+  grid-auto-rows: 3rem;
+  gap: .25rem;
+}
+
+.list-colors input {
+  display: none;
+}
+
+.list-colors label {
+  border-radius: .25rem;
+  overflow: hidden;
 }
 
 /* Buttons */

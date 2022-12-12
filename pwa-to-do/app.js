@@ -1,5 +1,6 @@
 import * as db from "./db.js";
 
+const mainElement = document.querySelector("main");
 const listsElement = document.querySelector('.lists');
 const tasksElement = document.querySelector('main .tasks');
 const newTaskForm = document.querySelector('.new-task-form');
@@ -21,11 +22,22 @@ const deleteListButton = document.querySelector('#delete-list-button');
 const deleteTaskButton = document.querySelector('#delete-task-button');
 const searchResultsDialog = document.querySelector('.search-results');
 const searchResultsList = searchResultsDialog.querySelector('.tasks');
+const moreListActionsButton = document.querySelector('.more-list-actions');
+const moreListActionsDialog = document.querySelector('.more-list-actions-dialog');
+const moreListActionsForm = moreListActionsDialog.querySelector('form');
 
-function createListItem(id, title, nbTasks) {
+const LIST_COLORS = [...moreListActionsDialog.querySelectorAll('.list-colors input')].map(input => input.value);
+
+function getRandomListColor() {
+  return LIST_COLORS[Math.floor(Math.random() * LIST_COLORS.length)];
+}
+
+function createListItem(id, title, color, nbTasks) {
   const listItem = document.createElement('li');
   listItem.classList.add('list');
   listItem.dataset.id = id;
+  listItem.dataset.color = color;
+  listItem.style.setProperty('--list-color', color);
 
   const listLink = document.createElement('a');
   listLink.href = 'load-tasks';
@@ -123,20 +135,28 @@ async function selectList(listItem, highlightedTaskId) {
   listItem.classList.add('selected');
   const listId = listItem.dataset.id;
 
+  mainElement.style.backgroundColor = listItem.dataset.color;
+
   editListTitleInput.value = listItem.querySelector('a').innerText;
   editListIdInput.value = listId;
 
   tasksElement.innerHTML = '';
 
+  let scrollTo = null;
   const tasks = await db.getListTasks(listId);
   tasks.forEach(task => {
     const taskItem = createTaskItem(task.id, task.title, task.completed, task.notes);
     if (task.id === highlightedTaskId) {
       taskItem.classList.add('highlighted');
       setTimeout(() => taskItem.classList.remove('highlighted'), 2000);
+      scrollTo = taskItem;
     }
     tasksElement.appendChild(taskItem);
   });
+
+  if (scrollTo) {
+    scrollTo.scrollIntoView();
+  }
 }
 
 newTaskForm.onsubmit = async function (event) {
@@ -159,8 +179,8 @@ newTaskForm.onsubmit = async function (event) {
 newListForm.onsubmit = async function (event) {
   event.preventDefault();
 
-  const [newList] = await db.createList('Untitled list');
-  const listItem = createListItem(newList.id, newList.title, 0);
+  const [newList] = await db.createList('Untitled list', getRandomListColor());
+  const listItem = createListItem(newList.id, newList.title, newList.color, 0);
   document.querySelector('.lists').appendChild(listItem);
   selectList(listItem);
 }
@@ -180,6 +200,7 @@ searchTasksForm.onsubmit = async function (event) {
     listTitle.href = 'go-to-list';
     listTitle.classList.add('list-title');
     listTitle.innerText = task.list_title;
+    listTitle.style.backgroundColor = task.list_color;
     li.appendChild(listTitle);
 
     listTitle.addEventListener('click', e => {
@@ -255,13 +276,34 @@ addEventListener('mousedown', event => {
   }
 });
 
+moreListActionsButton.addEventListener('click', () => {
+  if (moreListActionsDialog.open) {
+    moreListActionsDialog.close();
+  } else {
+    moreListActionsDialog.showModal();
+  }
+});
+
+moreListActionsForm.addEventListener('change', async () => {
+  const id = editListIdInput.value;
+  const color = moreListActionsForm['list-color'].value;
+
+  await db.changeListColor(id, color);
+  
+  const selectedList = document.querySelector('.list.selected');
+  selectedList.style.setProperty('--list-color', color);
+  mainElement.style.backgroundColor = color;
+
+  moreListActionsDialog.close();
+});
+
 async function reInitUI() {
   listsElement.innerHTML = '';
   tasksElement.innerHTML = '';
 
   const lists = await db.getLists();
   lists.forEach(list => {
-    const listItem = createListItem(list.id, list.title, list.nb_tasks);
+    const listItem = createListItem(list.id, list.title, list.color, list.nb_tasks);
     listsElement.appendChild(listItem);
   });
 
@@ -277,7 +319,7 @@ async function startApp() {
   } catch (error) {
     console.error(`Error initializing database`, error);
     // Reload the page.
-    window.location.reload();
+    // window.location.reload();
     return;
   }
 

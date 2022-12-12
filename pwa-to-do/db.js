@@ -1,9 +1,10 @@
-const DB_FILE_NAME = 'pwa-to-do/db';
-const DEFAULT_LIST_NAME = 'My list'
+const DB_FILE_NAME = 'pwa-to-do/db-v3';
+const DEFAULT_LIST_NAME = 'Things to do'
+const DEFAULT_LIST_COLOR = 'peachpuff';
 const SQL_NEW_TABLES = `
   CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, notes TEXT, list_id INTEGER);
-  CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY, title TEXT);
-  INSERT INTO lists (title) SELECT '${DEFAULT_LIST_NAME}' WHERE NOT EXISTS (SELECT * FROM lists);
+  CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY, title TEXT, color TEXT);
+  INSERT INTO lists (title, color) SELECT '${DEFAULT_LIST_NAME}', '${DEFAULT_LIST_COLOR}' WHERE NOT EXISTS (SELECT * FROM lists);
 `;
 
 let sqlitePromiser = null;
@@ -78,9 +79,9 @@ export async function deleteTask(taskId) {
   });
 }
 
-export async function createList(title) {
+export async function createList(title, color) {
   const list = await sqlitePromiser("exec", {
-    sql: `INSERT INTO lists (title) VALUES ('${title}');
+    sql: `INSERT INTO lists (title, color) VALUES ('${title}', '${color}');
           SELECT * FROM lists WHERE rowid = (SELECT last_insert_rowid());`,
     resultRows: [], columnNames: [],
   });
@@ -94,13 +95,19 @@ export async function renameList(listId, title) {
   });
 }
 
+export async function changeListColor(listId, color) {
+  await sqlitePromiser("exec", {
+    sql: `UPDATE lists SET color = '${color}' WHERE id = ${listId};`
+  });
+}
+
 export async function getLists() {
   const lists = await sqlitePromiser("exec", {
     sql: `
-      SELECT lists.id, lists.title, count(tasks.id) as nb_tasks
+      SELECT lists.id, lists.title, lists.color, count(tasks.id) as nb_tasks
       FROM lists
       LEFT JOIN tasks ON lists.id = tasks.list_id
-      GROUP BY lists.id, lists.title;
+      GROUP BY lists.id, lists.title, lists.color;
     `,
     resultRows: [], columnNames: [],
   });
@@ -120,7 +127,7 @@ export async function getListTasks(listId) {
 export async function searchTasks(query) {
   const tasks = await sqlitePromiser("exec", {
     sql: `
-      SELECT tasks.*, lists.title as list_title FROM tasks
+      SELECT tasks.*, lists.title as list_title, lists.color as list_color FROM tasks
       LEFT JOIN lists ON tasks.list_id = lists.id
       WHERE (tasks.title LIKE '%${query}%' OR tasks.notes LIKE '%${query}%');
     `,
