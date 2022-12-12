@@ -7,17 +7,21 @@ const SQL_NEW_TABLES = `
   INSERT INTO lists (title, color) SELECT '${DEFAULT_LIST_NAME}', '${DEFAULT_LIST_COLOR}' WHERE NOT EXISTS (SELECT * FROM lists);
 `;
 
+let sqliteLoader = null;
 let sqlitePromiser = null;
 
 function loadSQLite() {
-  return new Promise((resolve, reject) => {
-    let script = document.createElement("script");
-    script.setAttribute("src", "./sqlite-wasm-3400000/jswasm/sqlite3-worker1-promiser.js");
-    script.setAttribute("async", "true");
-    document.body.appendChild(script);
-    script.addEventListener("load", resolve);
-    script.addEventListener("error", reject);
-  });
+  if (!sqliteLoader) {
+    sqliteLoader = new Promise((resolve, reject) => {
+      let script = document.createElement("script");
+      script.setAttribute("src", "./sqlite-wasm-3400000/jswasm/sqlite3-worker1-promiser.js");
+      script.setAttribute("async", "true");
+      document.body.appendChild(script);
+      script.addEventListener("load", resolve);
+      script.addEventListener("error", reject);
+    });
+  }
+  return sqliteLoader;
 }
 
 export async function initDB() {
@@ -47,6 +51,42 @@ export async function initDB() {
       start();
     });
   });
+}
+
+// TODO
+// export async function importDBFile(file) {
+//   let root = await navigator.storage.getDirectory();
+
+//   const dirs = DB_FILE_NAME.split("/");
+//   const fileName = dirs.pop();
+
+//   for (const dir of dirs) {
+//     root = await root.getDirectoryHandle(dir);
+//   }
+
+//   const fileHandle = await root.getFileHandle(fileName);
+
+//   // Overwrite the file with the new one.
+//   await fileHandle.remove();
+//   const newFileHandle = await root.getFileHandle(fileName, { create: true });
+
+//   const writable = await newFileHandle.createWritable();
+//   await writable.write(file);
+//   await writable.close();
+// }
+
+export async function getDBFile() {
+  let root = await navigator.storage.getDirectory();
+
+  const dirs = DB_FILE_NAME.split("/");
+  const fileName = dirs.pop();
+
+  for (const dir of dirs) {
+    root = await root.getDirectoryHandle(dir);
+  }
+
+  const fileHandle = await root.getFileHandle(fileName);
+  return fileHandle.getFile();
 }
 
 export async function createTask(title, listId) {
@@ -166,7 +206,7 @@ function formatResult(selectResult) {
 }
 
 // TODO: REMOVE, ONLY FOR DEBUG
-window.exec = async function(sql) {
+window.exec = async function (sql) {
   const res = await sqlitePromiser("exec", {
     sql,
     resultRows: [], columnNames: [],

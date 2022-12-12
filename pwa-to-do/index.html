@@ -9,7 +9,9 @@
   </head>
   <body>
     <header>
-      <h1>PWA To Do</h1>
+      <h1>PWA To Do
+        <a href="learn-more">About</a>
+      </h1>
       <form class="search-form" title="search tasks">
         <label for="search-query">Search tasks</label>
         <input type="text" id="search-query" />
@@ -204,6 +206,16 @@
         </button>
       </p>
     </form>
+    <dialog class="learn-more-dialog">
+      <p><strong>PWA To Do</strong> is a simple to do list application that lets you create lists of tasks locally in your browser, or by installing the app.</p>
+      <p>This application serves as a browser storage demo for applications that need to store user data locally and query it in interesting ways. This application uses the <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and Origin-Private File System (OPFS) API.</p>
+      <p>Check-out the code on our <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do">GitHub repository</a>.</p>
+      <form action="dialog" id="db-import-export-form">
+        <!-- <label for="db-import-file">Import database</label>
+        <input type="file" id="db-import-file" /> -->
+        <button type="button" id="db-export-button" class="save-button">Export database</button>
+      </form>
+    </dialog>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js");

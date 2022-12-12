@@ -31,6 +31,10 @@ const moreListActionsDialog = document.querySelector('.more-list-actions-dialog'
 const moreListActionsForm = moreListActionsDialog.querySelector('form');
 const taskFileDownloadLink = document.querySelector('#task-file-download');
 const taskFileDeleteButton = document.querySelector('#delete-task-file-button');
+const learnMoreLink = document.querySelector('h1 a');
+const learnMoreDialog = document.querySelector('.learn-more-dialog');
+const exportDBButton = document.querySelector('#db-export-button');
+// const importDBInput = document.querySelector('#db-import-file');
 
 const LIST_COLORS = [...moreListActionsDialog.querySelectorAll('.list-colors input')].map(input => input.value);
 
@@ -348,6 +352,39 @@ moreListActionsForm.addEventListener('change', async () => {
 
   moreListActionsDialog.close();
 });
+
+learnMoreLink.addEventListener('click', e => {
+  e.preventDefault();
+
+  learnMoreDialog.showModal();
+});
+
+exportDBButton.addEventListener('click', async () => {
+  const data = await db.getDBFile();
+  const blob = new Blob([data], { type: 'application/octet-stream' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  a.download = `pwa-to-do-${date}.db`;
+  a.href = url;
+  a.click();
+});
+
+// TODO
+// importDBInput.addEventListener('change', e => {
+//   const file = e.target.files[0];
+//   const reader = new FileReader();
+
+//   reader.onload = async () => {
+//     const data = reader.result;
+//     await db.importDBFile(data);
+//     await startApp();
+//   };
+
+//   reader.readAsArrayBuffer(file);
+// });
 
 async function reInitUI() {
   listsElement.innerHTML = '';

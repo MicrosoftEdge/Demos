@@ -56,6 +56,11 @@ h1 {
   padding-inline-start: 1rem;
 }
 
+h1 a {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
 .search-form {
   margin-inline-start: auto;
   display: flex;
@@ -349,6 +354,10 @@ main {
   overflow: hidden;
 }
 
+.learn-more-dialog {
+  max-width: 40rem;
+}
+
 /* Buttons */
 
 button {
@@ -421,6 +430,15 @@ button.no-label::before {
   background-size: 100% 100%, 50% 50%, 50% 50%;
   background-repeat: no-repeat;
   background-position: center, right calc(50% - 4px), right calc(50% + 3px);
+}
+
+.import-button::before {
+  background: linear-gradient(to bottom, transparent calc(50% - 1px), var(--disabled-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+    linear-gradient(-45deg, transparent calc(50% - 1px), var(--disabled-color) calc(50% - 1px) calc(50% + 1px), transparent 0),
+    linear-gradient(45deg, transparent calc(50% - 1px), var(--disabled-color) calc(50% - 1px) calc(50% + 1px), transparent 0);
+  background-size: 100% 100%, 50% 50%, 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center, left calc(50% - 4px), left calc(50% + 3px);
 }
 
 .delete-button {
