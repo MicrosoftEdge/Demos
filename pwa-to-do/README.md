@@ -10,6 +10,5 @@ The data storage is done by using the [WebAssembly build of SQLite3](https://sql
 
 * When editing a task, make it possible to add a reminder. Could use the background sync ability to notify user even when the app is not used.
 * Also add ability to attach a file to a task. Stored in IndexedDB.
-* Move the list delete button inside a context '...' menu available next to the list title, and also add a way to customize the list color.
 * Add a manifest.
 * Add a way to export DB to disk, and reload from file.
