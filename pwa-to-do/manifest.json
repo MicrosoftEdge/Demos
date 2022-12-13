@@ -1,0 +1,33 @@
+{
+  "name": "PWA To Do",
+  "short_name": "PWA To Do",
+  "description": "Create lists of things to do",
+  "lang": "en-US",
+  "start_url": "./",
+  "scope": "./",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./favicon-48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./favicon-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./favicon-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./favicon-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./favicon-512.png",
+      "sizes": "512x512"
+    }
+  ]
+}

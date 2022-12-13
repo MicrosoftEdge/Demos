@@ -10,5 +10,4 @@ Check out the code in the `db.js` file if you're interested in learning more abo
 
 ## TODO
 
-* Add a manifest.
 * Add a way to import DB from file.
