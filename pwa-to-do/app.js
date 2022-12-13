@@ -361,7 +361,7 @@ learnMoreLink.addEventListener('click', e => {
 
 exportDBButton.addEventListener('click', async () => {
   const data = await db.getDBFile();
-  const blob = new Blob([data], { type: 'application/octet-stream' });
+  const blob = new Blob([data], { type: 'application/x-sqlite3' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
 
@@ -375,6 +375,10 @@ exportDBButton.addEventListener('click', async () => {
 // TODO
 // importDBInput.addEventListener('change', e => {
 //   const file = e.target.files[0];
+//   if (!file) {
+//     return;
+//   }
+
 //   const reader = new FileReader();
 
 //   reader.onload = async () => {
