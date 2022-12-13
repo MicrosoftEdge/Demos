@@ -263,6 +263,7 @@ main {
 
 @media (max-width: 500px) {
   .edit-task-form {
+    right: -100%;
     width: 100%;
     box-sizing: border-box;
   }
