@@ -261,6 +261,13 @@ main {
   background: var(--secondary-color);
 }
 
+@media (max-width: 500px) {
+  .edit-task-form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 .is-editing .edit-task-form {
   right: 0;
 }
