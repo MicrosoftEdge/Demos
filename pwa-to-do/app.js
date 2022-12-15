@@ -1,8 +1,10 @@
 import * as db from "./db.js";
 import { setFileForTask, getFileForTask, deleteFileForTask } from "./files.js";
+import { convertDateTimeToEpoch, convertEpochToDateTime } from "./utils.js";
 
 const mainElement = document.querySelector("main");
 const listsElement = document.querySelector('.lists');
+const autoListsElement = document.querySelector('.auto-lists');
 const tasksElement = document.querySelector('main .tasks');
 const newTaskForm = document.querySelector('.new-task-form');
 const newTaskInput = document.querySelector('#new-task');
@@ -14,6 +16,7 @@ const editTaskTitleInput = document.querySelector('#edit-task-title');
 const editTaskCompletedInput = document.querySelector('#edit-task-completed');
 const editTaskNotesInput = document.querySelector('#edit-task-notes');
 const editTaskFileInput = document.querySelector('#edit-task-file');
+const editTaskDueByInput = document.querySelector('#edit-task-dueby');
 const editTaskIdInput = document.querySelector('#edit-task-id');
 const editTaskButton = document.querySelector('#edit-task-button');
 const editTaskUploadSection = editTaskForm.querySelector('.upload');
@@ -67,7 +70,7 @@ function createListItem(id, title, color, nbTasks) {
   return listItem;
 }
 
-function createTaskItem(id, title, completed, notes, hasFile, readOnly) {
+function createTaskItem(id, title, completed, notes, hasFile, dueBy, readOnly) {
   const taskItem = document.createElement('li');
   taskItem.classList.add('task');
   taskItem.dataset.id = id;
@@ -84,6 +87,10 @@ function createTaskItem(id, title, completed, notes, hasFile, readOnly) {
     taskItem.classList.add('has-file');
   }
 
+  if (dueBy) {
+    taskItem.classList.add('has-due-date');
+  }
+
   const completedBox = document.createElement('input');
   completedBox.type = 'checkbox';
   completedBox.checked = !!completed;
@@ -93,6 +100,8 @@ function createTaskItem(id, title, completed, notes, hasFile, readOnly) {
     completedBox.addEventListener('change', () => {
       db.completeTask(id, completedBox.checked);
       taskItem.classList.toggle('is-completed');
+
+      updateAutoListsCount();
     });
   }
   taskItem.appendChild(completedBox);
@@ -111,7 +120,7 @@ function createTaskItem(id, title, completed, notes, hasFile, readOnly) {
       document.querySelectorAll('.task').forEach(task => task.classList.remove('selected'));
       taskItem.classList.add('selected');
 
-      fillEditTaskForm(id, title, notes, hasFile, completedBox.checked);
+      fillEditTaskForm(id, title, notes, hasFile, completedBox.checked, dueBy);
     });
     taskItem.appendChild(editButton);
   }
@@ -119,10 +128,11 @@ function createTaskItem(id, title, completed, notes, hasFile, readOnly) {
   return taskItem;
 }
 
-function fillEditTaskForm(id, title, notes, hasFile, completed) {
+function fillEditTaskForm(id, title, notes, hasFile, completed, dueBy) {
   editTaskTitleInput.value = title;
   editTaskNotesInput.value = notes;
   editTaskFileInput.value = '';
+  editTaskDueByInput.value = convertEpochToDateTime(dueBy);
   editTaskCompletedInput.checked = completed;
   editTaskIdInput.value = id;
   editTaskButton.disabled = false;
@@ -149,6 +159,7 @@ function clearEditTaskForm() {
   editTaskTitleInput.value = '';
   editTaskNotesInput.value = '';
   editTaskFileInput.value = '';
+  editTaskDueByInput.value = '';
   editTaskCompletedInput.checked = false;
   editTaskIdInput.value = '';
   editTaskButton.disabled = true;
@@ -160,7 +171,26 @@ function clearEditTaskForm() {
   document.documentElement.classList.remove('is-editing');
 }
 
+async function getListTasks(listId) {
+  switch (listId) {
+    case 'overdue':
+      return await db.getOverdueTasks();
+    case 'today':
+      return await db.getTodaysTasks();
+    default:
+      return await db.getListTasks(listId);
+  }
+}
+
+function isListEditable(listId) {
+  return listId !== 'overdue' && listId !== 'today';
+}
+
 async function selectList(listItem, highlightedTaskId) {
+  moreListActionsButton.style.display = isListEditable(listItem.dataset.id) ? 'block' : 'none';
+  editListTitleInput.disabled = !isListEditable(listItem.dataset.id);
+  newTaskForm.style.display = isListEditable(listItem.dataset.id) ? 'flex' : 'none';
+
   document.querySelectorAll('.task').forEach(task => task.classList.remove('selected'));
   clearEditTaskForm();
 
@@ -176,9 +206,10 @@ async function selectList(listItem, highlightedTaskId) {
   tasksElement.innerHTML = '';
 
   let scrollTo = null;
-  const tasks = await db.getListTasks(listId);
+  const tasks = await getListTasks(listId);
+
   tasks.forEach(task => {
-    const taskItem = createTaskItem(task.id, task.title, task.completed, task.notes, task.has_file);
+    const taskItem = createTaskItem(task.id, task.title, task.completed, task.notes, task.has_file, task.due_by);
     if (task.id === highlightedTaskId) {
       taskItem.classList.add('highlighted');
       setTimeout(() => taskItem.classList.remove('highlighted'), 2000);
@@ -263,6 +294,7 @@ editTaskForm.onsubmit = async function (event) {
   const title = editTaskTitleInput.value;
   const completed = editTaskCompletedInput.checked;
   const notes = editTaskNotesInput.value;
+  const dueBy = convertDateTimeToEpoch(editTaskDueByInput.value);
 
   // Get the file from the input.
   const file = editTaskFileInput.files[0];
@@ -274,11 +306,24 @@ editTaskForm.onsubmit = async function (event) {
   await db.addTaskNotes(id, notes);
   await db.renameTask(id, title);
   await db.completeTask(id, completed);
+  await db.setTaskDueBy(id, dueBy);
 
   // FIXME: instead of refreshing the list, just update the task.
   const selectedList = document.querySelector('.list.selected');
   await selectList(selectedList);
+
+  // Also update the auto-lists' counts.
+  updateAutoListsCount();
 }
+
+async function updateAutoListsCount() {
+  const overdueCount = (await db.getOverdueTasks()).length;
+  document.querySelector('.list[data-id="overdue"] .number-of-tasks').innerText = overdueCount;
+  const todayCount = (await db.getTodaysTasks()).length;
+  document.querySelector('.list[data-id="today"] .number-of-tasks').innerText = todayCount;
+}
+
+setInterval(updateAutoListsCount, 1000 * 60 * 5);
 
 editListForm.onsubmit = async function (event) {
   event.preventDefault();
@@ -392,6 +437,7 @@ exportDBButton.addEventListener('click', async () => {
 
 async function reInitUI() {
   listsElement.innerHTML = '';
+  autoListsElement.innerHTML = '';
   tasksElement.innerHTML = '';
 
   const lists = await db.getLists();
@@ -404,6 +450,20 @@ async function reInitUI() {
   if (lists.length) {
     selectList(listsElement.querySelector('.list'));
   }
+
+  await initAutoLists();
+}
+
+async function initAutoLists() {
+  // Overdue tasks.
+  const overdueTasks = await db.getOverdueTasks();
+  const overdueListItem = createListItem('overdue', 'Overdue', 'coral', overdueTasks.length);
+  autoListsElement.appendChild(overdueListItem);
+
+  // Due today.
+  const dueTodayTasks = await db.getTodaysTasks();
+  const dueTodayListItem = createListItem('today', 'Today', 'gainsboro', dueTodayTasks.length);
+  autoListsElement.appendChild(dueTodayListItem);
 }
 
 async function startApp() {

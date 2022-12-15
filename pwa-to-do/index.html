@@ -23,6 +23,7 @@
     </header>
     <section class="sidebar" title="Task lists">
       <ul class="lists"></ul>
+      <ul class="auto-lists"></ul>
       <form class="new-list-form" title="Add a new list">
         <button type="submit" class="add-button">New list</button>
       </form>
@@ -175,6 +176,10 @@
       <p>
         <label for="edit-task-notes">Notes</label>
         <textarea id="edit-task-notes"></textarea>
+      </p>
+      <p>
+        <label for="edit-task-dueby">Due by</label>
+        <input type="datetime-local" id="edit-task-dueby" />
       </p>
       <p class="upload">
         <label for="edit-task-file">Attachment</label>

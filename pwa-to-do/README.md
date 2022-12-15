@@ -11,7 +11,6 @@ Check out the code in the `db.js` file if you're interested in learning more abo
 ## TODO
 
 * Add a way to import DB from file.
-* Add possibility to set a due date for a task. And use this to populate a "My day" auto-list.
 * Escape strings before inserting into SQLite.
 * Sort tasks by most recent tasks, and separate completed vs. todo.
 * Allow to sort tasks manually.

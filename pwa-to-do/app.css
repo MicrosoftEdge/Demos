@@ -86,9 +86,10 @@ h1 a {
 .sidebar {
   grid-area: sidebar;
   display: grid;
-  grid-template-rows: 1fr min-content;
+  grid-template-rows: 1fr min-content min-content;
   padding: 2rem .5rem;
   gap: 2rem;
+  overflow: hidden;
 }
 
 @media (max-width: 500px) {
@@ -98,17 +99,18 @@ h1 a {
   }
 }
 
-.lists {
+.lists, .auto-lists {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: .25rem;
+  overflow-y: auto;
 }
 
 @media (max-width: 500px) {
-  .lists {
+  .lists, .auto-lists {
     flex-direction: row;
     flex-wrap: wrap;
   }

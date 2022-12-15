@@ -1,8 +1,8 @@
-const DB_FILE_NAME = 'pwa-to-do/db-v4';
+const DB_FILE_NAME = 'pwa-to-do/db-v5';
 const DEFAULT_LIST_NAME = 'Things to do'
 const DEFAULT_LIST_COLOR = 'peachpuff';
 const SQL_NEW_TABLES = `
-  CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, notes TEXT, has_file INTEGER NOT NULL DEFAULT 0, list_id INTEGER);
+  CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, notes TEXT, has_file INTEGER NOT NULL DEFAULT 0, due_by INTEGER, list_id INTEGER);
   CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY, title TEXT, color TEXT);
   INSERT INTO lists (title, color) SELECT '${DEFAULT_LIST_NAME}', '${DEFAULT_LIST_COLOR}' WHERE NOT EXISTS (SELECT * FROM lists);
 `;
@@ -91,7 +91,7 @@ export async function getDBFile() {
 
 export async function createTask(title, listId) {
   await sqlitePromiser("exec", {
-    sql: `INSERT INTO tasks (title, completed, notes, has_file, list_id) VALUES ('${title}', 0, '', 0, ${listId});`
+    sql: `INSERT INTO tasks (title, completed, notes, has_file, due_by, list_id) VALUES ('${title}', 0, '', 0, 0, ${listId});`
   });
 }
 
@@ -116,6 +116,12 @@ export async function completeTask(taskId, completed) {
 export async function setTaskHasFile(taskId, hasFile) {
   await sqlitePromiser("exec", {
     sql: `UPDATE tasks SET has_file = ${hasFile ? 1 : 0} WHERE id = ${taskId};`
+  });
+}
+
+export async function setTaskDueBy(taskId, dueBy) {
+  await sqlitePromiser("exec", {
+    sql: `UPDATE tasks SET due_by = ${dueBy} WHERE id = ${taskId};`
   });
 }
 
@@ -183,6 +189,48 @@ export async function searchTasks(query) {
   return formatResult(tasks);
 }
 
+export async function getTodaysTasks() {
+  // Get all tasks with a due date today, that have not yet been completed.
+  const dayStart = new Date();
+  dayStart.setHours(0);
+  dayStart.setMinutes(0);
+  dayStart.setSeconds(0);
+  dayStart.setMilliseconds(0);
+  const start = dayStart.getTime();
+
+  const tasks = await sqlitePromiser("exec", {
+    sql: `
+      SELECT tasks.*, lists.title as list_title, lists.color as list_color FROM tasks
+      LEFT JOIN lists ON tasks.list_id = lists.id
+      WHERE tasks.completed = 0 AND tasks.due_by > 0 AND tasks.due_by >= ${start} AND tasks.due_by < ${start + 86400000};
+    `,
+    resultRows: [], columnNames: [],
+  });
+
+  return formatResult(tasks);
+}
+
+export async function getOverdueTasks() {
+  // Get all tasks that are not completed but that have a due date in the past.
+  const dayStart = new Date();
+  dayStart.setHours(0);
+  dayStart.setMinutes(0);
+  dayStart.setSeconds(0);
+  dayStart.setMilliseconds(0);
+  const time = dayStart.getTime();
+
+  const tasks = await sqlitePromiser("exec", {
+    sql: `
+      SELECT tasks.*, lists.title as list_title, lists.color as list_color FROM tasks
+      LEFT JOIN lists ON tasks.list_id = lists.id
+      WHERE tasks.completed = 0 AND tasks.due_by > 0 AND tasks.due_by < ${time};
+    `,
+    resultRows: [], columnNames: [],
+  });
+
+  return formatResult(tasks);
+}
+
 export async function deleteList(listId) {
   await sqlitePromiser("exec", {
     sql: `DELETE FROM lists WHERE id = ${listId};`
@@ -214,3 +262,6 @@ window.exec = async function (sql) {
 
   console.log(formatResult(res));
 }
+
+// TODO: REMOVE, ONLY FOR DEBUG
+window.getTodaysTasks = getTodaysTasks;
