@@ -130,10 +130,7 @@
       "short_name": "PWAmp",
       "description": "Widget to control the PWAmp player",
       "tag": "pwamp",
-      "template": "test",
       "ms_ac_template": "widgets/mini-player.json",
-      "data": "widgets/mini-player-data.json",
-      "type": "application/json",
       "screenshots": [
         {
           "src": "./screenshot-widget.png",
@@ -167,14 +164,6 @@
         {
           "src": "./widgets/background.png",
           "sizes": "600x400"
-        }
-      ],
-      "auth": false,
-      "update": 100,
-      "actions": [
-        {
-          "action": "buttonClick",
-          "title": "Button Click"
         }
       ]
     }

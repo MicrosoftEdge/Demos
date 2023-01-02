@@ -25,16 +25,15 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(renderEmptyWidget());
 });
 
-// Listen to the widgetclick event in order to update the widget
+// Listen to the widgetinstall event in order to update the widget
 // when it gets installed the first time.
-// And to react to user actions in the widget.
+self.addEventListener('widgetinstall', (event) => {
+  event.waitUntil(renderEmptyWidget(event));
+});
+
+// Listen to the widgetclick event to react to user actions in the widget.
 self.addEventListener('widgetclick', (event) => {
   switch (event.action) {
-    // Update the widget on install.
-    case 'widget-install':
-      event.waitUntil(renderEmptyWidget(event));
-      break;
-    // Respond to widget actions.
     case 'next':
       event.waitUntil(sendClientMessage({ action: 'next' }));
       break;
