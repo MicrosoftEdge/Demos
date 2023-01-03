@@ -321,6 +321,14 @@ async function updateAutoListsCount() {
   document.querySelector('.list[data-id="overdue"] .number-of-tasks').innerText = overdueCount;
   const todayCount = (await db.getTodaysTasks()).length;
   document.querySelector('.list[data-id="today"] .number-of-tasks').innerText = todayCount;
+
+  if (navigator.setAppBadge) {
+    if (todayCount > 0) {
+      navigator.setAppBadge(todayCount);
+    } else {
+      navigator.clearAppBadge();
+    }
+  }
 }
 
 setInterval(updateAutoListsCount, 1000 * 60 * 5);
