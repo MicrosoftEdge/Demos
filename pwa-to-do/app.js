@@ -322,6 +322,12 @@ async function updateAutoListsCount() {
   const todayCount = (await db.getTodaysTasks()).length;
   document.querySelector('.list[data-id="today"] .number-of-tasks').innerText = todayCount;
 
+  await updateAppBadge();
+}
+
+async function updateAppBadge() {
+  const todayCount = (await db.getTodaysTasks()).length;
+
   if (navigator.setAppBadge) {
     if (todayCount > 0) {
       navigator.setAppBadge(todayCount);
@@ -485,6 +491,7 @@ async function startApp() {
   }
 
   await reInitUI();
+  await updateAppBadge();
 }
 
 startApp();
