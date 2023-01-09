@@ -8,10 +8,9 @@
         "line numbers",
         "error reporting in Console"
     ],
-    "Try it": "https://microsoftedge.github.io/Demos/json-dummy-data/",
-    "Comment at": "https://github.com/MicrosoftEdge/DevTools/issues/87",
-    "Explainer Document": 
-    "https://microsoftedge.github.io/DevTools/explainers/JSONViewer/explainer",
+    "Try it": "https://aka.ms/jsondummy",
+    "Comment at": "https://aka.ms/discuss-json-viewer",
+    "Explainer Document": "https://aka.ms/json-viewer-explainer",
     "Possible next features": [
         "Slow warning and option to show JSON as plain text instead",
         "Invalid warning when the JSON payload is invalid",
