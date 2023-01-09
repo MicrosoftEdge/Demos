@@ -8,6 +8,7 @@
         "line numbers",
         "error reporting in Console"
     ],
+    "Try it": "https://microsoftedge.github.io/Demos/json-dummy-data/",
     "Comment at": "https://github.com/MicrosoftEdge/DevTools/issues/87",
     "Explainer Document": 
     "https://microsoftedge.github.io/DevTools/explainers/JSONViewer/explainer",
