@@ -1,0 +1,28 @@
+{
+    "browser": "Microsoft Edge",
+    "version": "110+",
+    "news": "Native JSON viewer",
+    "features": [
+        "syntax highlighting",
+        "code folding",
+        "line numbers",
+        "error reporting in Console"
+    ],
+    "Comment at": "https://github.com/MicrosoftEdge/DevTools/issues/87",
+    "Explainer Document": 
+    "https://microsoftedge.github.io/DevTools/explainers/JSONViewer/explainer",
+    "Possible next features": [
+        "Slow warning and option to show JSON as plain text instead",
+        "Invalid warning when the JSON payload is invalid",
+        "Switch between tree view and the raw text",
+        "Copy the JSON payload with a button",
+        "Download the JSON payload with a button",
+        "Search/filter the JSON",
+        "Expand and collapse all the nodes in the document",
+        "Display JSON array data as sortable/filtered table",
+        "Stream large JSON payloads",
+        "Inherit themes from DevTools",
+        "Set Raw or Tree display as a default",
+        "Open JSON in Network Console"
+    ]
+}
