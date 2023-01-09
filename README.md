@@ -38,6 +38,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **DevTools network inspection docs** | Source code for a demo page used in the [DevTools network inspection docs](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/network/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/network-tutorial) | [Demo](https://microsoftedge.github.io/Demos/network-tutorial/) |
 | **DevTools workspaces docs** | Source code for a demo page used in the [DevTools workspaces docs](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/workspaces). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [Demo](https://microsoftedge.github.io/Demos/workspaces/) |
 | **Heap snapshot visualizer** | Source code for the [extension](https://microsoftedge.microsoft.com/addons/detail/heap-snapshot-visualizer/fceldlhognbemkgfacnffkdanocidgce). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | N/A|
+| **JSON Dummy Data** | Different JSON dummy data files to use with the native JSON viewer in Microsoft Edge 110+. | N/A | [Demo](https://microsoftedge.github.io/Demos/json-dummy-data/) |
 
 #### Web Platform
 
