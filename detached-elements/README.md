@@ -10,7 +10,7 @@ Microsoft Edge DevTools added a new panel called **Detached Elements**. This pan
 
 This repo contains a simple web page aimed at demonstrating the Detached Elements panel.
 
-The page shows a fake chat application. The app has 3 rooms which you can select. Within each room you can simulate messages by either sending just one, or using slow or fast message modes.
+The page shows a simulated chat application. The app has 3 rooms which you can select. Within each room you can simulate messages by either sending just one, or using slow or fast message modes.
 
 The app has two potential leaks that the Detached Elements panel can help detect:
 
