@@ -10,23 +10,23 @@ Click a folder from the list above to find out more about a particular demo, or 
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
-| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [Demo](https://microsoftedge.github.io/Demos/1DIV/dist/) |
-| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
-| **PWAmp** | A music player PWA demo to read your local music files | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
-| **wami** | An image manipulation demo app to crop, resize, or add effects to images | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
+| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [Demo](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
+| **PWAmp** | A music player PWA demo to read your local music files. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
+| **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
 | **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Demo](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 
 #### DevTools
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
-| **Edge DevTools VS Code extension sourcemap support** | Simple app to test the sourcemap support for CSS mirroring in the Edge DevTools extension for Visual studio code. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | N/A |
-| **TODO app** | A simple TODO app used in the DevTools documentation. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [Demo](https://microsoftedge.github.io/Demos/demo-to-do/) |
-| **Detached Elements** | A chat-like demo application with DOM memory leaks to demonstrate how to use the Detached Elements tool in Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Demo](https://microsoftedge.github.io/Demos/detached-elements/) |
-| **3D View** | A sample web page used to demonstrate how to use the 3D View tool in Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-3d) | [Demo](https://microsoftedge.github.io/Demos/devtools-3d/) |
-| **Animal Shelter** | A sample website with accessibility issues, used to demonstrate how to use the accessibility issues detection features of Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Demo](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) |
-| **DevTools Console demos** | Multiple web pages to demonstrate various Edge DevTools Console features. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console) | [Demo](https://microsoftedge.github.io/Demos/devtools-console/) |
-| **Contrast bug fix** | Demo page used in a Microsoft Edge [blog post](https://blogs.windows.com/msedgedev/2021/06/15/improving-contrast-in-microsoft-edge-devtools-a-bugfix-case-study/) about improving contrast in Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-contrast-bugfix) | [Demo](https://microsoftedge.github.io/Demos/devtools-contrast-bugfix/) |
+| **Edge DevTools VS Code extension sourcemap support** | Simple app to test the sourcemap support for CSS mirroring in the Microsoft Edge DevTools extension for Visual studio code. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | N/A |
+| **TODO app** | A simple To Do app used in the DevTools documentation. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [Demo](https://microsoftedge.github.io/Demos/demo-to-do/) |
+| **Detached Elements** | A chat-like demo application with DOM memory leaks to demonstrate how to use the Detached Elements tool in Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Demo](https://microsoftedge.github.io/Demos/detached-elements/) |
+| **3D View** | A sample web page used to demonstrate how to use the 3D View tool in Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-3d) | [Demo](https://microsoftedge.github.io/Demos/devtools-3d/) |
+| **Animal Shelter** | A sample website with accessibility issues, used to demonstrate how to use the accessibility issues detection features of Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Demo](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) |
+| **DevTools Console demos** | Multiple web pages to demonstrate various DevTools Console features. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console) | [Demo](https://microsoftedge.github.io/Demos/devtools-console/) |
+| **Contrast bug fix** | Demo page used in a Microsoft Edge [blog post](https://blogs.windows.com/msedgedev/2021/06/15/improving-contrast-in-microsoft-edge-devtools-a-bugfix-case-study/) about improving contrast in Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-contrast-bugfix) | [Demo](https://microsoftedge.github.io/Demos/devtools-contrast-bugfix/) |
 | **DevTools CSS getting started docs** | Source code for a demo page used in the [DevTools CSS getting started docs](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/css/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-css-get-started) | [Demo](https://microsoftedge.github.io/Demos/devtools-css-get-started/) |
 | **DevTools DOM getting started docs** | Source code for a demo page used in the [DevTools DOM getting started docs](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/dom/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-dom-get-started) | [Demo](https://microsoftedge.github.io/Demos/devtools-dom-get-started/) |
 | **DevTools Inspect tool docs** | Source code for a demo page used in the [DevTools Inspect tool docs](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/css/inspect). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-inspect) | [Demo](https://microsoftedge.github.io/Demos/devtools-inspect/) |
@@ -59,11 +59,11 @@ Click a folder from the list above to find out more about a particular demo, or 
 
 To add a new demo:
 
-1. Make a copy of the `template` directory at the root of this repository and give it a name (e.g. `my-demo`).
+1. Make a copy of the `template` directory at the root of this repository and give it a name (such as `my-demo`).
 1. Edit the `README.md` file in `my-demo` to clearly explain what your new demo is about. **Add a link to the live demo in the README file too**. This repository is set up to be deployed live using GitHub Pages, so the `my-demo` directory will end up being accessible on the web at `https://microsoftedge.github.io/demos/my-demo`.
-1. Edit the code (`index.html`, `style.css`, etc.) in `my-demo` according to your needs and add any files you need.
+1. Edit the code (such as `index.html` or `style.css`) in `my-demo` according to your needs and add any files you need.
 1. Use the shared CSS, JS, and images from the `shared` directory. The template demo already links to them. This can be helpful to avoid having to repeat basic styling and typography CSS code, or having to create your own images.
-1. Add a link to your demo in this README.md file, in one of the tables at the top.
+1. Add a link to your demo in this `README.md` file, in one of the tables at the top.
 
 ## Contributing
 
