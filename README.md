@@ -6,7 +6,7 @@ This repository contains demo web pages, apps, and sample code used to demonstra
 
 Click a folder from the list above to find out more about a particular demo, or use the tables below.
 
-####  Progressive Web Apps (PWAs)
+#### Progressive Web Apps (PWAs)
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
