@@ -6,7 +6,7 @@ This repository contains demo web pages, apps, and sample code used to demonstra
 
 Click a folder from the list above to find out more about a particular demo, or use the tables below.
 
-#### PWA
+####  Progressive Web Apps (PWAs)
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
@@ -16,7 +16,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
 | **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Demo](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 
-#### DevTools
+#### Microsoft Edge DevTools
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
@@ -40,7 +40,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Heap snapshot visualizer** | Source code for the [extension](https://microsoftedge.microsoft.com/addons/detail/heap-snapshot-visualizer/fceldlhognbemkgfacnffkdanocidgce). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | N/A|
 | **JSON Dummy Data** | Different JSON dummy data files to use with the native JSON viewer in Microsoft Edge 110+. | N/A | [Demo](https://microsoftedge.github.io/Demos/json-dummy-data/) |
 
-#### Web Platform
+#### Development tips for Microsoft Edge
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
@@ -49,7 +49,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Reader app** | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, Async Clipboard. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Demo](https://microsoftedge.github.io/Demos/reader/) |
 | **Selectmenu demos** | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Demo](https://microsoftedge.github.io/Demos/selectmenu/) |
 
-#### Extensions
+#### Microsoft Edge extensions
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
