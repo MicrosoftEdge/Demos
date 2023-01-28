@@ -1,23 +1,23 @@
 # EyeDropper API demos
 
-This repository contains a series of simple demo pages made to showcase the new JavaScript [EyeDropper API](https://wicg.github.io/eyedropper-api/).
+These demos showcase the JavaScript [EyeDropper API](https://wicg.github.io/eyedropper-api/).  The EyeDropper API enables app authors to use a browser-supplied eyedropper in the construction of custom color pickers.
+
+The EyeDropper API provides access to a browser-supplied eyedropper, to enable app developers to implement an eyedropper, a tool that allows users to select a color from the pixels on their screen, including the pixels rendered outside of the web page that's requesting the color data.
+
+The EyeDropper API is implemented in Chromium browsers, such as Microsoft Edge 95 or later.
+
 
 ## Why this API?
 
-Sampling colors from your screen is a very useful feature in creative applications. PowerPoint lets you change things like the color of a shape by sampling from other shapes. Photoshop also allows you to sample the color of any pixel in the screen to reuse for your drawings. Finally browser DevTools also allow you to grab the color of elements in the web page when editing color properties in the Styles panel.
+Sampling colors from your screen is a useful feature in creative applications.  For example:
+* In Microsoft PowerPoint, you can change the color of a shape by sampling from other shapes.
+* In Microsoft DevTools, when editing color properties in the **Styles** tab of the **Elements** tool, you can sample the color of a page element in a rendered webpage.
 
-It is, unfortunately, not possible for web applications to do this today. Some browsers do support it if you use an `<input type=color>` element, but that means you're forced to use the input element for something you might want to do in JS only and customize to your needs.
+Without the EyeDropper API, web applications can't do this. Some browsers do support it, if you use an `<input type=color>` element, but that means you have to use the input element for something that you might want to do in JavaScript only and customize to your needs.  The EyeDropper API fills that gap.
 
-The EyeDropper API aims to fill that gap.
-
-## Implementation
-
-At this time, the EyeDropper API is implemented in Chromium browsers. Try it in Microsoft Edge 95 or Google Chrome 95.
 
 ## The demos
 
-There are 3 demos here. Click below to try them in your browser. And use [GitHub](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) to review the source code.
-
-* [Color game](./color-game.html): Click play and find the matching color from the list at the bottom before the time runs out.
-* [Photo color swap](./photo-color-swap.html): Load a picture, then select a color from it, and finally select a second color to replace it with.
-* [Mondrian generator](./mondrian.html): Generate random Mondrian-like color grids, and click on any tile in the grid to swap its color.
+* [Color game](https://MicrosoftEdge.github.io/Demos/eyedropper/color-game.html): Click **Play** and then find the matching color from the list at the bottom, before the time runs out.
+* [Photo color swap](https://MicrosoftEdge.github.io/Demos/eyedropper/photo-color-swap.html): Load a picture, select a color from it, and then select a second color to replace it with.
+* [Mondrian generator](https://MicrosoftEdge.github.io/Demos/eyedropper/mondrian.html): Generate random Mondrian-like color grids, and click any tile in the grid to swap its color.
