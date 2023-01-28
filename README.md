@@ -20,7 +20,7 @@ Click a folder from the list above to find out more about a particular demo, or 
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
-| **Edge DevTools VS Code extension sourcemap support** | Simple app to test the sourcemap support for CSS mirroring in the Microsoft Edge DevTools extension for Visual studio code. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | N/A |
+| **Edge DevTools VS Code extension sourcemap support** | Simple app to test the sourcemap support for CSS mirroring in the Microsoft Edge DevTools extension for Visual Studio Code. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | N/A |
 | **TODO app** | A simple To Do app used in the DevTools documentation. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [Demo](https://microsoftedge.github.io/Demos/demo-to-do/) |
 | **Detached Elements** | A chat-like demo application with DOM memory leaks to demonstrate how to use the Detached Elements tool in Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Demo](https://microsoftedge.github.io/Demos/detached-elements/) |
 | **3D View** | A sample web page used to demonstrate how to use the 3D View tool in Microsoft Edge DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-3d) | [Demo](https://microsoftedge.github.io/Demos/devtools-3d/) |
