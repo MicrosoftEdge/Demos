@@ -6,15 +6,6 @@ This repository contains demo web pages, apps, and sample code used to demonstra
 
 Click a folder from the list above to find out more about a particular demo, or use the tables below.
 
-#### Progressive Web Apps (PWAs)
-
-| Demo | Description | Code | Live URL |
-| ---- | ----------- | ---- | -------- |
-| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [Demo](https://microsoftedge.github.io/Demos/1DIV/dist/) |
-| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
-| **PWAmp** | A music player PWA demo to read your local music files. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
-| **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
-| **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Demo](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 
 #### Microsoft Edge DevTools
 
@@ -40,7 +31,28 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Heap snapshot visualizer** | Source code for the [extension](https://microsoftedge.microsoft.com/addons/detail/heap-snapshot-visualizer/fceldlhognbemkgfacnffkdanocidgce). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | N/A|
 | **JSON Dummy Data** | Different JSON dummy data files to use with the native JSON viewer in Microsoft Edge 110+. | N/A | [Demo](https://microsoftedge.github.io/Demos/json-dummy-data/) |
 
-#### Development tips for Microsoft Edge
+
+#### Microsoft Edge extensions
+
+| Demo | Description | Code | Live URL |
+| ---- | ----------- | ---- | -------- |
+| **Create a DevTools extension** | Learn to build a Microsoft Edge extension that extends DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | N/A |
+
+
+#### Progressive Web Apps (PWAs)
+
+| Demo | Description | Code | Live URL |
+| ---- | ----------- | ---- | -------- |
+| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [Demo](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Demo](https://microsoftedge.github.io/Demos/email-client/) |
+| **PWAmp** | A music player PWA demo to read your local music files. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [Demo](https://microsoftedge.github.io/Demos/pwamp/) |
+| **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [Demo](https://microsoftedge.github.io/Demos/wami/) |
+| **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Demo](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+
+
+#### Cross-browser API samples
+
+These demos correspond to the articles in [Development tips for Microsoft Edge](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/web-platform).
 
 | Demo | Description | Code | Live URL |
 | ---- | ----------- | ---- | -------- |
@@ -49,11 +61,6 @@ Click a folder from the list above to find out more about a particular demo, or 
 | **Reader app** | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, Async Clipboard. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Demo](https://microsoftedge.github.io/Demos/reader/) |
 | **Selectmenu demos** | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Demo](https://microsoftedge.github.io/Demos/selectmenu/) |
 
-#### Microsoft Edge extensions
-
-| Demo | Description | Code | Live URL |
-| ---- | ----------- | ---- | -------- |
-| **Create a DevTools extension** | Learn to build a Microsoft Edge extension that extends DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | N/A |
 
 ## Adding a new demo
 
