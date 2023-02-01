@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery</title>
+    <link rel="stylesheet" href="gallery.css" />
+  </head>
+  <body data-module="gallery">
+    <h1>Photo Gallery</h1>
+    <section class="filters">
+      <div class="filter gallery-icon--camera">
+        <label for="camera-filter">Camera</label
+        ><select id="camera-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="filter gallery-icon--aperture">
+        <label for="aperture-filter">Aperture</label
+        ><select id="aperture-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="filter gallery-icon--exposure">
+        <label for="exposure-filter">Exposure</label
+        ><select id="exposure-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="filter gallery-icon--focal-length">
+        <label for="focal-length-filter">Focal Length</label
+        ><select id="focal-length-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="filter gallery-icon--iso">
+        <label for="iso-filter">ISO</label
+        ><select id="iso-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+    </section>
+    <ul class="gallery"></ul>
+    <footer>
+      <p>This webpage serves as a demo for the Microsoft Edge DevTools <strong>Selector Stats</strong> feature. To learn more, see <a href="https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/">The truth about CSS selector performance</a></strong>.
+        <br>
+        All photos by <a href="https://patrickbrosset.com">Patrick Brosset</a>.
+      </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+    <script src="gallery.js"></script>
+  </body>
+</html>

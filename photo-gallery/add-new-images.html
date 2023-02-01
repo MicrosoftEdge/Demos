@@ -1,0 +1,131 @@
+<!--
+  
+TO ADD NEW IMAGES TO THE GALLERY DEMO:
+
+1. Put the original photos in /add-new-images/new-img/1920/
+2. Resize these photos to 1920px max (either direction), while making sure to preserve the EXIF data in the original files.
+3. Copy these photos and put them in the /add-new-images/new-img/300/ folder.
+4. Resize these copies to 300px max (either direction).
+5. Empty the imageNames array in the script tag below, and add the new list of photo file names in it instead.
+6. Run this index.html file in a browser.
+7. Open the Console tool, there should be a logged message.
+8. Right-click this message and choose "Copy object".
+9. Paste the copied object in the data.json file.
+10. Copy the images from the /add-new-images/new-img/1920/ and /add-new-images/new-img/300/ folders and paste them in the /img/1920/ and /img/300/ folders respectively.
+
+-->
+
+<p>Script is running.</p>
+
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+</style>
+<script>
+  // -----------------------------------
+  // PUT YOUR NEW IMAGE NAMES HERE.
+  const imageNames = [
+    "IMG_E1450.jpg",
+    "DSC04056.JPG",
+    "DSC04060.JPG",
+    "DSC04148.JPG",
+    "DSC04162.JPG",
+    "DSCF2210.JPG",
+    "DSCF2230.JPG",
+    "DSCF2260.JPG",
+    "DSCF2337.JPG",
+    "IMG_9804.jpg",
+  ];
+  // -----------------------------------
+  
+  const output = document.querySelector("p");
+
+  const data = [];
+
+  function loadImage(name, size) {
+    const img = document.createElement("img");
+    img.src = `add-new-images/${size}/${name}`;
+    document.body.appendChild(img);
+
+    return new Promise((resolve) => {
+      img.onload = () => {
+        resolve(img);
+      };
+    });
+  }
+
+  function getExif(img) {
+    return new Promise((resolve) => {
+      EXIF.getData(img, function () {
+        resolve(EXIF.getAllTags(this));
+      });
+    });
+  }
+
+  let authors = null;
+  async function getRandomAuthor() {
+    if (!authors) {
+      const response = await fetch("./data.json");
+      const data = await response.json();
+      authors = data.authors;
+    }
+
+    const names = Object.keys(authors);
+    return names[Math.floor(Math.random() * names.length)];
+  }
+
+  const keys = [
+    "DateTime",
+    "Model",
+    "Make",
+    "ExposureTime",
+    "FNumber",
+    "FocalLengthIn35mmFilm",
+    "FocalLength",
+    "ISOSpeedRatings",
+  ];
+  function getCleanMeta(meta) {
+    const newmeta = {};
+    for (const key of keys) {
+      newmeta[key] = meta[key];
+    }
+    return newmeta;
+  }
+
+  async function processOneImage(name) {
+    const bigImg = await loadImage(name, 1920);
+    const meta = getCleanMeta(await getExif(bigImg));
+
+    const smallImg = await loadImage(name, 300);
+    const author = await getRandomAuthor();
+
+    return {
+      file: name,
+      user: author,
+      description: "",
+      w: smallImg.naturalWidth,
+      h: smallImg.naturalHeight,
+      meta,
+    };
+  }
+
+  async function main() {
+    const data = [];
+
+    for (const imageName of imageNames) {
+      output.textContent = `Processing ${imageName}...`;
+      data.push(await processOneImage(imageName));
+    }
+    
+    output.textContent = `All done, check the console output.`;
+    console.log(data);
+  }
+
+  main();
+</script>

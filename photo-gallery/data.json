@@ -1,0 +1,1606 @@
+{
+  "images": [
+    {
+      "file": "38012403364_1313808f93_o.jpg",
+      "user": "Hannah Haynes",
+      "description": "Rain drops on the window, with out of focus traffic lights",
+      "w": 300,
+      "h": 361,
+      "meta": {
+        "DateTime": "2017:11:11 19:02:29",
+        "Model": "iPhone 8 Plus",
+        "Make": "Apple",
+        "ExposureTime": 0.25,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 29,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "15441155304_c1c1490230_o.jpg",
+      "user": "Danas Barkus",
+      "description": "Out of focus",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2014:12:18 22:19:03",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.02,
+        "FNumber": 1.8,
+        "FocalLength": 50,
+        "ISOSpeedRatings": 500
+      }
+    },
+    {
+      "file": "15999493079_ef8e1a0866_o.jpg",
+      "user": "Amelie Garner",
+      "description": "Snow fall, in slow motion, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2015:01:03 17:25:52",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 2,
+        "FNumber": 4,
+        "FocalLength": 40,
+        "ISOSpeedRatings": 1000
+      }
+    },
+    {
+      "file": "16037662126_1d3b811cb4_o.jpg",
+      "user": "Hannah Haynes",
+      "description": "Yellow leaves in the street",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2014:12:18 22:13:15",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.004,
+        "FNumber": 5.6,
+        "FocalLength": 50,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "23658133189_04f370e09b_o.jpg",
+      "user": "Diane Gabriene",
+      "description": "Sunrise through the trees",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2015:12:28 15:30:29",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.004,
+        "FNumber": 10,
+        "FocalLength": 25,
+        "ISOSpeedRatings": 200
+      }
+    },
+    {
+      "file": "23730328680_4f79986163_o.jpg",
+      "user": "Amelie Garner",
+      "description": "Sunrise through the trees",
+      "w": 300,
+      "h": 150,
+      "meta": {
+        "DateTime": "2015:12:28 15:35:30",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.0004,
+        "FNumber": 18,
+        "FocalLength": 17,
+        "ISOSpeedRatings": 1000
+      }
+    },
+    {
+      "file": "24374840876_0acb70598c_o.jpg",
+      "user": "Ahmad Hakiki",
+      "description": "Foggy morning, in the mountain forest",
+      "w": 300,
+      "h": 150,
+      "meta": {
+        "DateTime": "2016:01:02 09:42:49",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.0005,
+        "FNumber": 8,
+        "FocalLength": 200,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "24856572158_43497494d1_o.jpg",
+      "user": "Grace Tabone",
+      "description": "Traffic light trails, long exposure",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2017:11:11 19:04:16",
+        "Model": "iPhone 8 Plus",
+        "Make": "Apple",
+        "ExposureTime": 0.25,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 29,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 125
+      }
+    },
+    {
+      "file": "28588352114_10320fb8e8_o.jpg",
+      "user": "Zuzana Polaskova",
+      "description": "Green sea weed on the beach in Ireland",
+      "w": 300,
+      "h": 150,
+      "meta": {
+        "DateTime": "2016:08:06 11:07:00",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.001,
+        "FNumber": 4,
+        "FocalLength": 40,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "29132568961_5f6f75456d_o.jpg",
+      "user": "Diane Gabriene",
+      "description": "Crashing wave",
+      "w": 300,
+      "h": 300,
+      "meta": {
+        "DateTime": "2016:08:05 23:04:06",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.0003125,
+        "FNumber": 2.8,
+        "FocalLength": 200,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "29210935945_d30b449e4d_o.jpg",
+      "user": "Amelie Garner",
+      "description": "Wild beach weeds, close-up",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2016:08:06 11:12:43",
+        "Model": "Canon EOS 7D",
+        "Make": "Canon",
+        "ExposureTime": 0.0003125,
+        "FNumber": 3.5,
+        "FocalLength": 118,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "30855740301_5133e3942d_o.jpg",
+      "user": "Hannah Haynes",
+      "description": "Eye in the subway",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2016:11:12 18:09:33",
+        "Model": "iPhone 6",
+        "Make": "Apple",
+        "ExposureTime": 0.030303030303030304,
+        "FNumber": 2.2,
+        "FocalLengthIn35mmFilm": 29,
+        "FocalLength": 4.15,
+        "ISOSpeedRatings": 64
+      }
+    },
+    {
+      "file": "DSC00084.JPG",
+      "user": "Diane Gabriene",
+      "description": "Staff walking on the bridge of the ferry, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:07:19 16:15:33",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0015625,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00108.JPG",
+      "user": "Ahmad Hakiki",
+      "description": "Ferry window, in the dark, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:07:19 21:42:43",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 160
+      }
+    },
+    {
+      "file": "DSC00224.JPG",
+      "user": "Reyhan Murat",
+      "description": "The little fox in the mountain",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:07:24 20:31:23",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 1600
+      }
+    },
+    {
+      "file": "DSC00463.JPG",
+      "user": "Amelie Garner",
+      "description": "Wild grass",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:10:22 14:44:56",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 3.2,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00469.JPG",
+      "user": "Reyhan Murat",
+      "description": "Oak leaves in the light",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:10:22 14:48:07",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.005,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00579.JPG",
+      "user": "Grace Tabone",
+      "description": "Prague's bridges",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:10:29 11:47:30",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.00015625,
+        "FNumber": 2.5,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00646.jpg",
+      "user": "Amelie Garner",
+      "description": "Starry night, long exposure shot",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:09:27 17:28:58",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 15,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 800
+      }
+    },
+    {
+      "file": "DSC00656.JPG",
+      "user": "Leela Parameswaran",
+      "description": "Prague's John Lennon wall, detail",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:10:29 15:01:20",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.00625,
+        "FNumber": 2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00669.jpg",
+      "user": "Ahmad Hakiki",
+      "description": "The tall trees, over the pond",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:09:27 17:29:12",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.002,
+        "FNumber": 8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00701.JPG",
+      "user": "Zuzana Polaskova",
+      "description": "Swans on the lake",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:10:30 12:16:53",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0005,
+        "FNumber": 2.2,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00772.jpg",
+      "user": "Anita Rajput",
+      "description": "Lights through the window",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:09:27 17:30:19",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.03333333333333333,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 10000
+      }
+    },
+    {
+      "file": "DSC01164.JPG",
+      "user": "Hannah Haynes",
+      "description": "On the motorway, long exposure shot",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:10:11 19:22:32",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 1,
+        "FNumber": 7.1,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 1600
+      }
+    },
+    {
+      "file": "DSC01278_DxO.jpg",
+      "user": "Amelie Garner",
+      "description": "Forest path, stone sign, with light trails, long exposure shot",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:10:18 17:54:08",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 8,
+        "FNumber": 16,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 50
+      }
+    },
+    {
+      "file": "DSC01665_DxO.jpg",
+      "user": "Zuzana Polaskova",
+      "description": "Light painting tree, long exposure shot",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:10:31 18:58:50",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 8,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 125
+      }
+    },
+    {
+      "file": "DSC01672_DxO.jpg",
+      "user": "Grace Tabone",
+      "description": "Painting the wall red, with light, long exposure shot",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:10:31 19:07:02",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 10,
+        "FNumber": 4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 200
+      }
+    },
+    {
+      "file": "DSC01902.JPG",
+      "user": "Doreen Bartolo",
+      "description": "Climbing the ladder, light trails, long exposure shot",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2020:11:20 22:10:38",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 30,
+        "FNumber": 10,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01926.JPG",
+      "user": "Anita Rajput",
+      "description": "Fog on the road",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:11:24 14:03:29",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.001,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01984.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "Setting sun",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:11:26 10:14:15",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.000125,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 500
+      }
+    },
+    {
+      "file": "DSC01993.JPG",
+      "user": "Hannah Haynes",
+      "description": "Dark pole, on blue sky",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:11:26 10:15:36",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0002,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 500
+      }
+    },
+    {
+      "file": "DSC02153-2.jpg",
+      "user": "Amelie Garner",
+      "description": "The lonely tree in the fog",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:01:03 21:18:02",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.00125,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 500
+      }
+    },
+    {
+      "file": "DSC02176-2.jpg",
+      "user": "Anita Rajput",
+      "description": "Old street, at night",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:01:03 21:18:16",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.02,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 10000
+      }
+    },
+    {
+      "file": "DSC02180-2.jpg",
+      "user": "Sabela Veloso",
+      "description": "Probably a tree with no leaves, b&w",
+      "w": 300,
+      "h": 450,
+      "meta": {
+        "DateTime": "2021:01:03 21:18:25",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.02,
+        "FNumber": 1.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 10000
+      }
+    },
+    {
+      "file": "DSC02229.JPG",
+      "user": "Doreen Bartolo",
+      "description": "A waterfall with rocks and plants",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:12:20 15:46:27",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 1.3,
+        "FNumber": 11,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 50
+      }
+    },
+    {
+      "file": "DSC02247.JPG",
+      "user": "Zuzana Polaskova",
+      "description": "Walking in the rain",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:12:20 15:54:37",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0005,
+        "FNumber": 2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 12800
+      }
+    },
+    {
+      "file": "DSC02261.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "Road signs",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2020:12:20 16:02:43",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.005,
+        "FNumber": 2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC02500.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Snowy field with trees",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:12:30 11:48:45",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.000125,
+        "FNumber": 3.2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC02662.JPG",
+      "user": "Hannah Haynes",
+      "description": "A road with snow on the side",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:01:02 12:36:47",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.00625,
+        "FNumber": 4.5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC03477.JPG",
+      "user": "Zuzana Polaskova",
+      "description": "Early morning, on the hill",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:04:03 22:16:29",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.625,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 4000
+      }
+    },
+    {
+      "file": "DSC03488.JPG",
+      "user": "Heidi Liew",
+      "description": "Early morning, on the hill, 2",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:04:04 07:16:53",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 13,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC03866.JPG",
+      "user": "Sabela Veloso",
+      "description": "Close-up of grass",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:05:30 13:51:18",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0004,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC03909.JPG",
+      "user": "Doreen Bartolo",
+      "description": "Probably close-up of a field of grass",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:05:30 16:07:47",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.000625,
+        "FNumber": 2.2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04085.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "A grassy field with mountains in the background",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:07:05 10:32:15",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.00125,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04157.JPG",
+      "user": "Heidi Liew",
+      "description": "A flower field, with mountains in the background",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:07:06 06:03:32",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.005,
+        "FNumber": 4.5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04159.JPG",
+      "user": "Vladimir Zeman",
+      "description": "A flower field, with mountains in the background",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2021:07:06 06:03:52",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04212.JPG",
+      "user": "Abla Dilmurat",
+      "description": "A foggy forest with trees",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2021:07:07 09:27:48",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0025,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04504.JPG",
+      "user": "Heidi Liew",
+      "description": "Corsica landscape with clouds, at night",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:08:01 05:42:18",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.016666666666666666,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 1600
+      }
+    },
+    {
+      "file": "DSC05226.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Old olive tree, with the sun peeking through the leaves, b&w",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2021:08:14 08:19:42",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0004,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC05774.JPG",
+      "user": "Vladimir Zeman",
+      "description": "The wave, on rocks",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2021:08:23 19:04:15",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.02,
+        "FNumber": 16,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC09423.JPG",
+      "user": "Heidi Liew",
+      "description": "Late blue cloudy sky, with tiny moon",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:06:04 21:46:28",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 1250
+      }
+    },
+    {
+      "file": "DSC09438.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "Tarn valley, France",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:06:05 05:47:10",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 2000
+      }
+    },
+    {
+      "file": "DSC09788.JPG",
+      "user": "Afzal Ghaffar",
+      "description": "Seattle gum street",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:06:25 21:03:33",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 3200
+      }
+    },
+    {
+      "file": "DSC09927.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "Light through the leaves, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:07:14 08:23:25",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0005,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC09931.JPG",
+      "user": "Abla Dilmurat",
+      "description": "Lonely pole, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:07:14 08:36:40",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0015625,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC0E0099.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Ferry boat trail, b&w",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:07:19 19:46:22",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.001,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSCF1723.jpg",
+      "user": "Afzal Ghaffar",
+      "description": "That Singapore building, b&w",
+      "w": 300,
+      "h": 227,
+      "meta": {
+        "DateTime": "2019:11:06 08:06:38",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.001176470588235294,
+        "FNumber": 9,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "DSCF2330.JPG",
+      "user": "Abla Dilmurat",
+      "description": "The old olive tree, b&w",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2020:07:27 18:20:14",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.0035714285714285713,
+        "FNumber": 5.6,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "IMG_9602.jpg",
+      "user": "Heidi Liew",
+      "description": "Pink and blue sunset, at the beach",
+      "w": 300,
+      "h": 400,
+      "meta": {
+        "DateTime": "2021:08:04 20:43:31",
+        "Model": "iPhone 8",
+        "Make": "Apple",
+        "ExposureTime": 0.02,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 28,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "IMG_9615.jpg",
+      "user": "Joyikutty Thankachan",
+      "description": "Pink and blue",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2021:08:04 20:46:00",
+        "Model": "iPhone 8",
+        "Make": "Apple",
+        "ExposureTime": 0.058823529411764705,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 28,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 40
+      }
+    },
+    {
+      "file": "IMG_9804.jpg",
+      "user": "Danas Barkus",
+      "description": "Corsica sunset",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2020:07:21 21:18:35",
+        "Model": "iPhone 8 Plus",
+        "Make": "Apple",
+        "ExposureTime": 0.06666666666666667,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 28,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 40
+      }
+    },
+    {
+      "file": "IMG_E4204.jpg",
+      "user": "Abla Dilmurat",
+      "description": "Street art in Prague, b&w",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2022:10:28 21:37:22",
+        "Model": "iPhone 12",
+        "Make": "Apple",
+        "ExposureTime": 0.04,
+        "FNumber": 1.6,
+        "FocalLengthIn35mmFilm": 26,
+        "FocalLength": 4.2,
+        "ISOSpeedRatings": 800
+      }
+    },
+    {
+      "file": "IMG_E4247.jpg",
+      "user": "Afzal Ghaffar",
+      "description": "Couple, with dog, b&w",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2022:10:31 10:04:53",
+        "Model": "iPhone 12",
+        "Make": "Apple",
+        "ExposureTime": 0.00019798059790140566,
+        "FNumber": 1.6,
+        "FocalLengthIn35mmFilm": 26,
+        "FocalLength": 4.2,
+        "ISOSpeedRatings": 32
+      }
+    },
+    {
+      "file": "IMG_E4255.jpg",
+      "user": "Sabela Veloso",
+      "description": "Walk to the light, b&w",
+      "w": 300,
+      "h": 400,
+      "meta": {
+        "DateTime": "2022:10:31 10:10:19",
+        "Model": "iPhone 12",
+        "Make": "Apple",
+        "ExposureTime": 0.0004589261128958238,
+        "FNumber": 2.4,
+        "FocalLengthIn35mmFilm": 16,
+        "FocalLength": 1.55,
+        "ISOSpeedRatings": 25
+      }
+    },
+    {
+      "file": "DSC01294.JPG",
+      "user": "Heidi Liew",
+      "description": "Birch tree",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:26 17:38:26",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 640
+      }
+    },
+    {
+      "file": "DSC01313.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Purple light trails",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:26 18:06:29",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 1.3,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 125
+      }
+    },
+    {
+      "file": "IMG_E4359.jpg",
+      "user": "Joyikutty Thankachan",
+      "description": "Water drops on the window",
+      "w": 300,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:11:15 17:40:01",
+        "Model": "iPhone 12",
+        "Make": "Apple",
+        "ExposureTime": 0.125,
+        "FNumber": 1.6,
+        "FocalLengthIn35mmFilm": 26,
+        "FocalLength": 4.2,
+        "ISOSpeedRatings": 1600
+      }
+    },
+    {
+      "file": "IMG_E4392.jpg",
+      "user": "Leela Parameswaran",
+      "description": "London street reflection",
+      "w": 300,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:11:16 09:56:12",
+        "Model": "iPhone 12",
+        "Make": "Apple",
+        "ExposureTime": 0.000574052812858783,
+        "FNumber": 1.6,
+        "FocalLengthIn35mmFilm": 26,
+        "FocalLength": 4.2,
+        "ISOSpeedRatings": 32
+      }
+    },
+    {
+      "file": "DSC00427.JPG",
+      "user": "Danas Barkus",
+      "description": "Autumn leaves",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:10:09 16:55:43",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.003125,
+        "FNumber": 2.2,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00881.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Sunny London",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:11:16 12:53:52",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 5,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00904.JPG",
+      "user": "Leela Parameswaran",
+      "description": "The crow on the gate",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:11:16 13:27:53",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.002,
+        "FNumber": 8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC00958.JPG",
+      "user": "Vladimir Zeman",
+      "description": "Rainy London",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:11:16 17:57:48",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 800
+      }
+    },
+    {
+      "file": "DSC01009.JPG",
+      "user": "Diane Gabriene",
+      "description": "Electricity",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:11:26 16:24:33",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.000625,
+        "FNumber": 2.5,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01011.JPG",
+      "user": "Sabela Veloso",
+      "description": "Lines",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:11:26 16:24:57",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0008,
+        "FNumber": 2.5,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01051.JPG",
+      "user": "Leela Parameswaran",
+      "description": "Lights in the dark",
+      "w": 300,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:10 18:26:35",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.4,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 8000
+      }
+    },
+    {
+      "file": "DSC01053.JPG",
+      "user": "Danas Barkus",
+      "description": "Frozen pole",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:12 14:13:38",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.003125,
+        "FNumber": 2.2,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01064.JPG",
+      "user": "Diane Gabriene",
+      "description": "Icy spikes",
+      "w": 300,
+      "h": 298,
+      "meta": {
+        "DateTime": "2022:12:12 14:17:49",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0015625,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01077.JPG",
+      "user": "Heidi Liew",
+      "description": "Frozen path",
+      "w": 300,
+      "h": 190,
+      "meta": {
+        "DateTime": "2022:12:12 14:28:16",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 3.2,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01090.JPG",
+      "user": "Afzal Ghaffar",
+      "description": "Frozen branches",
+      "w": 300,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:12 14:34:56",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0008,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01095.JPG",
+      "user": "Leela Parameswaran",
+      "description": "Frozen branches",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:12 14:35:07",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0004,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01098.JPG",
+      "user": "Sabela Veloso",
+      "description": "Frozen branches",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2022:12:12 14:35:11",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.0004,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC01207.JPG",
+      "user": "Diane Gabriene",
+      "description": "Last slope of the day",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:12:21 18:07:32",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.008,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 10000
+      }
+    },
+    {
+      "file": "DSC01223.JPG",
+      "user": "Danas Barkus",
+      "description": "Pine trees in the fog",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2022:12:21 18:10:53",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.02,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 85,
+        "FocalLength": 85,
+        "ISOSpeedRatings": 12800
+      }
+    },
+    {
+      "file": "IMG_E1450.jpg",
+      "user": "Sabela Veloso",
+      "description": "",
+      "w": 300,
+      "h": 225,
+      "meta": {
+        "DateTime": "2021:07:07 11:24:47",
+        "Model": "iPhone 8 Plus",
+        "Make": "Apple",
+        "ExposureTime": 0.0005830903790087463,
+        "FNumber": 1.8,
+        "FocalLengthIn35mmFilm": 28,
+        "FocalLength": 3.99,
+        "ISOSpeedRatings": 20
+      }
+    },
+    {
+      "file": "DSC04056.JPG",
+      "user": "Vladimir Zeman",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:07:05 10:10:36",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 2.8,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04060.JPG",
+      "user": "Joyikutty Thankachan",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:07:05 10:11:32",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04148.JPG",
+      "user": "Doreen Bartolo",
+      "description": "",
+      "w": 300,
+      "h": 181,
+      "meta": {
+        "DateTime": "2021:07:06 05:58:51",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.003125,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSC04162.JPG",
+      "user": "Amelie Garner",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2021:07:06 07:15:53",
+        "Model": "ILCE-7M3",
+        "Make": "SONY",
+        "ExposureTime": 0.004,
+        "FNumber": 5.6,
+        "FocalLengthIn35mmFilm": 24,
+        "FocalLength": 24,
+        "ISOSpeedRatings": 100
+      }
+    },
+    {
+      "file": "DSCF2210.JPG",
+      "user": "Leela Parameswaran",
+      "description": "",
+      "w": 200,
+      "h": 300,
+      "meta": {
+        "DateTime": "2020:07:24 19:02:55",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.0005,
+        "FNumber": 4,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 200
+      }
+    },
+    {
+      "file": "DSCF2230.JPG",
+      "user": "Sabela Veloso",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:07:25 10:30:01",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.001176470588235294,
+        "FNumber": 8,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "DSCF2260.JPG",
+      "user": "Diane Gabriene",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:07:25 13:32:34",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.0013333333333333333,
+        "FNumber": 5.6,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 400
+      }
+    },
+    {
+      "file": "DSCF2337.JPG",
+      "user": "Sabela Veloso",
+      "description": "",
+      "w": 300,
+      "h": 200,
+      "meta": {
+        "DateTime": "2020:07:27 19:09:45",
+        "Model": "X100T",
+        "Make": "FUJIFILM",
+        "ExposureTime": 0.0029411764705882353,
+        "FNumber": 5.6,
+        "FocalLength": 23,
+        "ISOSpeedRatings": 400
+      }
+    }
+  ],
+  "authors": {
+    "Abla Dilmurat": {
+      "color": "#F2E5CF"
+    },
+    "Afzal Ghaffar": {
+      "color": "#F2D7D5"
+    },
+    "Ahmad Hakiki": {
+      "color": "#EADAD1"
+    },
+    "Amelie Garner": {
+      "color": "#D5E8D4"
+    },
+    "Anita Rajput": {
+      "color": "#D5E4E7"
+    },
+    "Danas Barkus": {
+      "color": "#D5DBE7"
+    },
+    "Diane Gabriene": {
+      "color": "#E7D5EA"
+    },
+    "Doreen Bartolo": {
+      "color": "#E7D5DE"
+    },
+    "Grace Tabone": {
+      "color": "#E7D5D5"
+    },
+    "Hannah Haynes": {
+      "color": "#E2E7D5"
+    },
+    "Heidi Liew": {
+      "color": "#D5E7E3"
+    },
+    "Joyikutty Thankachan": {
+      "color": "#D5E7E7"
+    },
+    "Leela Parameswaran": {
+      "color": "#D5D7E7"
+    },
+    "Reyhan Murat": {
+      "color": "#E7D5E7"
+    },
+    "Sabela Veloso": {
+      "color": "#E7D5D7"
+    },
+    "Vladimir Zeman": {
+      "color": "#E7D5D5"
+    },
+    "Zuzana Polaskova": {
+      "color": "#E7E7D5"
+    }
+  }
+}
