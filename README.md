@@ -20,15 +20,24 @@ Click a folder from the list above to find out more about a particular demo, or 
 #### Microsoft Edge DevTools
 
 <!-- 
-maintenance notes:
+maintenance notes for this table:
 
 keep DevTools table sync'd:
 https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/sample-code/sample-code#sample-code-for-devtools
-last sync'd Feb. 1, 2023
+last sync'd Feb. 2, 2023
 
-in https://github.com/MicrosoftEdge/Demos, keep prefix https://learn.microsoft.com
-in https://github.com/MicrosoftDocs/edge-developer repo, remove prefix https://learn.microsoft.com
+for the copy of this table that's in the Demos repo https://github.com/MicrosoftEdge/Demos, to link to articles at learn.microsoft.com:
+* keep prefix https://learn.microsoft.com
+* no /en-us/
+* no .md at end
+* test the link
+
+for the copy of this table that's in the Docs repo https://github.com/MicrosoftDocs/edge-developer, to link to articles at learn.microsoft.com:
+* remove prefix https://learn.microsoft.com; start with /
+* no /en-us/
+* no .md at end
+* test the link by manually adding prefix https://learn.microsoft.com in Address bar
 -->
 
 | Demo name | Description | Repo directory | Live demo page |
