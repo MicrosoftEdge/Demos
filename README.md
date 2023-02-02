@@ -13,22 +13,17 @@ Click a folder from the list above to find out more about a particular demo, or 
 <!-- 
 maintenance notes:
 
-keep the below table sync'd at:
+keep DevTools table sync'd:
 https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/sample-code/sample-code#sample-code-for-devtools
 last sync'd Feb. 1, 2023
 
-in the Demos repo, keep prefix https://learn.microsoft.com
-in the Docs repo (edge-developer), remove prefix https://learn.microsoft.com; start with: /microsoft-edge/
-
-to create a PR in Demos repo: https://github.com/MicrosoftEdge/Demos
-to create a PR in Docs repo: https://github.com/MicrosoftDocs/edge-developer
+in https://github.com/MicrosoftEdge/Demos, keep prefix https://learn.microsoft.com
+in https://github.com/MicrosoftDocs/edge-developer repo, remove prefix https://learn.microsoft.com
 -->
 
-<!-- start of table to keep sync'd: -->
-
 | Demo name | Description | Repo directory | Live demo page |
-|---|---|---|---|
+|:---|:---|:---|:---|
 | CSS mirroring sourcemaps | Used for [Update .css files from within the Styles tab (CSS mirror editing)](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/css-mirror-editing-styles-tab) for the DevTools extension for Visual Studio Code. | [/css-mirroring-sourcemaps-demo/](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | n/a |
 | TODO app | Simple To Do app with vanilla JavaScript.  Used for screenshots in the [Microsoft Edge DevTools documentation](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/), and for [Opening DevTools and the DevTools browser](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/open-devtools-and-embedded-browser) for the DevTools extension for Visual Studio Code. | [/demo-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [My tasks](https://microsoftedge.github.io/Demos/demo-to-do/) |
 | Detached elements | Chat-like demo.  Used for [Debug DOM memory leaks with the Detached Elements tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/memory-problems/dom-leaks). | [/detached-elements/](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Simulate traffic](https://microsoftedge.github.io/Demos/detached-elements/) |
@@ -49,20 +44,22 @@ to create a PR in Docs repo: https://github.com/MicrosoftDocs/edge-developer
 | Inspect Network Activity | Used for [Inspect network activity](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/network/). | [/network-tutorial/](https://github.com/MicrosoftEdge/Demos/tree/main/network-tutorial) | [Inspect Network Activity Demo](https://microsoftedge.github.io/Demos/network-tutorial/) |
 | Workspaces demo | Use for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces Demo](https://microsoftedge.github.io/Demos/workspaces/) |
 
-<!-- /end of table to keep sync'd -->
-
 
 #### Microsoft Edge extensions
 
 | Demo name | Description | Repo directory | Live demo page |
-| ---- | ----------- | ---- | -------- |
-| Create a DevTools extension | Learn to build a Microsoft Edge extension that extends DevTools. | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
+|:---|:---|:---|:---|
+| DevTools extension | Used for [Create an extension that customizes the DevTools UI](https://learn.microsoft.com/microsoft-edge/extensions-chromium/developer-guide/devtools-extension). | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
+| Basic | A basic DevTools extension. | [/devtools-extension/sample 1/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%201) | n/a |
+| Panel | A basic DevTools extension with a panel. | [/devtools-extension/sample 2/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%202) | n/a |
+| CDP | A basic DevTools extension invoking Chrome Developer Protocol (CDP) APIs. | [/devtools-extension/sample 3/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%203) | n/a |
+| Inspect | A basic DevTools extension that interacts with the Inspected page. | [/devtools-extension/sample 4/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%204) | n/a |
 
 
 #### Progressive Web Apps (PWAs)
 
 | Demo name | Description | Repo directory | Live demo page |
-| ---- | ----------- | ---- | -------- |
+|:---|:---|:---|:---|
 | 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
 | PWAmp | A music player PWA demo to play local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
@@ -73,7 +70,7 @@ to create a PR in Docs repo: https://github.com/MicrosoftDocs/edge-developer
 #### Cross-browser API samples
 
 | Demo name | Description | Repo directory | Live demo page |
-| ---- | ----------- | ---- | -------- |
+|:---|:---|:---|:---|
 | CSS Custom Highlight API | How to programmatically create and remove custom highlights on a web page. | [/custom-highlight-api/](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [Custom Highlight API](https://microsoftedge.github.io/Demos/custom-highlight-api/) |
 | EyeDropper API | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
 | Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
