@@ -56,28 +56,28 @@ to create a PR in Docs repo: https://github.com/MicrosoftDocs/edge-developer
 
 | Demo name | Description | Repo directory | Live demo page |
 | ---- | ----------- | ---- | -------- |
-| **Create a DevTools extension** | Learn to build a Microsoft Edge extension that extends DevTools. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
+| **Create a DevTools extension** | Learn to build a Microsoft Edge extension that extends DevTools. | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
 
 
 #### Progressive Web Apps (PWAs)
 
 | Demo name | Description | Repo directory | Live demo page |
 | ---- | ----------- | ---- | -------- |
-| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
-| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
-| **PWAmp** | A music player PWA demo to read your local music files. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
-| **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
-| **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+| **1DIV** | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| **Email client** | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
+| **PWAmp** | A music player PWA demo to read your local music files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
+| **wami** | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
+| **Temperature converter** | A simple PWA demo app that converts temperatures. Used in this tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 
 
 #### Cross-browser API samples
 
 | Demo name | Description | Repo directory | Live demo page |
 | ---- | ----------- | ---- | -------- |
-| **CSS Custom Highlight API** | How to programmatically create and remove custom highlights on a web page. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [Custom Highlight API](https://microsoftedge.github.io/Demos/custom-highlight-api/) |
-| **EyeDropper API** | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
-| **Reader app** | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, Async Clipboard. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
-| **Selectmenu demos** | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [Code](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Open UI's <selectmenu> demos](https://microsoftedge.github.io/Demos/selectmenu/) |
+| **CSS Custom Highlight API** | How to programmatically create and remove custom highlights on a web page. | [/custom-highlight-api/](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [Custom Highlight API](https://microsoftedge.github.io/Demos/custom-highlight-api/) |
+| **EyeDropper API** | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
+| **Reader app** | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
+| **Selectmenu demos** | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [/selectmenu/](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Open UI's \<selectmenu\> demos](https://microsoftedge.github.io/Demos/selectmenu/) |
 
 
 ## Adding a new demo
