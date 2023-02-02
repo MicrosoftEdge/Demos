@@ -1,6 +1,15 @@
 # Microsoft Edge Demos
 
-This repository contains demo web pages, apps, and sample code used to demonstrate various DevTools, PWA, WebView, Extensions, or Web Platform features of Microsoft Edge.
+This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  The demo directories are grouped into the following sections below:
+* [Microsoft Edge DevTools](#microsoft-edge-devtools)
+* [Microsoft Edge extensions](#microsoft-edge-extensions)
+* [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
+* [Cross-browser API samples](#cross-browser-api-samples)
+
+This page also covers:
+* [Adding a new demo](#adding-a-new-demo)
+* [Contributing](#contributing)
+* [Trademarks](#trademarks)
 
 
 ## Demos
