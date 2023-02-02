@@ -1,4 +1,4 @@
-# json-dummy-data
+# JSON dummy data
 
 This is a collection of dummy JSON files in various sizes to use as test data for the JSON viewer.
 
