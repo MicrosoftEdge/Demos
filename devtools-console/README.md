@@ -1,8 +1,11 @@
 # DevTools Console panel demo pages
 
-This folder contains the source code for various Microsoft Edge DevTools Console panel demos. The demos are used on multiple pages, but the main one is the [Console overview](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/) documentation.
+This folder contains the source code for Microsoft Edge DevTools Console panel demos, used for the following articles:
+* [Console overview](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/)
+* [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-log)
+* [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-debug-javascript)
 
-You can access the various demo pages here:
+Live demo pages:
 
 * [dom-examples.html](https://microsoftedge.github.io/Demos/devtools-console/dom-examples.html)
 * [error-assert.html](https://microsoftedge.github.io/Demos/devtools-console/error-assert.html)
