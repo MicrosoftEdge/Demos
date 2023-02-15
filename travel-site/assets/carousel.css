@@ -1,0 +1,50 @@
+
+.carousel {
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.carousel ul {
+  display: flex;
+  gap: var(--main-margin);
+  overflow-x: scroll;
+}
+
+.carousel li {
+  flex-basis: calc(100vw - 5.5 * var(--main-margin));
+  flex-shrink: 0;
+}
+
+.carousel button {
+  border: 0;
+  background: var(--accent-color-dim);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.carousel button::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-block-start: .25rem solid transparent;
+  border-block-end: .25rem solid transparent;
+}
+
+.carousel button.carousel-prev::before {
+  border-inline-end: .5rem solid var(--text-color);
+}
+
+.carousel button.carousel-next::before {
+  border-inline-start: .5rem solid var(--text-color);
+}
+
+.carousel button.carousel-next {
+  order: 1;
+}

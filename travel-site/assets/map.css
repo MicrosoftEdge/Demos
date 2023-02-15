@@ -1,0 +1,6 @@
+.place-discover-map {
+  width: calc(100% + 2 * var(--main-margin));
+  position: relative;
+  left: calc(-1 * var(--main-margin));
+  height: 20rem;
+}
