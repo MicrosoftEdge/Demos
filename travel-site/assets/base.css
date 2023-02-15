@@ -1,0 +1,173 @@
+:root {
+  --background-color: #0f1014;
+  --background-color-dim: #1d1d1d;
+  --text-color: white;
+  --text-color-dim: #999;
+  --accent-color: #1ea155;
+  --accent-color-dim: #1e2d26;
+  --main-margin: 2rem;
+  --half-margin: calc(var(--main-margin) / 2);
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+  margin: var(--main-margin);
+  margin-block-end: 0;
+  line-height: 1.5;
+}
+
+h1, h2, h3, p {
+  margin: var(--half-margin) 0;
+  font-weight: normal;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: .8rem;
+}
+
+section {
+  padding-block-end: calc(3 * var(--half-margin));
+}
+
+header h1 {
+  text-transform: uppercase;
+  letter-spacing: -.1rem;
+  font-weight: normal;
+  font-size: 1.2rem;
+  margin: 0;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  background-image: url(logo.png);
+  background-size: 2rem 2rem;
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-inline-start: 2.5rem;
+}
+
+header nav {
+  position: absolute;
+  top: var(--main-margin);
+  right: var(--main-margin);
+}
+
+header nav input {
+  position: absolute;
+  left: -100vw;
+}
+
+header nav label {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  background-image: linear-gradient(to bottom, white 0 0.2rem, transparent 0);
+  background-size: 100% 0.8rem;
+  clip-path: polygon(0 0, 0 .4rem, .4rem .4rem, .4rem 1.3rem, 0 1.3rem, 0 100%, 100% 100%, 100% 0);
+}
+
+header nav input:checked + label {
+  background-image:
+    linear-gradient(to bottom right,
+                    transparent calc(50% - .1rem),
+                    white calc(50% - .1rem) calc(50% + .1rem),
+                    transparent 0),
+    linear-gradient(to bottom left,
+                    transparent calc(50% - .1rem),
+                    white calc(50% - .1rem) calc(50% + .1rem),
+                    transparent 0);
+  background-size: 100% 100%;;
+  clip-path: none;
+}
+
+header nav .nav-links {
+  display: grid;
+  position: absolute;
+  right: 0;
+  top: 3rem;
+  background: var(--background-color-dim);
+  padding: var(--main-margin);
+  z-index: 1;
+  box-sizing: border-box;
+  width: calc(100vw - 2 * var(--main-margin));
+  border-radius: 1rem;
+  gap: .5rem;
+  align-content: center;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+header nav input:checked ~ .nav-links {
+  opacity: 1;
+}
+
+header nav a {
+  font-size: 1.2rem;
+  font-weight: normal;
+  padding: .25rem 0;
+  color: var(--text-color);
+}
+
+header nav .sign-up {
+  background: var(--accent-color);
+  color: var(--text-color);
+  padding: .25rem 1rem;
+  border-radius: .25rem;
+}
+
+h2.section-title {
+  padding: .25rem;
+  border-radius: .25rem;
+  display: inline-block;
+  margin-block-end: 0;
+  font-size: 1rem;
+  color: var(--accent-color);
+  background: var(--accent-color-dim);
+}
+
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
+}
+
+footer {
+  background: var(--accent-color-dim);
+  position: relative;
+  left: calc(-1 * var(--main-margin));
+  width: 100vw;
+  padding: var(--main-margin);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: .5rem;
+}
+
+footer h2 {
+  grid-column: 1 / 3;
+  margin: 0;
+}
+
+footer .legal {
+  color: var(--text-color-dim);
+  font-size: .8rem;
+  align-self: end;
+}

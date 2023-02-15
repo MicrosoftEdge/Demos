@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Margie's Travel</title>
+  <link rel="stylesheet" href="assets/base.css" />
+  <link rel="stylesheet" href="assets/home.css" />
+  <link rel="stylesheet" href="assets/map.css" />
+  <link rel="stylesheet" href="assets/carousel.css" />
+  <link rel="stylesheet" href="assets/media.css" />
+  <link rel="stylesheet" href="assets/rating.css" />
+  <link rel="stylesheet" href="assets/desktop.css" />
+</head>
+
+<body>
+  <header>
+    <h1 id="home">Margie's Travel</h1>
+    <nav>
+      <input type="checkbox" id="main-menu-button"/>
+      <label for="main-menu-button">
+        <span class="sr-only">Toggle menu</span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#map">Place finder</a></li>
+        <li><a href="#" class="sign-up">Sign up</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero">
+    <h2 class="subtitle">
+      Discover beautiful Corsica, where stunning landscapes and crystal clear waters meet in a unique natural paradise
+    </h2>
+    <div class="hero-image">
+      <img src="assets/img/IMG_1707.jpg" alt="" />
+    </div>
+  </section>
+  <main>
+    <section class="destinations">
+      <h2 class="section-title" id="destinations">Destinations</h2>
+      <p>Our best destination guides for you</p>
+      <ul class="picked-destinations">
+        <li class="destination">
+          <h3>Balagne's hills and villages</h3>
+          <div class="media">
+            <img src="assets/img/DSC04484.JPG" alt="" />
+            <p class="description">
+              The view from Balagne's coastal hills is simply breathtaking. Rolling plains stretch out below, dotted with lush vegetation and wildflowers, while the sparkling waters of the Mediterranean Sea can be seen in the distance, giving way to an endless horizon.
+            </p>
+            <div class="action">
+              <a href="#">Explore our coast destination guide</a>
+            </div>
+          </div>
+        </li>
+        <li class="destination">
+          <h3>Mount Cinto</h3>
+          <div class="media">
+            <img src="assets/img/DSC04540.JPG" alt="" />
+            <p class="description">
+              Cinto, the towering peak of Corsica's mountains rises majestically against the clear blue sky. Occasional few fluffy clouds wrap around the highest summits, adding an extra layer of drama to an already spectacular landscape.
+            </p>
+            <div class="action">
+              <a href="#">Explore our ready-made mountain trek guides</a>
+            </div>
+          </div>
+        </li>
+        <li class="destination">
+          <h3>Calvi's beach an shopping experience</h3>
+          <div class="media">
+            <img src="assets/img/IMG_9606.jpg" alt="" />
+            <p class="description">
+              Catch beautiful sunsets, painting the sky in hues of orange, pink, and purple. As the day comes to a close, the peaceful sound of the waves and the warmth of the sun's final rays create a truly magical and serene atmosphere.
+            </p>
+            <div class="action">
+              <a href="#">Explore our luxury and relaxation trip options</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="quotes">
+      <h2 class="section-title" id="reviews">What other people think</h2>
+      <p>Choose your next travel by learning from others</p>
+      <div class="carousel">
+        <button class="carousel-prev" title="View previous quote"><span class="sr-only">Previous</span></button>
+        <button class="carousel-next" title="View next quote"><span class="sr-only">Next</span></button>
+        <ul class="client-quotes">
+          <li class="quote">
+            <div class="rating" data-stars="5"></div>
+            <div class="author">
+              <img src="assets/avatar.png" alt="" class="avatar" /> Amelie Garner
+            </div>
+            <p>
+              Our trip to Corsica was truly life-changing. From the crystal clear waters of the Mediterranean to the breathtaking mountain summits, every moment was filled with beauty and adventure.
+            </p>
+          </li>
+          <li class="quote">
+            <div class="rating" data-stars="5"></div>
+            <div class="author">
+              <img src="assets/avatar.png" alt="" class="avatar" /> Heidi Liew
+            </div>
+            <p>
+              I never knew a place could be so picturesque until I visited Corsica. The scenery was beyond anything I've ever seen, and the memories will stay with me forever.
+            </p>
+          </li>
+          <li class="quote">
+            <div class="rating" data-stars="4"></div>
+            <div class="author">
+              <img src="assets/avatar.png" alt="" class="avatar" /> Vladimir Zeman
+            </div>
+            <p>
+              The hospitality we received during our stay in Corsica was second to none. Every staff member went above and beyond to make our vacation unforgettable.
+            </p>
+          </li>
+          <li class="quote">
+            <div class="rating" data-stars="4"></div>
+            <div class="author">
+              <img src="assets/avatar.png" alt="" class="avatar" /> Hannah Haynes
+            </div>
+            <p>
+              Our mountain trek in Corsica was the highlight of our trip. The stunning vistas and challenging terrain made for an unforgettable experience.
+            </p>
+          </li>
+          <li class="quote">
+            <div class="rating" data-stars="5"></div>
+            <div class="author">
+              <img src="assets/avatar.png" alt="" class="avatar" /> Ahmad Hakiki
+            </div>
+            <p>
+              I never realized how much I needed a break from the hustle and bustle of city life until I visited Corsica. The peace and tranquility by the sea was exactly what I needed to recharge.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="places" id="map">
+      <h2 class="section-title">Amazing places</h2>
+      <p>Find your dream destination on the map</p>
+      <div class="place-discover-map"></div>
+    </section>
+  </main>
+  <footer>
+    <h2>Margie's Travel</h2>
+    <div class="tools">
+      <div class="social">
+        <p>Follow us on social media</p>
+        <ul class="social-links">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="subscribe">
+        <p>Don't miss our next travel tips! Subscribe to the mailing list.</p>
+        <form action="">
+          <input type="email" placeholder="Your email" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">Destinations</a></li>
+          <li><a href="#">Book your trip</a></li>
+          <li><a href="#" class="sign-up">Sign up</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="legal">
+      <p>
+        &copy; 2023 Margie's Travel, a fictional travel website made to demonstrate Microsoft Edge DevTools features.
+      </p>
+    </div>
+  </footer>
+  <script src="assets/rating.js"></script>
+  <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Ap_eazGgpq5468v9MXr7Wu0zh30LQActgaT-tI_QxZQSm-Bd5qJxVKs_2B7NsqR4' async defer></script>
+  <script src="assets/map.js"></script>
+  <script src="assets/menu.js"></script>
+  <script src="assets/carousel.js"></script>
+</body>
+
+</html>

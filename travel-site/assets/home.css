@@ -1,0 +1,35 @@
+.hero-image img {
+  width: calc(100% + 2 * var(--main-margin));
+  position: relative;
+  left: calc(-1 * var(--main-margin));
+}
+
+.hero .subtitle {
+  font-size: 1.2rem;
+}
+
+.picked-destinations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-margin);
+}
+
+main section > p {
+  font-size: 1.4rem;
+}
+
+.destination {
+  background: var(--background-color-dim);
+  padding: var(--half-margin);
+  border-radius: .5rem;
+}
+
+.destination h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+}
+
+.places {
+  padding-block-end: 0;
+  border-block-end: 0;
+}

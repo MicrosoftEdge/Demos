@@ -1,0 +1,80 @@
+@media screen and (min-width: 665px) {
+  body {
+    max-width: 900px;
+    margin: var(--main-margin) auto;
+    padding: 0 var(--main-margin);
+  }
+
+  header {
+    display: flex;
+  }
+
+  header nav {
+    position: static;
+    margin-inline-start: auto;
+  }
+
+  header nav input, header nav label {
+    display: none;
+  }
+
+  header nav .nav-links {
+    display: flex;
+    position: static;
+    background: none;
+    padding: 0;
+    width: unset;
+    border-radius: 0;
+    opacity: 1;
+    transition: none;
+  }
+
+  header nav a {
+    font-size: .9rem;
+  }
+
+  header nav .sign-up {
+    margin-inline-start: var(--main-margin);
+  }
+
+  .hero .subtitle {
+    font-size: 2rem;
+    margin: calc(2 * var(--main-margin)) 0;
+  }
+
+  .hero-image img {
+    width: 100%;
+    position: static;
+    max-height: 20rem;
+    object-fit: cover;
+  }
+
+  .place-discover-map {
+    width: 100%;
+    left: 0;
+  }
+
+  footer {
+    position: static;
+    width: 100%;
+    display: block;
+  }
+
+  .carousel {
+    overflow: auto;
+    display: block;
+  }
+
+  .carousel button {
+    display: none;
+  }
+
+  .carousel ul {
+    overflow: auto;
+    flex-wrap: wrap;
+  }
+
+  .carousel li {
+    flex-basis: calc(50% - 1.5 * var(--main-margin));
+  }
+}
