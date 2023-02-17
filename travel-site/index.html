@@ -11,7 +11,6 @@
   <link rel="stylesheet" media="screen" href="assets/map.css" />
   <link rel="stylesheet" media="screen" href="assets/carousel.css" />
   <link rel="stylesheet" media="screen" href="assets/media.css" />
-  <link rel="stylesheet" media="screen" href="assets/rating.css" />
   <link rel="stylesheet" media="screen" href="assets/contact-form.css" />
   <link rel="stylesheet" media="screen" href="assets/gallery.css" />
   <link rel="stylesheet" media="screen" href="assets/desktop.css" />
@@ -88,57 +87,19 @@
     <section class="quotes">
       <h2 class="section-title" id="reviews">What other people think</h2>
       <p>Choose your next travel by learning from others</p>
+
+      <!-- Ratings component -->
+      <link rel="stylesheet" media="screen" href="assets/rating.css" />
       <div class="carousel">
         <button class="carousel-prev" title="View previous quote"><span class="sr-only">Previous</span></button>
         <button class="carousel-next" title="View next quote"><span class="sr-only">Next</span></button>
         <ul class="client-quotes">
-          <li class="quote">
-            <div class="rating" data-stars="5"></div>
-            <div class="author">
-              <img src="assets/avatar.png" alt="Amelie Garner's avatar picture" class="avatar" /> Amelie Garner
-            </div>
-            <p>
-              Our trip to Corsica was truly life-changing. From the crystal clear waters of the Mediterranean to the breathtaking mountain summits, every moment was filled with beauty and adventure.
-            </p>
-          </li>
-          <li class="quote">
-            <div class="rating" data-stars="5"></div>
-            <div class="author">
-              <img src="assets/avatar.png" alt="Heidi Liew's avatar picture" class="avatar" /> Heidi Liew
-            </div>
-            <p>
-              I never knew a place could be so picturesque until I visited Corsica. The scenery was beyond anything I've ever seen, and the memories will stay with me forever.
-            </p>
-          </li>
-          <li class="quote">
-            <div class="rating" data-stars="4"></div>
-            <div class="author">
-              <img src="assets/avatar.png" alt="Vladimir Zeman's avatar picture" class="avatar" /> Vladimir Zeman
-            </div>
-            <p>
-              The hospitality we received during our stay in Corsica was second to none. Every staff member went above and beyond to make our vacation unforgettable.
-            </p>
-          </li>
-          <li class="quote">
-            <div class="rating" data-stars="4"></div>
-            <div class="author">
-              <img src="assets/avatar.png" alt="Hannah Haynes's avatar picture" class="avatar" /> Hannah Haynes
-            </div>
-            <p>
-              Our mountain trek in Corsica was the highlight of our trip. The stunning vistas and challenging terrain made for an unforgettable experience.
-            </p>
-          </li>
-          <li class="quote">
-            <div class="rating" data-stars="5"></div>
-            <div class="author">
-              <img src="assets/avatar.png" alt="Ahmad Hakiki's avatar picture" class="avatar" /> Ahmad Hakiki
-            </div>
-            <p>
-              I never realized how much I needed a break from the hustle and bustle of city life until I visited Corsica. The peace and tranquility by the sea was exactly what I needed to recharge.
-            </p>
-          </li>
+          <!-- Filled-in at runtime -->
         </ul>
       </div>
+      <script src="assets/rating.js"></script>
+      <!-- End of ratings component -->
+
     </section>
     <section class="places" id="map">
       <h2 class="section-title">Amazing places</h2>
@@ -181,7 +142,6 @@
       </p>
     </div>
   </footer>
-  <script src="assets/rating.js"></script>
   <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Ap_eazGgpq5468v9MXr7Wu0zh30LQActgaT-tI_QxZQSm-Bd5qJxVKs_2B7NsqR4' async defer></script>
   <script src="assets/map.js"></script>
   <script src="assets/menu.js"></script>
