@@ -1,0 +1,28 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery .column {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.gallery .column img {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.gallery .column img:hover {
+  border: 1px solid #000;
+}

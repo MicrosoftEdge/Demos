@@ -1,0 +1,84 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container form input {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container form select {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container form textarea {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container form button {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-container form button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.form-container form button:active {
+  background-color: #000;
+  color: #fff;
+}
+
+.form-container form button:focus {
+  outline: none;
+}
+
+.form-container form button:disabled {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
