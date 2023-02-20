@@ -13,9 +13,15 @@ async function getRatings() {
 }
 
 async function initRatings() {
+  // Simulate a script that takes a long time to run.
+  let x = 0;
+  for (let i = 0; i < 1000000000; i++) {
+    x *= i;
+  }
+
   const { ratings } = await getRatings();
-  
-  ratings.forEach(rating => {
+
+  for (const rating of ratings) {
     const quoteEl = document.createElement("li");
     quoteEl.classList.add("quote");
 
@@ -39,8 +45,6 @@ async function initRatings() {
     quoteTextEl.textContent = rating.quote;
     quoteEl.appendChild(quoteTextEl);
 
-    clientQuotesEl.appendChild(quoteEl);
-
     const startsEl = document.createElement("div");
     startsEl.classList.add("stars");
     startsEl.style.width = `${ratingEl.dataset.stars * 1.5}rem`;
@@ -51,7 +55,9 @@ async function initRatings() {
     srText.classList.add("sr-only");
     srText.textContent = `${ratingEl.dataset.stars} out of 5 stars`;
     ratingEl.appendChild(srText);
-  });
+
+    clientQuotesEl.appendChild(quoteEl);
+  }
 }
 
 function displayLoadingSpinner(parentEl) {
