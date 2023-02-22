@@ -29,6 +29,12 @@ html {
   }
 }
 
+@media (max-width: 400px) {
+  html {
+    font-size: 11pt;
+  }
+}
+
 input,
 button {
   font-size: inherit;
@@ -259,6 +265,12 @@ button span {
   column-gap: 1rem;
   background-color: var(--back);
   transition: background-color .1s linear;
+}
+
+@media (max-width: 400px) {
+  .playlist-song {
+    padding: .5rem 0;
+  }
 }
 
 .playlist-song:nth-child(2n) {
@@ -724,6 +736,7 @@ input[type="range"]:hover::-moz-range-thumb {
 @media (max-width: 600px) {
   .playlist {
     padding-inline: .5rem;
+    width: unset;
   } 
 }
 
