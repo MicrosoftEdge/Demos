@@ -10,7 +10,18 @@ import { createSongUI, removeAllSongs, createLoadingSongPlaceholders, removeLoad
 import { initMediaSession } from "./media-session.js";
 import { initKeyboardShortcuts } from "./keys.js";
 
-// Whether we are running as an installed PWA or not (see start_url in manifest)
+// Whether the app is running in the Microsoft Edge sidebar.
+const isSidebarPWA = (() => {
+  if (navigator.userAgentData) {
+    return navigator.userAgentData.brands.some(b => {
+      return b.brand === "Edge Side Panel";
+    });
+  }
+
+  return false;
+})();
+
+// Whether we are running as an installed PWA or not.
 const isInstalledPWA = window.matchMedia('(display-mode: window-controls-overlay)').matches ||
                        window.matchMedia('(display-mode: standalone)').matches;
 
@@ -159,7 +170,7 @@ export async function startApp() {
   updateLoop = setInterval(updateUI, 500);
 
   // Show the about dialog if this is the first time the app is started.
-  if (wasStoreEmpty && isFirstUse && !isInstalledPWA) {
+  if (wasStoreEmpty && isFirstUse && !isInstalledPWA && !isSidebarPWA) {
     aboutDialog.showModal();
     isFirstUse = false;
   }
@@ -437,7 +448,7 @@ playlistActionAbout.addEventListener('click', () => {
   }
 });
 
-if (!isInstalledPWA) {
+if (!isInstalledPWA && !isSidebarPWA) {
   window.addEventListener('beforeinstallprompt', e => {
     // Don't let the default prompt go.
     e.preventDefault();
