@@ -132,6 +132,7 @@
       "description": "Widget to control the PWAmp player",
       "tag": "pwamp",
       "ms_ac_template": "widgets/mini-player.json",
+      "data": "widgets/mini-player-data.json",
       "screenshots": [
         {
           "src": "./screenshot-widget.png",
