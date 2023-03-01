@@ -38,6 +38,7 @@ const learnMoreLink = document.querySelector('h1 a');
 const learnMoreDialog = document.querySelector('.learn-more-dialog');
 const exportDBButton = document.querySelector('#db-export-button');
 // const importDBInput = document.querySelector('#db-import-file');
+const persistDBButton = document.querySelector('#make-db-persistent');
 
 const LIST_COLORS = [...moreListActionsDialog.querySelectorAll('.list-colors input')].map(input => input.value);
 
@@ -416,6 +417,22 @@ learnMoreLink.addEventListener('click', e => {
   e.preventDefault();
 
   learnMoreDialog.showModal();
+});
+
+persistDBButton.addEventListener('click', async () => {
+  if (navigator.storage && navigator.storage.persist) {
+    const isPersisted = await navigator.storage.persisted();
+    if (!isPersisted) {
+      try {
+        await navigator.storage.persist();
+        persistDBButton.textContent = "Database is now persistent";
+      } catch (e) {
+        persistDBButton.textContent = "Database could not be persisted";
+      }
+    } else {
+      persistDBButton.textContent = "Database was already persisted";
+    }
+  }
 });
 
 exportDBButton.addEventListener('click', async () => {
