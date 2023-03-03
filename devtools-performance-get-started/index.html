@@ -1,39 +1,41 @@
-<!-- Copyright 06/07/2019 Kayce Basques 
-
-   Licensed under the Apache License, Version 2. 0 (the "License");
-   you may not use this file except in compliance with the License. 
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-   See the License for the specific language governing permissions and
-   limitations under the License.  -->  
-
-<!-- referenced in: https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/ -->
-
 <!doctype html>
-<html>
-  <head>
-    <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
-    <title>Sluggish Animation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <script src="app.js" async></script>
-  </head>
-  <body>
-    <img class="proto mover" src="../shared/img/logo1024.png"/>
-    <div class="controls">
-      <button class="add"></button>
-      <button class="subtract" disabled></button>
-      <button class="stop">Stop</button>
-      <button class="optimize">Optimize</button>
-      <a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/"
-         target="_blank">
-        <button class="optimize">Help</button>
-      </a>
+<html lang="en">
+
+<head>
+  <title>Sluggish Animation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="../shared/img/logo.png">
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+  <div class="controls">
+    <p>This demo page is for the <a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/">Get started analyzing runtime performance</a> tutorial.</p>
+    <p>The page animates multiple elements and the code that runs this animation is slow on purpose. The linked tutorial explains how to use the Performance tool in DevTools to improve performance.</p>
+    <div class="buttons">
+      <button class="more">Add elements</button>
+      <button class="less">Remove elements</button>
     </div>
-  </body>
+    <p>
+      Add more elements to make the animation run less smoothly. Remove elements if it's too slow.
+    </p>
+    <div class="buttons">
+      <label><input type="radio" name="code-version" value="slow" checked>Slow</label>
+      <label><input type="radio" name="code-version" value="optimized">Optimized</label>
+    </div>
+    <p>
+      Toggle between the slow and optimized versions of the animation code.
+    </p>
+    <div class="buttons">
+      <button class="stop">Stop</button>
+    </div>
+    <p>
+      Start and stop the animation.
+    </p>
+  </div>
+  <div class="canvas"></div>
+  <script src="app.js" async></script>
+</body>
+
 </html>

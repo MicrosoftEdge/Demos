@@ -1,59 +1,54 @@
-/* Copyright 06/07/2019 Kayce Basques 
- * 
- * Licensed under the Apache License, Version 2. 0 (the "License");
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at
- * 
- * http://www. apache. org/licenses/LICENSE-2. 0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and
- * limitations under the License. */
-
- * {
-  margin: 0;
-  padding: 0;
+html {
+  font-family: system-ui;
+  font-size: 1rem;
 }
 
-body {
-  height: 100vh;
-  width: 100vw;
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .controls {
-  position: fixed;
-  top: 2vw;
-  left: 2vw;
-  z-index: 1;
-}
-
-.controls button {
-  display: block;
-  font-size: 1em;
-  padding: 1em;
-  margin: 1em;
-  background-color: beige;
-  color: black;
-}
-
-.subtract:disabled {
-  opacity: 0.2;
-}
-
-.mover {
-  height: 3vw;
   position: absolute;
-  z-index: 0;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1;
+  width: 20rem;
+  background: #f1edb2d9;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
-.border {
-  border: 1px solid black;
+.controls > p {
+  margin-block-start: 0;
 }
 
-@media (max-width: 600px) {
-  .controls button {
-    min-width: 20vw;
-  }
+.controls .buttons + p {
+  color: #333;
+  font-size: .8rem;
+  margin-block-start: .5rem;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas .element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background: url(../../shared/img/logo1024.png);
+  background-size: contain;
 }
