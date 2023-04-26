@@ -831,9 +831,11 @@ input[type="range"]:hover::-moz-range-thumb {
 }
 
 /* Duplicated rule needed when the polyfill is used */
-[popover]:not(.\:popover-open) {
-  pointer-events: none;
-  opacity: 0;
+@supports not selector([popover]:popover-open) {
+  [popover]:not(.\:popover-open) {
+    pointer-events: none;
+    opacity: 0;
+  }
 }
 
 .popover-item {
