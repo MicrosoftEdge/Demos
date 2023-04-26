@@ -392,7 +392,7 @@ html:not(.visualizing) .playlist-song.playing .artist {
   font-size: 0;
   place-self: center;
   display: grid;
-  align-content: end;
+  align-content: center;
   cursor: pointer;
 }
 
@@ -825,14 +825,13 @@ input[type="range"]:hover::-moz-range-thumb {
   box-shadow: 0 0 .5rem 0 #0006;
 }
 
-html:not(.no-popup) [popover]:not(:open) {
+[popover]:not(:popover-open) {
   pointer-events: none;
   opacity: 0;
 }
 
-/* This rule is only used in browsers that don't support popover
-   See popup-polyfill.js */
-[popover][hidden] {
+/* Duplicated rule needed when the polyfill is used */
+[popover]:not(.\:popover-open) {
   pointer-events: none;
   opacity: 0;
 }

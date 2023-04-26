@@ -1,4 +1,4 @@
-const VERSION = "v39";
+const VERSION = "v40";
 const CACHE_NAME = `pwamp-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -19,7 +19,7 @@ const INITIAL_CACHED_RESOURCES = [
   "./media-session.js",
   "./parseAudioMetadata.js",
   "./player.js",
-  "./popup-polyfill.js",
+  "./popover.min.js",
   "./protocol-launch-handler.js",
   "./recorder.js",
   "./share-target-launch-handler.js",
