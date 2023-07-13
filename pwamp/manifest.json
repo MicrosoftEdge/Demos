@@ -11,7 +11,9 @@
   "display_override": [
     "window-controls-overlay"
   ],
-  "edge_side_panel": {},
+  "edge_side_panel": {
+    "preferred_width": 496
+  },
   "icons": [
     {
       "src": "./favicon-48.png",
