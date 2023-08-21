@@ -370,7 +370,7 @@
   <div class="sample">
     <h2>Combobox</h2>
     <p>Add a input field to the popover that can be used to filter the options.</p>
-    <p><strong>Note</strong>: the button and popover have different styles whether the popover is visible or not, and whether it's above the button. Some custom JavaScript code is used to detect this using the show/hide popover events.</p>
+    <p><strong>Note</strong>: the button and popover have different styles whether the popover is visible or not, and whether it's above the button.</p>
 
     <style>
       .combobox {
@@ -386,12 +386,12 @@
         text-align: start;
       }
       
-      .combobox[open] button {
+      .combobox:open button {
         border-radius: 4px 4px 0 0;
         border-bottom-color: #f6f4f7;
       }
       
-      .combobox[open].above button {
+      .combobox:open.above button {
         border-radius: 0 0 4px 4px;
         border-bottom-color: #ccc;
         border-top-color: #f6f4f7;
@@ -545,13 +545,6 @@
       combobox.addEventListener('change', () => {
         cbValue.textContent = combobox.value;
       });
-
-      // Detecting if the popover is shown or hidden.
-      // There should be a :open pseudo-class in CSS to do this, but it doesn't
-      // seem to be implemented yet. There is :-internal-popover-hidden that could be
-      // used, but for now, let's do our own thing using the show/hide events.
-      combobox.addEventListener('popovershow', () => combobox.setAttribute('open', ''));
-      combobox.addEventListener('popoverhide', () => combobox.removeAttribute('open'));
 
       // Detecting if the popover is above the button or not.
       // It would be great if there was a pseudo-class for this too.
