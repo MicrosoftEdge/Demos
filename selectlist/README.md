@@ -4,7 +4,7 @@
 
 The purpose of [Open UI](https://open-ui.org/) is to provide the web platform with UI controls that can be styled and extended by web developers.
 
-Open UI is working on [a specification of a new `<selectlist>` element](https://open-ui.org/components/select) and it has been [prototyped in Chromium](https://chromestatus.com/feature/5737365999976448) by the Microsoft Edge team.
+Open UI is working on [a specification of a new `<selectlist>` element](https://open-ui.org/components/selectlist) and it has been [prototyped in Chromium](https://chromestatus.com/feature/5737365999976448) by the Microsoft Edge team.
 
 The [demos](https://microsoftedge.github.io/Demos/selectlist/) in this folder show how this prototype can currently be used to achieve what was once only possible with custom (and often inaccessible) selects.
 
