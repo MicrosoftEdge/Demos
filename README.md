@@ -79,8 +79,8 @@ last sync'd Feb. 2, 2023
 |:---|:---|:---|:---|
 | CSS Custom Highlight API | How to programmatically create and remove custom highlights on a web page. | [/custom-highlight-api/](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [Custom Highlight API](https://microsoftedge.github.io/Demos/custom-highlight-api/) |
 | EyeDropper API | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
-| Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
-| Selectmenu demos | Demo page showing how the Open UI's `<selectmenu>` element can be used. | [/selectmenu/](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [Open UI's \<selectmenu\> demos](https://microsoftedge.github.io/Demos/selectmenu/) |
+| Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectlist>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
+| Selectlist demos | Demo page showing how the Open UI's `<selectlist>` element can be used. | [/selectlist/](https://github.com/MicrosoftEdge/Demos/tree/main/selectlist) | [Open UI's \<selectlist\> demos](https://microsoftedge.github.io/Demos/selectlist/) |
 
 
 ## Adding a new demo
