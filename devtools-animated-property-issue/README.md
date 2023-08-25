@@ -8,4 +8,4 @@ This demo webpage shows two animations. The first one animates the `width` and `
 
 The **Issues** and **Elements** tools now show a warning when an animation that uses a CSS property that requires layout is running on the page.
 
-To learn more, see [Microsoft Edge DevTools 114 What's New](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/whats-new/2023/06/devtools-114#the-issues-tool-and-styles-pane-warn-about-css-properties-that-trigger-layout).
+To learn more, see [The Issues tool and Styles pane warn about CSS properties that trigger Layout](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/whats-new/2023/06/devtools-114#the-issues-tool-and-styles-pane-warn-about-css-properties-that-trigger-layout) in _What's New in DevTools (Microsoft Edge 114)_.
