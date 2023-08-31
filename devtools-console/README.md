@@ -1,15 +1,18 @@
-# DevTools Console panel demo pages
+# DevTools Console tool demo pages
 
-This folder contains the source code for Microsoft Edge DevTools Console panel demos, used for the following articles:
+This folder contains the source code for several Microsoft Edge DevTools Console tool demos. These demos are used in the following articles:
+
 * [Console overview](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/)
 * [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-log)
 * [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-debug-javascript)
+* [Monitor changes in JavaScript using Live Expressions](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/live-expressions)
 
-Live demo pages:
+Below is the list of demo pages:
 
 * [dom-examples.html](https://microsoftedge.github.io/Demos/devtools-console/dom-examples.html)
 * [error-assert.html](https://microsoftedge.github.io/Demos/devtools-console/error-assert.html)
 * [error.html](https://microsoftedge.github.io/Demos/devtools-console/error.html)
+* [live-expressions.html](https://microsoftedge.github.io/Demos/devtools-console/live-expressions.html)
 * [logging-demo.html](https://microsoftedge.github.io/Demos/devtools-console/logging-demo.html)
 * [logging-examples.html](https://microsoftedge.github.io/Demos/devtools-console/logging-examples.html)
 * [logging-types.html](https://microsoftedge.github.io/Demos/devtools-console/logging-types.html)

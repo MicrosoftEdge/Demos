@@ -18,9 +18,15 @@
   body {
     display: grid;
     grid-template-rows: auto 1fr;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 200px 1fr;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12pt;
+  }
+
+  @media (max-width: 550px) {
+    body {
+      grid-template-columns: auto 1fr;
+    }
   }
   
   .controls {
@@ -38,6 +44,7 @@
     box-shadow: 0 3px 0 0 #0004;
     cursor: pointer;
     background-color: #eee;
+    font-size: .7rem;
   }
   
   button:hover {
@@ -55,16 +62,16 @@
     padding: .5rem .5rem calc(.5rem + 3px) .5rem;
     border-radius: 3px;
     background: white;
-    margin-bottom: .5rem;
+    margin-block-end: .5rem;
     cursor: pointer;
     box-shadow: inset 0px -3px 0 0 #0004;
     display: flex;
+    gap: .5rem;
     align-items: center;
   }
   
   .room::before {
     content: '⚫';
-    margin-right: .5rem;
   }
   
   .room:not(.active):hover {
@@ -77,11 +84,11 @@
   }
   
   .room:not(:hover) .close {
-    display: none;
+    visibility: hidden;
   }
   
   .room .close {
-    margin-left: auto;
+    margin-inline-start: auto;
     background: red;
     width: 1rem;
     height: 1rem;
@@ -94,6 +101,14 @@
     color: #858585;
     font-size: .7rem;
     box-shadow: 0 1px 0 0 #ffffff7a;
+  }
+
+  @media (max-width: 550px) {
+    .room {
+      writing-mode: vertical-lr;
+      margin-block-end: 0;
+      margin-inline-end: .5rem;
+    }
   }
   
   .chat {
@@ -130,7 +145,7 @@
   
   .message .time {
     grid-column: 1 / -1;
-    text-align: right;
+    text-align: end;
     border-radius: 0 0 3px 3px;
     padding: 0 .5rem .5rem .5rem;
     font-size: .8rem;
@@ -138,10 +153,10 @@
   }
 </style>
 <div class="controls">
-  <button class="high-traffic">Simulate high traffic</button>
-  <button class="low-traffic">Simulate low traffic</button>
+  <button class="high-traffic">Fast traffic</button>
+  <button class="low-traffic">Slow traffic</button>
   <button class="stop-traffic">Stop</button>
-  <button class="send-message">Send 1 message</button>
+  <button class="send-message">One message</button>
 </div>
 <ul class="rooms">
   <li class="room" data-id="r1">Room 1 <span class="close" title="Leave this room">x</span></li>

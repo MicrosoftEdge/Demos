@@ -106,7 +106,7 @@
       >
         <span>Record an audio clip</span>
       </button>
-      <button class="main-button" id="playlist-actions" title="More tools...">
+      <button class="main-button" id="playlist-actions" popovertarget="playlist-actions-popover" popovertargetaction="toggle" title="More tools...">
         <span>More tools...</span>
       </button>
     </section>
@@ -180,7 +180,7 @@
       </form>
     </dialog>
 
-    <script src="popup-polyfill.js"></script>
+    <script src="popover.min.js"></script>
 
     <script type="module" src="app.js"></script>
     <script type="module" src="file-launch-handler.js"></script>

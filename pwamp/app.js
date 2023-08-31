@@ -148,7 +148,7 @@ export async function startApp() {
     });
 
     playlistSongEl.addEventListener('show-actions', e => {
-      songActionsPopover.showPopover();
+      // songActionsPopover.showPopover();
 
       // TODO: anchoring is not yet supported. Once it is, use the ID passed in the event.
       // This is the ID for the button that was clicked.
@@ -407,7 +407,7 @@ recordAudioButton.addEventListener('click', async () => {
 
 // Manage the more tools button.
 playlistActionsButton.addEventListener('click', () => {
-  playlistActionsPopover.showPopover();
+  // playlistActionsPopover.showPopover();
   playlistActionsPopover.style.left = `${playlistActionsButton.offsetLeft + (playlistActionsButton.offsetWidth / 2) - (playlistActionsPopover.offsetWidth / 2)}px`;
   playlistActionsPopover.style.top = `calc(${playlistActionsButton.offsetTop - playlistActionsPopover.offsetHeight}px - 1rem)`;
 });

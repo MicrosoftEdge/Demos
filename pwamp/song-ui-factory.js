@@ -71,6 +71,8 @@ export function createSongUI(playlistSongsContainer, song, stateLess) {
     const actionsButton = document.createElement("button");
     actionsButton.classList.add('actions');
     actionsButton.setAttribute('title', 'Song actions');
+    actionsButton.setAttribute('popovertarget', 'song-actions-popover');
+    actionsButton.setAttribute('popovertargetaction', 'show');
     actionsButton.innerHTML = '<span>Actions</span>';
     li.appendChild(actionsButton);
 
