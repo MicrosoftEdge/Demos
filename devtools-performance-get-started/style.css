@@ -1,6 +1,6 @@
 html {
   font-family: system-ui;
-  font-size: 1rem;
+  font-size: .85rem;
 }
 
 html, body {
@@ -19,7 +19,7 @@ button {
   top: 2rem;
   left: 2rem;
   z-index: 1;
-  width: 20rem;
+  width: 18rem;
   background: #f1edb2d9;
   border-radius: 1rem;
   padding: 1rem;
