@@ -49,6 +49,6 @@ button {
   left: 0;
   width: 32px;
   height: 32px;
-  background: url(../../shared/img/logo1024.png);
+  background: url(../shared/img/logo1024.png);
   background-size: contain;
 }
