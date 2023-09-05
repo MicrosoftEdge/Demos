@@ -511,8 +511,10 @@
       const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
       const cbValue = combobox.querySelector('.visible-value');
 
-      combobox.addEventListener('click', () => {
-        cbInput.focus();
+      cbpopover.addEventListener('toggle', event => {
+        if (event.newState == 'open') {
+          cbInput.focus();
+        }
       });
 
       cbInput.addEventListener('input', () => {
