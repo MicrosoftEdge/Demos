@@ -1464,7 +1464,7 @@
         background: var(--initial-background-color);
       }
       
-      .word-color button {
+      .word-color .button-container {
         display: flex;
         gap: 1px;
         height: 35px;
@@ -1473,7 +1473,7 @@
         overflow: hidden;
       }
       
-      .word-color button:hover {
+      .word-color .button-container:hover {
         border-color: #c7c7c7;
         background: #c7c7c7;
       }
@@ -1620,7 +1620,7 @@
 
     <div class="word-toolbar">
       <selectlist class="word-color font-color" style="--selected-color:var(--initial-font-color);" title="Font color">
-        <div>
+        <div class=button-container>
           <button class="apply-button"></button>
           <button type=selectlist class="open-button"></button>
         </div>
@@ -1637,9 +1637,9 @@
       </selectlist>
 
       <selectlist class="word-color background-color" style="--selected-color:var(--initial-background-color);" title="Shading">
-        <div>
+        <div class=button-container>
           <button class="apply-button"></button>
-          <button type=listbox class="open-button"></button>
+          <button type=selectlist class="open-button"></button>
         </div>
         <listbox>
           <div class="section theme">
