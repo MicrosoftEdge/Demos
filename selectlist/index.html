@@ -42,9 +42,11 @@
         transform: translateY(47%);
         text-align: center;
         cursor: pointer;
+        border: none;
+        display: block;
       }
       
-      .bubble [popover] {
+      .bubble listbox {
         box-shadow: none;
         margin: 0;
         padding: 0;
@@ -54,7 +56,7 @@
         overflow: hidden;
       }
 
-      .bubble.above [popover] {
+      .bubble.above listbox {
         transform: translateY(35px);
       }
       
@@ -159,7 +161,7 @@
       }
     </style>
     <selectlist class="bubble">
-      <button type=selectlist>
+      <button type=selectlist class=anchor>
         <selectedoption></selectedoption>
       </button>
       <listbox>
