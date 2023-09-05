@@ -353,7 +353,11 @@
 
       let optionHeight = null;
 
-      verticalAlignButton.addEventListener('click', () => {
+      verticalAlignpopover.addEventListener('toggle', event => {
+        if (event.newState != 'open') {
+          return;
+        }
+
         // Initialize the height of an option.
         if (!optionHeight) {
           optionHeight = verticalAlignpopover.querySelector('option').offsetHeight;
