@@ -26,7 +26,7 @@
       .test-cases li {
         padding: 1rem;
         display: grid;
-        grid-template-columns: 1fr 2fr 100px;
+        grid-template-columns: 1fr 2fr auto;
         gap: 0.5rem;
         background: #fffddb;
         border-radius: 0.5rem;
@@ -54,6 +54,9 @@
         background: #0001;
         border-radius: 0.25rem;
         place-self: start stretch;
+        font-size: .8rem;
+        max-width: 100%;
+        overflow-x: auto;
       }
 
       .test-cases button {
@@ -63,19 +66,29 @@
         color: white;
         font-size: inherit;
         font-weight: bold;
-        place-self: center;
+        place-self: center end;
         padding: 0.5rem;
       }
 
-      @media (max-width: 800px) {
+      @media (max-width: 400px) {
         .test-cases li {
-          grid-template-columns: 1fr 100px;
+          grid-template-columns: 1fr;
         }
 
-        .test-cases h2 {
-          grid-column: span 2;
+        .test-cases h2,
+        .test-cases p,
+        .test-cases pre,
+        .test-cases button {
+          grid-column: span 1;
+        }
+      }
+
+      @media (min-width: 401px) and (max-width: 800px) {
+        .test-cases li {
+          grid-template-columns: 1fr auto;
         }
 
+        .test-cases h2,
         .test-cases p {
           grid-column: span 2;
         }
@@ -85,7 +98,7 @@
         }
       }
 
-      @media (min-width: 1600px) {
+      @media (min-width: 1400px) {
         .test-cases {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
