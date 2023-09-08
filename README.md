@@ -49,6 +49,7 @@ last sync'd Feb. 2, 2023
 | Photo gallery demo | Used for [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/). | [/photo-gallery/](https://github.com/MicrosoftEdge/Demos/tree/main/photo-gallery) | [Photo Gallery](https://microsoftedge.github.io/Demos/photo-gallery/) |
 | Workspaces demo | Used for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces Demo](https://microsoftedge.github.io/Demos/workspaces/) |
 | DevTools issue: animating a CSS property that requires layout | A demo used to illustrate the **Issues** and **Elements** tools warning when CSS properties that require layout are animated. | [/devtools-animated-property-issue/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-animated-property-issue) | [Animated CSS property demo](https://microsoftedge.github.io/Demos/devtools-animated-property-issue/) |
+| Explain Console errors and warnings in Bing Chat in the Microsoft Edge sidebar | A demo page that generates errors in the Console that can be explained by the AI-powered Bing Chat in the Microsoft Edge sidebar. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explaining console errors demo](https://microsoftedge.github.io/Demos/devtools-explain-error/) |
 
 
 #### Microsoft Edge extensions
