@@ -152,7 +152,7 @@
 
         {
           error: "SyntaxError: Invalid or unexpected token",
-          note: "This happens when there is a syntax error in the code. It can also happen when using frameworks like Razor, where the code is compiled on the server and then sent to the browser. In that case, it's easy to miss a quote. Sending the right context to the model would be useful for this.",
+          note: "This happens when there is a syntax error in the code. It can also happen when using frameworks like Razor, where the code is compiled on the server and then sent to the browser. In that case, it's easy to miss a quote.",
           code: `
             var foo = '@Url.Action("index","Survey")?id='
                       + @Model.MyGuid+'&languageName='
@@ -176,7 +176,7 @@
 
         {
           error: "TypeError: Cannot read property 'addEventListener' of null",
-          note: "Very common error due to a property being accessed on a null object. But the solution may be subtle. The element may be accessed before it's loaded for example, so the solution isn't to just check if the element is null. Our reply should hopefully help the user find the right solution.",
+          note: "Very common error due to a property being accessed on a null object. But the solution may be subtle. The element may be accessed before it's loaded for example, so the solution isn't to just check if the element is null.",
           code: `
             function swapper() {
               toggleClass(document.getElementById("overlay"), "open");
@@ -240,7 +240,7 @@
 
         {
           error: "RangeError: Maximum call stack size exceeded",
-          note: "A function calling itself too many times, exceeding the max call stack size. It would be good if Bing points the user to the right line of code.",
+          note: "A function calling itself too many times, exceeding the max call stack size.",
           code: `
             function loop(x) {
               if (x >= 1000000000) return;
@@ -274,7 +274,7 @@
 
         {
           error: "SyntaxError: Private field '#element' must be declared in an enclosing class",
-          note: "Using a private field outside of a class. This can sometimes be a result of a typo, like forgetting quotes around an ID selector. Providing the source code in this particular case would help generate a more useful answer.",
+          note: "Using a private field outside of a class. This can sometimes be a result of a typo, like forgetting quotes around an ID selector.",
           code: `
             class Foo {
               #bar = 42;
@@ -285,7 +285,7 @@
 
         {
           error: "RangeError: Invalid time value",
-          note: "Trying to create invalidate dates. Providing the model with the source code would lead to much better results here too.",
+          note: "Trying to create invalidate dates.",
           code: `
             new Date("2014-25-23").toISOString();
           `
