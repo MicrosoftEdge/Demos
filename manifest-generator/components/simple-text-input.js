@@ -1,7 +1,9 @@
-// Component for a simple text input page -- a text label and a text input box.
+// Component for a simple text input field. Optional attributes for a label and placeholder text.
 /*
   Usage:
-  <simple-text-input label="my label" placeholder-text="my placeholder text"/>
+  <simple-text-input label="my label" placeholder-text="my placeholder text"></simple-text-input>
+
+  <simple-text-input></simple-text-input>
 */
 class SimpleTextInput extends HTMLElement {
   constructor() {
@@ -16,12 +18,18 @@ class SimpleTextInput extends HTMLElement {
     // Create the page label
     const inputLabel = document.createElement('p');
     inputLabel.setAttribute("class", "tableitem");
-    inputLabel.textContent = `${this.getAttribute("label")}`;
+    if (this.getAttribute("label")) {
+      inputLabel.textContent = `${this.getAttribute("label")}`;
+    } else {
+      inputLabel.setAttribute("hidden", true);
+    }
 
     // Create the input element
     const inputElement = document.createElement('input');
     inputElement.setAttribute("class", "tableitem");
-    inputElement.setAttribute("placeholder", `${this.getAttribute("placeholder-text")}`);
+    if (this.getAttribute("placeholder-text")) {
+      inputElement.setAttribute("placeholder", `${this.getAttribute("placeholder-text")}`);
+    }
 
     // Style the elements
     const style = document.createElement("style");
