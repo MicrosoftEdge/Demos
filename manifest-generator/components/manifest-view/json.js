@@ -1,4 +1,4 @@
-import Node from "./node.js";
+import "./node.js";
 
 // Define a custom element for representing a JSON document
 const template = document.createElement("template");
@@ -11,6 +11,12 @@ template.innerHTML = `
       max-width: 600px;
       margin: 0 auto;
     }
+    .json::before {
+      content: '{';
+    }
+    .json::after {
+      content: '}';
+    }
   </style>
   <div class="json"></div>
 `;
@@ -20,13 +26,12 @@ class JSONView extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    const jsonValue = this.getAttribute("json");
-    this.json = JSON.parse(decodeURIComponent(jsonValue));
   }
 
   connectedCallback() {
     console.log("connected");
+    const jsonValue = this.getAttribute("json");
+    this.json = JSON.parse(decodeURIComponent(jsonValue));
     this.render();
   }
 
@@ -35,9 +40,23 @@ class JSONView extends HTMLElement {
   }
 
   render() {
-    const json = this.json;
     const jsonView = this.shadowRoot.querySelector(".json");
+    jsonView.addEventListener("click", (e) => {
+      const isCollapsed = jsonView.getAttribute("collapsed") !== null;
+      jsonView.toggleAttribute("collapsed");
+      if (isCollapsed) {
+        jsonView.innerHTML = "";
+        this.renderNodes(jsonView, this.json);
+      } else {
+        jsonView.innerHTML = "...";
+      }
+      e.stopPropagation();
+    });
 
+    this.renderNodes(jsonView, this.json);
+  }
+
+  renderNodes(jsonView, json) {
     Object.keys(json).forEach((key) => {
       const node = document.createElement("json-node");
       var nodeType = typeof json[key];
