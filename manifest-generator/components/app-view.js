@@ -3,6 +3,7 @@
 import "./manifest-view/index.js";
 import "./navigation-view.js";
 import "./page-view.js";
+import "./styled-button.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -32,10 +33,10 @@ template.innerHTML = `
   <div class="app-view">
     <navigation-view current-id="page-1" page-selector="page-view">
       <page-view page-id="page-1" title="Page 1">
-          <p slot="text">Page 1</p>
+        <p slot="text">Page 1</p>
       </page-view> 
       <page-view page-id="page-2" title="Page 2">
-          <p slot="text">Page 2</p>
+        <p slot="text">Page 2</p>
       </page-view>
     </navigation-view>
     <manifest-view></manifest-view>
