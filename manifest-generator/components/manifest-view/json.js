@@ -3,6 +3,7 @@ import Node from "./node.js";
 // Define a custom element for representing a JSON document
 const template = document.createElement("template");
 template.innerHTML = `
+  <link rel="stylesheet" href="styles/defaults.css" />
   <style>
     .json {
       padding: 1rem;

@@ -28,6 +28,7 @@ class ManifestView extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
+      <link rel="stylesheet" href="styles/defaults.css" />
       <style>
         .manifest-view {
           padding: 1rem;

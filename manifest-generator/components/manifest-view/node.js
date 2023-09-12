@@ -1,6 +1,7 @@
 // Define a custom element for representing a JSON node
 const template = document.createElement("template");
 template.innerHTML = `
+  <link rel="stylesheet" href="styles/defaults.css" />
   <style>
     .node {
       display: flex;

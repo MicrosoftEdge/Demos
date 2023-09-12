@@ -1,0 +1,7 @@
+@import url("./styles/defaults.css");
+@import url("./styles/button.css");
+@import url("./styles/input.css");
+
+body {
+  background: var(--c-bkg);
+}
