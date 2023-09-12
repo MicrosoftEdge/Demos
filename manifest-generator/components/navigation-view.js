@@ -3,7 +3,6 @@ import "./styled-button.js";
 const template = document.createElement("template");
 template.innerHTML = `
   <link rel="stylesheet" href="styles/defaults.css" />
-  <link rel="stylesheet" href="styles/button.css" />
   <style> 
     .left-pane {
       height: 100%;
