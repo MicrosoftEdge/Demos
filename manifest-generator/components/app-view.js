@@ -2,6 +2,7 @@
 
 import "./manifest-view/index.js";
 import "./navigation-view.js";
+import "./page-view.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -29,8 +30,13 @@ template.innerHTML = `
     }
   </style>
   <div class="app-view">
-    <navigation-view current-id="1" page-selector="page-view">
-       <!-- pages -->
+    <navigation-view current-id="page-1" page-selector="page-view">
+       <page-view id="page-1" title="Page 1">
+          <p slot="text">Page 1</p>
+      </page-view> 
+      <page-view id="page-2" title="Page 2">
+          <p slot="text">Page 2</p>
+      </page-view>
     </navigation-view>
     <manifest-view></manifest-view>
   </div>
@@ -44,7 +50,7 @@ class AppView extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.navigationView = this.shadowRoot.querySelector("navigation-view");
 
-    this.pageIds = ["1", "2"];
+    this.pageIds = ["page-1", "page-2"];
     this.currentPageIdIndex = 0;
 
     this.navigationView.addEventListener("next", () => this.nextPage());
