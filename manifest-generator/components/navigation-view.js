@@ -30,7 +30,7 @@ template.innerHTML = `
     <div class="page-wrapper">
       <slot></slot>
     </div>
-    <styledbutton class="nav-bar">
+    <div class="nav-bar">
       <styled-button type="secondary" id="prev">prev</styled-button>
       <styled-button type="secondary" id="skip">skip</styled-button>
       <styled-button type="primary" id="next">next</styled-button>
