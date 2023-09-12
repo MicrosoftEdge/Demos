@@ -10,7 +10,7 @@ class PageView extends HTMLElement {
 
     const pageViewTemplate = document.createElement("template");
     pageViewTemplate.innerHTML = `
-    <link rel="stylesheet" href="styles/defaults.css" />
+    <link rel="stylesheet" href="../styles/defaults.css" />
     <style>
       #title {
         text-align: center;

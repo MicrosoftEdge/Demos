@@ -28,7 +28,7 @@ class LongTextInput extends HTMLElement {
       this.#inputElement.setAttribute(
         "placeholder",
         `${this.getAttribute("placeholder-text")}`
-      );∏
+      );
     }
 
     // Style the elements
@@ -42,6 +42,14 @@ class LongTextInput extends HTMLElement {
       flex-direction: column;
     }`;
 
+    const stylesheetDefault = document.createElement("link");
+    stylesheetDefault.setAttribute("rel", "stylesheet");
+    stylesheetDefault.setAttribute("href", "../styles/defaults.css");
+
+    const stylesheetInput = document.createElement("link");
+    stylesheetInput.setAttribute("rel", "stylesheet");
+    stylesheetInput.setAttribute("href", "../styles/input.css");
+
     // Append the text and input elements to the table
     tableWrapper.append(inputLabel);
     tableWrapper.append(this.#inputElement);
@@ -49,6 +57,8 @@ class LongTextInput extends HTMLElement {
     // Append the table and style to the shadow DOM
     shadow.append(tableWrapper);
     shadow.append(style);
+    shadow.append(stylesheetDefault);
+    shadow.append(stylesheetInput);
   }
 
   getUserInput() {

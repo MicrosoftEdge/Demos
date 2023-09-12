@@ -7,6 +7,7 @@
 
 const template = document.createElement("template");
 template.innerHTML = `
+    <link rel="stylesheet" href="../styles/defaults.css" />
     <style>
     .table-item {
             align-self: center;

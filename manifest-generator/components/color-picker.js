@@ -35,6 +35,10 @@ class ColorPicker extends HTMLElement {
         flex-direction: column;
       }`;
 
+    const stylesheet = document.createElement("link");
+    stylesheet.setAttribute("rel", "stylesheet");
+    stylesheet.setAttribute("href", "styles/defaults.css");
+
     // Append the text and input elements to the table
     tableWrapper.append(inputLabel);
     tableWrapper.append(this.#inputElement);
@@ -42,6 +46,7 @@ class ColorPicker extends HTMLElement {
     // Append the table and style to the shadow DOM
     shadow.append(tableWrapper);
     shadow.append(style);
+    shadow.append(stylesheet);
   }
 
   getUserInput() {
