@@ -25,4 +25,4 @@ export const setManifest = (newState) => {
 export const readManifestFromLocalStorage = () => {
   const manifestString = localStorage.getItem("manifest");
   manifestState = JSON.parse(manifestString);
-}
+};

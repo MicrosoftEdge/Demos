@@ -1,8 +1,8 @@
 // A split app-view to show the manifest viewer in the right pane and the editor in the left pane.
 
-import './manifest-view/index.js';
+import "./manifest-view/index.js";
 
-const template = document.createElement('template');
+const template = document.createElement("template");
 template.innerHTML = `
   <style>
     :host {
@@ -35,21 +35,21 @@ template.innerHTML = `
 class AppView extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   connectedCallback() {
-    console.log('connected');
+    console.log("connected");
   }
 
   disconnectedCallback() {
-    console.log('disconnected');
+    console.log("disconnected");
   }
 
   render() {
-    console.log('render');
+    console.log("render");
   }
 }
 
-customElements.define('app-view', AppView);
+customElements.define("app-view", AppView);

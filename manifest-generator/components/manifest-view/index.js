@@ -1,32 +1,32 @@
-import JSONView from './json.js';
+import JSONView from "./json.js";
 
 const json = {
-  "name": "manifest-generator",
-  "short_name": "manifest-generator",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#fff",
-  "theme_color": "#fff",
-  "description": "A simple tool to generate a web app manifest",
-  "icons": [
+  name: "manifest-generator",
+  short_name: "manifest-generator",
+  start_url: "/",
+  display: "standalone",
+  background_color: "#fff",
+  theme_color: "#fff",
+  description: "A simple tool to generate a web app manifest",
+  icons: [
     {
-      "src": "https://manifest-gen.now.sh/static/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      src: "https://manifest-gen.now.sh/static/icon-192x192.png",
+      sizes: "192x192",
+      type: "image/png",
     },
     {
-      "src": "https://manifest-gen.now.sh/static/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+      src: "https://manifest-gen.now.sh/static/icon-512x512.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
 };
 
 // create a web component
 class ManifestView extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
       <style>
         .manifest-view {
@@ -38,27 +38,28 @@ class ManifestView extends HTMLElement {
       </style>
       <div class="manifest-view">
         <h2>Manifest</h2>
-        <json-view json="${encodeURIComponent(JSON.stringify(json))}"></json-view>
+        <json-view json="${encodeURIComponent(
+          JSON.stringify(json)
+        )}"></json-view>
       </div>
     `;
   }
 
   connectedCallback() {
-    console.log('connected');
+    console.log("connected");
   }
 
   disconnectedCallback() {
-    console.log('disconnected');
+    console.log("disconnected");
   }
 
   render() {
-    console.log('render');
+    console.log("render");
   }
 }
 
-
 // create a web component
-customElements.define('manifest-view', ManifestView);
+customElements.define("manifest-view", ManifestView);
 
 // export to use in other files
 export default ManifestView;
