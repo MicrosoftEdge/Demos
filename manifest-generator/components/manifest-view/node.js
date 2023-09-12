@@ -35,14 +35,9 @@ class Node extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("connected");
     this.key = this.getAttribute("key");
     this.value = this.getAttribute("value");
     this.render();
-  }
-
-  disconnectedCallback() {
-    console.log("disconnected");
   }
 
   observedAttributes() {

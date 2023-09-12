@@ -10,6 +10,7 @@ class PageView extends HTMLElement {
 
     const pageViewTemplate = document.createElement("template");
     pageViewTemplate.innerHTML = `
+    <link rel="stylesheet" href="styles/defaults.css" />
     <style>
       #title {
         text-align: center;
@@ -17,7 +18,7 @@ class PageView extends HTMLElement {
     </style>
 
     <h1 id="title">${this.getAttribute("title")}</h1>
-    <slot name="my-text">My Default Text</slot>`;
+    <slot name="text">My Default Text</slot>`;
 
     // Create a shadow root
     this.attachShadow({ mode: "open" });
@@ -25,10 +26,9 @@ class PageView extends HTMLElement {
 
     // Set the id field based on the id attribute
     this.#id = this.getAttribute("page-id");
-    console.log("this page's ID is = " + this.#id);
   }
 
-  getId() {
+  get pageId() {
     return this.#id;
   }
 }
