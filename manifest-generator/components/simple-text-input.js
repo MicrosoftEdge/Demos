@@ -1,10 +1,6 @@
 // Component for a simple text input field. Optional attributes for a label and placeholder text.
-/*
-  Usage:
-  <simple-text-input label="my label" placeholder-text="my placeholder text"></simple-text-input>
+// See simple-text-input-example.html for usage examples.
 
-  <simple-text-input></simple-text-input>
-*/
 class SimpleTextInput extends HTMLElement {
   constructor() {
     super();
