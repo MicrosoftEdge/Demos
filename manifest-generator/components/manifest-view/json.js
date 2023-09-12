@@ -32,11 +32,12 @@ class JSONView extends HTMLElement {
     console.log("connected");
     const jsonValue = this.getAttribute("json");
     this.json = JSON.parse(decodeURIComponent(jsonValue));
+
     this.render();
   }
 
   disconnectedCallback() {
-    console.log("disconnected");
+    // console.log("disconnected");
   }
 
   render() {

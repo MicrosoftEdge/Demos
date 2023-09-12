@@ -47,15 +47,15 @@ class ManifestView extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("connected");
+    // console.log("connected");
   }
 
   disconnectedCallback() {
-    console.log("disconnected");
+    // console.log("disconnected");
   }
 
   render() {
-    console.log("render");
+    // console.log("render");
   }
 }
 

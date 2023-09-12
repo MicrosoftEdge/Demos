@@ -1,9 +1,11 @@
 // A split app-view to show the manifest viewer in the right pane and the editor in the left pane.
 
 import "./manifest-view/index.js";
+import "./navigation-view.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
+  <link rel="stylesheet" href="styles/defaults.css" />
   <style>
     :host {
       display: flex;
@@ -27,7 +29,9 @@ template.innerHTML = `
     }
   </style>
   <div class="app-view">
-    <placeholder-component></placeholder-component>
+    <navigation-view current-id="1" page-selector="page-view">
+       <!-- pages -->
+    </navigation-view>
     <manifest-view></manifest-view>
   </div>
 `;
@@ -35,20 +39,39 @@ template.innerHTML = `
 class AppView extends HTMLElement {
   constructor() {
     super();
+
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.navigationView = this.shadowRoot.querySelector("navigation-view");
+
+    this.pageIds = ["1", "2"];
+    this.currentPageIdIndex = 0;
+
+    this.navigationView.addEventListener("next", () => this.nextPage());
+    this.navigationView.addEventListener("prev", () => this.prevPage());
+    this.navigationView.addEventListener("skip", () => this.skipPage());
   }
 
-  connectedCallback() {
-    console.log("connected");
+  nextPage() {
+    this.jumpToPage(
+      Math.min(this.currentPageIdIndex + 1, this.pageIds.length - 1)
+    );
   }
 
-  disconnectedCallback() {
-    console.log("disconnected");
+  prevPage() {
+    this.jumpToPage(Math.max(this.currentPageIdIndex - 1, 0));
   }
 
-  render() {
-    console.log("render");
+  skipPage() {
+    Math.min(this.currentPageIdIndex + 1, this.pageIds.length - 1);
+  }
+
+  jumpToPage(pageIndex) {
+    this.currentPageIdIndex = pageIndex;
+    this.navigationView.setAttribute(
+      "current-id",
+      this.pageIds[this.currentPageIdIndex]
+    );
   }
 }
 
