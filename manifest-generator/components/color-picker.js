@@ -4,10 +4,10 @@
   <color-picker label="my label" placeholder-text="my placeholder text"/>
 */
 class ColorPicker extends HTMLElement {
-  inputElement;
+  #inputElement;
   constructor() {
     super();
-    this.inputElement = document.createElement("input");
+    this.#inputElement = document.createElement("input");
 
     // Create a shadow root
     const shadow = this.attachShadow({ mode: "open" });
@@ -21,8 +21,8 @@ class ColorPicker extends HTMLElement {
     inputLabel.textContent = `${this.getAttribute("label")}`;
 
     // Create the input element
-    this.inputElement.setAttribute("type", "color");
-    this.inputElement.setAttribute("class", "tableitem");
+    this.#inputElement.setAttribute("type", "color");
+    this.#inputElement.setAttribute("class", "tableitem");
 
     // Style the elements
     const style = document.createElement("style");
@@ -37,7 +37,7 @@ class ColorPicker extends HTMLElement {
 
     // Append the text and input elements to the table
     tableWrapper.append(inputLabel);
-    tableWrapper.append(this.inputElement);
+    tableWrapper.append(this.#inputElement);
 
     // Append the table and style to the shadow DOM
     shadow.append(tableWrapper);
@@ -45,7 +45,7 @@ class ColorPicker extends HTMLElement {
   }
 
   getUserInput() {
-    return this.inputElement.value;
+    return this.#inputElement.value;
   }
 }
 

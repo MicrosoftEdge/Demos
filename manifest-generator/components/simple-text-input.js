@@ -2,6 +2,7 @@
 // See simple-text-input-example.html for usage examples.
 
 class SimpleTextInput extends HTMLElement {
+  #inputElement;
   constructor() {
     super();
 
@@ -13,7 +14,7 @@ class SimpleTextInput extends HTMLElement {
 
     // Create the page label
     const inputLabel = document.createElement("p");
-    inputLabel.setAttribute("class", "tableitem");
+    inputLabel.setAttribute("class", "table-item");
     if (this.getAttribute("label")) {
       inputLabel.textContent = `${this.getAttribute("label")}`;
     } else {
@@ -21,10 +22,10 @@ class SimpleTextInput extends HTMLElement {
     }
 
     // Create the input element
-    const inputElement = document.createElement("input");
-    inputElement.setAttribute("class", "tableitem");
+    this.#inputElement = document.createElement("input");
+    this.#inputElement.setAttribute("class", "table-item");
     if (this.getAttribute("placeholder-text")) {
-      inputElement.setAttribute(
+      this.#inputElement.setAttribute(
         "placeholder",
         `${this.getAttribute("placeholder-text")}`
       );
@@ -32,7 +33,7 @@ class SimpleTextInput extends HTMLElement {
 
     // Style the elements
     const style = document.createElement("style");
-    style.textContent = `.tableitem {
+    style.textContent = `.table-item {
       align-self: center;
     }
   
@@ -43,11 +44,15 @@ class SimpleTextInput extends HTMLElement {
 
     // Append the text and input elements to the table
     tableWrapper.append(inputLabel);
-    tableWrapper.append(inputElement);
+    tableWrapper.append(this.#inputElement);
 
     // Append the table and style to the shadow DOM
     shadow.append(tableWrapper);
     shadow.append(style);
+  }
+
+  getUserInput() {
+    return this.#inputElement.value;
   }
 }
 
