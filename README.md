@@ -98,10 +98,6 @@ To add a new demo:
 
 1. Edit the code (such as `index.html` or `style.css`) in the new directory. Add any files you need.
 
-1. Use the shared CSS, JS, and images from the `shared` directory.
-
-   The template demo already links to the shared CSS, JS, and images. This avoids having to repeat basic styling and typography CSS code, or having to create your own images.
-
 1. Add a link to your demo in this `README.md` file, in a new row in one of the tables.
 
 

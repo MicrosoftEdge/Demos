@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2" />
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="manifest" href="./manifest.json">
+    <title>timer</title>
+  </head>
+  <body>
+    <h1>Timer</h1>
+    <form>
+      Remind me to
+      <input type="text" id="reminder" placeholder="wake up" value="take a break" />
+      in
+      <input type="number" id="time-qty" placeholder="10" value="5" />
+      <select id="time-unit" title="Time unit">
+        <option value="seconds" selected>seconds</option>
+        <option value="minutes">minutes</option>
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+      </select>
+      <button id="set-timer" type="submit">Set timer</button>
+    </form>
+
+    <ul class="timers"></ul>
+
+    <script src="./script.js"></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js', { scope: './' });
+      }
+    </script>
+  </body>
+</html>
