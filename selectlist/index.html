@@ -42,9 +42,11 @@
         transform: translateY(47%);
         text-align: center;
         cursor: pointer;
+        border: none;
+        display: block;
       }
       
-      .bubble [popover] {
+      .bubble listbox {
         box-shadow: none;
         margin: 0;
         padding: 0;
@@ -54,7 +56,7 @@
         overflow: hidden;
       }
 
-      .bubble.above [popover] {
+      .bubble.above listbox {
         transform: translateY(35px);
       }
       
@@ -159,10 +161,10 @@
       }
     </style>
     <selectlist class="bubble">
-      <div class="anchor" slot="button" behavior="button">
-        <span behavior="selected-value"></span>
-      </div>
-      <div popover slot="listbox" behavior="listbox">
+      <button type=selectlist class=anchor>
+        <selectedoption></selectedoption>
+      </button>
+      <listbox>
         <div class="listbox-inner">
           <div class="smileys">
             <div class="left"></div>
@@ -210,12 +212,12 @@
             <option value="">😜</option>
           </div>
         </div>
-      </div>
+      </listbox>
     </selectlist>
     <script>
       const bubbleSelect = document.querySelector('.bubble');
-      const bubbleButton = bubbleSelect.querySelector('[slot="button"]');
-      const bubbleListbox = bubbleSelect.querySelector('[slot="listbox"]');
+      const bubbleButton = bubbleSelect.querySelector('button');
+      const bubbleListbox = bubbleSelect.querySelector('listbox');
 
       bubbleSelect.addEventListener('popovershow', e => {
         // Reset the class we use to know if the document was scrolled.
@@ -300,7 +302,7 @@
         color: #5f6368;
       }
       
-      .vertical-align [popover] {
+      .vertical-align listbox {
         padding: 0;
         border-radius: 0;
         border: 0;
@@ -317,7 +319,7 @@
         background-color: #eee;
       }
       
-      .vertical-align [popover] {
+      .vertical-align listbox {
         animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popover;
         opacity: 0;
       }
@@ -329,11 +331,11 @@
       }
     </style>
     <selectlist class="vertical-align">
-      <button slot="button" behavior="button">
+      <button type=selectlist>
         <label>Vegetable</label>
-        <span slot="selected-value" behavior="selected-value"></span>
+        <selectedoption></selectedoption>
       </button>
-      <div popover slot="listbox" behavior="listbox">
+      <listbox>
         <option value="Courgette">Courgette</option>
         <option value="Aubergine">Aubergine</option>
         <option value="Carrot">Carrot</option>
@@ -342,16 +344,20 @@
         <option value="Lettuce">Lettuce</option>
         <option value="Pumpkin">Pumpkin</option>
         <option value="Pepper">Pepper</option>
-      </div>
+      </listbox>
     </selectlist>
     <script>
       const verticalAlignSelect = document.querySelector('.vertical-align');
       const verticalAlignButton = verticalAlignSelect.querySelector('button');
-      const verticalAlignpopover = verticalAlignSelect.querySelector('[popover]');
+      const verticalAlignpopover = verticalAlignSelect.querySelector('listbox');
 
       let optionHeight = null;
 
-      verticalAlignButton.addEventListener('click', () => {
+      verticalAlignpopover.addEventListener('toggle', event => {
+        if (event.newState != 'open') {
+          return;
+        }
+
         // Initialize the height of an option.
         if (!optionHeight) {
           optionHeight = verticalAlignpopover.querySelector('option').offsetHeight;
@@ -397,7 +403,7 @@
         border-top-color: #f6f4f7;
       }
       
-      .combobox [popover] {
+      .combobox listbox {
         box-shadow: none;
         padding: 5px;
         margin: -1px 0 0 0;
@@ -408,7 +414,7 @@
         box-sizing: border-box;
       }
       
-      .combobox.above [popover] {
+      .combobox.above listbox {
         border-radius: 4px 4px 0 0;
         border-width: 1px 1px 0;
       }
@@ -444,11 +450,11 @@
     </style>
 
     <selectlist class="combobox">
-      <button slot="button" behavior="button">
-        <span behavior="selected-value" hidden></span>
+      <button type=selectlist>
+        <selectedoption hidden></selectedoption>
         <span class="visible-value">Felids</span>
       </button>
-      <div popover slot="listbox" behavior="listbox">
+      <listbox>
         <input type="search">
         <div class="options" tabindex="-1">
           <option value="Asian golden cat">Asian golden cat</option>
@@ -493,20 +499,22 @@
           <option value="Snow leopard">Snow leopard</option>
           <option value="Tiger">Tiger</option>
         </div>
-      </div>
+      </listbox>
     </selectlist>
 
     <script>
       const combobox = document.querySelector('.combobox');
       const cbButton = combobox.querySelector('button');
-      const cbpopover = combobox.querySelector('[popover]');
+      const cbpopover = combobox.querySelector('listbox');
       const cbInput = combobox.querySelector('input[type="search"]');
       const cbOptionsContainer = combobox.querySelector('.options');
       const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
       const cbValue = combobox.querySelector('.visible-value');
 
-      combobox.addEventListener('click', () => {
-        cbInput.focus();
+      cbpopover.addEventListener('toggle', event => {
+        if (event.newState == 'open') {
+          cbInput.focus();
+        }
       });
 
       cbInput.addEventListener('input', () => {
@@ -567,7 +575,7 @@
     <p>Allow selecting multiple options from the list, displaying them in the button.</p>
 
     <style>
-      .multiselect [slot="button"] {
+      .multiselect button {
         background-color: rgb(255, 255, 255);
         border-width: 1px;
         border-style: solid;
@@ -578,7 +586,7 @@
         min-height: 32px;
       }
       
-      .multiselect:focus-within [slot="button"] {
+      .multiselect:focus-within button {
         box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
         border-right-width: 1px !important;
         border-color: #40a9ff;
@@ -654,9 +662,9 @@
     </style>
 
     <selectlist class="multiselect">
-      <div slot="button" behavior="button">
+      <button type=selectlist>
         <ul class="selected-values"></ul>
-      </div>
+      </button>
       <option value="Broccolini">Broccolini</option>
       <option value="Pancetta">Pancetta</option>
       <option value="Potato">Potato</option>
@@ -814,8 +822,8 @@
     </style>
 
     <selectlist class="gitpod">
-      <button slot="button" behavior="button">
-        <span slot="selected-value" behavior="selected-value"></span>
+      <button type=selectlist>
+        <selectedoption></selectedoption>
       </button>
       <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
       <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
@@ -837,7 +845,7 @@
         border: 1px solid #ccc;
       }
       
-      .scrollable [popover] {
+      .scrollable listbox {
         width: max-content;
         height: max-content;
         padding: 0;
@@ -871,7 +879,7 @@
     </style>
 
     <selectlist class="scrollable">
-      <div popover slot="listbox" behavior="listbox">
+      <listbox>
         <div class="indicator before">▲</div>
         <div class="scroller">
           <option value="afghanistan">Afghanistan</option>
@@ -1071,12 +1079,12 @@
           <option value="zimbabwe">Zimbabwe</option>
         </div>
         <div class="indicator after">▼</div>
-      </div>
+      </listbox>
     </selectlist>
 
     <script>
       const scrollableSelect = document.querySelector('.scrollable');
-      const scrollablepopover = scrollableSelect.querySelector('[popover]');
+      const scrollablepopover = scrollableSelect.querySelector('listbox');
       const scrollableScroller = scrollableSelect.querySelector('.scroller');
 
       let scrollableDir = 0;
@@ -1152,7 +1160,7 @@
         cursor: pointer;
       }
       
-      .gh-sort [popover] {
+      .gh-sort listbox {
         border-radius: 6px;
         border: 1px solid #d0d7de;
         box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
@@ -1221,7 +1229,7 @@
       }
     </style>
     <selectlist class="gh-sort">
-      <div popover slot="listbox" behavior="listbox">
+      <listbox>
         <header>Sort by</header>
         <div class="standard">
           <option value="newest">Newest</option>
@@ -1242,7 +1250,7 @@
           <option value="ship"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png"></option>
           <option value="looking"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f440.png"></option>
         </div>
-      </div>
+      </listbox>
     </selectlist>
   </div>
 
@@ -1311,7 +1319,7 @@
         transform: scaleY(-1);
       }
       
-      .dribbble-filters .filter [popover] {
+      .dribbble-filters .filter listbox {
         border-radius: .3rem;
         border: none;
         box-shadow: 0 0 .3rem rgba(0, 0, 0, .25);
@@ -1393,9 +1401,9 @@
       <div class="filter" style="width:12rem;">
         <label for="timeframe-filter">Timeframe</label>
         <selectlist id="timeframe-filter">
-          <div slot="button" behavior="button">
-            <button behavior="selected-value"></button>
-          </div>
+          <button type=selectlist>
+            <selectedoption></selectedoption>
+          </button>
           <option value="now" checked>Now</option>
           <option value="week">This Past Week</option>
           <option value="month">This Past Month</option>
@@ -1407,9 +1415,9 @@
       <div class="filter color-type" style="width:6rem;">
         <label for="color-filter">Color</label>
         <selectlist id="color-filter">
-          <div slot="button" behavior="button">
-            <button behavior="selected-value"></button>
-          </div>
+          <button type=selectlist>
+            <selectedoption></selectedoption>
+          </button>
           <option value="r" checked>Red</option>
           <option value="g">Green</option>
           <option value="b">Blue</option>
@@ -1419,9 +1427,9 @@
       <div class="filter browser-type" style="width:8rem;">
         <label for="browser-filter">Browser</label>
         <selectlist id="browser-filter">
-          <div slot="button" behavior="button">
-            <button behavior="selected-value"></button>
-          </div>
+          <button type=selectlist>
+            <selectedoption></selectedoption>
+          </button>
           <option value="edge" checked>Edge</option>
           <option value="chrome">Chrome</option>
           <option value="firefox">Firefox</option>
@@ -1456,7 +1464,7 @@
         background: var(--initial-background-color);
       }
       
-      .word-color [slot="button"] {
+      .word-color .button-container {
         display: flex;
         gap: 1px;
         height: 35px;
@@ -1465,7 +1473,7 @@
         overflow: hidden;
       }
       
-      .word-color [slot="button"]:hover {
+      .word-color .button-container:hover {
         border-color: #c7c7c7;
         background: #c7c7c7;
       }
@@ -1525,7 +1533,7 @@
         transform: translateX(4px) rotate(45deg);
       }
       
-      .word-color [popover] {
+      .word-color listbox {
         padding: 0;
         border: 1px solid #ddd;
       }
@@ -1612,11 +1620,11 @@
 
     <div class="word-toolbar">
       <selectlist class="word-color font-color" style="--selected-color:var(--initial-font-color);" title="Font color">
-        <div slot="button">
+        <div class=button-container>
           <button class="apply-button"></button>
-          <button behavior="button" class="open-button"></button>
+          <button type=selectlist class="open-button"></button>
         </div>
-        <div popover slot="listbox" behavior="listbox">
+        <listbox>
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
@@ -1625,15 +1633,15 @@
           </div>
           <option class="action" value="none">No Color</option>
           <option class="action" value="more">More Colors...</option>
-        </div>
+        </listbox>
       </selectlist>
 
       <selectlist class="word-color background-color" style="--selected-color:var(--initial-background-color);" title="Shading">
-        <div slot="button">
+        <div class=button-container>
           <button class="apply-button"></button>
-          <button behavior="button" class="open-button"></button>
+          <button type=selectlist class="open-button"></button>
         </div>
-        <div popover slot="listbox" behavior="listbox">
+        <listbox>
           <div class="section theme">
             <div class="color-grid"></div>
           </div>
@@ -1642,7 +1650,7 @@
           </div>
           <option class="action" value="none">No Color</option>
           <option class="action" value="more">More Colors...</option>
-        </div>
+        </listbox>
       </selectlist>
 
       <span class="sample-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
