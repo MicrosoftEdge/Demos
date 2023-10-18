@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Console tool DOM interactions demo</title>
+  <style>
+    body {
+      font-size: .8rem;
+      margin: 2rem;
+      font-family: system-ui, sans-serif;
+    }
+
+    main {
+      display: grid;
+      margin: 1rem 0;
+      gap: .5rem;
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    }
+
+    section {
+      padding: 1rem;
+      background: #fdf8f8;
+      border-radius: .5rem;
+      text-align: center;
+      align-self: start;
+    }
+
+    .header-wrapper {
+      display: flex;
+      gap: .2rem;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 .5rem 0;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .header-wrapper h2 {
+      margin: 0;
+    }
+
+    .header-wrapper a {
+      height: 1rem;
+      font-size: .7rem;
+      text-decoration: none;
+    }
+
+    .header-wrapper a::before {
+      content: "🔗";
+    }
+
+    img {
+      width: 100%;
+      margin-block-start: 1rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1rem;
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    .lightbox img {
+      width: calc(80% - 2rem);
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Interact with the DOM using the Console</h1>
+  <p>This is a demo page for the <a
+      href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-dom-interaction">Interact
+      with the DOM using the Console</a> Microsoft Edge DevTools tutorial.</p>
+  <p>It contains a variety of DOM elements that you can interact with using the Console.</p>
+
+  <main>
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-1"></a>
+        <h2 id="section-1">Section 1</h2>
+      </div>
+      <ul>
+        <li><a href="https://microsoft.com">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+        <li><a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/">Link 4</a></li>
+        <li><a href="#">Link 5</a></li>
+        <li><a href="#">Link 6</a></li>
+      </ul>
+      <img src="img/alpaca.jpg" alt="An alpaca">
+    </section>
+
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-2"></a>
+        <h2 id="section-2">Section 2</h2>
+      </div>
+      <ul>
+        <li><a href="#">Link 7</a></li>
+        <li><a href="#">Link 8</a></li>
+        <li><a
+            href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-dom-interaction">Link
+            9</a></li>
+      </ul>
+      <img src="img/cat.jpg" alt="A cat">
+    </section>
+
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-3"></a>
+        <h2 id="section-3">Section 3</h2>
+      </div>
+      <ul>
+        <li><a href="#">Link 10</a></li>
+        <li><a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/">Link 11</a></li>
+        <li><a href="#">Link 12</a></li>
+        <li><a href="https://microsoft.com">Link 13</a></li>
+        <li><a href="#">Link 14</a></li>
+        <li><a href="#">Link 15</a></li>
+      </ul>
+      <img src="img/deer.jpg" alt="A deer">
+    </section>
+
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-4"></a>
+        <h2 id="section-4">Section 4</h2>
+      </div>
+      <ul>
+        <li><a
+            href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-dom-interaction">Link
+            16</a></li>
+        <li><a href="#">Link 17</a></li>
+      </ul>
+      <img src="img/horse.jpg" alt="A horse">
+    </section>
+
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-5"></a>
+        <h2 id="section-5">Section 5</h2>
+      </div>
+      <ul>
+        <li><a href="#">Link 18</a></li>
+        <li><a href="https://microsoft.com">Link 19</a></li>
+        <li><a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/">Link 20</a></li>
+        <li><a href="https://microsoft.com">Link 21</a></li>
+        <li><a href="#">Link 22</a></li>
+        <li><a href="#">Link 23</a></li>
+        <li><a href="#">Link 24</a></li>
+      </ul>
+      <img src="img/sheep.jpg" alt="A sheep">
+    </section>
+
+    <section>
+      <div class="header-wrapper">
+        <a href="#section-6"></a>
+        <h2 id="section-6">Section 6</h2>
+      </div>
+      <ul>
+        <li><a
+            href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-dom-interaction">Link
+            25</a></li>
+        <li><a href="#">Link 26</a></li>
+        <li><a href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/">Link 27</a></li>
+        <li><a href="https://microsoft.com">Link 28</a></li>
+      </ul>
+      <img src="img/socke.jpg" alt="A socke">
+    </section>
+  </main>
+
+  <div class="lightbox"></div>
+
+  <script>
+    const lightboxEl = document.querySelector(".lightbox");
+
+    function showImage(event) {
+      const img = event.target;
+      lightboxEl.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+      lightboxEl.classList.add("show");
+    }
+
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("click", showImage);
+    })
+
+    lightboxEl.addEventListener("click", e => {
+      lightboxEl.classList.remove("show");
+    });
+  </script>
+
+</body>
+
+</html>
