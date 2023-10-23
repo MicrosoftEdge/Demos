@@ -4,7 +4,7 @@ var intervalId,
   closures = [];
 
 function createLargeClosure() {
-  var largeStr = new Array(1000000).join("x");
+  var largeStr = 'x'.repeat(1000000).toLowerCase();
   return function lC() {
     // this IS a named function
     return largeStr;
@@ -12,7 +12,7 @@ function createLargeClosure() {
 }
 
 function createLargeClosureUnnamed() {
-  var largeStr = new Array(1000000).join("x");
+  var largeStr = 'x'.repeat(1000000).toLowerCase();
   return function() {
     // this IS NOT a named function
     return largeStr;
@@ -21,7 +21,7 @@ function createLargeClosureUnnamed() {
 
 function createSmallClosure() {
   var smallStr = "x";
-  var largeStr = new Array(1000000).join("x");
+  var largeStr = 'x'.repeat(1000000).toLowerCase();
   return function sC() {
     return smallStr;
   };
@@ -29,7 +29,7 @@ function createSmallClosure() {
 
 function createEvalClosure() {
   var smallStr = "x";
-  var largeStr = new Array(1000000).join("x");
+  var largeStr = 'x'.repeat(1000000).toLowerCase();
   return function eC() {
     eval("");
     return smallStr;
