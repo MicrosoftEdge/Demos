@@ -15,18 +15,18 @@ header {
   position: sticky;
   top: 0;
   z-index: 3;
+  flex-wrap: wrap;
 }
 #sidebar {
   flex: 1;  
   order: 2;
-  min-width: 10em;
+  min-width: 5em;
   padding: 0 1em;
   margin-top: 2em;
 }
 main {
   flex: 6;
   order: 3;
-  min-width: 20em;
   margin-top: 1em;
 }
 section {
@@ -35,7 +35,7 @@ section {
   flex-wrap: wrap;
 }
 article {
-  padding: 1em 2em 0 1em;
+  padding: 1em 1em 0 1em;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -43,8 +43,7 @@ article {
   scroll-margin-top: 5em;
 }
 article img {
-  flex: 0 0 100%;
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 .articletext {
@@ -71,17 +70,18 @@ header form {
   align-items: center;
   display: flex;
   flex: 1;
-  flex-grow:inherit;
   gap: 1em;
 }
 header label {
-  flex: 1;
+  margin-inline-start: auto;
 }
 header input[type=search] {
   flex: 2;
   font-family: inherit;
   font-size: 1em;
   border: none;
+  width: 1rem;
+  overflow: hidden;
 }
 header input[type=submit] {
   flex: 1;
@@ -152,6 +152,11 @@ header input[type=submit] {
   position: -webkit-sticky;
   position: sticky;
   top: 2.8em;
+}
+@media (max-width: 315px) {
+  #sitenavigation {
+    top: 4.4em;
+  }
 }
 #sitenavigation ul {
   display: flex;
@@ -255,6 +260,7 @@ header h1 {
   margin:0;
   padding: 0;
   font-weight: lighter;
+  white-space: nowrap;
 }
 h2 {
   flex: 0 0 100%;
