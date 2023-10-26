@@ -17,7 +17,7 @@ function onClick() {
     label.textContent = "Error: one or both inputs are empty.";
     return;
   }
-  /* <!-- # throw "whoops"; -->  */
+
   updateLabel();
 }
 function inputsAreEmpty() {
