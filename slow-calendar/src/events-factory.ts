@@ -4,7 +4,8 @@ async function fetchData() {
   // Simulate a slower API endpoint call.
   console.log("Fetching calendar data ...");
   await new Promise(resolve => setTimeout(resolve, Math.random() * 500));
-  const response = await fetch('./data.json');
+  // Adding a cache buster to the URL to force a reload of the data.
+  const response = await fetch(`./data.json?cacheBuster=${Date.now()}`);
   return await response.json();
 }
 
