@@ -303,6 +303,14 @@
             new Date("2014-25-23").toISOString();
           `
         },
+
+        {
+          error: "Access to fetch at '...' from origin '...' has been blocked by CORS policy",
+          note: "Trying to access a resource from a different origin, but the server doesn't allow it.",
+          code: `
+            fetch("https://www.microsoft.com/");
+          `
+        }
       ];
 
       const testCasesEl = document.querySelector(".test-cases");
