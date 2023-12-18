@@ -7,14 +7,19 @@
 
 html {
   font-family: system-ui;
-  font-size: .8rem;
+  font-size: clamp(.6rem, 2vw, .8rem);
 }
 
 html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  overflow-x: auto;
   height: 100%;
+}
+
+body {
+  min-width: 350px;
 }
 
 button {
@@ -41,8 +46,18 @@ button:active {
   display: grid;
   gap: 1rem;
   grid-template-rows: max-content 1fr;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr clamp(100px, 25%, 200px);
   background-color: var(--background-color);
+}
+
+@media (max-width: 400px) {
+  #app {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+  #sidebar {
+    display: none;
+  }
 }
 
 #toolbar {
