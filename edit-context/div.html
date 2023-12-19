@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Context API</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    #editor {
+      font-family: consolas, monospace;
+      background: #ccc;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+    }
+    #editor.is-composing {
+      background: lightblue;
+    }
+
+    ::highlight(ime-format-solid-thin) {text-decoration: underline 1px;}
+    ::highlight(ime-format-solid-thick) {text-decoration: underline 2px;}
+    ::highlight(ime-format-double-thin) {text-decoration: underline double 1px;}
+    ::highlight(ime-format-double-thick) {text-decoration: underline double 2px;}
+    ::highlight(ime-format-dotted-thin) {text-decoration: underline dotted 1px;}
+    ::highlight(ime-format-dotted-thick) {text-decoration: underline dotted 2px;}
+    ::highlight(ime-format-dashed-thin) {text-decoration: underline dashed 1px;}
+    ::highlight(ime-format-dashed-thick) {text-decoration: underline dashed 2px;}
+    ::highlight(ime-format-wavy-thin) {text-decoration: underline wavy 1px;}
+    ::highlight(ime-format-wavy-thick) {text-decoration: underline wavy 2px;}
+    ::highlight(ime-format-squiggle-thin) {text-decoration: underline wavy 1px;}
+    ::highlight(ime-format-squiggle-thick) {text-decoration: underline wavy 2px;}
+  </style>
+</head>
+
+<body>
+  <div id="editor"></div>
+
+  <script>
+    const INIT_TEXT = "Welcome to the EditContext demo!";
+    const INIT_SELECTION_START = 0;
+    const INIT_SELECTION_END = INIT_TEXT.length;
+
+    const editor = document.querySelector("#editor");
+    const editContext = new EditContext({ text: INIT_TEXT, selectionStart: INIT_SELECTION_START, selectionEnd: INIT_SELECTION_END });
+    editor.editContext = editContext;
+
+    const isHighlightSupported = 'Highlight' in window;
+
+    function render() {
+      editor.textContent = editContext.text;
+      // editor.innerHTML = "";
+      // for (const word of editContext.text.split(" ")) {
+      //   const span = document.createElement("span");
+      //   span.classList.add("word");
+      //   span.textContent = word;
+      //   editor.appendChild(span);
+      // }
+
+      // We need to draw the text selection manually.
+      // If the view was a canvas, then we'd need to draw the caret and selection.
+      document.getSelection().removeAllRanges();
+      if (editor.firstChild) {
+        const range = document.createRange();
+        range.setStart(editor.firstChild, editContext.selectionStart);
+        range.setEnd(editor.firstChild, editContext.selectionEnd);
+        document.getSelection().addRange(range);
+      }
+    }
+
+    editContext.addEventListener("textupdate", e => {
+      // We need to update the text in the EditContext manually only if
+      // not already done. In our case, the input method is the keyboard in
+      // a DIV, so no need to do it.
+      // If the input method was a canvas you drew in, or speech recognition,
+      // then we'd need to update the text in the EditContext manually.
+      // editContext.updateText(e.updateRangeStart, e.updateRangeEnd, e.text);
+
+      // Update the EditContext selection manually, so it's kept in sync with
+      editContext.updateSelection(e.selectionStart, e.selectionEnd);
+
+      // Re-render the view.
+      render();
+    });
+
+    // Update the characterbounds when needed, so that IMEs can show at the right place.
+    editContext.addEventListener("characterboundsupdate", e => {
+      const computedStyle = getComputedStyle(editor);
+      const fontSize = parseInt(computedStyle.fontSize);
+      const padding = parseInt(computedStyle.paddingLeft);
+
+      const textOffsetLeft = editor.offsetLeft + padding;
+      const textOffsetTop = editor.offsetTop + padding;
+
+      const charBounds = [];
+
+      for (let offset = e.rangeStart; offset < e.rangeEnd; offset++) {
+        const charLeft = textOffsetLeft + offset * fontSize;
+        const charTop = textOffsetTop + fontSize;
+        charBounds.push(DOMRect.fromRect({x: charLeft, y: charTop, width: fontSize, height: fontSize}));
+      }
+
+      editContext.updateCharacterBounds(e.rangeStart, charBounds);
+    });
+
+    // Handle text format updates, which are sent when the user is composing text with IME.
+    // This is needed so that the IME can give the right feedback to the user.
+    const imeHighlights = {
+      "solid-thin": null,
+      "solid-thick": null,
+      "double-thin": null,
+      "double-thick": null,
+      "dotted-thin": null,
+      "dotted-thick": null,
+      "dashed-thin": null,
+      "dashed-thick": null,
+      "wavy-thin": null,
+      "wavy-thick": null,
+      "squiggle-thin": null,
+      "squiggle-thick": null
+    };
+    if (isHighlightSupported) {
+      for (const [key, value] of Object.entries(imeHighlights)) {
+        imeHighlights[key] = new Highlight();
+        CSS.highlights.set(`ime-format-${key}`, imeHighlights[key]);
+      }
+    }
+
+    editContext.addEventListener("textformatupdate", e => {
+      const formats = e.getTextFormats();
+      for (const format of formats) {
+        const range = document.createRange();
+        range.setStart(editor.firstChild, format.rangeStart);
+        range.setEnd(editor.firstChild, format.rangeEnd);
+
+        const formatKey = `${format.underlineStyle.toLowerCase()}-${format.underlineThickness.toLowerCase()}`;
+        const highlight = imeHighlights[formatKey];
+        if (highlight) {
+          highlight.add(range);
+        }
+      }
+    });
+
+    // Visually show when we're composing text (like when using voice typing on Windows)
+    editContext.addEventListener("compositionstart", e => {
+      editor.classList.add("is-composing");
+    });
+    editContext.addEventListener("compositionend", e => {
+      editor.classList.remove("is-composing");
+      
+      for (const [key, value] of Object.entries(imeHighlights)) {
+        value.clear();
+      }
+    });
+
+    // Needed because our input method is a DIV with text in it.
+    document.addEventListener("selectionchange", () => {
+      const selection = document.getSelection();
+      const start = Math.min(selection.anchorOffset, selection.focusOffset);
+      const end = Math.max(selection.anchorOffset, selection.focusOffset);
+
+      if (selection.anchorNode === editor.firstChild) {
+        console.log("updating selection");
+        editContext.updateSelection(start, end);
+      } else {
+        editContext.updateSelection(0, 0);
+      }
+    });
+
+    render();
+
+    editor.focus();
+  </script>
+</body>
+
+</html>
