@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Context API</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1rem;
+      margin: 2rem;
+    }
+
+    #div-editor {
+      font-family: consolas, monospace;
+      background: #e0e0e0;
+      border-radius: .5rem;
+      padding: 1rem;
+      position: relative;
+      margin: 2rem 0;
+      line-height: 2;
+    }
+
+    #div-editor.is-composing {
+      background: lightblue;
+    }
+
+    #div-editor.is-composing::before {
+      content: "Composing";
+      font-size: .6rem;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      padding: .2rem;
+      background: #0003;
+      border-radius: 0 .5rem;
+    }
+
+    #div-editor .space {
+      white-space: pre;
+      background: radial-gradient(circle, #0004 2px, transparent 0);
+    }
+
+    .word.rainbow {
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .word.yell {
+      background: yellow;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .word.pink {
+      background: pink;
+      font-style: italic;
+    }
+
+    .word.flower {
+      background-image: url(flower.png);
+      padding: 0 0 0.8rem 0;
+      background-size: 1ch;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      position: relative;
+      top: -.8rem;
+    }
+
+    .word.rotate {
+      transform: rotate(180deg);
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .word.shadow {
+      text-shadow: 1px 1px 0 red,
+        2px 2px 0 violet,
+        3px 3px 0 blue,
+        4px 4px 0 green,
+        5px 5px 0 yellow,
+        6px 6px 0 orange,
+        7px 7px 0 red;
+    }
+
+    .word.brick {
+      padding: 0.2rem;
+      background: #999;
+      border: solid 5px;
+      border-color: #444 #111 #555 #777;
+      text-shadow: 1px 1px 0px #ccc;
+    }
+
+    .word.fire {
+      background-image: url(fire.gif);
+      padding: 0 0 0.8rem 0;
+      background-size: 15px;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      position: relative;
+      top: -0.8rem;
+      background-color: black;
+      color: gold;
+    }
+
+    ::highlight(ime-format-solid-thin) {
+      text-decoration: underline 1px;
+    }
+
+    ::highlight(ime-format-solid-thick) {
+      text-decoration: underline 2px;
+    }
+
+    ::highlight(ime-format-double-thin) {
+      text-decoration: underline double 1px;
+    }
+
+    ::highlight(ime-format-double-thick) {
+      text-decoration: underline double 2px;
+    }
+
+    ::highlight(ime-format-dotted-thin) {
+      text-decoration: underline dotted 1px;
+    }
+
+    ::highlight(ime-format-dotted-thick) {
+      text-decoration: underline dotted 2px;
+    }
+
+    ::highlight(ime-format-dashed-thin) {
+      text-decoration: underline dashed 1px;
+    }
+
+    ::highlight(ime-format-dashed-thick) {
+      text-decoration: underline dashed 2px;
+    }
+
+    ::highlight(ime-format-wavy-thin) {
+      text-decoration: underline wavy 1px;
+    }
+
+    ::highlight(ime-format-wavy-thick) {
+      text-decoration: underline wavy 2px;
+    }
+
+    ::highlight(ime-format-squiggle-thin) {
+      text-decoration: underline wavy 1px;
+    }
+
+    ::highlight(ime-format-squiggle-thick) {
+      text-decoration: underline wavy 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>EditContext API demos</h1>
+
+  <h2>Editable DIV</h2>
+
+  <p>Focus the DIV element below and start typing. Typing should work just like in any editable region, with support
+    for
+    IME.<br>
+    The element doesn't use the <code>contenteditable</code> attribute and is not a <code>textarea</code> element.
+    Instead, it uses the <strong>EditContext</strong> API.</p>
+  <p>The <strong>EditContext</strong> API makes it possible for web authors to produce more sophisticated editing
+    experiences than what other editable regions on the web allow, without having to resort to complicated solutions
+    that may negatively impact accessibility.</p>
+
+  <div id="div-editor" spellcheck="false"></div>
+
+  <script type="module">
+    // TODO:
+    // - Add support for Pasting text.
+    // - Sometimes when selecting text with the mouse, an exception is thrown.
+
+    const IS_EDIT_CONTEXT_SUPPORTED = 'EditContext' in window;
+    const IS_CUSTOM_HIGHLIGHT_SUPPORTED = 'Highlight' in window;
+
+    const INIT_TEXT = "Welcome to the EditContext demo! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum commodo elit augue, non malesuada ante facilisis vel. Maecenas faucibus vel velit quis auctor. Fusce efficitur nibh elit, ultrices malesuada felis tristique et. Duis tincidunt facilisis ultrices. Integer vehicula dignissim elit, nec dignissim felis ultricies vel. Phasellus efficitur fringilla dapibus. Nunc quis tincidunt orci.";
+    const INIT_SELECTION_START = INIT_TEXT.length;
+    const INIT_SELECTION_END = INIT_TEXT.length;
+
+    const WORD_EFFECTS = [
+      "rainbow",
+      "yell",
+      "pink",
+      "flower",
+      "rotate",
+      "shadow",
+      "brick",
+      "fire",
+    ];
+
+    const editor = document.querySelector("#div-editor");
+
+    (function () {
+      if (!IS_EDIT_CONTEXT_SUPPORTED) {
+        editor.textContent = "Sorry, your browser doesn't support the EditContext API. This demo will not work.";
+        return;
+      }
+
+      // Create and attach the EditContext.
+      const editContext = new EditContext({ text: INIT_TEXT, selectionStart: INIT_SELECTION_START, selectionEnd: INIT_SELECTION_END });
+      editor.editContext = editContext;
+
+      // Render the text and selection from the EditContext instance.
+      function render() {
+        // editor.textContent = editContext.text;
+        editor.innerHTML = "";
+
+        const words = editContext.text.split(" ").filter(w => !!w);
+        for (let i = 0; i < words.length; i++) {
+          const word = words[i];
+
+          const wSpan = document.createElement("span");
+          wSpan.classList.add("word");
+          wSpan.classList.add(WORD_EFFECTS[i % WORD_EFFECTS.length]);
+          wSpan.textContent = word;
+          editor.appendChild(wSpan);
+
+          const sSpan = document.createElement("span");
+          sSpan.classList.add("space");
+          sSpan.textContent = " ";
+          editor.appendChild(sSpan);
+        }
+
+        // We need to draw the text selection manually.
+        // If the view was a canvas, then we'd need to draw the caret and selection.
+        document.getSelection().removeAllRanges();
+        if (editor.firstChild) {
+          const range = getRangeFromStartEnd(editContext.selectionStart, editContext.selectionEnd);
+          document.getSelection().addRange(range);
+        }
+      }
+
+      // Listen to the EditContext's textupdate event.
+      editContext.addEventListener("textupdate", e => {
+        // Update the EditContext selection manually, so it's kept in sync with.
+        editContext.updateSelection(e.selectionStart, e.selectionEnd);
+
+        // Re-render the view.
+        render();
+      });
+
+      // Listen to the EditContext's characterboundsupdate event in order to
+      // synchronously update the EditContext's characterbounds. This is needed so that
+      // IMEs are displayed in the right place.
+      editContext.addEventListener("characterboundsupdate", e => {
+        const computedStyle = getComputedStyle(editor);
+        const padding = parseInt(computedStyle.paddingLeft);
+
+        const textOffsetLeft = editor.offsetLeft + padding;
+        const textOffsetTop = editor.offsetTop + padding;
+
+        const charBounds = [];
+
+        // Calculate the bounds of each character in the range.
+        for (let offset = e.rangeStart; offset < e.rangeEnd; offset++) {
+          const charRange = getRangeFromStartEnd(offset, offset + 1);
+          charBounds.push(charRange.getBoundingClientRect());
+        }
+
+        // We need to call this synchronously within the event listener,
+        // or as quickly as possible, so that IME gets displayed in the
+        // right place immediately.
+        editContext.updateCharacterBounds(e.rangeStart, charBounds);
+      });
+
+      // Handle text format updates, which are sent when the user is composing text with IME.
+      // This is needed so that the IME can give the right feedback to the user.
+      const imeHighlights = {
+        "solid-thin": null,
+        "solid-thick": null,
+        "double-thin": null,
+        "double-thick": null,
+        "dotted-thin": null,
+        "dotted-thick": null,
+        "dashed-thin": null,
+        "dashed-thick": null,
+        "wavy-thin": null,
+        "wavy-thick": null,
+        "squiggle-thin": null,
+        "squiggle-thick": null
+      };
+      if (IS_CUSTOM_HIGHLIGHT_SUPPORTED) {
+        for (const [key, value] of Object.entries(imeHighlights)) {
+          imeHighlights[key] = new Highlight();
+          CSS.highlights.set(`ime-format-${key}`, imeHighlights[key]);
+        }
+      }
+
+      // Listen to the EditContext's textformatupdate event in order to format
+      // pieces of the text that are being composed with IME.
+      editContext.addEventListener("textformatupdate", e => {
+        const formats = e.getTextFormats();
+        for (const format of formats) {
+          const range = getRangeFromStartEnd(format.rangeStart, format.rangeEnd);
+
+          const formatKey = `${format.underlineStyle.toLowerCase()}-${format.underlineThickness.toLowerCase()}`;
+          const highlight = imeHighlights[formatKey];
+          if (highlight) {
+            highlight.add(range);
+          }
+        }
+      });
+
+      // Visually show when we're composing text (like when using voice typing on Windows)
+      editContext.addEventListener("compositionstart", e => {
+        editor.classList.add("is-composing");
+      });
+      editContext.addEventListener("compositionend", e => {
+        editor.classList.remove("is-composing");
+
+        for (const [key, value] of Object.entries(imeHighlights)) {
+          value && value.clear();
+        }
+      });
+
+      // Because EditContext makes the text inside the DIV editable, we need to track
+      // user selection manually, and update the EditContext with the new selection.
+      // If the text edition was happening within a CANVAS element instead, we'd need
+      // to track the selection in a completely different way.
+      document.addEventListener("selectionchange", () => {
+        const selection = document.getSelection();
+
+        const startNode = selection.anchorNode;
+        const startOffset = selection.anchorOffset;
+        const endNode = selection.focusNode;
+        const endOffset = selection.focusOffset;
+
+        // Count the length of the text from the start of the editor to startNode.
+        let start = startOffset;
+        let foundStart = false;
+        let end = endOffset;
+        let foundEnd = false;
+
+        for (const span of editor.childNodes) {
+          if (span.firstChild === startNode) { foundStart = true; }
+          if (!foundStart) { start += span.textContent.length; }
+
+          if (span.firstChild === endNode) { foundEnd = true; }
+          if (!foundEnd) { end += span.textContent.length; }
+        }
+
+        editContext.updateSelection(...[start, end].sort());
+      });
+
+      function getRangeFromStartEnd(start, end) {
+        let startSpan = null;
+        let startSpanOffset = 0;
+        let endSpan = null;
+        let endSpanOffset = 0;
+        let currentPos = 0;
+
+        for (const span of editor.childNodes) {
+          const spanLength = span.textContent.length;
+          if (editContext.selectionStart >= currentPos && editContext.selectionStart <= currentPos + spanLength) {
+            startSpan = span;
+            startSpanOffset = editContext.selectionStart - currentPos;
+          }
+          if (editContext.selectionEnd >= currentPos && editContext.selectionEnd <= currentPos + spanLength) {
+            endSpan = span;
+            endSpanOffset = editContext.selectionEnd - currentPos;
+          }
+          currentPos += spanLength;
+        }
+
+        if (!startSpan || !endSpan) {
+          startSpan = editor.lastChild;
+          endSpan = startSpan;
+        }
+
+        const range = document.createRange();
+        range.setStart(startSpan.firstChild || startSpan, startSpanOffset);
+        range.setEnd(endSpan.firstChild || endSpan, endSpanOffset);
+
+        return range;
+      }
+
+      // Start with the initial text and selection.
+      render();
+    })();
+  </script>
+
+  <h2>Editable CANVAS</h2>
+
+  <p>Focus the CANVAS element below and start typing. Typing should also work just like in any editable region, with
+    support
+    for
+    IME.<br>
+    The element also uses the <strong>EditContext</strong> API to support text edition, and renders the text by using
+    canvas drawing primitives.</p>
+
+  <style>
+    canvas {
+      background: white;
+      border: 2px solid black;
+      border-radius: .5rem;
+      width: 100%;
+      margin: 2rem 0;
+    }
+
+    canvas:focus {
+      outline: 2px solid rgb(105, 105, 255);
+      outline-offset: 2px;
+    }
+
+    canvas.is-composing {
+      background: lightblue;
+    }
+  </style>
+
+  <canvas width="1000" height="200"></canvas>
+
+  <script type="module">
+    // TODO:
+    // - Fix incorrect IME position.
+    // - Add support for mouse text selection.
+    // - Fix random IME appearance.
+    // - Add support for copy/paste.
+
+    // Caret style.
+    const CARET_WIDTH = 2.5;
+    const CARET_COLOR = "black";
+    const BLINK_SPEED = 1000; // Smaller = faster.
+
+    // Selection style.
+    const SELECTION_COLOR = "black";
+    const SELECTION_TEXT_COLOR = "white";
+
+    // Padding above and below the text to draw the caret and selection.
+    const CARET_PADDING = 8;
+
+    // Color of the IME composition underline.
+    const COMPOSITION_STYLE_COLOR = "red";
+
+    // Font used for rendering the text.
+    const VERTICAL_MARGIN = 10;
+    const FONT_SIZE = 40;
+    const FONT = `${FONT_SIZE}px Arial`;
+
+    // Text start position.
+    const TEXT_ANCHOR_X = VERTICAL_MARGIN;
+    const TEXT_ANCHOR_Y = FONT_SIZE + VERTICAL_MARGIN;
+
+    let rafID = undefined;
+
+    // Get the canvas element and its context.
+    const canvas = document.querySelector("canvas");
+    canvas.height = FONT_SIZE + VERTICAL_MARGIN * 3;
+    const canvasCtx = canvas.getContext("2d");
+    canvasCtx.font = FONT;
+    const CHAR_HEIGHT = canvasCtx.measureText("M").emHeightAscent;
+
+    // Create the EditContext instance.
+    const editContext = new EditContext();
+    canvas.editContext = editContext;
+
+    let selectionStart = 0;
+    let selectionEnd = 0;
+    let textFormats = [];
+    let firstRenderTime = undefined;
+
+    function renderCaret(x) {
+      canvasCtx.save();
+      canvasCtx.fillStyle = CARET_COLOR;
+      canvasCtx.fillRect(x, TEXT_ANCHOR_Y - CHAR_HEIGHT - CARET_PADDING, CARET_WIDTH, CHAR_HEIGHT + CARET_PADDING * 2);
+      canvasCtx.restore();
+    }
+
+    function renderSelection(startX, endX) {
+      canvasCtx.save();
+      canvasCtx.fillStyle = SELECTION_COLOR;
+      canvasCtx.fillRect(startX, TEXT_ANCHOR_Y - CHAR_HEIGHT - CARET_PADDING, endX - startX, CHAR_HEIGHT + CARET_PADDING * 2);
+      canvasCtx.restore();
+    }
+
+    function renderUnderlineDecoration({ rangeStart, rangeEnd, underlineStyle, underlineThickness }) {
+      const lineStartX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, rangeStart)).width;
+      const lineEndX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, rangeEnd)).width;
+      const lineY = TEXT_ANCHOR_Y + 7; // Some space between the text and the underline.
+      const thickWidth = 3;
+      const thinWidth = 2;
+
+      canvasCtx.save();
+      canvasCtx.strokeStyle = COMPOSITION_STYLE_COLOR;
+
+      // Japanese IME returns 'Squiggle' while Chinese returns 'Dotted' for active composition.
+      // For simplicity we draw dotted line for both.
+      if (underlineStyle == 'Squiggle' || underlineStyle == 'Dotted') {
+        canvasCtx.setLineDash([1, 1]); // dotted line pattern
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(lineStartX, lineY);
+        canvasCtx.lineTo(lineEndX, lineY);
+        canvasCtx.stroke();
+      } else if (underlineStyle == 'Solid') { // Draw solid lines for "phrases" in Japenese IME
+        canvasCtx.lineWidth = (underlineThickness == 'Thick') ? thickWidth : thinWidth;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(lineStartX, lineY);
+        canvasCtx.lineTo(lineEndX, lineY);
+        canvasCtx.stroke();
+      }
+
+      canvasCtx.restore();
+    }
+
+    function render(timestamp) {
+      if (!firstRenderTime) {
+        firstRenderTime = timestamp;
+      }
+      const elapsedTime = timestamp - firstRenderTime;
+
+      // Clear the canvas.
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Render the text.
+      canvasCtx.fillText(editContext.text, TEXT_ANCHOR_X, TEXT_ANCHOR_Y);
+
+      if (selectionStart == selectionEnd) {
+        // Render the caret.
+        const caretIndex = selectionStart;
+        const caretX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, caretIndex)).width;
+
+        if (elapsedTime % BLINK_SPEED < BLINK_SPEED / 2) {
+          renderCaret(caretX);
+        }
+
+        // Update the EditContext's selection bounds to match the position and size of the caret.
+        const selectionBound = computeCharacterBound(caretIndex);
+        selectionBound.width = CARET_WIDTH;
+        editContext.updateSelectionBounds(selectionBound);
+      } else {
+        // Render the text selection.
+        const startX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionStart)).width;
+        const endX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionEnd)).width;
+
+        renderSelection(startX, endX);
+
+        // Re-render the section of text that's selected.
+        canvasCtx.save();
+        canvasCtx.fillStyle = SELECTION_TEXT_COLOR;
+        canvasCtx.fillText(editContext.text.substring(selectionStart, selectionEnd), TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionStart)).width, TEXT_ANCHOR_Y);
+        canvasCtx.restore();
+
+        // Update the EditContext's selection bounds to match the position and size of the selection.
+        const selectionStartBound = computeCharacterBound(selectionStart);
+        const selectionEndBound = computeCharacterBound(selectionEnd);
+        editContext.updateSelectionBounds(DOMRect.fromRect({
+          x: selectionStartBound.x,
+          y: selectionStartBound.y,
+          width: selectionEndBound.x + selectionEndBound.width - selectionStartBound.x,
+          height: selectionStartBound.height
+        }));
+      }
+
+      // Update the EditContext's control bounds.
+      const controlBound = canvas.getBoundingClientRect();
+      editContext.updateControlBounds(controlBound);
+
+      // Render the text formats if any.
+      if (textFormats.length) {
+        for (const textFormat of textFormats) {
+          renderUnderlineDecoration(textFormat);
+        }
+      }
+
+      // Re-render on animation frame.
+      rafID = requestAnimationFrame(render);
+    }
+
+    // Handle textupdate events.
+    editContext.addEventListener("textupdate", e => {
+      const text = e.text;
+
+      selectionStart = e.selectionStart;
+      selectionEnd = e.selectionEnd;
+    });
+
+    function computeCharacterBound(offset) {
+      const widthBeforeChar = canvasCtx.measureText(editContext.text.substring(0, offset)).width;
+      const charSize = canvasCtx.measureText(editContext.text[offset]);
+
+      const charX = canvas.offsetLeft + TEXT_ANCHOR_X + widthBeforeChar;
+      const charY = canvas.offsetTop + TEXT_ANCHOR_Y;
+
+      return DOMRect.fromRect({
+        x: charX,
+        y: charY - charSize.height,
+        width: charSize.width,
+        height: charSize.emHeightAscent
+      });
+    }
+
+    editContext.addEventListener("characterboundsupdate", e => {
+      const rangeStart = e.rangeStart;
+      const rangeEnd = e.rangeEnd;
+
+      // Calculate bounds for each character in the range.
+      if (rangeEnd > rangeStart) {
+        const charBounds = [];
+        for (offset = rangeStart; offset < rangeEnd; offset++) {
+          const bound = computeCharacterBound(offset);
+          charBounds.push(bound);
+        }
+        editContext.updateCharacterBounds(rangeStart, charBounds);
+      }
+    });
+
+    // Visually show when we're composing text.
+    editContext.addEventListener("compositionstart", e => {
+      canvas.classList.add("is-composing");
+    });
+    editContext.addEventListener("compositionend", e => {
+      canvas.classList.remove("is-composing");
+
+      // Clear the composition text formats.
+      textFormats = [];
+    });
+
+    editContext.addEventListener("textformatupdate", e => {
+      // Set the composition text formats so the next render picks them up.
+      textFormats = e.getTextFormats();
+    });
+
+    canvas.addEventListener("keydown", e => {
+      if (e.key == "Backspace" && editContext.selectionStart > 0) {
+        if (editContext.selectionStart === editContext.selectionEnd) {
+          editContext.updateText(
+            editContext.selectionStart - 1,
+            editContext.selectionStart,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart - 1, editContext.selectionStart - 1);
+        } else {
+          editContext.updateText(
+            editContext.selectionStart,
+            editContext.selectionEnd,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart, editContext.selectionStart);
+        }
+      } else if (e.key === "Delete" && editContext.selectionEnd < editContext.text.length) {
+        if (editContext.selectionStart === editContext.selectionEnd) {
+          editContext.updateText(
+            editContext.selectionEnd,
+            editContext.selectionEnd + 1,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionEnd, editContext.selectionEnd);
+        } else {
+          editContext.updateText(
+            editContext.selectionStart,
+            editContext.selectionEnd,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart, editContext.selectionStart);
+        }
+      } else if (e.key == "ArrowLeft") {
+        let newPos = editContext.selectionStart - 1;
+        if (newPos < 0) {
+          newPos = 0;
+        }
+
+        if (e.shiftKey) {
+          editContext.updateSelection(newPos, editContext.selectionEnd);
+        } else {
+          editContext.updateSelection(newPos, newPos);
+        }
+      } else if (e.key == "ArrowRight") {
+        const newPos = editContext.selectionEnd + 1;
+        if (newPos > editContext.text.length) {
+          newPos = editContext.text.length;
+        }
+
+        if (e.shiftKey) {
+          editContext.updateSelection(editContext.selectionStart, newPos);
+        } else {
+          editContext.updateSelection(newPos, newPos);
+        }
+      } else if (e.key === "Home") {
+        if (e.shiftKey) {
+          editContext.updateSelection(0, editContext.selectionEnd);
+        } else {
+          editContext.updateSelection(0, 0);
+        }
+      } else if (e.key === "End") {
+        if (e.shiftKey) {
+          editContext.updateSelection(editContext.selectionStart, editContext.text.length);
+        } else {
+          editContext.updateSelection(editContext.text.length, editContext.text.length);
+        }
+      }
+
+      selectionStart = editContext.selectionStart;
+      selectionEnd = editContext.selectionEnd;
+    });
+
+    canvas.addEventListener("focus", () => {
+      rafID = requestAnimationFrame(render);
+    });
+
+    canvas.addEventListener("blur", () => {
+      cancelAnimationFrame(rafID);
+    });
+  </script>
+</body>
+
+</html>
