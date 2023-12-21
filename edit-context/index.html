@@ -588,16 +588,16 @@
 
     function computeCharacterBound(offset) {
       const widthBeforeChar = canvasCtx.measureText(editContext.text.substring(0, offset)).width;
-      const charSize = canvasCtx.measureText(editContext.text[offset]);
+      const charWidth = canvasCtx.measureText(editContext.text[offset]).width;
 
       const charX = canvas.offsetLeft + TEXT_ANCHOR_X + widthBeforeChar;
       const charY = canvas.offsetTop + TEXT_ANCHOR_Y;
 
       return DOMRect.fromRect({
         x: charX,
-        y: charY - charSize.height,
-        width: charSize.width,
-        height: charSize.emHeightAscent
+        y: charY - FONT_SIZE,
+        width: charWidth,
+        height: FONT_SIZE
       });
     }
 
