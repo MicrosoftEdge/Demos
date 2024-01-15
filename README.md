@@ -83,6 +83,7 @@ last sync'd Feb. 2, 2023
 | EyeDropper API | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
 | Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectlist>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
 | Selectlist demos | Demo page showing how the Open UI's `<selectlist>` element can be used. | [/selectlist/](https://github.com/MicrosoftEdge/Demos/tree/main/selectlist) | [Open UI's \<selectlist\> demos](https://microsoftedge.github.io/Demos/selectlist/) |
+| EditContext API demo | Demo page showing how the EditContext API can be used to build an advanced text editor. | [/edit-context/](https://github.com/MicrosoftEdge/Demos/tree/main/edit-context) | [HTML editor demo](https://microsoftedge.github.io/Demos/edit-context/) |
 
 
 ## Adding a new demo
