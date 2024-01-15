@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Context API</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1rem;
+      margin: 2rem;
+    }
+
+    #div-editor {
+      font-family: consolas, monospace;
+      background: #e0e0e0;
+      border-radius: .5rem;
+      padding: 1rem;
+      position: relative;
+      margin: 2rem 0;
+      line-height: 2;
+    }
+
+    #div-editor.is-composing {
+      background: lightblue;
+    }
+
+    #div-editor.is-composing::before {
+      content: "Composing";
+      font-size: .6rem;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      padding: .2rem;
+      background: #0003;
+      border-radius: 0 .5rem;
+    }
+
+    #div-editor .space {
+      white-space: pre;
+      background: radial-gradient(circle, #0004 2px, transparent 0);
+    }
+
+    .word.rainbow {
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .word.yell {
+      background: yellow;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .word.pink {
+      background: pink;
+      font-style: italic;
+    }
+
+    .word.flower {
+      background-image: url(flower.png);
+      padding: 0 0 0.8rem 0;
+      background-size: 1ch;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      position: relative;
+      top: -.8rem;
+    }
+
+    .word.rotate {
+      transform: rotate(180deg);
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .word.shadow {
+      text-shadow: 1px 1px 0 red,
+        2px 2px 0 violet,
+        3px 3px 0 blue,
+        4px 4px 0 green,
+        5px 5px 0 yellow,
+        6px 6px 0 orange,
+        7px 7px 0 red;
+    }
+
+    .word.brick {
+      padding: 0.2rem;
+      background: #999;
+      border: solid 5px;
+      border-color: #444 #111 #555 #777;
+      text-shadow: 1px 1px 0px #ccc;
+    }
+
+    .word.fire {
+      background-image: url(fire.gif);
+      padding: 0 0 0.8rem 0;
+      background-size: 15px;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      position: relative;
+      top: -0.8rem;
+      background-color: black;
+      color: gold;
+    }
+
+    ::highlight(ime-format-solid-thin) {
+      text-decoration: underline 1px;
+    }
+
+    ::highlight(ime-format-solid-thick) {
+      text-decoration: underline 2px;
+    }
+
+    ::highlight(ime-format-double-thin) {
+      text-decoration: underline double 1px;
+    }
+
+    ::highlight(ime-format-double-thick) {
+      text-decoration: underline double 2px;
+    }
+
+    ::highlight(ime-format-dotted-thin) {
+      text-decoration: underline dotted 1px;
+    }
+
+    ::highlight(ime-format-dotted-thick) {
+      text-decoration: underline dotted 2px;
+    }
+
+    ::highlight(ime-format-dashed-thin) {
+      text-decoration: underline dashed 1px;
+    }
+
+    ::highlight(ime-format-dashed-thick) {
+      text-decoration: underline dashed 2px;
+    }
+
+    ::highlight(ime-format-wavy-thin) {
+      text-decoration: underline wavy 1px;
+    }
+
+    ::highlight(ime-format-wavy-thick) {
+      text-decoration: underline wavy 2px;
+    }
+
+    ::highlight(ime-format-squiggle-thin) {
+      text-decoration: underline wavy 1px;
+    }
+
+    ::highlight(ime-format-squiggle-thick) {
+      text-decoration: underline wavy 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>EditContext API demo</h1>
+
+  <p>The <strong>EditContext</strong> API makes it possible for web authors to produce more sophisticated editing
+    experiences than what other editable regions on the web allow, without having to resort to complicated solutions
+    that may negatively impact accessibility.</p>
+  <p>For more information, see the <a href="https://w3c.github.io/edit-context/">EditContext API specification</a>. MDN documentation coming soon.</p>
+
+  <h2>Editable DIV</h2>
+
+  <p>Focus the DIV element below and start typing. Typing should work just like in any editable region, with support
+    for
+    IME.<br>
+    The element doesn't use the <code>contenteditable</code> attribute and is not a <code>textarea</code> element.
+    Instead, it uses the <strong>EditContext</strong> API.</p>
+
+  <div id="div-editor" spellcheck="false"></div>
+
+  <script type="module">
+    // TODO:
+    // - Add support for Pasting text.
+    // - Sometimes when selecting text with the mouse, an exception is thrown.
+
+    const IS_EDIT_CONTEXT_SUPPORTED = 'EditContext' in window;
+    const IS_CUSTOM_HIGHLIGHT_SUPPORTED = 'Highlight' in window;
+
+    const INIT_TEXT = "Welcome to the EditContext demo! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum commodo elit augue, non malesuada ante facilisis vel. Maecenas faucibus vel velit quis auctor. Fusce efficitur nibh elit, ultrices malesuada felis tristique et. Duis tincidunt facilisis ultrices. Integer vehicula dignissim elit, nec dignissim felis ultricies vel. Phasellus efficitur fringilla dapibus. Nunc quis tincidunt orci.";
+    const INIT_SELECTION_START = INIT_TEXT.length;
+    const INIT_SELECTION_END = INIT_TEXT.length;
+
+    const WORD_EFFECTS = [
+      "rainbow",
+      "yell",
+      "pink",
+      "flower",
+      "rotate",
+      "shadow",
+      "brick",
+      "fire",
+    ];
+
+    const editor = document.querySelector("#div-editor");
+
+    (function () {
+      if (!IS_EDIT_CONTEXT_SUPPORTED) {
+        editor.textContent = "Sorry, your browser doesn't support the EditContext API. This demo will not work.";
+        return;
+      }
+
+      // Create and attach the EditContext.
+      const editContext = new EditContext({ text: INIT_TEXT, selectionStart: INIT_SELECTION_START, selectionEnd: INIT_SELECTION_END });
+      editor.editContext = editContext;
+
+      // Render the text and selection from the EditContext instance.
+      function render() {
+        // editor.textContent = editContext.text;
+        editor.innerHTML = "";
+
+        const words = editContext.text.split(" ").filter(w => !!w);
+        for (let i = 0; i < words.length; i++) {
+          const word = words[i];
+
+          const wSpan = document.createElement("span");
+          wSpan.classList.add("word");
+          wSpan.classList.add(WORD_EFFECTS[i % WORD_EFFECTS.length]);
+          wSpan.textContent = word;
+          editor.appendChild(wSpan);
+
+          const sSpan = document.createElement("span");
+          sSpan.classList.add("space");
+          sSpan.textContent = " ";
+          editor.appendChild(sSpan);
+        }
+
+        // We need to draw the text selection manually.
+        // If the view was a canvas, then we'd need to draw the caret and selection.
+        document.getSelection().removeAllRanges();
+        if (editor.firstChild) {
+          const range = getRangeFromStartEnd(editContext.selectionStart, editContext.selectionEnd);
+          document.getSelection().addRange(range);
+        }
+      }
+
+      // Listen to the EditContext's textupdate event.
+      editContext.addEventListener("textupdate", e => {
+        // Update the EditContext selection manually, so it's kept in sync with.
+        editContext.updateSelection(e.selectionStart, e.selectionEnd);
+
+        // Re-render the view.
+        render();
+      });
+
+      // Listen to the EditContext's characterboundsupdate event in order to
+      // synchronously update the EditContext's characterbounds. This is needed so that
+      // IMEs are displayed in the right place.
+      editContext.addEventListener("characterboundsupdate", e => {
+        const computedStyle = getComputedStyle(editor);
+        const padding = parseInt(computedStyle.paddingLeft);
+
+        const textOffsetLeft = editor.offsetLeft + padding;
+        const textOffsetTop = editor.offsetTop + padding;
+
+        const charBounds = [];
+
+        // Calculate the bounds of each character in the range.
+        for (let offset = e.rangeStart; offset < e.rangeEnd; offset++) {
+          const charRange = getRangeFromStartEnd(offset, offset + 1);
+          charBounds.push(charRange.getBoundingClientRect());
+        }
+
+        // We need to call this synchronously within the event listener,
+        // or as quickly as possible, so that IME gets displayed in the
+        // right place immediately.
+        editContext.updateCharacterBounds(e.rangeStart, charBounds);
+      });
+
+      // Handle text format updates, which are sent when the user is composing text with IME.
+      // This is needed so that the IME can give the right feedback to the user.
+      const imeHighlights = {
+        "solid-thin": null,
+        "solid-thick": null,
+        "double-thin": null,
+        "double-thick": null,
+        "dotted-thin": null,
+        "dotted-thick": null,
+        "dashed-thin": null,
+        "dashed-thick": null,
+        "wavy-thin": null,
+        "wavy-thick": null,
+        "squiggle-thin": null,
+        "squiggle-thick": null
+      };
+      if (IS_CUSTOM_HIGHLIGHT_SUPPORTED) {
+        for (const [key, value] of Object.entries(imeHighlights)) {
+          imeHighlights[key] = new Highlight();
+          CSS.highlights.set(`ime-format-${key}`, imeHighlights[key]);
+        }
+      }
+
+      // Listen to the EditContext's textformatupdate event in order to format
+      // pieces of the text that are being composed with IME.
+      editContext.addEventListener("textformatupdate", e => {
+        const formats = e.getTextFormats();
+        for (const format of formats) {
+          const range = getRangeFromStartEnd(format.rangeStart, format.rangeEnd);
+
+          const formatKey = `${format.underlineStyle.toLowerCase()}-${format.underlineThickness.toLowerCase()}`;
+          const highlight = imeHighlights[formatKey];
+          if (highlight) {
+            highlight.add(range);
+          }
+        }
+      });
+
+      // Visually show when we're composing text (like when using voice typing on Windows)
+      editContext.addEventListener("compositionstart", e => {
+        editor.classList.add("is-composing");
+      });
+      editContext.addEventListener("compositionend", e => {
+        editor.classList.remove("is-composing");
+
+        for (const [key, value] of Object.entries(imeHighlights)) {
+          value && value.clear();
+        }
+      });
+
+      // Because EditContext makes the text inside the DIV editable, we need to track
+      // user selection manually, and update the EditContext with the new selection.
+      // If the text edition was happening within a CANVAS element instead, we'd need
+      // to track the selection in a completely different way.
+      document.addEventListener("selectionchange", () => {
+        const selection = document.getSelection();
+
+        const startNode = selection.anchorNode;
+        const startOffset = selection.anchorOffset;
+        const endNode = selection.focusNode;
+        const endOffset = selection.focusOffset;
+
+        // Count the length of the text from the start of the editor to startNode.
+        let start = startOffset;
+        let foundStart = false;
+        let end = endOffset;
+        let foundEnd = false;
+
+        for (const span of editor.childNodes) {
+          if (span.firstChild === startNode) { foundStart = true; }
+          if (!foundStart) { start += span.textContent.length; }
+
+          if (span.firstChild === endNode) { foundEnd = true; }
+          if (!foundEnd) { end += span.textContent.length; }
+        }
+
+        editContext.updateSelection(...[start, end].sort());
+      });
+
+      function getRangeFromStartEnd(start, end) {
+        let startSpan = null;
+        let startSpanOffset = 0;
+        let endSpan = null;
+        let endSpanOffset = 0;
+        let currentPos = 0;
+
+        for (const span of editor.childNodes) {
+          const spanLength = span.textContent.length;
+          if (editContext.selectionStart >= currentPos && editContext.selectionStart <= currentPos + spanLength) {
+            startSpan = span;
+            startSpanOffset = editContext.selectionStart - currentPos;
+          }
+          if (editContext.selectionEnd >= currentPos && editContext.selectionEnd <= currentPos + spanLength) {
+            endSpan = span;
+            endSpanOffset = editContext.selectionEnd - currentPos;
+          }
+          currentPos += spanLength;
+        }
+
+        if (!startSpan || !endSpan) {
+          startSpan = editor.lastChild;
+          endSpan = startSpan;
+        }
+
+        const range = document.createRange();
+        range.setStart(startSpan.firstChild || startSpan, startSpanOffset);
+        range.setEnd(endSpan.firstChild || endSpan, endSpanOffset);
+
+        return range;
+      }
+
+      // Start with the initial text and selection.
+      render();
+    })();
+  </script>
+</body>
+
+</html>

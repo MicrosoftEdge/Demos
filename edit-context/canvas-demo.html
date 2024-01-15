@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Context API</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+</head>
+
+<body>
+  <h1>EditContext API demo</h1>
+
+  <p>The <strong>EditContext</strong> API makes it possible for web authors to produce more sophisticated editing
+    experiences than what other editable regions on the web allow, without having to resort to complicated solutions
+    that may negatively impact accessibility.</p>
+  <p>For more information, see the <a href="https://w3c.github.io/edit-context/">EditContext API specification</a>. MDN
+    documentation coming soon.</p>
+
+  <h2>Editable CANVAS</h2>
+
+  <p>Focus the CANVAS element below and start typing. Typing should also work just like in any editable region, with
+    support
+    for
+    IME.<br>
+    The element also uses the <strong>EditContext</strong> API to support text edition, and renders the text by using
+    canvas drawing primitives.</p>
+
+  <style>
+    canvas {
+      background: white;
+      border: 2px solid black;
+      border-radius: .5rem;
+      width: 100%;
+      margin: 2rem 0;
+    }
+
+    canvas:focus {
+      outline: 2px solid rgb(105, 105, 255);
+      outline-offset: 2px;
+    }
+
+    canvas.is-composing {
+      background: lightblue;
+    }
+  </style>
+
+  <canvas width="1000" height="200"></canvas>
+
+  <script type="module">
+    // TODO:
+    // - Fix incorrect IME position.
+    // - Add support for mouse text selection.
+    // - Fix random IME appearance.
+    // - Add support for copy/paste.
+
+    // Caret style.
+    const CARET_WIDTH = 2.5;
+    const CARET_COLOR = "black";
+    const BLINK_SPEED = 1000; // Smaller = faster.
+
+    // Selection style.
+    const SELECTION_COLOR = "black";
+    const SELECTION_TEXT_COLOR = "white";
+
+    // Padding above and below the text to draw the caret and selection.
+    const CARET_PADDING = 8;
+
+    // Color of the IME composition underline.
+    const COMPOSITION_STYLE_COLOR = "red";
+
+    // Font used for rendering the text.
+    const VERTICAL_MARGIN = 10;
+    const FONT_SIZE = 40;
+    const FONT = `${FONT_SIZE}px Arial`;
+
+    // Text start position.
+    const TEXT_ANCHOR_X = VERTICAL_MARGIN;
+    const TEXT_ANCHOR_Y = FONT_SIZE + VERTICAL_MARGIN;
+
+    let rafID = undefined;
+
+    // Get the canvas element and its context.
+    const canvas = document.querySelector("canvas");
+    canvas.height = FONT_SIZE + VERTICAL_MARGIN * 3;
+    const canvasCtx = canvas.getContext("2d");
+    canvasCtx.font = FONT;
+    const CHAR_HEIGHT = canvasCtx.measureText("M").emHeightAscent;
+
+    // Create the EditContext instance.
+    const editContext = new EditContext();
+    canvas.editContext = editContext;
+
+    let selectionStart = 0;
+    let selectionEnd = 0;
+    let textFormats = [];
+    let firstRenderTime = undefined;
+
+    function renderCaret(x) {
+      canvasCtx.save();
+      canvasCtx.fillStyle = CARET_COLOR;
+      canvasCtx.fillRect(x, TEXT_ANCHOR_Y - CHAR_HEIGHT - CARET_PADDING, CARET_WIDTH, CHAR_HEIGHT + CARET_PADDING * 2);
+      canvasCtx.restore();
+    }
+
+    function renderSelection(startX, endX) {
+      canvasCtx.save();
+      canvasCtx.fillStyle = SELECTION_COLOR;
+      canvasCtx.fillRect(startX, TEXT_ANCHOR_Y - CHAR_HEIGHT - CARET_PADDING, endX - startX, CHAR_HEIGHT + CARET_PADDING * 2);
+      canvasCtx.restore();
+    }
+
+    function renderUnderlineDecoration({ rangeStart, rangeEnd, underlineStyle, underlineThickness }) {
+      const lineStartX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, rangeStart)).width;
+      const lineEndX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, rangeEnd)).width;
+      const lineY = TEXT_ANCHOR_Y + 7; // Some space between the text and the underline.
+      const thickWidth = 3;
+      const thinWidth = 2;
+
+      canvasCtx.save();
+      canvasCtx.strokeStyle = COMPOSITION_STYLE_COLOR;
+
+      // Japanese IME returns 'Squiggle' while Chinese returns 'Dotted' for active composition.
+      // For simplicity we draw dotted line for both.
+      if (underlineStyle == 'Squiggle' || underlineStyle == 'Dotted') {
+        canvasCtx.setLineDash([1, 1]); // dotted line pattern
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(lineStartX, lineY);
+        canvasCtx.lineTo(lineEndX, lineY);
+        canvasCtx.stroke();
+      } else if (underlineStyle == 'Solid') { // Draw solid lines for "phrases" in Japenese IME
+        canvasCtx.lineWidth = (underlineThickness == 'Thick') ? thickWidth : thinWidth;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(lineStartX, lineY);
+        canvasCtx.lineTo(lineEndX, lineY);
+        canvasCtx.stroke();
+      }
+
+      canvasCtx.restore();
+    }
+
+    function render(timestamp) {
+      if (!firstRenderTime) {
+        firstRenderTime = timestamp;
+      }
+      const elapsedTime = timestamp - firstRenderTime;
+
+      // Clear the canvas.
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Render the text.
+      canvasCtx.fillText(editContext.text, TEXT_ANCHOR_X, TEXT_ANCHOR_Y);
+
+      if (selectionStart == selectionEnd) {
+        // Render the caret.
+        const caretIndex = selectionStart;
+        const caretX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, caretIndex)).width;
+
+        if (elapsedTime % BLINK_SPEED < BLINK_SPEED / 2) {
+          renderCaret(caretX);
+        }
+
+        // Update the EditContext's selection bounds to match the position and size of the caret.
+        const selectionBound = computeCharacterBound(caretIndex);
+        selectionBound.width = CARET_WIDTH;
+        editContext.updateSelectionBounds(selectionBound);
+      } else {
+        // Render the text selection.
+        const startX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionStart)).width;
+        const endX = TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionEnd)).width;
+
+        renderSelection(startX, endX);
+
+        // Re-render the section of text that's selected.
+        canvasCtx.save();
+        canvasCtx.fillStyle = SELECTION_TEXT_COLOR;
+        canvasCtx.fillText(editContext.text.substring(selectionStart, selectionEnd), TEXT_ANCHOR_X + canvasCtx.measureText(editContext.text.substring(0, selectionStart)).width, TEXT_ANCHOR_Y);
+        canvasCtx.restore();
+
+        // Update the EditContext's selection bounds to match the position and size of the selection.
+        const selectionStartBound = computeCharacterBound(selectionStart);
+        const selectionEndBound = computeCharacterBound(selectionEnd);
+        editContext.updateSelectionBounds(DOMRect.fromRect({
+          x: selectionStartBound.x,
+          y: selectionStartBound.y,
+          width: selectionEndBound.x + selectionEndBound.width - selectionStartBound.x,
+          height: selectionStartBound.height
+        }));
+      }
+
+      // Update the EditContext's control bounds.
+      const controlBound = canvas.getBoundingClientRect();
+      editContext.updateControlBounds(controlBound);
+
+      // Render the text formats if any.
+      if (textFormats.length) {
+        for (const textFormat of textFormats) {
+          renderUnderlineDecoration(textFormat);
+        }
+      }
+
+      // Re-render on animation frame.
+      rafID = requestAnimationFrame(render);
+    }
+
+    // Handle textupdate events.
+    editContext.addEventListener("textupdate", e => {
+      const text = e.text;
+
+      selectionStart = e.selectionStart;
+      selectionEnd = e.selectionEnd;
+    });
+
+    function computeCharacterBound(offset) {
+      const widthBeforeChar = canvasCtx.measureText(editContext.text.substring(0, offset)).width;
+      const charWidth = canvasCtx.measureText(editContext.text[offset]).width;
+
+      const charX = canvas.offsetLeft + TEXT_ANCHOR_X + widthBeforeChar;
+      const charY = canvas.offsetTop + TEXT_ANCHOR_Y;
+
+      return DOMRect.fromRect({
+        x: charX,
+        y: charY - FONT_SIZE,
+        width: charWidth,
+        height: FONT_SIZE
+      });
+    }
+
+    editContext.addEventListener("characterboundsupdate", e => {
+      const rangeStart = e.rangeStart;
+      const rangeEnd = e.rangeEnd;
+
+      // Calculate bounds for each character in the range.
+      if (rangeEnd > rangeStart) {
+        const charBounds = [];
+        for (offset = rangeStart; offset < rangeEnd; offset++) {
+          const bound = computeCharacterBound(offset);
+          charBounds.push(bound);
+        }
+        editContext.updateCharacterBounds(rangeStart, charBounds);
+      }
+    });
+
+    // Visually show when we're composing text.
+    editContext.addEventListener("compositionstart", e => {
+      canvas.classList.add("is-composing");
+    });
+    editContext.addEventListener("compositionend", e => {
+      canvas.classList.remove("is-composing");
+
+      // Clear the composition text formats.
+      textFormats = [];
+    });
+
+    editContext.addEventListener("textformatupdate", e => {
+      // Set the composition text formats so the next render picks them up.
+      textFormats = e.getTextFormats();
+    });
+
+    canvas.addEventListener("keydown", e => {
+      if (e.key == "Backspace" && editContext.selectionStart > 0) {
+        if (editContext.selectionStart === editContext.selectionEnd) {
+          editContext.updateText(
+            editContext.selectionStart - 1,
+            editContext.selectionStart,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart - 1, editContext.selectionStart - 1);
+        } else {
+          editContext.updateText(
+            editContext.selectionStart,
+            editContext.selectionEnd,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart, editContext.selectionStart);
+        }
+      } else if (e.key === "Delete" && editContext.selectionEnd < editContext.text.length) {
+        if (editContext.selectionStart === editContext.selectionEnd) {
+          editContext.updateText(
+            editContext.selectionEnd,
+            editContext.selectionEnd + 1,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionEnd, editContext.selectionEnd);
+        } else {
+          editContext.updateText(
+            editContext.selectionStart,
+            editContext.selectionEnd,
+            ""
+          );
+          editContext.updateSelection(editContext.selectionStart, editContext.selectionStart);
+        }
+      } else if (e.key == "ArrowLeft") {
+        let newPos = editContext.selectionStart - 1;
+        if (newPos < 0) {
+          newPos = 0;
+        }
+
+        if (e.shiftKey) {
+          editContext.updateSelection(newPos, editContext.selectionEnd);
+        } else {
+          editContext.updateSelection(newPos, newPos);
+        }
+      } else if (e.key == "ArrowRight") {
+        const newPos = editContext.selectionEnd + 1;
+        if (newPos > editContext.text.length) {
+          newPos = editContext.text.length;
+        }
+
+        if (e.shiftKey) {
+          editContext.updateSelection(editContext.selectionStart, newPos);
+        } else {
+          editContext.updateSelection(newPos, newPos);
+        }
+      } else if (e.key === "Home") {
+        if (e.shiftKey) {
+          editContext.updateSelection(0, editContext.selectionEnd);
+        } else {
+          editContext.updateSelection(0, 0);
+        }
+      } else if (e.key === "End") {
+        if (e.shiftKey) {
+          editContext.updateSelection(editContext.selectionStart, editContext.text.length);
+        } else {
+          editContext.updateSelection(editContext.text.length, editContext.text.length);
+        }
+      }
+
+      selectionStart = editContext.selectionStart;
+      selectionEnd = editContext.selectionEnd;
+    });
+
+    canvas.addEventListener("focus", () => {
+      rafID = requestAnimationFrame(render);
+    });
+
+    canvas.addEventListener("blur", () => {
+      cancelAnimationFrame(rafID);
+    });
+  </script>
+</body>
+
+</html>
