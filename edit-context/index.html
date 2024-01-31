@@ -344,24 +344,16 @@
 
       // Update the character bounds when the EditContext needs it.
       editContext.addEventListener("characterboundsupdate", e => {
-        const rangeStart = e.rangeStart;
-        const rangeEnd = e.rangeEnd;
+        const tokenNodes = convertFromOffsetsToListOfRenderedTokenNodes(e.rangeStart, e.rangeEnd);
 
-        const charBounds = [];
-
-        // Find the tokens in currentTokens that are in the range.
-        // Get the node for each token in range, and convert it
-        // into a DOMRect.
-        for (let offset = rangeStart; offset < rangeEnd; offset++) {
-          const token = currentTokens.find(token => token.pos <= offset && token.pos + token.value.length > offset);
-          const node = token.node;
+        const charBounds = tokenNodes.map(({ node, nodeOffset, charOffset }) => {
           const range = document.createRange();
-          range.setStart(node.firstChild, offset - token.pos);
-          range.setEnd(node.firstChild, offset - token.pos + 1);
-          charBounds.push(range.getBoundingClientRect());
-        }
+          range.setStart(node.firstChild, charOffset - nodeOffset);
+          range.setEnd(node.firstChild, charOffset - nodeOffset + 1);
+          return range.getBoundingClientRect();
+        });
 
-        editContext.updateCharacterBounds(rangeStart, charBounds);
+        editContext.updateCharacterBounds(e.rangeStart, charBounds);
       });
 
       // Draw IME composition text formats if needed.
@@ -408,9 +400,26 @@
       // Listen to selectionchange events to let the EditContext know where it is.
       document.addEventListener("selectionchange", () => {
         const selection = document.getSelection();
-        const { start, end } = convertFromSelectionToOffsets(selection);
-        updateSelection(start, end);
+        const offsets = convertFromSelectionToOffsets(selection);
+        if (offsets) {
+          updateSelection(offsets.start, offsets.end);
+        }
       });
+
+      // Find the tokens in currentTokens that are in the given range and return
+      // the corresponding nodes.
+      function convertFromOffsetsToListOfRenderedTokenNodes(start, end) {
+        const tokenNodes = [];
+
+        for (let offset = start; offset < end; offset++) {
+          const token = currentTokens.find(token => token.pos <= offset && token.pos + token.value.length > offset);
+          if (token) {
+            tokenNodes.push({ node: token.node, nodeOffset: token.pos, charOffset: offset });
+          }
+        }
+
+        return tokenNodes;
+      }
 
       // The EditContext object only knows about a plain text string and about
       // character offsets. However, our editor view renders the text by using
@@ -443,6 +452,10 @@
           if (!extentNodeFound) {
             extentOffset += node.textContent.length;
           }
+        }
+
+        if (!anchorNodeFound || !extentNodeFound) {
+          return null;
         }
 
         if (anchorOffset > extentOffset) {
