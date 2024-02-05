@@ -1,0 +1,34 @@
+{
+  "name": "Slow Calendar",
+  "short_name": "slow-calendar",
+  "description": "A calendar app with a focus on simplicity and the ability to pin today's events to the browser's side panel",
+  "lang": "en-US",
+  "start_url": "./",
+  "scope": "./",
+  "theme_color": "white",
+  "background_color": "white",
+  "display": "standalone",
+  "edge_side_panel": {},
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "./icon-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./icon-128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./icon-64.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "./icon-48.png",
+      "sizes": "48x48"
+    }
+  ]
+}

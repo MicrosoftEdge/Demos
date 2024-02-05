@@ -1,9 +1,5 @@
 import { EventTarget, Event } from "event-target-shim";
-
-const MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-  'September', 'October', 'November','December'
-];
+import { formatMonthYear } from "./utils";
 
 export class Toolbar extends EventTarget {
   private rootEl: HTMLElement;
@@ -20,22 +16,18 @@ export class Toolbar extends EventTarget {
     this.render();
   }
 
-  formatMonthYear() {
-    const month = this._date.getMonth();
-    const year = this._date.getFullYear();
-    return `${MONTHS[month]} ${year}`;
-  }
-  
   render() {
     this.rootEl.innerHTML = `
       <button id="prev-month">Prev</button>
       <button id="today" class="primary">Today</button>
       <button id="next-month">Next</button>
-      <span id="month-year">${this.formatMonthYear()}</span>
+      <span id="month-year">${formatMonthYear(this._date)}</span>
       <input type="radio" name="view" id="month-view" ${this.selectedMode === "month" ? "checked" : ""}>
       <label for="month-view">Month</label>
       <input type="radio" name="view" id="week-view" ${this.selectedMode === "week" ? "checked" : ""}>
       <label for="week-view">Week</label>      
+      <input type="radio" name="view" id="day-view" ${this.selectedMode === "day" ? "checked" : ""}>
+      <label for="day-view">Day</label>      
     `;
 
     this.rootEl.querySelector('#prev-month').addEventListener('click', () => {
@@ -58,11 +50,17 @@ export class Toolbar extends EventTarget {
       this.dispatchEvent(new Event('month-view'));
       this.selectedMode = "month";
     });
-    
+
     this.rootEl.querySelector('#week-view').addEventListener('click', () => {
       console.log("Week view clicked");
       this.dispatchEvent(new Event('week-view'));
       this.selectedMode = "week";
+    });
+
+    this.rootEl.querySelector('#day-view').addEventListener('click', () => {
+      console.log("Day view clicked");
+      this.dispatchEvent(new Event('day-view'));
+      this.selectedMode = "day";
     });
   }
 

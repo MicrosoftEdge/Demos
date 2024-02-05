@@ -10,7 +10,7 @@
       "title": "Stand-up meeting",
       "color": "#a2e1ef",
       "startDate": "2023-01-01",
-      "endDate": "2024-01-01",
+      "endDate": "2025-01-01",
       "startTime": "09:00",
       "duration": 30,
       "repeat": "daily",
@@ -55,7 +55,7 @@
     },
     {
       "id": "qmcv98y34vssde",
-      "title": "1:1",
+      "title": "1:1 with my manager",
       "color": "#ace3ac",
       "startDate": "2023-01-02",
       "startTime": "11:30",
@@ -63,6 +63,30 @@
       "repeat": "weekly",
       "location": "My office",
       "description": "Weekly one to one with my manager",
+      "rsvp": true
+    },
+    {
+      "id": "q3mc1v98y34vssdfae42e",
+      "title": "1:1 with Danas",
+      "color": "#ace3ac",
+      "startDate": "2024-02-06",
+      "startTime": "15:00",
+      "duration": 25,
+      "repeat": "weekly",
+      "location": "Danas' office",
+      "description": "Weekly one to one with Danas",
+      "rsvp": true
+    },
+    {
+      "id": "q3mc1vgjse723sdfh82fae",
+      "title": "1:1 with Ahmad",
+      "color": "#ace3ac",
+      "startDate": "2024-02-06",
+      "startTime": "15:30",
+      "duration": 25,
+      "repeat": "weekly",
+      "location": "My office",
+      "description": "Weekly one to one with Ahmad",
       "rsvp": true
     },
     {

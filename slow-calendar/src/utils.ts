@@ -1,5 +1,10 @@
 import { CalendarEvent } from "./CalendarEvent";
 
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December'
+];
+
 export function getEventsForDay(events: CalendarEvent[], date: Date): CalendarEvent[] {
   return events.filter(event => {
     return event.date.getFullYear() === date.getFullYear() &&
@@ -29,5 +34,18 @@ export function getEventsForDay(events: CalendarEvent[], date: Date): CalendarEv
     } else if (!a.multiDays && !!b.multiDays) {
       return 1;
     }
+  });
+}
+
+export function formatMonthYear(date: Date): string {
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  return `${MONTHS[month]} ${year}`;
+}
+
+export function isInBrowserSidePanel(): boolean {
+  // @ts-ignore
+  return !!navigator.userAgentData && navigator.userAgentData.brands.some(brand => {
+    return brand.brand.toLowerCase().includes("side panel");
   });
 }

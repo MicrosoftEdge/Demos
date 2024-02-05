@@ -3,8 +3,9 @@ import { CalendarEvent } from "./CalendarEvent";
 import { MonthGrid } from "./MonthGrid";
 import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
-import { getEventsForDay } from "./utils";
+import { getEventsForDay, isInBrowserSidePanel } from "./utils";
 import { WeekGrid } from "./WeekGrid";
+import { DayGrid } from "./DayGrid";
 
 export class AppUI extends EventTarget {
   private rootEl: HTMLElement;
@@ -14,6 +15,9 @@ export class AppUI extends EventTarget {
 
   private weekGridEl: HTMLElement;
   public weekGrid: WeekGrid;
+
+  private dayGridEl: HTMLElement;
+  public dayGrid: DayGrid;
 
   private toolbarEl: HTMLElement;
   private toolbar: Toolbar;
@@ -40,58 +44,72 @@ export class AppUI extends EventTarget {
   render() {
     this.rootEl.innerHTML = '';
 
-    // Create an element for the toolbar.
-    this.toolbarEl = document.createElement('div');
-    this.toolbarEl.id = 'toolbar';
-    this.rootEl.appendChild(this.toolbarEl);
+    if (!isInBrowserSidePanel()) {
+      // Create an element for the toolbar.
+      this.toolbarEl = document.createElement('div');
+      this.toolbarEl.id = 'toolbar';
+      this.rootEl.appendChild(this.toolbarEl);
 
-    // Init the toolbar component in it.
-    this.toolbar = new Toolbar(this.toolbarEl, this._date, this.mode);
+      // Init the toolbar component in it.
+      this.toolbar = new Toolbar(this.toolbarEl, this._date, this.mode);
 
-    this.toolbar.addEventListener('prev', () => {
-      const newDate = this.mode === "month"
-        ? new Date(this._date.getFullYear(), this._date.getMonth() - 1, 1)
-        : new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() - 7);
-      this.date = newDate;
+      this.toolbar.addEventListener('prev', () => {
+        if (this.mode === "month") {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth() - 1, 1);
+        } else if (this.mode === "week") {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() - 7);
+        } else {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() - 1);
+        }
 
-      // @ts-ignore
-      this.dispatchEvent(new CustomEvent('date-changed', {detail: this._date}));
-    });
-    
-    this.toolbar.addEventListener('next', () => {
-      const newDate = this.mode === "month"
-        ? new Date(this._date.getFullYear(), this._date.getMonth() + 1, 1)
-        : new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() + 7);
-      this.date = newDate;
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('date-changed', { detail: this._date }));
+      });
 
-      // @ts-ignore
-      this.dispatchEvent(new CustomEvent('date-changed', {detail: this._date}));
-    });
-    
-    this.toolbar.addEventListener('today', () => {
-      this.date = new Date();
-      
-      // @ts-ignore
-      this.dispatchEvent(new CustomEvent('date-changed', {detail: this._date}));
-    });
+      this.toolbar.addEventListener('next', () => {
+        if (this.mode === "month") {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth() + 1, 1);
+        } else if (this.mode === "week") {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() + 7);
+        } else {
+          this.date = new Date(this._date.getFullYear(), this._date.getMonth(), this._date.getDate() + 1);
+        }
 
-    this.toolbar.addEventListener('month-view', () => {
-      this.mode = "month";
-      this.monthGridEl.style.display = 'grid';
-      this.weekGridEl.style.display = 'none';
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('date-changed', { detail: this._date }));
+      });
 
-      // @ts-ignore
-      this.dispatchEvent(new CustomEvent('mode-changed', {detail: this.mode}));
-    });
-    
-    this.toolbar.addEventListener('week-view', () => {
-      this.mode = "week";
-      this.monthGridEl.style.display = 'none';
-      this.weekGridEl.style.display = 'grid';
+      this.toolbar.addEventListener('today', () => {
+        this.date = new Date();
 
-      // @ts-ignore
-      this.dispatchEvent(new CustomEvent('mode-changed', {detail: this.mode}));
-    });
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('date-changed', { detail: this._date }));
+      });
+
+      this.toolbar.addEventListener('month-view', () => {
+        this.mode = "month";
+        this.rootEl.setAttribute("data-mode", "month");
+
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('mode-changed', { detail: this.mode }));
+      });
+
+      this.toolbar.addEventListener('week-view', () => {
+        this.mode = "week";
+        this.rootEl.setAttribute("data-mode", "week");
+
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('mode-changed', { detail: this.mode }));
+      });
+
+      this.toolbar.addEventListener('day-view', () => {
+        this.mode = "day";
+        this.rootEl.setAttribute("data-mode", "day");
+
+        // @ts-ignore
+        this.dispatchEvent(new CustomEvent('mode-changed', { detail: this.mode }));
+      });
+    }
 
     // Create an element for the month grid.
     this.monthGridEl = document.createElement('div');
@@ -108,6 +126,14 @@ export class AppUI extends EventTarget {
 
     // Init the week grid component in it.
     this.weekGrid = new WeekGrid(this.weekGridEl, this._date, this._events);
+
+    // Create an element for the day grid.
+    this.dayGridEl = document.createElement('div');
+    this.dayGridEl.id = 'day-grid';
+    this.rootEl.appendChild(this.dayGridEl);
+
+    // Init the day grid component in it.
+    this.dayGrid = new DayGrid(this.dayGridEl, this._date, this._events);
 
     // Create an element for the sidebar.
     this.sidebarEl = document.createElement('div');
@@ -136,13 +162,7 @@ export class AppUI extends EventTarget {
     this.sidebar.events = getEventsForDay(this._events, new Date());
 
     // Show/hide the right mode
-    if (this.mode === "week") {
-      this.monthGridEl.style.display = 'none';
-      this.weekGridEl.style.display = 'grid';
-    } else {
-      this.monthGridEl.style.display = 'grid';
-      this.weekGridEl.style.display = 'none';
-    }
+    this.rootEl.setAttribute("data-mode", this.mode);
   }
 
   set date(date: Date) {
@@ -150,7 +170,10 @@ export class AppUI extends EventTarget {
     this._date = date;
     this.monthGrid.date = date;
     this.weekGrid.date = date;
-    this.toolbar.date = date;
+    this.dayGrid.date = date;
+    if (this.toolbar) {
+      this.toolbar.date = date;
+    }
     this.sidebar.events = getEventsForDay(this._events, this._date);
   }
 
@@ -158,6 +181,7 @@ export class AppUI extends EventTarget {
     this._events = events;
     this.monthGrid.events = events;
     this.weekGrid.events = events;
+    this.dayGrid.events = events;
     this.sidebar.events = getEventsForDay(this._events, this._date);
   }
 }

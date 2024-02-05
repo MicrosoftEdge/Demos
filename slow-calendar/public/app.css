@@ -50,6 +50,14 @@ button:active {
   background-color: var(--background-color);
 }
 
+#app.in-side-panel {
+  grid-template-rows: 1fr;
+}
+
+#app[data-mode="day"] {
+  grid-template-columns: 1fr;
+}
+
 @media (max-width: 400px) {
   #app {
     grid-template-columns: 1fr;
@@ -71,6 +79,10 @@ button:active {
   grid-column: span 2;
 }
 
+#app[data-mode="day"] #toolbar {
+  grid-column: span 1;
+}
+
 #toolbar #month-year {
   margin: 0 auto;
   font-weight: bold;
@@ -86,9 +98,12 @@ button:active {
   border-radius: .5rem;
   overflow: hidden;
 }
+#app:not([data-mode="month"]) #month-grid {
+  display: none;
+}
 
 #week-grid {
-  display: none;
+  display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr;
   gap: 1px;
@@ -97,6 +112,23 @@ button:active {
   border-radius: .5rem;
   overflow: hidden;
 }
+#app:not([data-mode="week"]) #week-grid {
+  display: none;
+}
+
+#day-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px;
+  border: 1px solid var(--border-color);
+  background: var(--border-color);
+  border-radius: .5rem;
+  overflow: hidden;
+}
+#app:not([data-mode="day"]) #day-grid {
+  display: none;
+}
 
 #sidebar {
   padding: 1rem;
@@ -104,6 +136,9 @@ button:active {
   border: 1px solid var(--border-color);
   border-radius: .5rem;
   overflow-y: auto;
+}
+#app[data-mode="day"] #sidebar {
+  display: none;
 }
 
 #sidebar h2 {

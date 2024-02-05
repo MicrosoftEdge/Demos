@@ -2,16 +2,19 @@ import { AppUI } from "./AppUI";
 import { getAllEvents } from "./events-factory";
 import { EventPopup } from "./EventPopup";
 import { Store } from "./Store";
+import { isInBrowserSidePanel } from "./utils";
 
 addEventListener("DOMContentLoaded", async () => {
+  const isInSidePanel = isInBrowserSidePanel();
   const store = new Store();
   const prefs = await store.getStoredPrefs();
 
   // This is what the calendar will be centered around on load.
-  const initDate = prefs.initDate || new Date();
-  const initMode = prefs.mode || "month";
+  const initDate = isInSidePanel ? new Date() : prefs.initDate || new Date();
+  const initMode = isInSidePanel ? "day" : prefs.mode || "month";
 
   const appEl = document.getElementById('app');
+  appEl.classList.toggle('in-side-panel', isInSidePanel);
   const appUI = new AppUI(appEl!, initDate, initMode, []);
 
   const events = await getAllEvents()
