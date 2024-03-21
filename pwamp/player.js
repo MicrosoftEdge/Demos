@@ -53,6 +53,8 @@ export class Player extends EventTarget {
   }
 
   load(song) {
+    console.log(`Loading song: ${song.id}`);
+
     this.song = song;
 
     if (!song.type || song.type === 'url') {
@@ -68,6 +70,8 @@ export class Player extends EventTarget {
   }
 
   play(song) {
+    console.log(`Playing song: ${song.id}`);
+
     let newSongWasLoaded = false;
 
     if (!songs.length) {

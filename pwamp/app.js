@@ -117,6 +117,8 @@ function updateUI() {
 // Calling this function starts (or reloads) the app.
 // If the store is changed, you can call this function again to reload the app.
 export async function startApp() {
+  console.log("Restarting the app...");
+
   clearInterval(updateLoop);
 
   removeLoadingSongPlaceholders(playlistSongsContainer);
