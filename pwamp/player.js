@@ -70,8 +70,6 @@ export class Player extends EventTarget {
   }
 
   play(song) {
-    console.log(`Playing song: ${song.id}`);
-
     let newSongWasLoaded = false;
 
     if (!songs.length) {
@@ -100,6 +98,8 @@ export class Player extends EventTarget {
     if (!newSongWasLoaded) {
       this.dispatchEvent(new Event('canplay'));
     }
+
+    console.log(`Playing song: ${this.song.id}`);
   }
 
   playPrevious() {
