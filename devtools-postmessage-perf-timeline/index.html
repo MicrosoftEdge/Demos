@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostMessage Trace Events demo</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>PostMessage Trace Events demo</h1>
+    <p>This page provides an interface to send messages between the main frame and an embedded iframe.
+    <p>This is part of a tutorial showing an affordance in the timeline of a performance trace which allows
+        developers easily investigate when postmessage calls occur, how long the message queued for before
+        the postmessage handler starts.
+    </p>
+    <b>Main Frame: </b>
+    <button style="display: block; margin-top: 1.5em ;">Send message to iframe</button>
+    <p id="main-frame-result-text">Received 0 messages</p>
+    <iframe src="./iframe.html"></iframe>
+
+    <script>
+        const btn = document.querySelector('button');
+        const p = document.querySelector('#main-frame-result-text');
+        const iframe = document.querySelector('iframe')
+        let count = 0;
+
+        btn.addEventListener('click', () => {
+            if (iframe.contentWindow) {
+                iframe.contentWindow.postMessage('my-message', '*');
+            }
+        });
+
+        window.addEventListener(
+            'message',
+            (event) => {
+                if (event.data === 'my-message') {
+                    count++;
+                    p.textContent = `Received ${count} messages`;
+                }
+            },
+            false
+        );
+    </script>
+</body>
+
+</html>

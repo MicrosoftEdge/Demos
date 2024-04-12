@@ -52,6 +52,7 @@ last sync'd Feb. 2, 2023
 | DevTools issue: animating a CSS property that requires layout | A demo used to illustrate the **Issues** and **Elements** tools warning when CSS properties that require layout are animated. | [/devtools-animated-property-issue/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-animated-property-issue) | [Animated CSS property demo](https://microsoftedge.github.io/Demos/devtools-animated-property-issue/) |
 | Explain Console errors and warnings in Copilot in Edge | A demo page that generates errors in the Console that can then be explained by using Copilot in Edge. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explaining console errors demo](https://microsoftedge.github.io/Demos/devtools-explain-error/) |
 | Slow calendar demo | A simple calendar demo app that's used to test various DevTools features such as the **Performance** tool or source map support. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow calendar demo](https://microsoftedge.github.io/Demos/slow-calendar/public/) |
+| Post Message Events demo | A demo page used to test post message trace events in the **Performance** tool | [/post-message-trace-events/](https://github.com/MicrosoftEdge/Demos/demo/tree/main/post-message-trace-events) | [PostMessage Trace Events demo](https://microsoftedge.github.io/Demos/devtools-postmessage-perf-timeline/) |
 
 
 #### Microsoft Edge extensions

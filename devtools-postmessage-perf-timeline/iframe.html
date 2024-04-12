@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postmessage Demo - Perf </title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <b>IFrame: </b>
+    <button style="display: block; margin-top: 1.5em ;">Send message to main frame</button>
+    <p id="iframe-result-text">Received 0 messages</p>
+
+    <script>
+      const btn = document.querySelector('button');
+      const p = document.querySelector('#iframe-result-text');
+      let count = 0;
+
+      btn.addEventListener('click', () => {
+        if (window.parent) {
+          window.parent.postMessage('my-message', '*');
+        }
+      });
+
+      window.addEventListener(
+        'message',
+        (event) => {
+          if (event.data === 'my-message') {
+            count++;
+            p.textContent = `Received ${count} messages`;
+          }
+        },
+        false
+      );
+    </script>
+</body>
+</html>
