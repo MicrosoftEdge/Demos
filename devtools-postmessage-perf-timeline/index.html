@@ -5,19 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostMessage Trace Events demo</title>
+    <title>postMessage Trace Events demo</title>
     <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>PostMessage Trace Events demo</h1>
-    <p>This page provides an interface to send messages between the main frame and an embedded iframe.
-    <p>This is part of a tutorial showing an affordance in the timeline of a performance trace which allows
-        developers easily investigate when postmessage calls occur, how long the message queued for before
-        the postmessage handler starts.
+    <h1>postMessage Trace Events demo</h1>
+    <p>
+        This demo page provides an interface to send messages between the main frame and an embedded iframe.
     </p>
-    <b>Main Frame: </b>
+    <p>
+        This is part of a tutorial that demonstrates a feature in the timeline of a performance trace that allows
+        you to easily investigate when a <code>postMessage</code> call occurred, 
+        and how long the message was queued before the <code>postMessage</code> handler started.
+    </p>
+        Used by [View messages between windows, iframes, and dedicated workers](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/reference#view-messages-between-windows-iframes-and-dedicated-workers)
+        in _Performance features reference_.
+    </p>
+    <b>Main frame:</b>
     <button style="display: block; margin-top: 1.5em ;">Send message to iframe</button>
     <p id="main-frame-result-text">Received 0 messages</p>
     <iframe src="./iframe.html"></iframe>
