@@ -2,7 +2,7 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/1DIV/dist/)** ⬅️
 
-**1DIV** is a demo web app that enables you to create multiple CSS designs by using a single HTML `div` element. Your CSS designs are ony saved locally, in the browser's memory. This demo app can be installed locally as a Progressive Web App (PWA).
+**1DIV** is a demo web app that enables you to create multiple CSS designs by using a single HTML `div` element. Your CSS designs are only saved locally, in the browser's memory. This demo app can be installed locally as a Progressive Web App (PWA).
 
 
 ## Requirements
