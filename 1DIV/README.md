@@ -20,7 +20,7 @@ To run this demo app as-is, you don't need to build it.
 
 If you make a change to a file in the `src` directory of this demo app, or update a dependency, you must build the app locally, and then commit the generated files.  This demo app is not built automatically using Continuous Integration (CI).
 
-To build this demo app locally, at a command prompt such as git bash, run the following commands in the present directory:
+To build this demo app locally, at a command prompt such as Windows Terminal, run the following commands in the present directory:
 
 ```
 npm install
