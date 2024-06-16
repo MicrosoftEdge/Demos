@@ -1,0 +1,140 @@
+:root {
+  --c-bkg: #252931;
+  --c-bkg-secondary: #353942;
+  --c-white: #ffffff;
+  --c-blue: #528bff;
+  --c-gray: #555b68;
+  --c-gray-light: #898b90;
+  --c-blue-gray: #898b90;
+  --c-blue-dark: #2870ff;
+  --c-red: #cb463a;
+  --c-bkg-card: var(--c-bkg-secondary);
+  --c-text: var(--c-white);
+  --c-error: var(--c-red);
+
+  --border-radius: 10px;
+
+  --transition-duration: 150ms;
+  --transition-color: color var(--transition-duration) ease-in-out,
+    background-color var(--transition-duration) ease-in-out;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
+}
+
+body {
+  margin: 0;
+  line-height: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+h1,
+h2,
+h3,
+p,
+span,
+a {
+  color: var(--c-text);
+}
+
+h1.text-title {
+  font-size: 72px;
+  line-height: 110%;
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 110%;
+  letter-spacing: -1%;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  font-weight: 500;
+}
+
+p,
+span,
+a {
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 2%;
+  font-weight: 400;
+}
+
+.text-sub {
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 2%;
+  font-weight: 400;
+}
+
+.text-error {
+  color: var(--c-error);
+}
+
+a {
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 500;
+  border-bottom: 2px solid currentColor;
+}
+
+a:hover,
+a:focus {
+  color: var(--c-blue);
+  transition: var(--transition-color);
+}
+
+a:focus-within {
+  outline: none;
+}
+
+p a {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--c-blue);
+}
+
+p a:hover,
+p a:focus {
+  color: var(--c-blue-dark);
+}

@@ -1,0 +1,77 @@
+button {
+  appearance: button;
+  -webkit-appearance: button;
+
+  background-color: initial;
+  background-image: none;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  text-transform: uppercase;
+
+  color: var(--c-text);
+
+  cursor: pointer;
+  margin: 0 0.2em;
+}
+
+a.btn-primary,
+a.btn-secondary,
+a.btn-primary:focus-visible,
+a.btn-secondary:focus-visible {
+  border: none;
+  color: var(--c-white);
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 3em;
+  margin: 0 0.2em;
+}
+
+button.btn-primary,
+a.btn-primary {
+  background-color: var(--c-blue);
+  font-weight: 500;
+  padding: 0.8em 1.5em;
+  border-radius: var(--border-radius);
+
+  transition: var(--transition-color);
+}
+
+button.btn-primary:hover,
+button.btn-primary:focus,
+a.btn-primary:hover,
+a.btn-primary:focus {
+  background-color: var(--c-blue-dark);
+}
+
+button.btn-primary:focus-visible,
+a.btn-primary:focus-visible {
+  outline: 2px solid var(--c-blue-dark);
+  outline-offset: 2px;
+  background-color: var(--c-blue-dark);
+}
+
+button.btn-secondary,
+a.btn-secondary {
+  background-color: var(--c-gray);
+  font-weight: 500;
+  padding: 0.8em 1.5em;
+  border-radius: var(--border-radius);
+
+  transition: var(--transition-color);
+}
+
+button.btn-secondary:hover,
+button.btn-secondary:focus,
+a.btn-secondary:hover,
+a.btn-secondary:focus {
+  background-color: var(--c-gray-light);
+}
+
+button.btn-secondary:focus-visible,
+a.btn-secondary:focus-visible {
+  outline: 2px solid var(--c-gray-light);
+  outline-offset: 2px;
+  background-color: var(--c-gray-light);
+}
