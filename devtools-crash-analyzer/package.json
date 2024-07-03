@@ -1,0 +1,18 @@
+{
+  "name": "devtools-crash-analyzer",
+  "version": "1.0.0",
+  "description": "A demo showing how to use the Crash Analyzer tool in Edge DevTools",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.2",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^5.10.0",
+    "@microsoft/edge-devtools-crash-analyzer-support": "^1.0.0"
+  },
+  "scripts": {
+    "build-dev": "webpack --config webpack.dev.js",
+    "build-prod": "webpack --config webpack.prod.js"
+  }
+}

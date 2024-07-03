@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+</head>
+<body>
+  <h1>DevTools Crash Analyzer demo</h1>
+  <p>Open the <strong>Console</strong> tool in DevTools to view the crash stack trace.</p>
+  <p>In the development version of the application (<a href="./dev.html">dev</a>) the stack trace shows original file and function names thanks to source maps. In the production version of the application (<a href="./prod.html">prod</a>), the stack trace shows bundled file and minified function names.</p>
+  <p>Copy the production stack trace, and use the <strong>Crash analyzer</strong> tool to unminify it.</p>
+  <div id="app">
+  </div>
+</body>
+</html>
