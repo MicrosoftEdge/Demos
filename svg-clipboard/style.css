@@ -1,0 +1,42 @@
+:root {
+  color-scheme: dark light;
+}
+
+body {
+  margin: 2rem;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+}
+
+h1, h2, p, ul {
+  margin: 1rem 0;
+}
+
+.test .svg-area {
+  height: 20vh;
+}
+
+.test .svg-area svg {
+  height: 100%;
+}
+
+.test button {
+  display: block;
+  padding: .5rem;
+  margin: 1rem 0;
+}
+
+.test .svg-area {
+  border: 1rem dashed #eee;
+  border-radius: .5rem;
+}
+
+.support-notice {
+  font-weight: bold;
+  background: rgb(223, 247, 223);
+  padding: .5rem;
+}
+
+.support-notice.no-support {
+  background: rgb(247, 223, 223);
+}
