@@ -86,6 +86,7 @@ last sync'd April 16, 2024
 | Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectlist>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) |
 | Selectlist demos | Demo page showing how the Open UI's `<selectlist>` element can be used. | [/selectlist/](https://github.com/MicrosoftEdge/Demos/tree/main/selectlist) | [Open UI's \<selectlist\> demos](https://microsoftedge.github.io/Demos/selectlist/) |
 | EditContext API demo | Demo page showing how the EditContext API can be used to build an advanced text editor. | [/edit-context/](https://github.com/MicrosoftEdge/Demos/tree/main/edit-context) | [HTML editor demo](https://microsoftedge.github.io/Demos/edit-context/) |
+| SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
 
 
 ## Adding a new demo

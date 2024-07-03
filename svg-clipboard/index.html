@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SVG clipbard support demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" type="module" defer></script>
+</head>
+
+<body>
+  <h1>Support for the SVG format in the Async Clipboard API</h1>
+  <p>This page demos support for the SVG format in the Async Clipboard API. Support for SVG makes it possible for web
+    apps to participate in SVG file copy/paste operations with other web and native apps, such as:</p>
+  <ul>
+    <li>Copying SVG content from a webpage to a native app like PowerPoint.</li>
+    <li>Copying SVG content from a native app like the Windows Explorer to a web app.</li>
+    <li>Copying SVG content between two web apps.</li>
+  </ul>
+
+  <p class="support-notice">Your browser supports SVG format in the Async Clipboard API.</p>
+
+  <div class="test copy">
+    <h2>Copy</h2>
+    <p>Click the <strong>Copy</strong> button below to write the SVG content to the system clipboard.</p>
+    <button type="button">Copy ✂️</button>
+    <div class="svg-area"></div>
+  </div>
+
+  <div class="test paste">
+    <h2>Paste</h2>
+    <p>Click the <strong>Paste</strong> button below to paste SVG content you copied from another app into the system clipboard, and display the image below.</p>
+    <button type="button">Paste 📋</button>
+    <div class="svg-area"></div>
+  </div>
+</body>
+
+</html>
