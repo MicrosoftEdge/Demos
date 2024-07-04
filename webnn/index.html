@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>WebNN API Example</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      font-size: 1rem;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      margin: 2rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin: 1rem 0;
+    }
+
+    form {
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 4.5rem;
+      column-gap: 1rem;
+    }
+
+    input {
+      width: 0;
+      flex-basis: 0;
+      flex-grow: 1;
+      border: 0;
+      background: #eee;
+      padding: .5rem;
+    }
+
+    form>* {
+      justify-self: stretch;
+      position: relative;
+      height: 3rem;
+      border: 1px solid #ccc;
+      border-radius: .25rem;
+    }
+
+    form>label {
+      display: flex;
+      padding: .5rem;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    form>span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form>:not(label[for="output"])::after {
+      content: "⬇️";
+      position: absolute;
+      top: 3rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      font-size: 1rem;
+      left: calc(50% - .75rem);
+    }
+
+    .operand {
+      grid-column: span 2;
+    }
+
+    #mul, label[for="output"] {
+      grid-column: span 4;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WebNN API Example</h1>
+
+  <p>This page demonstrate using the WebNN API to build a machine learning graph and run it on the device's hardware.
+  </p>
+  <p>View the source code of this page to see how the WebNN API is being used.</p>
+
+  <form>
+
+    <label for="input1">
+      <span>Input 1</span>
+      <input id="input1" type="number" value="1" step="0.5">
+    </label>
+
+    <label for="constant1">
+      <span>Constant 1</span>
+      <input readonly id="constant1" type="number" value="0.5" step="0.5">
+    </label>
+
+    <label for="input2">
+      <span>Input 2</span>
+      <input id="input2" type="number" value="1" step="0.5">
+    </label>
+
+    <label for="constant2">
+      <span>Constant 2</span>
+      <input readonly id="constant2" type="number" value="0.5" step="0.5">
+    </label>
+
+    <span class="operand">Add MLOperand</span>
+    <span class="operand">Add MLOperand</span>
+    <span class="operand" id="mul">Mul MLOperand</span>
+
+    <label for="output">
+      <span>Output</span>
+      <input type="text" readonly id="output">
+    </label>
+
+  </form>
+
+  <script>
+    const outputEl = document.getElementById('output');
+
+    async function main(input1Value = 1, input2Value = 1) {
+      if (!navigator.ml) {
+        console.log('WebNN API is not available');
+        outputEl.value = 'WebNN API is not available';
+        outputEl.style.fontWeight = 'bold';
+        outputEl.style.color = 'red';
+        return;
+      }
+
+      const context = await navigator.ml.createContext({ powerPreference: 'low-power' });
+
+      // The code below builds the following graph:
+      // 
+      // constant1 ---+
+      //              +--- Add ---> intermediateOutput1 ---+
+      // input1    ---+                                    |
+      //                                                   +--- Mul---> output
+      // constant2 ---+                                    |
+      //              +--- Add ---> intermediateOutput2 ---+
+      // input2    ---+
+
+      // Use tensors in 4 dimensions.
+      const TENSOR_DIMS = [1, 2, 2, 2];
+      const TENSOR_SIZE = 8;
+
+      const builder = new MLGraphBuilder(context);
+
+      // Create OperandDescriptor object.
+      const desc = { dataType: 'float32', dimensions: TENSOR_DIMS };
+
+      // constant1 is a constant operand with the value 0.5.
+      const constantBuffer1 = new Float32Array(TENSOR_SIZE).fill(0.5);
+      const constant1 = builder.constant(desc, constantBuffer1);
+
+      // input1 is one of the input operands. Its value will be set before execution.
+      const input1 = builder.input('input1', desc);
+
+      // intermediateOutput1 is the output of the first Add operation.
+      const intermediateOutput1 = builder.add(constant1, input1);
+
+      // constant2 is another constant operand with the value 0.5.
+      const constantBuffer2 = new Float32Array(TENSOR_SIZE).fill(0.5);
+      const constant2 = builder.constant(desc, constantBuffer2);
+
+      // input2 is another input operand. Its value will be set before execution.
+      const input2 = builder.input('input2', desc);
+
+      // intermediateOutput2 is the output of the second Add operation.
+      const intermediateOutput2 = builder.add(constant2, input2);
+
+      // output is the output operand of the Mul operation.
+      const output = builder.mul(intermediateOutput1, intermediateOutput2);
+
+      // Build graph.
+      const graph = await builder.build({ 'output': output });
+
+      // Setup the input buffers with value 1.
+      const inputBuffer1 = new Float32Array(TENSOR_SIZE).fill(input1Value);
+      const inputBuffer2 = new Float32Array(TENSOR_SIZE).fill(input2Value);
+      const outputBuffer = new Float32Array(TENSOR_SIZE);
+
+      // Asynchronously execute the built model with the specified inputs.
+      const inputs = {
+        'input1': inputBuffer1,
+        'input2': inputBuffer2,
+      };
+      const outputs = {
+        output: outputBuffer
+      };
+      const result = await context.compute(graph, inputs, outputs);
+
+      // Log the result.
+      console.log('Output value: ' + result.outputs.output);
+      // Output value: 2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25
+      outputEl.value = result.outputs.output;
+    }
+
+    main();
+
+    function refresh() {
+      const input1Value = parseFloat(document.getElementById('input1').value);
+      const input2Value = parseFloat(document.getElementById('input2').value);
+      main(input1Value, input2Value);
+    }
+
+    document.getElementById('input1').addEventListener('input', refresh);
+    document.getElementById('input2').addEventListener('input', refresh);
+  </script>
+</body>
+
+</html>
