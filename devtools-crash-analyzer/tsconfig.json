@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./app/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": true,
+    "moduleResolution": "node"
+  }
+}
