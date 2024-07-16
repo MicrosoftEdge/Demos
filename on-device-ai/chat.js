@@ -164,7 +164,7 @@ document.getElementById("user-input").addEventListener("keydown", function (e) {
 });
 
 window.onload = () => {
-  Init().then(() => {
+  Init(true).then(() => {
     // adjustPadding();
     sendButton.addEventListener("click", submitRequest);
     const userInput = document.getElementById("user-input");

@@ -1,6 +1,21 @@
 import { env, AutoTokenizer } from "@xenova/transformers";
 import { LLM } from "./llm.js";
 
+let tokenizer;
+let llm;
+let canUseBuiltInAI = false;
+let builtInAI;
+let builtInAIStream;
+
+async function checkBuiltInAI() {
+  if (!window.ai) {
+    return false;
+  }
+
+  const canCreate = await window.ai.canCreateTextSession();
+  return canCreate === "readily";
+}
+
 const MODELS = {
   phi3: {
     name: "phi3",
@@ -26,7 +41,7 @@ function getConfig() {
     csv: 0,
     max_tokens: 9999,
     local: 0,
-  }
+  };
   let vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {
     let pair = vars[i].split("=");
@@ -35,8 +50,7 @@ function getConfig() {
       const value = decodeURIComponent(pair[1]);
       if (typeof config[key] == "number") {
         config[key] = parseInt(value);
-      }
-      else {
+      } else {
         config[key] = value;
       }
     } else if (pair[0].length > 0) {
@@ -52,46 +66,76 @@ function getConfig() {
 const config = getConfig();
 
 // setup for transformers.js tokenizer
-env.localModelPath = 'models';
+env.localModelPath = "models";
 env.allowRemoteModels = config.local == 0;
 env.allowLocalModels = config.local == 1;
 
-let tokenizer;
-
-const llm = new LLM();
-
 function token_to_text(tokenizer, tokens, startidx) {
-  const txt = tokenizer.decode(tokens.slice(startidx), { skip_special_tokens: config.show_special != 1, });
+  const txt = tokenizer.decode(tokens.slice(startidx), {
+    skip_special_tokens: config.show_special != 1,
+  });
   return txt;
 }
 
 export async function Query(continuation, query, cb) {
-  let prompt = (continuation) ? query : `<|system|>\nYou are a friendly assistant.<|end|>\n<|user|>\n${query}<|end|>\n<|assistant|>\n`;
+  let prompt = continuation
+    ? query
+    : `<|system|>\nYou are a friendly assistant.<|end|>\n<|user|>\n${query}<|end|>\n<|assistant|>\n`;
 
-  const { input_ids } = await tokenizer(prompt, { return_tensor: false, padding: true, truncation: true });
+  if (canUseBuiltInAI) {
+    const session = await builtInAI;
+    builtInAIStream = session.promptStreaming(prompt);
+    for await (const chunk of builtInAIStream) {
+      cb(chunk);
+    }
+    return;
+  }
 
-  // clear caches 
+  const { input_ids } = await tokenizer(prompt, {
+    return_tensor: false,
+    padding: true,
+    truncation: true,
+  });
+
+  // clear caches
   // TODO: use kv_cache for continuation
   llm.initilize_feed();
 
   const start_timer = performance.now();
   const output_index = llm.output_tokens.length + input_ids.length;
-  const output_tokens = await llm.generate(input_ids, (output_tokens) => {
-    if (output_tokens.length == input_ids.length + 1) {
-      // time to first token
-      const took = (performance.now() - start_timer) / 1000;
-      console.log(`time to first token in ${took.toFixed(1)}sec, ${input_ids.length} tokens`);
-    }
-    cb(token_to_text(tokenizer, output_tokens, output_index));
-  }, { max_tokens: config.max_tokens });
+  const output_tokens = await llm.generate(
+    input_ids,
+    (output_tokens) => {
+      if (output_tokens.length == input_ids.length + 1) {
+        // time to first token
+        const took = (performance.now() - start_timer) / 1000;
+        console.log(
+          `time to first token in ${took.toFixed(1)}sec, ${
+            input_ids.length
+          } tokens`
+        );
+      }
+      cb(token_to_text(tokenizer, output_tokens, output_index));
+    },
+    { max_tokens: config.max_tokens }
+  );
 
   const took = (performance.now() - start_timer) / 1000;
   cb(token_to_text(tokenizer, output_tokens, output_index));
   const seqlen = output_tokens.length - output_index;
-  console.log(`${seqlen} tokens in ${took.toFixed(1)}sec, ${(seqlen / took).toFixed(2)} tokens/sec`);
+  console.log(
+    `${seqlen} tokens in ${took.toFixed(1)}sec, ${(seqlen / took).toFixed(
+      2
+    )} tokens/sec`
+  );
 }
 
 export function Abort() {
+  if (canUseBuiltInAI) {
+    builtInAIStream.cancel();
+    return;
+  }
+
   llm.abort();
 }
 
@@ -126,8 +170,8 @@ async function hasWebGPU() {
     return 2;
   }
   try {
-    const adapter = await navigator.gpu.requestAdapter()
-    if (adapter.features.has('shader-f16')) {
+    const adapter = await navigator.gpu.requestAdapter();
+    if (adapter.features.has("shader-f16")) {
       return 0;
     }
     return 1;
@@ -137,19 +181,32 @@ async function hasWebGPU() {
 }
 
 // Main entry point, which will load the model.
-export function Init() {
-  return new Promise(resolve => {
-    hasWebGPU().then((supported) => {
-      if (supported < 2) {
-        if (supported == 1) {
-          console.log("Your GPU or Browser does not support webgpu with fp16, using fp32 instead.");
-        }
-        Start(supported === 0).then(() => {
-          resolve();
-        });
+export function Init(forcePhi3Usage) {
+  return new Promise((resolve) => {
+    checkBuiltInAI().then((builtIn) => {
+      if (builtIn && !forcePhi3Usage) {
+        console.log("Using the build-in window.ai API.");
+        canUseBuiltInAI = true;
+        builtInAI = window.ai.createTextSession();
+        resolve();
       } else {
-        console.log("Your GPU or Browser does not support webgpu");
+        console.log("Using Phi-3-mini via ONNX Runtime Web.");
+        llm = new LLM();
+        hasWebGPU().then((supported) => {
+          if (supported < 2) {
+            if (supported == 1) {
+              console.log(
+                "Your GPU or Browser does not support webgpu with fp16, using fp32 instead."
+              );
+            }
+            Start(supported === 0).then(() => {
+              resolve();
+            });
+          } else {
+            console.log("Your GPU or Browser does not support webgpu");
+          }
+        });
       }
     });
-  }); 
+  });
 }

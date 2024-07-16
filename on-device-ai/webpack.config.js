@@ -6,10 +6,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
     mode: 'development',
-    devtool: 'source-map',
+    // devtool: 'source-map',
     entry: {
         'dist/chat': './chat.js',
         'dist/check_coc': './check_coc.js',
+        'dist/form_assistant': './form_assistant.js',
     },
     output: {
         filename: '[name].js',

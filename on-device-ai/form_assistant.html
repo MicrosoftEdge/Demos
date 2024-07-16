@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form assistant demo</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1rem;
+      margin: 2rem;
+    }
+
+    input,
+    textarea,
+    button {
+      padding: .5rem;
+      border-radius: .25rem;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    button {
+      color: white;
+      border: 0;
+      background: green;
+    }
+
+    input,
+    textarea {
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      height: 10rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-height: 40rem;
+      margin: 1rem 0;
+    }
+
+    .form-row {
+      width: calc(50% - .5rem);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    #assistant-form .form-row {
+      width: 100%;
+    }
+
+    label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    button {
+      align-self: end;
+    }
+
+    #status {
+      background: #eee;
+      padding: .5rem;
+      border-radius: .25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Contact form</h1>
+
+  <form id="assistant-form">
+    <div class="form-row">
+      <label for="assistant">Form filling assistant</label>
+      <textarea id="assistant" placeholder="Type your contact information here, we will analyze it and fill the form below for you..."></textarea>
+    </div>
+    <div class="form-row">
+      <button type="submit" id="analyze-info-button">Fill the form for me</button>
+    </div>
+  </form>
+
+  <form id="form">
+    <div class="form-row">
+      <label for="firstname">Firstname</label>
+      <input type="text" id="firstname">
+    </div>
+    <div class="form-row">
+      <label for="lastname">Lastname</label>
+      <input type="text" id="lastname">
+    </div>
+    <div class="form-row">
+      <label for="address1">Address line 1</label>
+      <input type="text" id="address1">
+    </div>
+    <div class="form-row">
+      <label for="address2">Address line 2</label>
+      <input type="text" id="address2">
+    </div>
+    <div class="form-row">
+      <label for="city">City</label>
+      <input type="text" id="city">
+    </div>
+    <div class="form-row">
+      <label for="state">State</label>
+      <input type="text" id="state">
+    </div>
+    <div class="form-row">
+      <label for="zip">Zip</label>
+      <input type="text" id="zip">
+    </div>
+    <div class="form-row">
+      <label for="country">Country</label>
+      <input type="text" id="country">
+    </div>
+    <div class="form-row">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone">
+    </div>
+    <div class="form-row">
+      <label for="email">Email</label>
+      <input type="text" id="email">
+    </div>
+    <div class="form-row">
+      <label for="bio">Bio</label>
+      <textarea id="bio"></textarea>
+    </div>
+    <div class="form-row">
+      <button type="submit" id="submit-button">Send your info</button>
+    </div>
+  </form>
+
+  <div id="status"></div>
+
+  <script type="module" src="dist/form_assistant.js"></script>
+</body>
+
+</html>
