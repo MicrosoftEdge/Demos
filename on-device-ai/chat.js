@@ -1,4 +1,4 @@
-import { Init, Query, Abort } from "./main.js";
+import { Init, Query, Abort } from "./model.js";
 import { marked } from "marked";
 
 const preCannedQueries = {
