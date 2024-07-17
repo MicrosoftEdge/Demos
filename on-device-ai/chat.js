@@ -122,9 +122,11 @@ async function submitRequest(e) {
 
   if (continuation) {
     input = context + " " + input;
+  } else {
+    input = `<|system|>\nYou are a friendly assistant.<|end|>\n<|user|>\n${input}<|end|>\n<|assistant|>\n`;
   }
 
-  Query(continuation, input, (word) => {
+  Query(input, (word) => {
     responseDiv.innerHTML = marked.parse(word);
   })
     .then(() => {

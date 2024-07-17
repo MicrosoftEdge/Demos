@@ -1,12 +1,39 @@
+import { env, AutoTokenizer } from "@xenova/transformers";
 import * as ort from "onnxruntime-web/webgpu";
+
+const MODELS = {
+  phi3: {
+    name: "phi3",
+    path: "microsoft/Phi-3-mini-4k-instruct-onnx-web",
+    externaldata: true,
+  },
+};
+
+const config = {
+  model: MODELS.phi3,
+  provider: "webgpu",
+  profiler: 0,
+  verbose: 0,
+  threads: 1,
+  show_special: 0,
+  csv: 0,
+  max_tokens: 9999,
+  local: 0,
+};
+
+// setup for transformers.js tokenizer
+env.localModelPath = "models";
+env.allowRemoteModels = config.local == 0;
+env.allowLocalModels = config.local == 1;
 
 ort.env.wasm.numThreads = 1;
 ort.env.wasm.simd = true;
 ort.env.wasm.wasmPaths =
-  document.location.pathname.substring(
-    0,
-    document.location.pathname.lastIndexOf("/") + 1
-  ) + "dist/";
+  location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1) +
+  "dist/";
+
+let tokenizer;
+let llm;
 
 function log(i) {
   console.log(i);
@@ -50,7 +77,7 @@ async function fetchAndCache(url) {
 //
 // class to handle a large language model on top of onnxruntime-web
 //
-export class LLM {
+class LLM {
   sess = undefined;
   profiler = false;
   feed = {};
@@ -280,4 +307,118 @@ export class LLM {
     }
     return this.output_tokens;
   }
+}
+
+function token_to_text(tokenizer, tokens, startidx) {
+  const txt = tokenizer.decode(tokens.slice(startidx), {
+    skip_special_tokens: config.show_special != 1,
+  });
+  return txt;
+}
+
+export async function Query(query, cb) {
+  const { input_ids } = await tokenizer(query, {
+    return_tensor: false,
+    padding: true,
+    truncation: true,
+  });
+
+  // clear caches
+  // TODO: use kv_cache for continuation
+  llm.initilize_feed();
+
+  const start_timer = performance.now();
+  const output_index = llm.output_tokens.length + input_ids.length;
+  const output_tokens = await llm.generate(
+    input_ids,
+    (output_tokens) => {
+      if (output_tokens.length == input_ids.length + 1) {
+        // time to first token
+        const took = (performance.now() - start_timer) / 1000;
+        console.log(
+          `time to first token in ${took.toFixed(1)}sec, ${
+            input_ids.length
+          } tokens`
+        );
+      }
+      cb(token_to_text(tokenizer, output_tokens, output_index));
+    },
+    { max_tokens: config.max_tokens }
+  );
+
+  const took = (performance.now() - start_timer) / 1000;
+  cb(token_to_text(tokenizer, output_tokens, output_index));
+  const seqlen = output_tokens.length - output_index;
+  console.log(
+    `${seqlen} tokens in ${took.toFixed(1)}sec, ${(seqlen / took).toFixed(
+      2
+    )} tokens/sec`
+  );
+}
+
+export function Abort() {
+  llm.abort();
+}
+
+//
+// Load the model and tokenizer
+//
+async function Start(hasFP16) {
+  try {
+    tokenizer = await AutoTokenizer.from_pretrained(config.model.path);
+
+    console.log("Loading model...");
+    await llm.load(config.model, {
+      provider: config.provider,
+      profiler: config.profiler,
+      verbose: config.verbose,
+      local: config.local,
+      max_tokens: config.max_tokens,
+      hasFP16: hasFP16,
+    });
+    console.log("Ready.");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//
+// Check if we have webgpu and fp16
+//
+async function hasWebGPU() {
+  // returns 0 for webgpu with f16, 1 for webgpu without f16, 2 for no webgpu
+  if (!("gpu" in navigator)) {
+    return 2;
+  }
+  try {
+    const adapter = await navigator.gpu.requestAdapter();
+    if (adapter.features.has("shader-f16")) {
+      return 0;
+    }
+    return 1;
+  } catch (e) {
+    return 2;
+  }
+}
+
+// Main entry point, which will load the model.
+export function Init() {
+  return new Promise((resolve) => {
+    console.log("Using Phi-3-mini via ONNX Runtime Web.");
+    llm = new LLM();
+    hasWebGPU().then((supported) => {
+      if (supported < 2) {
+        if (supported == 1) {
+          console.log(
+            "Your GPU or Browser does not support webgpu with fp16, using fp32 instead."
+          );
+        }
+        Start(supported === 0).then(() => {
+          resolve();
+        });
+      } else {
+        console.log("Your GPU or Browser does not support webgpu");
+      }
+    });
+  });
 }

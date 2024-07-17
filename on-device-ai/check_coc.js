@@ -1,4 +1,4 @@
-import { Init, Query, Abort } from "./main.js";
+import { Init, Query, Abort } from "./model.js";
 
 const CoC = `
 Participation in the community must be a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
@@ -85,7 +85,7 @@ async function startApp() {
     e.preventDefault();
     const prompt = PROMPT.replace("[COMMENT]", descriptionEl.value);
     let data = "";
-    Query(true, prompt, (word) => {
+    Query(prompt, (word) => {
       data = word;
       console.log(word);
       if (word.includes("<|END|>")) {

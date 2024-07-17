@@ -1,4 +1,4 @@
-import { Init, Query, Abort } from "./main.js";
+import { Init, Query, Abort } from "./model.js";
 
 const PROMPT = `Extract personal contact information from text, and produce a structured JSON output.
 
@@ -61,7 +61,7 @@ async function startApp() {
 
     const prompt = PROMPT.replace("[INFO]", assistant.value);
     let data = "";
-    Query(true, prompt, (word) => {
+    Query(prompt, (word) => {
       data = word;
       if (word.includes("}")) {
         Abort();

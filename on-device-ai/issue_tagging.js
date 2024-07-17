@@ -1,4 +1,4 @@
-import { Init, Query, Abort } from "./main.js";
+import { Init, Query, Abort } from "./model.js";
 
 const descriptionEl = document.getElementById("description");
 const form = document.getElementById("form");
@@ -80,7 +80,7 @@ async function startApp() {
     e.preventDefault();
     const prompt = PROMPT.replace("[COMMENT]", descriptionEl.value);
     let data = "";
-    Query(true, prompt, (word) => {
+    Query(prompt, (word) => {
       data = word;
       console.log(word);
       if (word.includes("<|END|>")) {
