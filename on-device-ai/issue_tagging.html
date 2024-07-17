@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Issue tagging demo</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1rem;
+      margin: 2rem;
+    }
+
+    input, textarea, button {
+      padding: .5rem;
+      border-radius: .25rem;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    button {
+      color: white;
+      border: 0;
+      background: green;
+    }
+
+    button[disabled] {
+      background: linear-gradient(to right, #8bc78b, green);
+      background-size: 200% 100%;
+      animation: animate-button 5s alternate infinite;
+    }
+
+    @keyframes animate-button {
+      0% {
+        background-position: 100%;
+      }
+
+      100% {
+        background-position: 0%;
+      }
+    }
+
+    input, textarea {
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      height: 10rem;
+    }
+
+    .form-row {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    button {
+      align-self: end;
+    }
+
+    #status {
+      background: #eee;
+      padding: .5rem;
+      border-radius: .25rem;
+    }
+
+    #tags, #tags li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .25rem;
+    }
+
+    #tags li {
+      border-radius: 100vw;
+      padding: .25rem 1rem;
+      background: rgb(223 222 83);
+      font-weight: bold;
+      font-size: small;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Submit a new issue</h1>
+
+  <form id="form">
+    <div class="form-row">
+      <label for="title">Add a title</label>
+      <input type="text" placeholder="Title">
+    </div>
+    <div class="form-row">
+      <label for="description">Add a description</label>
+      <div id="message"></div>
+      <textarea id="description" placeholder="Add your description here..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Tags</label>
+      <ul id="tags"></ul>
+    </div>
+    <div class="form-row">
+      <button type="submit" id="submit-button">Submit new issue</button>
+    </div>
+  </form>
+
+  <div id="status"></div>
+
+  <script type="module" src="dist/issue_tagging.js"></script>
+</body>
+
+</html>

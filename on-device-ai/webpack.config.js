@@ -11,6 +11,7 @@ export default {
         'dist/chat': './chat.js',
         'dist/check_coc': './check_coc.js',
         'dist/form_assistant': './form_assistant.js',
+        'dist/issue_tagging': './issue_tagging.js',
     },
     output: {
         filename: '[name].js',
