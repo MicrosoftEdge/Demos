@@ -1,0 +1,127 @@
+:root{
+    --content-padding: 0.75rem 1.25rem;
+    --dark-blue: #004183;
+    --blue: #006FDF;
+    --light-yellow: #FFF5E0;
+    --yellow: #FFD25E;
+    --off-white: #FEFEFE;
+    --black: #3D3D3D;
+    --green: #11AB00;
+    --dark-green: #14690B;
+    --light-green: #B9F3B3;
+}
+
+html {
+    background: var(--light-yellow);
+    height: 100dvh;
+    width: 100dvw;
+    font-family: sans-serif;
+    color: var(--black)
+}
+
+body {
+    display: grid;
+    height: 100dvh;
+    width: 100dvw;
+    grid-template: min-content auto min-content / repeat(4, 1fr);
+    justify-items: stretch;
+}
+
+header {
+    padding: var(--content-padding);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+}
+
+main {
+    padding: var(--content-padding);
+
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-rows:  repeat(auto-fill, 275px);
+    grid-gap: 1rem;   
+}
+
+h2 {
+    color: var(--dark-blue);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: .1rem;
+}
+
+.app_descrip {
+    line-height: 1.1rem;
+    margin-top: .5rem;
+}
+
+footer {
+    background: var(--yellow);
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+}
+
+.btn_category {
+    background: var(--light-yellow);
+    color: var(--blue);
+    padding: .75rem;
+    border-radius: 50px;
+    border-color: var(--blue);
+    cursor: pointer;
+}
+
+.btn_install {
+    background: var(--light-green);
+    color: var(--green);
+    padding: .65rem;
+    margin: 1.2rem;
+    border-radius: 10px;
+    border-color: var(--green);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform ease-in .2s, color ease-in .3s;
+}
+
+.btn_install:hover {
+    color: var(--dark-green);
+    transform: scale(1.05);
+}
+
+.category_filter_nav {
+    /* align-self: flex-end; */
+}
+
+.app_entry {
+    background: var(--off-white);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    border: var(--blue) solid ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform ease-in-out .3s;
+}
+
+.app_entry:hover {
+    transform: scale(1.03);
+    box-shadow: silver;
+}
+
+.app_icon {
+    margin: .5rem;
+}
