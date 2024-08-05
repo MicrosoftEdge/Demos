@@ -81,6 +81,11 @@ footer {
     grid-column: 1 / -1;
 }
 
+.storeicon {
+    margin-left: env(titlebar-area-x, 0);
+    margin-top: env(titlebar-area-height, 0);
+}
+
 .btn_category {
     background: var(--btn-category-bg);
     color: var(--btn-category-fg);
@@ -133,6 +138,16 @@ footer {
 
 .app_icon {
     margin: .5rem;
+}
+
+.draggable {
+    position: fixed;
+    top: env(titlebar-area-y, 0);
+    left: env(titlebar-area-x, 0);
+    width: env(titlebar-area-width, 100%);
+    height: env(titlebar-area-height, 33px);
+    -webkit-app-region: drag;
+    app-region: drag;
 }
 
 @media only screen and (max-width: 600px) {
