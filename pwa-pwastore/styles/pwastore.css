@@ -6,17 +6,20 @@
     --yellow: #FFD25E;
     --off-white: #FEFEFE;
     --black: #3D3D3D;
+    --grey: #727272;
     --green: #11AB00;
     --dark-green: #14690B;
     --light-green: #B9F3B3;
+
+    color-scheme: dark light;
 }
 
 html {
-    background: var(--light-yellow);
+    background: var(--background);
     height: 100dvh;
     width: 100dvw;
     font-family: sans-serif;
-    color: var(--black)
+    color: var(--text)
 }
 
 body {
@@ -46,13 +49,14 @@ main {
     grid-column: 1 / -1;
 
     display:grid;
-    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-rows:  repeat(auto-fill, 275px);
-    grid-gap: 1rem;   
+    grid-gap: 1rem;
+    justify-content: center;
 }
 
 h2 {
-    color: var(--dark-blue);
+    color: var(--subheader2);
     font-size: 1.25rem;
     font-weight: bold;
     margin: .1rem;
@@ -64,7 +68,8 @@ h2 {
 }
 
 footer {
-    background: var(--yellow);
+    background: var(--footer-bg);
+    color: var(--footer-fg);
     padding: 2rem;
     display: flex;
     flex-direction: row;
@@ -77,12 +82,14 @@ footer {
 }
 
 .btn_category {
-    background: var(--light-yellow);
-    color: var(--blue);
+    background: var(--btn-category-bg);
+    color: var(--btn-category-fg);
+    margin: .3rem;
     padding: .75rem;
     border-radius: 50px;
-    border-color: var(--blue);
+    border-color: var(--btn-category-border);
     cursor: pointer;
+    text-wrap: nowrap;
 }
 
 .btn_install {
@@ -103,11 +110,13 @@ footer {
 }
 
 .category_filter_nav {
-    /* align-self: flex-end; */
+    margin: 1rem;;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .app_entry {
-    background: var(--off-white);
+    background: var(--card-bg);
     border-radius: 1rem;
     padding: 1.2rem;
     border: var(--blue) solid ;
@@ -124,4 +133,29 @@ footer {
 
 .app_icon {
     margin: .5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-rows:  repeat(auto-fill, 275px);    
+    }
+
+    header {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .category_filter_nav {
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    main {
+        grid-template-columns: repeat(auto-fill, 100%);
+        grid-template-rows:  repeat(auto-fill, 275px);    
+    }
 }
