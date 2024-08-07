@@ -1,0 +1,11 @@
+:root{
+    --background: var(--light-yellow);
+    --text: var(--black);
+    --card-bg: var(--off-white);
+    --subheader2: var(--blue);
+    --btn-category-bg: var(--light-yellow);
+    --btn-category-border: var(--blue);
+    --btn-category-fg: var(--blue);
+    --footer-fg: var(--black);
+    --footer-bg: var(--yellow);
+}
