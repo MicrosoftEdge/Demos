@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<style>
+
+</style>
+
+<h1>IndexedDB: getAllRecords()</h1>
+
+<script>
+  // Open the DB.
+  const openRequest = indexedDB.open("db", 3);
+
+  // The first time, the onupgradeneeded event is triggered, and we use it
+  // to create an object store (similar to a table in SQL databases).
+  openRequest.onupgradeneeded = event => {
+    console.log("onupgradeneeded");
+
+    const db = openRequest.result
+
+    // Creating an object store.
+    // Providing keyPath means that objects stored here must have an "id" property.
+    console.log("creating user store");
+    const store = db.createObjectStore("features", { keyPath: "id" });
+
+    // Indexes are used to query object stores by various properties.
+    // Creating one to search by the "name" property.
+    console.log("creating name index");
+    const index = store.createIndex("name", "name");
+  };
+
+  function clearStore(db) {
+    return new Promise((resolve, reject) => {
+      console.log("Creating a transaction to clear the store");
+      const clearTransaction = db.transaction("features", "readwrite");
+
+      clearTransaction.oncomplete = event => console.log("Clear transaction complete");
+      clearTransaction.onerror = event => {
+        console.error("Clear transaction error");
+        reject(new Error("Clear transaction error", event));
+      };
+      
+      // The transaction gives us access to the store, but we need to name it.
+      // Indeed, we could have opened the transaction for multiple stores at once.
+      const clearTransactionStore = clearTransaction.objectStore("features");
+      
+      // We can now clear the store.
+      console.log("Clearing the store");
+      const clearRequest = clearTransactionStore.clear();
+      
+      clearRequest.onsuccess = event => {
+        console.log("Store cleared");
+        resolve();
+      }
+
+      clearRequest.onerror = event => {
+        console.error("Error clearing store");
+        reject(new Error("Error clearing store", event));
+      }
+    });
+  }
+
+  function addOneFeatureToStore(db, id, name, description) {
+    return new Promise((resolve, reject) => {
+      console.log("Creating a transaction to add the item to the store");
+      const addTransaction = db.transaction("features", "readwrite");
+
+      addTransaction.oncomplete = event => console.log("Add transaction complete");
+      addTransaction.onerror = event => {
+        console.error("Add transaction error");
+        reject(new Error("Add transaction error", event));
+      };
+      
+      // The transaction gives us access to the store, but we need to name it.
+      // Indeed, we could have opened the transaction for multiple stores at once.
+      const addTransactionStore = addTransaction.objectStore("features");
+      
+      // We can now add data to the store.
+      console.log("Adding the data");
+      const addRequest = addTransactionStore.add({ id, name, description });
+      
+      addRequest.onsuccess = event => {
+        console.log("Data added");
+        resolve();
+      }
+
+      addRequest.onerror = event => {
+        console.error("Error adding data");
+        reject(new Error("Error adding data", event));
+      }
+    });
+  }
+
+  async function addAllFeatures(db) {
+    // Get some data to populate our store. The data isn't important. We just need to get a lot of it.
+    const response = await fetch("./features.json");
+    const data = await response.json();
+
+    const featureAdditionPromises = Object.keys(data.features).map(id => {
+      return addOneFeatureToStore(db, id, data.features[id].name, data.features[id].description);
+    });
+
+    return Promise.all(featureAdditionPromises);
+  }
+
+  // Transactions can't run before the onupgradeneeded event has finished.
+  // We can wait by using the onsuccess event of the request.
+  openRequest.onsuccess = async event => {
+    console.log("onsuccess");
+
+    const db = openRequest.result
+
+    // Start by clearing the entire store
+    await clearStore(db);
+
+    // Add some data to the store.
+    await addAllFeatures(db);
+
+    // To read data from the database, we need another transaction.
+    console.log("starting read transaction");
+    const readTransaction = db.transaction("features", "readonly");
+
+    // We can also log the transaction's events.
+    readTransaction.oncomplete = event => console.log("read transaction complete");
+    readTransaction.onerror = event => console.log("read transaction error");
+
+    // Get the store from the transaction.
+    const readTransactionStore = readTransaction.objectStore("features");
+
+    // We can now read data from the store.
+    console.log("reading data - all records");
+    const getAllRequest = readTransactionStore.getAll();
+    getAllRequest.onsuccess = event => console.log("all records", getAllRequest.result);
+
+    console.log("reading data - all keys");
+    const getAllKeysRequest = readTransactionStore.getAllKeys();
+    getAllKeysRequest.onsuccess = event => console.log("all keys", getAllKeysRequest.result);
+  };
+
+  /*
+  
+  EXISTING
+  
+  api.IDBIndex.getAll(query, count) // both optional
+  api.IDBIndex.getAllKeys(query, count) // both optional
+  
+  api.IDBObjectStore.getAll(query, count) // both optional
+  api.IDBObjectStore.getAllKeys(query, count) // both optional
+  
+  PROPOSED
+  
+  api.IDBIndex.getAllRecords({ count, direction })
+  api.IDBObjectStore.getAllRecords({ count, direction })
+  
+  */
+
+</script>
