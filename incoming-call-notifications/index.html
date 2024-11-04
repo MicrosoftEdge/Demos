@@ -8,32 +8,66 @@
   <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
 
   <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.1rem;
+    }
 
+    button {
+      font-family: inherit;
+      font-size: inherit;
+      margin: 1rem 0;
+    }
+
+    body {
+      margin: 1rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+    }
+
+    h1 {
+      grid-column: 1 / span 2;
+      margin: 0;
+    }
+
+    h2 {
+      margin-block-start: 0;
+    }
   </style>
 </head>
 
 <body>
-  <button onclick="requestPermission()">Request Permission</button>
-  <button onclick="showServiceWorkerToast()">Show ServiceWorker Toast</button>
-  <button onclick="showIncomingCallToast()">Show Incoming Call Toast</button>
-  <button onclick="showToastHistory()">Show Toast History</button>
-  <button onclick="clearToastHistory()">Clear Toast History</button>
+  <h1>Incoming call notifications API</h1>
 
-  <div id="permissionStatus"></div>
-  <div id="log"></div><br />
+  <div id="buttons">
+    <h2>Test</h2>
+    <button id="permission">Request permission</button>
+    <button id="notification">Show a standard notification</button>
+    <button id="call">Show an incoming call notification</button>
+  </div>
+
+  <div id="log">
+    <h2>Log</h2>
+  </div>
 
   <script>
     "use strict";
 
     const logEl = document.getElementById("log");
+    const permissionBtn = document.getElementById("permission");
+    const notificationBtn = document.getElementById("notification");
+    const callBtn = document.getElementById("call");
 
-    let toastId = localStorage.getItem("toastId");
-    if (toastId === null) {
-      toastId = 1;
-      localStorage.setItem("toastId", toastId);
+    // A counter to keep track of the number of notifications shown.
+    let notificationId = localStorage.getItem("notificationId");
+    if (notificationId === null) {
+      notificationId = 1;
+      localStorage.setItem("notificationId", notificationId);
     }
 
-    let registration = null;
+    // The service worker registration.
+    let serviceWorkerRegistration = null;
 
     function log(message) {
       logEl.innerHTML += `${message}<br>`;
@@ -46,7 +80,7 @@
     }
 
     function updatePermissionStatus() {
-      document.getElementById("permissionStatus").innerHTML = `Notification Permission: ${Notification.permission}`;
+      permissionBtn.textContent = `Permission: ${Notification.permission}`;
     }
 
     function requestPermission() {
@@ -59,151 +93,51 @@
         });
     }
 
-    let windowNotificationList = [];
-
-    function showToast() {
-      const notification = new Notification(`Window Title ${++toastId}`, { body: `Window Body ${++toastId}`, tag: "jim-bagleaducia", icon: "../resources/happy.jpg", image: "../resources/happy.jpg", requireInteraction: false, silent: true });
-      localStorage.setItem("toastId", toastId);
-      windowNotificationList.push(notification);
-      notification.onclick = () => {
-        log(`Window 'click' event for: ${notification.title}, timestamp: ${new Date(notification.timestamp)}, requireInteraction: ${notification.requireInteraction}, silent: ${notification.silent}`);
-      };
-      notification.onerror = () => {
-        log(`Window 'error' event for: ${notification.title}`);
-      };
-      notification.onshow = () => {
-        log(`Window 'show' event for: ${notification.title}`);
-      };
-      notification.onclose = () => {
-        log(`Window 'close' event for: ${notification.title}`);
-      };
+    function showNotification() {
+      if (serviceWorkerRegistration !== null) {
+        serviceWorkerRegistration.showNotification(`Notification ${++notificationId}`, {
+          body: `Notification ${notificationId} description`,
+          icon: "./icon.png"
+        }).then(() => {
+          log("showNotification() succeeded");
+        }).catch((error) => {
+          log(`showNotification() failed: ${error}.`);
+        });
+      }
     }
 
-    function closeToast() {
-      windowNotificationList.forEach((toast) => {
-        toast.close();
-      });
-      windowNotificationList = [];
-    }
-
-    function showToastWithInvalidImage() {
-      const notification = new Notification(`Window Title ${++toastId}`, { body: `Window Body ${++toastId}`, icon: "../resources/happy2.jpg", requireInteraction: false, silent: true });
-      notification.onclick = () => {
-        log(`Window 'click' event for: ${notification.title}, timestamp: ${new Date(notification.timestamp)}, requireInteraction: ${notification.requireInteraction}, silent: ${notification.silent}`);
-      };
-      notification.onerror = () => {
-        log(`Window 'error' event for: ${notification.title}`);
-      };
+    function showIncomingCallNotification() {
+      if (serviceWorkerRegistration !== null) {
+        serviceWorkerRegistration.showNotification(`Incoming call ${++notificationId}`, {
+          body: `Incoming call ${notificationId} description`,
+          icon: "./icon.png",
+          scenario: "incoming-call",
+          actions: [
+            { action: "accept-audio-call", title: "audio" },
+            { action: "accept-video-call", title: "video" }
+          ]
+        }).then(() => {
+          log("showNotification() succeeded");
+        }).catch((error) => {
+          log(`showNotification() failed: ${error}.`);
+        });
+      }
     }
 
     navigator.serviceWorker.register("sw.js", { scope: './' })
       .then((result) => {
-        registration = result;
-        log("register() succeeded");
-      }).catch((error) => {
-        log(`register() failed: ${error}.`);
+        serviceWorkerRegistration = result;
       });
 
     navigator.serviceWorker.onmessage = (messageEvent) => {
       log(messageEvent.data);
     }
 
-    function showServiceWorkerToast() {
-      if (registration !== null) {
-        registration.showNotification(`ServiceWorker Title ${++toastId}`, { body: `ServiceWorker Body: ${toastId}`, icon: "../resources/happy.jpg", actions: [{ action: "open_window", title: "Open New Window" }, { action: "focus", title: "Focus Existing Window" }] })
-          .then(() => {
-            log("showNotification() succeeded");
-          }).catch((error) => {
-            log(`showNotification() failed: ${error}.`);
-          });
-      }
-    }
-
-    function showServiceWorkerToastWithTag() {
-      if (registration !== null) {
-        registration.showNotification(`ServiceWorker Title with Tag ${++toastId}`, { body: `ServiceWorker Body: Tag ${toastId}`, icon: "../resources/happy.jpg", requireInteraction: false, silent: true, tag: "ServiceWorkerTag" })
-          .then(() => {
-            log("showNotification() succeeded");
-          }).catch((error) => {
-            log(`showNotification() failed: ${error}.`);
-          });
-      }
-    }
-
-    function showServiceWorkerToastWithTagWithRenotify() {
-      if (registration !== null) {
-        registration.showNotification(`ServiceWorker Title with Tag with renotify ${++toastId}`, { body: `ServiceWorker Body: Tag with renotify ${toastId}`, icon: "../resources/happy.jpg", requireInteraction: false, silent: true, tag: "ServiceWorkerTagWithoutRenotify", renotify: true })
-          .then(() => {
-            log("showNotification() succeeded");
-          }).catch((error) => {
-            log(`showNotification() failed: ${error}.`);
-          });
-      }
-    }
-
-    function showServiceWorkerGlobalScopeToast() {
-      if (navigator.serviceWorker.controller !== null) {
-        navigator.serviceWorker.controller.postMessage(++toastId);
-      }
-    }
-
-    const dedicatedWorker = new Worker("dedicated-worker.js");
-    dedicatedWorker.onmessage = (messageEvent) => {
-      log(messageEvent.data);
-    }
-
-    function showDedicatedWorkerToast() {
-      dedicatedWorker.postMessage(++toastId);
-    }
-
-    function closeDedicatedWorkerToast() {
-      dedicatedWorker.postMessage("close");
-    }
-
-    function showIncomingCallToast() {
-      if (registration !== null) {
-        registration.showNotification(`IncomingCall Title ${++toastId}`, { body: `ServiceWorker Body: ${toastId}`, icon: "../resources/happy.jpg", scenario: "incoming-call", actions: [{ action: "accept-audio-call", title: "audio" }, { action: "accept-video-call", title: "video" }] })
-          .then(() => {
-            log("showNotification() succeeded");
-          }).catch((error) => {
-            log(`showNotification() failed: ${error}.`);
-          });
-      }
-    }
-
-    function showToastHistory() {
-      if (registration !== null) {
-        registration.getNotifications()
-          .then((resultList) => {
-            log(`Found <b>${resultList.length}</b> notifications:`)
-            log("");
-
-            resultList.forEach((notification) => {
-              logNotification(notification);
-            });
-          }).catch((error) => {
-            log(`getNotifications() failed: ${error}.`);
-          });
-      }
-    }
-
-    function clearToastHistory() {
-      if (registration !== null) {
-        registration.getNotifications()
-          .then((resultList) => {
-            log(`Clearing <b>${resultList.length}</b> notifications!`)
-
-            resultList.forEach((notification) => {
-              notification.close();
-            });
-          }).catch((error) => {
-            log(`getNotifications() failed: ${error}.`);
-          });
-      }
-    }
+    permissionBtn.addEventListener("click", requestPermission);
+    notificationBtn.addEventListener("click", showNotification);
+    callBtn.addEventListener("click", showIncomingCallNotification);
 
     updatePermissionStatus();
-
   </script>
 </body>
 
