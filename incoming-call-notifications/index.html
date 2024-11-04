@@ -96,7 +96,7 @@
       };
     }
 
-    navigator.serviceWorker.register("service-worker.js", { scope: '/repro_pages/notifications/' })
+    navigator.serviceWorker.register("sw.js", { scope: './' })
       .then((result) => {
         registration = result;
         log("register() succeeded");
