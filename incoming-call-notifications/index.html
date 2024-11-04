@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incoming Call Notifications API</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <button onclick="requestPermission()">Request Permission</button>
+  <button onclick="showServiceWorkerToast()">Show ServiceWorker Toast</button>
+  <button onclick="showIncomingCallToast()">Show Incoming Call Toast</button>
+  <button onclick="showToastHistory()">Show Toast History</button>
+  <button onclick="clearToastHistory()">Clear Toast History</button>
+
+  <div id="permissionStatus"></div>
+  <div id="log"></div><br />
+
+  <script>
+    "use strict";
+
+    const logEl = document.getElementById("log");
+
+    let toastId = localStorage.getItem("toastId");
+    if (toastId === null) {
+      toastId = 1;
+      localStorage.setItem("toastId", toastId);
+    }
+
+    let registration = null;
+
+    function log(message) {
+      logEl.innerHTML += `${message}<br>`;
+    }
+
+    function logNotification(notification) {
+      log(`<strong>${notification.title}</strong>`);
+      log(notification.body);
+      log("");
+    }
+
+    function updatePermissionStatus() {
+      document.getElementById("permissionStatus").innerHTML = `Notification Permission: ${Notification.permission}`;
+    }
+
+    function requestPermission() {
+      Notification.requestPermission()
+        .then((result) => {
+          updatePermissionStatus();
+          log("requestPermission() succeeded");
+        }).catch((error) => {
+          log(`requestPermission() failed: ${error}.`);
+        });
+    }
+
+    let windowNotificationList = [];
+
+    function showToast() {
+      const notification = new Notification(`Window Title ${++toastId}`, { body: `Window Body ${++toastId}`, tag: "jim-bagleaducia", icon: "../resources/happy.jpg", image: "../resources/happy.jpg", requireInteraction: false, silent: true });
+      localStorage.setItem("toastId", toastId);
+      windowNotificationList.push(notification);
+      notification.onclick = () => {
+        log(`Window 'click' event for: ${notification.title}, timestamp: ${new Date(notification.timestamp)}, requireInteraction: ${notification.requireInteraction}, silent: ${notification.silent}`);
+      };
+      notification.onerror = () => {
+        log(`Window 'error' event for: ${notification.title}`);
+      };
+      notification.onshow = () => {
+        log(`Window 'show' event for: ${notification.title}`);
+      };
+      notification.onclose = () => {
+        log(`Window 'close' event for: ${notification.title}`);
+      };
+    }
+
+    function closeToast() {
+      windowNotificationList.forEach((toast) => {
+        toast.close();
+      });
+      windowNotificationList = [];
+    }
+
+    function showToastWithInvalidImage() {
+      const notification = new Notification(`Window Title ${++toastId}`, { body: `Window Body ${++toastId}`, icon: "../resources/happy2.jpg", requireInteraction: false, silent: true });
+      notification.onclick = () => {
+        log(`Window 'click' event for: ${notification.title}, timestamp: ${new Date(notification.timestamp)}, requireInteraction: ${notification.requireInteraction}, silent: ${notification.silent}`);
+      };
+      notification.onerror = () => {
+        log(`Window 'error' event for: ${notification.title}`);
+      };
+    }
+
+    navigator.serviceWorker.register("service-worker.js", { scope: '/repro_pages/notifications/' })
+      .then((result) => {
+        registration = result;
+        log("register() succeeded");
+      }).catch((error) => {
+        log(`register() failed: ${error}.`);
+      });
+
+    navigator.serviceWorker.onmessage = (messageEvent) => {
+      log(messageEvent.data);
+    }
+
+    function showServiceWorkerToast() {
+      if (registration !== null) {
+        registration.showNotification(`ServiceWorker Title ${++toastId}`, { body: `ServiceWorker Body: ${toastId}`, icon: "../resources/happy.jpg", actions: [{ action: "open_window", title: "Open New Window" }, { action: "focus", title: "Focus Existing Window" }] })
+          .then(() => {
+            log("showNotification() succeeded");
+          }).catch((error) => {
+            log(`showNotification() failed: ${error}.`);
+          });
+      }
+    }
+
+    function showServiceWorkerToastWithTag() {
+      if (registration !== null) {
+        registration.showNotification(`ServiceWorker Title with Tag ${++toastId}`, { body: `ServiceWorker Body: Tag ${toastId}`, icon: "../resources/happy.jpg", requireInteraction: false, silent: true, tag: "ServiceWorkerTag" })
+          .then(() => {
+            log("showNotification() succeeded");
+          }).catch((error) => {
+            log(`showNotification() failed: ${error}.`);
+          });
+      }
+    }
+
+    function showServiceWorkerToastWithTagWithRenotify() {
+      if (registration !== null) {
+        registration.showNotification(`ServiceWorker Title with Tag with renotify ${++toastId}`, { body: `ServiceWorker Body: Tag with renotify ${toastId}`, icon: "../resources/happy.jpg", requireInteraction: false, silent: true, tag: "ServiceWorkerTagWithoutRenotify", renotify: true })
+          .then(() => {
+            log("showNotification() succeeded");
+          }).catch((error) => {
+            log(`showNotification() failed: ${error}.`);
+          });
+      }
+    }
+
+    function showServiceWorkerGlobalScopeToast() {
+      if (navigator.serviceWorker.controller !== null) {
+        navigator.serviceWorker.controller.postMessage(++toastId);
+      }
+    }
+
+    const dedicatedWorker = new Worker("dedicated-worker.js");
+    dedicatedWorker.onmessage = (messageEvent) => {
+      log(messageEvent.data);
+    }
+
+    function showDedicatedWorkerToast() {
+      dedicatedWorker.postMessage(++toastId);
+    }
+
+    function closeDedicatedWorkerToast() {
+      dedicatedWorker.postMessage("close");
+    }
+
+    function showIncomingCallToast() {
+      if (registration !== null) {
+        registration.showNotification(`IncomingCall Title ${++toastId}`, { body: `ServiceWorker Body: ${toastId}`, icon: "../resources/happy.jpg", scenario: "incoming-call", actions: [{ action: "accept-audio-call", title: "audio" }, { action: "accept-video-call", title: "video" }] })
+          .then(() => {
+            log("showNotification() succeeded");
+          }).catch((error) => {
+            log(`showNotification() failed: ${error}.`);
+          });
+      }
+    }
+
+    function showToastHistory() {
+      if (registration !== null) {
+        registration.getNotifications()
+          .then((resultList) => {
+            log(`Found <b>${resultList.length}</b> notifications:`)
+            log("");
+
+            resultList.forEach((notification) => {
+              logNotification(notification);
+            });
+          }).catch((error) => {
+            log(`getNotifications() failed: ${error}.`);
+          });
+      }
+    }
+
+    function clearToastHistory() {
+      if (registration !== null) {
+        registration.getNotifications()
+          .then((resultList) => {
+            log(`Clearing <b>${resultList.length}</b> notifications!`)
+
+            resultList.forEach((notification) => {
+              notification.close();
+            });
+          }).catch((error) => {
+            log(`getNotifications() failed: ${error}.`);
+          });
+      }
+    }
+
+    updatePermissionStatus();
+
+  </script>
+</body>
+
+</html>
