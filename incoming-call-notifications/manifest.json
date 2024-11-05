@@ -1,0 +1,16 @@
+{
+  "theme_color": "#8a35f6",
+  "background_color": "#f69435",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./index.html",
+  "name": "Incoming Call Notifications",
+  "short_name": "ICN",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192 256x256 512x512",
+      "type": "image/png"
+    }
+  ]
+}
