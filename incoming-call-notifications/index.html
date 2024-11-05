@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Incoming Call Notifications API</title>
+  <title>Notifications demo</title>
   <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
   <link rel="manifest" href="manifest.json">
 
@@ -18,6 +18,7 @@
       font-family: inherit;
       font-size: inherit;
       margin: 1rem 0;
+      display: block;
     }
 
     body {
@@ -39,7 +40,7 @@
 </head>
 
 <body>
-  <h1>Incoming call notifications API</h1>
+  <h1>Notifications demo</h1>
 
   <div id="buttons">
     <h2>Test</h2>
@@ -60,14 +61,6 @@
     const notificationBtn = document.getElementById("notification");
     const callBtn = document.getElementById("call");
 
-    // A counter to keep track of the number of notifications shown.
-    let notificationId = localStorage.getItem("notificationId");
-    if (notificationId === null) {
-      notificationId = 1;
-      localStorage.setItem("notificationId", notificationId);
-    }
-
-    // The service worker registration.
     let serviceWorkerRegistration = null;
 
     function log(message) {
@@ -96,9 +89,8 @@
 
     function showNotification() {
       if (serviceWorkerRegistration !== null) {
-        serviceWorkerRegistration.showNotification(`Notification ${++notificationId}`, {
-          body: `Notification ${notificationId} description`,
-          icon: "./icon.png"
+        serviceWorkerRegistration.showNotification("Notification", {
+          body: "This is a notification example",
         }).then(() => {
           log("showNotification() succeeded");
         }).catch((error) => {
@@ -109,9 +101,9 @@
 
     function showIncomingCallNotification() {
       if (serviceWorkerRegistration !== null) {
-        serviceWorkerRegistration.showNotification(`Incoming call ${++notificationId}`, {
-          body: `Incoming call ${notificationId} description`,
-          icon: "./icon.png",
+        serviceWorkerRegistration.showNotification("Incoming call", {
+          body: "This is an incoming call notification example. Someone is calling.",
+          icon: "./call.png",
           scenario: "incoming-call",
           actions: [
             { action: "accept-audio-call", title: "audio" },

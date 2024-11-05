@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./index.html",
-  "name": "Incoming Call Notifications",
-  "short_name": "ICN",
+  "name": "Notifications demo",
+  "short_name": "Notifications demo",
   "icons": [
     {
       "src": "icon.png",
