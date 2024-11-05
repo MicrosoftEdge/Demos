@@ -155,6 +155,40 @@
     }
   }
 
+  // The same code as above, but using the newly proposed getAllRecords method instead.
+  // This method is more convenient as it returns both keys and values in a single call.
+  async function readInBatches_new(db) {
+    const batchSize = 10;
+
+    console.log("starting read transaction");
+    const readTransaction = db.transaction("features", "readonly");
+
+    readTransaction.oncomplete = event => console.log("read transaction complete");
+    readTransaction.onerror = event => console.log("read transaction error");
+
+    const readTransactionStore = readTransaction.objectStore("features");
+
+    function getNextBatch(lastRecord) {
+      return new Promise(resolve => {
+        const query = lastRecord ? IDBKeyRange.lowerBound(lastRecord.key, true) : null;
+        readTransactionStore.getAllRecords({ query, count: batchSize }).onsuccess = event => {
+          resolve(event.target.result);
+        };
+      });
+    }
+
+    let lastRecord = null;
+    while (true) {
+      const records = await getNextBatch(lastRecord);
+      if (records.length === batchSize) {
+        lastRecord = records.at(-1);
+        console.log(`Read ${batchSize} records`, records);
+      } else {
+        break;
+      }
+    }
+  }
+
   // Reading in reserve order requires the use of a cursor.
   // This means that it has to be done one item at a time.
   async function readReverse(db) {
@@ -177,6 +211,41 @@
         console.log("Reverse read done");
       }
     };
+  }
+
+  // The same code as above, but using the newly proposed getAllRecords method instead.
+  // This method makes it possible to read in batches in reverse order, which is not the
+  // case of the previous method, which necessitates using a cursor (one-by-one iteration).
+  async function readReverse_new(db) {
+    const batchSize = 10;
+
+    console.log("starting read transaction");
+    const readTransaction = db.transaction("features", "readonly");
+
+    readTransaction.oncomplete = event => console.log("read transaction complete");
+    readTransaction.onerror = event => console.log("read transaction error");
+
+    const readTransactionStore = readTransaction.objectStore("features");
+
+    function getNextBatch(lastRecord) {
+      return new Promise(resolve => {
+        const query = lastRecord ? IDBKeyRange.upperBound(lastRecord.key, true) : null;
+        readTransactionStore.getAllRecords({ query, count: batchSize, direction: "prev" }).onsuccess = event => {
+          resolve(event.target.result);
+        };
+      });
+    }
+
+    let lastRecord = null;
+    while (true) {
+      const records = await getNextBatch(lastRecord);
+      if (records.length === batchSize) {
+        lastRecord = records.at(-1);
+        console.log(`Read ${batchSize} records`, records);
+      } else {
+        break;
+      }
+    }
   }
 
   // Transactions can't run before the onupgradeneeded event has finished.
