@@ -1,274 +1,205 @@
 <!DOCTYPE html>
-<style>
+<html lang="en">
 
-</style>
+<head>
+  <meta charset="UTF-8">
+  <title>IndexedDB: getAllRecords()</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 2rem;
+    }
 
-<h1>IndexedDB: getAllRecords()</h1>
+    input,
+    button,
+    textarea {
+      font-size: inherit;
+      font-family: inherit;
+    }
 
-<button id="read" disabled>Read in batches</button>
-<button id="read-reverse" disabled>Read in reverse order</button>
+    #loading-indicator {
+      margin-inline-start: 0.5rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      background: radial-gradient(#eedada 40%, transparent 0), conic-gradient(black 0.9turn, transparent 0);
+      display: none;
+      animation: rotate 1s linear infinite;
+    }
 
-<script>
-  const readButton = document.querySelector("#read");
-  const readReverseButton = document.querySelector("#read-reverse");
+    .loading #loading-indicator {
+      display: inline-block;
+    }
 
-  // Open the DB.
-  const openRequest = indexedDB.open("db", 4);
+    @keyframes rotate {
+      to {
+        transform: rotate(1turn);
+      }
+    }
 
-  // The first time, the onupgradeneeded event is triggered, and we use it
-  // to create an object store (similar to a table in SQL databases).
-  openRequest.onupgradeneeded = event => {
-    console.log("onupgradeneeded");
+    .controls {
+      padding: 1rem;
+      border-radius: .5rem;
+      background: #eedada;
+    }
 
-    const db = openRequest.result
+    .controls h3 {
+      margin: 0;
+    }
 
-    // Creating an object store.
-    console.log("creating user store");
-    const store = db.createObjectStore("features");
-  };
+    .controls h3:empty {
+      display: none;
+    }
+  </style>
+</head>
 
-  function clearStore(db) {
-    return new Promise((resolve, reject) => {
-      console.log("Creating a transaction to clear the store");
-      const clearTransaction = db.transaction("features", "readwrite");
+<body>
+  <h1>Faster IndexedDB reads with <code>getAllRecords()</code></h1>
+  <p>This webpage demonstrates the benefits of the proposed <code>getAllRecords()</code> IndexedDB method, which makes
+    it possible to retrieve multiple records' primary keys and values at once, minimizing the number of IDB read
+    operations, and allowing to read in batches, in both directions. Read the full <a
+      href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md">explainer</a>.
+  </p>
 
-      clearTransaction.oncomplete = event => console.log("Clear transaction complete");
-      clearTransaction.onerror = event => {
-        console.error("Clear transaction error");
-        reject(new Error("Clear transaction error", event));
+  <p>Use the buttons below to test reading many records from an IndexedDB store that's been initialized on the page.
+    After clicking a button, the duration the read operation took is displayed below.</p>
+
+  <p>If your device is powerful, use the <strong>Performance</strong> tool in DevTools to simulate a slower CPU. See <a
+      href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/reference#throttle-the-cpu-while-recording">Throttle
+      the CPU while recording</a>.</p>
+
+  <div class="controls">
+    <button id="read" disabled>Read batches</button>
+    <button id="read-reverse" disabled>Read batches in reverse order</button>
+
+    <div>
+      <input type="checkbox" name="mode" id="mode"><label for="mode">Test with <code>getAllRecords()</code></label>
+    </div>
+
+    <span id="loading-indicator"></span>
+
+    <h3></h3>
+  </div>
+
+  <script type="module">
+    const modeCheckbox = document.querySelector("#mode");
+    const durationLabel = document.querySelector("h3");
+    const batchSize = 10;
+    let data = null;
+
+    function clearStore(db) {
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction("features", "readwrite");
+        const store = transaction.objectStore("features");
+        store.clear().onsuccess = event => resolve();
+      });
+    }
+
+    async function addAllFeatures(db) {
+      // Get some data to populate our store. The data isn't important. We just need to get a lot of it.
+      if (!data) {
+        const response = await fetch("./data.json");
+        data = await response.json();
+      }
+
+      return Promise.all(Object.keys(data.features).map(id => {
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction("features", "readwrite");
+          const store = transaction.objectStore("features");
+          store.add(data.features[id], id).onsuccess = event => resolve();
+        });
+      }));
+    }
+
+    function setAsLoading() {
+      document.querySelector("#read").disabled = true;
+      document.querySelector("#read-reverse").disabled = true;
+      modeCheckbox.disabled = true;
+      document.body.classList.add("loading");
+      durationLabel.textContent = "";
+    }
+
+    function setAsReady() {
+      document.querySelector("#read").disabled = false;
+      document.querySelector("#read-reverse").disabled = false;
+      modeCheckbox.disabled = false;
+      document.body.classList.remove("loading");
+    }
+
+    function startMeasuring() {
+      performance.clearMarks();
+      performance.clearMeasures();
+      performance.mark("read-start");
+    }
+
+    function stopMeasuring() {
+      performance.mark("read-end");
+      const measure = performance.measure("read", "read-start", "read-end");
+      return measure.duration;
+    }
+
+    function init(useGetAllRecords) {
+      setAsLoading();
+
+      // Clone the buttons, to get rid of previous event listeners.
+      const readButton = document.querySelector("#read");
+      const readReverseButton = document.querySelector("#read-reverse");
+
+      const newReadButton = readButton.cloneNode(true);
+      const newReadReverseButton = readReverseButton.cloneNode(true);
+
+      readButton.parentNode.replaceChild(newReadButton, readButton);
+      readReverseButton.parentNode.replaceChild(newReadReverseButton, readReverseButton);
+
+      // Open the database.
+      const openRequest = indexedDB.open("db", 4);
+
+      openRequest.onupgradeneeded = event => {
+        openRequest.result.createObjectStore("features");
       };
 
-      // The transaction gives us access to the store, but we need to name it.
-      // Indeed, we could have opened the transaction for multiple stores at once.
-      const clearTransactionStore = clearTransaction.objectStore("features");
+      openRequest.onsuccess = async event => {
+        const db = openRequest.result;
 
-      // We can now clear the store.
-      console.log("Clearing the store");
-      const clearRequest = clearTransactionStore.clear();
+        // Reset the store to test again on each page load.
+        await clearStore(db);
+        await addAllFeatures(db);
+        console.log("Database initialized.")
 
-      clearRequest.onsuccess = event => {
-        console.log("Store cleared");
-        resolve();
-      }
+        // Import the right read implementations.
+        const { readInBatches } = await import(`./read-batches${useGetAllRecords ? "-with-getAllRecords" : ""}.js`);
+        const { readInBatchesReverse } = await import(`./read-reverse-batches${useGetAllRecords ? "-with-getAllRecords" : ""}.js`);
 
-      clearRequest.onerror = event => {
-        console.error("Error clearing store");
-        reject(new Error("Error clearing store", event));
-      }
-    });
-  }
+        newReadButton.addEventListener("click", async () => {
+          setAsLoading();
+          startMeasuring();
+          await readInBatches(db, batchSize);
+          const duration = stopMeasuring();
+          setAsReady();
+          durationLabel.textContent = `Read in ${duration}ms`;
+        });
 
-  function addOneFeatureToStore(db, id, name, description) {
-    return new Promise((resolve, reject) => {
-      console.log("Creating a transaction to add the item to the store");
-      const addTransaction = db.transaction("features", "readwrite");
+        newReadReverseButton.addEventListener("click", async () => {
+          setAsLoading();
+          startMeasuring();
+          await readInBatchesReverse(db, batchSize);
+          const duration = stopMeasuring();
+          setAsReady();
+          durationLabel.textContent = `Read in ${duration}ms`;
+        });
 
-      addTransaction.oncomplete = event => console.log("Add transaction complete");
-      addTransaction.onerror = event => {
-        console.error("Add transaction error");
-        reject(new Error("Add transaction error", event));
+        setAsReady();
       };
+    }
 
-      // The transaction gives us access to the store, but we need to name it.
-      // Indeed, we could have opened the transaction for multiple stores at once.
-      const addTransactionStore = addTransaction.objectStore("features");
-
-      // We can now add data to the store.
-      console.log("Adding the data");
-      const addRequest = addTransactionStore.add({ name, description }, id);
-
-      addRequest.onsuccess = event => {
-        console.log("Data added");
-        resolve();
-      }
-
-      addRequest.onerror = event => {
-        console.error("Error adding data");
-        reject(new Error("Error adding data", event));
-      }
-    });
-  }
-
-  async function addAllFeatures(db) {
-    // Get some data to populate our store. The data isn't important. We just need to get a lot of it.
-    const response = await fetch("./features.json");
-    const data = await response.json();
-
-    const featureAdditionPromises = Object.keys(data.features).map(id => {
-      const { name, description } = data.features[id];
-      return addOneFeatureToStore(db, id, name, description);
+    modeCheckbox.addEventListener("change", () => {
+      init(modeCheckbox.checked);
     });
 
-    return Promise.all(featureAdditionPromises);
-  }
+    init();
+  </script>
+</body>
 
-  // Reading a DB in order can be done in mulitple ways.
-  // With a cursor, you do it one at a time, which means that if you're reading a
-  // lot of records, you will suffer through a lot of back and forth between the
-  // main thread and the IDB engine thread.
-  // You could also just read the entire DB at once, but if that DB is big, you
-  // will have memory problems.
-  // Below, we use getAll+getAllKeys to read the DB in batches, limiting the number
-  // of back-and-forth with the IDB engine thread.
-  // However this doesn't support reading in reverse order, and forces to use both
-  // getAll and getAllKeys together. Plus, finding the right batch size might be
-  // difficult. 
-  async function readInBatches(db) {
-    const batchSize = 10;
-
-    console.log("starting read transaction");
-    const readTransaction = db.transaction("features", "readonly");
-
-    readTransaction.oncomplete = event => console.log("read transaction complete");
-    readTransaction.onerror = event => console.log("read transaction error");
-
-    const readTransactionStore = readTransaction.objectStore("features");
-
-    function getAllKeys(range) {
-      return new Promise(resolve => {
-        readTransactionStore.getAllKeys(range, batchSize).onsuccess = event => {
-          resolve(event.target.result);
-        };
-      });
-    }
-
-    function getAllValues(range) {
-      return new Promise(resolve => {
-        readTransactionStore.getAll(range, batchSize).onsuccess = event => {
-          resolve(event.target.result);
-        };
-      });
-    }
-
-    let range = null;
-
-    while (true) {
-      const [keys, values] = await Promise.all([getAllKeys(range), getAllValues(range)]);
-      if (keys && values && values.length === batchSize) {
-        // There could be more records, set a starting range for next iteration.
-        range = IDBKeyRange.lowerBound(keys.at(-1), true);
-
-        console.log(`Read ${batchSize} records`, keys, values);
-      } else {
-        break;
-      }
-    }
-  }
-
-  // The same code as above, but using the newly proposed getAllRecords method instead.
-  // This method is more convenient as it returns both keys and values in a single call.
-  async function readInBatches_new(db) {
-    const batchSize = 10;
-
-    console.log("starting read transaction");
-    const readTransaction = db.transaction("features", "readonly");
-
-    readTransaction.oncomplete = event => console.log("read transaction complete");
-    readTransaction.onerror = event => console.log("read transaction error");
-
-    const readTransactionStore = readTransaction.objectStore("features");
-
-    function getNextBatch(lastRecord) {
-      return new Promise(resolve => {
-        const query = lastRecord ? IDBKeyRange.lowerBound(lastRecord.key, true) : null;
-        readTransactionStore.getAllRecords({ query, count: batchSize }).onsuccess = event => {
-          resolve(event.target.result);
-        };
-      });
-    }
-
-    let lastRecord = null;
-    while (true) {
-      const records = await getNextBatch(lastRecord);
-      if (records.length === batchSize) {
-        lastRecord = records.at(-1);
-        console.log(`Read ${batchSize} records`, records);
-      } else {
-        break;
-      }
-    }
-  }
-
-  // Reading in reserve order requires the use of a cursor.
-  // This means that it has to be done one item at a time.
-  async function readReverse(db) {
-    const batchSize = 10;
-
-    console.log("starting read transaction");
-    const readTransaction = db.transaction("features", "readonly");
-
-    readTransaction.oncomplete = event => console.log("read transaction complete");
-    readTransaction.onerror = event => console.log("read transaction error");
-
-    const readTransactionStore = readTransaction.objectStore("features");
-
-    readTransactionStore.openCursor(null, "prev").onsuccess = event => {
-      const cursor = event.target.result;
-      if (cursor) {
-        console.log(`Read one item backward`, cursor.key, cursor.value);
-        cursor.continue();
-      } else {
-        console.log("Reverse read done");
-      }
-    };
-  }
-
-  // The same code as above, but using the newly proposed getAllRecords method instead.
-  // This method makes it possible to read in batches in reverse order, which is not the
-  // case of the previous method, which necessitates using a cursor (one-by-one iteration).
-  async function readReverse_new(db) {
-    const batchSize = 10;
-
-    console.log("starting read transaction");
-    const readTransaction = db.transaction("features", "readonly");
-
-    readTransaction.oncomplete = event => console.log("read transaction complete");
-    readTransaction.onerror = event => console.log("read transaction error");
-
-    const readTransactionStore = readTransaction.objectStore("features");
-
-    function getNextBatch(lastRecord) {
-      return new Promise(resolve => {
-        const query = lastRecord ? IDBKeyRange.upperBound(lastRecord.key, true) : null;
-        readTransactionStore.getAllRecords({ query, count: batchSize, direction: "prev" }).onsuccess = event => {
-          resolve(event.target.result);
-        };
-      });
-    }
-
-    let lastRecord = null;
-    while (true) {
-      const records = await getNextBatch(lastRecord);
-      if (records.length === batchSize) {
-        lastRecord = records.at(-1);
-        console.log(`Read ${batchSize} records`, records);
-      } else {
-        break;
-      }
-    }
-  }
-
-  // Transactions can't run before the onupgradeneeded event has finished.
-  // We can wait by using the onsuccess event of the request.
-  openRequest.onsuccess = async event => {
-    console.log("onsuccess");
-
-    const db = openRequest.result;
-
-    // Start by clearing the entire store
-    await clearStore(db);
-
-    // Add some data to the store.
-    await addAllFeatures(db);
-
-    readButton.removeAttribute("disabled");
-    readButton.addEventListener("click", () => {
-      readInBatches(db);
-    });
-
-    readReverseButton.removeAttribute("disabled");
-    readReverseButton.addEventListener("click", () => {
-      readReverse(db);
-    });
-  };
-</script>
+</html>
