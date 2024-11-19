@@ -175,7 +175,15 @@
         newReadButton.addEventListener("click", async () => {
           setAsLoading();
           startMeasuring();
-          await readInBatches(db, batchSize);
+
+          try {
+            await readInBatches(db, batchSize);
+          } catch (e) {
+            if (useGetAllRecords) {
+              durationLabel.textContent = "Your browser doesn't support getAllRecords() yet.";
+            }
+          }
+
           const duration = stopMeasuring();
           setAsReady();
           durationLabel.textContent = `Read in ${duration}ms`;
@@ -184,7 +192,15 @@
         newReadReverseButton.addEventListener("click", async () => {
           setAsLoading();
           startMeasuring();
-          await readInBatchesReverse(db, batchSize);
+
+          try {
+            await readInBatchesReverse(db, batchSize);
+          } catch (e) {
+            if (useGetAllRecords) {
+              durationLabel.textContent = "Your browser doesn't support getAllRecords() yet.";
+            }
+          }
+
           const duration = stopMeasuring();
           setAsReady();
           durationLabel.textContent = `Read in ${duration}ms`;
