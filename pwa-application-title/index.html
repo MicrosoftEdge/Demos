@@ -28,9 +28,6 @@
             const appTitleMetaTag = document.querySelector('[name="application-title"]');
             appTitleMetaTag.setAttribute('content', titleBarText);
         }
-
-        updateBtn = document.getElementById('btnUpdate');
-        updateBtn.addEventListener('click', updateAppTitleBarText());
     </script>
     <link rel="manifest" href="manifest.json" />
     <meta name="application-title" content="">
@@ -50,6 +47,11 @@
     <p>
         More information <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md" target="_blank">here</a>.
     </p>
+
+    <script>
+        const updateBtn = document.getElementById('btnUpdate');
+        updateBtn.addEventListener('click', updateAppTitleBarText());
+    </script>
     
 </body>
 </html>
