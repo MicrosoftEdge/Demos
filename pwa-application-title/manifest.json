@@ -1,0 +1,15 @@
+{
+    "short_name": "app-title demo",
+    "name": "application-title demo",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png" 
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#FFC800",
+    "background_color": "#FFF3C8"
+}

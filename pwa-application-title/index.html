@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #FFF3C8;
+            height: 100dvh;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            color-scheme: light dark;
+        }
+
+        p {
+            margin: 4rem;
+            max-width: 40rem;
+            line-height: 1.7rem;
+        }
+    </style>
+    <script>
+        const updateAppTitleBarText = () => {
+            const titleBarText = document.getElementById('txtTitleText');
+            const appTitleMetaTag = document.querySelector('[name="application-title"]');
+            appTitleMetaTag.content = titleBarText;
+        }        
+    </script>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="application-title" content="">
+    <title>Title's tag text content</title>
+</head>
+<body>
+    <h1>application-title demo</h1>
+
+    <form>
+        <label for="txtTitleText">Title bar content:</label>
+        <input id="txtTitleText" name="txtTitleText" type="text" placeholder="new content to display">
+        <input type="button" value="Update text">
+    </form>
+    <p>
+        The <code>&lt;meta name="application-title" content="new content to display"&gt;</code> allows custom content to be displayes in the title bar of an installed web application. Update the value above and press the button to see a demo. 
+    </p>
+    <p>
+        More information <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md" target="_blank">here</a>.
+    </p>
+    
+</body>
+</html>
