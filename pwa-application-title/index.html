@@ -27,7 +27,10 @@
             const titleBarText = document.getElementById('txtTitleText');
             const appTitleMetaTag = document.querySelector('[name="application-title"]');
             appTitleMetaTag.setAttribute('content', titleBarText);
-        }        
+        }
+
+        updateBtn = document.querySelector('btnUpdate');
+        updateBtn.addEventListener('click', updateAppTitleBarText);
     </script>
     <link rel="manifest" href="manifest.json" />
     <meta name="application-title" content="">
@@ -39,7 +42,7 @@
     <form>
         <label for="txtTitleText">Title bar content:</label>
         <input id="txtTitleText" name="txtTitleText" type="text" placeholder="new content to display">
-        <input type="button" value="Update text">
+        <input id="btnUpdate" type="button" value="Update text">
     </form>
     <p>
         The <code>&lt;meta name="application-title" content="new content to display"&gt;</code> allows custom content to be displayes in the title bar of an installed web application. Update the value above and press the button to see a demo. 
