@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.1rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: inherit;
+      margin: 1rem 0;
+      display: block;
+    }
+
+    body {
+      margin: 1rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+    }
+
+    h1 {
+      grid-column: 1 / span 2;
+      margin: 0;
+    }
+
+    h2 {
+      margin-block-start: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Notifications demo</h1>
+
+  <div id="buttons">
+    <h2>Test</h2>
+    <button id="permission">Request permission</button>
+    <button id="notification">Show a standard notification</button>
+    <button id="call">Show an incoming call notification</button>
+  </div>
+
+  <div id="log">
+    <h2>Log</h2>
+  </div>
+
+  <script>
+    "use strict";
+
+    const logEl = document.getElementById("log");
+    const permissionBtn = document.getElementById("permission");
+    const notificationBtn = document.getElementById("notification");
+    const callBtn = document.getElementById("call");
+
+    let serviceWorkerRegistration = null;
+
+    function log(message) {
+      logEl.innerHTML += `${message}<br>`;
+    }
+
+    function logNotification(notification) {
+      log(`<strong>${notification.title}</strong>`);
+      log(notification.body);
+      log("");
+    }
+
+    function updatePermissionStatus() {
+      permissionBtn.textContent = `Permission: ${Notification.permission}`;
+    }
+
+    function requestPermission() {
+      Notification.requestPermission()
+        .then((result) => {
+          updatePermissionStatus();
+          log("requestPermission() succeeded");
+        }).catch((error) => {
+          log(`requestPermission() failed: ${error}.`);
+        });
+    }
+
+    function showNotification() {
+      if (serviceWorkerRegistration !== null) {
+        serviceWorkerRegistration.showNotification("Notification", {
+          body: "This is a notification example",
+        }).then(() => {
+          log("showNotification() succeeded");
+        }).catch((error) => {
+          log(`showNotification() failed: ${error}.`);
+        });
+      }
+    }
+
+    function showIncomingCallNotification() {
+      if (serviceWorkerRegistration !== null) {
+        serviceWorkerRegistration.showNotification("Incoming call", {
+          body: "This is an incoming call notification example. Someone is calling.",
+          icon: "./call.png",
+          scenario: "incoming-call",
+          actions: [
+            { action: "accept-audio-call", title: "audio" },
+            { action: "accept-video-call", title: "video" }
+          ]
+        }).then(() => {
+          log("showNotification() succeeded");
+        }).catch((error) => {
+          log(`showNotification() failed: ${error}.`);
+        });
+      }
+    }
+
+    navigator.serviceWorker.register("sw.js", { scope: './' })
+      .then((result) => {
+        serviceWorkerRegistration = result;
+      });
+
+    navigator.serviceWorker.onmessage = (messageEvent) => {
+      log(messageEvent.data);
+    }
+
+    permissionBtn.addEventListener("click", requestPermission);
+    notificationBtn.addEventListener("click", showNotification);
+    callBtn.addEventListener("click", showIncomingCallNotification);
+
+    updatePermissionStatus();
+  </script>
+</body>
+
+</html>
