@@ -1,0 +1,32 @@
+{
+    "name": "PWAStore",
+    "short_name": "PWAStore",
+    "start_url": ".",
+    "id": "thepwastore",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay"],
+    "background_color": "#006FDF",
+    "theme_color": "#FFF5E0",
+    "description": "A PWA demo store for the Web Install API.",
+    "icons": [
+      {
+        "src": "images/pwastore512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "images/pwastore144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "images/pwastore96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      }
+    ],
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    }
+  }
+  

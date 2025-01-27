@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inspect CSS Grid</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    body {
+      margin: 2em;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: grid;
+      justify-items: center;
+    }
+
+    .fruit-box {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: [left] 1fr [middle1] 1fr [middle2] 1fr [right];
+      border: 2px solid;
+      width: 300px;
+      padding: 4px
+    }
+
+    .fruit-box div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      color: #000
+    }
+
+    .apple {
+      background: red
+    }
+
+    .kiwi {
+      background: #90ee90
+    }
+
+    .mango {
+      background: #ff0
+    }
+
+    .orange {
+      background: orange;
+      grid-column: left/right
+    }
+
+    .snack-box {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-areas: "top top" "bottom1 bottom2";
+      grid-template-columns: 1fr 2fr;
+      width: 300px;
+      border: 2px solid;
+      padding: 4px;
+      margin: 20px 0;
+      animation-fill-mode: forwards;
+      animation: spin 8s linear infinite;
+      animation-play-state: paused
+    }
+
+    .snack-box div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      color: #000
+    }
+
+    .snack-box .chips {
+      background: #fafad2;
+      grid-area: bottom1
+    }
+
+    .snack-box .peanut {
+      background: #f4a460;
+      grid-area: bottom2
+    }
+
+    .snack-box .seaweed {
+      background: #00fa9a;
+      grid-area: top
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Inspect CSS Grid</h1>
+
+  <main>
+    <h2>Fruit box</h2>
+
+    <div class="fruit-box">
+      <div class="apple">Apple</div>
+      <div class="kiwi">Kiwi</div>
+      <div class="mango">Mango</div>
+      <div class="orange">Orange</div>
+    </div>
+
+    <h2>Snack box</h2>
+
+    <div class="snack-box">
+      <div class="chips">Chips</div>
+      <div class="peanut">Peanut</div>
+      <div class="seaweed">Seaweed</div>
+    </div>
+
+  </main>
+</body>
+
+</html>

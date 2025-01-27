@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>IndexedDB: getAllRecords()</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 2rem;
+    }
+
+    input,
+    button,
+    textarea {
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    #loading-indicator {
+      margin-inline-start: 0.5rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      background: radial-gradient(#eedada 40%, transparent 0), conic-gradient(black 0.9turn, transparent 0);
+      display: none;
+      animation: rotate 1s linear infinite;
+    }
+
+    .loading #loading-indicator {
+      display: inline-block;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    .controls {
+      padding: 1rem;
+      border-radius: .5rem;
+      background: #eedada;
+    }
+
+    .controls h3 {
+      margin: 0;
+    }
+
+    .controls h3:empty {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Faster IndexedDB reads with <code>getAllRecords()</code></h1>
+  <p>This webpage demonstrates the benefits of the proposed <code>getAllRecords()</code> IndexedDB method, which makes
+    it possible to retrieve multiple records' primary keys and values at once, minimizing the number of IDB read
+    operations, and allowing to read in batches, in both directions. Read the full <a
+      href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md">explainer</a>.
+  </p>
+
+  <p>Use the buttons below to test reading many records from an IndexedDB store that's been initialized on the page.
+    After clicking a button, the duration the read operation took is displayed below.</p>
+
+  <p>If your device is powerful, use the <strong>Performance</strong> tool in DevTools to simulate a slower CPU. See <a
+      href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/evaluate-performance/reference#throttle-the-cpu-while-recording">Throttle
+      the CPU while recording</a>.</p>
+
+  <div class="controls">
+    <button id="read" disabled>Read batches</button>
+    <button id="read-reverse" disabled>Read batches in reverse order</button>
+
+    <div>
+      <input type="checkbox" name="mode" id="mode"><label for="mode">Test with <code>getAllRecords()</code></label>
+    </div>
+
+    <span id="loading-indicator"></span>
+
+    <h3></h3>
+  </div>
+
+  <script type="module">
+    const modeCheckbox = document.querySelector("#mode");
+    const durationLabel = document.querySelector("h3");
+    const batchSize = 10;
+    let data = null;
+
+    function clearStore(db) {
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction("features", "readwrite");
+        const store = transaction.objectStore("features");
+        store.clear().onsuccess = event => resolve();
+      });
+    }
+
+    async function addAllFeatures(db) {
+      // Get some data to populate our store. The data isn't important. We just need to get a lot of it.
+      if (!data) {
+        const response = await fetch("./data.json");
+        data = await response.json();
+      }
+
+      return Promise.all(Object.keys(data.features).map(id => {
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction("features", "readwrite");
+          const store = transaction.objectStore("features");
+          store.add(data.features[id], id).onsuccess = event => resolve();
+        });
+      }));
+    }
+
+    function setAsLoading() {
+      document.querySelector("#read").disabled = true;
+      document.querySelector("#read-reverse").disabled = true;
+      modeCheckbox.disabled = true;
+      document.body.classList.add("loading");
+      durationLabel.textContent = "";
+    }
+
+    function setAsReady() {
+      document.querySelector("#read").disabled = false;
+      document.querySelector("#read-reverse").disabled = false;
+      modeCheckbox.disabled = false;
+      document.body.classList.remove("loading");
+    }
+
+    function startMeasuring() {
+      performance.clearMarks();
+      performance.clearMeasures();
+      performance.mark("read-start");
+    }
+
+    function stopMeasuring() {
+      performance.mark("read-end");
+      const measure = performance.measure("read", "read-start", "read-end");
+      return measure.duration;
+    }
+
+    function init(useGetAllRecords) {
+      setAsLoading();
+
+      // Clone the buttons, to get rid of previous event listeners.
+      const readButton = document.querySelector("#read");
+      const readReverseButton = document.querySelector("#read-reverse");
+
+      const newReadButton = readButton.cloneNode(true);
+      const newReadReverseButton = readReverseButton.cloneNode(true);
+
+      readButton.parentNode.replaceChild(newReadButton, readButton);
+      readReverseButton.parentNode.replaceChild(newReadReverseButton, readReverseButton);
+
+      // Open the database.
+      const openRequest = indexedDB.open("db", 4);
+
+      openRequest.onupgradeneeded = event => {
+        openRequest.result.createObjectStore("features");
+      };
+
+      openRequest.onsuccess = async event => {
+        const db = openRequest.result;
+
+        // Reset the store to test again on each page load.
+        await clearStore(db);
+        await addAllFeatures(db);
+        console.log("Database initialized.")
+
+        // Import the right read implementations.
+        const { readInBatches } = await import(`./read-batches${useGetAllRecords ? "-with-getAllRecords" : ""}.js`);
+        const { readInBatchesReverse } = await import(`./read-reverse-batches${useGetAllRecords ? "-with-getAllRecords" : ""}.js`);
+
+        newReadButton.addEventListener("click", async () => {
+          setAsLoading();
+          startMeasuring();
+          let error = null;
+          
+          try {
+            await readInBatches(db, batchSize);
+          } catch (e) {
+            error = e;
+          } finally {
+            const duration = stopMeasuring();
+            setAsReady();
+            durationLabel.textContent = error ? "Your browser doesn't support getAllRecords()" : `Read in ${duration}ms`;
+          }
+          
+        });
+        
+        newReadReverseButton.addEventListener("click", async () => {
+          setAsLoading();
+          startMeasuring();
+          let error = null;
+          
+          try {
+            await readInBatchesReverse(db, batchSize);
+          } catch (e) {
+            error = e;
+          } finally { 
+            const duration = stopMeasuring();
+            setAsReady();
+            durationLabel.textContent = error ? "Your browser doesn't support getAllRecords()" : `Read in ${duration}ms`;
+          }
+        });
+
+        setAsReady();
+      };
+    }
+
+    modeCheckbox.addEventListener("change", () => {
+      init(modeCheckbox.checked);
+    });
+
+    init();
+  </script>
+</body>
+
+</html>

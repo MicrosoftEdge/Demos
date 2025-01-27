@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/reset.css" rel="stylesheet">
+    <link href="styles/pwastore.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="app-title" content="Web Install demo by MSEdgeDEV">
+    <title>The PWA Store</title>
+    <link rel="stylesheet" href="styles/pwastore-dark.css" media="(prefers-color-scheme: dark)"/>
+    <link rel="stylesheet" href="styles/pwastore-light.css" media="(prefers-color-scheme: light)"/>
+    <meta name="theme-color" content="#FFF5E0" media="(prefers-color-scheme: light)"/>
+    <meta name="theme-color" content="#3D3D3D" media="(prefers-color-scheme: dark)"/>
+
+</head>
+<body>
+    <div class="draggable"></div>
+    <header>
+        <img src="images/pwastore-logo.svg" width="100" height="100" class="storeicon">
+        <div class="category_filter_nav">
+            <button class="btn_category">new!</button>
+            <button class="btn_category">music</button>
+            <button class="btn_category">image</button>
+            <button class="btn_category">all apps</button>
+        </div>
+    </header>
+    <main>
+        <article class="app_entry">
+            <img src="images/app-icons/pwinter.png" width="75" height="75" class="app_icon">
+            <h2>The PWinter</h2>
+            <p class="app_descrip">Custom PWA icon generator.</p>
+            <button id="installPwinter" class="btn_install">Install</button>
+        </article>
+
+        <article class="app_entry">
+            <img src="images/app-icons/pwamp.png" width="75" height="75" class="app_icon">
+            <h2>PWAmp</h2>
+            <p class="app_descrip">Music player, but make it progressive.</p>
+            <button id="installPwamp" class="btn_install">Install</button>
+        </article>
+
+        <article class="app_entry">
+            <img src="images/app-icons/bubble.png" width="75" height="75" class="app_icon">
+            <h2>Bubble</h2>
+            <p class="app_descrip">Equirectangular picture viewer.</p>
+            <button id="installBubble" class="btn_install">Install</button>
+        </article>
+
+    </main>
+    <footer>
+        &copy; Microsoft Edge
+    </footer>
+
+    <template>
+        <article class="app_entry">
+            <img src="" width="75" height="75" class="app_icon">
+            <h2>Title</h2>
+            <p class="app_descrip">Equirectangular picture viewer.</p>
+            <button class="btn_install">Install</button>
+        </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
