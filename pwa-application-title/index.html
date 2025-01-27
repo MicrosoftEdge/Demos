@@ -26,7 +26,7 @@
         const updateAppTitleBarText = () => {
             const titleBarText = document.getElementById('txtTitleText');
             const appTitleMetaTag = document.querySelector('[name="application-title"]');
-            appTitleMetaTag.setAttribute('content', titleBarText);
+            appTitleMetaTag.setAttribute('content', titleBarText.value);
         }
     </script>
     <link rel="manifest" href="manifest.json" />
@@ -34,7 +34,7 @@
     <title>Title's tag text content</title>
 </head>
 <body>
-    <h1>application-title demo</h1>
+    <h1>Application</h1>
 
     <form>
         <label for="txtTitleText">Title bar content:</label>
@@ -50,7 +50,7 @@
 
     <script>
         const updateBtn = document.getElementById('btnUpdate');
-        updateBtn.addEventListener('click', updateAppTitleBarText());
+        updateBtn.addEventListener('click', updateAppTitleBarText);
     </script>
     
 </body>
