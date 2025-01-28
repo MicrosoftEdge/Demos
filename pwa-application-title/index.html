@@ -1,59 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background-color: #FFF3C8;
-            height: 100dvh;
-            margin: 0px;
-            padding: 0px;
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-            color-scheme: light dark;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      font-family: sans-serif;
+      color-scheme: light dark;
+      line-height: 1.5;
 
-        p {
-            margin: 4rem;
-            max-width: 40rem;
-            line-height: 1.7rem;
-        }
-    </style>
-    <script>
-        const updateAppTitleBarText = () => {
-            const titleBarText = document.getElementById('txtTitleText');
-            const appTitleMetaTag = document.querySelector('[name="application-title"]');
-            appTitleMetaTag.setAttribute('content', titleBarText.value);
-        }
-    </script>
-    <link rel="manifest" href="manifest.json" />
-    <meta name="application-title" content="">
-    <title>Title's tag text content</title>
+      height: 100dvh;
+      margin: 0;
+      place-content: center;
+    }
+
+    body {
+      background-color: #FFF3C8;
+      margin: 0 4rem;
+      display: flex;
+      gap: 4rem;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      padding: 2rem;
+      background: #0001;
+      border-radius: .5rem;
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 1rem;
+    }
+
+    button {
+      border-radius: .25rem;
+      border: 0;
+      background: #0003;
+      font-weight: bold;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    button:active {
+      background: #0005;
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    #install-link {
+      margin: 0;
+      padding: 0;
+      display: inline;
+      border: 0;
+      background: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: normal;
+    }
+  </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="application-title" content="">
+  <title>Text from the HTML title element</title>
 </head>
+
 <body>
-    <h1>application-title demo</h1>
+  <h1>&lt;meta name="application-title"&gt; demo</h1>
 
-    <form>
-        <label for="txtTitleText">Title bar content:</label>
-        <input id="txtTitleText" name="txtTitleText" type="text" placeholder="new content to display">
-        <input id="btnUpdate" type="button" value="Update text">
-    </form>
-    <p>
-        The <code>&lt;meta name="application-title" content="new content to display"&gt;</code> allows custom content to be displayes in the title bar of an installed web application. Update the value above and press the button to see a demo. 
-    </p>
-    <p>
-        More information <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md" target="_blank">here</a>.
-    </p>
+  <p>
+    The <code>&lt;meta name="application-title" content="..."&gt;</code> meta tag allows custom content to
+    be displayed in the title bar of an installed web application.
+    <br>
+    To see a demo, <span id="install-note">first <button id="install-link">install this application</button> and
+      then</span> use the form below to update the application title shown in
+    the title bar.
+  </p>
 
-    <script>
-        const updateBtn = document.getElementById('btnUpdate');
-        updateBtn.addEventListener('click', updateAppTitleBarText);
-    </script>
-    
+  <form id="update-title">
+    <label for="title">Change the title bar content</label>
+    <input id="title" type="text" placeholder="New content to display">
+    <button type="submit">Change text</button>
+  </form>
+
+  <p>
+    To learn more, see the <a
+      href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md"
+      target="_blank">application-title explainer</a>.
+  </p>
+
+  <script>
+    const updateForm = document.getElementById("update-title");
+    const titleBarText = document.getElementById('title');
+    const appTitleMetaTag = document.querySelector('[name="application-title"]');
+    const installLink = document.getElementById('install-link');
+    const installNote = document.getElementById('install-note');
+
+    const isInstalled = window.matchMedia('(display-mode: standalone)').matches;
+
+    if (!isInstalled) {
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        installLink.addEventListener('click', () => {
+          e.prompt();
+        });
+      });
+    } else {
+      installNote.style.display = 'none';
+    }
+
+    updateForm.addEventListener("submit", e => {
+      e.preventDefault();
+      appTitleMetaTag.setAttribute('content', titleBarText.value);
+    });
+  </script>
+
 </body>
+
 </html>

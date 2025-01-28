@@ -2,8 +2,8 @@
 
 [➡️Open demo app here⬅️](https://microsoftedge.github.io/Demos/pwa-application-title/)
 
-> **Note:** To test the `application-title` meta tag you must install the application and run it as a standalone window.
+> **Note:** to test the demo app, first install it by clicking the **App available** button in the address bar of Microsoft Edge, and then open the installed app in its own window.
 
-The `application-title` meta tag allows developers to take full control of the text that appears after the application's name in the title bar of installed apps.
+The `application-title` meta tag allows developers to take control of the text that appears in an installed application's window title bar, after the name of the app.
 
-For more information, check out the explainer [here](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md).
+For more information, check out the [application-title explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DocumentSubtitle/explainer.md).
