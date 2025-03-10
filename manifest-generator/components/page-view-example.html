@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PageView example page</title>
+  </head>
+
+  <body>
+    <!-- test with a label and placeholder -->
+    <page-view title="My Amazing Title" page-id="1">
+      <simple-text-input
+        slot="my-text"
+        label="optional label"
+        placeholder-text="some placeholder text"
+      ></simple-text-input>
+    </page-view>
+  </body>
+
+  <script src="page-view.js"></script>
+  <script src="simple-text-input.js"></script>
+
+  <script>
+    console.log(
+      "html ID getter got: " +
+        document.getElementsByTagName("page-view")[0].getId()
+    );
+  </script>
+</html>
