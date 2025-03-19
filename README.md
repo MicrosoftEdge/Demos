@@ -54,6 +54,7 @@ last sync'd April 16, 2024
 | Photo gallery | Used for [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/). | [/photo-gallery/](https://github.com/MicrosoftEdge/Demos/tree/main/photo-gallery) | [Photo Gallery](https://microsoftedge.github.io/Demos/photo-gallery/) |
 | Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) |
 | Workspaces | Used for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces Demo](https://microsoftedge.github.io/Demos/workspaces/) |
+| Exploring the universe | Webpage used to demo the [Monitor Core Web Vitals metrics](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/performance/overview#monitor-core-web-vitals-metrics) section in the _Performance tool: Analyze your website's performance_ article. | [/exploring-the-universe/](https://github.com/MicrosoftEdge/Demos/tree/main/exploring-the-universe) | [Exploring the universe webpage](https://microsoftedge.github.io/Demos/exploring-the-universe/) |
 
 
 #### Microsoft Edge extensions

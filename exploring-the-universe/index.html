@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploring the universe</title>
+  <style>
+    body {
+      background: #12142d;
+      color: white;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    a {
+      color: #b84eb1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header h1 {
+      padding: 2rem 5rem 0 5rem;
+    }
+
+    header h1,
+    header h3 {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header h3 {
+      padding: 0 5rem 2rem 5rem;
+      font-weight: normal;
+      color: #fffa;
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    header .hero img {
+      width: 100%;
+      min-height: 100px;
+      max-height: 350px;
+    }
+
+    main {
+      padding: 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    footer {
+      padding: 2rem 5rem;
+      border-block-start: 2px solid #000;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .intro-section p:not(:last-child) {
+      margin-block-end: 1rem;
+    }
+
+    .discovery-section {
+      background: #fff1;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      place-self: start stretch;
+    }
+
+    .accordion-panel {
+      padding: .5rem;
+      border-radius: .5rem;
+      margin: 1rem 0;
+    }
+
+    .accordion-panel[open] {
+      background: color-mix(in srgb, #b84eb1, black);
+    }
+
+    .accordion-panel:hover {
+      outline: 3px solid #b84eb1;
+      outline-offset: 3px;
+    }
+
+    .accordion-panel h3 {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .accordion-panel p {
+      margin-block-start: 1rem;
+      display: none;
+    }
+
+    .accordion-panel[open] p {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Exploring the universe</h1>
+    <h3>The story of humanity's journey through the cosmos</h3>
+    <div class="hero">
+      <!-- This image is large making the LCP metric look bad on fresh load, which is the point.
+           Additionally, we don't define a height, making the layout jump down once the browser
+           knows the height of the image. This is so that the CLS score also looks bad. -->
+      <img src="galaxy.jpg" alt="The galaxy">
+    </div>
+  </header>
+  <main>
+    <section class="intro-section">
+      <p>The universe is vast, mysterious, and full of wonders waiting to be discovered. From the moment we first looked
+        up at the night sky, humanity has been driven by an insatiable curiosity to explore the cosmos. Every star,
+        planet, and galaxy holds the potential for new knowledge, new frontiers, and new insights into the fundamental
+        nature of our existence. As we journey through the stars, we venture into the unknown, unraveling the secrets of
+        the universe one discovery at a time.</p>
+      <p>Our journey begins with the simple yet profound question: What lies beyond our world? With each new leap in
+        technology and science, we expand our ability to observe distant planets, analyze ancient starlight, and peer
+        deeper into the fabric of space itself. The universe is a vast, ever-expanding frontier, and every step we take
+        brings us closer to understanding the forces that govern the cosmos.</p>
+      <p>As we explore further, we realize that this journey is not just about reaching new destinations, but about the
+        connections we make — between the stars, between the planets, and ultimately, between ourselves and the greater
+        universe. Each discovery brings us closer to understanding our place in the cosmos, and with each new question,
+        the universe opens up new pathways to explore. Join us as we embark on this endless adventure, where the wonders
+        of the universe are waiting to be explored.</p>
+    </section>
+    <section class="discovery-section">
+      <h2>Discoveries</h2>
+      <!-- This should be a list of mutually exclusive <details> elements instead.
+           The reason this isn't and we use JS instead is to get some bad looking INP metrics when using
+           this page, which is the whole point of this demo webpage. -->
+      <div class="accordion">
+        <div class="accordion-panel">
+          <h3>Heliocentric Theory (1543)</h3>
+          <p>Nicolaus Copernicus proposed that the Earth and other planets orbit the Sun, challenging the long-held
+            geocentric model where Earth was believed to be at the center. This discovery laid the foundation for modern
+            astronomy.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Laws of Planetary Motion (1609-1619)</h3>
+          <p>Johannes Kepler formulated the three laws of planetary motion, which revolutionized our understanding of
+            how
+            planets move around the Sun. Kepler's laws were essential for Newton's later work on gravity.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Universal Gravitation (1687)</h3>
+          <p>Isaac Newton published the "Principia," where he formulated the law of universal gravitation, showing
+            that
+            every object in the universe exerts an attractive force on every other object. This discovery explained
+            planetary motion and laid the groundwork for classical physics.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>The Milky Way is Just One Galaxy (1920)</h3>
+          <p>Through the work of astronomers like Edwin Hubble, we learned that the Milky Way is just one of
+            billions of
+            galaxies in the universe. This discovery expanded our understanding of the size and structure of the
+            universe.
+          </p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Expanding Universe (1929)</h3>
+          <p>Edwin Hubble discovered that galaxies are moving away from each other, implying that the universe
+            itself is
+            expanding. This finding provided key evidence for the Big Bang theory and reshaped our understanding
+            of the
+            universe's origin.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Cosmic Microwave Background Radiation (1965)</h3>
+          <p>Arno Penzias and Robert Wilson discovered cosmic microwave background radiation, a faint glow
+            left over from
+            the Big Bang. This discovery provided strong evidence supporting the Big Bang theory of the
+            universe's origin.
+          </p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Black Holes (1964)</h3>
+          <p>Through X-ray observations, astronomers discovered strong evidence for the existence of black
+            holes — regions
+            of space where gravity is so strong that not even light can escape. These exotic objects are now
+            understood to
+            play a significant role in the formation of galaxies.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Expanding Universe and Dark Energy (1998)</h3>
+          <p>Two independent teams of astronomers discovered that the expansion of the universe is
+            accelerating, driven by
+            an unknown force called dark energy. This discovery altered our understanding of the cosmos
+            and pointed to the
+            presence of a mysterious energy that makes up most of the universe's content.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Exoplanets (1992)</h3>
+          <p>The first exoplanet orbiting a sun-like star was discovered by astronomers Aleksander
+            Wolszczan and Dale
+            Frail. Since then, thousands of exoplanets have been discovered, expanding our knowledge of
+            the diversity of
+            planetary systems in the universe.</p>
+        </div>
+        <div class="accordion-panel">
+          <h3>Gravitational Waves (2015)</h3>
+          <p>The LIGO (Laser Interferometer Gravitational-Wave Observatory) collaboration detected
+            gravitational waves for
+            the first time, ripples in space-time caused by violent cosmic events like merging black
+            holes. This discovery
+            opened a new way to observe the universe.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>This webpage is a demo for the <a
+        href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/performance/overview#monitor-core-web-vitals-metrics">Monitor
+        Core Web Vitals metrics</a> section of the <a
+        href="https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/performance/overview">Performance tool:
+        Analyze your website's performance</a> article
+      in the Microsoft Edge DevTools documentation.
+      <br>
+      This webpage is designed to load and handle interactions slowly on
+      purpose, in order to illustrate how the LCP, CLS, and INP metrics can be used in the Performance tool to identify
+      and fix performance issues.
+    </p>
+  </footer>
+
+  <script>
+    class Accordion {
+      constructor(el) {
+        this.el = el;
+        this.panelEls = [...this.el.querySelectorAll('.accordion-panel')];
+        this.panels = this.panelEls.map(panel => new AccordionPanel(panel, this.onToggle.bind(this)));
+      }
+
+      onToggle(panel) {
+        this.panels.forEach(p => {
+          if (p !== panel) {
+            p.close();
+          }
+        });
+      }
+    }
+
+    class AccordionPanel {
+      constructor(el, onToggle) {
+        this.el = el;
+        this.onToggle = onToggle;
+
+        this.isOpen = false;
+        this.isOpening = false;
+        this.isClosing = false;
+
+        this.el.addEventListener('click', this.toggle.bind(this));
+      }
+
+      async toggle() {
+        if (this.isOpening || this.isClosing) return;
+        this.onToggle(this);
+
+        if (this.isOpen) {
+          await this.close();
+        } else {
+          await this.open();
+        }
+      }
+
+      async open() {
+        this.isOpening = true;
+
+        // Keep the main thread busy for a while, to make the INP metric look bad.
+        const time = Math.floor(Math.random() * 1000) + 100;
+        await new Promise(resolve => {
+          const start = Date.now();
+          while (Date.now() - start < time) { }
+          resolve();
+        });
+
+        this.el.setAttribute('open', '');
+        this.isOpening = false;
+        this.isOpen = true;
+      }
+
+      async close() {
+        this.isClosing = true;
+        this.el.removeAttribute('open');
+        this.isClosing = false;
+        this.isOpen = false;
+      }
+    }
+
+    const accordionContainer = document.querySelector('.accordion');
+    const accordion = new Accordion(accordionContainer);
+  </script>
+</body>
+
+</html>
