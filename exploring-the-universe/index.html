@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exploring the universe</title>
   <style>
+    :root {
+      --hmargin: 5rem;
+    }
+
     body {
       background: #12142d;
       color: white;
@@ -13,6 +17,28 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-size: 1rem;
       line-height: 1.6;
+    }
+
+    @media (max-width: 400px) {
+      :root {
+        --hmargin: 2rem;
+      }
+
+      body {
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
     }
 
     h1,
@@ -39,7 +65,7 @@
     }
 
     header h1 {
-      padding: 2rem 5rem 0 5rem;
+      padding: 2rem var(--hmargin) 0 var(--hmargin);
     }
 
     header h1,
@@ -49,7 +75,7 @@
     }
 
     header h3 {
-      padding: 0 5rem 2rem 5rem;
+      padding: 0 var(--hmargin) 2rem var(--hmargin);
       font-weight: normal;
       color: #fffa;
       font-style: italic;
@@ -58,12 +84,13 @@
 
     header .hero img {
       width: 100%;
-      min-height: 100px;
+      min-height: 150px;
       max-height: 350px;
+      object-fit: cover;
     }
 
     main {
-      padding: 2rem 5rem;
+      padding: 2rem var(--hmargin);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
@@ -71,8 +98,15 @@
       margin: 0 auto;
     }
 
+    @media (max-width: 400px) {
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+    }
+
     footer {
-      padding: 2rem 5rem;
+      padding: 2rem var(--hmargin);
       border-block-start: 2px solid #000;
       max-width: 1000px;
       margin: 0 auto;
@@ -87,6 +121,12 @@
       border-radius: 1rem;
       padding: 1.5rem;
       place-self: start stretch;
+    }
+
+    @media (max-width: 400px) {
+      .discovery-section {
+        padding: 1rem;
+      }
     }
 
     .accordion-panel {
