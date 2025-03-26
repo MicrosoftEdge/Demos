@@ -114,6 +114,23 @@ footer {
     transform: scale(1.05);
 }
 
+.btn_install_store {
+    background: var(--blue);
+    color: var(--off-white);
+    padding: .65rem;
+    margin: 1.2rem;
+    border-radius: 10px;
+    border-color: var(--dark-blue);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform ease-in .2s, color ease-in .3s;
+}
+
+.btn_install_store:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
 .category_filter_nav {
     margin: 1rem;;
     display: flex;
@@ -172,5 +189,18 @@ footer {
     main {
         grid-template-columns: repeat(auto-fill, 100%);
         grid-template-rows:  repeat(auto-fill, 275px);    
+    }
+}
+
+
+@media (display-mode: 'standalone') {
+    #btnInstallStore {
+        display: none;
+    }
+}
+
+@media (display-mode: 'window-controls-overlay') {
+    #btnInstallStore {
+        display: none;
     }
 }
