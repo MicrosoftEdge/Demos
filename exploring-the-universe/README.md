@@ -18,7 +18,7 @@ Use the **Performance** tool to view Core Web Vitals metrics in the initial, **L
 <!-- ====================================================================== -->
 ## Using the demo page
 
-To produce a **poor** or **needs improvement** metric on the three metrics cards in the **Performance** tool:
+To produce a **poor** or **needs improvement** metric on the **LCP**, **CLS**, and **INP** cards in the **Performance** tool:
 
 1. Open the **Exploring the universe** demo page.
 
