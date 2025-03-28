@@ -21,7 +21,7 @@ To produce **needs improvement** or **poor** metrics on the three metrics cards 
 
 1. Make the demo page pane wide, such as 60% of the width of the window.
 
-   If the demo page pane is too narrow, some cards might continue showing **good**, with a green metric number, which is not the intended result.
+   If the demo page pane is too narrow, some cards might continue showing **good**, with a green value, which is not the intended result.
 
 1. Optional, but recommended: Select **Next steps** pane > **Environment settings** card > **CPU throttling** dropdown > select **4x slowdown - recommended**.
 
@@ -35,18 +35,18 @@ To produce **needs improvement** or **poor** metrics on the three metrics cards 
 
    This ensures that the image is loaded again from the server, rather than from the local cache.
 
-   The **LCP** and **CLS** cards show an orange metric number and **needs improvement**, or a red metric number and **poor**, instead of a green metric number and **good**.
+   The **LCP** and **CLS** cards show an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.
 
 1. If the **LCP** or **CLS** card remains green and says **good** after the stars image finishes rendering, make the demo page pane wider.
 
-   The **LCP** card shows that the image took a long time to load.  The card shows an orange metric number and **needs improvement**, or a red metric number and **poor**, instead of a green metric number and **good**.  The engine identifies this image of stars as the largest item to be rendered.
+   The **LCP** card shows that the image took a long time to load.  The card shows an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.  The engine identifies this image of stars as the largest item to be rendered.
 
    The **CLS** card illustrates that sudden, unexpected jumps in the layout can negatively impact users.  This is also due to the image taking some time to load.  By design, the demo webpage neglects to specify a height for the image, and so the page initially loads without reserving much space for the image.  When the image starts appearing, the content below it suddenly jumps down.
 
 1. After the stars image finishes rendering, in the rendered demo page, click an accordion item (an expanding heading) in the right-hand column, such as **Heliocentric Theory (1543)**.
 
-   The **INP** card changes from not showing a value, to showing an orange metric number and **needs improvement**, or a red metric number and **poor**.  An **INP** value is displayed.
+   The **INP** card changes from not showing a value, to showing an orange value and **needs improvement**, or a red value and **poor**.  An **INP** value is displayed.
 
 1. In the **INP** card, click the INP value.
 
-   In the demo page, the **Discoveries** cards are designed to expand and re-render slowly, so that it takes a long time between clicking the heading and rendering the expanded card content.  The delay is a random value between 100ms and 1000ms, resulting in a high INP metric.
+   In the demo page, the **Discoveries** cards are designed to expand and re-render slowly, so that it takes a long time between clicking the heading and rendering the expanded card content.  The delay is a random value between 100ms and 1000ms, resulting in a high INP value.
