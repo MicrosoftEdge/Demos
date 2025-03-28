@@ -8,8 +8,17 @@ That article is not live yet, but a draft is in [PR 3378](https://github.com/Mic
 
 This webpage is designed to load and handle interactions slowly on purpose, in order to illustrate how the LCP, CLS, and INP metrics can be used in the Performance tool to identify and fix performance issues.
 
+Use the **Performance** tool to view Core Web Vitals metrics in the initial, **Local metrics** view.  The home page of the **Performance** tool shows **Local metrics**, which is performance metrics about the rendered webpage:
 
-To produce **needs improvement** or **poor** metrics on the three metrics cards in the **Performance** tool:
+* **Largest Contentful Paint (LCP)** - How quickly the main content of the page loaded.
+* **Cumulative Layout Shift (CLS)** - A measure of the most recent unexpected page layout shift.
+* **Interaction to Next Paint (INP)** - The responsiveness of the most recent user interaction on the page.
+
+
+<!-- ------------------------------ -->
+#### Using the demo page
+
+To produce a **poor** or **needs improvement** metric on the three metrics cards in the **Performance** tool:
 
 1. Open the **Exploring the universe** demo page.
 
