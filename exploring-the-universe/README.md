@@ -44,13 +44,13 @@ To produce a **poor** or **needs improvement** metric on the **LCP**, **CLS**, a
 
    The **LCP** and **CLS** cards show an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.
 
-1. If the **LCP** or **CLS** card remains green and says **good** after the stars image finishes rendering, make the demo page pane wider.
+1. If the **LCP** or **CLS** card remains green and says **good** after the galaxy image finishes rendering, make the demo page pane wider.
 
-   The **LCP** card shows that the image took a long time to load.  The card shows an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.  The engine identifies this image of stars as the largest item to be rendered.
+   The **LCP** card shows that the galaxy image took a long time to load.  The card shows an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.  The engine identifies this image as the largest item to be rendered.
 
    The **CLS** card illustrates that sudden, unexpected jumps in the layout can negatively impact users.  This is also due to the image taking some time to load.  By design, the demo webpage neglects to specify a height for the image, and so the page initially loads without reserving much space for the image.  When the image starts appearing, the content below it suddenly jumps down.
 
-1. After the stars image finishes rendering, in the rendered demo page, click an accordion item (`<div class="accordion-panel">`) heading in the right-hand column, such as **Laws of Planetary Motion (1609-1619)**.
+1. After the galaxy image finishes rendering, in the rendered demo page, click an accordion item (`<div class="accordion-panel">`) heading in the right-hand column, such as **Laws of Planetary Motion (1609-1619)**.
 
    The **INP** card changes from not showing a value, to showing an orange value and **needs improvement**, or a red value and **poor**.  An **INP** value is displayed.
 
