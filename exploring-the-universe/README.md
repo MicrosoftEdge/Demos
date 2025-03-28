@@ -15,8 +15,8 @@ Use the **Performance** tool to view Core Web Vitals metrics in the initial, **L
 * **Interaction to Next Paint (INP)** - The responsiveness of the most recent user interaction on the page.
 
 
-<!-- ------------------------------ -->
-### Using the demo page
+<!-- ====================================================================== -->
+## Using the demo page
 
 To produce a **poor** or **needs improvement** metric on the three metrics cards in the **Performance** tool:
 
