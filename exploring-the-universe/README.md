@@ -31,9 +31,9 @@ To produce **needs improvement** or **poor** metrics on the three metrics cards 
 
    ![Local metrics results: poor; needs improvement; and poor](./images/local-metrics-results.png)
 
-1. Right-click (or long-click) the **Refresh** button to the left of the Address bar, and then select **Empty cache and hard refresh**.
+1. Right-click (or long-click) the **Refresh** button to the left of the **Address bar**, and then select **Empty cache and hard refresh**.
 
-   This ensures that the image is loaded again from the server, not from the local cache.
+   This ensures that the image is loaded again from the server, rather than from the local cache.
 
    The **LCP** and **CLS** cards show an orange metric number and **needs improvement**, or a red metric number and **poor**, instead of a green metric number and **good**.
 
@@ -45,7 +45,7 @@ To produce **needs improvement** or **poor** metrics on the three metrics cards 
 
 1. After the stars image finishes rendering, in the rendered demo page, click an accordion item (an expanding heading) in the right-hand column, such as **Heliocentric Theory (1543)**.
 
-   The **INP** card changes from not showing a metric value, to showing an orange metric number and **needs improvement**, or a red metric number and **poor**.  **INP** values are displayed.
+   The **INP** card changes from not showing a value, to showing an orange metric number and **needs improvement**, or a red metric number and **poor**.  An **INP** value is displayed.
 
 1. In the **INP** card, click the INP value.
 
