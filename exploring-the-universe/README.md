@@ -6,7 +6,7 @@ The webpage in this directory is a demo for the [Monitor Core Web Vitals metrics
 
 This webpage is designed to load and handle interactions slowly on purpose, in order to illustrate how the LCP, CLS, and INP metrics can be used in the Performance tool to identify and fix performance issues.
 
-Use the **Performance** tool to view Core Web Vitals metrics in the initial, **Local metrics** view.  The home page of the **Performance** tool shows **Local metrics**, which is performance metrics about the rendered webpage:
+Use the **Performance** tool to view Core Web Vitals metrics in the initial, **Local metrics** view.  The home page of the **Performance** tool shows **Local metrics**, which are performance metrics about the rendered webpage:
 
 * **Largest Contentful Paint (LCP)** - How quickly the main content of the page loaded.
 * **Cumulative Layout Shift (CLS)** - A measure of the most recent unexpected page layout shift.
