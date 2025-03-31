@@ -4,9 +4,9 @@
 
 The webpage in this directory is a demo for the [Monitor Core Web Vitals metrics](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/performance/overview#monitor-core-web-vitals-metrics) section of the [Performance tool: Analyze your website's performance](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/performance/overview) article in the Microsoft Edge DevTools documentation.
 
-This webpage is designed to load and handle interactions slowly on purpose, in order to illustrate how the LCP, CLS, and INP metrics can be used in the Performance tool to identify and fix performance issues.
+This webpage is designed to load and handle interactions slowly on purpose, in order to illustrate how the LCP, CLS, and INP metrics can be used in the **Performance** tool to identify and fix performance issues.
 
-Use the **Performance** tool to view Core Web Vitals metrics in the initial, **Local metrics** view.  The home page of the **Performance** tool shows **Local metrics**, which is performance metrics about the rendered webpage:
+Use the **Performance** tool to view Core Web Vitals metrics in the initial, **Local metrics** view.  The home page of the **Performance** tool shows **Local metrics**, which are performance metrics about the rendered webpage:
 
 * **Largest Contentful Paint (LCP)** - How quickly the main content of the page loaded.
 * **Cumulative Layout Shift (CLS)** - A measure of the most recent unexpected page layout shift.
@@ -26,7 +26,7 @@ To produce a **poor** or **needs improvement** metric on the **LCP**, **CLS**, a
 
 1. In the **Activity Bar** at top, select the **Performance** tool.
 
-1. Make the demo page pane wide, such as 60% of the width of the window.
+1. Maximize the window, and make the demo page pane wide, such as 60% of the width of the window.
 
    If the demo page pane is too narrow, some cards might continue showing **good**, with a green value, which is not the intended result.
 
@@ -44,13 +44,13 @@ To produce a **poor** or **needs improvement** metric on the **LCP**, **CLS**, a
 
    The **LCP** and **CLS** cards show an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.
 
-1. If the **LCP** or **CLS** card remains green and says **good** after the galaxy image finishes rendering, make the demo page pane wider.
+1. If the **LCP** or **CLS** card remains green and says **good** after the galaxy image finishes rendering, maximize the window and make the demo page pane wider.
 
    The **LCP** card shows that the galaxy image took a long time to load.  The card shows an orange value and **needs improvement**, or a red value and **poor**, instead of a green value and **good**.  The engine identifies this image as the largest item to be rendered.
 
    The **CLS** card illustrates that sudden, unexpected jumps in the layout can negatively impact users.  This is also due to the image taking some time to load.  By design, the demo webpage neglects to specify a height for the image, and so the page initially loads without reserving much space for the image.  When the image starts appearing, the content below it suddenly jumps down.
 
-1. After the galaxy image finishes rendering, in the rendered demo page, click one of the headings in the right-hand **Discoveries** column, such as **Laws of Planetary Motion (1609-1619)**.
+1. After the galaxy image finishes rendering, in the rendered demo page, click one of the headings in the right-hand **Discoveries** column, such as **Heliocentric Theory (1543)**.
 
    The **INP** card changes from not showing a value, to showing an orange value and **needs improvement**, or a red value and **poor**.  An **INP** value is displayed.
 
