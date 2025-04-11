@@ -99,6 +99,58 @@ self.addEventListener('activate', event => {
 // string. So we need to add it to match the cache.
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
+  
+  // Handle share target requests
+  if (event.request.method === 'POST' && (event.request.url.includes('/share-target'))) {
+    // Immediately redirect to main page
+    event.respondWith(Response.redirect('./?share=true', 303));
+    
+    // Process the form data in the background
+    event.waitUntil(
+      (async () => {
+        try {
+          const formData = await event.request.formData();
+          
+          // Extract data
+          const data = {
+            title: formData.get('title') || '',
+            text: formData.get('text') || '',
+            url: formData.get('url') || ''
+          };
+          
+          const files = formData.getAll('windowsActionFiles');
+          
+          // Store share data for the client to use if there are files
+          if (files.length > 0) {
+            // Store the files in a temporary cache for the client to access
+            const shareCache = await caches.open('share-target-cache');
+            
+            // Create an object with the share data
+            const shareData = {
+              title: data.title,
+              text: data.text,
+              url: data.url,
+              timestamp: Date.now(),
+              fileCount: files.length
+            };
+            
+            // Store the share data and files
+            await shareCache.put('shareData', new Response(JSON.stringify(shareData)));
+            
+            // Store each file with a unique key
+            for (let i = 0; i < files.length; i++) {
+              const file = files[i];
+              const response = new Response(file);
+              await shareCache.put(`file-${i}`, response);
+            }
+          }
+        } catch (error) {
+          console.error('Error processing share target data:', error);
+        }
+      })()
+    );
+    return;
+  }
 
   // Don't care about other-origin URLs.
   if (url.origin !== location.origin) {

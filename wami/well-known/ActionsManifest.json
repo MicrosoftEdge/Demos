@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "actions": [
+      {
+        "id": "Wami.Resize.Width",
+        "description": "Resize the image to a specific width",
+        "kind": "Search",
+        "inputs": [
+          {
+            "name": "File",
+            "kind": "Photo"
+          }
+        ],
+        "outputs": [],
+        "invocation": {
+          "type": "Uri",
+          "uri": "web+wami://resize"
+        },
+        "inputCombinations": [
+          {
+            "inputs": [ "File" ],
+            "description": "Photo to be resized in Wami."
+          }
+        ]
+      },
+      {
+        "id": "Wami.Blur",
+        "description": "Blur the image with a Gaussian operator",
+        "kind": "Search",
+        "inputs": [
+          {
+            "name": "File",
+            "kind": "Photo"
+          }
+        ],
+        "outputs": [],
+        "invocation": {
+          "type": "Uri",
+          "uri": "web+wami://blur"
+        },
+        "inputCombinations": [
+          {
+            "inputs": [ "File" ],
+            "description": "Photo to be blurred in Wami."
+          }
+        ]
+      }
+    ]
+  }
+  
