@@ -42,13 +42,7 @@
     "params": {
       "title": "title",
       "text": "text",
-      "url": "url",
-      "files": [
-        {
-          "name": "media",
-          "accept": ["image/*"]
-        }
-      ]
+      "url": "url"
     }
   }
 }
