@@ -44,6 +44,50 @@
             "description": "Photo to be blurred in Wami."
           }
         ]
+      },
+      {
+        "id": "Wami.Rotate",
+        "description": "Rotate the image by 90 degrees",
+        "kind": "Search",
+        "inputs": [
+          {
+            "name": "File",
+            "kind": "Photo"
+          }
+        ],
+        "outputs": [],
+        "invocation": {
+          "type": "Uri",
+          "uri": "web+wami://rotate"
+        },
+        "inputCombinations": [
+          {
+            "inputs": [ "File" ],
+            "description": "Photo to be rotated in Wami."
+          }
+        ]
+      },
+      {
+        "id": "Wami.Paint",
+        "description": "Convert the image to oil paint style",
+        "kind": "Search",
+        "inputs": [
+          {
+            "name": "File",
+            "kind": "Photo"
+          }
+        ],
+        "outputs": [],
+        "invocation": {
+          "type": "Uri",
+          "uri": "web+wami://paint"
+        },
+        "inputCombinations": [
+          {
+            "inputs": [ "File" ],
+            "description": "Photo to be converted to oil paint style."
+          }
+        ]
       }
     ]
   }
