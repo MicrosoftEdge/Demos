@@ -94,8 +94,7 @@ self.addEventListener('activate', event => {
 });
 
 // Handle share target requests: This listener specifically processes POST requests
-// to the /share-target endpoint, which is triggered when other apps share content with wami.
-// It stores the shared data and files in a temporary cache for the main app to access.
+// to the /share-target endpoint
 self.addEventListener('fetch', event => {
   // Only process POST requests to the share-target endpoint
   if (event.request.method === 'POST' && event.request.url.includes('/share-target')) {
@@ -122,23 +121,26 @@ self.addEventListener('fetch', event => {
             // Store the files in a temporary cache for the client to access
             const shareCache = await caches.open('share-target-cache');
             
-            // Create an object with the share data
+            // Extract file names and store them in the shareData
+            const fileNames = files.map(file => file.name);
+            
+            // Create share data object with file names array
             const shareData = {
               title: data.title,
               text: data.text,
               url: data.url,
               timestamp: Date.now(),
-              fileCount: files.length
+              fileCount: files.length,
+              fileNames: fileNames // Store file names in the share data
             };
             
-            // Store the share data and files
+            // Store the share data
             await shareCache.put('shareData', new Response(JSON.stringify(shareData)));
             
             // Store each file with a unique key
             for (let i = 0; i < files.length; i++) {
               const file = files[i];
-              const response = new Response(file);
-              await shareCache.put(`file-${i}`, response);
+              await shareCache.put(`file-${i}`, new Response(file));
             }
           }
         } catch (error) {

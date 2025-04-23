@@ -273,7 +273,6 @@ browseImagesButton.addEventListener('click', async e => {
   if (!('showOpenFilePicker' in window)) {
     // Browser doesn't support the File System Access API.
     // Use the legacy file input.
-
     const button = document.createElement('input');
     button.type = 'file';
     button.multiple = true;
@@ -286,7 +285,7 @@ browseImagesButton.addEventListener('click', async e => {
 
         for (const file of files) {
           imagesToStore.push({
-            file,
+            file,  // <-- The original file object keeps its name
             fsHandlePromise: Promise.resolve(null)
           });
           resolve();
@@ -615,11 +614,14 @@ async function loadAndProcessSharedImages(shareCache, shareData) {
     const fileResponse = await shareCache.match(`file-${i}`);
     if (fileResponse) {
       const blob = await fileResponse.blob();
-      const file = new File(
-        [blob], 
-        `shared-${i + 1}.${getFileExtension(blob.type)}`, 
-        { type: blob.type }
-      );
+      
+      // Get the original file name from the shareData.fileNames array
+      // This is more reliable than trying to extract it from the blob
+      const fileName = (shareData.fileNames && shareData.fileNames[i]) || 
+                       `shared-${i + 1}.${getFileExtension(blob.type)}`;
+      
+      // Create a File object with the original name
+      const file = new File([blob], fileName, { type: blob.type });
       
       imagesToStore.push({
         file,
