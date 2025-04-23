@@ -1,4 +1,4 @@
-const VERSION = 'v8';
+const VERSION = 'v9';
 const CACHE_NAME = `wami-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -93,15 +93,12 @@ self.addEventListener('activate', event => {
   })());
 });
 
-// Main fetch handler.
-// A cache-first strategy is used, with a fallback to the network.
-// The static resources fetched here will not have the cache-busting query
-// string. So we need to add it to match the cache.
+// Handle share target requests: This listener specifically processes POST requests
+// to the /share-target endpoint, which is triggered when other apps share content with wami.
+// It stores the shared data and files in a temporary cache for the main app to access.
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  
-  // Handle share target requests
-  if (event.request.method === 'POST' && (event.request.url.includes('/share-target'))) {
+  // Only process POST requests to the share-target endpoint
+  if (event.request.method === 'POST' && event.request.url.includes('/share-target')) {
     // Immediately redirect to main page
     event.respondWith(Response.redirect('./?share=true', 303));
     
@@ -151,7 +148,15 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
+});
 
+// Main fetch handler.
+// A cache-first strategy is used, with a fallback to the network.
+// The static resources fetched here will not have the cache-busting query
+// string. So we need to add it to match the cache.
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
   // Don't care about other-origin URLs.
   if (url.origin !== location.origin) {
     return;
