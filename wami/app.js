@@ -574,9 +574,21 @@ async function createOrNavigateToFlow(flowTitle, flowSteps) {
   
   let targetFlow;
   
-  // If a flow with the same name exists, use it instead of creating a new one
+  // If a flow with the same name exists, update its steps and use it
   if (existingFlow) {
     console.log(`Using existing flow: "${flowTitle}" with ID ${existingFlow.id}`);
+    
+    // Update the flow steps to match the requested configuration
+    if (shouldAutoProcess) {
+      existingFlow.steps = [...flowSteps];
+      
+      // Save the updated flow
+      const flowIndex = flows.findIndex(flow => flow.id === existingFlow.id);
+      flows[flowIndex] = existingFlow;
+      await saveFlows(flows);
+      console.log(`Updated steps for flow: "${flowTitle}"`);
+    }
+    
     targetFlow = existingFlow;
     // Navigate to the existing flow
     await navigateToFlow(existingFlow.id + '');

@@ -156,7 +156,6 @@ self.addEventListener('fetch', event => {
 // string. So we need to add it to match the cache.
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  
   // Don't care about other-origin URLs.
   if (url.origin !== location.origin) {
     return;
