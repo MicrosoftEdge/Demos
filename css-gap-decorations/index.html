@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>The Daily Oddity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --back: white;
+      --text: black;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .page-width-wrapper {
+      margin: 0 auto;
+      padding: 0 4rem;
+      max-width: 1000px;
+    }
+
+    .backplate {
+      background: var(--text);
+      color: var(--back);
+    }
+
+    body {
+      background-color: var(--back);
+      color: var(--text);
+      font-family: "Source Serif 4", serif;
+      font-size: 13pt;
+      line-height: 1.6;
+      margin: 0;
+      background-image: radial-gradient(circle, #eee 1.1px, transparent 0);
+      background-repeat: repeat;
+      background-size: 2rem 2rem;
+    }
+
+    .banner {
+      background: var(--text);
+      color: var(--back);
+      font-size: .8rem;
+    }
+
+    .banner .page-width-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .banner p, .banner ul {
+      margin: .5rem 0;
+    }
+
+    .banner ul {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .banner a,
+    footer a {
+      color: var(--back);
+    }
+
+    header {
+      margin: 1.5rem 0 3rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    header nav ul {
+      display: flex;
+      gap: 1rem;
+      font-size: .9rem;
+      flex-wrap: wrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-rows: 2fr 1fr;
+      background-image: url('hero.jpg');
+      background-size: cover;
+      background-position: center;
+      margin: 1rem -4rem 3rem -4rem;
+      color: var(--back);
+    }
+
+    .hero .slogan {
+      padding: 8rem 4rem 0 4rem;
+      align-self: end;
+      font-weight: normal;
+    }
+
+    .hero .by-line {
+      padding: 0 4rem;
+      font-size: .9rem;
+      margin: 0 0 0 0;
+    }
+
+    main {
+      column-width: 13rem;
+      column-gap: 3rem;
+      column-rule: 1.5px solid var(--text);
+      margin-block-end: 3rem;
+    }
+
+    article {
+      break-inside: avoid;
+      margin: 0 0 1rem 0;
+      border-block-end: 2px solid var(--text);
+      padding-block-end: 1rem;
+    }
+
+    article a {
+      text-decoration: underline;
+      font-size: .9rem;
+      font-weight: bold;
+    }
+
+    article a::after {
+      content: ' →';
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    article img {
+      object-position: center;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    article time {
+      font-weight: bold;
+      font-size: .75rem;
+      text-transform: uppercase;
+      margin: 0 0 1rem 0;
+      display: block;
+    }
+
+    article:has(img) time {
+      margin-block-start: 1rem;
+    }
+
+    article p {
+      margin: 1rem 0;
+    }
+
+    footer {
+      padding: 3rem 0;
+      background: var(--text);
+      color: var(--back);
+      font-size: .9rem;
+    }
+
+    footer a {
+      color: color-mix(in srgb, var(--back) 60%, var(--text));
+    }
+
+    footer .page-width-wrapper {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 5fr 1fr;
+    }
+
+    footer h3,
+    footer p {
+      grid-column: 1;
+    }
+
+    footer ul {
+      grid-row: 1 / span 2;
+      grid-column: 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <div class="page-width-wrapper">
+      <p>A Magazine with a Twist</p>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-width-wrapper">
+
+    <header>
+      <h1>The Daily Oddity</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Oddities</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Conspiracy Corner</a></li>
+          <li><a href="#">About us</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2 class="slogan"><span class="backplate">The Daily Oddity - Where the Weird Meets the News</span></h2>
+      <p class="by-line"><span class="backplate">Serving Up the Odd, the Outrageous, and the Occasionally Plausible.</span></p>
+    </section>
+
+    <main>
+      <article>
+        <time>3 March 2025</time>
+        <h3>New Moon Discovered to Have Pizza-Like Crust</h3>
+        <p class="exceprt">Astronomers reveal a shocking discovery of a new moon made entirely of cheesy, crispy crust.
+          Researchers are now considering launching a mission to taste-test.</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <img src="tree.jpg" alt="Article photo, for illustration purposes only.">
+        <time>2 March 2025</time>
+        <h3>Scientists Find Evidence of Talking Trees in Forests</h3>
+        <p class="exceprt">A groundbreaking study has found that trees in remote forests are capable of whispering to
+          each other in a complex language. Experts are calling it "nature's secret society."</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <time>27 February 2025</time>
+        <h3>Unicorns Spotted in Remote Icelandic Mountains</h3>
+        <p class="exceprt">Adventurers in Iceland have claimed to have witnessed a herd of unicorns near an uncharted
+          mountain range. Biologists remain skeptical, while local tourism skyrockets.</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <img src="cat.jpg" alt="Article photo, for illustration purposes only.">
+        <time>27 February 2025</time>
+        <h3>Government Announces 3-Day Workweek for All</h3>
+        <p class="exceprt">In an unprecedented move, the government has declared a new three-day workweek, citing
+          improved productivity and employee happiness. Critics question how long it will last.</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <img src="strings.jpg" alt="Article photo, for illustration purposes only.">
+        <time>24 February 2025</time>
+        <h3>Aliens Offer Earth Free Wi-Fi, No Strings Attached</h3>
+        <p class="exceprt">Extraterrestrial beings have reportedly made contact, offering Earth unlimited Wi-Fi access.
+          In exchange, they demand nothing but a daily supply of pineapples.</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <time>26 February 2025</time>
+        <h3>Caffeine Banned After Causing 'Superhuman' Energy Spikes</h3>
+        <p class="exceprt">A global ban on caffeine has been enacted after reports of people achieving superhuman
+          feats—such as lifting cars—while under its influence. Experts warn of the dangerous side effects.</p>
+        <a href="#">Read more</a>
+      </article>
+      <article>
+        <time>23 February 2025</time>
+        <h3>Giant Panda Declared World's New Fashion Icon</h3>
+        <p class="exceprt">A giant panda from the Chengdu Wildlife Reserve has been crowned the world’s top fashion
+          icon, gracing runways with its natural black-and-white fur patterns. Designers scramble to mimic the look.</p>
+        <a href="#">Read more</a>
+      </article>
+    </main>
+
+  </div>
+
+  <footer>
+    <div class="page-width-wrapper">
+      <h3>The Daily Oddity</h3>
+      <p>Serving Up the Odd, the Outrageous, and the Occasionally Plausible.</p>
+      <ul class="site-map">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Oddities</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Conspiracy Corner</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+
+</html>
