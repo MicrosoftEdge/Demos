@@ -121,17 +121,17 @@ self.addEventListener('fetch', event => {
             // Store the files in a temporary cache for the client to access
             const shareCache = await caches.open('share-target-cache');
             
-            // Extract file names and store them in the shareData
+            // Store original file names explicitly
             const fileNames = files.map(file => file.name);
             
-            // Create share data object with file names array
+            // Create an object with the share data including file names
             const shareData = {
               title: data.title,
               text: data.text,
               url: data.url,
               timestamp: Date.now(),
               fileCount: files.length,
-              fileNames: fileNames // Store file names in the share data
+              fileNames: fileNames
             };
             
             // Store the share data

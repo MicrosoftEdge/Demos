@@ -285,7 +285,7 @@ browseImagesButton.addEventListener('click', async e => {
 
         for (const file of files) {
           imagesToStore.push({
-            file,  // <-- The original file object keeps its name
+            file,
             fsHandlePromise: Promise.resolve(null)
           });
           resolve();
@@ -365,7 +365,7 @@ saveImagesButton.addEventListener('click', async e => {
   }
 
   // If the input images were cloned, we can't save the new images
-  // back to disk. They don't have a handle. Bail out for now.
+  // back to disk. They don't have a handle. Just bail out for now.
   if (currentImages.length !== outputImages.length) {
     return;
   }
@@ -422,7 +422,7 @@ viewImagesButton.addEventListener('click', async e => {
   imageViewer.show();
 
   // 2 modes: either we matching inputs and outputs in which case we can 
-  // go into the swipe mode. Or we don't, in which case we show the
+  // go into the swipe mode. Or we don't, in which case we just show the
   // output images.
   if (input.length === output.length) {
     imageViewer.populateFromInputAndOutput(input, output);
@@ -478,9 +478,7 @@ async function processShareTargetData() {
   window.history.replaceState({}, document.title, window.location.pathname);
 }
 
-/**
- * Determines the flow configuration (title and steps) based on shared data
- */
+// Determines the flow configuration (title and steps) based on shared data
 function determineFlowConfiguration(shareData) {
   // Default flow title and steps
   let flowTitle = shareData.title || 'Shared Images Flow';
@@ -508,9 +506,7 @@ function determineFlowConfiguration(shareData) {
   return { flowTitle, flowSteps };
 }
 
-/**
- * Parses a web+wami:// URL to extract flow configuration
- */
+// Parses a web+wami:// URL to extract flow configuration
 function parseWebWamiUrl(url) {
   // Extract the part after web+wami://
   const urlPath = url.substring('web+wami://'.length);
@@ -560,9 +556,7 @@ function parseWebWamiUrl(url) {
   return { title, steps };
 }
 
-/**
- * Creates a new flow or navigates to an existing flow with the same name
- */
+// Creates a new flow or navigates to an existing flow with the same name
 async function createOrNavigateToFlow(flowTitle, flowSteps) {
   // Only auto-process if title contains ai-action
   const shouldAutoProcess = true;
@@ -603,9 +597,7 @@ async function createOrNavigateToFlow(flowTitle, flowSteps) {
   return targetFlow;
 }
 
-/**
- * Loads shared images from the cache and processes them if needed
- */
+// Loads shared images from the cache and processes them if needed
 async function loadAndProcessSharedImages(shareCache, shareData) {
   const imagesToStore = [];
   
@@ -615,17 +607,23 @@ async function loadAndProcessSharedImages(shareCache, shareData) {
     if (fileResponse) {
       const blob = await fileResponse.blob();
       
-      // Get the original file name from the shareData.fileNames array
-      // This is more reliable than trying to extract it from the blob
-      const fileName = (shareData.fileNames && shareData.fileNames[i]) || 
-                       `shared-${i + 1}.${getFileExtension(blob.type)}`;
+      // Use the exact original filename stored in the shareData
+      let fileName;
       
-      // Create a File object with the original name
+      if (shareData.fileNames && shareData.fileNames[i]) {
+        fileName = shareData.fileNames[i];
+        console.log(`Using original file name: ${fileName}`);
+      } else {
+        // Only fall back if absolutely necessary
+        fileName = `shared-${i + 1}.${getFileExtension(blob.type)}`;
+        console.log(`No filename found, using fallback: ${fileName}`);
+      }
+      
       const file = new File([blob], fileName, { type: blob.type });
       
       imagesToStore.push({
         file,
-        name: file.name,
+        name: fileName,
         fsHandlePromise: Promise.resolve(null)
       });
     }
@@ -650,9 +648,7 @@ async function loadAndProcessSharedImages(shareCache, shareData) {
   }
 }
 
-/**
- * Cleans up the share cache after processing
- */
+// Cleans up the share cache after processing
 async function cleanupShareCache(shareCache, shareData) {
   await shareCache.delete('shareData');
   for (let i = 0; i < shareData.fileCount; i++) {
