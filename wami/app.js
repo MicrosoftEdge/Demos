@@ -462,21 +462,11 @@ async function processShareTargetData() {
     // Determine flow configuration from share data
     const { flowTitle, flowSteps } = determineFlowConfiguration(shareData);
     
-    // If no valid command was found, create an empty flow
-    if (flowTitle === null || flowSteps === null) {
-      console.log('Creating empty flow due to invalid URL command');
-      // Create a new untitled flow with no steps
-      const newFlow = await createNewFlow('Untitled flow', []);
-
-      // Load the images without auto-processing
-      await loadAndProcessSharedImages(shareCache, shareData, false);
-    } else {
-      // Create or navigate to the flow with the specified steps
-      const targetFlow = await createOrNavigateToFlow(flowTitle, flowSteps);
-      
-      // Load and process the shared images
-      await loadAndProcessSharedImages(shareCache, shareData, true);
-    }
+    // Create or navigate to the flow
+    const targetFlow = await createOrNavigateToFlow(flowTitle, flowSteps);
+    
+    // Load and process the shared images
+    await loadAndProcessSharedImages(shareCache, shareData);
     
     // Clean up cache after processing
     await cleanupShareCache(shareCache, shareData);
@@ -490,9 +480,14 @@ async function processShareTargetData() {
 
 // Determines the flow configuration (title and steps) based on shared data
 function determineFlowConfiguration(shareData) {
-  // Default flow title and steps - only used if no URL is provided
+  // Default flow title and steps
   let flowTitle = shareData.title || 'Shared Images Flow';
-  let flowSteps = null;
+  let flowSteps = [
+    {
+      type: 'resize-width-if-larger',
+      params: [1000]
+    }
+  ];
   
   // If URL field exists and starts with web+wami://, use it for configuration
   if (shareData.url && shareData.url.trim() !== '') {
@@ -504,22 +499,8 @@ function determineFlowConfiguration(shareData) {
       if (result) {
         flowTitle = result.title;
         flowSteps = result.steps;
-      } else {
-        // If URL parsing failed, return null to indicate we should stay on launch page
-        console.log('Invalid command URL, will not process images');
-        return { flowTitle: null, flowSteps: null };
       }
     }
-  }
-  
-  // If no web+wami URL was provided, use these default steps
-  if (flowSteps === null) {
-    flowSteps = [
-      {
-        type: 'resize-width-if-larger',
-        params: [1000]
-      }
-    ];
   }
   
   return { flowTitle, flowSteps };
@@ -568,9 +549,8 @@ function parseWebWamiUrl(url) {
     console.log(`Creating resize flow with width ${width}`);
     steps = [{ type: 'resize-width-if-larger', params: [width] }];
   } else {
-    // If no recognized command is found, return null instead of using default steps
-    console.log(`No recognized command found in URL: ${mainCommand}`);
-    return null;
+    // Default to resize-width-if-larger
+    steps = [{ type: 'resize-width-if-larger', params: [1000] }];
   }
   
   return { title, steps };
@@ -618,7 +598,7 @@ async function createOrNavigateToFlow(flowTitle, flowSteps) {
 }
 
 // Loads shared images from the cache and processes them if needed
-async function loadAndProcessSharedImages(shareCache, shareData, shouldAutoProcess = true) {
+async function loadAndProcessSharedImages(shareCache, shareData) {
   const imagesToStore = [];
   
   // Load the shared files from cache
@@ -657,14 +637,13 @@ async function loadAndProcessSharedImages(shareCache, shareData, shouldAutoProce
       return { src: URL.createObjectURL(image.file), name: image.file.name };
     }));
     
-    // Automatically run the flow only if requested
+    // Automatically run the flow
+    const shouldAutoProcess = true;
     if (shouldAutoProcess) {
       console.log('Auto-processing images...');
       setTimeout(() => {
         runFlowButton.click();
       }, 500);
-    } else {
-      console.log('Images loaded but not auto-processing due to invalid command');
     }
   }
 }
