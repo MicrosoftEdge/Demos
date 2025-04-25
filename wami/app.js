@@ -190,6 +190,24 @@ addFlowButton.addEventListener('click', async e => {
   await navigateToFlow(newFlow.id);
 });
 
+// Create a new flow with specific settings
+async function createNewFlow(name, steps) {
+  const flows = await flowsPromise;
+  const newFlow = {
+    id: getUniqueId(),
+    name: name || 'Untitled flow',
+    steps: steps || []
+  };
+
+  flows.push(newFlow);
+  await saveFlows(flows);
+
+  populateFlowList(flows);
+
+  await navigateToFlow(newFlow.id);
+  return newFlow;
+}
+
 // Deleting the current flow.
 deleteFlowButton.addEventListener('click', async e => {
   const flows = await flowsPromise;
@@ -255,7 +273,6 @@ browseImagesButton.addEventListener('click', async e => {
   if (!('showOpenFilePicker' in window)) {
     // Browser doesn't support the File System Access API.
     // Use the legacy file input.
-
     const button = document.createElement('input');
     button.type = 'file';
     button.multiple = true;
@@ -414,6 +431,244 @@ viewImagesButton.addEventListener('click', async e => {
   }
 });
 
+// Process share target data when the app is launched
+async function processShareTargetData() {
+  // Check if we were launched via share target
+  const urlParams = new URLSearchParams(window.location.search);
+  const isShared = urlParams.get('share') === 'true';
+  
+  if (!isShared) {
+    return;
+  }
+  
+  try {
+    // Get the shared data from the cache
+    const shareCache = await caches.open('share-target-cache');
+    const shareDataResponse = await shareCache.match('shareData');
+    
+    if (!shareDataResponse) {
+      console.warn('No share data found in cache');
+      return;
+    }
+    
+    const shareData = await shareDataResponse.json();
+    console.log('Share data received:', shareData);
+    
+    if (shareData.fileCount <= 0) {
+      console.warn('No files in the shared data');
+      return;
+    }
+    
+    // Determine flow configuration from share data
+    const { flowTitle, flowSteps } = determineFlowConfiguration(shareData);
+    
+    // Create or navigate to the flow
+    const targetFlow = await createOrNavigateToFlow(flowTitle, flowSteps);
+    
+    // Load and process the shared images
+    await loadAndProcessSharedImages(shareCache, shareData);
+    
+    // Clean up cache after processing
+    await cleanupShareCache(shareCache, shareData);
+  } catch (err) {
+    console.error('Error processing share target data:', err);
+  }
+  
+  // Remove the share parameter from URL without page reload
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+// Determines the flow configuration (title and steps) based on shared data
+function determineFlowConfiguration(shareData) {
+  // Default flow title and steps
+  let flowTitle = shareData.title || 'Shared Images Flow';
+  let flowSteps = [
+    {
+      type: 'resize-width-if-larger',
+      params: [1000]
+    }
+  ];
+  
+  // If URL field exists and starts with web+wami://, use it for configuration
+  if (shareData.url && shareData.url.trim() !== '') {
+    const url = shareData.url.trim();
+    console.log('URL in share data:', url);
+    
+    if (url.startsWith('web+wami://')) {
+      const result = parseWebWamiUrl(url);
+      if (result) {
+        flowTitle = result.title;
+        flowSteps = result.steps;
+      }
+    }
+  }
+  
+  return { flowTitle, flowSteps };
+}
+
+// Parses a web+wami:// URL to extract flow configuration
+function parseWebWamiUrl(url) {
+  // Extract the part after web+wami://
+  const urlPath = url.substring('web+wami://'.length);
+  if (!urlPath || !urlPath.trim()) {
+    return null;
+  }
+  
+  // Get the path without query parameters
+  const pathParts = urlPath.split('?')[0].split('/');
+  const mainCommand = pathParts[0].toLowerCase();
+  
+  // Set flow title based on the URL path
+  const title = decodeURIComponent(urlPath).replace(/\/+/g, ' ').trim();
+  console.log('Using URL path as flow name:', title);
+  
+  // Determine the flow steps based on URL pattern
+  let steps = [];
+  
+  if (mainCommand.includes('rotate')) {
+    console.log('Creating rotate flow');
+    steps = [{ type: 'rotate', params: [90] }];
+  } else if (mainCommand.includes('flip')) {
+    console.log('Creating flip flow');
+    steps = [{ type: 'flip', params: [] }];
+  } else if (mainCommand.includes('paint')) {
+    console.log('Creating paint flow');
+    steps = [{ type: 'paint', params: [5] }];
+  } else if (mainCommand.includes('sepia')) {
+    console.log('Creating sepia flow');
+    steps = [{ type: 'sepia-tone', params: [80] }];
+  } else if (mainCommand.includes('blur')) {
+    console.log('Creating blur flow');
+    steps = [{ type: 'blur', params: [3] }];
+  } else if (mainCommand.includes('negate')) {
+    console.log('Creating negate flow');
+    steps = [{ type: 'negate', params: [] }];
+  } else if (mainCommand.includes('resize')) {
+    // Try to extract width parameter
+    const width = parseInt(pathParts[1]) || 1000;
+    console.log(`Creating resize flow with width ${width}`);
+    steps = [{ type: 'resize-width-if-larger', params: [width] }];
+  } else {
+    // Default to resize-width-if-larger
+    steps = [{ type: 'resize-width-if-larger', params: [1000] }];
+  }
+  
+  return { title, steps };
+}
+
+// Creates a new flow or navigates to an existing flow with the same name
+async function createOrNavigateToFlow(flowTitle, flowSteps) {
+  // Only auto-process if title contains ai-action
+  const shouldAutoProcess = true;
+  
+  // Check if a flow with this name already exists
+  const flows = await flowsPromise;
+  const existingFlow = flows.find(flow => flow.name === flowTitle);
+  
+  let targetFlow;
+  
+  // If a flow with the same name exists, update its steps and use it
+  if (existingFlow) {
+    console.log(`Using existing flow: "${flowTitle}" with ID ${existingFlow.id}`);
+    
+    // Update the flow steps to match the requested configuration
+    if (shouldAutoProcess) {
+      existingFlow.steps = [...flowSteps];
+      
+      // Save the updated flow
+      const flowIndex = flows.findIndex(flow => flow.id === existingFlow.id);
+      flows[flowIndex] = existingFlow;
+      await saveFlows(flows);
+      console.log(`Updated steps for flow: "${flowTitle}"`);
+    }
+    
+    targetFlow = existingFlow;
+    // Navigate to the existing flow
+    await navigateToFlow(existingFlow.id + '');
+  } else {
+    // Create a new flow with selected steps
+    console.log(`Creating new flow: "${flowTitle}" with steps:`, flowSteps);
+    targetFlow = await createNewFlow(
+      flowTitle, 
+      shouldAutoProcess ? flowSteps : []
+    );
+  }
+  
+  return targetFlow;
+}
+
+// Loads shared images from the cache and processes them if needed
+async function loadAndProcessSharedImages(shareCache, shareData) {
+  const imagesToStore = [];
+  
+  // Load the shared files from cache
+  for (let i = 0; i < shareData.fileCount; i++) {
+    const fileResponse = await shareCache.match(`file-${i}`);
+    if (fileResponse) {
+      const blob = await fileResponse.blob();
+      
+      // Use the exact original filename stored in the shareData
+      let fileName;
+      
+      if (shareData.fileNames && shareData.fileNames[i]) {
+        fileName = shareData.fileNames[i];
+        console.log(`Using original file name: ${fileName}`);
+      } else {
+        // Only fall back if absolutely necessary
+        fileName = `shared-${i + 1}.${getFileExtension(blob.type)}`;
+        console.log(`No filename found, using fallback: ${fileName}`);
+      }
+      
+      const file = new File([blob], fileName, { type: blob.type });
+      
+      imagesToStore.push({
+        file,
+        name: fileName,
+        fsHandlePromise: Promise.resolve(null)
+      });
+    }
+  }
+  
+  // Store the images and update the UI
+  if (imagesToStore.length > 0) {
+    console.log(`Loaded ${imagesToStore.length} images from share`);
+    currentImages = imagesToStore;
+    populateInputImages(imagesToStore.map(image => {
+      return { src: URL.createObjectURL(image.file), name: image.file.name };
+    }));
+    
+    // Automatically run the flow
+    const shouldAutoProcess = true;
+    if (shouldAutoProcess) {
+      console.log('Auto-processing images...');
+      setTimeout(() => {
+        runFlowButton.click();
+      }, 500);
+    }
+  }
+}
+
+// Cleans up the share cache after processing
+async function cleanupShareCache(shareCache, shareData) {
+  await shareCache.delete('shareData');
+  for (let i = 0; i < shareData.fileCount; i++) {
+    await shareCache.delete(`file-${i}`);
+  }
+}
+
+// Helper function to get file extension from mime type
+function getFileExtension(mimeType) {
+  const extensions = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/gif': 'gif',
+    'image/webp': 'webp',
+    'image/svg+xml': 'svg'
+  };
+  
+  return extensions[mimeType] || 'jpg';
+}
+
 // When the app starts, get the flows and display them in the sidebar.
 async function startApp() {
   const flows = await flowsPromise;
@@ -422,6 +677,28 @@ async function startApp() {
   // Also toggle the download/save buttons depending on capabilities.
   if (!('showOpenFilePicker' in window)) {
     saveImagesButton.remove();
+  }
+  
+  // Process share target data if available
+  await processShareTargetData();
+  
+  logProtocolActivation();
+}
+
+// Log protocol activations.
+function logProtocolActivation() {
+  const url = new URL(window.location.href);
+  const protocolUrl = url.searchParams.get('url');
+  
+  // If we have a URL parameter that starts with web+wami:, it's a protocol activation
+  if (protocolUrl && protocolUrl.startsWith('web+wami:')) {
+    console.log(`Protocol activation detected: ${protocolUrl}`);
+    
+    // Clean up the URL.
+    if (window.history && window.history.replaceState) {
+      url.searchParams.delete('url');
+      window.history.replaceState({}, document.title, url.toString());
+    }
   }
 }
 

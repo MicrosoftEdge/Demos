@@ -1,4 +1,4 @@
-const VERSION = 'v8';
+const VERSION = 'v9';
 const CACHE_NAME = `wami-${VERSION}`;
 
 // Those are all the resources our app needs to work.
@@ -93,13 +93,71 @@ self.addEventListener('activate', event => {
   })());
 });
 
+// Handle share target requests: This listener specifically processes POST requests
+// to the /share-target endpoint
+self.addEventListener('fetch', event => {
+  // Only process POST requests to the share-target endpoint
+  if (event.request.method === 'POST' && event.request.url.includes('/share-target')) {
+    // Immediately redirect to main page
+    event.respondWith(Response.redirect('./?share=true', 303));
+    
+    // Process the form data in the background
+    event.waitUntil(
+      (async () => {
+        try {
+          const formData = await event.request.formData();
+          
+          // Extract data
+          const data = {
+            title: formData.get('title') || '',
+            text: formData.get('text') || '',
+            url: formData.get('url') || ''
+          };
+          
+          const files = formData.getAll('windowsActionFiles');
+          
+          // Store share data for the client to use if there are files
+          if (files.length > 0) {
+            // Store the files in a temporary cache for the client to access
+            const shareCache = await caches.open('share-target-cache');
+            
+            // Store original file names explicitly
+            const fileNames = files.map(file => file.name);
+            
+            // Create an object with the share data including file names
+            const shareData = {
+              title: data.title,
+              text: data.text,
+              url: data.url,
+              timestamp: Date.now(),
+              fileCount: files.length,
+              fileNames: fileNames
+            };
+            
+            // Store the share data
+            await shareCache.put('shareData', new Response(JSON.stringify(shareData)));
+            
+            // Store each file with a unique key
+            for (let i = 0; i < files.length; i++) {
+              const file = files[i];
+              await shareCache.put(`file-${i}`, new Response(file));
+            }
+          }
+        } catch (error) {
+          console.error('Error processing share target data:', error);
+        }
+      })()
+    );
+    return;
+  }
+});
+
 // Main fetch handler.
 // A cache-first strategy is used, with a fallback to the network.
 // The static resources fetched here will not have the cache-busting query
 // string. So we need to add it to match the cache.
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-
   // Don't care about other-origin URLs.
   if (url.origin !== location.origin) {
     return;
