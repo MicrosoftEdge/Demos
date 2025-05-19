@@ -1,0 +1,3 @@
+#output:empty::before {
+  content: "The text will appear here";
+}

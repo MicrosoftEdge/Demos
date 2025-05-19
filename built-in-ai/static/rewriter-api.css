@@ -1,0 +1,7 @@
+#output:empty::before {
+  content: "The rewritten text will appear here";
+}
+
+textarea {
+  height: 5rem;
+}

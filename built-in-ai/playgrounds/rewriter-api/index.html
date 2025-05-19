@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>Rewriter API playground</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI Playground</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item current">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li class="divider">
+        <span class="item parent">Samples</span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce site</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item">News editor site</a>
+          </li>
+        </ul>
+      </li -->
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item current">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li class="divider">
+        <span class="item parent">Samples</span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce site</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item">News editor site</a>
+          </li>
+        </ul>
+      </li -->
+    </ul>
+  </nav>
+
+
+
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
+  
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/rewriter-api.css">
+  
+
+  <main>
+    <h1>Rewriter API</h1>
+    <p class="description">Web API to modify text in different tones, lengths, etc. using the browser-provided language model. For more information, check out <a href="https://aka.ms/edge-writing-assistance-api-docs" target="_blank">the API documentation</a>.</p>
+
+    <div id="message-ui" class="message-bar"></div>
+
+    <div class="settings card-with-shadow">
+      
+<div class="settings-row no-separator">
+  <label for="text">
+    Text to rewrite
+    <span role="tooltip" id="text-tooltip" style="anchor-name:--text-anchor;">
+      <span class="tooltip-content" style="position-anchor:--text-anchor;">
+        The text that you want the rewriter to process. This can be any text, such as a short paragraph, an article, a
+        blog post, or any other type of content that you want to rewrite.
+        The rewriter will generate a rewritten version based on this content.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="text" placeholder="The text that you want to rewrite"
+    aria-describedby="text-tooltip">The app crashes constantly with the latest update. What a waste of time! The developers are useless..</textarea>
+</div>
+
+<div class="settings-row">
+  <label for="shared-context">
+    Shared context
+    <span role="tooltip" id="shared-context-tooltip" style="anchor-name:--shared-context-anchor;">
+      <span class="tooltip-content" style="position-anchor:--shared-context-anchor;">
+        Shared context to be used by the rewriter. This context describes the type of text that the rewriter will be
+        processing.
+        This context is shared across all rewrites that you will be doing in this rewriter session.
+      </span>
+    </span>
+  </label>
+  <textarea id="shared-context"
+    aria-describedby="shared-context-tooltip">This is user feedback about an app being submitted to a public forum.</textarea>
+</div>
+
+<div class="settings-row">
+  <label for="context">
+    Context
+    <span role="tooltip" id="context-tooltip" style="anchor-name:--context-anchor;">
+      <span class="tooltip-content" style="position-anchor:--context-anchor;">
+        Specific context to be used for this rewrite task only.
+        This context is used in addition to the shared context, to provide rewriting instructions for the specific text
+        to be rewritten.
+      </span>
+    </span>
+  </label>
+  <textarea type="text" id="context"
+    aria-describedby="context-tooltip">Refine user feedback to remove harsh, profane, or negative language while preserving the core issue, ensuring clarity and professionalism.</textarea>
+</div>
+
+<div class="settings-row no-separator">
+  <label for="tone">Tone</label>
+  <select name="tone" id="tone">
+    <option value="as-is">As-is</option>
+    <option value="more-formal">More formal</option>
+    <option value="more-casual" selected>More casual</option>
+  </select>
+</div>
+
+<div class="settings-row no-separator">
+  <label for="length">Length</label>
+  <select name="length" id="length">
+    <option value="as-is">As-is</option>
+    <option value="shorter" selected>Shorter</option>
+    <option value="longer">Longer</option>
+  </select>
+</div>
+
+<div class="settings-row">
+  <label for="format">Format</label>
+  <select name="format" id="format">
+    <option value="as-is">As-is</option>
+    <option value="markdown" selected>Markdown</option>
+    <option value="plain-text">Plain text</option>
+  </select>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="rewrite">Rewrite</button>
+  <button id="stop">Stop</button>
+</div>
+    </div>
+
+    <pre id="output"></pre>
+
+    <div class="metrics card-with-shadow">
+      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
+      <span class="metric">First chunk latency: <span class="value" id="first-chunk-latency-metric"></span> ms</span>
+      <span class="metric">Chunks: <span class="value" id="chunks-metric"></span></span>
+      <span class="metric">Rate: <span class="value" id="chunk-rate-metric"></span> chunk/sec</span>
+    </div>
+  </main>
+
+  <script src="/Demos/built-in-ai/static/session.js"></script>
+  <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  <script src="/Demos/built-in-ai/static/slider.js"></script>
+  
+    <script src="/Demos/built-in-ai/static/rewriter-api.js"></script>
+  
+
+</body>
+</html>

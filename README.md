@@ -92,6 +92,7 @@ sort on col 3: Repo directory
 | EditContext API demo | Demo page showing how the EditContext API can be used to build an advanced text editor. | [/edit-context/](https://github.com/MicrosoftEdge/Demos/tree/main/edit-context) | [HTML editor demo](https://microsoftedge.github.io/Demos/edit-context/) |
 | SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
 | IndexedDB: getAllRecords() | Demo page showing the benefits of the newly proposed `getAllRecords()` IndexedDB method to more conveniently and quickly read IDB records. | [/idb-getallrecords/](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords) | [IndexedDB: getAllRecords()](https://microsoftedge.github.io/Demos/idb-getallrecords/) |
+| Built-in AI playground | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/on-device-demos) | [Built-in AI playground](https://microsoftedge.github.io/Demos/built-in-ai/) |
 
 
 ## Adding a new demo

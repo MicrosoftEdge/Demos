@@ -1,0 +1,101 @@
+.progress,
+.spinner,
+.indicator {
+  animation: none 1.5s infinite cubic-bezier(0.33, 0, 0.67, 1);
+}
+
+.progress {
+  animation-timing-function: linear;
+  animation-name: spin-linear;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  inset: calc(50% - 16px);
+}
+
+.spinner {
+  animation-name: spin-swing;
+}
+
+.spinner,
+.start,
+.end,
+.indicator {
+  position: absolute;
+  inset: 0;
+}
+
+.start {
+  overflow: hidden;
+  right: 50%;
+}
+
+.end {
+  overflow: hidden;
+  left: 50%;
+}
+
+.indicator {
+  color: #25282dff;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-block-start-color: currentcolor;
+  border-right-color: currentcolor;
+}
+
+.start .indicator {
+  rotate: 135deg;
+  inset: 0 -100% 0 0;
+  animation-name: spin-start;
+}
+
+.end .indicator {
+  rotate: 135deg;
+  inset: 0 0 0 -100%;
+  animation-name: spin-end;
+}
+
+@keyframes spin-linear {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-swing {
+  0% {
+    transform: rotate(-135deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(225deg);
+  }
+}
+
+@keyframes spin-start {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-80deg);
+  }
+}
+
+@keyframes spin-end {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(70deg);
+  }
+}

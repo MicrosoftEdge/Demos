@@ -79,7 +79,8 @@
       flex-wrap: wrap;
     }
 
-    .banner p, .banner ul {
+    .banner p,
+    .banner ul {
       margin: .5rem 0;
     }
 
@@ -112,6 +113,7 @@
       gap: 1rem;
       font-size: .9rem;
       flex-wrap: wrap;
+      column-rule: 2px solid color-mix(in srgb, var(--back) 20%, var(--text));
     }
 
     .hero {
@@ -137,17 +139,20 @@
     }
 
     main {
-      column-width: 13rem;
-      column-gap: 3rem;
-      column-rule: 1.5px solid var(--text);
       margin-block-end: 3rem;
-    }
-
-    article {
-      break-inside: avoid;
-      margin: 0 0 1rem 0;
-      border-block-end: 2px solid var(--text);
-      padding-block-end: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      gap: 3rem;
+      /* These seem to work. */
+      column-rule: 2px solid var(--text);
+      column-rule-break: intersection;
+      column-rule-outset: .5rem;
+      /* These don't work yet. */
+      row-rule-width: 2px;
+      row-rule-style: solid;
+      row-rule-color: var(--text);
+      row-rule-break: intersection;
+      row-rule-outset: -1rem;
     }
 
     article a {
@@ -196,13 +201,18 @@
 
     footer .page-width-wrapper {
       display: grid;
-      gap: 1rem;
+      column-gap: 3rem;
+      row-gap: 1rem;
       grid-template-columns: 5fr 1fr;
+      grid-template-rows: min-content 1fr;
+      column-rule: 1px solid color-mix(in srgb, var(--back) 30%, var(--text));
+      column-rule-outset: -0.5rem;
     }
 
     footer h3,
     footer p {
       grid-column: 1;
+      margin: 0;
     }
 
     footer ul {
@@ -240,7 +250,8 @@
 
     <section class="hero">
       <h2 class="slogan"><span class="backplate">The Daily Oddity - Where the Weird Meets the News</span></h2>
-      <p class="by-line"><span class="backplate">Serving Up the Odd, the Outrageous, and the Occasionally Plausible.</span></p>
+      <p class="by-line"><span class="backplate">Serving Up the Odd, the Outrageous, and the Occasionally
+          Plausible.</span></p>
     </section>
 
     <main>

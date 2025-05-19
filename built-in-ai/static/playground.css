@@ -1,0 +1,228 @@
+main {
+  width: clamp(400px, 70vw, 1000px);
+  display: grid;
+  gap: var(--gap);
+  grid-template-rows: min-content min-content 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "title title"
+    "description description"
+    "message message"
+    "form output";
+}
+
+@media (max-width: 800px) {
+  main {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content auto min-content auto;
+    grid-template-areas:
+      "title"
+      "description"
+      "message"
+      "form"
+      "metrics"
+      "output";
+  }
+}
+
+main h1 {
+  grid-area: title;
+}
+
+main .description {
+  grid-area: description;
+  margin: 0;
+}
+
+#message-ui {
+  grid-area: message;
+}
+
+.settings {
+  grid-area: form;
+  align-self: start;
+  overflow: hidden;
+  /* max-height: 800px;
+  overflow-y: auto; */
+}
+
+.settings header {
+  border-block-end: 1px solid var(--divider-color);
+  background: white;
+  padding: var(--padding);
+}
+
+.settings header h2 {
+  margin: 0;
+}
+
+.settings .settings-row {
+  padding: var(--padding);
+}
+
+.settings .settings-row:not(:last-child):not(.no-separator) {
+  border-block-end: 1px solid var(--divider-color);
+}
+
+.settings .settings-row.no-separator {
+  padding-block-end: 0;
+}
+
+/* In case there are multiple label/input pairs in a settings-row, space them out. */
+.settings .settings-row input+label,
+.settings .settings-row textarea+label {
+  padding-block-start: var(--padding);
+}
+
+.settings summary {
+  font-size: var(--small-font-size);
+  cursor: pointer;
+  position: relative;
+}
+
+.settings summary::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: -16px;
+  width: 44px;
+  height: 44px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 330 330" xmlns="http://www.w3.org/2000/svg"><path d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394  l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393  C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path></svg>');
+  background-size: 8px 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  rotate: .5turn;
+  transition: rotate 0.2s ease-in-out;
+  inset-block-start: -14px;
+}
+
+.settings details[open] summary::after {
+  rotate: 0turn;
+}
+
+.settings details ::marker {
+  content: "";
+}
+
+.settings details[open]::details-content {
+  padding-block-start: var(--padding);
+}
+
+.settings .settings-row.submit {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--gap) / 2);
+
+  /* position: sticky;
+  bottom: 0;
+  background: white;
+  border-block-start: 1px solid var(--divider-color); */
+}
+
+[role="tooltip"] .tooltip-content {
+  display: none;
+  position: absolute;
+  bottom: calc(anchor(top) + var(--gap) / 2);
+  justify-self: anchor-center;
+  max-width: 200px;
+  background: black;
+  color: white;
+  border-radius: var(--inner-radius);
+  padding: calc(var(--padding) / 2);
+  font-size: var(--small-font-size);
+  font-weight: normal;
+}
+
+[role="tooltip"]::before {
+  content: "";
+  background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10ZM9.50806 8.91012C9.55039 8.67687 9.75454 8.49999 10 8.49999C10.2455 8.49999 10.4496 8.67687 10.4919 8.91012L10.5 8.99999V13.5021L10.4919 13.592C10.4496 13.8253 10.2455 14.0021 10 14.0021C9.75454 14.0021 9.55039 13.8253 9.50806 13.592L9.5 13.5021V8.99999L9.50806 8.91012ZM9.25 6.74999C9.25 6.33578 9.58579 5.99999 10 5.99999C10.4142 5.99999 10.75 6.33578 10.75 6.74999C10.75 7.16421 10.4142 7.49999 10 7.49999C9.58579 7.49999 9.25 7.16421 9.25 6.74999Z" fill="white"></path></svg>');
+  background-size: 18px;
+  cursor: default;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: bottom;
+  background-color: black;
+  border-radius: 50%;
+  background-position: center;
+}
+
+[role="tooltip"]:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10ZM9.50806 8.91012C9.55039 8.67687 9.75454 8.49999 10 8.49999C10.2455 8.49999 10.4496 8.67687 10.4919 8.91012L10.5 8.99999V13.5021L10.4919 13.592C10.4496 13.8253 10.2455 14.0021 10 14.0021C9.75454 14.0021 9.55039 13.8253 9.50806 13.592L9.5 13.5021V8.99999L9.50806 8.91012ZM9.25 6.74999C9.25 6.33578 9.58579 5.99999 10 5.99999C10.4142 5.99999 10.75 6.33578 10.75 6.74999C10.75 7.16421 10.4142 7.49999 10 7.49999C9.58579 7.49999 9.25 7.16421 9.25 6.74999Z" fill="black"></path></svg>');
+  background-color: white;
+}
+
+[role="tooltip"]:hover .tooltip-content {
+  display: block;
+}
+
+[role="tooltip"] .tooltip-content::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  background: black;
+  bottom: -8px;
+  justify-self: anchor-center;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+textarea {
+  height: 8rem;
+  max-height: 50vh;
+  resize: vertical;
+}
+
+input[type="number"] {
+  margin: 0 auto;
+}
+
+#output {
+  grid-area: output;
+  border-radius: var(--outer-radius);
+  background: var(--alternate-color);
+  margin: 0;
+  min-height: 10rem;
+  padding: 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  position: relative;
+}
+
+#output:empty::before {
+  content: "The rewritten text will appear here";
+  color: #777;
+  text-align: center;
+  padding: var(--padding) 0;
+}
+
+.metrics {
+  position: fixed;
+  inset-block-end: var(--padding);
+  inset-inline-end: var(--padding);
+
+  padding: var(--padding);
+  font-size: var(--small-font-size);
+  display: grid;
+  grid: 1fr 1fr / 1fr 1fr;
+  gap: calc(var(--gap) / 2);
+}
+
+@media (max-width: 800px) {
+  .metrics {
+    position: static;
+    grid-area: metrics;
+  }
+}
+
+.metrics .metric .value:empty::before {
+  content: "--";
+}
+
+.metrics .metric .value {
+  background-color: var(--alternate-color);
+  border-radius: var(--inner-radius);
+  padding: 6px 12px;
+}

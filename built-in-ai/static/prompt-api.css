@@ -1,0 +1,22 @@
+textarea {
+  height: 5rem;
+}
+
+textarea.code {
+  font-size: .9em;
+  height: 8rem;
+  font-family: monospace;
+}
+
+.example-link-in-label {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.example-link-in-label:hover {
+  text-decoration: none;
+}
+
+#output:empty::before {
+  content: "The response will appear here";
+}

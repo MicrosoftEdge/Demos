@@ -1,0 +1,12 @@
+#content {
+  height: 14rem;
+  max-height: 50vh;
+}
+
+#context {
+  height: 6rem;
+}
+
+#output:empty::before {
+  content: "The summary will appear here";
+}

@@ -1,0 +1,25 @@
+@layer base-buttons {
+  .ai-button {
+    background: rgb(230 255 231);
+    font-weight: bold;
+    color: black;
+    border: 2px solid hsl(from currentcolor h s 40);
+    border-radius: .25rem;
+    overflow: hidden;
+  }
+
+  .ai-button.processing::after {
+    animation: pulse 1s ease-in-out alternate infinite;
+  }
+
+  @keyframes pulse {
+    0 {
+      scale: 1;
+    }
+
+    100% {
+      scale: 5;
+      opacity: 0.5;
+    }
+  }
+}
