@@ -1,17 +1,18 @@
 // The various error messages.
-const DOCS_INSTRUCTIONS = "Please check the <a href='https://aka.ms/edge-prompt-api-docs'>documentation</a> and try again.";
+const PROMPT_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api'>documentation</a> and try again.";
+const WA_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis'>documentation</a> and try again.";
 
-const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${DOCS_INSTRUCTIONS}`;
-const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DOCS_INSTRUCTIONS}`;
+const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
+const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
 
-const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${DOCS_INSTRUCTIONS}`;
-const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DOCS_INSTRUCTIONS}`;
+const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
 
-const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${DOCS_INSTRUCTIONS}`;
-const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DOCS_INSTRUCTIONS}`;
+const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
 
-const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${DOCS_INSTRUCTIONS}`;
-const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DOCS_INSTRUCTIONS}`;
+const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
 
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
