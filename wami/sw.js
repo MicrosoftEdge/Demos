@@ -109,7 +109,6 @@ self.addEventListener('fetch', event => {
           
           // Extract data
           const data = {
-            title: formData.get('title') || '',
             text: formData.get('text') || '',
             url: formData.get('url') || ''
           };
@@ -126,7 +125,6 @@ self.addEventListener('fetch', event => {
             
             // Create an object with the share data including file names
             const shareData = {
-              title: data.title,
               text: data.text,
               url: data.url,
               timestamp: Date.now(),

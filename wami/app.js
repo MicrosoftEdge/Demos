@@ -481,7 +481,7 @@ async function processShareTargetData() {
 // Determines the flow configuration (title and steps) based on shared data
 function determineFlowConfiguration(shareData) {
   // Default flow title and steps
-  let flowTitle = shareData.title || 'Shared Images Flow';
+  let flowTitle = 'Shared Images Flow';
   let flowSteps = [
     {
       type: 'resize-width-if-larger',
