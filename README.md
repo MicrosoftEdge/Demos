@@ -56,6 +56,7 @@ sort on col 3: Repo directory
 | Photo gallery | Used for [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/). | [/photo-gallery/](https://github.com/MicrosoftEdge/Demos/tree/main/photo-gallery) | [Photo Gallery](https://microsoftedge.github.io/Demos/photo-gallery/) |
 | Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) |
 | Workspaces | Used for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces Demo](https://microsoftedge.github.io/Demos/workspaces/) |
+| Idle detection demo | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/sensors/#emulate-idle-detector-state), in the **Sensors** tool. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
 
 
 #### Microsoft Edge extensions
