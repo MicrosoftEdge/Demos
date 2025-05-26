@@ -5,6 +5,8 @@ const galleryEl = document.querySelector(".gallery");
 const filterEl = document.querySelector(".filters");
 const filesEl = document.querySelector('.files');
 
+const customPerformanceTrackGroupName = "Custom performance timings";
+
 function formatDate(data) {
   const date = new Date(data.DateTime.substring(0, 10).replace(/:/g, '/'));
   return date.toLocaleDateString();
@@ -175,6 +177,8 @@ function populateGallery(images) {
   galleryEl.innerHTML = '';
 
   images.forEach(({ file, user, description, w, h, meta }) => {
+    const imageCreationStart = performance.now();
+
     const liEl = document.createElement("li");
     liEl.classList.add('photo');
     liEl.setAttribute('tabindex', '0');
@@ -215,12 +219,12 @@ function populateGallery(images) {
 
     const beforeShadowEl = document.createElement("div");
     beforeShadowEl.classList.add('before-shadow');
-    beforeShadowEl.style = `width:${w}px;left:${(300 - w)/2}px;`;
+    beforeShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;`;
     photoWrapperEl.appendChild(beforeShadowEl);
-    
+
     const afterShadowEl = document.createElement("div");
     afterShadowEl.classList.add('after-shadow');
-    afterShadowEl.style = `width:${w}px;left:${(300 - w)/2}px;bottom:0;`;
+    afterShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;bottom:0;`;
     photoWrapperEl.appendChild(afterShadowEl);
 
     const imageEl = document.createElement("img");
@@ -287,6 +291,27 @@ function populateGallery(images) {
     metaEl.querySelector('.exposure strong').textContent = formatExposureTime(meta);
     metaEl.querySelector('.focal-length strong').textContent = formatFocalLength(meta);
     metaEl.querySelector('.iso strong').textContent = formatISO(meta);
+
+    const perfMeasureDescription = `Image ${file} created`;
+    performance.measure(perfMeasureDescription, {
+      start: imageCreationStart,
+      end: performance.now(),
+      detail: {
+        devtools: {
+          dataType: "track-entry",
+          color: "primary",
+          trackGroup: customPerformanceTrackGroupName,
+          track: "Photo creation",
+          properties: [
+            ['File', file],
+            ['Width', w],
+            ['Height', h],
+            ['User', user],
+          ],
+          tooltipText: perfMeasureDescription
+        }
+      },
+    });
   });
 }
 
@@ -301,6 +326,8 @@ getImageData().then(imageData => {
 addEventListener('input', e => {
   const filter = e.target.closest('.filter select');
   if (filter) {
+    const filterStartTime = performance.now();
+
     // Reset the other filters
     filterEl.querySelectorAll('.filter select').forEach(select => {
       if (select !== filter) {
@@ -325,6 +352,24 @@ addEventListener('input', e => {
         filterByISO(filter.value);
         break;
     }
+
+    const description = `Filter applied: ${filter.id}`;
+    performance.measure(description, {
+      start: filterStartTime,
+      end: performance.now(),
+      detail: {
+        devtools: {
+          dataType: "track-entry",
+          color: "secondary",
+          trackGroup: customPerformanceTrackGroupName,
+          track: "Filtering",
+          properties: [
+            ['Filter Value', filter.value]
+          ],
+          tooltipText: description
+        }
+      },
+    });
   }
 });
 
@@ -366,10 +411,30 @@ addEventListener('keydown', e => {
 });
 
 function loadPhoto(fileName) {
+  const loadStartTime = performance.now();
+  const perfMeasureDescription = `Loading photo: ${fileName}`;
+
   return new Promise(resolve => {
     const imageEl = document.createElement("img");
     imageEl.src = fileName;
     imageEl.addEventListener('load', () => {
+      performance.measure(perfMeasureDescription, {
+        start: loadStartTime,
+        end: performance.now(),
+        detail: {
+          devtools: {
+            dataType: "track-entry",
+            color: "tertiary",
+            trackGroup: customPerformanceTrackGroupName,
+            track: "Loading",
+            properties: [
+              ['Photo', fileName]
+            ],
+            tooltipText: perfMeasureDescription
+          }
+        },
+      });
+
       resolve(imageEl);
     }, { once: true });
   });
