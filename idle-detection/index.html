@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>Idle detection demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    body {
+      font-family: system-ui;
+      font-size: 1.2rem;
+      padding: 2rem;
+    }
+
+    button {
+      font-size: inherit;
+      font-family: inherit;
+      padding: .5rem;
+      border-radius: .5rem;
+      border: 1px solid black;
+      background: #63ddb5;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      background: #d7e9dd;
+    }
+
+    h1 {
+      margin-block-end: 2rem;
+    }
+
+    ul {
+      margin-block-start: 2rem;
+    }
+
+    ul li {
+      margin: 1rem 0;
+    }
+
+    .state {
+      font-family: monospace;
+      padding: .5rem;
+      background: #0001;
+      border-radius: .5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Idle detection demo</h1>
+
+    <button id="start">Start detecting idle state</button>
+    <button id="stop">Stop detecting idle state</button>
+
+    <ul>
+      <li>Idle detection status: <span class="state" id="status-text">-</span></li>
+      <li>User state: <span class="state" id="user-state">-</span></li>
+      <li>Screen state: <span class="state" id="screen-state">-</span></li>
+    </ul>
+  </div>
+
+  <script>
+    const startButton = document.querySelector("#start");
+    const stopButton = document.querySelector("#stop");
+    const statusText = document.querySelector("#status-text");
+    const userStateText = document.querySelector("#user-state");
+    const screenStateText = document.querySelector("#screen-state");
+
+    let abortController = null;
+
+    startButton.addEventListener("click", async () => {
+      if ((await IdleDetector.requestPermission()) !== "granted") {
+        console.error("Idle detection permission denied.");
+        statusText.textContent = "Permission denied";
+        return;
+      }
+
+      abortController = new AbortController();
+      const signal = abortController.signal;
+
+      try {
+        const idleDetector = new IdleDetector();
+        idleDetector.addEventListener("change", () => {
+          const userState = idleDetector.userState;
+          const screenState = idleDetector.screenState;
+
+          userStateText.textContent = userState;
+          screenStateText.textContent = screenState;
+        });
+
+        await idleDetector.start({
+          threshold: 60_000,
+          signal,
+        });
+
+        statusText.textContent = "Active";
+      } catch (err) {
+        // Deal with initialization errors like permission denied,
+        // running outside of top-level frame, etc.
+        statusText.textContent = err.name + ": " + err.message;
+      }
+    });
+
+    stopButton.addEventListener("click", () => {
+      abortController.abort();
+
+      statusText.textContent = "Stopped";
+      userStateText.textContent = "-";
+      screenStateText.textContent = "-";
+    });
+  </script>
+</body>
+
+</html>
