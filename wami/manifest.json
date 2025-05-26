@@ -32,7 +32,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+wami",
-      "url": "/?url=%s"
+      "url": "/Demos/wami/?url=%s"
     }
   ],
   "share_target": {
