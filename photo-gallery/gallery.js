@@ -370,6 +370,19 @@ addEventListener('input', e => {
         }
       },
     });
+
+    performance.mark("Filter Applied", {
+      detail: {
+        devtools: {
+          dataType: "marker",
+          color: "secondary",
+          properties: [
+            ['Filter Value', filter.value]
+          ],
+          tooltipText: "Filter Applied"
+        }
+      }
+    });
   }
 });
 
@@ -411,6 +424,15 @@ addEventListener('keydown', e => {
 });
 
 function loadPhoto(fileName) {
+  // Take a start timestamp
+  const start = performance.now();
+  // Measure duration from start to now
+  console.timeStamp("measure 1", start, undefined, "My Track", "My Group", "primary-light");
+  // Take an end timestamp
+  const end = performance.now();
+  // Measure duration from start to end
+  console.timeStamp("measure 2", start, end, "My Track", "My Group", "secondary-dark");
+
   const loadStartTime = performance.now();
   const perfMeasureDescription = `Loading photo: ${fileName}`;
 
@@ -433,6 +455,19 @@ function loadPhoto(fileName) {
             tooltipText: perfMeasureDescription
           }
         },
+      });
+
+      performance.mark("Photo Loaded", {
+        detail: {
+          devtools: {
+            dataType: "marker",
+            color: "secondary",
+            properties: [
+              ['Photo', fileName]
+            ],
+            tooltipText: "Photo Loaded"
+          }
+        }
       });
 
       resolve(imageEl);
