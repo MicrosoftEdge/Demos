@@ -21,3 +21,5 @@ To make changes to the playground source code, clone this repository and follow 
 * To make changes to the JavaScript or CSS code for the playgrounds:
 
   Make your changes directly to the JavaScript or CSS files in the `static` directory.
+
+To run the playground locally, run `npm run build` to generate the static site, and then run a local server from the Demos repository's parent directory, and then navigate to `http://localhost:8080/Demos/built-in-ai/` in your browser.
