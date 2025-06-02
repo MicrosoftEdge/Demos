@@ -312,6 +312,8 @@ function populateGallery(images) {
         }
       },
     });
+
+    console.timeStamp("Photo created", imageCreationStart, undefined, "Console timestamp track", customPerformanceTrackGroupName, "tertiary-dark");
   });
 }
 
@@ -424,15 +426,6 @@ addEventListener('keydown', e => {
 });
 
 function loadPhoto(fileName) {
-  // Take a start timestamp
-  const start = performance.now();
-  // Measure duration from start to now
-  console.timeStamp("measure 1", start, undefined, "My Track", "My Group", "primary-light");
-  // Take an end timestamp
-  const end = performance.now();
-  // Measure duration from start to end
-  console.timeStamp("measure 2", start, end, "My Track", "My Group", "secondary-dark");
-
   const loadStartTime = performance.now();
   const perfMeasureDescription = `Loading photo: ${fileName}`;
 
@@ -457,7 +450,7 @@ function loadPhoto(fileName) {
         },
       });
 
-      performance.mark("Photo Loaded", {
+      performance.mark("Photo loaded", {
         detail: {
           devtools: {
             dataType: "marker",
@@ -469,6 +462,8 @@ function loadPhoto(fileName) {
           }
         }
       });
+
+      console.timeStamp("Photo loaded", loadStartTime, undefined, "Console timestamp track", customPerformanceTrackGroupName, "primary-light");
 
       resolve(imageEl);
     }, { once: true });
