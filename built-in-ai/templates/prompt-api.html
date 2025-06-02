@@ -1,95 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: playground.njk
+title: Prompt API playground
+shorttitle: Prompt API
+description: Web API to prompt the browser-provided language model. For more information, check out <a href="https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api" target="_blank">the API documentation</a>.
+stylesheet: prompt-api.css
+script: prompt-api.js
+---
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
-    rel="stylesheet">
-  <title>Prompt API playground</title>
-  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
-  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
-  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
-  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
-</head>
-
-
-
-<body>
-  <header>
-    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
-    <h2 class="app-title">Built-in AI Playground</h2>
-    
-  <nav  id="menu">
-    <ul class="menu">
-      <li>
-        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item current">Prompt</a>
-      </li>
-      <li>
-        <span class="item parent">
-          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
-        </span>
-        <ul class="menu">
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-
-  </header>
-
-  
-  <nav  id="menu-popover" popover>
-    <ul class="menu">
-      <li>
-        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item current">Prompt</a>
-      </li>
-      <li>
-        <span class="item parent">
-          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
-        </span>
-        <ul class="menu">
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-
-
-
-  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
-  
-    <link rel="stylesheet" href="/Demos/built-in-ai/static/prompt-api.css">
-  
-
-  <main>
-    <h1>Prompt API</h1>
-    <p class="description">Web API to prompt the browser-provided language model. For more information, check out <a href="https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api" target="_blank">the API documentation</a>.</p>
-
-    <div id="message-ui" class="message-bar"></div>
-
-    <div class="settings card-with-shadow">
-      
 <div class="settings-row no-separator">
   <label for="prompt">
     User prompt
@@ -193,25 +110,3 @@
   <button class="ai-button" id="run">Prompt</button>
   <button id="stop">Stop</button>
 </div>
-    </div>
-
-    <pre id="output"></pre>
-
-    <div class="metrics card-with-shadow">
-      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
-      <span class="metric">First chunk latency: <span class="value" id="first-chunk-latency-metric"></span> ms</span>
-      <span class="metric">Chunks: <span class="value" id="chunks-metric"></span></span>
-      <span class="metric">Rate: <span class="value" id="chunk-rate-metric"></span> chunk/sec</span>
-    </div>
-  </main>
-
-  <script src="/Demos/built-in-ai/static/session.js"></script>
-  <script src="/Demos/built-in-ai/static/spinner.js"></script>
-  <script src="/Demos/built-in-ai/static/metrics.js"></script>
-  <script src="/Demos/built-in-ai/static/slider.js"></script>
-  
-    <script src="/Demos/built-in-ai/static/prompt-api.js"></script>
-  
-
-</body>
-</html>

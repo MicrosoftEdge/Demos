@@ -1,0 +1,36 @@
+{% include "header.njk" %}
+
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
+  {% if stylesheet %}
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/{{ stylesheet }}">
+  {% endif %}
+
+  <main>
+    <h1>{{ shorttitle }}</h1>
+    <p class="description">{{ description | safe }}</p>
+
+    <div id="message-ui" class="message-bar"></div>
+
+    <div class="settings card-with-shadow">
+      {{ content | safe }}
+    </div>
+
+    <pre id="output"></pre>
+
+    <div class="metrics card-with-shadow">
+      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
+      <span class="metric">First chunk latency: <span class="value" id="first-chunk-latency-metric"></span> ms</span>
+      <span class="metric">Chunks: <span class="value" id="chunks-metric"></span></span>
+      <span class="metric">Rate: <span class="value" id="chunk-rate-metric"></span> chunk/sec</span>
+    </div>
+  </main>
+
+  <script src="/Demos/built-in-ai/static/session.js"></script>
+  <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  <script src="/Demos/built-in-ai/static/slider.js"></script>
+  {% if script %}
+    <script src="/Demos/built-in-ai/static/{{ script }}"></script>
+  {% endif %}
+
+{% include "footer.njk" %}

@@ -1,0 +1,51 @@
+---
+layout: playground.njk
+title: Writer API playground
+shorttitle: Writer API
+description: Web API to generate text from a description in different tones, lengths, etc. using the browser-provided language model. For more information, check out <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">the API documentation</a>.
+stylesheet: writer-api.css
+script: writer-api.js
+---
+
+<div class="settings-row">
+  <label for="task">
+    Description of the text to write
+    <span role="tooltip" id="task-tooltip" style="anchor-name:--task-anchor;">
+      <span class="tooltip-content" style="position-anchor:--task-anchor;">
+        The description of the text that you want the writer to generate.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="task" aria-describedby="task-tooltip">A draft for an inquiry to my bank about how to enable wire transfers on my account</textarea>
+</div>
+
+<div class="settings-row no-separator">
+  <label for="tone">Tone</label>
+  <select name="tone" id="tone">
+    <option value="formal">Formal</option>
+    <option value="neutral" selected>Neutral</option>
+    <option value="casual">Casual</option>
+  </select>
+</div>
+
+<div class="settings-row no-separator">
+  <label for="length">Length</label>
+  <select name="length" id="length">
+    <option value="short" selected>Short</option>
+    <option value="medium">Medium</option>
+    <option value="long">Long</option>
+  </select>
+</div>
+
+<div class="settings-row">
+  <label for="format">Format</label>
+  <select name="format" id="format">
+    <option value="markdown" selected>Markdown</option>
+    <option value="plain-text">Plain text</option>
+  </select>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="write">Write</button>
+  <button id="stop">Stop</button>
+</div>
