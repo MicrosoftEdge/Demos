@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Notebook</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ece9dd;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: repeat(30, 1fr);
+            gap: 2px;
+            gap-rule-paint-order: column-over-row;
+
+            column-rule: solid black 1.5px;
+            column-rule-break: none;
+            column-rule-outset: -80px;
+            row-rule:
+                /* header lines */
+                repeat(3, solid #a7c1d9 1px),
+                /* thick line under notes sections */
+                solid #333 2px,
+                /* body lines */
+                repeat(auto, solid #a7c1d9 1px),
+                /* thick line above summary */
+                solid #333 2px,
+                /* footer lines */
+                repeat(3, solid #a7c1d9 1px);
+
+            background: #fdf8e3;
+            width: 360px;
+            height: 600px;
+            font-family: "Segoe UI", sans-serif;
+        }
+        /* Header */
+        .header {
+            grid-row: 1 / 4;
+            grid-column: 1 / 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 12px;
+        }
+        .header .title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2a2a2a;
+        }
+        .header .date {
+            font-size: 0.9em;
+            color: #555;
+        }
+        /* left */
+        .leftside {
+            padding: 0px 12px;
+            grid-column: 1/2;
+            grid-row: 4/5;
+            font-size: 0.65em;
+            align-self: end;
+        }
+        /* right */
+        .rightside {
+            grid-column: 2/3;
+            grid-row: 4/5;
+            font-size: 0.9em;
+            align-self: end;
+            padding: 0px 12px;
+        }
+        .summary {
+            padding: 0px 12px;
+            grid-row: 27 / 28;
+            grid-column: 1/ 2;
+            font-size: 0.9em;
+            align-self: end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">TITLE</div>
+            <div class="date">June 7, 2025</div>
+        </div>
+        <div class="leftside">Keywords:</div>
+        <div class="rightside">Main notes:</div>
+        <div class="summary">Summary:</div>
+        <div class="footer"> </div>
+    </div>
+</body>
+</html>
