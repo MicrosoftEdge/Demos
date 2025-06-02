@@ -70,11 +70,10 @@ const modelDownloadProgressMonitor = m => {
 const defaultLanguageModelSessionOptions = {
   temperature: 1.0,
   topK: 1,
-  initialPrompts: [],
   monitor: modelDownloadProgressMonitor
 };
 const defaultSummarizerSessionOptions = {
-  type: "tl;dr", // tl;dr, key-points, teaser, headline.
+  type: "tldr", // tldr, key-points, teaser, headline.
   length: "long", // short, medium, long.
   format: "plain-text", // plain-text, markdown.
   monitor: modelDownloadProgressMonitor
