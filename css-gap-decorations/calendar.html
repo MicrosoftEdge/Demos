@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: system-ui;
+
+      display: grid;
+      grid-template-rows: 4rem 2rem auto;
+      gap: 2px;
+      row-rule: 2px solid #666, 1px dashed #999;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      padding: 1rem;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    h1 .current-month-year {
+      margin-inline-end: auto;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      column-rule: 1px dashed #999;
+    }
+
+    .header .day-name {
+      display: grid;
+      place-content: center;
+      overflow: hidden;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 2px;
+      row-rule: 1px dashed #999;
+      column-rule: 1px dashed #999;
+    }
+
+    .calendar .day {
+      counter-increment: day;
+      padding: 2vmin;
+    }
+
+    .calendar .day:hover {
+      background: #eee;
+    }
+
+    .calendar .day::before {
+      content: counter(day);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <span class="current-month-year">Month Year</span>
+    <button class="prev">Previous</button>
+    <button class="today">Today</button>
+    <button class="next">Next</button>
+  </h1>
+  <div class="header">
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+    <div class="day-name"></div>
+  </div>
+  <div class="calendar">
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+    <div class="day"></div>
+  </div>
+
+  <script>
+    // The index of the day which the user wants to start the calendar from.
+    // 0 = Sunday, 1 = Monday, ..., 6 = Saturday.
+    const FIRST_DAY_SETTING = 1;
+
+    // Names of the days of the week.
+    const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    let currentDate = new Date();
+
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const todayButton = document.querySelector('.today');
+
+    document.querySelectorAll(".header .day-name").forEach((dayName, index) => {
+      // Set the text content of each day name based on the current first day setting.
+      dayName.textContent = DAYS_OF_WEEK[(index + FIRST_DAY_SETTING) % 7];
+    });
+
+    function initCalendar() {
+      console.log(currentDate);
+
+      // Display the current month and year in the header.
+      const currentMonthYearLabel = document.querySelector('h1 .current-month-year');
+      currentMonthYearLabel.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+
+      // Position the first day of the current month correctly.
+      const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      let firstDayOfCurrentMonthOffset = firstDayOfCurrentMonth.getDay() + FIRST_DAY_SETTING - 1;
+      // The offset must be between 1 and 7. If not, adjust it.
+      if (firstDayOfCurrentMonthOffset < 1) {
+        firstDayOfCurrentMonthOffset += 7;
+      } else if (firstDayOfCurrentMonthOffset > 7) {
+        firstDayOfCurrentMonthOffset -= 7;
+      }
+      document.querySelector('.calendar .day').style.gridColumnStart = firstDayOfCurrentMonthOffset;
+
+      // Hide the unneeded extra days for this month.
+      const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+      const days = document.querySelectorAll('.calendar .day').forEach((day, index) => {
+        if (index < daysInMonth) {
+          day.style.display = 'block';
+        } else {
+          day.style.display = 'none';
+        }
+      });
+    }
+
+    initCalendar();
+
+    prevButton.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      initCalendar();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      initCalendar();
+    });
+
+    todayButton.addEventListener('click', () => {
+      currentDate = new Date();
+      initCalendar();
+    });
+  </script>
+</body>
+
+</html>
