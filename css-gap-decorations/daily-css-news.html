@@ -98,10 +98,15 @@
       grid-template-columns: 2fr 1fr;
       gap: 2rem;
       padding: 2rem;
-      column-rule-width: 2px;
-      column-rule-style: dashed;
-      column-rule-color: var(--rule);
-      row-gap: 1.5rem;
+      rule-width: 2px;
+      rule-style: dashed;
+      rule-color: var(--rule);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
     }
 
     article.card {

@@ -6,32 +6,47 @@
   <title>Guitar Fret Board</title>
   <style>
     .fret-board {
-      display: inline-block;
-      background-color: #00bcd4;
-      padding: 20px;
-    }
+      --string-width: 1.5px;
+      --space-between-strings: 45px;
+      --fret-width: 6px;
+      --space-between-frets: 120px;
+      --string-num: 6;
+      --fret-num: 10;
+      --space-around-neck: 10px;
 
-    .strings-grid {
+      width: calc(var(--string-width) * var(--string-num) + var(--space-between-strings) * (var(--string-num) - 1));
+      padding: 0 var(--space-around-neck);
+      
       display: grid;
-      grid-template: repeat(4, 50px) / 0px repeat(5, 50px) 0px;
-      gap: 3px;
-      background-color: #009eb3;
-
-      column-rule: 3px solid white;
-      row-rule: 3px solid #065863;
+      grid-template-rows: repeat(var(--fret-num), var(--space-between-frets));
+      grid-template-columns: 0px repeat(calc(var(--string-num) - 1), var(--space-between-strings)) 0px;
+      
+      column-gap: var(--string-width);
+      row-gap: var(--fret-width);
+      column-rule: var(--string-width) solid white;
+      row-rule: var(--fret-width) solid #737778;
+      row-rule-outset: var(--space-around-neck);
       gap-rule-paint-order: column-over-row;
+      
+      background-image:
+        radial-gradient(circle, white 0 calc(var(--space-between-strings) / 4), transparent 0),
+        linear-gradient(to right, #342323, #433232);
+      background-repeat:
+        repeat-y,
+        no-repeat;
+      background-size:
+        calc(var(--space-between-strings) / 2) calc(var(--space-between-frets) * 3 + var(--fret-width) * 3),
+        auto;
+      background-position: center 0px;
+      box-shadow: inset 0 0 var(--space-around-neck) var(--space-around-neck) #0009;
 
-      border-top: solid 6px #065863;
-      border-bottom: solid 3px #065863;
+      border-block: 12px solid #c2c28c;
     }
   </style>
 </head>
 
 <body>
-  <div class="fret-board">
-    <div class="strings-grid">
-    </div>
-  </div>
+  <div class="fret-board"></div>
 </body>
 
 </html>
