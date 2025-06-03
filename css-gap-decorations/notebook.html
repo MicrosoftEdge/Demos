@@ -23,22 +23,22 @@
       grid-template-columns: 1fr 2fr;
       grid-template-rows: repeat(30, 1fr);
       gap: 2px;
+      
       gap-rule-paint-order: column-over-row;
-
       column-rule: solid black 1.5px;
       column-rule-break: spanning-item;
-      column-rule-outset: calc(-80vmin / 8 - 0.5vmin);
       row-rule:
         /* header lines */
-        repeat(3, solid #a7c1d9 1px),
+        repeat(3, 1px solid #a7c1d9),
         /* thick line under notes sections */
-        solid #333 2px,
+        2px solid #333,
         /* body lines */
-        repeat(auto, solid #a7c1d9 1px),
+        repeat(auto, 1px solid #a7c1d9),
         /* thick line above summary */
-        solid #333 2px,
+        2px solid #333,
         /* footer lines */
-        repeat(3, solid #a7c1d9 1px);
+        repeat(3, 1px solid #a7c1d9);
+      row-rule-break: none;
 
       background: #fdf8e3;
       height: 80vmin;
@@ -47,7 +47,6 @@
       border-radius: 0.5vmin;
       box-shadow: 0 0 1vmin 0 #0003;
       position: relative;
-
       line-height: calc(80vmin / 30);
     }
 
