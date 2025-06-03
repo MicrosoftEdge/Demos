@@ -13,3 +13,12 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 ## Developer playground
 
 * [CSS Gap Decorations playground](https://microsoftedge.github.io/Demos/css-gap-decorations/playground.html)
+
+## Try the feature and share feedback
+
+To try the feature, follow these steps:
+
+1. Use a Chromium-based browser, such as Microsoft Edge.
+1. Start the browser from the command line with the `--enable-features=CSSGapDecoration` flag.
+
+To share feedback, please [open an issue on the MSEdgeExplainers repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=css-gap-decorations.md).
