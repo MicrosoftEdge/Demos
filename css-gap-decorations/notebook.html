@@ -29,7 +29,7 @@
       column-rule-break: spanning-item;
       row-rule:
         /* header lines */
-        repeat(3, 1px solid #a7c1d9),
+        repeat(3, 0),
         /* thick line under notes sections */
         2px solid #333,
         /* body lines */
@@ -37,7 +37,7 @@
         /* thick line above summary */
         2px solid #333,
         /* footer lines */
-        repeat(3, 1px solid #a7c1d9);
+        repeat(3, 0);
       row-rule-break: none;
 
       background: #fdf8e3;
@@ -81,6 +81,7 @@
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 2px;
+      align-content: center;
     }
 
     .notebook-page header h1 {
