@@ -155,6 +155,46 @@
       row-rule-outset: -1rem;
     }
 
+    @property --unitless-val {
+      syntax: '<integer>';
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @property --_u {
+      syntax: '<length>';
+      inherits: true;
+      initial-value: 0;
+    }
+
+    :root {
+      --val: calc(100vw / 25rem);
+      /* use any length unit (px, em, ex, ch, rem, ...)*/
+
+      /* we multiply then divide with the biggest value to get one unit */
+      --_m: 3.35544e07;
+      /* this value depend on the browser */
+      --_u: calc(var(--val)*var(--_m));
+      --unit: calc(var(--_u)/var(--_m));
+      /* = 1em  */
+
+      --unitless-val: tan(atan2(var(--val), var(--unit)));
+      /* = 25 */
+      /* In the near future we can do
+          --unitless-val: calc(var(--val)/var(--unit));
+        */
+    }
+
+    @supports (display: masonry) {
+
+
+      main {
+        display: masonry;
+        /* Auto-fit/fill doesn't work yet in masonry. */
+        grid-template-columns: repeat(var(--unitless-val), 1fr);
+      }
+    }
+
     article a {
       text-decoration: underline;
       font-size: .9rem;

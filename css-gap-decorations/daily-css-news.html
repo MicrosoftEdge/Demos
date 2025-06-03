@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily CSS News</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e67e22;
+      --text: #4a4a4a;
+      --muted: #767676;
+      --rule: #dddddd;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 2rem;
+      column-rule-width: 1px;
+      column-rule-style: solid;
+      column-rule-color: var(--accent);
+      gap-rule-paint-order: column-over-row;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo {
+      font-family: 'Merriweather', serif;
+      font-size: 1.75rem;
+    }
+
+    .date {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      column-rule-width: 1px;
+      column-rule-style: solid;
+      column-rule-color: var(--rule);
+      column-gap: 1rem;
+      row-rule-width: 1px;
+      row-rule-style: solid;
+      row-rule-color: var(--rule);
+      gap-rule-paint-order: row-over-column;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+      column-rule-width: 2px;
+      column-rule-style: dashed;
+      column-rule-color: var(--rule);
+      row-gap: 1.5rem;
+    }
+
+    article.card {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    article.card h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+    }
+
+    .byline {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Default multicol paragraphs for all cards */
+    article.card p {
+      font-size: 0.9rem;
+      column-count: 2;
+      column-gap: 1rem;
+      column-rule-width: 1px;
+      column-rule-style: solid;
+      column-rule-color: var(--rule);
+      gap-rule-paint-order: column-over-row;
+      margin: 0;
+    }
+
+    /* First card: enable column-wrap and row rules */
+    article.card.first-card p {
+      column-wrap: wrap;
+      row-rule-width: 3px;
+      row-rule-style: solid;
+      row-rule-color: var(--rule);
+      row-rule-outset: 0%;
+      column-count: 2;
+      column-gap: 1rem;
+      column-rule-width: 2px;
+      column-rule-style: dotted;
+      column-rule-color: var(--rule);
+      column-fill: auto;
+      column-height: 10em;
+      column-rule-break: intersection;
+      column-rule-outset: -20px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      row-rule-width: 1px;
+      row-rule-style: dotted;
+      row-rule-color: var(--rule);
+      gap-rule-paint-order: column-over-row;
+    }
+
+    .sidebar section {
+      background: var(--surface);
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-family: 'Merriweather', serif;
+    }
+
+    .sidebar ul {
+      padding-left: 1.2em;
+      margin: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 0.5em;
+    }
+
+    .sudoku {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 6px;
+      column-rule-width: repeat(2, 1px) 4px repeat(2, 1px) 4px repeat(2, 1px);
+      column-rule-style: solid;
+      column-rule-color: var(--secondary);
+      row-rule-width: repeat(2, 1px) 4px repeat(2, 1px) 4px repeat(2, 1px);
+      row-rule-style: solid;
+      row-rule-color: var(--secondary);
+      gap-rule-paint-order: row-over-column;
+    }
+
+    .sudoku .cell {
+      background: var(--surface);
+      padding: 0;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--text);
+      border-radius: 2px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">Daily CSS News</div>
+      <div class="date">May 30, 2025</div>
+    </div>
+    <nav>
+      <a href="#">Home</a><a href="#">World</a><a href="#">Tech</a><a href="#">Design</a><a href="#">Opinion</a>
+    </nav>
+  </header>
+  <main>
+    <div>
+      <article class="card first-card">
+        <h2>Gap Decorations Start Dev Trials</h2>
+        <div class="byline">By Tech Editor | May 30, 2025</div>
+        <p>The Microsoft Edge Layout team today announced the official launch of developer trials for
+          the highly anticipated Gap Decorations Module.
+          This early access program empowers front-end engineers to experiment with powerful new
+          properties—<strong>column-rule</strong>, <strong>row-rule</strong>, and
+          <strong>gap-rule-paint-order</strong>—to style gaps in grid, flex, and multicol containers
+          without relying on additional markup or pseudo-elements. In these trials, participants can test
+          <strong>row-rule</strong> support in multicol layouts, leverage <strong>column-wrap</strong>
+          to achieve sophisticated magazine-style flows, and fine-tune separator styles across
+          responsive breakpoints. Feedback from this dev trial will shape the specification and guide
+          future enhancements, ensuring GapDecorations integrates seamlessly into existing design systems
+          and workflows. Interested developers start using the new feature by using any Chromium-based browser
+          with the experimental flag enabled: --blink-enable-features=GapDecoration. Web developers are
+          encouraged to provide feedback and report bugs to make sure your voice is heard in shaping this
+          game-changing CSS module.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Magazine Layout Patterns Evolve</h2>
+        <div class="byline">By Design Lead | May 30, 2025</div>
+        <p>Modern web magazines are adopting gap decorations to create rich,
+          visually engaging layouts without additional markup or pseudo-elements.
+          Designers now have granular control over rule thickness, style, and layering order,
+          enabling elegant column and row separators. Combined with responsive grid and flex layouts,
+          these capabilities reduce reliance on images or hacky borders, resulting in lighter,
+          more maintainable codebases while preserving creative freedom and typographic harmony.</p>
+      </article>
+      <article class="card">
+        <h2>Browser Support Expands</h2>
+        <div class="byline">By Web Standards | May 28, 2025</div>
+        <p>All Chromium-based browsers will support CSSGapDecorations, with support from
+          other browsers expected to follow. This consensus ensures authors
+          can safely adopt gap decorations in production, delivering consistent visual
+          experiences across platforms. Developers are encouraged to experiment with
+          combinations of <strong>column-rule</strong>, <strong>row-rule</strong>,
+          and paint-order options to craft unique layouts that were previously only
+          achievable with complex workarounds.</p>
+      </article>
+    </div>
+    <aside class="sidebar">
+      <section>
+        <h3>Trending</h3>
+        <ul>
+          <li>Gap Decorations Tutorial</li>
+          <li>Case Study: News Site Redesign</li>
+          <li>Flex vs Grid Gap Techniques</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Daily Sudoku</h3>
+        <div class="sudoku">
+          <div class="cell">5</div>
+          <div class="cell">3</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">7</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">6</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">1</div>
+          <div class="cell">9</div>
+          <div class="cell">5</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">9</div>
+          <div class="cell">8</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">6</div>
+          <div class="cell"></div>
+          <div class="cell">8</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">6</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">3</div>
+          <div class="cell">4</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">8</div>
+          <div class="cell"></div>
+          <div class="cell">3</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">1</div>
+          <div class="cell">7</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">2</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">6</div>
+          <div class="cell"></div>
+          <div class="cell">6</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">2</div>
+          <div class="cell">8</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">4</div>
+          <div class="cell">1</div>
+          <div class="cell">9</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">5</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">8</div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell">7</div>
+          <div class="cell">9</div>
+        </div>
+      </section>
+      <section>
+        <h3>Subscribe</h3>
+        <p>Stay updated with the latest CSS news.</p>
+        <button>Subscribe Now</button>
+      </section>
+    </aside>
+  </main>
+  <footer>&copy; 2025 Daily CSS News</footer>
+</body>
+
+</html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CSS Gap Decorations Demo</title>
+  <title>CSS Gap Decorations playground</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -16,7 +17,13 @@
       --flex-row-rule-color: crimson;
       --flex-col-rule-color: teal;
     }
-    *, *::before, *::after { box-sizing: border-box; }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
@@ -24,39 +31,45 @@
       color: var(--primary);
       line-height: 1.6;
     }
+
     header {
       text-align: center;
       padding: 2rem 1rem;
       background: var(--secondary);
       color: #fff;
     }
+
     header h1 {
       margin: 0;
       font-size: 2.5rem;
       letter-spacing: 1px;
     }
+
     .intro {
       max-width: 800px;
       margin: 1.5rem auto;
       padding: 1rem 1.5rem;
       background: var(--card-bg);
       border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       font-size: 1rem;
     }
+
     .intro a {
       color: var(--secondary);
       text-decoration: none;
       font-weight: 600;
     }
+
     section {
       width: 95%;
       margin: 3rem auto;
       padding: 2rem;
       background: var(--card-bg);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     h2 {
       text-align: center;
       font-size: 1.75rem;
@@ -64,6 +77,7 @@
       color: var(--accent);
       position: relative;
     }
+
     h2::after {
       content: '';
       display: block;
@@ -72,22 +86,41 @@
       background: var(--secondary);
       margin: 0.5rem auto 0;
     }
+
     .demo-group {
       display: flex;
       gap: 2rem;
       margin-bottom: 4rem;
     }
-    .demo-group > .controls { flex: 1; }
-    .demo-group > .preview { flex: 2; padding: 0 1rem; }
+
+    .demo-group>.controls {
+      flex: 1;
+    }
+
+    .demo-group>.preview {
+      flex: 2;
+      padding: 0 1rem;
+    }
+
     .controls {
       background: var(--light-bg);
       padding: 1rem;
       border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       font-size: 0.9rem;
     }
-    .controls label { display: block; margin: 0.5rem 0 0.25rem; font-weight: 600; }
-    .controls input[type=range], .controls select { width: 100%; margin-bottom: 0.75rem; }
+
+    .controls label {
+      display: block;
+      margin: 0.5rem 0 0.25rem;
+      font-weight: 600;
+    }
+
+    .controls input[type=range],
+    .controls select {
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
 
     /* Multicolumn Preview */
     .multicol {
@@ -104,12 +137,17 @@
       row-rule-outset: 0%;
       gap-rule-paint-order: column-over-row;
     }
+
     .multicol h3 {
       font-size: 1.25rem;
       margin-bottom: 0.75em;
       color: var(--secondary);
     }
-    .multicol p { margin: 0 0 1.2em; }
+
+    .multicol p {
+      margin: 0 0 1.2em;
+    }
+
     .multicol blockquote {
       margin: 1em 0;
       padding: 0.75em 1em;
@@ -117,7 +155,11 @@
       background: #f9f9f9;
       font-style: italic;
     }
-    .multicol ul { margin: 0 0 1.2em; padding-left: 1.2em; }
+
+    .multicol ul {
+      margin: 0 0 1.2em;
+      padding-left: 1.2em;
+    }
 
     /* Flex Preview */
     .flex-container {
@@ -134,18 +176,29 @@
       column-rule-outset: 0px;
       gap-rule-paint-order: row-over-column;
     }
+
     .flex-item {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
       font-weight: 600;
     }
-    .flex-item:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-    .flex-item.wide { flex: 2 1 calc(60% - 20px); }
-    .flex-item.medium { flex: 1 1 calc(30% - 20px); }
+
+    .flex-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .flex-item.wide {
+      flex: 2 1 calc(60% - 20px);
+    }
+
+    .flex-item.medium {
+      flex: 1 1 calc(30% - 20px);
+    }
 
     /* Grid Preview */
     .grid {
@@ -162,41 +215,58 @@
       column-rule-outset: 0px;
       gap-rule-paint-order: row-over-column;
     }
+
     .grid-item {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
       font-weight: 600;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .grid-item:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-    .grid-item.spanner { grid-column: span 2; grid-row: span 2; }
 
-    footer { text-align: center; padding: 1rem; font-size: 0.9rem; color: #777; }
+    .grid-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .grid-item.spanner {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>CSS Gap Decorations Demo</h1>
+    <h1>CSS Gap Decorations playground</h1>
   </header>
   <div class="intro">
-    <p>This interactive demo showcases the features of the <a href="https://drafts.csswg.org/css-gaps-1/" target="_blank">
-      CSS Gaps Decorations Module Level 1</a>.
+    <p>This interactive demo showcases the features of the <a href="https://drafts.csswg.org/css-gaps-1/"
+        target="_blank">
+        CSS Gaps Decorations Module Level 1</a>.
       Use the controls to tweak gap, rule, and paint-order properties in real time
       and see how they affect multicolumn, flex, and grid layouts.
     </p>
     <p>
-       This is a non-exhaustive demo. See the spec for full details on the properties and their values.
+      This is a non-exhaustive demo. See the spec for full details on the properties and their values.
     </p>
     <p>
-      As of right now, this is only implemented for Chromium-based browsers, and a flag is needed to enable the feature: --enable-features=CSSGapDecoration
+      As of right now, this is only implemented for Chromium-based browsers, and a flag is needed to enable the feature:
+      --enable-features=CSSGapDecoration
     </p>
-    <p><strong>Contacts:</strong><br/>
-      Kevin Babbit, <a href="mailto:kbabbitt@microsoft.com">kbabbitt@microsoft.com</a><br/>
-      Sam Davis Omekara Jr, <a href="mailto:samomekarajr@microsoft.com">samomekarajr@microsoft.com</a><br/>
-      Javier Contreras, <a href="mailto:javiercon@microsoft.com">javiercon@microsoft.com</a><br/>
+    <p><strong>Contacts:</strong><br />
+      Kevin Babbit, <a href="mailto:kbabbitt@microsoft.com">kbabbitt@microsoft.com</a><br />
+      Sam Davis Omekara Jr, <a href="mailto:samomekarajr@microsoft.com">samomekarajr@microsoft.com</a><br />
+      Javier Contreras, <a href="mailto:javiercon@microsoft.com">javiercon@microsoft.com</a><br />
       Alison Maher, <a href="mailto:almaher@microsoft.com">almaher@microsoft.com</a>
     </p>
   </div>
@@ -206,11 +276,14 @@
     <div class="demo-group">
       <aside class="controls" data-target=".grid">
         <label>Gap (px): <output id="grGapVal">30</output></label>
-        <input type="range" min="0" max="100" value="30" data-prop="gap" data-unit="px" oninput="grGapVal.value=this.value"/>
+        <input type="range" min="0" max="100" value="30" data-prop="gap" data-unit="px"
+          oninput="grGapVal.value=this.value" />
         <label>Row-rule-width (px): <output id="grRowRuleWVal">3</output></label>
-        <input type="range" min="0" max="20" value="3" data-prop="row-rule-width" data-unit="px" oninput="grRowRuleWVal.value=this.value"/>
+        <input type="range" min="0" max="20" value="3" data-prop="row-rule-width" data-unit="px"
+          oninput="grRowRuleWVal.value=this.value" />
         <label>Row-rule-outset (%): <output id="grRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%" oninput="grRowRuleOVal.value=this.value"/>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+          oninput="grRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
           <option value="solid">solid</option>
@@ -226,9 +299,11 @@
           <option value="spanning-item">spanning-item</option>
         </select>
         <label>Column-rule-width (px): <output id="grColRuleWVal">3</output></label>
-        <input type="range" min="0" max="20" value="3" data-prop="column-rule-width" data-unit="px" oninput="grColRuleWVal.value=this.value"/>
+        <input type="range" min="0" max="20" value="3" data-prop="column-rule-width" data-unit="px"
+          oninput="grColRuleWVal.value=this.value" />
         <label>Column-rule-outset (px): <output id="grColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px" oninput="grColRuleOVal.value=this.value"/>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+          oninput="grColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
           <option value="solid">solid</option>
@@ -265,16 +340,19 @@
     </div>
   </section>
 
-    <section>
+  <section>
     <h2>Flex Layout</h2>
     <div class="demo-group">
       <aside class="controls" data-target=".flex-container">
         <label>Gap (px): <output id="fxGapVal">20</output></label>
-        <input type="range" min="0" max="100" value="20" data-prop="gap" data-unit="px" oninput="fxGapVal.value=this.value"/>
+        <input type="range" min="0" max="100" value="20" data-prop="gap" data-unit="px"
+          oninput="fxGapVal.value=this.value" />
         <label>Row-rule-width (px): <output id="fxRowRuleWVal">4</output></label>
-        <input type="range" min="0" max="20" value="4" data-prop="row-rule-width" data-unit="px" oninput="fxRowRuleWVal.value=this.value"/>
+        <input type="range" min="0" max="20" value="4" data-prop="row-rule-width" data-unit="px"
+          oninput="fxRowRuleWVal.value=this.value" />
         <label>Row-rule-outset (%): <output id="fxRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%" oninput="fxRowRuleOVal.value=this.value"/>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+          oninput="fxRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
           <option value="solid">solid</option>
@@ -284,9 +362,11 @@
         <label>Row-rule-color:</label>
         <input type="color" class="color-picker" data-prop="row-rule-color" value="#888888" />
         <label>Column-rule-width (px): <output id="fxColRuleWVal">4</output></label>
-        <input type="range" min="0" max="20" value="4" data-prop="column-rule-width" data-unit="px" oninput="fxColRuleWVal.value=this.value"/>
+        <input type="range" min="0" max="20" value="4" data-prop="column-rule-width" data-unit="px"
+          oninput="fxColRuleWVal.value=this.value" />
         <label>Column-rule-outset (px): <output id="fxColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px" oninput="fxColRuleOVal.value=this.value"/>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+          oninput="fxColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
           <option value="solid">solid</option>
@@ -329,11 +409,14 @@
     <div class="demo-group">
       <aside class="controls">
         <label>Column-gap (px): <output id="mcColGapVal">30</output></label>
-        <input type="range" min="0" max="100" value="30" data-prop="column-gap" data-unit="px" oninput="mcColGapVal.value=this.value" />
+        <input type="range" min="0" max="100" value="30" data-prop="column-gap" data-unit="px"
+          oninput="mcColGapVal.value=this.value" />
         <label>Column-rule-width (px): <output id="mcColRuleWVal">2</output></label>
-        <input type="range" min="0" max="20" value="2" data-prop="column-rule-width" data-unit="px" oninput="mcColRuleWVal.value=this.value" />
+        <input type="range" min="0" max="20" value="2" data-prop="column-rule-width" data-unit="px"
+          oninput="mcColRuleWVal.value=this.value" />
         <label>Column-rule-outset (px): <output id="mcColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px" oninput="mcColRuleOVal.value=this.value"/>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+          oninput="mcColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
           <option value="solid">solid</option>
@@ -349,9 +432,11 @@
           <option value="spanning-item">spanning-item</option>
         </select>
         <label>Row-rule-width (px): <output id="mcRowRuleWVal">2</output></label>
-        <input type="range" min="0" max="20" value="2" data-prop="row-rule-width" data-unit="px" oninput="mcRowRuleWVal.value=this.value" />
+        <input type="range" min="0" max="20" value="2" data-prop="row-rule-width" data-unit="px"
+          oninput="mcRowRuleWVal.value=this.value" />
         <label>Row-rule-outset (%): <output id="mcRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%" oninput="mcRowRuleOVal.value=this.value"/>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+          oninput="mcRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
           <option value="solid">solid</option>
@@ -382,8 +467,10 @@
       </aside>
       <div class="preview multicol">
         <h3>Exploring Gap Decorations</h3>
-        <p>Gap decorations provide a flexible way to visually separate content without extra markup. Columns adapt dynamically to viewport size, maintaining readability.</p>
-        <p>Use <strong>column-rule</strong> properties to style separators, control their outset, and define how they interact with multi-column spans.</p>
+        <p>Gap decorations provide a flexible way to visually separate content without extra markup. Columns adapt
+          dynamically to viewport size, maintaining readability.</p>
+        <p>Use <strong>column-rule</strong> properties to style separators, control their outset, and define how they
+          interact with multi-column spans.</p>
         <blockquote>“Effective gap decorations enhance layout clarity while preserving semantic structure.”</blockquote>
         <ul>
           <li>Adjust <em>column-gap</em> for spacing.</li>
@@ -392,8 +479,10 @@
         </ul>
         <p>Combine with <code>gap-rule-paint-order</code> to layer rules in complex layouts.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec est at dolor scelerisque elementum.</p>
-        <p>Mauris posuere, libero non suscipit consectetur, odio tortor vulputate mi, vitae consequat justo arcu non ex.</p>
-        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer a pulvinar erat.</p>
+        <p>Mauris posuere, libero non suscipit consectetur, odio tortor vulputate mi, vitae consequat justo arcu non ex.
+        </p>
+        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer a pulvinar
+          erat.</p>
         <p>Fusce vehicula eros a lectus tincidunt, sit amet venenatis lorem ultrices.</p>
       </div>
     </div>
@@ -402,19 +491,19 @@
 
   <footer>Demo of CSS Gap Decorations Module Level 1 • Built by Your Name</footer>
 
-<script>
+  <script>
 
-  // helper to convert “rgb(r, g, b)” → “#rrggbb”
-  function rgbToHex(rgb) {
-    const [r, g, b] = rgb.match(/\d+/g).map(n => parseInt(n));
-    return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
-  }
+    // helper to convert “rgb(r, g, b)” → “#rrggbb”
+    function rgbToHex(rgb) {
+      const [r, g, b] = rgb.match(/\d+/g).map(n => parseInt(n));
+      return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+    }
 
-  document.querySelectorAll('.controls').forEach(panel => {
-    const preview = panel.closest('.demo-group').querySelector('.preview');
-    
-    
-    // Initialize each control to match computed style
+    document.querySelectorAll('.controls').forEach(panel => {
+      const preview = panel.closest('.demo-group').querySelector('.preview');
+
+
+      // Initialize each control to match computed style
       panel.querySelectorAll('input[data-prop], select[data-prop]').forEach(control => {
         const prop = control.dataset.prop;
         let computed = getComputedStyle(preview).getPropertyValue(prop).trim();
@@ -439,9 +528,10 @@
           const prop = input.dataset.prop;
           const unit = input.dataset.unit || '';
           preview.style.setProperty(prop, input.value + unit);
+        });
       });
     });
-  });
-</script>
+  </script>
 </body>
+
 </html>
