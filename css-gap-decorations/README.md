@@ -1,6 +1,6 @@
 # CSS Gap Decorations demos
 
-This directory contains demos that showcase the use of [CSS Gap Decorations](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/CSSGapDecorations/explainer.md), a feature proposal by the Microsoft Edge team to draw gap decorations within gaps in CSS Grid, Flexbox, and Multi-column layouts.
+This directory contains demos that showcase the use of [CSS Gap Decorations](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/CSSGapDecorations/explainer.md), a feature proposal by the Microsoft Edge team to draw line decorations within gaps in CSS Grid, Flexbox, and Multi-column layouts.
 
 ## Demos
 
