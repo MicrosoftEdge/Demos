@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Burger Menu</title>
+    <style>
+        body {
+            background: gray;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: 1fr 5fr 2fr;
+            gap: 1.5px;
+
+            /* thin grey vertical lines, thick black horizontal lines */
+            column-rule: 1.5px solid #ccc;
+            row-rule: 3px solid #000;
+            column-rule-break: intersection;
+            column-rule-outset: -15px;
+            row-rule-outset: -8px;
+
+            background: #fff;
+            width: 850px;
+            height: 600px;
+        }
+        /* — Header — */
+        .header-title {
+            margin: 1rem 0.5rem;
+            display: flex;
+            align-items: center;
+
+            font-size: 1.45rem;
+            font-weight: bold;
+            color: #3366cc;
+        }
+        .header-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-self: stretch;
+            align-self: stretch;
+
+            margin: 1rem 0.5rem;
+            padding: 0.75rem 1rem;
+
+            background: #3366cc;
+            color: #fff;
+        }
+        /* — Middle panels — */
+        .sidebar {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem;
+            color: white;
+            background: #3366cc;
+            font-weight: bold;
+            margin: 1rem 0.5rem;
+        }
+        .options {
+            margin: 1rem 0.5rem;
+            background: #f4f5f7;
+            padding: 1rem;
+            color: #666;
+            font-family: sans-serif;
+            font-size: 0.95rem;
+        }
+        .options ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .options li {
+            margin: 0 0 0.75rem;
+        }
+        .options label {
+            display: flex;
+            gap: 0.5rem;
+            line-height: 1.4;
+        }
+        .options label>input {
+            margin: 0;
+        }
+        /* — Bottom row — */
+        .instructions-label {
+            margin: 1rem 0.5rem;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+
+            background: #3366cc;
+            color: #fff;
+            font-family: sans-serif;
+            font-size: 0.95rem;
+        }
+        .instructions-label small {
+            margin: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+        .instructions-input {
+            margin: 1rem 0.5rem;
+            background: #f4f5f7;
+            padding: 0.75rem;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: 1fr;
+            row-rule: solid #ccc 1.5px;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Row 1: title + buttons -->
+        <div class="header-title">Burger Menu</div>
+        <div class="header-option">Bun</div>
+        <div class="header-option">Protein</div>
+        <div class="header-option">Veggies</div>
+        <div class="header-option">Cheese</div>
+        <div class="header-option">Add-ons</div>
+
+        <!-- Row 2: content panels -->
+        <div class="sidebar">Customize your burger</div>
+
+        <div class="options">
+            <ul>
+                <li><label><input type="radio" name="bun" value="brioche">Brioche</label></li>
+                <li><label><input type="radio" name="bun" value="whole-wheat">Whole wheat</label></li>
+                <li><label><input type="radio" name="bun" value="potato">Potato bun</label></li>
+                <li><label><input type="radio" name="bun" value="gluten-free">Gluten free</label></li>
+            </ul>
+        </div>
+
+        <div class="options">
+            <ul>
+                <li><label><input type="radio" name="protein" value="beef">Beef</label></li>
+                <li><label><input type="radio" name="protein" value="chicken">Chicken</label></li>
+                <li><label><input type="radio" name="protein" value="turkey">Turkey</label></li>
+                <li><label><input type="radio" name="protein" value="plant">Plant-based</label></li>
+            </ul>
+        </div>
+
+        <div class="options">
+            <ul>
+                <li><label><input type="checkbox" name="veggies" value="lettuce">Lettuce</label></li>
+                <li><label><input type="checkbox" name="veggies" value="tomato">Tomato slices</label></li>
+                <li><label><input type="checkbox" name="veggies" value="onions">Onions</label></li>
+                <li><label><input type="checkbox" name="veggies" value="pickles">Pickles</label></li>
+            </ul>
+        </div>
+
+        <div class="options">
+            <ul>
+                <li><label><input type="radio" name="cheese" value="cheddar">Cheddar</label></li>
+                <li><label><input type="radio" name="cheese" value="swiss">Swiss</label></li>
+                <li><label><input type="radio" name="cheese" value="american">American</label></li>
+            </ul>
+        </div>
+
+        <div class="options">
+            <ul>
+                <li><label><input type="checkbox" name="addons" value="bacon">Bacon</label></li>
+                <li><label><input type="checkbox" name="addons" value="egg">Fried egg</label></li>
+                <li><label><input type="checkbox" name="addons" value="avocado">Avocado</label></li>
+                <li><label><input type="checkbox" name="addons" value="jalapenos">Jalapeños</label></li>
+                <li><label><input type="checkbox" name="addons" value="mushrooms">Mushrooms</label></li>
+                <li><label><input type="checkbox" name="addons" value="onion-rings">Onion rings</label></li>
+            </ul>
+        </div>
+
+        <!-- Row 3: additional instructions -->
+        <div class="instructions-label">
+            Additional instructions
+            <small>e.g.: toasted, caramelized, double</small>
+        </div>
+        <div class="instructions-input"></div>
+        <div class="instructions-input"></div>
+        <div class="instructions-input"></div>
+        <div class="instructions-input"></div>
+        <div class="instructions-input"></div>
+    </div>
+</body>
+</html>
