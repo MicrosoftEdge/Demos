@@ -5,8 +5,6 @@ const galleryEl = document.querySelector(".gallery");
 const filterEl = document.querySelector(".filters");
 const filesEl = document.querySelector('.files');
 
-const customPerformanceTrackGroupName = "Custom performance timings";
-
 function formatDate(data) {
   const date = new Date(data.DateTime.substring(0, 10).replace(/:/g, '/'));
   return date.toLocaleDateString();
@@ -173,72 +171,77 @@ async function getImageData() {
   return data;
 }
 
-function populateGallery(images) {
-  galleryEl.innerHTML = '';
+// Create the DOM structure for one image.
+function createImageDOM(file, user, description, meta, w, h) {
+  // Parent list item element.
+  const liEl = document.createElement("li");
+  liEl.classList.add('photo');
+  liEl.setAttribute('tabindex', '0');
 
-  images.forEach(({ file, user, description, w, h, meta }) => {
-    const imageCreationStart = performance.now();
-
-    const liEl = document.createElement("li");
-    liEl.classList.add('photo');
-    liEl.setAttribute('tabindex', '0');
-
-    const socialEl = document.createElement("div");
-    socialEl.classList.add('social');
-    socialEl.innerHTML = `
+  // Social network element.
+  const socialEl = document.createElement("div");
+  socialEl.classList.add('social');
+  socialEl.innerHTML = `
       <button class="more-actions">...</button>
       <div class="user">
         <p class="name"><a href="#">${user}</a></p>
         <div class="avatar" style="background-color:${AUTHORS[user].color};"></div>
       </div>
     `;
-    liEl.appendChild(socialEl);
+  liEl.appendChild(socialEl);
 
-    const photoWrapperEl = document.createElement("div");
-    photoWrapperEl.classList.add('photo-wrapper');
-    liEl.appendChild(photoWrapperEl);
+  // Wrapper element for the image.
+  const photoWrapperEl = document.createElement("div");
+  photoWrapperEl.classList.add('photo-wrapper');
+  liEl.appendChild(photoWrapperEl);
 
-    const photoButtonWrapper = document.createElement("div");
-    photoButtonWrapper.classList.add('photo-buttons');
-    photoWrapperEl.appendChild(photoButtonWrapper);
+  // Create the image buttons.
+  const photoButtonWrapper = document.createElement("div");
+  photoButtonWrapper.classList.add('photo-buttons');
+  photoWrapperEl.appendChild(photoButtonWrapper);
 
-    const likeEl = document.createElement("button");
-    likeEl.classList.add('like');
-    likeEl.setAttribute('title', 'Click to like this photo');
-    photoButtonWrapper.appendChild(likeEl);
+  // Create the buttons for like, plus, and share.
+  const likeEl = document.createElement("button");
+  likeEl.classList.add('like');
+  likeEl.setAttribute('title', 'Click to like this photo');
+  photoButtonWrapper.appendChild(likeEl);
 
-    const plusEl = document.createElement("button");
-    plusEl.classList.add('plus');
-    plusEl.setAttribute('title', 'Click to add this photo to your collection');
-    photoButtonWrapper.appendChild(plusEl);
+  const plusEl = document.createElement("button");
+  plusEl.classList.add('plus');
+  plusEl.setAttribute('title', 'Click to add this photo to your collection');
+  photoButtonWrapper.appendChild(plusEl);
 
-    const shareEl = document.createElement("button");
-    shareEl.classList.add('share');
-    shareEl.setAttribute('title', 'Click to share this photo');
-    photoButtonWrapper.appendChild(shareEl);
+  const shareEl = document.createElement("button");
+  shareEl.classList.add('share');
+  shareEl.setAttribute('title', 'Click to share this photo');
+  photoButtonWrapper.appendChild(shareEl);
 
-    const beforeShadowEl = document.createElement("div");
-    beforeShadowEl.classList.add('before-shadow');
-    beforeShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;`;
-    photoWrapperEl.appendChild(beforeShadowEl);
+  // Add the before and after shadow elements.
+  const beforeShadowEl = document.createElement("div");
+  beforeShadowEl.classList.add('before-shadow');
+  beforeShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;`;
+  photoWrapperEl.appendChild(beforeShadowEl);
 
-    const afterShadowEl = document.createElement("div");
-    afterShadowEl.classList.add('after-shadow');
-    afterShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;bottom:0;`;
-    photoWrapperEl.appendChild(afterShadowEl);
+  const afterShadowEl = document.createElement("div");
+  afterShadowEl.classList.add('after-shadow');
+  afterShadowEl.style = `width:${w}px;left:${(300 - w) / 2}px;bottom:0;`;
+  photoWrapperEl.appendChild(afterShadowEl);
 
-    const imageEl = document.createElement("img");
-    imageEl.src = `img/300/${file}`;
-    imageEl.setAttribute('alt', description);
-    imageEl.setAttribute('width', w);
-    imageEl.setAttribute('height', h);
-    imageEl.setAttribute('title', 'Click to view full size');
-    photoWrapperEl.appendChild(imageEl);
+  // Add the image element.
+  const imageEl = document.createElement("img");
+  imageEl.src = `img/300/${file}`;
+  imageEl.setAttribute('alt', description);
+  imageEl.setAttribute('width', w);
+  imageEl.setAttribute('height', h);
+  imageEl.setAttribute('title', 'Click to view full size');
+  photoWrapperEl.appendChild(imageEl);
 
-    const metaEl = document.createElement("ul");
-    metaEl.classList.add('meta');
-    liEl.appendChild(metaEl);
-    metaEl.innerHTML = `
+  // Create the metadata list.
+  const metaEl = document.createElement("ul");
+  metaEl.classList.add('meta');
+  liEl.appendChild(metaEl);
+
+  metaEl.innerHTML = `
       <li class="description"><span>${description}</span></li>
       <li class="date gallery-icon--date">
         <strong></strong>
@@ -265,42 +268,63 @@ function populateGallery(images) {
       </li>
     `;
 
-    const dialogEl = document.createElement("dialog");
-    const dialogFormEl = document.createElement("form");
-    dialogFormEl.setAttribute("method", "dialog");
-    dialogEl.appendChild(dialogFormEl);
+  metaEl.querySelector('.date strong').textContent = formatDate(meta);
+  metaEl.querySelector('.camera strong').textContent = formatMakeAndModel(meta);
+  metaEl.querySelector('.aperture strong').textContent = formatFNumber(meta);
+  metaEl.querySelector('.exposure strong').textContent = formatExposureTime(meta);
+  metaEl.querySelector('.focal-length strong').textContent = formatFocalLength(meta);
+  metaEl.querySelector('.iso strong').textContent = formatISO(meta);
 
-    const dialogCloseEl = document.createElement("button");
-    dialogCloseEl.classList.add('close');
-    dialogCloseEl.setAttribute("type", "submit");
-    dialogCloseEl.setAttribute("value", "close");
-    dialogCloseEl.setAttribute("title", "Close");
-    dialogCloseEl.innerHTML = `
+  // Create the dialog element o open the photo.
+  const dialogEl = document.createElement("dialog");
+  const dialogFormEl = document.createElement("form");
+  dialogFormEl.setAttribute("method", "dialog");
+  dialogEl.appendChild(dialogFormEl);
+
+  const dialogCloseEl = document.createElement("button");
+  dialogCloseEl.classList.add('close');
+  dialogCloseEl.setAttribute("type", "submit");
+  dialogCloseEl.setAttribute("value", "close");
+  dialogCloseEl.setAttribute("title", "Close");
+  dialogCloseEl.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
         <path d="M19.3 4.7l-1.4-1.4L12 10.6 4.7 3.3 3.3 4.7 10.6 12l-7.3 7.3 1.4 1.4L12 13.4l7.3 7.3 1.4-1.4L13.4 12z"/>
       </svg>
     `;
-    dialogFormEl.appendChild(dialogCloseEl);
-    liEl.appendChild(dialogEl);
+  dialogFormEl.appendChild(dialogCloseEl);
+  liEl.appendChild(dialogEl);
 
+  return liEl;
+}
+
+// Populate the gallery with the given images.
+function populateGallery(images) {
+  // Empty the existing gallery elements.
+  galleryEl.innerHTML = '';
+
+  // Iterate over the images.
+  images.forEach(({ file, user, description, w, h, meta }) => {
+    // Record the start time of this image creation for performance tracking.
+    const startTime = performance.now();
+
+    // Create the necessary DOM elements, and append them to the gallery.
+    const liEl = createImageDOM(file, user, description, meta, w, h);
     galleryEl.appendChild(liEl);
 
-    metaEl.querySelector('.date strong').textContent = formatDate(meta);
-    metaEl.querySelector('.camera strong').textContent = formatMakeAndModel(meta);
-    metaEl.querySelector('.aperture strong').textContent = formatFNumber(meta);
-    metaEl.querySelector('.exposure strong').textContent = formatExposureTime(meta);
-    metaEl.querySelector('.focal-length strong').textContent = formatFocalLength(meta);
-    metaEl.querySelector('.iso strong').textContent = formatISO(meta);
+    // Record the end time of this image creation.
+    const endTime = performance.now();
 
-    const perfMeasureDescription = `Image ${file} created`;
-    performance.measure(perfMeasureDescription, {
-      start: imageCreationStart,
-      end: performance.now(),
+    // Display the image creation duration in the Performance tool
+    // by using the performance.measure API, with the devtools
+    // object.
+    performance.measure(`Image ${file} created`, {
+      start: startTime,
+      end: endTime,
       detail: {
         devtools: {
           dataType: "track-entry",
           color: "primary",
-          trackGroup: customPerformanceTrackGroupName,
+          trackGroup: "Custom performance timings",
           track: "Photo creation",
           properties: [
             ['File', file],
@@ -308,12 +332,10 @@ function populateGallery(images) {
             ['Height', h],
             ['User', user],
           ],
-          tooltipText: perfMeasureDescription
+          tooltipText: `Image ${file} created`
         }
       },
     });
-
-    console.timeStamp("Photo created", imageCreationStart, undefined, "Console timestamp track", customPerformanceTrackGroupName, "tertiary-dark");
   });
 }
 
@@ -325,78 +347,98 @@ getImageData().then(imageData => {
   populateFilters();
 });
 
+// Handle input events on the filter selects.
 addEventListener('input', e => {
+  // Check if the input event is from a filter select.
+  // If not, return early.
   const filter = e.target.closest('.filter select');
-  if (filter) {
-    const filterStartTime = performance.now();
-
-    // Reset the other filters
-    filterEl.querySelectorAll('.filter select').forEach(select => {
-      if (select !== filter) {
-        select.selectedIndex = 0;
-      }
-    });
-
-    switch (filter.id) {
-      case 'camera-filter':
-        filterByCamera(filter.value);
-        break;
-      case 'aperture-filter':
-        filterByAperture(filter.value);
-        break;
-      case 'exposure-filter':
-        filterByExposure(filter.value);
-        break;
-      case 'focal-length-filter':
-        filterByFocalLength(filter.value);
-        break;
-      case 'iso-filter':
-        filterByISO(filter.value);
-        break;
-    }
-
-    const description = `Filter applied: ${filter.id}`;
-    performance.measure(description, {
-      start: filterStartTime,
-      end: performance.now(),
-      detail: {
-        devtools: {
-          dataType: "track-entry",
-          color: "secondary",
-          trackGroup: customPerformanceTrackGroupName,
-          track: "Filtering",
-          properties: [
-            ['Filter Value', filter.value]
-          ],
-          tooltipText: description
-        }
-      },
-    });
-
-    performance.mark("Filter Applied", {
-      detail: {
-        devtools: {
-          dataType: "marker",
-          color: "secondary",
-          properties: [
-            ['Filter Value', filter.value]
-          ],
-          tooltipText: "Filter Applied"
-        }
-      }
-    });
+  if (!filter) {
+    return;
   }
+
+  // Add a mark in the Performance tool's recorded profile to
+  // indicate that a filter will be applied.
+  performance.mark("Start filtering", {
+    detail: {
+      devtools: {
+        dataType: "marker",
+        color: "secondary",
+        properties: [
+          ['Filter Value', filter.value]
+        ],
+        tooltipText: "Start filtering"
+      }
+    }
+  });
+
+  // Reset the other filters.
+  filterEl.querySelectorAll('.filter select').forEach(select => {
+    if (select !== filter) {
+      select.selectedIndex = 0;
+    }
+  });
+
+  // Apply the filter based on the selected value.
+  switch (filter.id) {
+    case 'camera-filter':
+      filterByCamera(filter.value);
+      break;
+    case 'aperture-filter':
+      filterByAperture(filter.value);
+      break;
+    case 'exposure-filter':
+      filterByExposure(filter.value);
+      break;
+    case 'focal-length-filter':
+      filterByFocalLength(filter.value);
+      break;
+    case 'iso-filter':
+      filterByISO(filter.value);
+      break;
+  }
+
+  // Add a mark in the Performance tool's recorded profile to
+  // indicate that a filter was applied.
+  performance.mark("Done filtering", {
+    detail: {
+      devtools: {
+        dataType: "marker",
+        color: "tertiary",
+        properties: [
+          ['Filter Value', filter.value]
+        ],
+        tooltipText: "Done filtering"
+      }
+    }
+  });
 });
 
+// Handle click events on photos.
 addEventListener('click', e => {
   const clickedPhoto = e.target.tagName === 'IMG' && e.target.closest('.photo');
   if (!clickedPhoto) {
     return;
   }
 
+  // Add a mark in the Performance tool's recorded profile to
+  // indicate that a photo was clicked.
+  performance.mark("Photo selected", {
+    detail: {
+      devtools: {
+        dataType: "marker",
+        color: "secondary-dark",
+        properties: [
+          ['photo', clickedPhoto.src]
+        ],
+        tooltipText: "Photo selected"
+      }
+    }
+  });
+
   selectPhoto(clickedPhoto);
 });
 
+// Handle click events on the like button.
 addEventListener('click', e => {
   const clickedLike = e.target.classList.contains('like') && e.target.closest('.photo');
   if (!clickedLike) {
@@ -406,6 +448,7 @@ addEventListener('click', e => {
   e.target.closest('.photo').classList.toggle('liked');
 });
 
+// Handle click events on the plus button.
 addEventListener('click', e => {
   const clickedPlus = e.target.classList.contains('plus') && e.target.closest('.photo');
   if (!clickedPlus) {
@@ -415,6 +458,7 @@ addEventListener('click', e => {
   e.target.closest('.photo').classList.toggle('plussed');
 });
 
+// Handle keyboard events to navigate between photos.
 addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     selectPhoto();
@@ -425,75 +469,57 @@ addEventListener('keydown', e => {
   }
 });
 
+// Load a photo and return a promise that resolves when the photo is loaded.
 function loadPhoto(fileName) {
-  const loadStartTime = performance.now();
-  const perfMeasureDescription = `Loading photo: ${fileName}`;
+  // Record the start time of the photo loading for performance tracking.
+  const startTime = performance.now();
 
   return new Promise(resolve => {
+    // Load the image by creating a new image element.
     const imageEl = document.createElement("img");
     imageEl.src = fileName;
+
+    // Listen for the load event to resolve the promise when the image is loaded.
     imageEl.addEventListener('load', () => {
-      performance.measure(perfMeasureDescription, {
-        start: loadStartTime,
-        end: performance.now(),
-        detail: {
-          devtools: {
-            dataType: "track-entry",
-            color: "tertiary",
-            trackGroup: customPerformanceTrackGroupName,
-            track: "Loading",
-            properties: [
-              ['Photo', fileName]
-            ],
-            tooltipText: perfMeasureDescription
-          }
-        },
-      });
+      // Record the end time of the photo loading.
+      const endTime = performance.now();
 
-      performance.mark("Photo loaded", {
-        detail: {
-          devtools: {
-            dataType: "marker",
-            color: "secondary",
-            properties: [
-              ['Photo', fileName]
-            ],
-            tooltipText: "Photo Loaded"
-          }
-        }
-      });
-
-      console.timeStamp("Photo loaded", loadStartTime, undefined, "Console timestamp track", customPerformanceTrackGroupName, "primary-light");
+      // Display the photo loading duration in the Performance tool, by using console.timeStamp.
+      console.timeStamp("Loading photo", startTime, endTime, "Console timestamp track", "Custom performance timings", "primary-dark");
 
       resolve(imageEl);
     }, { once: true });
   });
 }
 
+// When a photo is clicked, toggle its selection state and load the full-size image if selected.
 function selectPhoto(clickedPhoto) {
-  // Also remove the currently selected photo.
+  // Remove the currently selected photo.
   galleryEl.querySelectorAll('.photo.selected').forEach(photo => {
     if (!clickedPhoto || photo !== clickedPhoto) photo.classList.remove('selected');
   });
 
-  if (clickedPhoto) {
-    const isSelected = clickedPhoto.classList.contains('selected');
-    clickedPhoto.classList.toggle('selected', !isSelected);
-    const clickedImg = clickedPhoto.querySelector('img');
-    const wrapper = clickedImg.parentNode;
+  // If no photo was clicked, return early.
+  if (!clickedPhoto) {
+    return;
+  }
 
-    if (!isSelected) {
-      loadPhoto(clickedImg.src.replace('/300/', '/1920/')).then(img => {
-        img.setAttribute('width', clickedImg.getAttribute('width'));
-        img.setAttribute('height', clickedImg.getAttribute('height'));
-        wrapper.replaceChild(img, clickedImg);
-      });
-    } else {
-      loadPhoto(clickedImg.src.replace('/1920/', '/300/')).then(img => {
-        img.setAttribute('width', clickedImg.getAttribute('width'));
-        img.setAttribute('height', clickedImg.getAttribute('height'));
-        wrapper.replaceChild(img, clickedImg);
-      });
-    }
+  const isSelected = clickedPhoto.classList.contains('selected');
+  clickedPhoto.classList.toggle('selected', !isSelected);
+  const clickedImg = clickedPhoto.querySelector('img');
+  const wrapper = clickedImg.parentNode;
+
+  if (!isSelected) {
+    loadPhoto(clickedImg.src.replace('/300/', '/1920/')).then(img => {
+      img.setAttribute('width', clickedImg.getAttribute('width'));
+      img.setAttribute('height', clickedImg.getAttribute('height'));
+      wrapper.replaceChild(img, clickedImg);
+    });
+  } else {
+    loadPhoto(clickedImg.src.replace('/1920/', '/300/')).then(img => {
+      img.setAttribute('width', clickedImg.getAttribute('width'));
+      img.setAttribute('height', clickedImg.getAttribute('height'));
+      wrapper.replaceChild(img, clickedImg);
+    });
   }
 }
