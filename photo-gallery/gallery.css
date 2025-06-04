@@ -82,17 +82,11 @@ footer {
   display: grid;
   min-height: 60vh;
 }
-[data-module="gallery"] .files {
-  display: none;
-}
 [data-module="gallery"] .filters {
   display: flex;
 }
 [data-module="files"] .gallery {
   display: none;
-}
-[data-module="files"] .files {
-  display: grid;
 }
 [data-module="files"] .filters {
   display: none;
@@ -493,36 +487,6 @@ html[dir="rtl"] .gallery .photo .social .user {
 .gallery .photo .photo-wrapper .share:hover,
 .gallery .photo .photo-wrapper .plus:hover {
   scale: 1.1;
-}
-
-.files {
-  justify-content: center;
-  max-width: 1450px;
-  margin: 0 auto;
-}
-
-.files .file {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  padding: 1rem;
-}
-
-.files .file:nth-child(2n) {
-  background: var(--dim-bg-color);
-}
-
-.files .file .icon {
-  width: var(--spacing);
-  height: var(--spacing);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.files .file .dimension {
-  font-size: .8rem;
-  color: var(--dim-text-color);
 }
 
 /* Icons */

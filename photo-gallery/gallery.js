@@ -3,7 +3,6 @@ let AUTHORS = {};
 
 const galleryEl = document.querySelector(".gallery");
 const filterEl = document.querySelector(".filters");
-const filesEl = document.querySelector('.files');
 
 function formatDate(data) {
   const date = new Date(data.DateTime.substring(0, 10).replace(/:/g, '/'));
@@ -155,33 +154,6 @@ function populateFilters() {
     optionEl.value = iso;
     optionEl.textContent = iso;
     isoEl.appendChild(optionEl);
-  });
-}
-
-function populateFiles(images) {
-  filesEl.innerHTML = '';
-
-  images.forEach(({ file, w, h }) => {
-    const liEl = document.createElement("li");
-    liEl.classList.add('file');
-    liEl.setAttribute('tabindex', '0');
-
-    const iconEl = document.createElement("div");
-    iconEl.classList.add('icon');
-    iconEl.style.backgroundImage = `url(img/300/${file})`;
-    liEl.appendChild(iconEl);
-
-    const nameEl = document.createElement("div");
-    nameEl.classList.add('name');
-    nameEl.textContent = file;
-    liEl.appendChild(nameEl);
-
-    const dimensionEl = document.createElement("div");
-    dimensionEl.classList.add('dimension');
-    dimensionEl.textContent = `${w}px × ${h}px`;
-    liEl.appendChild(dimensionEl);
-
-    filesEl.appendChild(liEl);
   });
 }
 
