@@ -39,6 +39,26 @@ function formatISO(data) {
   return `${data.ISOSpeedRatings}`;
 }
 
+function filterBy(filter) {
+  switch (filter.id) {
+    case 'camera-filter':
+      filterByCamera(filter.value);
+      break;
+    case 'aperture-filter':
+      filterByAperture(filter.value);
+      break;
+    case 'exposure-filter':
+      filterByExposure(filter.value);
+      break;
+    case 'focal-length-filter':
+      filterByFocalLength(filter.value);
+      break;
+    case 'iso-filter':
+      filterByISO(filter.value);
+      break;
+  }
+}
+
 function filterByCamera(camera) {
   populateGallery(IMAGES.filter(image => {
     if (!camera) return true;
@@ -379,23 +399,7 @@ addEventListener('input', e => {
   });
 
   // Apply the filter based on the selected value.
-  switch (filter.id) {
-    case 'camera-filter':
-      filterByCamera(filter.value);
-      break;
-    case 'aperture-filter':
-      filterByAperture(filter.value);
-      break;
-    case 'exposure-filter':
-      filterByExposure(filter.value);
-      break;
-    case 'focal-length-filter':
-      filterByFocalLength(filter.value);
-      break;
-    case 'iso-filter':
-      filterByISO(filter.value);
-      break;
-  }
+  filterBy(filter);
 
   // Add a mark in the Performance tool's recorded profile to
   // indicate that a filter was applied.
