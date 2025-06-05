@@ -20,7 +20,9 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 
 To try the feature, follow these steps:
 
-1. Use a Chromium-based browser, such as Microsoft Edge.
-1. Start the browser from the command line with the `--enable-features=CSSGapDecoration` flag.
+1. Use a Chromium-based browser, such as Microsoft Edge or Chrome, and make sure the version is at least 139.
+1. In the browser, open a new tab and go to `about:flags`.
+1. Search for "Experimental Web Platform features" in the search box.
+1. Set the **Experimental Web Platform features** flag to **Enabled**, and then restart the browser.
 
 To share feedback, please [open an issue on the MSEdgeExplainers repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=css-gap-decorations.md).
