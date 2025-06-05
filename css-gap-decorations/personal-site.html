@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS gap decorations</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1.1rem;
+      margin: 2rem;
+      background: hsl(0, 0%, 5%);
+      color: #fffe;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    body {
+      display: grid;
+      gap: 4rem;
+
+      row-rule:
+        1rem solid #fffe,
+        repeat(2, 2px solid #fffe);
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    nav ul {
+      font-size: 1.2rem;
+
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      column-rule: 2px dashed #fff3;
+    }
+
+    article img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    footer {
+      justify-self: end;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4rem;
+      row-rule: 2px solid #fff6;
+      column-rule: 2px solid #fff6;
+    }
+
+    main>* {
+      flex: 1 1 200px;
+    }
+
+    main article:has(p) {
+      flex-basis: 400px;
+      place-content: center;
+    }
+
+    main article p {
+      text-align: center;
+      font-style: italic;
+    }
+
+    main article p::before {
+      content: '\201C';
+    }
+
+    main article p::after {
+      content: '\201D';
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>CSS gap decorations</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Links</a></li>
+    </ul>
+  </nav>
+  <main>
+    <article>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+    </article>
+    <article>
+      <img src="cat.jpg" alt="A sleeping cat">
+    </article>
+    <article>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </article>
+    <article>
+      <img src="tree.jpg" alt="An old olive tree trunk">
+    </article>
+    <article>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </article>
+    <article>
+      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.</p>
+    </article>
+    <article>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur
+        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </article>
+    <article>
+      <img src="strings.jpg"
+        alt="Snow flakes falling against a dark sky, in slow motion, so the snow falling creates a motion blur effect.">
+    </article>
+  </main>
+  <footer>
+    <p>&copy; 2025 Patrick Brosset</p>
+  </footer>
+</body>
+
+</html>
