@@ -140,59 +140,20 @@
 
     main {
       margin-block-end: 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+
+      display: flex;
+      flex-wrap: wrap;
       gap: 3rem;
-      /* These seem to work. */
+
       column-rule: 2px solid var(--text);
       column-rule-break: intersection;
-      column-rule-outset: .5rem;
-      /* These don't work yet. */
-      row-rule-width: 2px;
-      row-rule-style: solid;
-      row-rule-color: var(--text);
-      row-rule-break: intersection;
-      row-rule-outset: -1rem;
+      column-rule-outset: 0;
+
+      row-rule: 2px solid var(--text);
     }
 
-    @property --unitless-val {
-      syntax: '<integer>';
-      inherits: true;
-      initial-value: 0;
-    }
-
-    @property --_u {
-      syntax: '<length>';
-      inherits: true;
-      initial-value: 0;
-    }
-
-    :root {
-      --val: calc(100vw / 25rem);
-      /* use any length unit (px, em, ex, ch, rem, ...)*/
-
-      /* we multiply then divide with the biggest value to get one unit */
-      --_m: 3.35544e07;
-      /* this value depend on the browser */
-      --_u: calc(var(--val)*var(--_m));
-      --unit: calc(var(--_u)/var(--_m));
-      /* = 1em  */
-
-      --unitless-val: tan(atan2(var(--val), var(--unit)));
-      /* = 25 */
-      /* In the near future we can do
-          --unitless-val: calc(var(--val)/var(--unit));
-        */
-    }
-
-    @supports (display: masonry) {
-
-
-      main {
-        display: masonry;
-        /* Auto-fit/fill doesn't work yet in masonry. */
-        grid-template-columns: repeat(var(--unitless-val), 1fr);
-      }
+    main article {
+      flex: 1 1 180px;
     }
 
     article a {
