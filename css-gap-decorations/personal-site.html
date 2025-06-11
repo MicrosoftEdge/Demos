@@ -9,23 +9,23 @@
     body {
       font-family: system-ui;
       font-size: 1.1rem;
-      margin: 2rem;
-      background: hsl(0, 0%, 5%);
-      color: #fffe;
+      background: #0d0d0d;
+      color: #efefef;
       line-height: 1.6;
     }
 
     a {
       color: inherit;
     }
-
+    
     body {
       display: grid;
       gap: 4rem;
+      margin: 2rem;
 
       row-rule:
-        1rem solid #fffe,
-        repeat(2, 2px solid #fffe);
+        1rem solid #efefef,
+        repeat(2, 2px solid #efefef);
     }
 
     h1,
@@ -43,7 +43,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
-      column-rule: 2px dashed #fff3;
+      column-rule: 2px dashed #666;
     }
 
     article img {
@@ -53,16 +53,13 @@
       object-fit: cover;
     }
 
-    footer {
-      justify-self: end;
-    }
-
     main {
       display: flex;
       flex-wrap: wrap;
       gap: 4rem;
-      row-rule: 2px solid #fff6;
-      column-rule: 2px solid #fff6;
+      row-rule: 2px solid #999;
+      column-rule: 2px solid #999;
+      column-rule-outset: 0;
     }
 
     main>* {
@@ -71,27 +68,13 @@
 
     main article:has(p) {
       flex-basis: 400px;
-      place-content: center;
-    }
-
-    main article p {
-      text-align: center;
-      font-style: italic;
-    }
-
-    main article p::before {
-      content: '\201C';
-    }
-
-    main article p::after {
-      content: '\201D';
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>CSS gap decorations</h1>
+    <h1>My personal site</h1>
   </header>
   <nav>
     <ul>
@@ -110,7 +93,7 @@
         laborum.</p>
     </article>
     <article>
-      <img src="cat.jpg" alt="A sleeping cat">
+      <img src="cat.jpg" alt="A sleeping cat.">
     </article>
     <article>
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -119,7 +102,7 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </article>
     <article>
-      <img src="tree.jpg" alt="An old olive tree trunk">
+      <img src="tree.jpg" alt="An old olive tree trunk.">
     </article>
     <article>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
