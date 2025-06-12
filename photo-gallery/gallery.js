@@ -404,7 +404,7 @@ addEventListener('click', e => {
         dataType: "marker",
         color: "secondary-dark",
         properties: [
-          ['photo', clickedPhoto.src]
+          ['photo', e.target.src]
         ],
         tooltipText: "Photo selected"
       }
