@@ -1,0 +1,187 @@
+.ai-session-message-ui {
+  display: none;
+}
+
+main {
+  max-width: 800px;
+}
+
+.news-site-header {
+  display: flex;
+  margin-block-end: calc(var(--padding) * 2);
+  gap: var(--gap);
+  align-items: center;
+}
+
+.news-site-header::before {
+  content: "";
+  width: 100vw;
+  height: 80px;
+  background: #f6e8e3;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+}
+
+@media (max-width: 800px) {
+  .news-site-header::before {
+    height: 120px;
+  }
+}
+
+.news-site-header h1 {
+  margin: 0;
+  margin-inline-end: auto;
+}
+
+.news-site-header .links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: var(--gap);
+}
+
+.links li {
+  cursor: pointer;
+  position: relative;
+}
+
+.links .active {
+  font-weight: bold;
+}
+
+.links li.active::after,
+.links li:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  height: 3px;
+  width: 50%;
+  left: 25%;
+  border-radius: 100vw;
+  background: #3e5c95;
+}
+
+.post-editor .metadata {
+  margin: var(--padding) 0;
+  display: grid;
+  grid-template-areas: "headline image" "subheadline image";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  gap: calc(var(--gap) / 2) var(--gap);
+}
+
+.post-editor .metadata textarea {
+  height: 80px;
+}
+
+.post-editor .metadata .headline {
+  grid-area: headline;
+}
+
+.post-editor .metadata .subheadline {
+  grid-area: subheadline;
+}
+
+.post-editor .metadata .image {
+  grid-area: image;
+  margin-block-start: 24px;
+}
+
+.post-editor .metadata .image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--inner-radius);
+  overflow: hidden;
+}
+
+.post-editor .content {
+  margin: var(--padding) 0;
+  position: relative;
+}
+
+.post-editor .content textarea {
+  height: 500px;
+}
+
+#content-mirror {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.post-editor .buttons {
+  margin: var(--padding) 0;
+  justify-content: end;
+  display: flex;
+  gap: calc(var(--gap) / 2);
+}
+
+.post-editor .buttons button[type="submit"] {
+  background: black;
+  color: white;
+}
+
+#rewriter-ui {
+  position: absolute;
+  inset: unset;
+  margin: 0 6px;
+  display: grid;
+  opacity: 1;
+  transition-property: opacity, display;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+  padding: calc(var(--padding) / 2);
+  border: 1px solid var(--divider-color);
+  box-sizing: border-box;
+  border-radius: var(--inner-radius);
+  gap: 12px;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+#rewriter-ui.hidden {
+  display: none;
+  opacity: 0;
+}
+
+#rewriter-ui h4 {
+  margin: 0;
+}
+
+#rewriter-ui .options {
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  align-items: center;
+}
+
+#rewriter-ui .options label {
+  margin: 0;
+}
+
+#rewriter-ui .options select {
+  font-size: var(--small-font-size);
+}
+
+#to-be-rewritten {
+  border-radius: var(--inner-radius);
+  padding: .5rem;
+  box-sizing: border-box;
+  color: #333;
+  box-shadow: 0 0 0 1px var(--divider-color);
+  min-height: 48px;
+}
+
+#to-be-rewritten:empty::before {
+  content: "Click Rewrite to start";
+  color: #777;
+}

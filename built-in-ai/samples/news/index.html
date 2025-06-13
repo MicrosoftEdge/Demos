@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>News sample</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI Playground</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item current">News</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item current">News</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+<main>
+  
+<link rel="stylesheet" href="/Demos/built-in-ai/static/news.css">
+
+<div class="news-site-header">
+  <h1>Contoso</h1>
+  <ul class="links">
+    <li class="active">Write a post</li>
+    <li>Manage posts</li>
+    <li>Settings</li>
+  </ul>
+</div>
+
+<div class="post-editor">
+  <div class="metadata">
+    <div class="image">
+      <img src="/Demos/built-in-ai/static/images/article-image.png" alt="A robot head illustration.">
+    </div>
+    <div class="row">
+      <label for="headline">Headline</label>
+      <textarea name="headline" id="headline">The Future of AI-Generated Art: Creativity or Computation?</textarea>
+    </div>
+    <div class="row">
+      <label for="subheadline">Subhead</label>
+      <textarea name="subheadline"
+        id="subheadline">How artificial intelligence is transforming digital creativity in unexpected ways.</textarea>
+    </div>
+  </div>
+  <div class="content">
+    <textarea name="content" id="content"></textarea>
+    <div id="content-mirror"></div>
+  </div>
+  <div class="buttons">
+    <button>Preview</button>
+    <button type="submit">Publish</button>
+  </div>
+</div>
+
+<div id="rewriter-ui" class="hidden card-with-shadow">
+  <h4>Rewrite</h4>
+  <div class="options">
+    <label for="tone">Tone</label>
+    <select name="tone" id="tone">
+      <option value="as-is" selected>As-is</option>
+      <option value="more-formal">More formal</option>
+      <option value="more-casual">More casual</option>
+    </select>
+    <label for="length">Length</label>
+    <select name="length" id="length">
+      <option value="as-is" selected>As-is</option>
+      <option value="shorter">Shorter</option>
+      <option value="longer">Longer</option>
+    </select>
+    <label for="format">Format</label>
+    <select name="format" id="format">
+      <option value="as-is" selected>As-is</option>
+      <option value="markdown">Markdown</option>
+      <option value="plain-text">Plain text</option>
+    </select>
+    <button id="rewrite">Rewrite</button>
+  </div>
+  <div id="to-be-rewritten"></div>
+  <button id="replace">Replace</button>
+</div>
+
+<script src="/Demos/built-in-ai/static/news.js"></script>
+</main>
+
+<script src="/Demos/built-in-ai/static/session.js"></script>
+<script src="/Demos/built-in-ai/static/spinner.js"></script>
+
+</body>
+</html>

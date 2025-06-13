@@ -1,0 +1,70 @@
+---
+layout: sample.njk
+title: News sample
+permalink: news/
+---
+
+<link rel="stylesheet" href="/Demos/built-in-ai/static/news.css">
+
+<div class="news-site-header">
+  <h1>Contoso</h1>
+  <ul class="links">
+    <li class="active">Write a post</li>
+    <li>Manage posts</li>
+    <li>Settings</li>
+  </ul>
+</div>
+
+<div class="post-editor">
+  <div class="metadata">
+    <div class="image">
+      <img src="/Demos/built-in-ai/static/images/article-image.png" alt="A robot head illustration.">
+    </div>
+    <div class="row">
+      <label for="headline">Headline</label>
+      <textarea name="headline" id="headline">The Future of AI-Generated Art: Creativity or Computation?</textarea>
+    </div>
+    <div class="row">
+      <label for="subheadline">Subhead</label>
+      <textarea name="subheadline"
+        id="subheadline">How artificial intelligence is transforming digital creativity in unexpected ways.</textarea>
+    </div>
+  </div>
+  <div class="content">
+    <textarea name="content" id="content"></textarea>
+    <div id="content-mirror"></div>
+  </div>
+  <div class="buttons">
+    <button>Preview</button>
+    <button type="submit">Publish</button>
+  </div>
+</div>
+
+<div id="rewriter-ui" class="hidden card-with-shadow">
+  <h4>Rewrite</h4>
+  <div class="options">
+    <label for="tone">Tone</label>
+    <select name="tone" id="tone">
+      <option value="as-is" selected>As-is</option>
+      <option value="more-formal">More formal</option>
+      <option value="more-casual">More casual</option>
+    </select>
+    <label for="length">Length</label>
+    <select name="length" id="length">
+      <option value="as-is" selected>As-is</option>
+      <option value="shorter">Shorter</option>
+      <option value="longer">Longer</option>
+    </select>
+    <label for="format">Format</label>
+    <select name="format" id="format">
+      <option value="as-is" selected>As-is</option>
+      <option value="markdown">Markdown</option>
+      <option value="plain-text">Plain text</option>
+    </select>
+    <button id="rewrite">Rewrite</button>
+  </div>
+  <div id="to-be-rewritten"></div>
+  <button id="replace">Replace</button>
+</div>
+
+<script src="/Demos/built-in-ai/static/news.js"></script>
