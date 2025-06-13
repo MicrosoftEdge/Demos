@@ -288,11 +288,13 @@ main {
   border-radius: var(--inner-radius);
   padding: calc(var(--padding) / 2);
   font-size: var(--small-font-size);
+  white-space: pre-wrap;
 }
 
 .summarize-reviews .summary:not(:empty)::before {
   content: "AI generated summary: ";
   font-weight: 600;
+  display: block;
 }
 
 .system-check {

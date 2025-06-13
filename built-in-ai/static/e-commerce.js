@@ -52,26 +52,37 @@ addEventListener("DOMContentLoaded", async () => {
   });
 
   try {
+    console.log("Checking if your device supports the summarizer API...");
     await checkSummarizerAPIAvailability();
   } catch (e) {
     summarizerSystemCheckEl.textContent = `Your device doesn't support summarizing reviews.`;
   }
+  console.log("Summarizer API is available.");
 
   try {
+    console.log("Checking if your device supports the Prompt API...");
     await checkPromptAPIAvailability();
   } catch (e) {
     moderationSystemCheckEl.textContent = `Your device doesn't support review checking. Your review will be checked later.`;
   }
+  console.log("Prompt API is available.");
 
   let summarizerSessionIsReady = false;
   let promptSessionIsReady = false;
-  let rewriterSessionIsReady = false;
 
-  const summarizerSessionPromise = getSummarizerSession({
+  const summarizerOptions = {
     sharedContext: "This is a list of user reviews for a pair of hiking boots.",
-    type: "headline",
+    type: "key-points",
     format: "plain-text",
-    length: "medium",
+    length: "medium"
+  }
+
+  console.log("Creating summarizer session with options...", summarizerOptions);
+  const summarizerSessionPromise = getSummarizerSession({
+    sharedContext: summarizerOptions.sharedContext,
+    type: summarizerOptions.type,
+    format: summarizerOptions.format,
+    length: summarizerOptions.length,
     monitor: m => {
       m.addEventListener("downloadprogress", e => {
         const current = (e.loaded / e.total) * 100;
@@ -85,22 +96,31 @@ addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  const promptSessionPromise = getLanguageModelSession({
+  const promptOptions = {
     initialPrompts: [
-      { role: "system", content: "Classify the following product reviews as either OK or Not OK.", },
-      { role: "user", content: "Great shoes! I was surprised at how comfortable these boots are for the price. They fit well and are very lightweight." },
-      { role: "assistant", content: "OK" },
-      { role: "user", content: "Bad quality. I bought these boots for a trip to the mountains, but they fell apart after a few days of hiking. I wouldn't recommend them." },
-      { role: "assistant", content: "OK" },
-      { role: "user", content: "These boots are awful and anyone who buys them is an idiot." },
-      { role: "assistant", content: "Not OK" },
-      { role: "user", content: "Terrible product. The manufacturer must be completely incompetent." },
-      { role: "assistant", content: "Not OK" },
-      { role: "user", content: "Worst purchase ever. I hope this company goes out of business." },
-      { role: "assistant", content: "Not OK" },
-      { role: "user", content: "Could be better. Nice quality overall, but for the price I was expecting something more waterproof" },
-      { role: "assistant", content: "OK" }
+      {
+        role: "system",
+        content: "You are an AI model designed to moderate the user-provided review of a pair of hiking shoes being sold on a website.\nYour goal is to detect whether the provided review is OK to publish on the website for other users to see or not.\nAnalyze the review and respond whether the review is OK to publish or not.\n\nFollow these guidelines:\n- Identify whether the user-provided content is actually a review of the hiking shoes product.\n- If the content is not relevant to the product, respond with 'unrelated'.\n- If the content is relevant to the product, analyze if it contains toxic, hateful, violent, or abusive language.\n- If the review contains toxic, hateful, violent, or abusive language, respond with 'KO'.\n- If the review is ok to publish, respond with 'OK'.\n- If the review is unclear, default to 'OK'.\n\nYour response should be structured and concise, adhering to the defined output schema."
+      }
     ],
+    responseConstraint: {
+      "type": "object",
+      "required": ["moderation"],
+      "additionalProperties": false,
+      "properties": {
+        "moderation": {
+          "type": "string",
+          "enum": ["unrelated", "OK", "KO"],
+          "description": "The result of the moderation of the user review."
+        },
+      }
+    }
+  };
+
+  console.log("Creating prompt session with options...", promptOptions);
+  const promptSessionPromise = getLanguageModelSession({
+    initialPrompts: promptOptions.initialPrompts,
+    responseConstraint: promptOptions.responseConstraint,
     monitor: m => {
       m.addEventListener("downloadprogress", e => {
         const current = (e.loaded / e.total) * 100;
@@ -114,11 +134,15 @@ addEventListener("DOMContentLoaded", async () => {
   });
 
   summarizeReviewBtn.addEventListener("click", async () => {
+    console.log("Summarizing review...");
+
     if (!summarizerSessionIsReady) {
+      console.log("Summarizer session is not ready yet. Model is still downloading.");
       summarizerSystemCheckEl.textContent = `Model is still downloading. Please wait.`;
       return;
     }
 
+    console.log("Summarizer session is ready. Proceeding with summarization.");
     const summarizerSession = await summarizerSessionPromise;
 
     summaryOutputEl.textContent = "";
@@ -132,9 +156,11 @@ addEventListener("DOMContentLoaded", async () => {
       return `Review (language: ${lang}): ${title}\nDescription: ${description}`;
     }).join("\n---\n");
 
+    console.log("Reviews to summarize:", reviews);
     const stream = summarizerSession.summarizeStreaming(reviews);
 
     for await (const chunk of stream) {
+      console.log(`Received chunk: "${chunk}"`);
       summaryOutputEl.textContent += chunk;
     }
 
@@ -143,11 +169,14 @@ addEventListener("DOMContentLoaded", async () => {
   });
 
   moderateReviewBtn.addEventListener("click", async (e) => {
+    console.log("Moderating new review...");
     if (!promptSessionIsReady) {
+      console.log("Prompt session is not ready yet. Model is still downloading.");
       moderationSystemCheckEl.textContent = `Model is still downloading. Please wait.`;
       return;
     }
 
+    console.log("Prompt session is ready. Proceeding with moderation.");
     reviewMessageEl.textContent = "";
     moderateReviewBtn.setAttribute("disabled", "true");
     moderateReviewBtn.textContent = "Checking review...";
@@ -155,7 +184,10 @@ addEventListener("DOMContentLoaded", async () => {
 
     const promptSession = await promptSessionPromise;
     // Clone the session each time, we don't want previous results to affect this next one.
+    console.log("Cloning the prompt session.");
     const newSession = await promptSession.clone();
+
+    console.log("Prompting the new session with text:", text);
     const response = await newSession.prompt(text);
 
     if (response === "OK") {
@@ -164,8 +196,12 @@ addEventListener("DOMContentLoaded", async () => {
       reviewMessageEl.classList.remove("error");
 
       addReview(reviewTitleEl.value, reviewDescriptionEl.value, "en", reviewFormEl.querySelector(".star-rating[selected]")?.dataset.rating);
-    } else {
+    } else if (response === "KO") {
       reviewMessageEl.textContent = "Your review is not acceptable as written. Please refrain from using toxic, hateful, or abusive language.";
+      reviewMessageEl.classList.add("error");
+      reviewMessageEl.classList.remove("success");
+    } else if (response === "unrelated") {
+      reviewMessageEl.textContent = "You didn't provide a valid review of the product. Please try again.";
       reviewMessageEl.classList.add("error");
       reviewMessageEl.classList.remove("success");
     }
