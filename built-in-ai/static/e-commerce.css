@@ -1,0 +1,537 @@
+.ai-session-message-ui {
+  display: none;
+}
+
+main {
+  --big-margin: calc(2 * var(--padding));
+}
+
+.shoes-header {
+  display: flex;
+  gap: var(--gap);
+  align-items: baseline;
+  margin-block-end: var(--big-margin);
+  flex-wrap: wrap;
+  padding: var(--big-margin) var(--padding);
+  background: white;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.shoes-header h1 {
+  margin: 0;
+}
+
+.shoes-header nav {
+  margin-inline-end: auto;
+}
+
+.shoes-header search {
+  flex: 300px 0 1;
+}
+
+.shoes-header nav ul,
+.shoes-header nav li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shoes-header nav ul {
+  display: flex;
+  gap: var(--gap);
+}
+
+@media (max-width: 500px) {
+  .shoes-header nav ul {
+    flex-wrap: wrap;
+  }
+}
+
+.shoes-header nav a {
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+  font-family: var(--header-font-family);
+}
+
+.shoes-header nav a:hover {
+  text-decoration: underline;
+}
+
+.product {
+  display: grid;
+  gap: var(--gap);
+  grid-template-areas:
+    "photos details"
+    "button details";
+  grid-template-rows: min-content 1fr;
+  margin-block-end: var(--big-margin);
+}
+
+@media (max-width: 1200px) {
+  .product {
+    grid-template-areas:
+      "photos"
+      "button"
+      "details";
+    grid-template-columns: 1fr;
+  }
+}
+
+.product .product-details {
+  grid-area: details;
+  padding: var(--padding);
+}
+
+.product h2 {
+  font-size: 24px;
+}
+
+.product .price {
+  font-size: var(--header-2-font-size);
+  font-weight: 600;
+}
+
+.product .product-images {
+  grid-area: photos;
+  place-self: start;
+  display: grid;
+  gap: calc(var(--gap) / 2);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+@media (max-width: 1200px) {
+  .product .product-images {
+    place-self: center;
+  }
+}
+
+.product .product-images img {
+  /* So that the add to basket button is never below the fold. */
+  max-height: 30vh;
+  /* So that images becomes smaller as the page becomes narrower. */
+  max-width: 30vw;
+  object-fit: cover;
+}
+
+/* For extra wide screens */
+@media (min-width: 2000px) {
+  .product .product-images img {
+    max-width: 300px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .product .product-images img {
+    max-height: 300px;
+  }
+}
+
+.product .product-description {
+  line-height: 1.6;
+}
+
+.product #add-to-basket {
+  grid-area: button;
+  place-self: start stretch;
+}
+
+.product #add-to-basket button {
+  width: 100%;
+  background: black;
+  color: white;
+  font-weight: 600;
+}
+
+.product-colors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  flex-wrap: wrap;
+}
+
+.product-colors .color {
+  width: var(--gap);
+  height: var(--gap);
+  border-radius: 50%;
+  background: attr(data-color type(<color>));
+  cursor: pointer;
+}
+
+.product-colors .color[selected],
+.product-colors .color:hover {
+  box-shadow: 0 0 0 2px var(--page-background), 0 0 0 4px black;
+}
+
+.product-sizes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  flex-wrap: wrap;
+}
+
+.product-sizes .size {
+  width: calc(var(--gap) * 1.5);
+  height: calc(var(--gap) * 1.5);
+  cursor: pointer;
+  border: 1px solid #0004;
+  display: grid;
+  place-items: center;
+  font-size: var(--small-font-size);
+}
+
+.product-sizes .size:not([unavailable]):hover {
+  border-color: black;
+}
+
+.product-sizes .size[unavailable] {
+  background: #eff4faff;
+  color: #0009
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background: white;
+  padding: var(--padding);
+  border-radius: var(--outer-radius);
+}
+
+@media (max-width: 800px) {
+  .reviews {
+    grid-template-columns: 1fr;
+  }
+}
+
+.reviews h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.current-reviews {
+  display: grid;
+  column-gap: var(--gap);
+  grid-template-areas:
+    "title     average-review"
+    "summarize summarize"
+    "reviews   reviews";
+  grid-template-columns: max-content 1fr;
+  margin-inline-end: var(--padding);
+  padding-inline-end: var(--padding);
+  border-inline-end: 1px solid var(--divider-color);
+}
+
+@media (max-width: 500px) {
+  .current-reviews {
+    grid-template-areas:
+      "title"
+      "average-review"
+      "summarize"
+      "reviews";
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .current-reviews {
+    margin-inline-end: 0;
+    padding-inline-end: 0;
+    border-inline-end: none;
+    margin-block-end: var(--padding);
+    padding-block-end: var(--padding);
+    border-block-end: 1px solid var(--divider-color);
+  }
+}
+
+.current-reviews h2 {
+  grid-area: title;
+  margin: 0;
+}
+
+.current-reviews>.star-rating {
+  grid-area: average-review;
+  place-self: center end;
+  zoom: 1.5;
+}
+
+@media (max-width: 500px) {
+  .current-reviews>.star-rating {
+    place-self: start;
+  }
+}
+
+.current-reviews .user-reviews {
+  grid-area: reviews;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  column-gap: var(--gap);
+  column-width: 400px;
+}
+
+.current-reviews .summarize-reviews {
+  grid-area: summarize;
+  margin-block-start: calc(var(--gap) / 2);
+}
+
+.summarize-reviews .summary:not(:empty) {
+  margin-block-start: calc(var(--gap) / 2);
+  background: var(--neutral-color);
+  border-radius: var(--inner-radius);
+  padding: calc(var(--padding) / 2);
+  font-size: var(--small-font-size);
+}
+
+.summarize-reviews .summary:not(:empty)::before {
+  content: "AI generated summary: ";
+  font-weight: 600;
+}
+
+.system-check {
+  color: #0009;
+  font-size: var(--small-font-size);
+}
+
+.summarize-reviews .system-check {
+  margin-inline-start: calc(var(--padding) / 2);
+}
+
+.user-reviews li {
+  display: grid;
+  gap: calc(var(--gap) / 2);
+  grid-template-areas:
+    "title     rating"
+    "desc      desc";
+  grid-template-columns: auto 1fr;
+
+  margin-block-start: var(--padding);
+  padding-block-start: var(--padding);
+  border-block-start: 1px solid var(--divider-color);
+}
+
+.user-reviews li h3 {
+  grid-area: title;
+  margin: 0;
+}
+
+.user-reviews li .star-rating {
+  grid-area: rating;
+  place-self: center end;
+}
+
+@media (max-width: 500px) {
+  .user-reviews li {
+    grid-template-areas:
+      "title"
+      "rating"
+      "desc";
+    grid-template-columns: 1fr;
+  }
+
+  .user-reviews li .star-rating {
+    place-self: start;
+  }
+}
+
+.user-reviews li .review-description {
+  grid-area: desc;
+  margin: 0;
+}
+
+.user-reviews button {
+  padding: calc(var(--padding) / 4);
+  font-size: var(--small-font-size);
+  display: block;
+  margin-block-start: var(--padding);
+}
+
+#review-form h3 {
+  margin-block-start: 0;
+}
+
+#review-form .message-bar {
+  margin-block-end: calc(var(--gap) / 2);
+}
+
+#review-form .message-bar:empty {
+  display: none;
+}
+
+#review-form .system-check {
+  display: block;
+  margin-block-start: calc(var(--padding) / 2);
+}
+
+#review-form input,
+#review-form textarea,
+#review-form .star-rating {
+  margin-block-end: calc(var(--gap) / 2);
+}
+
+#review-form .star-rating {
+  cursor: pointer;
+}
+
+#review-form .star-rating:hover,
+#review-form .star-rating:focus-visible,
+#review-form .star-rating[selected] {
+  outline: 2px solid black;
+  border-radius: var(--inner-radius);
+  outline-offset: 4px;
+  background-color: var(--neutral-color);
+}
+
+.star-rating {
+  --star-size: 14px;
+  --label-size: 20px;
+  --nb-stars: 5;
+  --rating-percent: calc(attr(data-rating type(<number>)) * 100% / var(--nb-stars));
+
+  width: calc(var(--nb-stars) * var(--star-size));
+  height: var(--star-size);
+  line-height: 1;
+
+  background-image: url(./images/star.png);
+  background-repeat: repeat-x;
+  background-size: var(--star-size);
+
+  position: relative;
+  margin-inline-start: var(--label-size);
+}
+
+.star-rating::before {
+  content: attr(data-rating);
+  font-size: var(--small-font-size);
+  margin-inline-start: calc(-1 * var(--label-size));
+  text-align: center;
+  width: var(--label-size);
+  display: inline-block;
+}
+
+.star-rating::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: linear-gradient(to right, black 0 var(--rating-percent), transparent 0);
+  mix-blend-mode: overlay;
+}
+
+footer {
+  background: black;
+  color: white;
+  margin-block-start: var(--big-margin);
+  padding-block-start: var(--gap);
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  background: black;
+  left: calc(-1 * var(--gap));
+  right: calc(-1 * var(--gap));
+  top: 0;
+  bottom: calc(-1 * var(--big-margin));
+  z-index: -1;
+}
+
+footer h3 {
+  margin-block-start: 0;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer a {
+  color: white;
+}
+
+/* Tutorial popover overlays. */
+
+.tutorial-popover {
+  position: absolute;
+  inset: unset;
+  width: 260px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  bottom: calc(anchor(top) + var(--gap) / 2);
+  justify-self: anchor-center;
+}
+
+.tutorial-popover-wrapper {
+  background: var(--form-background);
+  border-radius: var(--inner-radius);
+  padding: calc(var(--padding) / 2);
+  margin-block-end: 10px;
+}
+
+.tutorial-popover-wrapper::after {
+  content: "";
+  position: absolute;
+  height: 10px;
+  width: 20px;
+  background: var(--form-background);
+  bottom: 0;
+  justify-self: anchor-center;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.tutorial-popover .step {
+  font-size: var(--small-font-size);
+  background: var(--neutral-color);
+  padding: calc(var(--padding) / 4) calc(var(--padding) / 2);
+  border-radius: var(--inner-radius);
+  justify-self: start;
+}
+
+.tutorial-popover h4,
+.tutorial-popover p {
+  margin: calc(var(--padding) / 2) 0;
+  font-weight: normal;
+}
+
+.tutorial-popover p {
+  font-size: var(--small-font-size);
+}
+
+.tutorial-popover button.next {
+  background: black;
+  color: white;
+  display: block;
+  justify-self: end;
+}
+
+.tutorial-popover::backdrop {
+  background: #333a;
+}
+
+#summarize-reviews {
+  anchor-name: --tutorial-step1;
+}
+
+#summarize-reviews+.tutorial-popover {
+  position-anchor: --tutorial-step1;
+}
+
+#review-form h3 {
+  anchor-name: --tutorial-step2;
+}
+
+#review-form .tutorial-popover {
+  position-anchor: --tutorial-step2;
+}

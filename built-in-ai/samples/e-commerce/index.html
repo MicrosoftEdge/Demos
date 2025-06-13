@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>E-commerce sample</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI Playground</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item current">E-commerce</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item current">E-commerce</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+<main>
+  
+<link rel="stylesheet" href="/Demos/built-in-ai/static/e-commerce.css">
+
+<div class="shoes-header">
+  <h1>Shoes Inc.</h1>
+
+  <nav>
+    <ul>
+      <li><a href="#">New products</a></li>
+      <li><a href="#">All products</a></li>
+      <li><a href="#">Sale</a></li>
+      <li><a href="#">Your basket</a></li>
+    </ul>
+  </nav>
+
+  <search>
+    <form onsubmit="event.preventDefault();" id="search">
+      <input type="search" id="search-input" placeholder="Search for products..." aria-label="Search for products">
+    </form>
+  </search>
+</div>
+
+<section class="product">
+  <div class="product-details card-with-shadow">
+    <h2>Waterproof hiking boots</h2>
+
+    <div class="price">$160.00</div>
+
+    <p class="product-description">
+      These waterproof hiking boots are perfect for your next adventure. They are made with durable materials and have
+      a comfortable fit. The non-slip sole provides excellent traction on any terrain, making them ideal for hiking,
+      camping, or any outdoor activity.
+      <br>
+      These boots are designed to keep your feet dry and comfortable, even in wet conditions. The breathable lining
+      ensures that your feet stay cool and dry, while the cushioned insole provides support for long hikes. The rugged
+      outsole offers excellent grip on slippery surfaces, making these boots a must-have for any outdoor enthusiast.
+    </p>
+
+    <h3>Colors</h3>
+
+    <ul class="product-colors">
+      <li class="color" title="Color Mustard" data-color="#e49539" selected></li>
+      <li class="color" title="Color Gray" data-color="#4d4c51"></li>
+      <li class="color" title="Color Brown" data-color="#985135"></li>
+    </ul>
+
+    <h3>Sizes</h3>
+
+    <ul class="product-sizes">
+      <li class="size" title="Size 7 is unavailable" unavailable>7</li>
+      <li class="size" title="Size 7.5">7.5</li>
+      <li class="size" title="Size 8">8</li>
+      <li class="size" title="Size 8.5">8.5</li>
+      <li class="size" title="Size 9">9</li>
+      <li class="size" title="Size 9.5">9.5</li>
+      <li class="size" title="Size 10 is unavailable" unavailable>10</li>
+      <li class="size" title="Size 10.5">10.5</li>
+      <li class="size" title="Size 11">11</li>
+      <li class="size" title="Size 11.5 is unavailable" unavailable>11.5</li>
+      <li class="size" title="Size 12">12</li>
+      <li class="size" title="Size 13">13</li>
+    </ul>
+  </div>
+
+  <div class="product-images">
+    <img src="/Demos/built-in-ai/static/images/product-picture-1.png" alt="A picture of the product.">
+    <img src="/Demos/built-in-ai/static/images/product-picture-2.png" alt="A picture of the product.">
+    <img src="/Demos/built-in-ai/static/images/product-picture-3.png" alt="A picture of the product.">
+    <img src="/Demos/built-in-ai/static/images/product-picture-4.png" alt="A picture of the product.">
+  </div>
+
+  <form onsubmit="event.preventDefault();" id="add-to-basket">
+    <button type="submit">Add to basket</button>
+  </form>
+</section>
+
+<aside class="reviews">
+  <div class="current-reviews">
+    <h2>
+      User reviews (<span id="review-count">7</span>)
+    </h2>
+
+    <div class="star-rating" data-rating="3.7" id="average-rating"></div>
+
+    <div class="summarize-reviews">
+      <button id="summarize-reviews" disabled>Summarize reviews</button>
+      <div class="tutorial-popover step1" popover>
+        <div class="tutorial-popover-wrapper">
+          <div class="step">Step 1</div>
+          <h4>Summarize user reviews</h4>
+          <p>Click the summarize button to generate a concise summary of all the submitted feedback.<br>
+          The summary is generated on-device, by using the Summarizer API.</p>
+          <button class="next">Next</button>
+        </div>
+      </div>
+      <span class="system-check" id="review-summary-check">Checking if your system supports summarizing reviews
+        ...</span>
+      <div class="summary" id="review-summary-output"></div>
+    </div>
+
+    <ul class="user-reviews">
+      <li lang="en">
+        <h3 class="review-title">Very sturdy!</h3>
+        <p class="review-description">I bought these boots for a hiking trip and they held up great. The grip was
+          excellent on rocky terrain and they kept my feet dry in the rain.</p>
+        <div class="star-rating" data-rating="4"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">Great for the price</h3>
+        <p class="review-description">I was surprised at how comfortable these boots are for the price. They fit well
+          and are very lightweight.</p>
+        <div class="star-rating" data-rating="3"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">Comfortable but not completely waterproof</h3>
+        <p class="review-description">I do a lot of hiking and these boots are very comfortable. However, they are not
+          completely waterproof. My feet got wet during a recent hike in the rain.</p>
+        <div class="star-rating" data-rating="2"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">Love em!</h3>
+        <p class="review-description">
+          These hiking shoes are absolutely amazing! They are incredibly comfortable and stylish. I wore them on a
+          long hike, and my feet felt great the entire time. I highly recommend them!
+        </p>
+        <div class="star-rating" data-rating="5"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">Incredible!</h3>
+        <p class="review-description">
+          I've had them for almost 5 years and go hiking at least 3 or 4 times a year (mainly in dry conditions). They
+          are still in excellent condition and I love them! I would recommend them to anyone looking for a good pair
+          of hiking boots!
+        </p>
+        <div class="star-rating" data-rating="4"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">Great for hiking</h3>
+        <p class="review-description">
+          I took these boots on a week-long hiking trip and they were fantastic. They provided great support and
+          comfort,
+          even on long hikes.</p>
+        <div class="star-rating" data-rating="5"></div>
+      </li>
+      <li lang="en">
+        <h3 class="review-title">These aren't waterproof!</h3>
+        <p class="review-description">
+          I bought these boots for a hike in the rain and my feet got soaked. They are comfortable, but they are not
+          waterproof.
+        </p>
+        <div class="star-rating" data-rating="3"></div>
+      </li>
+    </ul>
+  </div>
+
+  <form onsubmit="event.preventDefault();" id="review-form">
+    <h3>Write a review</h3>
+    <div class="tutorial-popover step2" popover>
+      <div class="tutorial-popover-wrapper">
+        <div class="step">Step 2</div>
+        <h4>Write a review</h4>
+        <p>Enter feedback in the form and click the submit button below to share your review.<br>
+        The submitted text is moderated on-device by using the Prompt API.</p>
+        <button class="next">Got it</button>
+      </div>
+    </div>
+
+    <div class="message-bar"></div>
+
+    <label for="review-headline">Headline</label>
+    <input type="text" id="review-title" placeholder="The key point to know" required>
+
+    <label for="review-description">Description</label>
+    <textarea id="review-description" placeholder="A longer review of this product" required></textarea>
+
+    <label for="review-rating">Rating</label>
+    <div class="star-rating" id="review-rating-0" data-rating="0" tabindex="0"></div>
+    <div class="star-rating" id="review-rating-1" data-rating="1" tabindex="0"></div>
+    <div class="star-rating" id="review-rating-2" data-rating="2" tabindex="0"></div>
+    <div class="star-rating" id="review-rating-3" data-rating="3" tabindex="0"></div>
+    <div class="star-rating" id="review-rating-4" data-rating="4" tabindex="0"></div>
+    <div class="star-rating" id="review-rating-5" data-rating="5" tabindex="0"></div>
+
+    <button type="submit">Submit review</button>
+    <span class="system-check" id="review-moderation-check"></span>
+  </form>
+</aside>
+
+<footer>
+  <h3>Shoes Inc. &copy; 2025</h3>
+  <nav>
+    <ul>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Contact us</a></li>
+      <li><a href="#">Privacy policy</a></li>
+      <li><a href="#">Terms of service</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<script src="/Demos/built-in-ai/static/e-commerce.js"></script>
+
+</main>
+
+<script src="/Demos/built-in-ai/static/session.js"></script>
+<script src="/Demos/built-in-ai/static/spinner.js"></script>
+
+</body>
+</html>
