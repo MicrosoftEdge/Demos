@@ -7,7 +7,7 @@
 
 ## Requirements
 
-The main goal of this demo is to showcase the Window Controls Overlay (WCO) PWA feature, which is described in [Display content in the title bar](https://learn.microsoft.com/microsoft-edge/progressive-web-apps-chromium/how-to/window-controls-overlay).  To make the most use of this demo, view it in a browser that's based on the Chromium engine, such as Microsoft Edge.
+The main goal of this demo is to showcase the Window Controls Overlay (WCO) PWA feature, which is described in [Display content in the title bar](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/window-controls-overlay).  To make the most use of this demo, view it in a browser that's based on the Chromium engine, such as Microsoft Edge.
 
 The demo app also demonstrates using [constructable stylesheets](https://developers.google.com/web/updates/2019/02/constructable-stylesheets).  Constructable stylesheets are supported in the following web browsers:
 * Browsers that are based on the Chromium engine, such as Microsoft Edge.

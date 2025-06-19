@@ -6,7 +6,7 @@ This demo page is useful to show some of the most useful features of the 3D View
 
 * Read the blog post about the tool here (link coming soon).
 * Watch the video about the tool here (link coming soon).
-* Read documentation about the tool [here](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/3d-view/).
+* Read documentation about the tool [here](https://learn.microsoft.com/microsoft-edge/devtools-guide/3d-view/).
 
 ## Deeply nested DOM
 
