@@ -6,7 +6,7 @@ _* This extension is under development_
 
 ## What is a heap snapshot file?
 
-Please refer to this document which contains all the information you need to udnerstand the schema of a`*.heapspanshot` file produced by the DevTools Memory tool: [The heap snapshot file format](https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/memory-problems/heap-snapshot-schema)
+Please refer to this document which contains all the information you need to udnerstand the schema of a`*.heapspanshot` file produced by the DevTools Memory tool: [The heap snapshot file format](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshot-schema)
 
 ## What kind of visualization?
 - A force directed graph
