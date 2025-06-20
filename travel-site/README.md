@@ -2,7 +2,7 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/travel-site/)** ⬅️
 
-This fictitious travel website is used as a low performance demo page in the Microsoft Edge DevTools tutorial: [Optimize website speed using Lighthouse](https://learn.microsoft.com/microsoft-edge/devtools-guide/speed/get-started).
+This fictitious travel website is used as a low performance demo page in the Microsoft Edge DevTools tutorial: [Optimize website speed using Lighthouse](https://learn.microsoft.com/microsoft-edge/devtools/speed/get-started).
 
 ## About the demo
 
