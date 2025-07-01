@@ -2,10 +2,10 @@
 
 This folder contains the source code for several Microsoft Edge DevTools Console tool demos. These demos are used in the following articles:
 
-* [Console overview](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/)
-* [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-log)
-* [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/console-debug-javascript)
-* [Monitor changes in JavaScript using Live Expressions](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/console/live-expressions)
+* [Console overview](https://learn.microsoft.com/microsoft-edge/devtools/console/)
+* [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools/console/console-log)
+* [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript)
+* [Monitor changes in JavaScript using Live Expressions](https://learn.microsoft.com/microsoft-edge/devtools/console/live-expressions)
 
 Below is the list of demo pages:
 
