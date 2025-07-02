@@ -5,8 +5,8 @@ const bubbleBtn = document.getElementById("installBubble");
 const installBtn = document.getElementById("btnInstallStore");
 
 pwinterBtn.addEventListener('click', () => {
-  navigator.install('https://diek.us/pwinter/index.html?randomize=true',
-                    'https://diek.us/pwinter/')
+  navigator.install('https://diek.us/pwinter/',
+                    'https://diek.us/pwinter/index.html?randomize=true')
 });
 
 pwampBtn.addEventListener('click', () => {
@@ -15,8 +15,8 @@ pwampBtn.addEventListener('click', () => {
 });
 
 bubbleBtn.addEventListener('click', () => {
-  navigator.install('https://diek.us/bubble/index.html',
-                    'https://diek.us/bubble/')
+  navigator.install('https://diek.us/bubble/',
+                    'https://diek.us/bubble/index.html')
 });
 
 installBtn.addEventListener('click', () => {
