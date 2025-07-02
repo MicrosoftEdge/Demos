@@ -11,7 +11,7 @@ const spinnerEl = createSpinner();
 
 addEventListener("load", async () => {
   await checkRewriterAPIAvailability();
-  let session = await getRewriterSession();
+  let session = null;
 
   let abortController
 
@@ -20,7 +20,7 @@ addEventListener("load", async () => {
       abortController.abort("User stopped the rewriter.");
     }
     abortController = null;
-    session.destroy();
+    session?.destroy();
     spinnerEl.remove();
   });
 

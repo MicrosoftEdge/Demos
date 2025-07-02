@@ -60,7 +60,7 @@ const modelDownloadProgressMonitor = m => {
     const current = (e.loaded / e.total) * 100;
     displaySessionMessage(`Model downloading (${current.toFixed(1)}%). Please wait.`);
     if (e.loaded == e.total) {
-      displaySessionMessage("Model downloaded. Reload the page and try again.");
+      displaySessionMessage("Model downloaded. You can now use the API.");
     }
   });
 };
@@ -141,7 +141,12 @@ async function checkAPIAvailability(api, modelError) {
   }
 
   // Everything seems to be fine.
-  displaySessionMessage(`On-device API and model ${availability}`);
+  let message = `On-device API and model ${availability}.`;
+  if (availability === "downloadable") {
+    message += " The model will be downloaded the first time the API is used.";
+  }
+
+  displaySessionMessage(message);
 
   return availability;
 }
@@ -180,7 +185,7 @@ async function getSession(api, defaultOptions, userOptions) {
     throw "Can't create model session: " + e;
   }
 
-  displaySessionMessage("API and model ready");
+  displaySessionMessage("API and model ready.");
 
   return session;
 }

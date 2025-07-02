@@ -23,7 +23,7 @@ contextEl.value = DEFAULT_CONTEXT;
 
 addEventListener("load", async () => {
   await checkSummarizerAPIAvailability();
-  let session = await getSummarizerSession();
+  let session = null;
 
   let abortController
 
@@ -32,7 +32,7 @@ addEventListener("load", async () => {
       abortController.abort("User stopped the summarization");
     }
     abortController = null;
-    session.destroy();
+    session?.destroy();
     spinnerEl.remove();
   });
 

@@ -9,7 +9,7 @@ const spinnerEl = createSpinner();
 
 addEventListener("load", async () => {
   await checkWriterAPIAvailability();
-  let session = await getWriterSession();
+  let session = null;
 
   let abortController
 
@@ -18,7 +18,7 @@ addEventListener("load", async () => {
       abortController.abort("User stopped the writer.");
     }
     abortController = null;
-    session.destroy();
+    session?.destroy();
     spinnerEl.remove();
   });
 

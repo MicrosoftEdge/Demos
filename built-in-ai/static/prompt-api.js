@@ -74,8 +74,7 @@ linkRangewithNumber(topKEl, topKEl.nextElementSibling);
 addEventListener("load", async () => {
   await checkLanguageModelAPIAvailability();
 
-  // Getting a session to show the download progress.
-  let session = await getLanguageModelSession();
+  let session = null;
   let abortController;
 
   stopBtn.addEventListener("click", () => {
@@ -83,7 +82,7 @@ addEventListener("load", async () => {
       abortController.abort("User stopped the conversation");
     }
     abortController = null;
-    session.destroy();
+    session?.destroy();
     spinnerEl.remove();
   });
 
