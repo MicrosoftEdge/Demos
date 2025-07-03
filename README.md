@@ -60,6 +60,11 @@ sort on col 3: Repo directory
 
 
 #### Microsoft Edge extensions
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples
+https://github.com/microsoft/MicrosoftEdge-Extensions/blob/main/README.md#code
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extensions
+-->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
@@ -68,6 +73,9 @@ sort on col 3: Repo directory
 | Panel | A basic DevTools extension with a panel. | [/devtools-extension/sample 2/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%202) | n/a |
 | CDP | A basic DevTools extension invoking Chrome Developer Protocol (CDP) APIs. | [/devtools-extension/sample 3/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%203) | n/a |
 | Inspect | A basic DevTools extension that interacts with the Inspected page. | [/devtools-extension/sample 4/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%204) | n/a |
+
+See also:
+* [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo.
 
 
 #### Progressive Web Apps (PWAs)
