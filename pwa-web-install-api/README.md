@@ -16,4 +16,4 @@ To try the feature, follow these steps:
 1. Search for "web-app-installation-api" in the search box.
 1. Set the **Web App Installation API** flag to **Enabled**, and then restart the browser.
 
-To share feedback, please [open an issue on the MSEdgeExplainers repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=css-gap-decorations.md).
+To share feedback, please [open an issue on the MSEdgeExplainers repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=web-install-api.md).
