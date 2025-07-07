@@ -153,6 +153,7 @@
     }
 
     @supports not (row-rule: 1px solid red) {
+
       /* For browsers that don't support gap decorations. */
       main {
         gap: 1.5rem;
@@ -176,6 +177,38 @@
 
     main article.ad {
       flex: 1 1 100%;
+    }
+
+    @supports (display: masonry) {
+      main {
+        display: masonry;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      main article.spotlight {
+        grid-column: span 2;
+      }
+
+      main article.ad {
+        grid-column: 1 / -1;
+      }
+
+      /* Gap decorations aren't currently supported in Masonry. */
+      main {
+        row-gap: 1.5rem;
+      }
+
+      main article {
+        padding-block-end: 1.5rem;
+        border-block-end: 2px solid var(--text);
+      }
+
+      /* We don't yet have support for auto masonry columns. */
+      @media (max-width: 550px) {
+        main article.spotlight {
+          grid-column: span 1;
+        }
+      }
     }
 
     article a {
