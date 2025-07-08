@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <style>
   body {
-    margin: 0;
+    margin: 0 2rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 14pt;
     color: #4e814e;
@@ -27,7 +27,7 @@
 
   main {
     max-width: 1000px;
-    margin: 5rem auto;
+    margin: 5rem auto 20rem auto;
     display: masonry;
     grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
     gap: .25rem;
@@ -51,12 +51,10 @@
 
   @keyframes animate-in-and-out {
     entry 0% {
-      /* opacity: 0; */
-      transform: translateY(3rem);
+      transform: translateY(100%);
     }
 
-    entry 100% {
-      /* opacity: 1; */
+    entry 200% {
       transform: translateY(0);
     }
   }
