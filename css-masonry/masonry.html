@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASONRY</title>
+  <style>
+    body {
+      --size: 4rem;
+      --main-color: #9fa8da;
+
+      font-family: monospace;
+      font-size: 20pt;
+      margin: var(--size) auto;
+      padding: 0 var(--size);
+      max-width: 1200px;
+
+      display: masonry;
+      grid-template-columns: repeat(auto-fill, var(--size));
+      gap: 1rem;
+    }
+
+    span {
+      width: var(--size);
+      height: var(--size);
+      background: var(--main-color);
+      font-size: calc(var(--size) - 1rem);
+      display: grid;
+      place-items: center;
+    }
+
+    span.space {
+      background: color-mix(in srgb, var(--main-color), white);
+    }
+
+    span {
+      height: calc(var(--size) + 8rem * sin((sibling-index() / sibling-count()) * pi));
+    }
+  </style>
+</head>
+
+<body>
+  <span class="space"></span>
+  <span>M</span>
+  <span>A</span>
+  <span>S</span>
+  <span>O</span>
+  <span>N</span>
+  <span>R</span>
+  <span>Y</span>
+  <span class="space"></span>
+  <span>I</span>
+  <span>S</span>
+  <span class="space"></span>
+  <span>A</span>
+  <span>W</span>
+  <span>E</span>
+  <span>S</span>
+  <span>O</span>
+  <span>M</span>
+  <span>E</span>
+  <span>!</span>
+  <span class="space"></span>
+  <span class="space"></span>
+</body>
+
+</html>
