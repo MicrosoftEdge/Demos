@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars</title>
+  <style>
+    :root {
+      --traffic-density: 200px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      background: url(cars/grass.jpg);
+    }
+
+    .road {
+      display: masonry;
+      grid-template-columns: repeat(5, 50px);
+      gap: var(--traffic-density) 20px;
+      width: 350px;
+      height: 100%;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin: 0 auto;
+      background-color: #ddd;
+      background-image: linear-gradient(to right, #ddd 0 67px, transparent 0), linear-gradient(to bottom, #ffffff 0 50px, transparent 50px 100px);
+      background-size: 70px 100%, 3px 100px;
+      background-position: -10px 0, 70px 0;
+      background-attachment: local, fixed;
+      border: 8px solid #525252;
+      border-width: 0 8px;
+    }
+
+    .car:nth-child(2n) {
+      margin-block-start: 100px;
+    }
+
+    .car:nth-child(5n) {
+      margin-block-end: 50px;
+    }
+
+    .car img {
+      width: 100%;
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="road">
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car7.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car6.png"></div>
+    <div class="car"><img src="cars/car8.png"></div>
+    <div class="car"><img src="cars/car9.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+  </main>
+</body>
+
+</html>
