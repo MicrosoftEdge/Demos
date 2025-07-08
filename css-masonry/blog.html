@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Edge Blog</title>
+  <style>
+    :root {
+      --margin: 5rem;
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --margin: 2rem;
+      }
+    }
+
+    body {
+      background: #e6eaeb;
+      font-family: 'Segoe UI', SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-optical-sizing: auto;
+      font-size: 12pt;
+    }
+
+    nav {
+      padding: 1rem var(--margin);
+      background: white;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav .site-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      border-inline-start: 2px solid black;
+      padding-inline-start: 1rem;
+    }
+
+    nav a {
+      display: inline-block;
+    }
+
+    nav img {
+      width: 108px;
+    }
+
+    main {
+      margin: var(--margin) 0;
+
+      display: masonry;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+      gap: 2rem;
+
+      max-width: 1300px;
+      margin-inline: auto;
+      padding-inline: var(--margin);
+    }
+
+    * {
+      margin: 0;
+    }
+
+    h1,
+    h2 {
+      font-weight: 200;
+    }
+
+    p {
+      font-weight: 200;
+      line-height: 1.6;
+    }
+
+    article,
+    header {
+      padding: 1rem;
+      border-radius: 1rem;
+      background: white;
+      overflow: hidden;
+    }
+
+    .view-more {
+      text-align: end;
+      grid-column: 1 / -1;
+    }
+
+    .view-more a {
+      color: black;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    header {
+      padding-block: 3rem;
+      color: white;
+      background: linear-gradient(-45deg, blue -30%, black);
+    }
+
+    header h1 {
+      margin-block-end: 1rem;
+      padding-block-start: 4rem;
+      background: url(logo1024.png) no-repeat left top;
+      background-size: 3rem;
+    }
+
+    article h2 {
+      padding-block-end: 1rem;
+      border-block-end: 1px solid #ccc;
+    }
+
+    article:has(img) h2 {
+      margin-block-start: 1rem;
+    }
+
+    article time {
+      display: block;
+      margin-block: 1rem;
+      font-weight: 200;
+      font-size: .9rem;
+      color: #666;
+    }
+
+    article.inverted time {
+      color: #ccc;
+    }
+
+    article.inverted a {
+      color: white;
+    }
+
+    article p {
+      margin-block-end: 1rem;
+    }
+
+    article a::after {
+      content: " ↪";
+      color: currentColor;
+      font-weight: 600;
+      rotate: -45deg;
+      display: inline-block;
+      margin-inline-start: 0.4rem;
+    }
+
+    article img {
+      width: calc(100% + 2rem);
+      margin: -1rem -1rem 0 -1rem;
+      height: 15rem;
+      object-fit: cover;
+    }
+
+    article.inverted {
+      background: linear-gradient(grey, black);
+      color: white;
+    }
+
+    footer {
+      color: #616161;
+      font-size: smaller;
+      line-height: 1.7;
+      display: masonry;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+      gap: 1rem;
+      padding: var(--margin);
+      background: #0001;
+    }
+
+    footer ul,
+    footer li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer .header {
+      font-weight: 600;
+    }
+
+    footer a {
+      color: currentColor;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="https://microsoft.com">
+      <img src="blog/microsoft.png" alt="Microsoft's logo.">
+    </a>
+    <div class="site-title">Microsoft Edge</div>
+  </nav>
+  <main>
+    <header>
+      <h1>Microsoft Edge web platform blog</h1>
+      <p>Blog posts related to the implementation of the web platform in Microsoft Edge, covering web APIs and features,
+        DevTools, WebView 2, and Progressive Web Apps.</p>
+    </header>
+    <article>
+      <img src="blog/forced-colors-before-after.png"
+        alt="The effect of a Windows Contrast theme on Microsoft Edge and on the website that's rendered, thanks for the forcec colors mode.">
+      <h2>Removing -ms-high-contrast and embracing standards-based forced colors in Microsoft Edge</h2>
+      <time datetime="2025-06-30">30 June 2025</time>
+      <p>The Edge team is excited to announce that the non-standard -ms-high-contrast media feature and
+        -ms-high-contrast-adjust property are now completely removed from Edge, starting with version 138.</p>
+      <a
+        href="https://blogs.windows.com/msedgedev/2025/06/30/removing-ms-high-contrast-and-embracing-standards-based-forced-colors-in-microsoft-edge/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/latest-interop-chart.png"
+        alt="The Interop score chart from the Interop 2025 dashboard. It shows 5 lines going up and to the right, signifying that the 4 tested browsers are getting more interoperable across the selected focus areas, and that the overall interop score is also improving.">
+      <h2>The Edge 2025 web platform top developer needs dashboard</h2>
+      <time datetime="2025-06-26">26 June 2025</time>
+      <p>Interop is the most effective way we have to collectively catch up on implementation differences and bugs. The
+        project has a good track record of bringing implementations into alignment for the areas that are selected.
+        However, there’s more that web developers need.</p>
+      <a
+        href="https://blogs.windows.com/msedgedev/2025/06/26/the-edge-2025-web-platform-top-developer-needs-dashboard/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/windows.jpg" alt="A laptop computer running Windows.">
+      <h2>Bring your PWA closer to users with App Actions on Windows</h2>
+      <time datetime="2025-05-30">30 May 2025</time>
+      <p>We’re excited to announce that App Actions on Windows are now available for Progressive Web Apps (PWAs).
+        Starting
+        with Edge version 137, you can now publish your PWA to the Microsoft Store to enable App Actions on Windows.</p>
+      <a
+        href="https://blogs.windows.com/msedgedev/2025/05/30/bring-your-pwa-closer-to-users-with-app-actions-on-windows/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/prompt-api.png"
+        alt="Microsoft Edge browser window, showing a demo web page that's running the Prompt API."
+        style="object-position:top left;">
+      <h2>Simplified access to AI in Microsoft Edge: Introducing the Prompt and Writing Assistance APIs</h2>
+      <time datetime="2025-05-19">19 May 2025</time>
+      <p>We’re excited to introduce experimental web APIs in Microsoft Edge that make it easier than ever for web
+        developers to integrate AI into their web applications. The Prompt API and Writing Assistance APIs — now
+        available
+        as developer previews in Edge Canary and Dev channels — give you access to a powerful small language model,
+        Phi-4-mini, that is built into the Edge browser.</p>
+      <a href="https://blogs.windows.com/msedgedev/2025/05/19/introducing-the-prompt-and-writing-assistance-apis/">Read
+        more</a>
+    </article>
+    <article class="inverted">
+      <h2>Creating a more accessible web with Aria Notify</h2>
+      <time datetime="2025-05-05">5 May 2025</time>
+      <p>ARIA Notify is designed to address scenarios where a visual change that’s not tied to a DOM change and not
+        accessible to assistive technology users, happens in the page. Examples include changing the format of text in a
+        document, or when a person joins a video conference call.</p>
+      <a href="https://blogs.windows.com/msedgedev/2025/05/05/creating-a-more-accessible-web-with-aria-notify/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/many-logs.png"
+        alt="The Console tool in Edge DevTools, showing a long list of errors, warnings, and messages.">
+      <h2>Contextual logging with console.context()</h2>
+      <time datetime="2025-04-22">22 April 2025</time>
+      <p>If you work on a large code base with multiple teams, you probably deal
+        with large amounts of logs when inspecting your webapp. This is an area that we’re interested in improving, and
+        are proposing console.context(), a new feature to enable helpful contextual logging in
+        DevTools.</p>
+      <a href="https://blogs.windows.com/msedgedev/2025/04/22/contextual-logging-with-console-context/">Read more</a>
+    </article>
+    <article>
+      <img src="blog/gap-decorations.png"
+        alt="A webpage that uses CSS gap decorations to draw separators between items.">
+      <h2>Minding the gaps: A new way to draw separators in CSS</h2>
+      <time datetime="2025-03-19">19 March 2025</time>
+      <p>In this article, we’re introducing CSS gap decorations, a new proposal which we would love your feedback on. If
+        this is of interest to you, read this article and help us shape the future of CSS by providing your feedback.
+      </p>
+      <a href="https://blogs.windows.com/msedgedev/2025/03/19/minding-the-gaps-a-new-way-to-draw-separators-in-css/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/addons.svg"
+        alt="A store with the Edge sign on it, and a series of bubbles floating above it, each with the icon of a different addon in it.">
+      <h2>Empowering Microsoft Edge Add-ons developers with faster reviews</h2>
+      <time datetime="2025-02-26">26 February 2025</time>
+      <p>One of the key issues we hear from extension developers is the time that Microsoft takes to review their
+        extensions. We’re implementing several measures to improve this process. This will allow developers to iterate
+        faster, bringing more innovation to their users, and making the extensions more reliable, robust, and secure.
+      </p>
+      <a
+        href="https://blogs.windows.com/msedgedev/2025/02/26/empowering-microsoft-edge-add-ons-developers-with-faster-reviews/">Read
+        more</a>
+    </article>
+    <article>
+      <img src="blog/interop.png"
+        alt="The Interop 2025 webpage, showing the interop scores for each browser, and the chart of the overall interop score.">
+      <h2>Microsoft Edge and Interop 2025</h2>
+      <time datetime="2025-02-13">13 February 2025</time>
+      <p>Microsoft Edge is very pleased to announce our participation in the fifth edition of the Interop project:
+        Interop
+        2025. We’re joining forces with our colleagues at Apple, Bocoup, Igalia, Google, and Mozilla, to improve
+        interoperability on the web platform.</p>
+      <a href="https://blogs.windows.com/msedgedev/2025/02/13/microsoft-edge-and-interop-2025/">Read
+        more</a>
+    </article>
+    <p class="view-more"><a href="https://blogs.windows.com/msedgedev/posts/">View all recent posts &raquo;</a></p>
+  </main>
+  <footer>
+    <div class="column">
+      <div class="header">What's new</div>
+      <ul>
+        <li><a href="#">Surface Pro</a></li>
+        <li><a href="#">Surface Laptop</a></li>
+        <li><a href="#">Surface Laptop Studio 2</a></li>
+        <li><a href="#">Surface Laptop Go 3</a></li>
+        <li><a href="#">Microsoft Copilot</a></li>
+        <li><a href="#">AI in Windows</a></li>
+        <li><a href="#">Explore Microsoft products</a></li>
+        <li><a href="#">Windows 11 apps</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="header">Microsoft Store</div>
+      <ul>
+        <li><a href="#">Account profile</a></li>
+        <li><a href="#">Download Center</a></li>
+        <li><a href="#">Microsoft Store support</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Order tracking</a></li>
+        <li><a href="#">Certified Refurbished</a></li>
+        <li><a href="#">Microsoft Store Promise</a></li>
+        <li><a href="#">Flexible Payments</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="header">Education</div>
+      <ul>
+        <li><a href="#">Microsoft in education</a></li>
+        <li><a href="#">Devices for education</a></li>
+        <li><a href="#">Microsoft Teams for Education</a></li>
+        <li><a href="#">Microsoft 365 Education</a></li>
+        <li><a href="#">How to buy for your school</a></li>
+        <li><a href="#">Educator training and development</a></li>
+        <li><a href="#">Deals for students and parents</a></li>
+        <li><a href="#">AI for education</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="header">Business</div>
+      <ul>
+        <li><a href="#">Microsoft Cloud</a></li>
+        <li><a href="#">Microsoft Security</a></li>
+        <li><a href="#">Dynamics 365</a></li>
+        <li><a href="#">Microsoft 365</a></li>
+        <li><a href="#">Microsoft Power Platform</a></li>
+        <li><a href="#">Microsoft Teams</a></li>
+        <li><a href="#">Microsoft 365 Copilot</a></li>
+        <li><a href="#">Small Business</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="header">Developer & IT</div>
+      <ul>
+        <li><a href="#">Azure</a></li>
+        <li><a href="#">Microsoft Developer</a></li>
+        <li><a href="#">Microsoft Learn</a></li>
+        <li><a href="#">Support for AI marketplace apps</a></li>
+        <li><a href="#">Microsoft Tech Community</a></li>
+        <li><a href="#">Azure Marketplace</a></li>
+        <li><a href="#">AppSource</a></li>
+        <li><a href="#">Visual Studio</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="header">Company</div>
+      <ul>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">About Microsoft</a></li>
+        <li><a href="#">Company news</a></li>
+        <li><a href="#">Privacy at Microsoft</a></li>
+        <li><a href="#">Investors</a></li>
+        <li><a href="#">Diversity and inclusion</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <li><a href="#">Sustainability</a></li>
+      </ul>
+    </div>
+
+  </footer>
+</body>
+
+</html>
