@@ -48,13 +48,19 @@
     main {
       margin: var(--margin) 0;
 
-      display: masonry;
-      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-      gap: 2rem;
-
       max-width: 1300px;
       margin-inline: auto;
       padding-inline: var(--margin);
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+      gap: 2rem;
+    }
+
+    @supports (display: masonry) {
+      main {
+        display: masonry;
+      }
     }
 
     * {
@@ -63,7 +69,7 @@
 
     h1,
     h2 {
-      font-weight: 200;
+      font-weight: 400;
     }
 
     p {
@@ -157,11 +163,17 @@
       color: #616161;
       font-size: smaller;
       line-height: 1.7;
-      display: masonry;
+      display: grid;
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       gap: 1rem;
       padding: var(--margin);
       background: #0001;
+    }
+
+    @supports (display: masonry) {
+      footer {
+        display: masonry;
+      }
     }
 
     footer ul,
