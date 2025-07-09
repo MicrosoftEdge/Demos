@@ -33,6 +33,13 @@
     gap: .25rem;
   }
 
+  @supports not (display: masonry) {
+    main {
+      display: grid;
+      align-items: stretch;
+    }
+  }
+
   section {
     border-radius: .5rem;
     aspect-ratio: 1;

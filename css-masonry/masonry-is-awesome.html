@@ -21,6 +21,12 @@
       gap: 1rem;
     }
 
+    @supports not (display:masonry) {
+      body {
+        display: grid;
+      }
+    }
+
     span {
       width: var(--size);
       height: var(--size);

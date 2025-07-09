@@ -119,7 +119,7 @@
     .hero {
       display: grid;
       grid-template-rows: 2fr 1fr;
-      background-image: url('hero.jpg');
+      background-image: url('daily-oddity/hero.jpg');
       background-size: cover;
       background-position: center;
       margin: 1rem -4rem 3rem -4rem;
@@ -153,17 +153,15 @@
     }
 
     @supports not (row-rule: 1px solid red) {
-
       /* For browsers that don't support gap decorations. */
       main {
         gap: 1.5rem;
       }
 
       main article {
-        padding-inline-end: 1.5rem;
-        border-inline-end: 2px solid var(--text);
         padding-block-end: 1.5rem;
         border-block-end: 2px solid var(--text);
+        align-self: start;
       }
     }
 
@@ -249,7 +247,7 @@
       padding: 2rem 4rem 2rem calc(6rem + 130px);
       border: 0;
       margin-inline: -4rem;
-      background: var(--text) url(./subscribe.png) no-repeat 4rem center;
+      background: var(--text) url(daily-oddity/subscribe.png) no-repeat 4rem center;
       background-size: 130px;
     }
 
@@ -339,7 +337,7 @@
         <a href="#">Read more</a>
       </article>
       <article>
-        <img src="tree.jpg" alt="Article photo, for illustration purposes only.">
+        <img src="daily-oddity/tree.jpg" alt="Article photo, for illustration purposes only.">
         <time>2 March 2025</time>
         <h3>Scientists Find Evidence of Talking Trees in Forests</h3>
         <p class="exceprt">A groundbreaking study has found that trees in remote forests are capable of whispering to
@@ -347,7 +345,7 @@
         <a href="#">Read more</a>
       </article>
       <article class="spotlight">
-        <img src="cat.jpg" alt="Article photo, for illustration purposes only.">
+        <img src="daily-oddity/cat.jpg" alt="Article photo, for illustration purposes only.">
         <time>27 February 2025</time>
         <h3>Government Announces 3-Day Workweek for All</h3>
         <p class="exceprt">In an unprecedented move, the government has declared a new three-day workweek, citing
@@ -362,7 +360,7 @@
         <a href="#">Read more</a>
       </article>
       <article>
-        <img src="strings.jpg" alt="Article photo, for illustration purposes only.">
+        <img src="daily-oddity/strings.jpg" alt="Article photo, for illustration purposes only.">
         <time>24 February 2025</time>
         <h3>Aliens Offer Earth Free Wi-Fi, No Strings Attached</h3>
         <p class="exceprt">Extraterrestrial beings have reportedly made contact, offering Earth unlimited Wi-Fi access.
@@ -390,7 +388,7 @@
         <a href="#">Subscribe Now</a>
       </article>
       <article class="spotlight">
-        <img src="tourist.jpg"
+        <img src="daily-oddity/tourist.jpg"
           alt="A person standing at an intersection. The person has its back to the camera, and the cars are passing by, in a motion blur effect.">
         <time>22 February 2025</time>
         <h3>World's First Time-Traveling Tourist Arrives in 2025</h3>
@@ -413,7 +411,7 @@
         <a href="#">Read more</a>
       </article>
       <article>
-        <img src="bike.jpg" alt="A bike, securely locked to a bike rack.">
+        <img src="daily-oddity/bike.jpg" alt="A bike, securely locked to a bike rack.">
         <time>19 February 2025</time>
         <h3>Bicycle Riders Demand Lanes Made of Marshmallows</h3>
         <p class="exceprt">Cyclists everywhere are calling for roads to be paved with soft, bouncy marshmallows,
@@ -422,7 +420,7 @@
         <a href="#">Read more</a>
       </article>
       <article>
-        <img src="tram.jpg" alt="A tram with googly eyes and a funny mustache painted on the front.">
+        <img src="daily-oddity/tram.jpg" alt="A tram with googly eyes and a funny mustache painted on the front.">
         <time>18 February 2025</time>
         <h3>City Introduces Singing Trams to Boost Commuter Morale</h3>
         <p class="exceprt">In a bid to make public transportation more entertaining, the city has unveiled trams that
@@ -431,7 +429,7 @@
           <a href="#">Read more</a>
         </article>
         <article class="spotlight">
-        <img src="trash.jpg" alt="Sidewalk, with three trash bins.">
+        <img src="daily-oddity/trash.jpg" alt="Sidewalk, with three trash bins.">
         <time>17 February 2025</time>
         <h3>City Hires Flocks of Trained Seagulls for Garbage Collection</h3>
         <p class="exceprt">In a bold move to tackle overflowing trash bins, city officials have enlisted highly trained

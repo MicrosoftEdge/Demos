@@ -52,14 +52,15 @@
       margin-inline: auto;
       padding-inline: var(--margin);
 
-      display: grid;
+      display: masonry;
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       gap: 2rem;
     }
 
-    @supports (display: masonry) {
+    @supports not (display: masonry) {
       main {
-        display: masonry;
+        display: grid;
+        align-items: start;
       }
     }
 
@@ -105,7 +106,7 @@
     header h1 {
       margin-block-end: 1rem;
       padding-block-start: 4rem;
-      background: url(logo1024.png) no-repeat left top;
+      background: url(blog/logo1024.png) no-repeat left top;
       background-size: 3rem;
     }
 

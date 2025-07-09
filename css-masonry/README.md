@@ -4,9 +4,8 @@ This directory contains demos that showcase the use of CSS Masonry.
 
 ## Demos
 
-* [Edge Blog](https://microsoftedge.github.io/Demos/css-masonry/blog.html)
-* [Dashboard](https://microsoftedge.github.io/Demos/css-masonry/dashboard.html)
-* [Masonry is awesome](https://microsoftedge.github.io/Demos/css-masonry/masonry.html)
+* [Blog](https://microsoftedge.github.io/Demos/css-masonry/blog.html)
+* [Masonry is awesome](https://microsoftedge.github.io/Demos/css-masonry/masonry-is-awesome.html)
 * [New York City photos](https://microsoftedge.github.io/Demos/css-masonry/new-york.html)
 * [Plants](https://microsoftedge.github.io/Demos/css-masonry/plants.html)
 * [News site: The Daily Oddity](https://microsoftedge.github.io/Demos/css-masonry/the-daily-oddity.html)
