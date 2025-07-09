@@ -6,7 +6,7 @@ This directory contains demos that showcase the use of CSS Masonry.
 
 To try the demos, first enable Masonry:
 
-1. Use a Chromium-based browser, such as Microsoft Edge or Chrome, and make sure the version is at least 139.
+1. Use a Chromium-based browser, such as Microsoft Edge or Chrome, and make sure the version is at least 140.
 1. In the browser, open a new tab and go to `about:flags`.
 1. Search for "CSS Masonry Layout" in the search box.
 1. Set the **CSS Masonry Layout** flag to **Enabled**, and then restart the browser.
