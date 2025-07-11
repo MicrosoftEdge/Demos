@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars</title>
+  <style>
+    :root {
+      --traffic-density: 20px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      background: url(cars/grass.jpg);
+      font-family: system-ui;
+    }
+
+    label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: baseline;
+      background: #fff5;
+      padding: 5px;
+      gap: 5px;
+    }
+
+    label input {
+      margin: 0;
+    }
+
+    .road {
+      display: masonry;
+      item-tolerance: 0;
+      grid-template-columns: repeat(5, 50px);
+      gap: var(--traffic-density) 20px;
+      width: 341px;
+      height: 100%;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      margin: 0 auto;
+      background-color: #ddd;
+      background-image: linear-gradient(to right, #ddd 0 67px, transparent 0), linear-gradient(to bottom, #ffffff 0 50px, transparent 50px 100px);
+      background-size: 70px 100%, 3px 100px;
+      background-position: -5px 0, 70px 0;
+      background-attachment: local, fixed;
+      padding-block: 20px;
+      box-sizing: border-box;
+      box-shadow: 0 0 0 3px white, 0 0 0 40px #ddd, 0 0 0 45px #666;
+      counter-set: car 0;
+      padding-inline: 3px;
+    }
+
+    .car {
+      counter-increment: car;
+      position: relative;
+    }
+
+    :has(#show-outline:checked) .road .car {
+      outline: 2px dashed #a7a7a7;
+      outline-offset: 1px;
+    }
+
+    :has(#show-outline:checked) .road .car::before {
+      content: counter(car);
+      position: absolute;
+      background: white;
+      padding: 0 5px;
+      z-index: 1;
+    }
+
+    /* .car:nth-child(2n) {
+      margin-block-start: 100px;
+    }
+
+    .car:nth-child(5n) {
+      margin-block-end: 50px;
+    } */
+
+    .car img {
+      width: 100%;
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+
+<body>
+  <label>Show outline <input type="checkbox" id="show-outline"></label>
+  <main class="road">
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car4.png"></div>
+    <div class="car"><img src="cars/car5.png"></div>
+    <div class="car"><img src="cars/car3.png"></div>
+    <div class="car"><img src="cars/car1.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+    <div class="car"><img src="cars/car2.png"></div>
+  </main>
+</body>
+
+</html>

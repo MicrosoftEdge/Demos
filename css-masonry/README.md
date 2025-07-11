@@ -25,9 +25,9 @@ To try the demos, first enable Masonry:
 
   <img alt="Screenshot of the demo page." src="./nyc/screenshot.png" width="300">
 
-* [Plants](https://microsoftedge.github.io/Demos/css-masonry/plants.html)
+* [Nature photos with multiple layouts](https://microsoftedge.github.io/Demos/css-masonry/nature.html)
 
-  <img alt="Screenshot of the demo page." src="./plants/screenshot.png" width="300">
+  <img alt="Screenshot of the demo page." src="./nature/screenshot.png" width="300">
 
 * [News site: The Daily Oddity](https://microsoftedge.github.io/Demos/css-masonry/the-daily-oddity.html)
 
