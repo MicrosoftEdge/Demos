@@ -1,0 +1,8 @@
+#input {
+  height: 14rem;
+  max-height: 50vh;
+}
+
+#output:empty::before {
+  content: "The translation will appear here";
+}

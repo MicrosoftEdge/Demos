@@ -14,6 +14,9 @@ const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model
 const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${WA_DOCS_INSTRUCTIONS}`;
 const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
 
+const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_TRANSLATOR_MODEL_NOT_AVAILABLE = `The Translator API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
 
@@ -90,6 +93,11 @@ const defaultRewriterSessionOptions = {
   format: "as-is", // as-is, plain-text, markdown.
   monitor: modelDownloadProgressMonitor
 };
+const defaultTranslatorSessionOptions = {
+  sourceLanguage: "en", // The source language code.
+  targetLanguage: "fr", // The target language code.
+  monitor: modelDownloadProgressMonitor
+};
 
 // These APIs used to be under window.ai, but have then moved to window.
 // The following functions return the API object, depending on where it is found.
@@ -121,12 +129,19 @@ function getRewriterAPI() {
   throw ERR_REWRITER_API_NOT_DETECTED;
 }
 
+function getTranslatorAPI() {
+  if (window.Translator) return window.Translator;
+  if (window.ai && window.ai.translator) return window.ai.translator;
+  displaySessionMessage(ERR_TRANSLATOR_API_NOT_DETECTED, true);
+  throw ERR_TRANSLATOR_API_NOT_DETECTED;
+}
+
 // The following functions check if the  APIs and models are available, and display messages to the user.
 // You can call these functions when the page loads if you want to display the status
 // to the user early, so they know what to expect (e.g. if their browser supports the APIs).
 // These functions don't trigger the model download and do not create sessions.
-async function checkAPIAvailability(api, modelError) {
-  const availability = await api.availability();
+async function checkAPIAvailability(api, modelError, availabilityOptions) {
+  const availability = await api.availability(availabilityOptions);
 
   // The API is available, but the model is not.
   if (availability === "unavailable") {
@@ -171,6 +186,11 @@ async function checkRewriterAPIAvailability() {
   return availability;
 }
 
+async function checkTranslatorAPIAvailability(availabilityOptions) {
+  const availability = await checkAPIAvailability(getTranslatorAPI(), ERR_TRANSLATOR_MODEL_NOT_AVAILABLE, availabilityOptions);
+  return availability;
+}
+
 // The following functions create sessions for the APIs, possibly downloading the models first.
 async function getSession(api, defaultOptions, userOptions) {
   let session = null;
@@ -208,4 +228,12 @@ async function getWriterSession(options) {
 async function getRewriterSession(options) {
   await checkRewriterAPIAvailability();
   return await getSession(getRewriterAPI(), defaultRewriterSessionOptions, options);
+}
+
+async function getTranslatorSession(options) {
+  await checkTranslatorAPIAvailability({
+    sourceLanguage: options.sourceLanguage,
+    targetLanguage: options.targetLanguage
+  });
+  return await getSession(getTranslatorAPI(), defaultTranslatorSessionOptions, options);
 }
