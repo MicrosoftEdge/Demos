@@ -49,8 +49,7 @@ wamiBtn.addEventListener('click', async () => {
 }); 
 
 appTitleBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/app-title/',
-                    'https://microsoftedge.github.io/Demos/app-title/');
+  let installation = await navigator.install('https://microsoftedge.github.io/Demos/pwa-application-title/', 'https://microsoftedge.github.io/Demos/pwa-application-title/');
 }); 
 
 
