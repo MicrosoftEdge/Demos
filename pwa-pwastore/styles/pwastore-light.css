@@ -8,4 +8,6 @@
     --btn-category-fg: var(--blue);
     --footer-fg: var(--black);
     --footer-bg: var(--yellow-trans);
+    --instructions-bg: var(--yellow);
+    --link: var(--blue);
 }

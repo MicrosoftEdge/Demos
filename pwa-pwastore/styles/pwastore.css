@@ -12,6 +12,7 @@
     --green: #11AB00;
     --dark-green: #14690B;
     --light-green: #B9F3B3;
+    --line-height: 1.6rem;
 
     color-scheme: dark light;
 }
@@ -58,7 +59,7 @@ main {
 
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows:  repeat(auto-fill, auto);
+    grid-template-rows:  repeat(auto-fill, 1fr);
     grid-gap: 1rem;
     justify-content: center;
 }
@@ -67,15 +68,47 @@ main {
      main { display: masonry; }
 }
 
+.instructions {
+    grid-column: span 2;
+    background-color: var(--instructions-bg);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    border: var(--blue) solid ;
+}
+
+ul {
+  list-style: square inside none;
+}
+
+li {
+    margin: 0.3rem 0px;
+}
+
+p {
+    line-height: var(--line-height);
+    margin: 1rem 0px;
+}
+
+a {
+    color: var(--link);
+}
+
+code {
+    font-family: monospace;
+    margin: 0.15rem;
+    background-color: #FEFEFE22;
+}
+
+
 h2 {
     color: var(--subheader2);
     font-size: 1.25rem;
     font-weight: bold;
-    margin: .1rem;
+    margin: .2rem 0px;
 }
 
 .app_descrip {
-    line-height: 1.6rem;
+    line-height: var(--line-height);
     margin-top: .5rem;
 }
 
