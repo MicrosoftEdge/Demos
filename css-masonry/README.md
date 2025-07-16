@@ -1,6 +1,6 @@
 # CSS Masonry demos
 
-This directory contains demos that showcase the use of CSS Masonry.
+This directory contains demo pages that showcase the implementation of CSS Masonry in Chromium.
 
 ## Enable Masonry support
 
@@ -32,3 +32,12 @@ To try the demos, first enable Masonry:
 * [News site: The Daily Oddity](https://microsoftedge.github.io/Demos/css-masonry/the-daily-oddity.html)
 
   <img alt="Screenshot of the demo page." src="./daily-oddity/screenshot.png" width="300">
+
+* Masonry syntax examples:
+
+  * [Same size columns](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-columns.html)
+  * [Same size rows](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-rows.html)
+  * [Default track size](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/default-track-size.html)
+  * [Custom track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/custom-track-sizes.html)
+  * [Masonry shorthand](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/masonry-shorthand.html)
+  * [Spanning multiple tracks](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/span-multiple-tracks.html)
