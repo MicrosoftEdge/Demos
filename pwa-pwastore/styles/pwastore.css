@@ -13,6 +13,8 @@
     --dark-green: #14690B;
     --light-green: #B9F3B3;
     --line-height: 1.6rem;
+    --darkBlackShadow: #000000;
+    --blackShadow: #3D3D3D99;
 
     color-scheme: dark light;
 }
@@ -206,7 +208,7 @@ footer {
     flex-direction: column;
     align-items: center;
     transition: transform ease-in-out .3s, box-shadow ease-in-out .3s;
-    box-shadow: #3D3D3D99 0px 0px 0px;
+    box-shadow: var(--shadow-color) 0px 0px 0px;
 }
 
 .app_entry:hover {
