@@ -41,3 +41,4 @@ To try the demos, first enable Masonry:
   * [Custom track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/custom-track-sizes.html)
   * [Masonry shorthand](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/masonry-shorthand.html)
   * [Spanning multiple tracks](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/span-multiple-tracks.html)
+  * [Item tolerance](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/item-tolerance.html)

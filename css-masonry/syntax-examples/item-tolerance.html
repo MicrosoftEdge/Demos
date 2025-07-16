@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item tolerance</title>
+  <style>
+    body {
+      margin: 0 3rem;
+      font-family: system-ui;
+      font-size: 1rem;
+    }
+
+    main {
+      max-width: 1800px;
+      margin: 3rem auto;
+      display: masonry;
+      masonry: 200px 200px;
+      gap: 10px;
+      item-tolerance: 0;
+      counter-set: photo-counter 1;
+    }
+
+    main .photo {
+      height: 100px;
+      position: relative;
+    }
+
+    main .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: .5rem;
+      counter-increment: photo-counter;
+    }
+
+    main .photo::before {
+      content: counter(photo-counter);
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-content: center;
+      top: calc(50% - 15px);
+      left: calc(50% - 15px);
+      border-radius: 50%;
+      background: #fffd;
+    }
+
+    main .photo:first-child {
+      height: 110px;
+    }
+
+    .controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    :has(#item-tolerance-toggle:checked) main {
+      item-tolerance: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <label>
+      <input type="checkbox" id="item-tolerance-toggle">
+      Set 10px item-tolerance
+    </label>
+  </div>
+  <main>
+    <div class="photo">
+      <img src="../nature/plant02.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant03.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant04.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant21.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant09.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant06.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant07.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant08.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant01.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant15.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant16.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant10.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant11.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant12.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant13.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant14.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant17.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant18.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant19.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant20.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant05.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant22.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant24.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant25.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant26.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant27.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant28.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant29.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant30.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant31.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant01.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant02.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant23.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant32.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant33.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant34.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant35.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant36.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant03.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant04.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant05.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant06.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant07.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant08.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant09.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant11.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant12.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant13.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant14.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant15.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant16.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant17.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant18.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant10.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant19.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant20.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant21.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant22.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant23.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant24.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant25.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant26.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant27.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant28.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant29.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant30.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant31.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant32.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant33.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant34.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant35.jpg" alt="Picture of a plant.">
+    </div>
+    <div class="photo">
+      <img src="../nature/plant36.jpg" alt="Picture of a plant.">
+    </div>
+  </main>
+</body>
+
+</html>
