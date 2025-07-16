@@ -213,7 +213,7 @@ footer {
 
 .app_entry:hover {
     transform: scale(1.03);
-    box-shadow: 10px 10px 20px #3D3D3D99;
+    box-shadow: 10px 10px 20px var(--shadow-color);
 }
 
 .app_icon {
