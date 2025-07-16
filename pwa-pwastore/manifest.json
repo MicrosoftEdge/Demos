@@ -1,13 +1,13 @@
 {
-    "name": "PWAStore",
-    "short_name": "PWAStore",
+    "name": "Edge Demos",
+    "short_name": "Demos",
     "start_url": ".",
-    "id": "thepwastore",
+    "id": "edgedemos",
     "display": "standalone",
     "display_override": ["window-controls-overlay"],
     "background_color": "#006FDF",
     "theme_color": "#FFF5E0",
-    "description": "A PWA demo store for the Web Install API.",
+    "description": "A PWA demos repository from the Microsoft Edge team.",
     "icons": [
       {
         "src": "images/pwastore512.png",

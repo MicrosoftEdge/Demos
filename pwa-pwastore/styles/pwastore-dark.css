@@ -7,5 +7,7 @@
     --btn-category-border: var(--blue);
     --btn-category-fg: var(--off-white);
     --footer-fg: var(--off-white);
-    --footer-bg: var(--dark-blue);
+    --footer-bg: var(--dark-blue-trans);
+    --instructions-bg: var(--dark-blue);
+    --link: var(--yellow);
 }

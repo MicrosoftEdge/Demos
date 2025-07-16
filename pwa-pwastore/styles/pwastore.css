@@ -1,15 +1,18 @@
 :root{
     --content-padding: 0.75rem 1.25rem;
     --dark-blue: #004183;
+    --dark-blue-trans: #004183aa;
     --blue: #006FDF;
     --light-yellow: #FFF5E0;
-    --yellow: #FFD25E;
+    --yellow: #ffd25e;
+    --yellow-trans: #ffd25eaa;
     --off-white: #FEFEFE;
     --black: #3D3D3D;
     --grey: #727272;
     --green: #11AB00;
     --dark-green: #14690B;
     --light-green: #B9F3B3;
+    --line-height: 1.6rem;
 
     color-scheme: dark light;
 }
@@ -19,7 +22,12 @@ html {
     height: 100dvh;
     width: 100dvw;
     font-family: sans-serif;
-    color: var(--text)
+    color: var(--text);
+    box-sizing:border-box;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -40,6 +48,7 @@ header {
 
     grid-row: 1 / 2;
     grid-column: 1 / -1;
+    z-index: 1000;
 }
 
 main {
@@ -50,40 +59,80 @@ main {
 
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows:  repeat(auto-fill, 275px);
+    grid-template-rows:  repeat(auto-fill, 1fr);
     grid-gap: 1rem;
     justify-content: center;
 }
+
+@supports (display:masonry) {
+     main { display: masonry; }
+}
+
+.instructions {
+    grid-column: span 2;
+    background-color: var(--instructions-bg);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    border: var(--blue) solid ;
+}
+
+ul {
+  list-style: square inside none;
+}
+
+li {
+    margin: 0.3rem 0px;
+}
+
+p {
+    line-height: var(--line-height);
+    margin: 1rem 0px;
+}
+
+a {
+    color: var(--link);
+}
+
+code {
+    font-family: monospace;
+    margin: 0.15rem;
+    background-color: #FEFEFE22;
+}
+
 
 h2 {
     color: var(--subheader2);
     font-size: 1.25rem;
     font-weight: bold;
-    margin: .1rem;
+    margin: .2rem 0px;
 }
 
 .app_descrip {
-    line-height: 1.1rem;
+    line-height: var(--line-height);
     margin-top: .5rem;
 }
 
 footer {
     background: var(--footer-bg);
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
     color: var(--footer-fg);
-    padding: 2rem;
+    backdrop-filter: blur(10px);
+    padding: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     align-content: center;
-
-    grid-row: 3 / 4;
-    grid-column: 1 / -1;
+    
 }
 
 .storeicon {
     margin-left: env(titlebar-area-x, 0);
     margin-top: env(titlebar-area-height, 0);
+
 }
 
 .btn_category {
@@ -135,6 +184,11 @@ footer {
     margin: 1rem;;
     display: flex;
     flex-wrap: wrap;
+    /* backdrop-filter: blur(10px);
+    position: fixed;
+    top:1rem;
+    right: 1rem;
+    border-radius: 15px; */
 }
 
 .app_entry {
