@@ -10,4 +10,5 @@
     --footer-bg: var(--dark-blue-trans);
     --instructions-bg: var(--dark-blue);
     --link: var(--yellow);
+    --shadow-color: var(--darkBlackShadow);
 }
