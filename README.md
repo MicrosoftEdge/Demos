@@ -89,6 +89,7 @@ See also:
 | wami | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
 | Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
 | Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
+| Edge demos | A demo web app to showcase `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
 
 
 #### Cross-browser API samples
