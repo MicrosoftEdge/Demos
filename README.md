@@ -18,14 +18,14 @@ Click a folder from the list above to find out more about a particular demo, or 
 
 
 #### Microsoft Edge DevTools
-
 <!-- 
-keep DevTools table sync'd:
+sync:
 https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
 last sync'd April 16, 2024
-sort on col 3: Repo directory
 -->
+
+<!-- sort on col 3: Repo directory, to match dir order at https://github.com/MicrosoftEdge/Demos/ -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
@@ -80,16 +80,28 @@ See also:
 
 
 #### Progressive Web Apps (PWAs)
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
+last sync'd July 17, 2025
+-->
+
+<!-- sort on col 3: Repo directory, to match dir order at https://github.com/MicrosoftEdge/Demos/ -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
 | 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
+| Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
+| Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+| Edge demos | A demo web app to showcase `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
 | PWAmp | A music player PWA demo to play local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
 | wami | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
-| Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
-| Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
-| Edge demos | A demo web app to showcase `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
+
+<!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
+
+See also:
+* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas)
 
 
 #### Cross-browser API samples
