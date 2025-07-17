@@ -1,0 +1,16 @@
+body {
+  font-family: system-ui;
+  font-size: 14pt;
+  margin: 2rem;
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  display: block;
+  margin: 1rem 0;
+}
+
+#iframes-placeholder {
+  visibility: hidden;
+}
