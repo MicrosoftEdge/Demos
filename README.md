@@ -81,6 +81,9 @@ See also:
 
 #### Progressive Web Apps (PWAs)
 
+<!-- todo: add https://github.com/captainbrosset/movies-db-pwa/ -->
+<!-- todo: add https://github.com/captainbrosset/mytracks/ -->
+
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
 | 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
