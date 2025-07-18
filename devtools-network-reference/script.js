@@ -46,7 +46,7 @@ formDataButton.addEventListener("click", async () => {
   formData.append("timestamp", new Date().toISOString());
   formData.append("file", new Blob(["Hello World"], { type: "text/plain" }), "hello.txt");
   
-  await fetch("./form-data-endpoint", {
+  await fetch("./form-data-endpoint?hasfile=true", {
     method: "POST",
     body: formData
   });
