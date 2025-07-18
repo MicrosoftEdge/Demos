@@ -1,13 +1,13 @@
 {
-    "name": "Edge Demos",
-    "short_name": "Demos",
+    "name": "PWA installer",
+    "short_name": "PWA installer",
     "start_url": ".",
     "id": "edgedemos",
     "display": "standalone",
     "display_override": ["window-controls-overlay"],
     "background_color": "#006FDF",
     "theme_color": "#FFF5E0",
-    "description": "A PWA demos repository from the Microsoft Edge team.",
+    "description": "A PWA installer demo from the Microsoft Edge team.",
     "icons": [
       {
         "src": "images/pwastore512.png",
@@ -29,4 +29,3 @@
         "client_mode": "navigate-existing"
     }
   }
-  
