@@ -10,17 +10,17 @@
     "description": "A PWA installer demo from the Microsoft Edge team.",
     "icons": [
       {
-        "src": "images/pwastore512.png",
+        "src": "images/pwa-installer512.png",
         "sizes": "512x512",
         "type": "image/png"
       },
       {
-        "src": "images/pwastore144.png",
+        "src": "images/pwa-installer144.png",
         "sizes": "144x144",
         "type": "image/png"
       },
       {
-        "src": "images/pwastore96.png",
+        "src": "images/pwa-installer96.png",
         "sizes": "96x96",
         "type": "image/png"
       }
