@@ -12,11 +12,13 @@ This page also covers:
 * [Trademarks](#trademarks)
 
 
+<!-- ====================================================================== -->
 ## Demos
 
 Click a folder from the list above to find out more about a particular demo, or use the tables below.
 
 
+<!-- ------------------------------ -->
 #### Microsoft Edge DevTools
 <!-- 
 sync:
@@ -60,6 +62,7 @@ last sync'd April 16, 2024
 | Idle detection demo | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state), in the **Sensors** tool. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
 
 
+<!-- ------------------------------ -->
 #### Microsoft Edge extensions
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples
@@ -79,31 +82,38 @@ See also:
 * [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo.
 
 
+<!-- ------------------------------ -->
 #### Progressive Web Apps (PWAs)
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
-last sync'd July 17, 2025
+last sync'd July 18, 2025
 -->
 
 <!-- sort on col 3: Repo directory, to match dir order at https://github.com/MicrosoftEdge/Demos/ -->
+<!-- Description col: omit "PWA" unless ambig, omit "demo" -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
-| 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
-| Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
-| Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
-| PWA installer | A PWA that demonstrates the use of the Web Install API to install other PWAs. This demo also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) |
-| PWAmp | A music player PWA demo to play local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
-| wami | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
+| Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
+| Temperature converter | Converts temperatures.  Used for [Get started with PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+| PWA installer | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) |
+| PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
+| wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
 
 <!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
 
 See also:
 * [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas)
+<!-- adds:
+BPM Techno
+Webboard
+-->
 
 
+<!-- ------------------------------ -->
 #### Cross-browser API samples
 
 | Demo name | Description | Repo directory | Live demo page |
@@ -118,6 +128,7 @@ See also:
 | Built-in AI playground | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/on-device-demos) | [Built-in AI playground](https://microsoftedge.github.io/Demos/built-in-ai/) |
 
 
+<!-- ====================================================================== -->
 ## Adding a new demo
 
 To add a new demo:
@@ -135,6 +146,7 @@ To add a new demo:
 1. Add a link to your demo in this `README.md` file, in a new row in one of the tables.
 
 
+<!-- ====================================================================== -->
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -150,6 +162,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 
+<!-- ====================================================================== -->
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
