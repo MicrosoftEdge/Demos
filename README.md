@@ -80,20 +80,33 @@ See also:
 
 
 #### Progressive Web Apps (PWAs)
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
+last sync'd July 18, 2025
+-->
 
 <!-- sort on col 3: Repo directory -->
+<!-- Description: omit "PWA" & "demo" -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
-| 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
-| Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
-| My Movie List PWA | This simple PWA demo lets you search for made up movies and store them locally. | [/movies-db-pwa/](https://github.com/captainbrosset/movies-db-pwa/) | [My Movie List PWA](https://quirky-rosalind-ac1e65.netlify.app/) |
-| My Tracks | Visualizes GPS tracks (`*.gpx` files) on a map. | [/mytracks/](https://github.com/captainbrosset/mytracks/) | [My Tracks](https://captainbrosset.github.io/mytracks/) |
-| Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
-| Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
-| Edge demos | A demo web app to showcase `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
-| PWAmp | A music player PWA demo to play local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
-| wami | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
+| 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| Email client | A simulated email client that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
+| My Movie List | Lets you search for made-up movies and store them locally. | [/movies-db-pwa/](https://github.com/captainbrosset/movies-db-pwa/)<!-- todo: move to Demos repo --> | [My Movie List](https://quirky-rosalind-ac1e65.netlify.app/) |
+| My Tracks | Visualizes GPS tracks (`*.gpx` files) on a map. | [/mytracks/](https://github.com/captainbrosset/mytracks/)<!-- todo: move to Demos repo --> | [My Tracks](https://captainbrosset.github.io/mytracks/)<!-- todo: move to Demos repo --> |
+| Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
+| Temperature converter | Converts temperatures.  Used for [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+| PWA installer | Showcases `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
+| PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
+| wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
+
+See also:
+* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas)
+<!-- adds:
+BPM Techno
+Webboard
+-->
 
 
 #### Cross-browser API samples
