@@ -1,11 +1,11 @@
 # Record heap snapshots in DevTools
 
-This is the source code for the demo pages used in the Microsoft Edge DevTools tutorial: [Record heap snapshots](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots).
+This is the source code for the demo pages used in the Microsoft Edge DevTools tutorial: [Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots).
 
-Demo pages:
-
-* [example-03.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-03.html)
-* [example-06.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-06.html)
-* [example-07.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-07.html)
-* [example-08.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-08.html)
-* [example-09.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-09.html)
+| Demo page | File | Docs |
+|---|---|---|
+| Scattered objects | [example-03.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-03.html) | [Take a snapshot](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots#take-a-snapshot) in _Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)_ |
+| Leaking DOM nodes | [example-06.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-06.html) | [Demo webpage: Example 6: Leaking DOM nodes](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots#demo-webpage-example-6-leaking-dom-nodes) in _Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)_ |
+| Eval is evil | [example-07.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-07.html) | [Analyze the impact of closures on memory](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots#analyze-the-impact-of-closures-on-memory) in _Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)_ |
+| Recording heap allocations | [example-08.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-08.html) | [Demo webpage: Example 8: Recording heap allocations](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots#demo-webpage-example-8-recording-heap-allocations) in _Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)_ |
+| DOM leaks bigger than expected | [example-09.html](https://microsoftedge.github.io/Demos/devtools-memory-heap-snapshot/example-09.html) | [Demo webpage: Example 9: DOM leaks bigger than expected](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots#demo-webpage-example-9-dom-leaks-bigger-than-expected) in _Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)_ |

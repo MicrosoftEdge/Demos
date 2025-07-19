@@ -2,10 +2,12 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/pwamp/)** ⬅️
 
-PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an installable web app (PWA) specifically made to demonstrate desktop-integration features.
+PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an installable Progressive Web App (PWA) specifically made to demonstrate desktop-integration features.
 
-![Screenshot of the pwamp app](screenshot-playlist.png)
+![Screenshot of the PWAmp app](screenshot-playlist.png)
 
+
+<!-- ====================================================================== -->
 ## User guide
 
 * Open the app: https://microsoftedge.github.io/Demos/pwamp/
@@ -29,6 +31,8 @@ PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an inst
   * The title bar becomes toggleable. Click the chevron icon in the toolbar to hide it.
   * The app becomes a share target for audio files. If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
 
+
+<!-- ====================================================================== -->
 ## Making a new skin
 
 A skin is a CSS file that gets applied to the app, replacing the default CSS.
@@ -37,12 +41,19 @@ The best way to make a new skin is to open DevTools and look at the HTML structu
 
 Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background. This will be used at runtime, in JavaScript, by the app to apply the color to the visualizer and the title bar area.
 
+
+<!-- ====================================================================== -->
 ## What does the name mean?
 
-[Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAmp's name was inspired by it, we just replaced the `win` part with `PW` which are the 2 first letters of PWA (which stands for [Progressive Web App](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/)). The name Webamp might have made more sense but was [already used](https://webamp.org/).
+[Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAmp's name was inspired by it; we just replaced the `win` part with `PW` which are the 2 first letters of PWA (Progressive Web App). The name "Webamp" might have made more sense, but was [already used](https://webamp.org/).
 
 You can think of this app as the "Progressive Web Amp".
 
+See also:
+* [Overview of Progressive Web Apps (PWAs)](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/)
+
+
+<!-- ====================================================================== -->
 ## Song credits
 
 The first time you open the app, a few songs are pre-loaded. These are remote URL songs, so they will only play when you are online.
@@ -52,6 +63,8 @@ Credits for those songs:
 * "Reunion", and "Over The Stargates" by David Rousset, used with the author's approval. More information and songs on [soundcloud](https://soundcloud.com/david-rousset).
 * "Opening" and "Aloe-Almond Butter And Space Pesto" by Noi2er, from the [Internet Archive](https://archive.org/details/DWK382).
 
+
+<!-- ====================================================================== -->
 ## TODO
 
 * Make sure the app is accessible in high-contrast mode.

@@ -2,6 +2,6 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-a11y-testing/)** ⬅️
 
-This is the source code for the demo page used in the Microsoft Edge DevTools accessibility testing documentation. The documentation spans several pages, but its entry point is the [Accessibility-testing features](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/reference) page.
+This demo is used for the Microsoft Edge DevTools accessibility testing documentation, such as [Accessibility-testing features](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/reference).
 
-**Note**: This demo page contains **accessibility issues**, this is on purpose, to demonstrate DevTools accessibility testing features.
+By design, this demo page has accessibility issues, to demonstrate DevTools accessibility testing features.

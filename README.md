@@ -12,25 +12,27 @@ This page also covers:
 * [Trademarks](#trademarks)
 
 
+<!-- ====================================================================== -->
 ## Demos
 
 Click a folder from the list above to find out more about a particular demo, or use the tables below.
 
 
+<!-- ------------------------------ -->
 #### Microsoft Edge DevTools
-
 <!-- 
-keep DevTools table sync'd:
+sync:
 https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
 last sync'd April 16, 2024
-sort on col 3: Repo directory
 -->
+
+<!-- sort on col 3: Repo directory, to match dir order at https://github.com/MicrosoftEdge/Demos/ -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
 | CSS mirroring sourcemaps | Used for [Update .css files from within the Styles tab (CSS mirror editing)](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/css-mirror-editing-styles-tab) for the DevTools extension for Visual Studio Code. | [/css-mirroring-sourcemaps-demo/](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | n/a |
-| TODO app | Simple To Do app with vanilla JavaScript.  Used for screenshots in the [Microsoft Edge DevTools documentation](https://learn.microsoft.com/microsoft-edge/devtools/), and for [Opening DevTools and the DevTools browser](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/open-devtools-and-embedded-browser) for the DevTools extension for Visual Studio Code. | [/demo-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [My tasks](https://microsoftedge.github.io/Demos/demo-to-do/) |
+| TODO app | Simple To Do app with vanilla JavaScript.  Used for various articles in the [Microsoft Edge DevTools documentation](https://learn.microsoft.com/microsoft-edge/devtools/landing). | [/demo-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [My tasks](https://microsoftedge.github.io/Demos/demo-to-do/) |
 | Detached elements | Chat-like demo.  Used for [Debug DOM memory leaks ("Detached elements" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks-memory-tool-detached-elements). | [/detached-elements/](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Simulate traffic](https://microsoftedge.github.io/Demos/detached-elements/) |
 | 3D View | Used for [Navigate webpage layers, z-index, and DOM using the 3D View tool](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/). | [/devtools-3d/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-3d) | [Microsoft Edge DevTools 3D View tool demo](https://microsoftedge.github.io/Demos/devtools-3d/) |
 | Accessibility testing | Used for [Overview of accessibility testing using DevTools](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/accessibility-testing-in-devtools). | [/devtools-a11y-testing/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Animal shelter](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) |
@@ -44,10 +46,10 @@ sort on col 3: Repo directory
 | Inspect tool | Used for [Analyze pages using the Inspect tool](https://learn.microsoft.com/microsoft-edge/devtools/css/inspect). | [/devtools-inspect/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-inspect) | [Inspect Demo](https://microsoftedge.github.io/Demos/devtools-inspect/) |
 | Inspect CSS Grid | Used for [Inspect CSS Grid](https://learn.microsoft.com/microsoft-edge/devtools/css/grid). | [/devtools-grid/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-grid) | [Inspect CSS Grid](https://microsoftedge.github.io/Demos/devtools-grid/) |
 | Debugging JavaScript that adds two numbers | Used for [Get started debugging JavaScript](https://learn.microsoft.com/microsoft-edge/devtools/javascript/). | [/devtools-js-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-js-get-started) | [Demo: Debugging JavaScript with Microsoft Edge DevTools](https://microsoftedge.github.io/Demos/devtools-js-get-started/) |
-| Memory heap snapshot | Used for [Record heap snapshots using the Memory tool](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots). | [/devtools-memory-heap-snapshot/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-memory-heap-snapshot) | n/a |
-| Performance Activity Tabs | Used for [View activities in a table](https://learn.microsoft.com/microsoft-edge/devtools/evaluate-performance/reference#view-activities-in-a-table), about the **Performance** tool's **Bottom-Up**, **Call Tree**, and **Event Log** tabs. | [/devtools-performance-activitytabs/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-activitytabs) | [Activity Tabs Demo](https://microsoftedge.github.io/Demos/devtools-performance-activitytabs/) |
-| Sluggish Animation | Used for [Introduction to the Performance tool](https://learn.microsoft.com/microsoft-edge/devtools/evaluate-performance/). | [/devtools-performance-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-get-started) | [Sluggish Animation](https://microsoftedge.github.io/Demos/devtools-performance-get-started/) |
-| postMessage Trace Events | Tests `postMessage` trace events in the **Performance** tool.  Used for [View messages between windows, iframes, and dedicated workers](https://learn.microsoft.com/microsoft-edge/devtools/evaluate-performance/reference#view-messages-between-windows-iframes-and-dedicated-workers) in _Performance features reference_. | [/devtools-postmessage-perf-timeline/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-postmessage-perf-timeline) | [postMessage Trace Events demo](https://microsoftedge.github.io/Demos/devtools-postmessage-perf-timeline/) |
+| Memory heap snapshot | Used for [Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots). | [/devtools-memory-heap-snapshot/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-memory-heap-snapshot) | n/a |
+| Performance Activity Tabs | Used for [View activities in a table](https://learn.microsoft.com/microsoft-edge/devtools/performance/reference#view-activities-in-a-table), about the **Performance** tool's **Bottom-Up**, **Call Tree**, and **Event Log** tabs. | [/devtools-performance-activitytabs/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-activitytabs) | [Activity Tabs Demo](https://microsoftedge.github.io/Demos/devtools-performance-activitytabs/) |
+| Sluggish Animation | Used for [Introduction to the Performance tool](https://learn.microsoft.com/microsoft-edge/devtools/performance/). | [/devtools-performance-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-get-started) | [Sluggish Animation](https://microsoftedge.github.io/Demos/devtools-performance-get-started/) |
+| postMessage Trace Events | Tests `postMessage` trace events in the **Performance** tool.  Used for [View messages between windows, iframes, and dedicated workers](https://learn.microsoft.com/microsoft-edge/devtools/performance/reference#view-messages-between-windows-iframes-and-dedicated-workers) in _Performance features reference_. | [/devtools-postmessage-perf-timeline/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-postmessage-perf-timeline) | [postMessage Trace Events demo](https://microsoftedge.github.io/Demos/devtools-postmessage-perf-timeline/) |
 | CSS :target pseudo-class | Used for [Support forcing the :target CSS state](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/01/devtools#support-forcing-the-target-css-state). | [/devtools-target-pseudo/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-target-pseudo) | [CSS :target pseudo-class demo](https://microsoftedge.github.io/Demos/devtools-target-pseudo/) |
 | Exploring the universe | Webpage used to demo the [Monitor Core Web Vitals metrics](https://learn.microsoft.com/microsoft-edge/devtools/performance/overview#monitor-core-web-vitals-metrics) section in the _Performance tool: Analyze your website's performance_ article. | [/exploring-the-universe/](https://github.com/MicrosoftEdge/Demos/tree/main/exploring-the-universe) | [Exploring the universe webpage](https://microsoftedge.github.io/Demos/exploring-the-universe/) |
 | Heap Snapshot Visualizer | Source code for the [Heap Snapshot Visualizer](https://microsoftedge.microsoft.com/addons/detail/heap-snapshot-visualizer/fceldlhognbemkgfacnffkdanocidgce) extension for DevTools. | [/heap-snapshot-visualizer/](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | n/a |
@@ -60,6 +62,7 @@ sort on col 3: Repo directory
 | Idle detection demo | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state), in the **Sensors** tool. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
 
 
+<!-- ------------------------------ -->
 #### Microsoft Edge extensions
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples
@@ -79,19 +82,38 @@ See also:
 * [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo.
 
 
+<!-- ------------------------------ -->
 #### Progressive Web Apps (PWAs)
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
+last sync'd July 18, 2025
+-->
+
+<!-- sort on col 3: Repo directory, to match dir order at https://github.com/MicrosoftEdge/Demos/ -->
+<!-- Description col: omit "PWA" unless ambig, omit "demo" -->
 
 | Demo name | Description | Repo directory | Live demo page |
 |:---|:---|:---|:---|
-| 1DIV | A CSS sandbox PWA that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
+| 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) |
-| PWAmp | A music player PWA demo to play local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
-| wami | An image manipulation demo app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
-| Temperature converter | A simple PWA demo app that converts temperatures. Used for [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
-| Application Title Meta Tag | A demo web app to showcase the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
-| Edge demos | A demo web app to showcase `Web Install API` and `CSS Masonry`. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore) | [pwa-pwastore](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
+| Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) |
+| Temperature converter | Converts temperatures.  Used for [Get started with PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/). | [/pwa-getting-started/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-getting-started) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) |
+| PWA installer | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) |
+| PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) |
+| wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) |
+
+<!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
+
+See also:
+* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas)
+<!-- adds:
+BPM Techno
+Webboard
+-->
 
 
+<!-- ------------------------------ -->
 #### Cross-browser API samples
 
 | Demo name | Description | Repo directory | Live demo page |
@@ -106,6 +128,7 @@ See also:
 | Built-in AI playground | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/on-device-demos) | [Built-in AI playground](https://microsoftedge.github.io/Demos/built-in-ai/) |
 
 
+<!-- ====================================================================== -->
 ## Adding a new demo
 
 To add a new demo:
@@ -123,6 +146,7 @@ To add a new demo:
 1. Add a link to your demo in this `README.md` file, in a new row in one of the tables.
 
 
+<!-- ====================================================================== -->
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -138,6 +162,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 
+<!-- ====================================================================== -->
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 

@@ -2,4 +2,6 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/pwa-getting-started/)** ⬅️
 
-This is the source code for the simple PWA demo app used in this PWA getting started tutorial: [Get started with Progressive Web Apps](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/).
+A simple demo Progressive Web App (PWA) that converts temperatures.
+
+For instructions, see [Get started with PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/).<!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
