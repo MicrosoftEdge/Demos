@@ -2,4 +2,4 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-target-pseudo/)** ⬅️
 
-This is the source code for the demo page used in the Microsoft Edge DevTools release note: [Support forcing the :target CSS state](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/01/devtools#support-forcing-the-target-css-state).
+For instructions, see [Support forcing the :target CSS state](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/01/devtools#support-forcing-the-target-css-state) in _What's New in DevTools (Microsoft Edge 89)_.

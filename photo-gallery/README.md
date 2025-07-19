@@ -2,6 +2,9 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/photo-gallery/)** ⬅️
 
-**Photo Gallery** is a demo used in [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/) blog post to demonstrate how CSS selectors can influence the performance of a webpage and how to use the **Selector Stats** feature in DevTools.
+**Photo Gallery** demonstrates how CSS selectors can influence the performance of a webpage, and how to use the **Selector Stats** feature in DevTools.
 
-To learn more, see [Analyze selector performance during Recalculate Style events](https://learn.microsoft.com/microsoft-edge/devtools/evaluate-performance/selector-stats).
+For instructions, see:
+
+* [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/) - blog post.
+* [Record a performance trace with Selector Stats enabled](https://learn.microsoft.com/microsoft-edge/devtools/performance/selector-stats#record-a-performance-trace-with-selector-stats-enabled) in _Analyze CSS selector performance during Recalculate Style events_, and subsequent sections.

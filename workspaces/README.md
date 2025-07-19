@@ -2,4 +2,4 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/workspaces/)** ⬅️
 
-This is the source code for the demo page used in the Microsoft Edge DevTools tutorial: [Edit files with Workspaces](https://learn.microsoft.com/microsoft-edge/devtools/workspaces).
+For instructions, see [Edit and save files in a workspace (Sources tool Workspace tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces).
