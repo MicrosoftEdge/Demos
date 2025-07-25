@@ -22,8 +22,8 @@ console.log('Arthur');
 console.log('Marvin');
 console.groupCollapsed("Hidden");
 console.log('(Frankie & Benjy)');
-console.groupEnd("Hidden");
-console.groupEnd("Passengers: Heart of Gold");
+console.groupEnd();
+console.groupEnd();
 
 let technologies = {
   "Standards": ["HTML", "CSS", "SVG", "ECMAScript"],
@@ -32,7 +32,7 @@ let technologies = {
 for (tech in technologies) {
   console.groupCollapsed(tech);
   technologies[tech].forEach(t => console.log(t));
-  console.groupEnd(tech);
+  console.groupEnd();
 }
 </script>
 </body>
