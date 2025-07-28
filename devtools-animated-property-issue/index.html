@@ -4,24 +4,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DevTools issue: animating a CSS property that requires layout</title>
+    <title>Warning when animating a CSS property that requires layout</title>
     <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>DevTools issue: animating a CSS property that requires layout</h1>
+    <h1>Warning when animating a CSS property that requires layout</h1>
 
     <p>
       DevTools now detects and warns about CSS properties that can cause
       Layout-based performance issues when using CSS animations in a webpage.
     </p>
 
-    <p>This demo webpage shows two animations. The first one animates the <code>width</code> and <code>height</code> CSS properties, and the second one animates the <code>transform</code> property. While the result is the same, the first one forces the browser rendering engine to re-create the layout of the page at each frame of the animation, which could lead to performance issues while using the page. The second one runs on the compositor thread and doesn't impact the page's main thread.</p>
+    <p>This demo webpage shows two animations. The first one animates the <code>width</code> 
+      and <code>height</code> CSS properties, and the second one animates the 
+      <code>transform</code> property. Although the result is the same, the first animation 
+      forces the browser rendering engine to re-create the layout of the page at each frame of
+      the animation, which could lead to performance issues while using the page. The second 
+      animation runs on the compositor thread and doesn't impact the page's main thread.</p>
     
-    <p>The <strong>Issues</strong> and <strong>Elements</strong> tools now show a warning when an animation that uses a CSS property that requires layout is running on the page.</p>
+    <p>The <strong>Issues</strong> and <strong>Elements</strong> tools show a warning when an 
+      animation that uses a CSS property that requires layout is running on the page.</p>
 
-    <p>To learn more, see <a href="https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2023/06/devtools-114#the-issues-tool-and-styles-pane-warn-about-css-properties-that-trigger-layout">The Issues tool and Styles pane warn about CSS properties that trigger Layout</a> 
-      in <em>What's New in DevTools (Microsoft Edge 114)</em>.</p>
+    <p>To learn more, see 
+      <a href="https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2023/06/devtools-114#the-issues-tool-and-styles-pane-warn-about-css-properties-that-trigger-layout">The 
+        Issues tool and Styles pane warn about CSS properties that trigger Layout</a> in 
+        <em>What's New in DevTools (Microsoft Edge 114)</em>.</p>
 
     <div class="wrapper">
       <div class="animation-demo bad">
@@ -32,9 +40,14 @@
       </div>
     </div>
 
-    <p>To understand the performance implications of running an animation that requires recalculating the layout all the time, use the input and button below to run JavaScript code on the page. Enter a number, and click <strong>Run JavaScript</strong>. The higher the number, the more JavaScript work is executed on the page. Choose a number that makes the animation appear slow.</p>
+    <p>To understand the performance implications of running an animation that requires 
+      recalculating the layout all the time, use the text box and button below to run 
+      JavaScript code on the page. Enter a number, and click <strong>Run JavaScript</strong>. 
+      The higher the number, the more JavaScript work is executed on the page. Choose a number
+      that makes the animation appear slow.</p>
 
-    <p>While the first animation is impacted by main-thread activity, the second one should run smoothly whatever is happening on the page.</p>
+    <p>The first animation is impacted by main-thread activity.  The second animation runs 
+      smoothly regardless of what's happening on the page.</p>
 
     <form>
         <label>Amount of work to do <input type="number" value="1000000"></label>

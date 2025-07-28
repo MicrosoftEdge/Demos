@@ -1,4 +1,8 @@
-# Basic To Do App
+# To Do app
+<!--
+tab-title: To Do app
+top-of-page title: My tasks
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/demo-to-do/)** ⬅️
 

@@ -1,4 +1,8 @@
 # Improving contrast in Microsoft Edge DevTools: A bugfix case study
+<!--
+tab-title: __
+top-of-page title: __
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-contrast-bugfix/)** ⬅️
 

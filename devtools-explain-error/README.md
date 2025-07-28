@@ -1,4 +1,8 @@
 # Explain console errors and warnings in Copilot in Edge
+<!--
+tab-title: __
+top-of-page title: __
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-explain-error/)** ⬅️
 

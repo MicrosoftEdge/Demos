@@ -1,4 +1,8 @@
 # DevTools Workspaces Demo
+<!--
+tab-title: __
+top-of-page title: __
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/workspaces/)** ⬅️
 

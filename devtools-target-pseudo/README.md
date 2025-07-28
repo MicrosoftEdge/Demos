@@ -1,4 +1,8 @@
 # Support forcing the `:target` CSS state in DevTools
+<!--
+tab-title: __
+top-of-page title: __
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-target-pseudo/)** ⬅️
 

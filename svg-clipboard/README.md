@@ -1,4 +1,8 @@
 # SVG support in the Async Clipboard API
+<!--
+tab-title: __
+top-of-page title: __
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/svg-clipboard/)** ⬅️
 

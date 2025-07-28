@@ -1,4 +1,8 @@
-# DevTools 3D View tool demo
+# 3D View tool demo
+<!--
+tab-title: 3D View tool demo
+top-of-page title: 3D View tool demo
+-->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-3d/)** ⬅️
 

@@ -1,4 +1,9 @@
 # Built-in AI playgrounds
+<!-- # Built-in AI playground -->
+<!--
+tab-title: Prompt API playground
+top-of-page title: Built-in AI Playground
+-->
 
 ➡️ **[Open the playgrounds](https://microsoftedge.github.io/Demos/built-in-ai/)** ⬅️
 
