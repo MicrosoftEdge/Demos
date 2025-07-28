@@ -13,7 +13,7 @@ For the demo to work correctly, you must enable two flags in `about://flags`:
 * `#css-masonry-layout`
 * `#web-app-installation-api`
 
-These flags are available in Chromium browsers versions M139+.
+These flags are available in browsers based on Chromium, such as Microsoft Edge, starting with version 139.
 
 
 <!-- ====================================================================== -->

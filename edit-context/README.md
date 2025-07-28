@@ -12,6 +12,6 @@ This demo is a simple HTML text editor that uses the EditContext API to allow en
 <!-- ====================================================================== -->
 ## Learn more
 
-- [EditContext API documentation](#) (coming soon).<!-- todo -->
-- [EditContext API specification](https://w3c.github.io/edit-context/).
-- [EditContext API explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/EditContext/explainer.md).
+- [EditContext API](https://developer.mozilla.org/docs/Web/API/EditContext_API) at MDN.
+- [EditContext API](https://w3c.github.io/edit-context/) W3C specification.
+- [EditContext API Explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/EditContext/explainer.md)

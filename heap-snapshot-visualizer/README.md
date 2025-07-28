@@ -8,22 +8,22 @@ _* This extension is under development_
 <!-- ====================================================================== -->
 ## What is a heap snapshot file?
 
-The DevTools **Memory** tool produces a `*.heapspanshot` file.  For information about the schema of the file, see [The heap snapshot file format](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshot-schema).
+The DevTools **Memory** tool produces a `*.heapsnapshot` file.  For information about the schema of the file, see [The heap snapshot file format](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshot-schema).
 
 
 <!-- ====================================================================== -->
 ## What kind of visualization?
 
-- A force directed graph
-- A tree
+* A force directed graph.
+* A tree.
 
 
 <!-- ====================================================================== -->
 ## What can I do with it?
 
-- Filter nodes
-- Explore the memory structure starting from GC retainers
-- Isolate the retainer chain for a single node using its object id 
+* Filter nodes.
+* Explore the memory structure starting from GC retainers.
+* Isolate the retainer chain for a single node using its object ID.
 
 
 <!-- ====================================================================== -->
@@ -49,11 +49,11 @@ This is a project that uses Typescript and React.  To get the outputs that are n
 1. Go to `edge://extensions`.
 1. Enable Developer Mode.
 1. Click "Load unpacked" and select the `build` folder.
-1. Navigate to a site, and open DevTools.
+1. Go to a webpage, and then open DevTools.
 1. Find the **Heap Snapshot Visualizer** tab.
 
 
 <!-- ====================================================================== -->
-<!-- ## This is how it looks like -->
+<!-- ## This is how it looks -->
 
-<!-- ![](./extension.png) -->
+<!-- ![](./extension.png) todo -->

@@ -9,7 +9,7 @@ These demos are used in the following articles:
 * [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript)
 * [Monitor changes in JavaScript using Live Expressions](https://learn.microsoft.com/microsoft-edge/devtools/console/live-expressions)
 
-The following Console demo webpages are running on the server:
+You can run the demos live by using the following links:
 
 * [dom-examples.html](https://microsoftedge.github.io/Demos/devtools-console/dom-examples.html) - Interacting with the DOM.
 * [error-assert.html](https://microsoftedge.github.io/Demos/devtools-console/error-assert.html) - Creating error reports and assertions in Console.

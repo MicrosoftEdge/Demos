@@ -4,9 +4,10 @@
 
 This demo page is useful to show some of the most useful features of the 3D View tool in Microsoft Edge DevTools.
 
-* Read the blog post about the tool here (link coming soon).<!-- todo -->
-* Watch the video about the tool here (link coming soon).<!-- todo -->
-* Documentation: [Navigate webpage layers, z-index, and DOM using the 3D View tool](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/).
+See also:
+* [Navigate webpage layers, z-index, and DOM using the 3D View tool](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/) - Documentation about the tool and how to use this demo.
+* [Debug the web in 3D with the 3D View tool](https://blogs.windows.com/msedgedev/2022/06/21/debug-the-web-in-3d-with-the-3d-view-tool/) - Blog post.
+* [Debug the web in 3D](https://www.youtube.com/watch?v=LVb1Xzzd72w) - Video.
 
 
 <!-- ====================================================================== -->

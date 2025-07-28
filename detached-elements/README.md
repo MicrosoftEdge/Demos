@@ -4,7 +4,7 @@
 
 This demo is a simple webpage that demonstrates the **Detached Elements** tool.  The **Detached Elements** tool in Microsoft Edge DevTools helps investigate common DOM memory leaks in long-running web applications.
 
-The demo webpage shows a simulated chat application.  The app has three rooms that you can select.  Within each room, you can simulate messages by either sending just one,<!-- todo: using one mode? sending one message? --> or using slow or fast message modes.
+The demo webpage shows a simulated chat application.  The app has three chat rooms that you can select among.  Within each chat room, you can simulate messages appearing one-by-one; as a slow continuous flow; or as a fast continuous flow.
 
 For instructions, see:
 * [Debug DOM memory leaks ("Detached elements" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks-memory-tool-detached-elements).
