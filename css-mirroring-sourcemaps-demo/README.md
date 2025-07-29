@@ -1,8 +1,4 @@
 # Demo app to test sourcemap support of the VS Code Edge DevTools extension
-<!--
-tab-title: __
-top-of-page title: __
--->
 
 This is a basic app to test the sourcemap support for CSS mirroring in [the Edge DevTools extension for Visual studio code](https://aka.ms/devtools-for-code).
 

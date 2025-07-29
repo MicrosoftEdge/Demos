@@ -1,8 +1,4 @@
 # Heap snapshot visualizer
-<!--
-tab-title: __
-top-of-page title: __
--->
 
 This demo is a DevTools extension to show a visualization of the contents of a `*.heapsnapshot` file.
 

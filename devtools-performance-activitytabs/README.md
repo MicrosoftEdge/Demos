@@ -1,8 +1,4 @@
 # DevTools performance features reference - View activities in a table
-<!--
-tab-title: __
-top-of-page title: __
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-performance-activitytabs/)** ⬅️
 

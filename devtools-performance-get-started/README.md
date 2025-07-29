@@ -1,8 +1,4 @@
 # Get started with analyzing Runtime performance in DevTools
-<!--
-tab-title: __
-top-of-page title: __
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-performance-get-started/)** ⬅️
 

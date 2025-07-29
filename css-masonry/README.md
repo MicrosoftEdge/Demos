@@ -1,8 +1,4 @@
 # CSS Masonry demos
-<!--
-tab-title: __
-top-of-page title: __
--->
 
 This directory contains demo pages that showcase the implementation of CSS Masonry in Chromium.
 
