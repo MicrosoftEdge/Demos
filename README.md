@@ -1,5 +1,7 @@
 # Microsoft Edge Demos
 
+<!-- todo: update to list all demo dirs -->
+
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  The demo directories are grouped into the following sections below:
 * [Microsoft Edge DevTools](#microsoft-edge-devtools)
 * [Microsoft Edge extensions](#microsoft-edge-extensions)
@@ -39,11 +41,11 @@ last sync'd April 16, 2024
 | Accessibility testing | Used for [Overview of accessibility testing using DevTools](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/accessibility-testing-in-devtools). | [/devtools-a11y-testing/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Animal Shelter](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) demo |
 | Warning when animating a CSS property that requires layout | Illustrates the **Issues** and **Elements** tools warning when CSS properties that require layout are animated. | [/devtools-animated-property-issue/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-animated-property-issue) | [Animated CSS property demo](https://microsoftedge.github.io/Demos/devtools-animated-property-issue/) |
 | Console panel demo pages | Used for [Console overview](https://learn.microsoft.com/microsoft-edge/devtools/console/), [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools/console/console-log), and [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript). | [/devtools-console/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console) | [DevTools Console panel demo pages](https://microsoftedge.github.io/Demos/devtools-console/) |
-| DOM interaction from the Console demo page | Used for [Interact with the DOM using the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-dom-interaction). | [/devtools-console-dom-interactions/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console-dom-interactions) | [DevTools Console tool DOM interactions demo](https://microsoftedge.github.io/Demos/devtools-console-dom-interactions/) |
+| Interact with the DOM using the Console | Used for [Interact with the DOM using the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-dom-interaction). | [/devtools-console-dom-interactions/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console-dom-interactions) | [Interact with the DOM using the Console](https://microsoftedge.github.io/Demos/devtools-console-dom-interactions/) |
 | Contrast bug fix | Used for [Improving contrast in Microsoft Edge DevTools: A bugfix case study](https://blogs.windows.com/msedgedev/2021/06/15/improving-contrast-in-microsoft-edge-devtools-a-bugfix-case-study/). | [/devtools-contrast-bugfix/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-contrast-bugfix) | [Testing all badges in DevTools for contrast issues](https://microsoftedge.github.io/Demos/devtools-contrast-bugfix/) demo |
 | CSS Examples | Used for [Get started viewing and changing CSS](https://learn.microsoft.com/microsoft-edge/devtools/css/). | [/devtools-css-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-css-get-started) | [CSS Examples](https://microsoftedge.github.io/Demos/devtools-css-get-started/) demo |
 | DOM Examples | Used for [Get started viewing and changing the DOM](https://learn.microsoft.com/microsoft-edge/devtools/dom/). | [/devtools-dom-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-dom-get-started) | [DOM Examples](https://microsoftedge.github.io/Demos/devtools-dom-get-started/) demo |
-| Explain Console errors and warnings in Copilot in Edge | Generates errors in the Console that can then be explained by using Copilot in Edge. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explaining console errors demo](https://microsoftedge.github.io/Demos/devtools-explain-error/) |
+| Explain Console errors and warnings in Copilot in Edge | Generates errors in the Console that can then be explained by using Copilot in Edge. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explain Console errors and warnings in Copilot in Edge](https://microsoftedge.github.io/Demos/devtools-explain-error/) demo |
 | Inspect tool | Used for [Analyze pages using the Inspect tool](https://learn.microsoft.com/microsoft-edge/devtools/css/inspect). | [/devtools-inspect/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-inspect) | [Inspect Demo](https://microsoftedge.github.io/Demos/devtools-inspect/) |
 | Inspect CSS Grid | Used for [Inspect CSS Grid](https://learn.microsoft.com/microsoft-edge/devtools/css/grid). | [/devtools-grid/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-grid) | [Inspect CSS Grid](https://microsoftedge.github.io/Demos/devtools-grid/) demo |
 | Debugging JavaScript that adds two numbers | Used for [Get started debugging JavaScript](https://learn.microsoft.com/microsoft-edge/devtools/javascript/). | [/devtools-js-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-js-get-started) | [Demo: Debugging JavaScript with Microsoft Edge DevTools](https://microsoftedge.github.io/Demos/devtools-js-get-started/) demo |
@@ -61,6 +63,10 @@ last sync'd April 16, 2024
 | Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) demo |
 | Workspaces | Used for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces Demo](https://microsoftedge.github.io/Demos/workspaces/) |
 | Idle detection demo | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state), in the **Sensors** tool. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
+
+<!-- todo: row for /devtools-crash-analyzer/
+https://learn.microsoft.com/microsoft-edge/devtools/crash-analyzer/
+-->
 
 
 <!-- ------------------------------ -->
@@ -127,6 +133,10 @@ Webboard
 | SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
 | IndexedDB: getAllRecords() | Demo page showing the benefits of the newly proposed `getAllRecords()` IndexedDB method to more conveniently and quickly read IDB records. | [/idb-getallrecords/](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords) | [IndexedDB: getAllRecords()](https://microsoftedge.github.io/Demos/idb-getallrecords/) demo |
 | Built-in AI playground | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/on-device-demos) | [Built-in AI playground](https://microsoftedge.github.io/Demos/built-in-ai/) demo |
+
+
+<!-- todo: add row for /css-masonry/ -->
+
 
 
 <!-- ====================================================================== -->
