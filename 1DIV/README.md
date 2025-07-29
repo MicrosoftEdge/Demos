@@ -1,8 +1,4 @@
 # 1DIV - Window Controls Overlay demo
-<!--
-tab-title: 1DIV -- 1DIV - Window Controls Overlay demo
-top-of-page title: 1DIV
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/1DIV/dist/)** ⬅️
 

@@ -1,8 +1,4 @@
 # Warning when animating a CSS property that requires layout
-<!--
-tab-title: Warning when animating a CSS property that requires layout
-top-of-page title: Warning when animating a CSS property that requires layout
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-animated-property-issue/)** ⬅️
 

@@ -1,8 +1,4 @@
 # Investigating memory leaks from detached DOM elements
-<!--
-tab-title: Detached DOM Elements demo
-top-of-page title: none; todo: Detached DOM Elements demo
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/detached-elements/)** ⬅️
 

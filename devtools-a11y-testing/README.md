@@ -1,8 +1,4 @@
 # Animal Shelter - Demo of DevTools accessibility-testing features
-<!--
-tab-title: Demo page with accessibility issues
-top-of-page title: Animal Shelter
--->
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-a11y-testing/)** ⬅️
 
