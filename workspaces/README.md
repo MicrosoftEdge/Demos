@@ -1,4 +1,4 @@
-# DevTools Workspaces Demo
+# DevTools Workspaces demo
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/workspaces/)** ⬅️
 

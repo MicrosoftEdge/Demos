@@ -18,10 +18,22 @@
     <p>The demos below show how the <code>&lt;selectlist&gt;</code> UI control can be used to achieve what was once only possible with custom selects.<br>
       The control is still in its early days and these demos have been made to find bugs with the implementation and limitations in the architecture. They are not complete and have bugs.</p>
     <p class="info"><strong>Also note that some of the demos are not fully accessible.</strong> The experimental <code>&lt;selectlist&gt;</code> control allows to go very far in extending its default behavior. Some of the demos extend and even replace the entire shadow DOM of the control in order to push the prototype to its limits. As a result some demos are inaccessible. <strong>These are currently serving as a way to provoke discussions aimed at evolving the specification and implementation.</strong></p>
+    <p><strong>Contents:</strong></p>
+    <ul>
+      <li><a href="#rounded-select">Rounded select</a></li>
+      <li><a href="#vertically-aligned-options">Vertically aligned options</a></li>
+      <li><a href="#combobox">Combobox</a></li>
+      <li><a href="#multi-select">Multi-select</a></li>
+      <li><a href="#account-switcher">Account switcher</a></li>
+      <li><a href="#scroll-indicators">Scroll indicators</a></li>
+      <li><a href="#githubs-issue-filter">GitHub's issue filter</a></li>
+      <li><a href="#dribbbles-filter">Dribbble's filter</a></li>
+      <li><a href="#words-color-select">Word's color select</a></li>
+    </ul>
   </header>
 
   <div class="sample">
-    <h2>Rounded select</h2>
+    <h2 id="rounded-select">Rounded select</h2>
     <p>Create a rounded listbox, with inline options that are constrained within the circle.</p>
     <p><strong>Note: </strong>The CSS code for this demo adds a couple of pseudo-elements to draw a curve between the button and the listbox. To make this work in cases where there isn't enough room below the button to fit the listbox, some JavaScript code is used to position the pseudo-elements correctly. Also, these elements are hidden as soon as you start scrolling around.</p>
     <style>
@@ -247,7 +259,7 @@
   </div>
 
   <div class="sample">
-    <h2>Vertically aligned options</h2>
+    <h2 id="vertically-aligned-options">Vertically aligned options</h2>
     <p>Vertically align the popover so the selected option's vertical position matches that of the selected-value.</p>
     <p><strong>Note</strong>: this only works when the popover would normally appear below the button. The logic fails when the browser auto-places the popover above the button.</p>
     <style>
@@ -374,7 +386,7 @@
   </div>
 
   <div class="sample">
-    <h2>Combobox</h2>
+    <h2 id="combobox">Combobox</h2>
     <p>Add a input field to the popover that can be used to filter the options.</p>
     <p><strong>Note</strong>: the button and popover have different styles whether the popover is visible or not, and whether it's above the button.</p>
 
@@ -571,7 +583,7 @@
   </div>
 
   <div class="sample">
-    <h2>Multi-select</h2>
+    <h2 id="multi-select">Multi-select</h2>
     <p>Allow selecting multiple options from the list, displaying them in the button.</p>
 
     <style>
@@ -756,7 +768,7 @@
   </div>
 
   <div class="sample">
-    <h2>Account switcher</h2>
+    <h2 id="account-switcher">Account switcher</h2>
     <p>Display more text within options, use a custom toggle button, and display an icon next to some options.</p>
     <style>
       .gitpod {
@@ -836,7 +848,7 @@
   </div>
 
   <div class="sample">
-    <h2>Scroll indicators</h2>
+    <h2 id="scroll-indicators">Scroll indicators</h2>
     <p>Limit the max-height of the popover and provide scrolling.</p>
 
     <style>
@@ -1131,7 +1143,7 @@
   </div>
 
   <div class="sample">
-    <h2>GitHub's issue filter</h2>
+    <h2 id="githubs-issue-filter">GitHub's issue filter</h2>
     <p>Display icons for some options, support inline and list layouts within the same select, display groups of options.</p>
     <p><strong>Note</strong>: optgroup's labels are not stylable yet, so the groups are done with divs.</p>
 
@@ -1255,7 +1267,7 @@
   </div>
 
   <div class="sample">
-    <h2>Dribbble's filter</h2>
+    <h2 id="dribbbles-filter">Dribbble's filter</h2>
     <p>Custom toggle button with animation, icons for options.</p>
 
     <style>
@@ -1443,8 +1455,8 @@
   </div>
 
   <div class="sample">
-    <h2>Word's color select</h2>
-    <p>Mix a grid of colors and a list of action items. Display a split button (click the A to set the color, click the arrow to open the drop-down).</p>
+    <h2 id="words-color-select">Word's color select</h2>
+    <p>Mix a grid of colors and a list of action items. Display a split button (click the A to set the color, click the arrow to open the dropdown list).</p>
 
     <style>
       .word-toolbar {

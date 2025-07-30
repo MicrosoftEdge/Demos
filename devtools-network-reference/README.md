@@ -1,4 +1,4 @@
-# DevTools Network tool reference Demo
+# Network tool reference demo
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-network-reference/)** ⬅️
 

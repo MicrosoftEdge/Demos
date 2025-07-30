@@ -1,4 +1,4 @@
-# DevTools Network activity tutorial Demo
+# DevTools Inspect Network Activity demo
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/network-tutorial/)** ⬅️
 
