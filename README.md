@@ -3,7 +3,7 @@
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  This Readme lists all top-level source code directories.  Below, demos are grouped by major technology area, and then sorted by directory name within each section's table.
 
 Contents:
-* [DevTools](#devtools)
+* [Microsoft Edge DevTools](#microsoft-edge-devtools)
 * [Microsoft Edge extensions](#microsoft-edge-extensions)
 * [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
 * [Cross-browser API samples](#cross-browser-api-samples)
@@ -13,15 +13,13 @@ Contents:
 
 
 <!-- ====================================================================== -->
-## DevTools
+## Microsoft Edge DevTools
 <!-- 
 sync:
 https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
 last sync'd April 16, 2024
 -->
-
-These demos cover Microsoft Edge DevTools.
 
 <!-- table columns:
 "Demo name": omit "demo"
