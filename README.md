@@ -149,11 +149,11 @@ To add a new demo:
 
 1. Edit the code (such as `index.html` or `style.css`) in the new directory. Add any files you need.
 
-1. Add a link to your demo in this `README.md` file, in a new row in one of the tables above.
+1. Add a link to your demo in this `README.md` file, in a new row in one of the tables above, similar to the following row:
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
-| Template: My new demo | Template directory to copy/paste to add a new demo. | [/template/](https://github.com/MicrosoftEdge/Demos/tree/main/template) | [Template](https://microsoftedge.github.io/Demos/template/) for demos |
+| Template | Template directory to copy/paste to add a new demo.  Can be used by [Microsoft Edge Developer documentation](https://learn.microsoft.com/microsoft-edge/developer/). | [/template/](https://github.com/MicrosoftEdge/Demos/tree/main/template) | [My new demo](https://microsoftedge.github.io/Demos/template/) |
 
 
 <!-- ====================================================================== -->
