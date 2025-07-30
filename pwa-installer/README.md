@@ -33,4 +33,4 @@ To enable the flags:
 ## See also
 
 * [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#pwa-installer) in _Progressive Web App demos_.
-* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install/index.html)<!-- todo: review.  link is from Readme in empty dir /pwa-web-install-api/ -->
+* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install/index.html) - requires the **web-app-installation-api** flag.

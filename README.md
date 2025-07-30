@@ -99,7 +99,6 @@ last sync'd July 18, 2025
 | PWA installer | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) demo |
 | Timer PWA | Has a **Set timer** button, and you can set the duration of the timer. | [/pwa-timer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-timer) | [Timer PWA demo](https://microsoftedge.github.io/Demos/pwa-timer/) |
 | PWA To Do | Create lists of tasks locally in your browser, or by installing the app.  Click **About** link in rendered demo. | [/pwa-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do) | [PWA To Do](https://microsoftedge.github.io/Demos/pwa-to-do/) demo |
-| `navigator.install` demos | A Readme for demos that use `navigator.install`, to allow web content to declaratively install other web apps. | [/pwa-web-install-api/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-web-install-api) | [PWA web install API demos](https://microsoftedge.github.io/Demos/pwa-web-install-api/) (Readme) |
 | PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) demo |
 | wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami) | [wami](https://microsoftedge.github.io/Demos/wami/) demo |
 
