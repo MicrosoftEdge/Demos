@@ -32,7 +32,7 @@ To try the feature, follow these steps:
 
    In Microsoft Edge, you end up at `edge://flags`.
 
-1. In the **Search flags** box, enter **Experimental Web Platform features**.<!-- todo: --enable-features=CSSGapDecoration not found in 140 -->
+1. In the **Search flags** box, enter **Experimental Web Platform features**.
 
 1. Set the **Experimental Web Platform features** flag to **Enabled**.
 
