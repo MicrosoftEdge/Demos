@@ -149,7 +149,7 @@ To add a new demo:
 
 1. Edit the code (such as `index.html` or `style.css`) in the new directory. Add any files you need.
 
-1. Add a link to your demo in this `README.md` file, in a new row in one of the tables.
+1. Add a link to your demo in this `README.md` file, in a new row in one of the tables above.
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
