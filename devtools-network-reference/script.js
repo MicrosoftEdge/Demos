@@ -3,6 +3,7 @@ const iframesButton = document.getElementById("iframes");
 const iframesPlaceholderEl = document.getElementById("iframes-placeholder");
 const streamSseButton = document.getElementById("stream-sse");
 const formDataButton = document.getElementById("form-data");
+const encodedQueryParamsButton = document.getElementById("encoded-query-params");
 
 xhrButton.addEventListener("click", () => {
   const xhr = new XMLHttpRequest();
@@ -46,8 +47,19 @@ formDataButton.addEventListener("click", async () => {
   formData.append("timestamp", new Date().toISOString());
   formData.append("file", new Blob(["Hello World"], { type: "text/plain" }), "hello.txt");
   
-  await fetch("./form-data-endpoint", {
+  await fetch("./form-data-endpoint?hasfile=true", {
     method: "POST",
     body: formData
+  });
+});
+
+
+encodedQueryParamsButton.addEventListener("click", async () => {
+  const params = new URLSearchParams();
+  params.append("name", "Danas Barkus");
+  params.append("url", "https://contoso.com/àéèôçл");
+
+  await fetch(`./encoded-query-params-endpoint?${params.toString()}`, {
+    method: "GET"
   });
 });

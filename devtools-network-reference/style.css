@@ -1,7 +1,11 @@
 body {
   font-family: system-ui;
-  font-size: 14pt;
+  font-size: 12pt;
   margin: 2rem;
+}
+
+h1 {
+  font-size: 1.4rem;
 }
 
 button {
