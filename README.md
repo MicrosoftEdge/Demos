@@ -27,8 +27,8 @@ last sync'd April 16, 2024
 "Source code directory": sort on this col, to match dir order at https://github.com/MicrosoftEdge/Demos/
 "Live demo page": adds "demo" if not present, for when headers are out of view
 -->
-| Demo name | Description and docs | Source code directory | Live demo page |
-|:---|:---|:---|:---|
+| Demo name | Description and docs | Source code & Readme | Live demo page |
+|---|---|---|---|
 | CSS mirroring sourcemaps | Used for [Update .css files from within the Styles tab (CSS mirror editing)](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/css-mirror-editing-styles-tab) for the DevTools extension for Visual Studio Code. | [/css-mirroring-sourcemaps-demo/](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | n/a |
 | To Do app | Simple To Do app with vanilla JavaScript.  Used for various articles in the [Microsoft Edge DevTools documentation](https://learn.microsoft.com/microsoft-edge/devtools/landing). | [/demo-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [My tasks](https://microsoftedge.github.io/Demos/demo-to-do/) demo |
 | Detached DOM elements | Chat-like demo.  Used for [Debug DOM memory leaks ("Detached elements" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks-memory-tool-detached-elements). | [/detached-elements/](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Detached DOM elements](https://microsoftedge.github.io/Demos/detached-elements/) demo |
@@ -70,8 +70,8 @@ https://github.com/microsoft/MicrosoftEdge-Extensions/blob/main/README.md#code
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extensions
 -->
 
-| Demo name | Description and docs | Source code directory | Live demo page |
-|:---|:---|:---|:---|
+| Demo name | Description and docs | Source code & Readme | Live demo page |
+|---|---|---|---|
 | DevTools extension | Used for [Create an extension that customizes the DevTools UI](https://learn.microsoft.com/microsoft-edge/extensions/developer-guide/devtools-extension). | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
 | Basic | A basic DevTools extension. | [/devtools-extension/sample 1/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%201) | n/a |
 | Panel | A basic DevTools extension with a panel. | [/devtools-extension/sample 2/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%202) | n/a |
@@ -90,8 +90,8 @@ https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-
 last sync'd July 18, 2025
 -->
 
-| Demo name | Description and docs | Source code directory | Live demo page |
-|:---|:---|:---|:---|
+| Demo name | Description and docs | Source code & Readme | Live demo page |
+|---|---|---|---|
 | 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) demo |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) demo |
 | Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) demo |
@@ -116,8 +116,8 @@ Webboard
 <!-- ====================================================================== -->
 ## Cross-browser API samples
 
-| Demo name | Description and docs | Source code directory | Live demo page |
-|:---|:---|:---|:---|
+| Demo name | Description and docs | Source code & Readme | Live demo page |
+|---|---|---|---|
 | Built-in AI playgrounds | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/built-in-ai) | [Built-in AI playgrounds](https://microsoftedge.github.io/Demos/built-in-ai/) demo |
 | CSS Gap Decorations demos | Draws line decorations within gaps in CSS Grid, Flexbox, and Multi-column layouts. | [/css-gap-decorations/](https://github.com/MicrosoftEdge/Demos/tree/main/css-gap-decorations) | [CSS Gap Decorations demos](https://microsoftedge.github.io/Demos/css-gap-decorations/) (Readme) |
 | CSS Masonry demos | Showcase the implementation of CSS Masonry layout. | [/css-masonry/](https://github.com/MicrosoftEdge/Demos/tree/main/css-masonry) | [CSS Masonry demos](https://microsoftedge.github.io/Demos/css-masonry/) demos (Readme) |
@@ -151,7 +151,7 @@ To add a new demo:
 
 1. Add a link to your demo in this `README.md` file, in a new row in one of the tables.
 
-| Demo name | Description and docs | Source code directory | Live demo page |
+| Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | Template: My new demo | Template directory to copy/paste to add a new demo. | [/template/](https://github.com/MicrosoftEdge/Demos/tree/main/template) | [Template](https://microsoftedge.github.io/Demos/template/) for demos |
 
