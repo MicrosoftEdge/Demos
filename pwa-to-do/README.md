@@ -12,9 +12,9 @@ Check out the code in the `db.js` file if you're interested in learning more abo
 <!-- ====================================================================== -->
 ## TODO
 
-This demo is under construction and requires adding the following features:
+Possible enhancements for this demo:
 
 * Add a way to import DB from file.
-* Escape strings before inserting into SQLite.
-* Sort tasks by most recent tasks, and separate completed vs. todo.
-* Allow to sort tasks manually.
+   * Escape strings before inserting into SQLite.
+* Sort tasks by most recent tasks, and separate completed tasks vs. todo tasks.
+   * Allow manually sorting the tasks.
