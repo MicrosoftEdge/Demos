@@ -6,7 +6,7 @@ These demos are used in the following articles:
 
 * [Console overview](https://learn.microsoft.com/microsoft-edge/devtools/console/)
 * [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools/console/console-log)
-* [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript)
+* [Fix JavaScript errors reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript)
 * [Monitor changes in JavaScript using Live Expressions](https://learn.microsoft.com/microsoft-edge/devtools/console/live-expressions)
 
 Demo webpages:
