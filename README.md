@@ -21,6 +21,7 @@ https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list
 last sync'd April 16, 2024
 -->
 
+<!-- todo: sync -->
 <!-- table columns:
 "Demo name": omit "demo"
 "Description and docs": omit "PWA" unless ambig, omit "demo"
@@ -70,6 +71,7 @@ https://github.com/microsoft/MicrosoftEdge-Extensions/blob/main/README.md#code
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extensions
 -->
 
+<!-- todo: sync -->
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | DevTools extension | Used for [Create an extension that customizes the DevTools UI](https://learn.microsoft.com/microsoft-edge/extensions/developer-guide/devtools-extension). | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
@@ -87,9 +89,10 @@ See also:
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
-last sync'd July 18, 2025
+sync'd July 18, 2025
 -->
 
+<!-- todo: sync -->
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) demo |
@@ -105,28 +108,29 @@ last sync'd July 18, 2025
 <!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
 
 See also:
-* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas)
-<!-- adds:
-BPM Techno
-Webboard
--->
+* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas) - also lists the BPM Techno and Webboard samples, in a different repo.
 
 
 <!-- ====================================================================== -->
 ## Cross-browser API samples
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/web-platform/samples.md
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#cross-browser-api-samples
+-->
+<!-- sync'd July 30, 2025 -->
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | Built-in AI playgrounds | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/built-in-ai) | [Built-in AI playgrounds](https://microsoftedge.github.io/Demos/built-in-ai/) demo |
 | CSS Gap Decorations demos | Draws line decorations within gaps in CSS Grid, Flexbox, and Multi-column layouts. | [/css-gap-decorations/](https://github.com/MicrosoftEdge/Demos/tree/main/css-gap-decorations) | [CSS Gap Decorations demos](https://microsoftedge.github.io/Demos/css-gap-decorations/) (Readme) |
 | CSS Masonry demos | Showcase the implementation of CSS Masonry layout. | [/css-masonry/](https://github.com/MicrosoftEdge/Demos/tree/main/css-masonry) | [CSS Masonry demos](https://microsoftedge.github.io/Demos/css-masonry/) demos (Readme) |
-| CSS Custom Highlight API | How to programmatically create and remove custom highlights on a web page. | [/custom-highlight-api/](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [Custom Highlight API](https://microsoftedge.github.io/Demos/custom-highlight-api/) demo |
+| CSS Custom Highlight API | How to programmatically create and remove custom highlights on a web page. | [/custom-highlight-api/](https://github.com/MicrosoftEdge/Demos/tree/main/custom-highlight-api) | [CSS Custom Highlight API demo](https://microsoftedge.github.io/Demos/custom-highlight-api/) demo |
 | EditContext API demo | Demo page showing how the EditContext API can be used to build an advanced text editor. | [/edit-context/](https://github.com/MicrosoftEdge/Demos/tree/main/edit-context) | [HTML editor demo](https://microsoftedge.github.io/Demos/edit-context/) |
 | EyeDropper API | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
-| IndexedDB: `getAllRecords()` | Shows the benefits of the newly proposed `getAllRecords()` IndexedDB method to more conveniently and quickly read IDB records. | [/idb-getallrecords/](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords) | [IndexedDB: getAllRecords()](https://microsoftedge.github.io/Demos/idb-getallrecords/) demo |
+| IndexedDB: `getAllRecords()` | Shows the benefits of the proposed `getAllRecords()` IndexedDB method to more conveniently and quickly read IDB records. | [/idb-getallrecords/](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords) | [IndexedDB: getAllRecords()](https://microsoftedge.github.io/Demos/idb-getallrecords/) demo |
 | Notifications demo | Using incoming call notifications. | [/incoming-call-notifications/](https://github.com/MicrosoftEdge/Demos/tree/main/incoming-call-notifications) | [Notifications demo](https://microsoftedge.github.io/Demos/incoming-call-notifications/) demo |
 | Page Colors Custom Scrollbars demo | Shows a custom, green scrollbar in a page that has custom colors. | [/page-colors-custom-scrollbars/](https://github.com/MicrosoftEdge/Demos/tree/main/page-colors-custom-scrollbars) | [Page Colors Custom Scrollbars demo](https://microsoftedge.github.io/Demos/page-colors-custom-scrollbars/) demo |
-| Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectlist>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) demo |
+| Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) demo |
 | Open UI's `<selectlist>` demos | Demo webpage showing how the Open UI's `<selectlist>` element can be used. | [/selectlist/](https://github.com/MicrosoftEdge/Demos/tree/main/selectlist) | [Open UI's \<selectlist\> demos](https://microsoftedge.github.io/Demos/selectlist/) |
 | `<selectmenu>` demos | OpenUI's `<selectmenu>` component was renamed to `<selectlist>`. | [/selectmenu/](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [<selectmenu> demos](https://microsoftedge.github.io/Demos/selectmenu/), redirects to `/selectlist/` demos |
 | SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
