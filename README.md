@@ -10,6 +10,14 @@ This repository contains demo webpages, apps, and sample code to demonstrate var
 * [Adding a new demo](#adding-a-new-demo)
 * [Contributing](#contributing)
 * [Trademarks](#trademarks)
+* [See also](#see-also)
+
+<!-- table columns:
+"Demo name": omit "demo"
+"Description and docs": omit "PWA" unless ambig, omit "demo"
+"Source code directory": sort on this col, to match dir order at https://github.com/MicrosoftEdge/Demos/
+"Live demo page": adds "demo" if not present, for when headers are out of view
+-->
 
 
 <!-- ====================================================================== -->
@@ -21,12 +29,6 @@ https://github.com/MicrosoftEdge/Demos#readme
 sync'd July 30, 2025
 -->
 
-<!-- table columns:
-"Demo name": omit "demo"
-"Description and docs": omit "PWA" unless ambig, omit "demo"
-"Source code directory": sort on this col, to match dir order at https://github.com/MicrosoftEdge/Demos/
-"Live demo page": adds "demo" if not present, for when headers are out of view
--->
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | CSS mirroring sourcemaps | Used for [Update .css files from within the Styles tab (CSS mirror editing)](https://learn.microsoft.com/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension/css-mirror-editing-styles-tab) for the DevTools extension for Visual Studio Code. | [/css-mirroring-sourcemaps-demo/](https://github.com/MicrosoftEdge/Demos/tree/main/css-mirroring-sourcemaps-demo) | n/a |
@@ -60,6 +62,12 @@ sync'd July 30, 2025
 | Margie's Travel | Demonstrates how to optimize a webpage's resources to make it load, appear, and be interactive faster.  See [Optimize website speed using Lighthouse](https://learn.microsoft.com/microsoft-edge/devtools/speed/get-started). | [/travel-site/](https://github.com/MicrosoftEdge/Demos/tree/main/travel-site) | [Margie's Travel](https://microsoftedge.github.io/Demos/travel-site/) demo |
 | Workspaces | Used for [Edit and save files in a workspace (Sources tool Workspace tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces/). | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces demo](https://microsoftedge.github.io/Demos/workspaces/) |
 | Idle detection | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state) in _Emulate device sensors_. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
+<!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
+
+See also:
+* DevTools extension, in [Microsoft Edge extensions](#microsoft-edge-extensions), below.
+* [Sample code for DevTools](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code)
+* [Clone the Edge Demos repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
 
 
 <!-- ====================================================================== -->
@@ -79,7 +87,7 @@ sync'd July 30, 2025
 | Inspect | A basic DevTools extension that interacts with the Inspected page. | [/devtools-extension/sample 4/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%204) | n/a |
 
 See also:
-* [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo:
+* [Samples for Microsoft Edge extensions](https://learn.microsoft.com/microsoft-edge/extensions/samples).  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo:
    * Picture viewer pop-up webpage
    * Picture inserter using content script
 
@@ -132,12 +140,19 @@ sync'd July 30, 2025
 | EyeDropper API | How to use the EyeDropper API to create a color sampling tool from JavaScript. | [/eyedropper/](https://github.com/MicrosoftEdge/Demos/tree/main/eyedropper) | [EyeDropper API demos](https://microsoftedge.github.io/Demos/eyedropper/) |
 | IndexedDB: `getAllRecords()` | Shows the benefits of the proposed `getAllRecords()` IndexedDB method to more conveniently and quickly read IDB records. | [/idb-getallrecords/](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords) | [IndexedDB: getAllRecords()](https://microsoftedge.github.io/Demos/idb-getallrecords/) demo |
 | Notifications demo | Using incoming call notifications. | [/incoming-call-notifications/](https://github.com/MicrosoftEdge/Demos/tree/main/incoming-call-notifications) | [Notifications demo](https://microsoftedge.github.io/Demos/incoming-call-notifications/) demo |
+| JSON dummy data | Simple JSON files.  Used for [View a JSON file or server response with formatting](https://learn.microsoft.com/microsoft-edge/web-platform/json-viewer). | [/json-dummy-data/](https://github.com/MicrosoftEdge/Demos/tree/main/json-dummy-data) | [JSON dummy data](https://microsoftedge.github.io/Demos/json-dummy-data/) (Readme) |
 | Page Colors Custom Scrollbars demo | Shows a custom, green scrollbar in a page that has custom colors. | [/page-colors-custom-scrollbars/](https://github.com/MicrosoftEdge/Demos/tree/main/page-colors-custom-scrollbars) | [Page Colors Custom Scrollbars demo](https://microsoftedge.github.io/Demos/page-colors-custom-scrollbars/) demo |
 | Reader app | An article reader app used to demonstrate how to use various web APIs such as CSS Custom Highlight, `<selectmenu>`, EyeDropper, CSS and JSON modules, Scroll animation timeline, and Async Clipboard. | [/reader/](https://github.com/MicrosoftEdge/Demos/tree/main/reader) | [Reader](https://microsoftedge.github.io/Demos/reader/) demo |
 | Open UI's `<selectlist>` demos | Demo webpage showing how the Open UI's `<selectlist>` element can be used. | [/selectlist/](https://github.com/MicrosoftEdge/Demos/tree/main/selectlist) | [Open UI's \<selectlist\> demos](https://microsoftedge.github.io/Demos/selectlist/) |
 | `<selectmenu>` demos | OpenUI's `<selectmenu>` component was renamed to `<selectlist>`. | [/selectmenu/](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [`<selectmenu>` demos](https://microsoftedge.github.io/Demos/selectmenu/), redirects to `/selectlist/` demos |
 | SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
 | WebNN API | Uses the WebNN API to build a machine learning graph and run it on the device's hardware. | [/webnn/](https://github.com/MicrosoftEdge/Demos/tree/main/webnn) | [WebNN API demo](https://microsoftedge.github.io/Demos/webnn/) |
+<!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
+
+<!-- todo: uncomment after PR https://github.com/MicrosoftDocs/edge-developer/pull/3513 is merged
+See also:
+* [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples.md)
+-->
 
 
 <!-- ====================================================================== -->
@@ -186,3 +201,9 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+
+
+<!-- ====================================================================== -->
+## See also
+
+* [Clone the Edge Demos repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
