@@ -16,12 +16,11 @@ This repository contains demo webpages, apps, and sample code to demonstrate var
 ## Microsoft Edge DevTools
 <!-- 
 sync:
-https://github.com/MicrosoftEdge/Demos#readme
 https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
-last sync'd April 16, 2024
+https://github.com/MicrosoftEdge/Demos#readme
+sync'd July 30, 2025
 -->
 
-<!-- todo: sync -->
 <!-- table columns:
 "Demo name": omit "demo"
 "Description and docs": omit "PWA" unless ambig, omit "demo"
@@ -34,12 +33,12 @@ last sync'd April 16, 2024
 | To Do app | Simple To Do app with vanilla JavaScript.  Used for various articles in the [Microsoft Edge DevTools documentation](https://learn.microsoft.com/microsoft-edge/devtools/landing). | [/demo-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/demo-to-do) | [My tasks](https://microsoftedge.github.io/Demos/demo-to-do/) demo |
 | Detached DOM elements | Chat-like demo.  Used for [Debug DOM memory leaks ("Detached elements" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks-memory-tool-detached-elements). | [/detached-elements/](https://github.com/MicrosoftEdge/Demos/tree/main/detached-elements) | [Detached DOM elements](https://microsoftedge.github.io/Demos/detached-elements/) demo |
 | 3D View tool | Used for [Navigate webpage layers, z-index, and DOM using the 3D View tool](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/). | [/devtools-3d/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-3d) | [3D View tool demo](https://microsoftedge.github.io/Demos/devtools-3d/) |
-| Accessibility testing | Used for [Overview of accessibility testing using DevTools](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/accessibility-testing-in-devtools). | [/devtools-a11y-testing/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Animal Shelter](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) demo |
+| Accessibility testing | Used for [Accessibility-testing features](https://learn.microsoft.com/microsoft-edge/devtools/accessibility/reference). | [/devtools-a11y-testing/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-a11y-testing) | [Animal Shelter](https://microsoftedge.github.io/Demos/devtools-a11y-testing/) demo |
 | Warning when animating a CSS property that requires layout | Illustrates the **Issues** and **Elements** tools warning when CSS properties that require layout are animated. | [/devtools-animated-property-issue/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-animated-property-issue) | [Animated CSS property demo](https://microsoftedge.github.io/Demos/devtools-animated-property-issue/) |
 | Console panel demo pages | Used for [Console overview](https://learn.microsoft.com/microsoft-edge/devtools/console/), [Log messages in the Console tool](https://learn.microsoft.com/microsoft-edge/devtools/console/console-log), and [Fix JavaScript errors that are reported in the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-debug-javascript). | [/devtools-console/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console) | [DevTools Console panel demo pages](https://microsoftedge.github.io/Demos/devtools-console/) |
 | Interact with the DOM using the Console | Used for [Interact with the DOM using the Console](https://learn.microsoft.com/microsoft-edge/devtools/console/console-dom-interaction). | [/devtools-console-dom-interactions/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-console-dom-interactions) | [Interact with the DOM using the Console](https://microsoftedge.github.io/Demos/devtools-console-dom-interactions/) demo |
 | Contrast bug fix | Used for [Improving contrast in Microsoft Edge DevTools: A bugfix case study](https://blogs.windows.com/msedgedev/2021/06/15/improving-contrast-in-microsoft-edge-devtools-a-bugfix-case-study/). | [/devtools-contrast-bugfix/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-contrast-bugfix) | [Testing all badges in DevTools for contrast issues](https://microsoftedge.github.io/Demos/devtools-contrast-bugfix/) demo |
-| Crash Analyzer tool demo | Used for [Enter a stack trace in the Crash analyzer tool](https://learn.microsoft.com/microsoft-edge/devtools/crash-analyzer/) in _Crash analyzer tool_. | [/devtools-crash-analyzer/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-crash-analyzer) | [DevTools Crash Analyzer](https://microsoftedge.github.io/Demos/devtools-crash-analyzer/) (Readme) |
+| Crash Analyzer tool demo | Used for [Enter a stack trace in the Crash analyzer tool](https://learn.microsoft.com/microsoft-edge/devtools/crash-analyzer/#enter-a-stack-trace-in-the-crash-analyzer-tool) in _Crash analyzer tool_. | [/devtools-crash-analyzer/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-crash-analyzer) | [DevTools Crash Analyzer](https://microsoftedge.github.io/Demos/devtools-crash-analyzer/) (Readme) |
 | CSS Examples | Used for [Get started viewing and changing CSS](https://learn.microsoft.com/microsoft-edge/devtools/css/). | [/devtools-css-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-css-get-started) | [CSS Examples](https://microsoftedge.github.io/Demos/devtools-css-get-started/) demo |
 | DOM Examples | Used for [Get started viewing and changing the DOM](https://learn.microsoft.com/microsoft-edge/devtools/dom/). | [/devtools-dom-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-dom-get-started) | [DOM Examples](https://microsoftedge.github.io/Demos/devtools-dom-get-started/) demo |
 | Explain Console errors and warnings in Copilot in Edge | Generates errors in the Console that can then be explained by using Copilot in Edge. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explain Console errors and warnings in Copilot in Edge](https://microsoftedge.github.io/Demos/devtools-explain-error/) demo |
@@ -59,19 +58,18 @@ last sync'd April 16, 2024
 | Photo gallery | Used for [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/). | [/photo-gallery/](https://github.com/MicrosoftEdge/Demos/tree/main/photo-gallery) | [Photo Gallery](https://microsoftedge.github.io/Demos/photo-gallery/) demo |
 | Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) demo |
 | Margie's Travel | Demonstrates how to optimize a webpage's resources to make it load, appear, and be interactive faster.  See [Optimize website speed using Lighthouse](https://learn.microsoft.com/microsoft-edge/devtools/speed/get-started). | [/travel-site/](https://github.com/MicrosoftEdge/Demos/tree/main/travel-site) | [Margie's Travel](https://microsoftedge.github.io/Demos/travel-site/) demo |
-| Workspaces | Used for [Edit files with Workspaces (Filesystem tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces), in the **Sources** tool. | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces demo](https://microsoftedge.github.io/Demos/workspaces/) |
-| Idle detection | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state), in the **Sensors** tool. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
+| Workspaces | Used for [Edit and save files in a workspace (Sources tool Workspace tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces/). | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces demo](https://microsoftedge.github.io/Demos/workspaces/) |
+| Idle detection | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state) in _Emulate device sensors_. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
 
 
 <!-- ====================================================================== -->
 ## Microsoft Edge extensions
 <!-- sync:
-https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples
-https://github.com/microsoft/MicrosoftEdge-Extensions/blob/main/README.md#code
+https://learn.microsoft.com/microsoft-edge/extensions/samples#microsoftedgedemos-repo
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extensions
+sync'd July 30, 2025
 -->
 
-<!-- todo: sync -->
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | DevTools extension | Used for [Create an extension that customizes the DevTools UI](https://learn.microsoft.com/microsoft-edge/extensions/developer-guide/devtools-extension). | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
@@ -81,7 +79,9 @@ https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extens
 | Inspect | A basic DevTools extension that interacts with the Inspected page. | [/devtools-extension/sample 4/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%204) | n/a |
 
 See also:
-* [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo.
+* [List of samples](https://learn.microsoft.com/microsoft-edge/extensions/samples#list-of-samples) in _Samples for Microsoft Edge extensions_.  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo:
+   * Picture viewer pop-up webpage
+   * Picture inserter using content script
 
 
 <!-- ====================================================================== -->
@@ -89,10 +89,9 @@ See also:
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
-sync'd July 18, 2025
+sync'd July 30, 2025
 -->
 
-<!-- todo: sync -->
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
 | 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) demo |
@@ -108,7 +107,11 @@ sync'd July 18, 2025
 <!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
 
 See also:
-* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas) - also lists the BPM Techno and Webboard samples, in a different repo.
+* [Progressive Web App demos](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas) - also lists the demos:
+   * My Movie List
+   * My Tracks
+   * BPM Techno
+   * Webboard
 
 
 <!-- ====================================================================== -->
@@ -116,8 +119,8 @@ See also:
 <!-- sync:
 https://learn.microsoft.com/microsoft-edge/web-platform/samples.md
 https://github.com/MicrosoftEdge/Demos/blob/main/README.md#cross-browser-api-samples
+sync'd July 30, 2025
 -->
-<!-- sync'd July 30, 2025 -->
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
