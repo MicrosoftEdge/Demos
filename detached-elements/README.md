@@ -11,6 +11,8 @@ For instructions, see:
 * [Debug memory leaks with the Microsoft Edge Detached Elements tool](https://blogs.windows.com/msedgedev/2021/12/09/debug-memory-leaks-detached-elements-tool-devtools/) - Announcement blog post.
 * [Debug DOM node memory leaks with the new Detached Elements tool](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/07/devtools#debug-dom-node-memory-leaks-with-the-new-detached-elements-tool) in _What's New in DevTools (Microsoft Edge 93)_.
 
+Regarding the last two articles, the **Detached Elements** tool has been removed.  To debug DOM memory leaks, use the **Detached elements** profiling type in the **Memory** tool.
+
 
 <!-- ====================================================================== -->
 ## Potential leaks

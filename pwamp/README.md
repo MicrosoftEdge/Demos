@@ -11,18 +11,25 @@ PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an inst
 ## User guide
 
 * Open the app: https://microsoftedge.github.io/Demos/pwamp/
+
 * To add new songs:
   * Either drag and drop audio files from your explorer onto the playlist area.
   * Or click the `+` button in the bottom toolbar.
+
 * Artist, title, and album information are parsed from the song files (if available).
+
 * To edit song information, click on the artist, title, or album fields and edit the text.
+
 * To add custom artworks for albums, drag and drop image files onto songs.
+
 * Use the top toolbar to play, pause, and go to the next or previous songs.
+
 * The bottom toolbar contains the following extra features:
   * Apply a custom skin: select a .css or .pwampskin file to replace the look and feel of the app with your own.
   * Record an audio clip: click once to start recording, click once more to stop recording.
   * Show visualizer: click to toggle the visualizer mode.
   * More tools: options to download all songs or delete all songs.
+
 * If you install the PWA locally on desktop, the following features become available:
   * Audio files are handled natively. Just double-click an audio file to add it to your PWAmp library.
   * *.pwampskin files are also handled natively, Double-click one such file to change the look and feel of the app.
@@ -78,3 +85,20 @@ Possible enhancements for this demo:
 * Ability to export as another file format.
 * Use viewport segments to display on dual screen devices.
 * Add repeat and shuffle buttons.
+
+
+<!-- ====================================================================== -->
+## Articles that use this demo
+
+Find "PWAmp" in the following articles.
+
+* [PWAmp](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#pwamp) in _Progressive Web App demos_.
+* [Console features reference](https://learn.microsoft.com/microsoft-edge/devtools/console/reference)
+* [Test Progressive Web App (PWA) protocol handling](https://learn.microsoft.com/microsoft-edge/devtools/progressive-web-apps/protocol-handlers)
+* [View and change IndexedDB data](https://learn.microsoft.com/microsoft-edge/devtools/storage/indexeddb)
+* [Best practices for PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/best-practices)
+* [Automatic link handling](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/handle-urls#automatic-link-handling) in _Handle links to a PWA_.
+* [Demo of sharing content](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/share#demo-of-sharing-content) in _Share content with other apps_.
+* [Build a PWA for the sidebar in Microsoft Edge](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/sidebar)
+* [Display a PWA widget in the Windows Widgets Board](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/widgets)
+* [What's New in PWAs](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/whats-new/pwa)

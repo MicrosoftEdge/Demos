@@ -1,5 +1,7 @@
 # Microsoft Edge Demos
 
+<!-- todo: test all links in repo, eg FTS: learn.microsoft.com -->
+
 <!-- todo: in every Readme, link to docs; sync Docs column of below tables -->
 
 <!-- todo: for ease of Maint, move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo -->
@@ -26,7 +28,7 @@ This repository contains demo webpages, apps, and sample code to demonstrate var
 
 <!-- ====================================================================== -->
 ## Microsoft Edge DevTools
-<!-- 
+<!--
 sync:
 https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
 https://github.com/MicrosoftEdge/Demos#readme

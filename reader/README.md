@@ -88,7 +88,9 @@ The API is implemented in Chromium, behind the `Experimental Web Platform featur
 
 
 <!-- ====================================================================== -->
-## `<selectmenu>` element<!-- todo: renamed to selectlist? -->
+## `<selectmenu>` element
+
+Update: The `<selectmenu>` element was renamed to `<selectlist>` in 2023.
 
 Traditional `<select>` elements are impossible to fully style. The button part of a select can be styled, but the drop-down and options are limited.
 
@@ -275,5 +277,5 @@ The Navigation API is supported in Chromium-browsers.
 <!-- ====================================================================== -->
 ## See also
 
-* [Fully style the drop-down part of a HTML `<select>` with the new `<selectmenu>` element](https://learn.microsoft.com/microsoft-edge/dev-videos/#fully-style-the-drop-down-part-of-a-html-select-with-the-selectmenu-element) in _Videos about web development with Microsoft Edge_.
+* [Fully style the drop-down part of a HTML `<select>` with the `<selectmenu>` element](https://learn.microsoft.com/microsoft-edge/dev-videos/#fully-style-the-drop-down-part-of-a-html-select-with-the-selectmenu-element) in _Videos about web development with Microsoft Edge_.
 * [Create a scroll-linked animation without JavaScript](https://learn.microsoft.com/microsoft-edge/dev-videos/#create-a-scroll-linked-animation-without-javascript) in _Videos about web development with Microsoft Edge_.

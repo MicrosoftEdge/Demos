@@ -35,4 +35,4 @@ The sections of the demo webpage use this technique to push the prototype to its
 <!-- ====================================================================== -->
 ## See also
 
-* [Fully style the drop-down part of a HTML `<select>` with the new `<selectmenu>` element](https://learn.microsoft.com/microsoft-edge/dev-videos/#fully-style-the-drop-down-part-of-a-html-select-with-the-selectmenu-element) in _Videos about web development with Microsoft Edge_.
+* [Fully style the drop-down part of a HTML `<select>` with the `<selectmenu>` element](https://learn.microsoft.com/microsoft-edge/dev-videos/#fully-style-the-drop-down-part-of-a-html-select-with-the-selectmenu-element) in _Videos about web development with Microsoft Edge_.
