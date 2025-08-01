@@ -254,20 +254,20 @@
         target="_blank">
         CSS Gaps Decorations Module Level 1</a>.
       Use the controls to tweak gap, rule, and paint-order properties in real time
-      and see how they affect multicolumn, flex, and grid layouts.
+      and see how they affect <a href="#grid">grid</a>, <a href="#flex">flex</a>, and <a href="#multicolumn">multicolumn</a> layouts.
     </p>
     <p>
       This is a non-exhaustive demo. See the spec for full details on the properties and their values.
     </p>
     <p>
       As of right now, this is only implemented for Chromium-based browsers, and 
-      the "Experimental Web Platform features" flag is needed to enable the feature:
+      the "Experimental Web Platform features" flag is needed to enable the feature:<br/>
       <code>--enable-features=enable-experimental-web-platform-features</code>
     </p>
   </div>
 
   <section>
-    <h2>Grid Layout</h2>
+    <h2 id="grid">Grid Layout</h2>
     <div class="demo-group">
       <aside class="controls" data-target=".grid">
         <label>Gap (px): <output id="grGapVal">30</output></label>
@@ -336,7 +336,7 @@
   </section>
 
   <section>
-    <h2>Flex Layout</h2>
+    <h2 id="flex">Flex Layout</h2>
     <div class="demo-group">
       <aside class="controls" data-target=".flex-container">
         <label>Gap (px): <output id="fxGapVal">20</output></label>
@@ -400,7 +400,7 @@
   </section>
 
   <section>
-    <h2>Multicolumn Layout</h2>
+    <h2 id="multicolumn">Multicolumn Layout</h2>
     <div class="demo-group">
       <aside class="controls">
         <label>Column-gap (px): <output id="mcColGapVal">30</output></label>
