@@ -1,7 +1,4 @@
-<!--
-  
-TO ADD NEW IMAGES TO THE GALLERY DEMO:
-
+<!-- To add new images to the Gallery demo:
 1. Put the original photos in /add-new-images/new-img/1920/
 2. Resize these photos to 1920px max (either direction), while making sure to preserve the EXIF data in the original files.
 3. Copy these photos and put them in the /add-new-images/new-img/300/ folder.
@@ -11,10 +8,8 @@ TO ADD NEW IMAGES TO THE GALLERY DEMO:
 7. Open the Console tool, there should be a logged message.
 8. Right-click this message and choose "Copy object".
 9. Paste the copied object in the data.json file.
-10. Copy the images from the /add-new-images/new-img/1920/ and /add-new-images/new-img/300/ folders and paste them in the /img/1920/ and /img/300/ folders respectively.
-
--->
-
+10. Copy the images from the /add-new-images/new-img/1920/ and /add-new-images/new-img/300/ folders and paste them in the
+    /img/1920/ and /img/300/ folders respectively. -->
 <p>Script is running.</p>
 
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
@@ -123,7 +118,7 @@ TO ADD NEW IMAGES TO THE GALLERY DEMO:
       data.push(await processOneImage(imageName));
     }
     
-    output.textContent = `All done, check the console output.`;
+    output.textContent = `All done, check the Console output.`;
     console.log(data);
   }
 

@@ -1,7 +1,12 @@
 # CSS Masonry demos
 
-This directory contains demo pages that showcase the implementation of CSS Masonry in Chromium.
+This directory contains demo pages that showcase the implementation of CSS Masonry in the Chromium browser engine.
 
+See also:
+* [Masonry layout](https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Masonry_layout) at MDN.
+
+
+<!-- ====================================================================== -->
 ## Enable Masonry support
 
 To try the demos, first enable Masonry:
@@ -11,6 +16,8 @@ To try the demos, first enable Masonry:
 1. Search for "CSS Masonry Layout" in the search box.
 1. Set the **CSS Masonry Layout** flag to **Enabled**, and then restart the browser.
 
+
+<!-- ====================================================================== -->
 ## Demos
 
 * [Blog](https://microsoftedge.github.io/Demos/css-masonry/blog.html)

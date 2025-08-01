@@ -1,19 +1,24 @@
-# DevTools 3D View tool demo
+# 3D View tool demo
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-3d/)** ⬅️
 
 This demo page is useful to show some of the most useful features of the 3D View tool in Microsoft Edge DevTools.
 
-* Read the blog post about the tool here (link coming soon).
-* Watch the video about the tool here (link coming soon).
-* Read documentation about the tool [here](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/).
+See also:
+* [Navigate webpage layers, z-index, and DOM using the 3D View tool](https://learn.microsoft.com/microsoft-edge/devtools/3d-view/) - Documentation about the tool and how to use this demo.
+* [Debug the web in 3D with the 3D View tool](https://blogs.windows.com/msedgedev/2022/06/21/debug-the-web-in-3d-with-the-3d-view-tool/) - Blog post.
+* [Debug the web in 3D](https://www.youtube.com/watch?v=LVb1Xzzd72w) - Video.
 
+
+<!-- ====================================================================== -->
 ## Deeply nested DOM
 
 Deep DOM trees can be hard to work with and may even lead to performance problems. The DOM tab in the 3D View tool makes it very easy to visualize where the DOM reaches high depth.
 
-The demo page has an intro paragraph that is unncessarily nested in a series of wrapper elements. This appears in the 3D View tool as a high tower of elements.
+The demo page has an intro paragraph that is unnecessarily nested in a series of wrapper elements. This appears in the 3D View tool as a high tower of elements.
 
+
+<!-- ====================================================================== -->
 ## Out-of-document elements
 
 Sometimes it is necessary to hide elements outside of the visible boundaries of the web page. However finding these elements with DevTools can be hard.
@@ -22,6 +27,8 @@ The ability to zoom out and pan the 3D scene in the the 3D View tool makes it mu
 
 In the demo page, there is a "skip to content" link outside of the document, in the top left corner. This link is useful for users of screen readers to jump straight to the content, but it does not need to be rendered in the page, so is put off page.
 
+
+<!-- ====================================================================== -->
 ## Unwanted scrollbars
 
 Unwanted scrollbars often occur on the web when working on your layout with CSS. Sometimes content overflows in unexpected ways. Debugging these problems can be time consuming and it isn't always obvious where to start looking.
@@ -32,6 +39,8 @@ In the demo page, there is an element at the bottom with a list of links which a
 
 Changing the `box-sizing` property to `border-box` fixes this issue.
 
+
+<!-- ====================================================================== -->
 ## Composited layers
 
 Browser engines sometimes optimize the way to paint the web page to the screen, by splitting it in multiple independent layers. This way, when things change on the page, the engine does not necessarily need to paint everything again.

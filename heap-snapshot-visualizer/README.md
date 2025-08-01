@@ -1,39 +1,59 @@
 # Heap snapshot visualizer
 
-A DevTools extension to show a visualization of the contents of a `*.heapshapshot` file.
+This demo is a DevTools extension to show a visualization of the contents of a `*.heapsnapshot` file.
 
 _* This extension is under development_
 
+
+<!-- ====================================================================== -->
 ## What is a heap snapshot file?
 
-Please refer to this document which contains all the information you need to udnerstand the schema of a`*.heapspanshot` file produced by the DevTools Memory tool: [The heap snapshot file format](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshot-schema)
+The DevTools **Memory** tool produces a `*.heapsnapshot` file.  For information about the schema of the file, see [The heap snapshot file format](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshot-schema).
 
+
+<!-- ====================================================================== -->
 ## What kind of visualization?
-- A force directed graph
-- A tree
 
+* A force directed graph.
+* A tree.
+
+
+<!-- ====================================================================== -->
 ## What can I do with it?
-- Filter nodes
-- Explore the memory structure starting from GC retainers
-- Isolate the retainer chain for a single node using its object id 
 
+* Filter nodes.
+* Explore the memory structure starting from GC retainers.
+* Isolate the retainer chain for a single node using its object ID.
+
+
+<!-- ====================================================================== -->
 ## Dependencies
-This extension uses React and D3
 
+This extension uses React and D3.
+
+
+<!-- ====================================================================== -->
 ## How to Install and Build
-This is a project that uses Typescript and React, you need to build it in order to get the outputs needed for the extension.
+
+This is a project that uses Typescript and React.  To get the outputs that are needed for the extension, build the demo as follows:
 
 `npm install`
 
 `npm run build`
 
-## Load
-1) Open the Edge browser
-2) Navigate to `edge://extensions`
-3) Enable Developer Mode
-4) Click "Load unpacked" and select the `build` folder
-5) Navigate to a site and open DevTools
-6) Find *Heap Snapshot Visualizer* as a tab.
 
-## This is how it looks like
-![](./extension.png)
+<!-- ====================================================================== -->
+## Load
+
+1. Open Microsoft Edge.
+1. Go to `edge://extensions`.
+1. Enable Developer Mode.
+1. Click "Load unpacked" and select the `build` folder.
+1. Go to a webpage, and then open DevTools.
+1. Find the **Heap Snapshot Visualizer** tab.
+
+
+<!-- ====================================================================== -->
+<!-- ## This is how it looks -->
+
+<!-- ![](./extension.png) todo -->
