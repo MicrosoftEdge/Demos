@@ -1,10 +1,6 @@
 # Microsoft Edge Demos
 
-<!-- todo: test all links in repo, eg FTS: learn.microsoft.com -->
-
-<!-- todo: in every Readme, link to docs; sync Docs column of below tables -->
-
-<!-- todo: for ease of Maint, move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo -->
+<!-- todo: maybe move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo -->
 
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  This Readme lists all top-level source code directories.  Below, demos are grouped by major technology area, and then sorted by directory name within each section's table.
 
