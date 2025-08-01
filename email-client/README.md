@@ -33,3 +33,11 @@ The two interesting pieces of code here are:
 1. [Open the demo.html page](https://microsoftedge.github.io/Demos/email-client/demo.html).
 
 1. Click the `mailto` link on that page.
+
+
+<!-- ====================================================================== -->
+## See also
+
+* [Test Progressive Web App (PWA) protocol handling](https://learn.microsoft.com/microsoft-edge/devtools/progressive-web-apps/protocol-handlers)
+* [Handle protocols in a PWA](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/handle-protocols)
+* [Email client](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#email-client) in _Progressive Web App demos_.
