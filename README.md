@@ -151,10 +151,8 @@ sync'd July 30, 2025
 | WebNN API | Uses the WebNN API to build a machine learning graph and run it on the device's hardware. | [/webnn/](https://github.com/MicrosoftEdge/Demos/tree/main/webnn) | [WebNN API demo](https://microsoftedge.github.io/Demos/webnn/) |
 <!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
 
-<!-- todo: uncomment after PR https://github.com/MicrosoftDocs/edge-developer/pull/3513 is merged
 See also:
 * [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples.md)
--->
 
 
 <!-- ====================================================================== -->
