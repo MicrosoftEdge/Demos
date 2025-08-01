@@ -152,7 +152,7 @@ sync'd July 30, 2025
 <!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
 
 See also:
-* [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples.md)
+* [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples)
 
 
 <!-- ====================================================================== -->
