@@ -26,7 +26,7 @@ The two interesting pieces of code here are:
 
 1. [Open the app](https://microsoftedge.github.io/Demos/email-client/).
 
-1. Click the **App available** button in the Address bar.
+1. In the Address bar, click the **App available. Install Email inbox** (![App available icon](./img/app-available-icon.png)) button.
 
    The app is installed.
 
