@@ -6,19 +6,19 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 <!-- ====================================================================== -->
 ## Demos
 
-* [Burger Menu](https://microsoftedge.github.io/Demos/css-gap-decorations/burger-menu.html)
-* [Daily CSS News](https://microsoftedge.github.io/Demos/css-gap-decorations/daily-css-news.html)
-* [Guitar Fretboard](https://microsoftedge.github.io/Demos/css-gap-decorations/guitar-fretboard.html)
-* [Notebook](https://microsoftedge.github.io/Demos/css-gap-decorations/notebook.html)
-* [Calendar](https://microsoftedge.github.io/Demos/css-gap-decorations/calendar.html)
-* [Personal site](https://microsoftedge.github.io/Demos/css-gap-decorations/personal-site.html)
-* [The Daily Oddity](https://microsoftedge.github.io/Demos/css-gap-decorations/the-daily-oddity.html)
+* [Burger Menu](https://microsoftedge.github.io/Demos/css-gap-decorations/burger-menu.html) - `burger-menu.html`
+* [Calendar](https://microsoftedge.github.io/Demos/css-gap-decorations/calendar.html) - `calendar.html`
+* [Daily CSS News](https://microsoftedge.github.io/Demos/css-gap-decorations/daily-css-news.html) - `daily-css-news.html`
+* [Guitar Fretboard](https://microsoftedge.github.io/Demos/css-gap-decorations/guitar-fretboard.html) - `guitar-fretboard.html`
+* [Notebook](https://microsoftedge.github.io/Demos/css-gap-decorations/notebook.html) - `notebook.html`
+* [Personal site](https://microsoftedge.github.io/Demos/css-gap-decorations/personal-site.html) - `personal-site.html`
+* [The Daily Oddity](https://microsoftedge.github.io/Demos/css-gap-decorations/the-daily-oddity.html) - `the-daily-oddity.html`
 
 
 <!-- ====================================================================== -->
 ## Developer playground
 
-* [CSS Gap Decorations playground](https://microsoftedge.github.io/Demos/css-gap-decorations/playground.html)
+* [CSS Gap Decorations playground](https://microsoftedge.github.io/Demos/css-gap-decorations/playground.html) - `playground.html`
 
 
 <!-- ====================================================================== -->
