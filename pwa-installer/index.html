@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles/reset.css" rel="stylesheet">
-    <link href="styles/pwastore.css" rel="stylesheet">
+    <link href="styles/pwa-installer.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="manifest" href="manifest.json" />
-    <meta name="application-title" content="Edge Demos by the Microsoft Edge team"> 
-    <title>Microsoft Edge Demos</title>
-    <link rel="stylesheet" href="styles/pwastore-dark.css" media="(prefers-color-scheme: dark)"/>
-    <link rel="stylesheet" href="styles/pwastore-light.css" media="(prefers-color-scheme: light)"/>
+    <meta name="application-title" content="PWA installer by the Microsoft Edge team"> 
+    <title>PWA installer</title>
+    <link rel="stylesheet" href="styles/pwa-installer-dark.css" media="(prefers-color-scheme: dark)"/>
+    <link rel="stylesheet" href="styles/pwa-installer-light.css" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#FFF5E0" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#3D3D3D" media="(prefers-color-scheme: dark)"/>
 
@@ -18,8 +18,8 @@
 <body>
     <div class="draggable"></div>
     <header>
-        <img src="images/pwastore-logo.svg" width="200" height="100" class="storeicon">
-        <button class="btn_install_store" id="btnInstallStore">Install Edge Demos</button>
+        <img src="images/pwa-installer-logo.svg" width="200" height="100" class="storeicon">
+        <button class="btn_install_store" id="btnInstallStore">Install PWAs</button>
         <div class="category_filter_nav">
             <button class="btn_category">new!</button>
             <button class="btn_category">PWA</button>
@@ -34,7 +34,7 @@
             <p><strong>Some additional details for demos to work:</strong></p>
             <ul>
                 <li>Check if you need to enable any experimental features in <code>about://flags</code>.</li>
-                <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/trials" target="_blank">List of active Origin Trials on Microsoft Edge.</a></li>
+                <li><a href="https://developer.microsoft.com/microsoft-edge/origin-trials/trials" target="_blank">List of active Origin Trials on Microsoft Edge.</a></li>
                 <li>This app uses the <a href="https://aka.ms/webinstall">Web Install API</a> to install demos and the <a href="https://developer.chrome.com/blog/masonry" target="_blank">Masonry layout</a> to arrange items.</li>
             </ul>
         </article>
@@ -42,7 +42,9 @@
         <article class="app_entry">
             <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/pwa-getting-started/icon512.png" width="75" height="75" class="app_icon">
             <h2><a href="https://microsoftedge.github.io/Demos/pwa-getting-started/index.html" target="_blank">Temperature converter</a> - PWA getting started demo app</h2>
-            <p class="app_descrip">A simple PWA demo app that converts temperatures. Used for <a href="https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/" target="_blank">Get started with Progressive Web Apps.</a></p>
+            <p class="app_descrip">A simple PWA demo app that converts temperatures.
+                For instructions, see <a href="https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/" target="_blank">Get started with PWAs
+</a>.</p><!-- todo: change from [Get started with PWAs] to [Temperature convertor sample] after merge https://github.com/MicrosoftDocs/edge-developer/pull/3476 -->
             <button id="installPwaGettingStarted" class="btn_install">Install</button>
         </article>
 

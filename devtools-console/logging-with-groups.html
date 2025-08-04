@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Console messages examples: grouping logs</title>
+  <title>Console messages examples: Grouping logs</title>
   <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Console demos: Grouping logs</h1>
+  <h1>Console messages examples: Grouping logs</h1>
 
-  <p>There is nothing to see here, you need to open the Developer Tools and check the console for the output.</p>
+  <p>There is nothing to see here, you need to open DevTools and check the Console for the output.</p>
 
   <p>Select <code>Control</code>+<code>Shift</code>+<code>J</code> (Windows, Linux) or <code>Command</code>+<code>Option</code>+<code>J</code> (macOS).</p>
 <script>
@@ -22,8 +22,8 @@ console.log('Arthur');
 console.log('Marvin');
 console.groupCollapsed("Hidden");
 console.log('(Frankie & Benjy)');
-console.groupEnd("Hidden");
-console.groupEnd("Passengers: Heart of Gold");
+console.groupEnd();
+console.groupEnd();
 
 let technologies = {
   "Standards": ["HTML", "CSS", "SVG", "ECMAScript"],
@@ -32,7 +32,7 @@ let technologies = {
 for (tech in technologies) {
   console.groupCollapsed(tech);
   technologies[tech].forEach(t => console.log(t));
-  console.groupEnd(tech);
+  console.groupEnd();
 }
 </script>
 </body>
