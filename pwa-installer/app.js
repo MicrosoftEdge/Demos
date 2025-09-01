@@ -1,61 +1,53 @@
-// All of the UI DOM elements we need.
-const installBtn = document.getElementById("btnInstallStore");
-const pwinterBtn = document.getElementById("installPwinter");
-const pwampBtn = document.getElementById("installPwamp");
-const tempConvBtn = document.getElementById("installPwaGettingStarted");
-const emailClientBtn = document.getElementById("installEmailClient");
-const oneDivBtn = document.getElementById("install1Div");
-const wamiBtn = document.getElementById("installWami");
-const bubbleBtn = document.getElementById("installBubble");
-const appTitleBtn = document.getElementById("installappTitle");
+const installStoreBtn = document.getElementById("install-store");
+const mainEl = document.querySelector("main");
+const filtersEl = document.querySelector(".filters");
+const appEntryEls = mainEl.querySelectorAll('.app-entry');
 
-
-installBtn.addEventListener('click', async () => {
+// Install the store itself.
+installStoreBtn.addEventListener('click', async () => {
   let installation = await navigator.install();
+
+  console.log("Store installed", installation);
 });
 
-pwinterBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://diek.us/pwinter/',
-                    'https://diek.us/pwinter/index.html?randomize=true');
+// Install buttons for individual apps.
+mainEl.addEventListener('click', async (e) => {
+  const installBtn = e.target;
+  const appEntryEl = installBtn.closest('.app-entry');
+
+  if (!appEntryEl || !installBtn.classList.contains('install-button')) {
+    return;
+  }
+
+  const installUrl = appEntryEl.dataset.installUrl;
+  const manifestId = appEntryEl.dataset.manifestId;
+
+  let installation = await navigator.install(installUrl, manifestId);
+
+  console.log("App installed", installation);
 });
 
-pwampBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/pwamp/',
-                    'https://microsoftedge.github.io/Demos/pwamp/');
+// Filter apps by category.
+filtersEl.addEventListener('click', (e) => {
+  const filterBtn = e.target;
+  if (!filterBtn.classList.contains('category-filter')) {
+    return;
+  }
+
+  const category = filterBtn.dataset.category;
+
+  appEntryEls.forEach((entry) => {
+    if (category === 'all' || entry.dataset.categories.includes(category)) {
+      entry.style.display = '';
+    } else {
+      entry.style.display = 'none';
+    }
+  });
 });
-
-bubbleBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://diek.us/bubble/',
-                    'https://diek.us/bubble/index.html');
-});
-
-tempConvBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/pwa-getting-started/index.html', 'https://microsoftedge.github.io/Demos/pwa-getting-started/');
-
-});
-
-emailClientBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/email-client/',
-                    'https://microsoftedge.github.io/Demos/email-client/index.html');
-});
-
-oneDivBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/1DIV/dist/',
-                    'https://microsoftedge.github.io/Demos/1DIV/dist/index.html');
-}); 
-
-wamiBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/wami/index.html', 'https://microsoftedge.github.io/Demos/wami/');
-}); 
-
-appTitleBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/pwa-application-title/', 'https://microsoftedge.github.io/Demos/pwa-application-title/');
-}); 
-
 
 const init = () => {
   if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: window-controls-overlay)').matches) {
-    installBtn.style.display = 'none';
+    installStoreBtn.style.display = 'none';
   }
 };
 
