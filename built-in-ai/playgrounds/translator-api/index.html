@@ -52,6 +52,9 @@
           <li>
             <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
           </li>
+          <!-- li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item current">Translator</a>
+          </li -->
         </ul>
       </li>
       <!-- li>
@@ -92,6 +95,9 @@
           <li>
             <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
           </li>
+          <!-- li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item current">Translator</a>
+          </li -->
         </ul>
       </li>
       <!-- li>
@@ -119,7 +125,7 @@
 
   <main>
     <h1>Translator API</h1>
-    <p class="description">Web API for translating text between languages using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">Summarize, write, and rewrite text with the Writing Assistance APIs</a>.</p>
+    <p class="description">Web API for translating text between languages using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/translator-api" target="_blank">Translate text with the Translator API</a>.</p>
 
     <div id="message-ui" class="message-bar"></div>
 
@@ -127,27 +133,17 @@
       
 <div class="settings-row no-separator">
   <label for="source-language">Source language</label>
-  <select name="source-language" id="source-language">
-    <option value="en" selected>English</option>
-    <option value="fr">French</option>
-    <option value="es">Spanish</option>
-    <option value="de">German</option>
-  </select>
+  <select name="source-language" id="source-language"></select>
 </div>
 
-<div class="settings-row no-separator">
+<div class="settings-row">
+  <label for="target-language">Target language</label>
+  <select name="target-language" id="target-language"></select>
+</div>
+
+<div class="settings-row">
   <label for="input">Text to translate</label>
   <textarea spellcheck="false" id="input"></textarea>
-</div>
-
-<div class="settings-row no-separator">
-  <label for="target-language">Target language</label>
-  <select name="target-language" id="target-language">
-    <option value="en">English</option>
-    <option value="fr" selected>French</option>
-    <option value="es">Spanish</option>
-    <option value="de">German</option>
-  </select>
 </div>
 
 <div class="settings-row submit">
