@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Custom Highlight highlightsFromPoint API demo</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <label>
+        Search for
+        <input id="query" type="text" value="highlight" autofocus />
+      </label>
+      <label>
+        <input id="include-shadow" type="checkbox" />
+        Include Shadow DOM highlights
+      </label>
+    </div>
+    <main>
+      <header>
+        <h1>CSS Custom Highlight highlightsFromPoint API demo</h1>
+        <p>
+          Try searching for text using the search field at the top of this page.
+          The matching text will be highlighted in yellow. Hover over any text to see which highlights are active at that point using CSS.highlights.highlightsFromPoint().
+        </p>
+        <p>
+          Use the checkbox to control whether the highlightsFromPoint() method should include highlights from shadow DOM content. This adds the shadow root node to the optional shadowRoots parameter.
+        </p>
+        <p>
+          Read the
+          <a href="https://drafts.csswg.org/css-highlight-api-1/#dom-highlightregistry-highlightsfrompoint">specification</a>
+          for more details.
+        </p>
+      </header>
+      <article>
+        <div id="highlight-info" class="highlight-info">
+          <h4>Highlights at this point:</h4>
+          <div id="highlight-details"></div>
+        </div>
+      </article>
+      
+      <section>
+        <h2>Sample Text with Pre-existing Highlights</h2>
+        <p>
+          This demostrate overlapping highlights with speling errors and grammer mistake, among others. [John Doe et al., 2023] 
+          showed that "the future of web-based text editing lies in layered highlihgting capabilities" for modern writting platforms. 
+          The highlightsFromPoint() method allowes developers to query active highlights at any position, which is particually usefull 
+          for interactive text applications [Someone, 2022].
+        </p>
+        
+        <h3>Shadow DOM Content:</h3>
+        <div id="shadow-container">
+          <template id="shadow-template">
+            <style>
+              ::highlight(definition-highlight) {
+                background-color: rgba(173, 216, 230, 0.5);
+                color: darkblue;
+                text-shadow: 0 0 0.8px darkblue;
+                text-decoration: underline dotted darkblue;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 3px;
+              }
+              
+              p {
+                line-height: 1.6;
+                margin: 1rem 0;
+              }
+            </style>
+            <p>Shadow DOM highlights work independantly and demonstrate "isolation provided by shadow boundaries" for text processing.</p>
+          </template>
+        </div>
+      </section>
+      
+      <section>
+        <h2>Highlight Types Legend</h2>
+        <p>This demo includes several types of custom highlights to demonstrate overlapping functionality:</p>
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-highlight search-demo">Search Results</span>
+            <span class="legend-description">Yellow background - matches your search query (try searching for "highlight"!)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight spelling-demo">Spelling Errors</span>
+            <span class="legend-description">Red wavy underline - misspelled words like "demostrate", "speling", "grammer"</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight grammar-demo">Grammar Errors</span>
+            <span class="legend-description">Blue double underline - grammatical errors</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight citation-demo">Citations</span>
+            <span class="legend-description">Light grey background with underline - academic references like [John Doe et al., 2023]</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight quotation-demo">Quotations</span>
+            <span class="legend-description">Green background with underline - quoted text passages</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight code-demo">Code Elements</span>
+            <span class="legend-description">Dark background with white text - API names and technical terms</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-highlight definition-demo">Definitions (Shadow DOM)</span>
+            <span class="legend-description">Light blue background with dotted underline - technical definitions, only in shadow DOM content</span>
+          </div>
+        </div>
+        <p><strong>Hover over any text</strong> to see which highlights are active at that point using CSS.highlights.highlightsFromPoint().</p>
+      </section>
+    </main>
+
+    <h2>Demo source code</h2>
+    <style class="code">
+      /* Search result highlights - yellow background */
+      ::highlight(search-result-highlight) {
+        background-color: rgba(255, 255, 0, 0.8);
+        color: black;
+      }
+      
+      /* Spelling error highlights - red squiggly underline */
+      ::highlight(spelling-error) {
+        text-decoration: underline wavy red;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      
+      /* Grammar error highlights - blue double underline */
+      ::highlight(grammar-error) {
+        text-decoration: underline double blue;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      
+      /* Citation highlights - light grey background and thicker text */
+      ::highlight(citation-highlight) {
+        background-color: rgb(236, 236, 236);
+        color: #666;
+        text-shadow: 0 0 0.8px #666;
+      }
+      
+      /* Quotation highlights - green background and font color */
+      ::highlight(quotation-highlight) {
+        background-color: #e8f5e8;
+        color: #2e7d32;
+      }
+      
+      /* Code highlights - dark background with white font color */
+      ::highlight(code-highlight) {
+        background-color: #666;
+        color: white;
+      }
+    </style>
+    <script class="code">
+      const query = document.querySelector("#query");
+      const includeShadow = document.querySelector("#include-shadow");
+      const highlightInfo = document.querySelector("#highlight-info");
+      const highlightDetails = document.querySelector("#highlight-details");
+      
+      // Setup shadow DOM
+      const shadowContainer = document.querySelector("#shadow-container");
+      const shadowTemplate = document.querySelector("#shadow-template");
+      const shadowRoot = shadowContainer.attachShadow({ mode: "open" });
+      shadowRoot.appendChild(shadowTemplate.content.cloneNode(true));
+
+      // Find all text nodes contained in a root element
+      function getAllTextNodes(root) {
+        const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        let currentNode = treeWalker.nextNode();
+        while (currentNode) {
+          textNodes.push(currentNode);
+          currentNode = treeWalker.nextNode();
+        }
+        return textNodes;
+      }
+
+      const shadowTextNodes = getAllTextNodes(shadowRoot);
+      const allTextNodes = getAllTextNodes(document.body).concat(shadowTextNodes);
+
+      // Function to create highlights for specific words/phrases
+      function createHighlightsForWords(textNodes, words, highlightName) {
+        const ranges = [];
+        
+        // Look for the words/phrases in each text node in textNodes
+        textNodes.forEach(textNode => {
+          const text = textNode.textContent.toLowerCase();
+          
+          words.forEach(word => {
+            let startPos = 0;
+            while (startPos < text.length) {
+              const index = text.indexOf(word.toLowerCase(), startPos);
+              if (index === -1) break;
+              
+              const range = new Range();
+              range.setStart(textNode, index);
+              range.setEnd(textNode, index + word.length);
+              ranges.push(range);
+              
+              startPos = index + word.length;
+            }
+          });
+        });
+        
+        // If we found any words/phrases, create and register the highlight with the respective ranges
+        if (ranges.length > 0) {
+          const highlight = new Highlight(...ranges);
+          CSS.highlights.set(highlightName, highlight);
+        }
+      }
+
+      // Create pre-existing highlights
+      function setupPreExistingHighlights() {
+        // Spelling errors (deliberately misspelled words that actually exist in the text)
+        const spellingErrors = [
+          "demostrate", "speling", "grammer", "writting", 
+          "allowes", "particually", "usefull", "independantly", "highlihgting"
+        ];
+        
+        // Grammar errors (context-dependent phrases that exist in the text)
+        const grammarErrors = [
+          "This demostrate", "work independantly", "mistake"
+        ];
+        
+        // Citations (bracketed references that actually exist in the text)
+        const citations = ["[John Doe et al., 2023]", "[Someone, 2022]"];
+
+        // Quotations (phrases in quotes that actually exist in the text)
+        const quotations = [
+          "the future of web-based text editing lies in layered highlihgting capabilities",
+          "isolation provided by shadow boundaries"
+        ];
+
+        // Code elements (API names and parameters)
+        const codeElements = [
+          "CSS.highlights.highlightsFromPoint()",
+          "highlightsFromPoint()",
+          "shadowRoots"
+        ];
+
+        // Definitions (words that exist in shadow DOM)
+        const definitions = ["shadow DOM", "isolation", "shadow boundaries"];
+
+        // Create the different highlights
+        createHighlightsForWords(allTextNodes, spellingErrors, "spelling-error");
+        createHighlightsForWords(allTextNodes, grammarErrors, "grammar-error");
+        createHighlightsForWords(allTextNodes, citations, "citation-highlight");
+        createHighlightsForWords(allTextNodes, quotations, "quotation-highlight");
+        createHighlightsForWords(allTextNodes, codeElements, "code-highlight");
+        createHighlightsForWords(shadowTextNodes, definitions, "definition-highlight");
+      }
+
+      // Setup pre-existing highlights
+      setupPreExistingHighlights();
+      searchAndHighlightResults();
+
+      function searchAndHighlightResults() {
+        // Remove previous search highlights
+        CSS.highlights.delete("search-result-highlight");
+
+        const str = query.value.trim().toLowerCase();
+        if (!str) {
+          return;
+        }
+
+        const ranges = allTextNodes
+          .map((el) => {
+            return { el, text: el.textContent.toLowerCase() };
+          })
+          .filter(({ text }) => text.includes(str))
+          .map(({ text, el }) => {
+            const indices = [];
+            let startPos = 0;
+            while (startPos < text.length) {
+              const index = text.indexOf(str, startPos);
+              if (index === -1) break;
+              indices.push(index);
+              startPos = index + str.length;
+            }
+
+            return indices.map((index) => {
+              const range = new Range();
+              range.setStart(el, index);
+              range.setEnd(el, index + str.length);
+              return range;
+            });
+          });
+
+        if (ranges.flat().length > 0) {
+          const highlight = new Highlight(...ranges.flat());
+          CSS.highlights.set("search-result-highlight", highlight);
+        }
+      }
+
+      // Search functionality
+      query.addEventListener("input", () => {
+        searchAndHighlightResults();
+      });
+
+      // Hover functionality to show highlights at point
+      document.addEventListener("mousemove", (event) => {
+        const x = event.clientX;
+        const y = event.clientY;
+        
+        try {
+          // Get highlights at the current point
+          let highlightHitResults = [];
+          
+          if (includeShadow.checked) {
+            // Include shadow DOM in the search
+            highlightHitResults = CSS.highlights.highlightsFromPoint(x, y, { shadowRoots: [shadowRoot] });
+          } else {
+            // Only search main document
+            highlightHitResults = CSS.highlights.highlightsFromPoint(x, y);
+          }
+          
+          if (highlightHitResults.length > 0) {
+            showHighlightInfo(event, highlightHitResults);
+          } else {
+            hideHighlightInfo();
+          }
+        } catch (error) {
+          console.log("highlightsFromPoint not supported:", error.message);
+          hideHighlightInfo();
+        }
+      });
+
+      // Create a map of highlight objects to their names
+      const highlightObjectToHighlightNameMap = new Map();
+      for (const [name, highlight] of CSS.highlights) {
+          highlightObjectToHighlightNameMap.set(highlight, name);
+      }
+
+      function showHighlightInfo(event, highlightHitResults) {
+        highlightDetails.innerHTML = "";
+        
+        if (highlightHitResults.length === 0) {
+          hideHighlightInfo();
+          return;
+        }
+        
+        highlightHitResults.forEach(hitResult => {
+          const highlight = hitResult.highlight;
+          const ranges = hitResult.ranges;
+          const name = highlightObjectToHighlightNameMap.get(highlight) || "unknown";
+
+          // Extract text from the ranges
+          const rangeTexts = ranges.map(range => {
+            try {
+              return range.toString().trim();
+            } catch (e) {
+              return "[unable to extract text]";
+            }
+          }).filter(text => text.length > 0);
+          
+          const div = document.createElement("div");
+          div.className = `highlight-item ${getHighlightClass(name)}`;
+          
+          // Create the display text
+          let displayText = `${name}`;
+          if (rangeTexts.length > 0) {
+            const textPreview = rangeTexts.map(text => 
+              text.length > 20 ? `"${text.substring(0, 17)}..."` : `"${text}"`
+            ).join(", ");
+            displayText += `\n  Text: ${textPreview}`;
+          }
+          
+          div.style.whiteSpace = "pre-line";
+          div.textContent = displayText;
+          highlightDetails.appendChild(div);
+        });
+        
+        // Position the info box near the mouse cursor
+        highlightInfo.style.left = (event.pageX + 15) + "px";
+        highlightInfo.style.top = (event.pageY - 10) + "px";
+        highlightInfo.style.display = "block";
+      }
+
+      function hideHighlightInfo() {
+        highlightInfo.style.display = "none";
+      }
+
+      function getHighlightClass(name) {
+        if (name.includes("search")) return "search";
+        if (name.includes("spelling")) return "spelling";
+        if (name.includes("grammar")) return "grammar";
+        if (name.includes("citation")) return "citation";
+        if (name.includes("quotation")) return "quotation";
+        if (name.includes("definition")) return "definition";
+        if (name.includes("code")) return "code";
+        return "";
+      }
+
+      // Hide info on mouse leave
+      document.addEventListener("mouseleave", hideHighlightInfo);
+    </script>
+  </body>
+</html>
