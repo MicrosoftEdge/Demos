@@ -1,0 +1,240 @@
+html {
+  font-size: 14pt;
+  font-family: consolas, monospace;
+}
+body {
+  margin: 4rem;
+  position: relative;
+}
+header {
+  padding: 1rem;
+  margin: 1rem -1rem;
+  background: #f7f7f7;
+  border-radius: 1rem;
+}
+header > h1 {
+  margin-top: 0;
+}
+header > p:last-child {
+  margin-bottom: 0;
+}
+section {
+  padding: 1rem;
+  margin: 2rem -1rem;
+  background: #fafafa;
+  border-radius: 1rem;
+  border-left: 4px solid #0066cc;
+}
+footer {
+  padding-top: 1rem;
+  border-top: 2px solid #f7f7f7;
+}
+footer > p:first-child {
+  margin-top: 0;
+}
+h1,
+h2,
+p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+code {
+  background: #666;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.controls input[type="text"] {
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 14pt;
+}
+.controls input[type="text"]:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+.controls input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0066cc;
+}
+script.code,
+style.code {
+  display: block;
+  white-space: pre;
+  background: #f7f7f7;
+  border-radius: 1rem;
+  max-height: 50vh;
+  overflow: auto;
+  margin: 1rem 0;
+  padding: 1rem;
+  position: relative;
+}
+script.code::before,
+style.code::before {
+  padding: 0.5rem;
+  background: #666;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+script.code::before {
+  content: "JS";
+}
+style.code::before {
+  content: "CSS";
+}
+
+/* Shadow DOM container styling */
+#shadow-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+#shadow-container h3 {
+  margin-top: 0;
+  color: #666;
+}
+
+/* Legend styles */
+.legend {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #dee2e6;
+}
+
+.legend-highlight {
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 140px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.legend-description {
+  flex: 1;
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.4;
+}
+
+/* Legend highlight demos - match actual highlight styles */
+.search-demo {
+  background-color: rgba(255, 255, 0, 0.747);
+  color: black;
+}
+
+.spelling-demo {
+  text-decoration: underline wavy red;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.grammar-demo {
+  text-decoration: underline double blue;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.citation-demo {
+  background-color: rgb(236, 236, 236);
+  color: #666;
+  text-shadow: 0 0 0.8px #666;
+  text-decoration: underline solid #ccc;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.quotation-demo {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  text-decoration: underline solid #4caf50;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.code-demo {
+  background-color: #666;
+  color: white;
+  text-shadow: 0 0 2px rgba(255,255,255,0.3);
+}
+
+.definition-demo {
+  background-color: rgba(173, 216, 230, 0.5);
+  color: darkblue;
+  text-shadow: 0 0 0.8px darkblue;
+  text-decoration: underline dotted darkblue;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+
+/* Info popup styles */
+.highlight-info {
+  position: absolute;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  max-width: 350px;
+  font-size: 12pt;
+  display: none;
+  line-height: 1.3;
+}
+
+.highlight-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 14pt;
+  color: #333;
+}
+
+.highlight-info .highlight-item {
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10pt;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.highlight-item.search { background-color: #fff3cd; }
+.highlight-item.spelling { background-color: #f8d7da; }
+.highlight-item.grammar { background-color: #d1ecf1; }
+.highlight-item.citation { background-color: #f5f5f5; }
+.highlight-item.quotation { background-color: #e8f5e8; }
+.highlight-item.definition { background-color: #e6f3ff; }
+.highlight-item.code { background-color: #666; color: white; }
