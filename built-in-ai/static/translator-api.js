@@ -22,16 +22,18 @@ const LANGUAGE_NAMES = {
   'brx': 'Bodo',
   'bs': 'Bosnian',
   'ca': 'Catalan',
-  'ce': 'Chechen',
   'ceb': 'Cebuano',
-  'cs': 'Czech',
+  'ce': 'Chechen',
+  'zh-hans': 'Chinese Simplified',
+  'zh-hant': 'Chinese Traditional',
   'cv': 'Chuvash',
+  'cs': 'Czech',
   'cy': 'Welsh',
   'da': 'Danish',
   'de': 'German',
   'doi': 'Dogri',
-  'dsb': 'Lower Sorbian',
   'dv': 'Divehi',
+  'dsb': 'Lower Sorbian',
   'dzo': 'Dzongkha',
   'el': 'Greek',
   'en': 'English',
@@ -39,16 +41,16 @@ const LANGUAGE_NAMES = {
   'et': 'Estonian',
   'eu': 'Basque',
   'fa': 'Persian',
-  'fi': 'Finnish',
-  'fil': 'Filipino',
   'fj': 'Fijian',
+  'fil': 'Filipino',
+  'fi': 'Finnish',
   'fo': 'Faroese',
-  'fr-ca': 'French (Canada)',
   'fr': 'French',
-  'ga': 'Irish',
+  'fr-ca': 'French (Canada)',
   'gl': 'Galician',
   'gom': 'Konkani',
   'gu': 'Gujarati',
+  'ht': 'Haitian Creole',
   'ha': 'Hausa',
   'haw': 'Hawaiian',
   'he': 'Hebrew',
@@ -56,32 +58,33 @@ const LANGUAGE_NAMES = {
   'hne': 'Chhattisgarhi',
   'hr': 'Croatian',
   'hsb': 'Upper Sorbian',
-  'ht': 'Haitian Creole',
   'hu': 'Hungarian',
   'hy': 'Armenian',
-  'id': 'Indonesian',
   'ig': 'Igbo',
   'ikt': 'Inuinnaqtun',
+  'id': 'Indonesian',
+  'ga': 'Irish',
   'is': 'Icelandic',
   'it': 'Italian',
   'iu-latn': 'Inuktitut (Latin)',
   'iu': 'Inuktitut',
-  'ja': 'Japanese',
   'jv': 'basa Djawa',
-  'ka': 'Georgian',
-  'kha': 'Khasi',
-  'kk': 'Kazakh',
-  'km': 'Khmer',
-  'kmr': 'Kurdish (Northern)',
-  'kn': 'Kannada',
-  'ko': 'Korean',
+  'ja': 'Japanese',
   'ks': 'Kashmiri',
+  'ka': 'Georgian',
+  'kn': 'Kannada',
+  'kha': 'Khasi',
+  'km': 'Khmer',
+  'rw': 'Kinyarwanda',
+  'kk': 'Kazakh',
+  'kmr': 'Kurdish (Northern)',
+  'ko': 'Korean',
   'ku': 'Kurdish (Central)',
   'ky': 'Kyrgyz',
+  'lo': 'Lao',
   'la': 'Latin',
   'lb': 'Luxembourgish',
   'ln': 'Lingala',
-  'lo': 'Lao',
   'lt': 'Lithuanian',
   'lug': 'Ganda',
   'luo': 'Dholuo',
@@ -90,65 +93,64 @@ const LANGUAGE_NAMES = {
   'lzh': 'Chinese (Literary)',
   'mag': 'Magahi',
   'mai': 'Maithili',
-  'mg': 'Malagasy',
-  'mi': 'Māori',
+  'mr': 'Marathi',
   'mk': 'Macedonian',
-  'ml': 'Malayalam',
-  'mn-cyrl': 'Mongolian (Cyrillic)',
+  'mg': 'Malagasy',
+  'mt': 'Maltese',
   'mn-mong': 'Mongolian (Traditional)',
   'mni': 'Manipuri',
-  'mr': 'Marathi',
+  'mn-cyrl': 'Mongolian (Cyrillic)',
+  'mi': 'Māori',
   'ms': 'Malay',
-  'mt': 'Maltese',
   'mww': 'Hmong Daw',
   'my': 'Myanmar (Burmese)',
-  'nb': 'Norwegian',
+  'ml': 'Malayalam',
   'ne': 'Nepali',
   'nl': 'Dutch',
+  'nb': 'Norwegian',
   'nso': 'Sesotho sa Leboa',
   'nya': 'Nyanja',
   'oc': 'Occitan',
   'or': 'Odia',
   'otq': 'Querétaro Otomi',
   'pa': 'Punjabi',
+  'ps': 'Pashto',
   'pl': 'Polish',
   'prs': 'Dari',
-  'ps': 'Pashto',
-  'pt-pt': 'Portuguese (Portugal)',
   'pt': 'Portuguese (Brazil)',
+  'pt-pt': 'Portuguese (Portugal)',
   'ro': 'Romanian',
-  'ru': 'Russian',
   'run': 'Rundi',
-  'rw': 'Kinyarwanda',
+  'ru': 'Russian',
   'sa': 'Sanskrit',
   'sat': 'Santali',
-  'sd': 'Sindhi',
   'si': 'Sinhala',
+  'sd': 'Sindhi',
   'sk': 'Slovak',
   'sl': 'Slovenian',
   'sm': 'Samoan',
   'sn': 'Shona',
   'so': 'Somali',
-  'sq': 'Albanian',
-  'sr-cyrl': 'Serbian (Cyrillic)',
-  'sr-latn': 'Serbian (Latin)',
   'st': 'Sesotho',
+  'sq': 'Albanian',
+  'sr-latn': 'Serbian (Latin)',
+  'sr-cyrl': 'Serbian (Cyrillic)',
   'su': 'Sundanese',
   'sv': 'Swedish',
   'sw': 'Swahili',
+  'ty': 'Tahitian',
+  'tg': 'Tajik',
   'ta': 'Tamil',
   'te': 'Telugu',
   'tet': 'Tetum',
-  'tg': 'Tajik',
   'th': 'Thai',
   'ti': 'Tigrinya',
-  'tk': 'Turkmen',
   'tlh-latn': 'Klingon (Latin)',
-  'tn': 'Setswana',
   'to': 'Tongan',
   'tr': 'Turkish',
+  'tn': 'Setswana',
   'tt': 'Tatar',
-  'ty': 'Tahitian',
+  'tk': 'Turkmen',
   'ug': 'Uyghur',
   'uk': 'Ukrainian',
   'ur': 'Urdu',
@@ -158,21 +160,52 @@ const LANGUAGE_NAMES = {
   'yo': 'Yoruba',
   'yua': 'Yucatec Maya',
   'yue': 'Cantonese (Traditional)',
-  'zh-hans': 'Chinese Simplified',
-  'zh-hant': 'Chinese Traditional',
   'zu': 'Zulu'
 };
 
+const LANGUAGE_CATEGORIES = {
+  'Core Languages': ['en'],
+  'Germanic Languages': ['de', 'nl', 'da', 'nb', 'sv', 'af', 'is', 'fo', 'lb'],
+  'Romance Languages': ['es', 'fr', 'it', 'pt', 'pt-pt', 'ca', 'ro', 'gl', 'oc', 'la'],
+  'Latin Script Slavic': ['pl', 'cs', 'sk', 'hr', 'sl', 'bs', 'dsb', 'hsb', 'sr-latn'],
+  'Cyrillic Script': ['ru', 'bg', 'uk', 'be', 'mk', 'sr-cyrl', 'kk', 'ky', 'tg', 'tt', 'mn-cyrl', 'ba', 'ce', 'cv'],
+  'East Asian': ['zh-hans', 'zh-hant', 'ja', 'ko', 'lzh', 'yue'],
+  'South Asian': ['hi', 'bn', 'gu', 'kn', 'ml', 'mr', 'ta', 'te', 'ur', 'as', 'or', 'pa', 'ne', 'si', 'my', 'dv', 'awa', 'bho', 'brx', 'doi', 'gom', 'hne', 'kha', 'lus', 'mag', 'mai', 'mni', 'sat'],
+  'Southeast Asian': ['th', 'vi', 'id', 'ms', 'km', 'lo', 'jv', 'su', 'ceb', 'fil', 'mi', 'fj', 'haw', 'sm', 'to', 'ty', 'tet'],
+  'Arabic Script': ['ar', 'fa', 'he', 'ps', 'prs', 'ku', 'ks', 'sd', 'ug'],
+  'African Languages': ['ha', 'ig', 'yo', 'zu', 'xh', 'sw', 'sn', 'st', 'tn', 'nso', 'run', 'rw', 'ln', 'mg', 'so', 'am', 'ti', 'nya'],
+  'Other European': ['fi', 'hu', 'et', 'lv', 'lt', 'el', 'mt', 'eu', 'cy', 'ga', 'sq', 'hy', 'ka', 'tr', 'az', 'uz', 'tk', 'kk', 'ky'],
+  'Other': []
+};
+
+// Populate the Other category with any languages not already categorized.
+for (const langCode in LANGUAGE_NAMES) {
+  if (!Object.values(LANGUAGE_CATEGORIES).some(arr => arr.includes(langCode))) {
+    LANGUAGE_CATEGORIES['Other'].push(langCode);
+  }
+}
+
 const DEFAULT_SOURCE_LANGUAGE = 'en';
-const DEFAULT_TARGET_LANGUAGE = 'es';
+const DEFAULT_TARGET_LANGUAGE = 'zh-hans';
 
-sourceLanguageEl.innerHTML = Object.entries(LANGUAGE_NAMES).map(([code, name]) => {
-  return `<option value="${code}"${code === DEFAULT_SOURCE_LANGUAGE ? " selected" : ""}>${name}</option>`;
-}).join("\n");
+let sourceLanguageHTML = "";
+let targetLanguageHTML = "";
 
-targetLanguageEl.innerHTML = Object.entries(LANGUAGE_NAMES).map(([code, name]) => {
-  return `<option value="${code}"${code === DEFAULT_TARGET_LANGUAGE ? " selected" : ""}>${name}</option>`;
-}).join("\n");
+for (const [category, languages] of Object.entries(LANGUAGE_CATEGORIES)) {
+  sourceLanguageHTML += `<optgroup label="${category}">\n`;
+  targetLanguageHTML += `<optgroup label="${category}">\n`;
+
+  for (const code of languages) {
+    const name = LANGUAGE_NAMES[code];
+    sourceLanguageHTML += `  <option value="${code}"${code === DEFAULT_SOURCE_LANGUAGE ? " selected" : ""}>${name}</option>\n`;
+    targetLanguageHTML += `  <option value="${code}"${code === DEFAULT_TARGET_LANGUAGE ? " selected" : ""}>${name}</option>\n`;
+  }
+  sourceLanguageHTML += `</optgroup>\n`;
+  targetLanguageHTML += `</optgroup>\n`;
+}
+
+sourceLanguageEl.innerHTML = sourceLanguageHTML;
+targetLanguageEl.innerHTML = targetLanguageHTML;
 
 async function checkAvailabbility() {
   const sourceLanguage = sourceLanguageEl.value;
