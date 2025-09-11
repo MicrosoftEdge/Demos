@@ -103,8 +103,8 @@
             <span class="legend-description">Dark background with white text - API names and technical terms</span>
           </div>
           <div class="legend-item">
-            <span class="legend-highlight definition-demo">Definitions (Shadow DOM)</span>
-            <span class="legend-description">Light blue background with dotted underline - technical definitions, only in shadow DOM content</span>
+            <span class="legend-highlight definition-demo">Keywords in Shadow DOM</span>
+            <span class="legend-description">Light blue background with dotted underline - technical keywords in the shadow DOM</span>
           </div>
         </div>
         <p><strong>Hover over any text</strong> to see which highlights are active at that point using CSS.highlights.highlightsFromPoint().</p>
@@ -177,7 +177,20 @@
       }
 
       const shadowTextNodes = getAllTextNodes(shadowRoot);
-      const allTextNodes = getAllTextNodes(document.body).concat(shadowTextNodes);
+      
+      // Get all text nodes from document.body but exclude the popup
+      const mainTextNodes = getAllTextNodes(document.body).filter(textNode => {
+        let parent = textNode.parentNode;
+        while (parent) {
+          if (parent.id === 'highlight-info') {
+            return false;
+          }
+          parent = parent.parentNode;
+        }
+        return true;
+      });
+      
+      const allTextNodes = mainTextNodes.concat(shadowTextNodes);
 
       // Function to create highlights for specific words/phrases
       function createHighlightsForWords(textNodes, words, highlightName) {
