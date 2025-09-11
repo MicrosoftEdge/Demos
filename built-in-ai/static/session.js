@@ -5,18 +5,23 @@ const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.mi
 
 const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
 const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
+const INFO_LANGUAGE_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
 const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const INFO_SUMMARIZER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
 const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const INFO_WRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${WA_DOCS_INSTRUCTIONS}`;
 const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const INFO_REWRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${WA_DOCS_INSTRUCTIONS}`;
 const ERR_TRANSLATOR_MODEL_NOT_AVAILABLE = `The Translator API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${TRANSLATOR_DOCS_INSTRUCTIONS}`;
+const INFO_TRANSLATOR_MODEL_DOWNLOADABLE =  "The model for a specified language pair will be downloaded the first time the API is used.";
 
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
@@ -141,7 +146,7 @@ function getTranslatorAPI() {
 // You can call these functions when the page loads if you want to display the status
 // to the user early, so they know what to expect (e.g. if their browser supports the APIs).
 // These functions don't trigger the model download and do not create sessions.
-async function checkAPIAvailability(api, modelError, availabilityOptions) {
+async function checkAPIAvailability(api, modelError, availabilityOptions, modelDownloadableInfo) {
   const availability = await api.availability(availabilityOptions);
 
   // The API is available, but the model is not.
@@ -159,7 +164,7 @@ async function checkAPIAvailability(api, modelError, availabilityOptions) {
   // Everything seems to be fine.
   let message = `On-device API and model ${availability}.`;
   if (availability === "downloadable") {
-    message += " The model will be downloaded the first time the API is used.";
+    message += ` ${modelDownloadableInfo}`;
   }
 
   displaySessionMessage(message);
@@ -168,27 +173,52 @@ async function checkAPIAvailability(api, modelError, availabilityOptions) {
 }
 
 async function checkLanguageModelAPIAvailability() {
-  const availability = await checkAPIAvailability(getLanguageModelAPI(), ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE);
+  const availability = await checkAPIAvailability(
+    getLanguageModelAPI(),
+    ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_LANGUAGE_MODEL_DOWNLOADABLE
+  );
   return availability;
 }
 
 async function checkSummarizerAPIAvailability() {
-  const availability = await checkAPIAvailability(getSummarizerAPI(), ERR_SUMMARIZER_MODEL_NOT_AVAILABLE);
+  const availability = await checkAPIAvailability(
+    getSummarizerAPI(),
+    ERR_SUMMARIZER_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_SUMMARIZER_MODEL_DOWNLOADABLE
+  );
   return availability;
 }
 
 async function checkWriterAPIAvailability() {
-  const availability = await checkAPIAvailability(getWriterAPI(), ERR_WRITER_MODEL_NOT_AVAILABLE);
+  const availability = await checkAPIAvailability(
+    getWriterAPI(),
+    ERR_WRITER_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_WRITER_MODEL_DOWNLOADABLE
+  );
   return availability;
 }
 
 async function checkRewriterAPIAvailability() {
-  const availability = await checkAPIAvailability(getRewriterAPI(), ERR_REWRITER_MODEL_NOT_AVAILABLE);
+  const availability = await checkAPIAvailability(
+    getRewriterAPI(),
+    ERR_REWRITER_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_REWRITER_MODEL_DOWNLOADABLE
+  );
   return availability;
 }
 
 async function checkTranslatorAPIAvailability(availabilityOptions) {
-  const availability = await checkAPIAvailability(getTranslatorAPI(), ERR_TRANSLATOR_MODEL_NOT_AVAILABLE, availabilityOptions);
+  const availability = await checkAPIAvailability(
+    getTranslatorAPI(),
+    ERR_TRANSLATOR_MODEL_NOT_AVAILABLE,
+    availabilityOptions,
+    INFO_TRANSLATOR_MODEL_DOWNLOADABLE
+  );
   return availability;
 }
 
