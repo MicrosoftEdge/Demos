@@ -65,7 +65,10 @@ function createHighlightsForWords(textNodes, words, highlightName) {
 
   // If we found any words/phrases, create and register the highlight with the respective ranges
   if (ranges.length > 0) {
-    const highlight = new Highlight(...ranges);
+    let highlight = new Highlight(...ranges);
+    if (["spelling-error", "grammar-error"].includes(highlightName)) {
+      highlight.type = highlightName;
+    }
     CSS.highlights.set(highlightName, highlight);
   }
 }
