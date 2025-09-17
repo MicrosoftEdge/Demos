@@ -44,7 +44,7 @@ To try the demos, first enable Masonry:
 
   * [Same size columns](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-columns.html)
   * [Same size rows](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-rows.html)
-  * [Default track size](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/default-track-size.html)
+  * [Auto repeat track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/auto-repeat-track-sizes.html)
   * [Custom track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/custom-track-sizes.html)
   * [Masonry shorthand](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/masonry-shorthand.html)
   * [Spanning multiple tracks](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/span-multiple-tracks.html)
