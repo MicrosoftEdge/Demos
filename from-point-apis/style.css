@@ -112,10 +112,14 @@ main > :last-child {
 
 .highlight-styles #red-squiggle+label,
 ::highlight(red-squiggle) {
-  text-decoration: 2px red wavy underline;
+  text-decoration: 1px red wavy underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
 }
 
 .highlight-styles #double-underline+label,
 ::highlight(double-underline) {
-  text-decoration: 2px blue double underline;
+  text-decoration: 1px blue double underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
 }
