@@ -21,8 +21,9 @@
       max-width: 1500px;
       border-radius: 1rem;
     }
-
+    
     .sticky {
+      view-transition-name: match-element;
       background: #fffa87;
       border: 1px solid #e0e0e0;
       border-radius: .5rem;
@@ -232,32 +233,36 @@
   </div>
 
   <script>
+    const COLUMNS = ["backlog", "doing", "review", "done"];
+
     addEventListener("click", e => {
       const backButton = e.target.closest("button.move-back");
       const forwardButton = e.target.closest("button.move-forward");
       const sticky = e.target.closest(".sticky");
 
-      if (backButton) {
-        const column = sticky.dataset.column;
-        if (column === "doing") {
-          sticky.dataset.column = "backlog";
-        } else if (column === "review") {
-          sticky.dataset.column = "doing";
-        } else if (column === "done") {
-          sticky.dataset.column = "review";
-        }
+      if (!backButton && !forwardButton) {
+        return;
       }
 
-      if (forwardButton) {
-        const column = sticky.dataset.column;
-        if (column === "backlog") {
-          sticky.dataset.column = "doing";
-        } else if (column === "doing") {
-          sticky.dataset.column = "review";
-        } else if (column === "review") {
-          sticky.dataset.column = "done";
-        }
+      const currentColumn = sticky.dataset.column;
+      const currentIndex = COLUMNS.indexOf(currentColumn);
+      const nextColumn = backButton ? COLUMNS[currentIndex - 1] : COLUMNS[currentIndex + 1];
+
+      if (!nextColumn) {
+        return;
       }
+
+      if (!document.startViewTransition) {
+        sticky.dataset.column = nextColumn;
+        return;
+      }
+
+      document.startViewTransition(() => {
+        sticky.dataset.column = nextColumn;
+        // Move the sticky to be the first child of the column.
+        const columnElements = document.querySelectorAll(`[data-column="${nextColumn}"]`);
+        columnElements[0].parentNode.insertBefore(sticky, columnElements[1]);
+      });
     });
   </script>
 </body>
