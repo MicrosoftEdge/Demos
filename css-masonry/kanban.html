@@ -21,7 +21,15 @@
       max-width: 1500px;
       border-radius: 1rem;
     }
-    
+
+    @supports not (display: masonry) {
+      .kanban-board {
+        display: grid;
+        grid-auto-flow: dense;
+        align-items: start;
+      }
+    }
+
     .sticky {
       view-transition-name: match-element;
       background: #fffa87;
@@ -46,6 +54,7 @@
       font-style: italic;
       font-size: smaller;
     }
+
     .sticky .assignee::before {
       content: "👤 ";
     }
@@ -235,6 +244,12 @@
   <script>
     const COLUMNS = ["backlog", "doing", "review", "done"];
 
+    function moveStickyTo(sticky, column) {
+      sticky.dataset.column = column;
+      const columnElements = document.querySelectorAll(`[data-column="${column}"]`);
+      columnElements[0].parentNode.insertBefore(sticky, columnElements[1]);
+    }
+
     addEventListener("click", e => {
       const backButton = e.target.closest("button.move-back");
       const forwardButton = e.target.closest("button.move-forward");
@@ -253,15 +268,12 @@
       }
 
       if (!document.startViewTransition) {
-        sticky.dataset.column = nextColumn;
+        moveStickyTo(sticky, nextColumn);
         return;
       }
 
       document.startViewTransition(() => {
-        sticky.dataset.column = nextColumn;
-        // Move the sticky to be the first child of the column.
-        const columnElements = document.querySelectorAll(`[data-column="${nextColumn}"]`);
-        columnElements[0].parentNode.insertBefore(sticky, columnElements[1]);
+        moveStickyTo(sticky, nextColumn);
       });
     });
   </script>
