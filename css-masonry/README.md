@@ -4,6 +4,7 @@ This directory contains demo pages that showcase the implementation of CSS Mason
 
 See also:
 * [Masonry layout](https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Masonry_layout) at MDN.
+* [Brick by brick: Help us build CSS Masonry](https://developer.chrome.com/blog/masonry-update) at developer.chrome.com.
 
 
 <!-- ====================================================================== -->
@@ -39,6 +40,10 @@ To try the demos, first enable Masonry:
 * [News site: The Daily Oddity](https://microsoftedge.github.io/Demos/css-masonry/the-daily-oddity.html)
 
   <img alt="Screenshot of the demo page." src="./daily-oddity/screenshot.png" width="300">
+
+* [Kanban board](https://microsoftedge.github.io/Demos/css-masonry/kanban.html)
+
+  <img alt="Screenshot of the demo page." src="./kanban/screenshot.png" width="300">
 
 * Masonry syntax examples:
 
