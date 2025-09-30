@@ -98,6 +98,13 @@
       padding-block: 3rem;
       color: white;
       background: linear-gradient(-45deg, blue -30%, black);
+      grid-column: span 2;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        grid-column: span 1;
+      }
     }
 
     header h1 {
