@@ -40,4 +40,4 @@ The two interesting pieces of code here are:
 
 * [Test Progressive Web App (PWA) protocol handling](https://learn.microsoft.com/microsoft-edge/devtools/progressive-web-apps/protocol-handlers)
 * [Handle protocols in a PWA](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/handle-protocols)
-* [Email client](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#email-client) in _Progressive Web App demos_.
+* [Email client](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index#email-client) in _Progressive Web App samples_.

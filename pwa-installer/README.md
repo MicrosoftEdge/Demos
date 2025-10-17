@@ -41,5 +41,5 @@ This demo also makes use of CSS masonry layout, as a progressive enhancement.  Y
 ## See also
 
 * [Web Install API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md)
-* [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#pwa-installer) in _Progressive Web App demos_.
+* [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index#pwa-installer) in _Progressive Web App samples_.
 * [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install/index.html) - requires the **web-app-installation-api** flag.

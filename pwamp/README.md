@@ -92,7 +92,7 @@ Possible enhancements for this demo:
 
 Find "PWAmp" in the following articles.
 
-* [PWAmp](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#pwamp) in _Progressive Web App demos_.
+* [PWAmp](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index#pwamp) in _Progressive Web App samples_.
 * [Console features reference](https://learn.microsoft.com/microsoft-edge/devtools/console/reference)
 * [Test Progressive Web App (PWA) protocol handling](https://learn.microsoft.com/microsoft-edge/devtools/progressive-web-apps/protocol-handlers)
 * [View and change IndexedDB data](https://learn.microsoft.com/microsoft-edge/devtools/storage/indexeddb)
