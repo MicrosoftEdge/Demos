@@ -107,16 +107,15 @@ sync'd Oct. 17, 2025
 | 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV/) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) demo |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client/) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) demo |
 | Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title/) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) demo |
-| Temperature converter | Converts temperatures.  Used for [Temperature convertor sample](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/temperature-converter). | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) demo |
 | PWA installer | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer/) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) demo |
+| Edge demos (pwastore) | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry.  An earlier copy of `/pwa-installer/` directory, pointed to by Dev Trial docs. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore/) | [Edge demos](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
 | Timer PWA | Has a **Set timer** button, and you can set the duration of the timer. | [/pwa-timer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-timer/) | [Timer PWA demo](https://microsoftedge.github.io/Demos/pwa-timer/) |
 | PWA To Do | Create lists of tasks locally in your browser, or by installing the app.  Click **About** link in rendered demo. | [/pwa-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do/) | [PWA To Do](https://microsoftedge.github.io/Demos/pwa-to-do/) demo |
 | PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp/) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) demo |
+| Temperature converter | Converts temperatures.  Used for [Temperature convertor sample](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/temperature-converter). | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) demo |
 | wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami/) | [wami](https://microsoftedge.github.io/Demos/wami/) demo |
 
 To learn how to use and develop PWAs, start with the Temperature convertor sample.
-
-The `/pwa-pwastore/` directory is a temporary copy of PWA installer, pointed to by a Dev Trial.
 
 See also:
 * [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index) - also lists the demos:
