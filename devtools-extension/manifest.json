@@ -6,15 +6,18 @@
     "devtools_page": "devtools.html",
     "content_scripts": [{
         "matches": [
-          "http://*/*",
-          "https://*/*"
+            "http://*/*",
+            "https://*/*"
         ],
         "run_at": "document_idle",
         "js": [
-          "content_script.js"
+            "content_script.js"
         ]
     }],
     "background": {
         "service_worker": "background.js"
-    }
+    },
+    "permissions": [
+        "system.memory"
+    ]
 }

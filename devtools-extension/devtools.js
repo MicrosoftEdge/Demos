@@ -1,3 +1,5 @@
+let availableMemoryCapacity;
+let totalMemoryCapacity;
 let youClickedOn; 
 chrome.devtools.panels.create("Sample Panel", "icon.png", "panel.html", panel => {
     // code invoked on panel creation
@@ -7,7 +9,9 @@ chrome.devtools.panels.create("Sample Panel", "icon.png", "panel.html", panel =>
         sayHello.addEventListener("click", () => {
             // show a greeting alert in the inspected page
             chrome.devtools.inspectedWindow.eval('alert("Hello from the DevTools Extension");');
-        });             
+        });
+        availableMemoryCapacity = extPanelWindow.document.querySelector('#availableMemoryCapacity');
+        totalMemoryCapacity = extPanelWindow.document.querySelector('#totalMemoryCapacity');
     });
 });
 
@@ -35,3 +39,14 @@ backgroundPageConnection.postMessage({
     name: 'init',
     tabId: chrome.devtools.inspectedWindow.tabId
 });
+
+setInterval(() => {
+    chrome.system.memory.getInfo((data) => {
+        if (availableMemoryCapacity) {
+            availableMemoryCapacity.innerHTML = data.availableCapacity;
+        }
+        if (totalMemoryCapacity) {
+            totalMemoryCapacity.innerHTML = data.capacity;
+        }
+    });
+}, 1000);
