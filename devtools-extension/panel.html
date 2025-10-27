@@ -4,19 +4,25 @@
     <meta charset="UTF-8" />
   </head>
   <body>
-    <h1>Custom DevTools Tool</h1>
+    <h2>Custom DevTools Tool</h2>
 
-    <h2>Memory</h2>
+    <h3>Memory</h3>
     <div>
-      Available Memory Capacity: <span id="availableMemoryCapacity"></span>
+      <b>Available Memory Capacity:</b> <span id="availableMemoryCapacity"></span>
     </div>
     <div>
-      Total Memory Capacity: <span id="totalMemoryCapacity"></span>
+      <b>Total Memory Capacity:</b> <span id="totalMemoryCapacity"></span>
     </div>
 
-    <h2>Interact between inspected webpage and DevTools</h2>
-    <input type="button" id="sayHello" value="Say Hello to The Inspected Page!">
-    <h2><span id="youClickedOn"></span></h2>
+    <h3>Send message from DevTools to inspected page</h3>
+    <input type="button" id="sayHello" value="Say Hello">
+
+    <h3>Send message from inspected page to DevTools</h3>
     <p>Click somewhere in the inspected webpage.</p>
+    <div>
+      <b>Coordinates:</b> <span id="youClickedOn"></span>
+    </div>
+
+
   </body>
 </html>
