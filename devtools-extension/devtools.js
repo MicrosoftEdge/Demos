@@ -10,6 +10,7 @@ chrome.devtools.panels.create("Sample Panel", "icon.png", "panel.html", panel =>
             // show a greeting alert in the inspected page
             chrome.devtools.inspectedWindow.eval('alert("Hello from the DevTools Extension");');
         });
+        // display memory
         availableMemoryCapacity = extPanelWindow.document.querySelector('#availableMemoryCapacity');
         totalMemoryCapacity = extPanelWindow.document.querySelector('#totalMemoryCapacity');
     });
@@ -40,6 +41,7 @@ backgroundPageConnection.postMessage({
     tabId: chrome.devtools.inspectedWindow.tabId
 });
 
+// Periodically update Memory display
 setInterval(() => {
     chrome.system.memory.getInfo((data) => {
         if (availableMemoryCapacity) {
