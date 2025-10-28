@@ -80,13 +80,9 @@ https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extens
 sync'd July 30, 2025
 -->
 
-| Demo name | Description and docs | Source code & Readme | Live demo page |
-|---|---|---|---|
-| DevTools extension | Used for [Create a DevTools extension, adding a custom tool tab and panel](https://learn.microsoft.com/microsoft-edge/extensions/developer-guide/devtools-extension). | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
-| Basic | A basic DevTools extension. | [/devtools-extension/sample 1/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%201) | n/a |
-| Panel | A basic DevTools extension with a panel. | [/devtools-extension/sample 2/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%202) | n/a |
-| CDP | A basic DevTools extension invoking Chrome Developer Protocol (CDP) APIs. | [/devtools-extension/sample 3/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%203) | n/a |
-| Inspect | A basic DevTools extension that interacts with the Inspected page. | [/devtools-extension/sample 4/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension/sample%204) | n/a |
+| Demo name | Description | Docs | Source code & Readme | Live demo page |
+|---|---|---|---|---|
+| DevTools extension | A Microsoft Edge extension that adds a **Custom** tool in Microsoft Edge DevTools. | [Sample: Custom DevTools tool](https://learn.microsoft.com/microsoft-edge/extensions/samples/custom-devtools-tool) | [/devtools-extension/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-extension) | n/a |
 
 See also:
 * [Samples for Microsoft Edge extensions](https://learn.microsoft.com/microsoft-edge/extensions/samples).  Includes samples that are in the **microsoft / MicrosoftEdge-Extensions** repo:
