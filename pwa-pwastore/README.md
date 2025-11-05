@@ -54,7 +54,7 @@ To enable the CSS Masonry layout flag (a progressive enhancement):
 <!-- ====================================================================== -->
 ## See also
 
-Regular article section:
+Sample description:
 * [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index#pwa-installer) in _Progressive Web App samples_.
 
 Blog post:
