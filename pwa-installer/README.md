@@ -2,15 +2,23 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/pwa-installer/)** ⬅️
 
-**PWA installer** is a demo app for a landing page that lets you install PWAs from a collection of applications.  This demo app showcases the Web Install API.
+**PWA installer** is a demo app for a landing page (titled **Edge demos** ) that lets you install PWAs from a collection of applications.
+
+This demo app showcases the Web Install API.  This demo app also demonstrates CSS Masonry layout.
 
 
 <!-- ====================================================================== -->
 ## Requirements
 
-For the demo to work correctly, you must enable a flag, which is available in browsers based on Chromium, such as Microsoft Edge, starting with version 139.
+* For the demo to work correctly, you must enable a flag for the Web Install API.  That flag is available in browsers based on Chromium, such as Microsoft Edge, starting with version 139.
 
-To enable the flag:
+* As a progressive enhancement, you can also enable the CSS Masonry flag.
+
+
+<!-- ------------------------------ -->
+### Enable the Web Install API
+
+To enable the Web Install API (required):
 
 1. In the browser, open a new tab and go to `about:flags`.
 
@@ -22,9 +30,11 @@ To enable the flag:
 
 1. Click the **Restart** button in the lower right.  The browser restarts.
 
-1. In the same browser, go to [https://microsoftedge.github.io/Demos/pwa-installer/](https://microsoftedge.github.io/Demos/pwa-installer/) or your localhost equivalent.
 
-This demo also makes use of CSS masonry layout, as a progressive enhancement.  You can optionally enable the CSS masonry flag:
+<!-- ------------------------------ -->
+### Enable CSS Masonry layout
+
+To enable the CSS Masonry layout flag (a progressive enhancement):
 
 1. In the browser, open a new tab and go to `about:flags`.
 
@@ -40,6 +50,14 @@ This demo also makes use of CSS masonry layout, as a progressive enhancement.  Y
 <!-- ====================================================================== -->
 ## See also
 
+Sample description:
+* [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index#pwa-installer) in _Progressive Web App samples_.
+
+Blog post:
+* [Microsoft Edge: Web Install API Dev Trial Live](https://www.linkedin.com/feed/update/urn:li:activity:7348768177993998337/)
+
+Explainer:
 * [Web Install API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md)
-* [PWA installer](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/demo-pwas#pwa-installer) in _Progressive Web App demos_.
+
+Other live samples:
 * [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install/index.html) - requires the **web-app-installation-api** flag.
