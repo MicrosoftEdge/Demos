@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebSocket test page</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    body {
+      font-family: system-ui;
+      margin: 2rem;
+    }
+
+    h1 {
+      margin: 2rem 0;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    #output {
+      padding: 0;
+      margin: 2rem 0;
+      border: 1px solid;
+      border-block-end: none;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    #output:empty {
+      display: none;
+    }
+
+    #output li {
+      padding: 1rem;
+      border-block-end: 1px solid;
+      list-style: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #output li.odd {
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WebSocket test page</h1>
+
+  <button id="connect">Connect to the server</button>
+  <button id="send" hidden>Send a message to the server</button>
+  <ul id="output"></ul>
+
+  <script>
+    const connectBtn = document.getElementById("connect");
+    const sendBtn = document.getElementById("send");
+    const output = document.getElementById("output");
+
+    let msgIndex = 0;
+    function logActivity(message) {
+      const li = document.createElement("li");
+      li.textContent = message;
+      li.classList.add(msgIndex % 2 === 0 ? "even" : "odd");
+      msgIndex++;
+      output.prepend(li);
+    }
+
+    connectBtn.addEventListener("click", () => {
+      logActivity("Connecting...");
+
+      connectBtn.disabled = true;
+      // TODO: change URL to match the ws server location.
+      const socket = new WebSocket("ws://localhost:8080");
+
+      socket.addEventListener("open", (event) => {
+        sendBtn.hidden = false;
+        logActivity("Connected to the server");
+      });
+
+      sendBtn.addEventListener("click", () => {
+        const data = {};
+        for (let i = 0; i < 3000; i++) {
+          data["key" + i] = "z".repeat(10);
+        }
+        socket.send(JSON.stringify(data));
+        logActivity("Message sent to the server");
+      });
+
+      socket.addEventListener("message", (event) => {
+        console.log("Message from server ", event.data);
+        logActivity("Message received from the server: " + event.data.substring(0, 500));
+      });
+    }, { once: true });
+  </script>
+</body>
+
+</html>
