@@ -226,3 +226,17 @@ input[type="number"] {
   border-radius: var(--inner-radius);
   padding: 6px 12px;
 }
+
+.metrics:not(.no-stream-mode) .metric:has(#total-time-metric) {
+  display: none;
+}
+
+.metrics.no-stream-mode {
+  grid: 1fr / 1fr 1fr;
+}
+
+.metrics.no-stream-mode .metric:has(#first-chunk-latency-metric),
+.metrics.no-stream-mode .metric:has(#chunks-metric),
+.metrics.no-stream-mode .metric:has(#chunk-rate-metric) {
+  display: none;
+}

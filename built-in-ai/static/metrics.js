@@ -9,14 +9,23 @@ class PlaygroundMetrics {
     this.firstChunkLatencyMetricEl = document.querySelector("#first-chunk-latency-metric");
     this.chunksMetricEl = document.querySelector("#chunks-metric");
     this.chunkRateMetricEl = document.querySelector("#chunk-rate-metric");
+    this.totalTimeMetricEl = document.querySelector("#total-time-metric");
 
     if (!this.checkMetricsElements()) {
       console.error("Metrics elements not found in the DOM.");
     }
   }
-
+  
   checkMetricsElements() {
     return this.initLatencyMetricEl && this.firstChunkLatencyMetricEl && this.chunksMetricEl && this.chunkRateMetricEl;
+  }
+
+  setNoStreamMode() {
+    if (!this.checkMetricsElements()) {
+      return;
+    }
+
+    this.initLatencyMetricEl.parentElement.parentElement.classList.add("no-stream-mode");
   }
 
   signalOnBeforeCreateSession() {
@@ -59,5 +68,14 @@ class PlaygroundMetrics {
 
     const rate = this.chunkCount / ((performance.now() - this.streamStartTime) / 1000);
     this.chunkRateMetricEl.innerText = rate.toFixed(1);
+  }
+
+  signalOnAfterResult() {
+    if (!this.checkMetricsElements()) {
+      return;
+    }
+
+    const totalTime = performance.now() - this.startTime;
+    this.totalTimeMetricEl.innerText = Math.round(totalTime);
   }
 }

@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
     rel="stylesheet">
-  <title>Prompt API playground</title>
+  <title>Proofreader API playground</title>
   <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
@@ -36,7 +36,7 @@
   <nav  id="menu">
     <ul class="menu">
       <li>
-        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item current">Prompt</a>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
       </li>
       <li>
         <span class="item parent">
@@ -55,7 +55,7 @@
         </ul>
       </li>
       <!-- li>
-        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item current">Proofreader</a>
       </li -->
       <li>
         <span class="item parent">
@@ -89,7 +89,7 @@
   <nav  id="menu-popover" popover>
     <ul class="menu">
       <li>
-        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item current">Prompt</a>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
       </li>
       <li>
         <span class="item parent">
@@ -108,7 +108,7 @@
         </ul>
       </li>
       <!-- li>
-        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item current">Proofreader</a>
       </li -->
       <li>
         <span class="item parent">
@@ -140,119 +140,57 @@
 
   <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
   
-    <link rel="stylesheet" href="/Demos/built-in-ai/static/prompt-api.css">
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/proofreader-api.css">
   
 
   <main>
-    <h1>Prompt API</h1>
-    <p class="description">Web API to prompt the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api" target="_blank">Prompt a built-in language model with the Prompt API</a>.</p>
+    <h1>Proofreader API</h1>
+    <p class="description">Web API to proofread text and correct grammar, spelling, or punctuation errors using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">Summarize, write, and rewrite text with the Writing Assistance APIs</a>.</p>
 
     <div id="message-ui" class="message-bar"></div>
 
     <div class="settings card-with-shadow">
       
 <div class="settings-row no-separator">
-  <label for="prompt">
-    User prompt
-    <span role="tooltip" id="user-prompt-tooltip" style="anchor-name:--prompt-anchor;">
-      <span class="tooltip-content" style="position-anchor:--prompt-anchor;">
-        The user prompt is the text that you want to send to the language model. It can be a question, a statement, or
-        any other type of input that you want the model to respond to. The model will generate a response based on this
-        prompt.
+  <label for="text">
+    Text to proofread
+    <span role="tooltip" id="text-tooltip" style="anchor-name:--text-anchor;">
+      <span class="tooltip-content" style="position-anchor:--text-anchor;">
+        The text you want the Proofreader API to process. This can be any text, such as a short paragraph, an article, a
+        blog post, or any other type of content that you want to proofread.
       </span>
     </span>
   </label>
-  <textarea spellcheck="false" id="prompt" placeholder="Enter text to prompt the language model"
-    aria-describedby="user-prompt-tooltip">Ordered a Philly cheesesteak, and it was not edible. Their milkshake is just milk with cheap syrup. Horrible place!</textarea>
+  <!-- TODO: this is from the explainer -->
+  <div contenteditable spellcheck="false" id="text"
+    aria-describedby="text-tooltip">I seen him yesterday at the store, and he bought two loafs of bread.</div>
 </div>
 
 <div class="settings-row">
-  <label for="system-prompt">
-    System prompt
-    <span role="tooltip" id="system-prompt-tooltip" style="anchor-name:--system-prompt-anchor;">
-      <span class="tooltip-content" style="position-anchor:--system-prompt-anchor;">
-        The system prompt is a set of instructions or guidelines that you want the language model to follow when
-        generating a response. This can include information about the desired tone, style, or content of the response.
-        The model will use this prompt to generate a response that aligns with your instructions.
+  <label for="expected-languages">
+    Expected input languages
+    <span role="tooltip" id="expected-languages-tooltip" style="anchor-name:--expected-languages-anchor;">
+      <span class="tooltip-content" style="position-anchor:--expected-languages-anchor;">
+        The languages that the input text is expected to be in. This helps the browser to download any necessary
+        supporting material and to avoid doing any work if the specified languages are not supported.
       </span>
     </span>
   </label>
-  <textarea spellcheck="false" id="system-prompt"
-    placeholder="Enter instructions, guidelines, and any information for the language model"
-    aria-describedby="system-prompt-tooltip">You are an AI model designed to analyze the sentiment of user-provided text. Your goal is to classify the sentiment into predefined categories and provide a confidence score. Follow these guidelines: 
-
-- Identify whether the sentiment is positive, negative, or neutral. 
-- Provide a confidence score (0-1) reflecting the certainty of the classification. 
-- Ensure the sentiment classification is contextually accurate. 
-- If the sentiment is unclear or highly ambiguous, default to neutral.</textarea>
-</div>
-
-<div class="settings-row">
-  <label for="response-schema">
-    Response constraint schema (<span class="example-link-in-label" id="response-schema-example">load an example</span>)
-    <span role="tooltip" id="response-schema-tooltip" style="anchor-name:--schema-anchor;">
-      <span class="tooltip-content" style="position-anchor:--schema-anchor;">
-        A JSON schema that's used to constrain the model's response.
-      </span>
-    </span>
-  </label>
-  <textarea spellcheck="false" id="response-schema" placeholder="Enter a JSON schema to constrain the output."
-    aria-describedby="response-schema-tooltip" class="code"></textarea>
-</div>
-
-<details class="settings-row">
-  <summary>More settings</summary>
-  <label for="initial-prompts">
-    N-shot prompt instructions (<span class="example-link-in-label" id="n-shot-example">load an example</span>)
-    <span role="tooltip" id="n-shot-tooltip" style="anchor-name:--nshot-anchor;">
-      <span class="tooltip-content" style="position-anchor:--nshot-anchor;">
-        N-shot prompting is a technique used to provide the model with a few examples of the desired input-output pairs.
-      </span>
-    </span>
-  </label>
-  <textarea spellcheck="false" id="initial-prompts" placeholder="Enter user/assistant interactions"
-    aria-describedby="n-shot-tooltip" class="code"></textarea>
-</details>
-
-<div class="settings-row no-separator">
-  <label for="top-k">
-    TopK
-    <span role="tooltip" id="top-k-tooltip" style="anchor-name:--topk-anchor;">
-      <span class="tooltip-content" style="position-anchor:--topk-anchor;">
-        TopK is a sampling method that selects the top K most likely next tokens from the model's output distribution.
-        The model then samples from this subset of tokens to generate the next token in the sequence. This method can
-        help to reduce the randomness of the generated text and make it more coherent.
-      </span>
-    </span>
-  </label>
-  <div class="slider">
-    <input type="range" id="top-k" min="1" max="100" value="10" aria-describedby="top-k-tooltip">
-    <input type="number" id="top-k-value" min="1" max="100" value="10" tabindex="-1">
-  </div>
-</div>
-
-<div class="settings-row">
-  <label for="temperature">
-    Temperature
-    <span role="tooltip" id="temperature-tooltip" style="anchor-name:--temp-anchor;">
-      <span class="tooltip-content" style="position-anchor:--temp-anchor;">
-        Temperature is a parameter that controls the randomness of the model's output. A lower temperature (e.g., 0.1)
-        makes the model more deterministic and focused, while a higher temperature (e.g., 1.0) makes it more random and
-        creative. Adjusting the temperature can help you find the right balance between coherence and creativity in the
-        generated text.
-      </span>
-    </span>
-  </label>
-  <div class="slider">
-    <input type="range" id="temperature" min="0" max="1.0" value="0.7" step="0.1"
-      aria-describedby="temperature-tooltip">
-    <input type="number" id="temperature-value" min="0" max="1.0" value="0.7" step="0.1" tabindex="-1">
-  </div>
+  <select multiple id="expected-languages"
+    aria-describedby="expected-languages-tooltip">
+    <!-- TODO: Which languages do we want to let users pick? -->
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="ja">Japanese</option>
+    <option value="zh">Chinese</option>
+  </select>
 </div>
 
 <div class="settings-row submit">
-  <button class="ai-button" id="run">Prompt</button>
-  <button id="stop">Stop</button>
+  <button class="ai-button" id="proofread">Proofread</button>
 </div>
     </div>
 
@@ -272,7 +210,7 @@
   <script src="/Demos/built-in-ai/static/metrics.js"></script>
   <script src="/Demos/built-in-ai/static/slider.js"></script>
   
-    <script src="/Demos/built-in-ai/static/prompt-api.js"></script>
+    <script src="/Demos/built-in-ai/static/proofreader-api.js"></script>
   
 
 </body>

@@ -1,0 +1,51 @@
+---
+layout: playground.njk
+title: Proofreader API playground
+shorttitle: Proofreader API
+description: Web API to proofread text and correct grammar, spelling, or punctuation errors using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">Summarize, write, and rewrite text with the Writing Assistance APIs</a>.
+stylesheet: proofreader-api.css
+script: proofreader-api.js
+permalink: proofreader-api/
+---
+
+<div class="settings-row no-separator">
+  <label for="text">
+    Text to proofread
+    <span role="tooltip" id="text-tooltip" style="anchor-name:--text-anchor;">
+      <span class="tooltip-content" style="position-anchor:--text-anchor;">
+        The text you want the Proofreader API to process. This can be any text, such as a short paragraph, an article, a
+        blog post, or any other type of content that you want to proofread.
+      </span>
+    </span>
+  </label>
+  <!-- TODO: this is from the explainer -->
+  <div contenteditable spellcheck="false" id="text"
+    aria-describedby="text-tooltip">I seen him yesterday at the store, and he bought two loafs of bread.</div>
+</div>
+
+<div class="settings-row">
+  <label for="expected-languages">
+    Expected input languages
+    <span role="tooltip" id="expected-languages-tooltip" style="anchor-name:--expected-languages-anchor;">
+      <span class="tooltip-content" style="position-anchor:--expected-languages-anchor;">
+        The languages that the input text is expected to be in. This helps the browser to download any necessary
+        supporting material and to avoid doing any work if the specified languages are not supported.
+      </span>
+    </span>
+  </label>
+  <select multiple id="expected-languages"
+    aria-describedby="expected-languages-tooltip">
+    <!-- TODO: Which languages do we want to let users pick? -->
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="ja">Japanese</option>
+    <option value="zh">Chinese</option>
+  </select>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="proofread">Proofread</button>
+</div>
