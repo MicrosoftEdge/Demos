@@ -1,7 +1,8 @@
 // The various error messages.
 const PROMPT_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api'>documentation</a> and try again.";
 const WA_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis'>documentation</a> and try again.";
-const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis'>documentation</a> and try again.";
+const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-apis'>documentation</a> and try again.";
+const PROOFREADER_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api'>documentation</a> and try again.";
 
 const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
 const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
@@ -19,8 +20,8 @@ const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${WA_D
 const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
 const INFO_REWRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const ERR_PROOFREADER_API_NOT_DETECTED = `The Proofreader API is not available. ${WA_DOCS_INSTRUCTIONS}`;
-const ERR_PROOFREADER_MODEL_NOT_AVAILABLE = `The Proofreader API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_PROOFREADER_API_NOT_DETECTED = `The Proofreader API is not available. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
+const ERR_PROOFREADER_MODEL_NOT_AVAILABLE = `The Proofreader API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
 const INFO_PROOFREADER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${WA_DOCS_INSTRUCTIONS}`;
