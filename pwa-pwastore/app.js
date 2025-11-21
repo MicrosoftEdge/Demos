@@ -30,7 +30,7 @@ bubbleBtn.addEventListener('click', async () => {
 });
 
 tempConvBtn.addEventListener('click', async () => {
-  let installation = await navigator.install('https://microsoftedge.github.io/Demos/pwa-getting-started/index.html', 'https://microsoftedge.github.io/Demos/pwa-getting-started/');
+  let installation = await navigator.install('https://microsoftedge.github.io/Demos/temperature-converter/index.html', 'https://microsoftedge.github.io/Demos/temperature-converter/');
 
 });
 

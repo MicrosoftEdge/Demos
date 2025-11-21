@@ -112,7 +112,7 @@ sync'd Oct. 17, 2025
 | Timer PWA | Has a **Set timer** button, and you can set the duration of the timer. | [/pwa-timer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-timer/) | [Timer PWA demo](https://microsoftedge.github.io/Demos/pwa-timer/) |
 | PWA To Do | Create lists of tasks locally in your browser, or by installing the app.  Click **About** link in rendered demo. | [/pwa-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do/) | [PWA To Do](https://microsoftedge.github.io/Demos/pwa-to-do/) demo |
 | PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp/) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) demo |
-| Temperature converter | Converts temperatures.  Used for [Temperature convertor sample](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/temperature-converter). | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/pwa-getting-started/) demo |
+| Temperature converter | Converts temperatures.  Used for [Temperature convertor sample](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/temperature-converter). | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/temperature-converter/) demo |
 | wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami/) | [wami](https://microsoftedge.github.io/Demos/wami/) demo |
 
 To learn how to use and develop PWAs, start with the Temperature convertor sample.
