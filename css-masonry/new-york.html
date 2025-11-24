@@ -20,12 +20,12 @@
     }
 
     main {
-      display: masonry;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      display: grid-lanes;
+      grid-lanes: repeat(auto-fill, minmax(200px, 1fr));
       gap: 2vw;
     }
 
-    @supports not (display:masonry) {
+    @supports not (display:grid-lanes) {
       main {
         display: grid;
       }

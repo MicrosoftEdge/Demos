@@ -16,12 +16,12 @@
       padding: 0 var(--size);
       max-width: 1200px;
 
-      display: masonry;
-      grid-template-columns: repeat(auto-fill, var(--size));
+      display: grid-lanes;
+      grid-lanes: repeat(auto-fill, var(--size));
       gap: 1rem;
     }
 
-    @supports not (display:masonry) {
+    @supports not (display:grid-lanes) {
       body {
         display: grid;
       }

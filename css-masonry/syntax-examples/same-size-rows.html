@@ -19,9 +19,8 @@
 
     main {
       height: 100%;
-      display: masonry;
-      masonry-direction: row;
-      grid-template-rows: repeat(auto-fit, minmax(160px, 1fr));
+      display: grid-lanes;
+      grid-lanes: repeat(auto-fit, minmax(160px, 1fr)) row;
       gap: 10px;
     }
 

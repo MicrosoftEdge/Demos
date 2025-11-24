@@ -15,14 +15,14 @@
     .kanban-board {
       padding: 2rem;
       background: #eee;
-      display: masonry;
-      grid-template-columns: 1fr repeat(2, 1.5fr) 1fr;
+      display: grid-lanes;
+      grid-lanes: 1fr repeat(2, 1.5fr) 1fr;
       gap: 1rem 2rem;
       max-width: 1500px;
       border-radius: 1rem;
     }
 
-    @supports not (display: masonry) {
+    @supports not (display: grid-lanes) {
       .kanban-board {
         display: grid;
         grid-auto-flow: dense;
