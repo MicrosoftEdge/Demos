@@ -1,0 +1,135 @@
+html {
+  font-family: system-ui;
+  font-size: 13pt;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 2rem;
+}
+
+h1 {
+  margin: 2rem 2rem 0 2rem;
+  font-size: 1.3rem;
+  text-align: center;
+  background: url(icons/icon-128.png) no-repeat center top;
+  background-size: 2rem;
+  padding-block-start: 3rem;
+}
+
+#comment-form {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  margin: 0 2rem;
+}
+
+#comment-form label {
+  border: 1px solid black;
+  padding: .5rem;
+  background: black;
+  color: white;
+  border-radius: .5rem 0 0 .5rem;
+}
+
+#comment-form input {
+  flex-grow: 1;
+  width: 0;
+  padding: .5rem;
+  border: 1px solid;
+  border-width: 1px 0;
+  border-radius: 0;
+  outline-offset: -3px;
+}
+
+#comment-form button {
+  border: 1px solid black;
+  padding: .5rem;
+  border-radius: 0;
+  background: black;
+  color: white;
+  border-radius: 0 .5rem .5rem 0;
+}
+
+input,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: .25rem;
+  border: 1px solid #0005;
+  padding: .25rem;
+}
+
+#responses {
+  overflow: auto;
+  margin: 0;
+  padding: 2rem;
+  background: black;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: min-content;
+  scrollbar-width: none;
+}
+
+#responses li {
+  background: white;
+  color: black;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  display: grid;
+  column-gap: 1rem;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+#responses .status {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #555;
+  flex-basis: 4rem;
+  text-align: end;
+}
+
+#responses .status::after {
+  content: "";
+  font-style: normal;
+}
+
+#responses li[data-status="sending"] .status::after {
+  content: "⏳";
+}
+
+#responses li[data-status="sent"] .status::after {
+  content: "✅";
+}
+
+#responses li[data-status="failed"] .status::after {
+  content: "❌";
+}
+
+#responses li[data-status="retry-later"] .status::after {
+  content: "🛜";
+}
+
+#responses .retry {
+  grid-column: span 2;
+  font-size: 0.7rem;
+  width: max-content;
+  justify-self: center;
+  grid-row: 1;
+  background: black;
+  color: white;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PWA Background Sync API demo</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="icons/icon-128.png" sizes="128x128">
+  <meta name="application-title" content="PWA Background Sync">
+</head>
+
+<body>
+  <main>
+    <h1>PWA Background Sync API demo</h1>
+
+    <form id="comment-form">
+      <label for="comment">Comment</label>
+      <input type="text" id="comment" autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+
+    <ul id="responses"></ul>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('Service Worker Registered'));
+  </script>
+</body>
+
+</html>
