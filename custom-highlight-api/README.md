@@ -1,4 +1,4 @@
-# Custom Highlight API demo
+# CSS Custom Highlight API demo
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/custom-highlight-api/)** ⬅️
 

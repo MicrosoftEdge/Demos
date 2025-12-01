@@ -31,7 +31,7 @@
 <body>
   <header>
     <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
-    <h2 class="app-title">Built-in AI Playground</h2>
+    <h2 class="app-title">Built-in AI playgrounds</h2>
     
   <nav  id="menu">
     <ul class="menu">
@@ -51,6 +51,19 @@
           </li>
           <li>
             <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li -->
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item current">Translator</a>
           </li>
         </ul>
       </li>
@@ -95,6 +108,19 @@
         </ul>
       </li>
       <!-- li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li -->
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item current">Translator</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
         <span class="item parent">
           Samples
         </span>
@@ -119,7 +145,7 @@
 
   <main>
     <h1>Translator API</h1>
-    <p class="description">Web API for translating text between languages using the browser-provided language model. For more information, check out <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">the API documentation</a>.</p>
+    <p class="description">Web API for translating text between languages using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/translator-api" target="_blank">Translate text with the Translator API</a>.</p>
 
     <div id="message-ui" class="message-bar"></div>
 
@@ -127,29 +153,17 @@
       
 <div class="settings-row no-separator">
   <label for="source-language">Source language</label>
-  <select name="source-language" id="source-language">
-    <option value="en" selected>English</option>
-    <option value="fr">French</option>
-    <option value="es">Spanish</option>
-    <option value="de">German</option>
-    <option value="jp">Japanese</option>
-  </select>
+  <select name="source-language" id="source-language"></select>
 </div>
 
-<div class="settings-row no-separator">
-  <label for="input">Text to translate</label>
-  <textarea spellcheck="false" id="input"></textarea>
-</div>
-
-<div class="settings-row no-separator">
+<div class="settings-row">
   <label for="target-language">Target language</label>
-  <select name="target-language" id="target-language">
-    <option value="en">English</option>
-    <option value="fr" selected>French</option>
-    <option value="es">Spanish</option>
-    <option value="de">German</option>
-    <option value="jp">Japanese</option>
-  </select>
+  <select name="target-language" id="target-language"></select>
+</div>
+
+<div class="settings-row">
+  <label for="input">Text to translate</label>
+  <textarea spellcheck="false" id="input">Hello world!</textarea>
 </div>
 
 <div class="settings-row submit">
@@ -165,6 +179,7 @@
       <span class="metric">First chunk latency: <span class="value" id="first-chunk-latency-metric"></span> ms</span>
       <span class="metric">Chunks: <span class="value" id="chunks-metric"></span></span>
       <span class="metric">Rate: <span class="value" id="chunk-rate-metric"></span> chunk/sec</span>
+      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
     </div>
   </main>
 

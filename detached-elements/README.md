@@ -1,18 +1,23 @@
-# Investigating detached DOM elements memory leaks
+# Investigating memory leaks from detached DOM elements
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/detached-elements/)** ⬅️
 
-* [DevTools What's New](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/07/devtools#debug-dom-node-memory-leaks-with-the-new-detached-elements-tool) announcement.
-* [Announcement blog post](https://blogs.windows.com/msedgedev/2021/12/09/debug-memory-leaks-detached-elements-tool-devtools/).
-* [Documentation](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks).
+The Detached DOM Elements demo is a simple webpage that demonstrates the **Memory** tool's **Detached elements** profiling type.  The **Detached elements** profiling type in Microsoft Edge DevTools helps investigate common DOM memory leaks in long-running web applications.
 
-Microsoft Edge DevTools added a new panel called **Detached Elements**. This panel helps investigate common DOM memory leaks in long running web applications.
+The demo webpage shows a simulated chat application.  The app has three chat rooms that you can select among.  Within each chat room, you can simulate messages appearing one-by-one; as a slow continuous flow; or as a fast continuous flow.
 
-This repo contains a simple web page aimed at demonstrating the Detached Elements panel.
+For instructions, see:
+* [Debug DOM memory leaks ("Detached elements" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/dom-leaks-memory-tool-detached-elements).
+* [Debug memory leaks with the Microsoft Edge Detached Elements tool](https://blogs.windows.com/msedgedev/2021/12/09/debug-memory-leaks-detached-elements-tool-devtools/) - Announcement blog post.
+* [Debug DOM node memory leaks with the new Detached Elements tool](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/07/devtools#debug-dom-node-memory-leaks-with-the-new-detached-elements-tool) in _What's New in DevTools (Microsoft Edge 93)_.
 
-The page shows a simulated chat application. The app has 3 rooms which you can select. Within each room you can simulate messages by either sending just one, or using slow or fast message modes.
+Regarding the last two articles, the **Detached Elements** tool has been removed.  To debug DOM memory leaks, use the **Detached elements** profiling type in the **Memory** tool.
 
-The app has two potential leaks that the Detached Elements panel can help detect:
+
+<!-- ====================================================================== -->
+## Potential leaks
+
+The app has two potential leaks that the **Memory** tool's **Detached elements** profiling type can help detect:
 
 * Each room manages a cache of message DOM nodes.
 

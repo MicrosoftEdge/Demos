@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>Proofreader API playground</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+
+  <!-- Prompt API Chrome OT -->
+  <meta http-equiv="origin-trial" content="Avlqu5I+6AJLZzJKJk9CMcGXzrQCJa5rRyXhdfYbAU3hFCnxDmzIuuncmLbbRa2IQ6RfCqMyR5oFpZlalj3SRQEAAABreyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVByb21wdEFQSU11bHRpbW9kYWxJbnB1dCIsImV4cGlyeSI6MTc3NDMxMDQwMH0=">
+  <!-- Summarizer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AnmQ0jmbPIpGfZVA7KzZjGm+eqWhTVbw32p25GY5AUThwYV9mfnlRV9OFcB+rppXIcqjo9EVZo7Twi4azvQmVAIAAABjeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVN1bW1hcml6YXRpb25BUEkiLCJleHBpcnkiOjE3NjA0MDAwMDB9">
+  <!-- Writer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AkHYvzmVSZSDzntbjLuermqGg6g5qWqmpmOwUlPNQFqqEs0MvwMZUI0f20Lef7fE+tDJDvPq3vOV0dyFk6sDXAYAAABceyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVdyaXRlckFQSSIsImV4cGlyeSI6MTc2OTQ3MjAwMH0=">
+  <!-- Rewriter API Chrome OT -->
+  <meta http-equiv="origin-trial" content="As+DG2O8HwYYjnB9v8LvckNE3a00/dyFgYlSGJN6KEi6cxRjvMs2Lq3VxKL/p09haR+lWprzxFcu2zv/QnHTbQQAAABeeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVJld3JpdGVyQVBJIiwiZXhwaXJ5IjoxNzY5NDcyMDAwfQ==">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI playgrounds</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item current">Proofreader</a>
+      </li -->
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item">News</a>
+          </li>
+        </ul>
+      </li -->
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item current">Proofreader</a>
+      </li -->
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+        </ul>
+      </li>
+      <!-- li>
+        <span class="item parent">
+          Samples
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/samples/news" class="item">News</a>
+          </li>
+        </ul>
+      </li -->
+    </ul>
+  </nav>
+
+
+
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
+  
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/proofreader-api.css">
+  
+
+  <main>
+    <h1>Proofreader API</h1>
+    <p class="description">Web API to proofread text and correct grammar, spelling, or punctuation errors using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api" target="_blank">Correct grammar, spelling, and punctuation errors in text with the Proofreader API</a>.</p>
+
+    <div id="message-ui" class="message-bar"></div>
+
+    <div class="settings card-with-shadow">
+      
+<div class="settings-row no-separator">
+  <label for="text">
+    Text to proofread
+    <span role="tooltip" id="text-tooltip" style="anchor-name:--text-anchor;">
+      <span class="tooltip-content" style="position-anchor:--text-anchor;">
+        The text you want the Proofreader API to process. This can be any text, such as a short paragraph, an article, a
+        blog post, or any other type of content that you want to proofread.
+      </span>
+    </span>
+  </label>
+  <!-- TODO: this is from the explainer -->
+  <div contenteditable spellcheck="false" id="text"
+    aria-describedby="text-tooltip">I seen him yesterday at the store, and he bought two loafs of bread.</div>
+</div>
+
+<div class="settings-row">
+  <label for="expected-languages">
+    Expected input languages
+    <span role="tooltip" id="expected-languages-tooltip" style="anchor-name:--expected-languages-anchor;">
+      <span class="tooltip-content" style="position-anchor:--expected-languages-anchor;">
+        The languages that the input text is expected to be in. This helps the browser to download any necessary
+        supporting material and to avoid doing any work if the specified languages are not supported.
+      </span>
+    </span>
+  </label>
+  <select multiple id="expected-languages"
+    aria-describedby="expected-languages-tooltip">
+    <!-- TODO: Which languages do we want to let users pick? -->
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="ja">Japanese</option>
+    <option value="zh">Chinese</option>
+  </select>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="proofread">Proofread</button>
+</div>
+    </div>
+
+    <pre id="output"></pre>
+
+    <div class="metrics card-with-shadow">
+      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
+      <span class="metric">First chunk latency: <span class="value" id="first-chunk-latency-metric"></span> ms</span>
+      <span class="metric">Chunks: <span class="value" id="chunks-metric"></span></span>
+      <span class="metric">Rate: <span class="value" id="chunk-rate-metric"></span> chunk/sec</span>
+      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
+    </div>
+  </main>
+
+  <script src="/Demos/built-in-ai/static/session.js"></script>
+  <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  <script src="/Demos/built-in-ai/static/slider.js"></script>
+  
+    <script src="/Demos/built-in-ai/static/proofreader-api.js"></script>
+  
+
+</body>
+</html>

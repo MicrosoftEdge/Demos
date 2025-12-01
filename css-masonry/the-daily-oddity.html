@@ -177,10 +177,10 @@
       flex: 1 1 100%;
     }
 
-    @supports (display: masonry) {
+    @supports (display: grid-lanes) {
       main {
-        display: masonry;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        display: grid-lanes;
+        grid-lanes: repeat(auto-fit, minmax(180px, 1fr));
       }
 
       main article.spotlight {

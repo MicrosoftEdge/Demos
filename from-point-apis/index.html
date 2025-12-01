@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Path from Point APIs</title>
+  <style>
+    body {
+      font-family: system-ui;
+      padding: 4rem;
+      font-size: 11pt;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .layout-block {
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: .5rem;
+    }
+
+    .text-editor {
+      line-height: 1.8;
+      grid-column: span 2;
+    }
+
+    .text-editor :first-child {
+      margin-block-start: 0;
+    }
+
+    .text-editor :last-child {
+      margin-block-end: 0;
+    }
+
+    .inspector-hover-box {
+      position: relative;
+      outline: 1px dotted #0008;
+    }
+
+    .selected-box {
+      background: rgba(255, 251, 0, 0.541);
+      outline: 1px dashed orange;
+    }
+
+    .highlighters {
+      display: flex;
+      gap: .25rem;
+    }
+
+    .highlighters label {
+      display: flex;
+      align-items: center;
+    }
+
+    .highlighters #cyan-wave span,
+    ::highlight(cyan-wave-highlight) {
+      background-color: cyan;
+      text-decoration: wavy underline blue;
+    }
+
+    .highlighters #red-line span,
+    ::highlight(red-line-highlight) {
+      background-color: pink;
+      text-decoration: solid underline red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="highlighters layout-block">
+    Highlighter styles:
+    <label id="cyan-wave"><input type="radio" name="highlighter" checked><span>Cyan wave</span></label>
+    <label id="red-line"><input type="radio" name="highlighter"><span>Red line</span></label>
+  </div>
+
+  <div class="inspector-output layout-block"></div>
+
+  <div class="text-editor layout-block" contenteditable spellcheck="false">
+    <h1>Get elements, caret, and highlights from a point</h1>
+    <p>This webpage is a demo of the following DOM APIs: <code>document.elementFromtPoint()</code>,
+      <code>document.elementsFromPoint()</code>, <code>document.caretPositionFromPoint()</code>, and
+      <code>CSS.highlights.highlightsFromPoint()</code>, which are useful for text editing scenarios.
+    </p>
+    <h2>Get the topmost or all elements at a point</h2>
+    <p>Move your mouse around the text to see the elements under the cursor highlighted with a dotted outline. This is
+      achieved by
+      using <a
+        href="https://developer.mozilla.org/docs/Web/API/Document/elementsFromPoint"><code>document.elementsFromPoint()</code></a>
+      to get <strong>all elements under the cursor</strong> and applying
+      a special CSS
+      class to them. The elements are also displayed at the top of the page.</p>
+    <p>Click on an element to select it. This highlights the element with a yellow background and dashed outline and
+      displays the element at the top of the page. This is done using <a
+        href="https://developer.mozilla.org/docs/Web/API/Document/elementFromPoint"><code>document.elementFromPoint()</code></a>
+      to get
+      <strong>the topmost element under the cursor</strong>.
+    </p>
+    <h2>Get the caret at a point</h2>
+    <p>You can also select text by clicking and dragging. The selected text will be highlighted with the chosen
+      highlighter style above.</p>
+    <p>This works thanks to <a
+        href="https://developer.mozilla.org/docs/Web/API/Document/caretPositionFromPoint"><code>document.caretPositionFromPoint()</code></a>
+      which gives <strong>the caret position</strong> at the start
+      and end of the
+      selection. A <code>StaticRange</code> is then created from these two positions and highlighted by using the <a
+        href="https://developer.mozilla.org/docs/Web/API/CSS_Custom_Highlight_API">CSS Custom Highlight API</a>.
+    </p>
+    <h2>Get highlights at a point</h2>
+    <p>After you've created a few highlights, including overlapping highlights, you can click highlighted text to delete
+      the highlights at a given point.
+      This is done using <a
+        href="https://developer.mozilla.org/docs/Web/API/HighlightRegistry/highlightsFromPoint"><code>CSS.highlights.highlightsFromPoint()</code></a>
+      which returns <strong>all highlights at the given point</strong>.
+    </p>
+  </div>
+
+  <script>
+    const INSPECTOR_BOX_CLASS = "inspector-hover-box";
+    const SELECTED_BOX_CLASS = "selected-box";
+
+    const editor = document.querySelector('.text-editor');
+    const inspectorOutput = document.querySelector('.inspector-output');
+    const cyanWaveHighlightRadio = document.querySelector('#cyan-wave input');
+    const redLineHighlightRadio = document.querySelector('#red-line input');
+
+    function drawInspectorBoxes(els) {
+      editor.querySelectorAll(`.${INSPECTOR_BOX_CLASS}`).forEach(el => el.classList.toggle(INSPECTOR_BOX_CLASS, false));
+      els.forEach(el => {
+        el.dataset.metadata = `${el.tagName.toLowerCase()}${el.className ? `.${el.className}` : ''}${el.id ? `#${el.id}` : ''}`;
+        el.classList.toggle(INSPECTOR_BOX_CLASS, true);
+      });
+    }
+
+    function drawSelectedBox(el) {
+      editor.querySelectorAll(`.${SELECTED_BOX_CLASS}`).forEach(el => el.classList.toggle(SELECTED_BOX_CLASS, false));
+      if (el) {
+        el.classList.toggle(SELECTED_BOX_CLASS, true);
+      }
+    }
+
+    function displayInspectorOutput(str) {
+      inspectorOutput.textContent = str;
+    }
+
+    addEventListener("mousemove", e => {
+      const elements = document.elementsFromPoint(e.clientX, e.clientY);
+      // Find the index at which editor is found
+      const editorIndex = elements.findIndex(el => el === editor);
+      // If not found, the even occurred outside the editor.
+      if (editorIndex === -1) {
+        drawInspectorBoxes([]);
+        displayInspectorOutput("");
+        return;
+      }
+
+      // Slice the array to get only elements within the editor
+      const editorElements = elements.slice(0, editorIndex);
+      if (editorElements.length === 0) {
+        drawInspectorBoxes([]);
+        displayInspectorOutput("");
+        return;
+      }
+
+      drawInspectorBoxes(editorElements);
+      displayInspectorOutput(`Hovering ${editorElements.reverse().map(el => el.dataset.metadata).join(' > ')}`);
+    });
+
+    addEventListener("click", e => {
+      const selectedElement = document.elementFromPoint(e.clientX, e.clientY);
+      if (!selectedElement || !editor.contains(selectedElement) || selectedElement === editor) {
+        return;
+      }
+
+      drawSelectedBox(selectedElement);
+      displayInspectorOutput(`Selected ${selectedElement.dataset.metadata}`);
+    });
+
+    const cyanWaveHighlights = new Highlight();
+    CSS.highlights.set("cyan-wave-highlight", cyanWaveHighlights);
+
+    const redLineHighlights = new Highlight();
+    CSS.highlights.set("red-line-highlight", redLineHighlights);
+
+    editor.addEventListener("mousedown", e => {
+      let startCaret = document.caretPositionFromPoint(e.clientX, e.clientY);
+      editor.addEventListener("mouseup", e => {
+        let endCaret = document.caretPositionFromPoint(e.clientX, e.clientY);
+
+        if (startCaret && endCaret) {
+          // Reverse if endCaret is before startCaret.
+          if (startCaret.offsetNode === endCaret.offsetNode) {
+            if (startCaret.offset > endCaret.offset) {
+              [startCaret, endCaret] = [endCaret, startCaret];
+            }
+          } else {
+            const position = startCaret.offsetNode.compareDocumentPosition(endCaret.offsetNode);
+            if (position & Node.DOCUMENT_POSITION_PRECEDING) {
+              [startCaret, endCaret] = [endCaret, startCaret];
+            }
+          }
+
+          const range = new StaticRange({
+            startContainer: startCaret.offsetNode,
+            startOffset: startCaret.offset,
+            endContainer: endCaret.offsetNode,
+            endOffset: endCaret.offset
+          });
+
+          const highlight = cyanWaveHighlightRadio.checked ? cyanWaveHighlights : redLineHighlights;
+          highlight.add(range);
+        }
+      }, { once: true });
+    });
+
+    editor.addEventListener("mouseup", e => {
+      CSS.highlights.highlightsFromPoint(e.clientX, e.clientY).forEach(({ highlight, ranges }) => {
+        for (const range of ranges) {
+          highlight.delete(range);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

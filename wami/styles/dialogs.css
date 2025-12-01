@@ -28,5 +28,5 @@ dialog .close-dialog {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  -webkit-app-region: no-drag;
+  app-region: no-drag;
 }

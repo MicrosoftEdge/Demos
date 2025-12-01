@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban board</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: .9rem;
+      margin: 3rem;
+    }
+
+    .kanban-board {
+      padding: 2rem;
+      background: #eee;
+      display: grid-lanes;
+      grid-lanes: 1fr repeat(2, 1.5fr) 1fr;
+      gap: 1rem 2rem;
+      max-width: 1500px;
+      border-radius: 1rem;
+    }
+
+    @supports not (display: grid-lanes) {
+      .kanban-board {
+        display: grid;
+        grid-auto-flow: dense;
+        align-items: start;
+      }
+    }
+
+    .sticky {
+      view-transition-name: match-element;
+      background: #fffa87;
+      border: 1px solid #e0e0e0;
+      border-radius: .5rem;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .sticky:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px) translateX(-2px);
+    }
+
+    .sticky h2 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+
+    .sticky .assignee {
+      font-style: italic;
+      font-size: smaller;
+    }
+
+    .sticky .assignee::before {
+      content: "👤 ";
+    }
+
+    .sticky:nth-child(4n + 1) {
+      rotate: -1deg;
+    }
+
+    .sticky:nth-child(5n + 2) {
+      rotate: 1deg;
+    }
+
+    [data-column="backlog"] {
+      grid-column: 1;
+    }
+
+    [data-column="doing"] {
+      grid-column: 2;
+    }
+
+    [data-column="review"] {
+      grid-column: 3;
+    }
+
+    [data-column="done"] {
+      grid-column: 4;
+    }
+
+    .sticky[data-column="backlog"] {
+      background: #fffa87;
+    }
+
+    .sticky[data-column="doing"] {
+      background: #87fffa;
+    }
+
+    .sticky[data-column="review"] {
+      background: #fa87ff;
+    }
+
+    .sticky[data-column="done"] {
+      background: #3bffa3;
+    }
+
+    .header h3 {
+      margin: 0 0 0 0;
+      text-align: center;
+    }
+
+    .move {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .move button {
+      border: none;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      background: #fffb;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .move button:hover {
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .move button:active {
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transform: translateY(1px);
+    }
+
+    [data-column="backlog"] .move-back {
+      visibility: hidden;
+    }
+
+    [data-column="done"] .move-forward {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Team awesome kanban board</h1>
+
+  <div class="kanban-board">
+    <div class="header" data-column="backlog">
+      <h3>Backlog</h3>
+    </div>
+    <div class="header" data-column="doing">
+      <h3>In-progress</h3>
+    </div>
+    <div class="header" data-column="review">
+      <h3>Under review</h3>
+    </div>
+    <div class="header" data-column="done">
+      <h3>Done</h3>
+    </div>
+
+    <div class="sticky" data-column="backlog">
+      <h2>Faster search service</h2>
+      <p>The search service takes at a minimum 500ms to start responding in our perf lab tests.</p>
+      <p class="assignee">Alice</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="backlog">
+      <h2>Fix search widget accessibility</h2>
+      <p>Keyboard nav is broken.</p>
+      <p class="assignee">Bob</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="doing">
+      <h2>Bug sprint #4</h2>
+      <p>See our bug board</p>
+      <p class="assignee">Charlie</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="doing">
+      <h2>Dark theme revamp</h2>
+      <p>Customer report that our dark theme isn't dark enough.</p>
+      <p class="assignee">Dana</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="review">
+      <h2>Backend refactor</h2>
+      <p>See the backend team's proposal to refactor for easier maintenance of the backend code.</p>
+      <p class="assignee">Alice</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="done">
+      <h2>Bug sprint #1</h2>
+      <p>See our bug board</p>
+      <p class="assignee">Charlie</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="done">
+      <h2>Bug sprint #2</h2>
+      <p>See our bug board</p>
+      <p class="assignee">Bob</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="review">
+      <h2>Bug sprint #3</h2>
+      <p>See our bug board</p>
+      <p class="assignee">Dana</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+    <div class="sticky" data-column="done">
+      <h2>Ship v0</h2>
+      <p>Ship it! 🚢</p>
+      <p class="assignee">Alice</p>
+      <div class="move">
+        <button class="move-back" title="Move back">&lt;</button>
+        <button class="move-forward" title="Move forward">&gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const COLUMNS = ["backlog", "doing", "review", "done"];
+
+    function moveStickyTo(sticky, column) {
+      sticky.dataset.column = column;
+      const columnElements = document.querySelectorAll(`[data-column="${column}"]`);
+      columnElements[0].parentNode.insertBefore(sticky, columnElements[1]);
+    }
+
+    addEventListener("click", e => {
+      const backButton = e.target.closest("button.move-back");
+      const forwardButton = e.target.closest("button.move-forward");
+      const sticky = e.target.closest(".sticky");
+
+      if (!backButton && !forwardButton) {
+        return;
+      }
+
+      const currentColumn = sticky.dataset.column;
+      const currentIndex = COLUMNS.indexOf(currentColumn);
+      const nextColumn = backButton ? COLUMNS[currentIndex - 1] : COLUMNS[currentIndex + 1];
+
+      if (!nextColumn) {
+        return;
+      }
+
+      if (!document.startViewTransition) {
+        moveStickyTo(sticky, nextColumn);
+        return;
+      }
+
+      document.startViewTransition(() => {
+        moveStickyTo(sticky, nextColumn);
+      });
+    });
+  </script>
+</body>
+
+</html>

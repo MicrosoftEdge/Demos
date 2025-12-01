@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <!-- this origin trial token only works on https://microsoftedge.github.io and is only valid until Chromium 146 -->
+  <meta http-equiv="origin-trial" content="An7lhVb7H8NIGjOfkZPE8mslZOswMCLAzRVnMVMxC7I+PN1vulpPINIpCFhMQwsEH58ab//xGgEcQ4VKvWxXfQUAAABqeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJJbmNvbWluZ0NhbGxOb3RpZmljYXRpb25zIiwiZXhwaXJ5IjoxNzc5MTQ4ODAwfQ==">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notifications demo</title>
@@ -106,8 +108,8 @@
           icon: "./call.png",
           scenario: "incoming-call",
           actions: [
-            { action: "accept-audio-call", title: "audio" },
-            { action: "accept-video-call", title: "video" }
+            { action: "accept-audio-call", title: "Audio" },
+            { action: "accept-video-call", title: "Video" }
           ]
         }).then(() => {
           log("showNotification() succeeded");

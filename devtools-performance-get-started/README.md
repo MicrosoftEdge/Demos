@@ -2,4 +2,4 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/devtools-performance-get-started/)** ⬅️
 
-This is the source code for the demo page used in the Microsoft Edge DevTools tutorial: [Introduction to the Performance tool](https://learn.microsoft.com/microsoft-edge/devtools/evaluate-performance/).
+For instructions, see [Analyze runtime performance (tutorial)](https://learn.microsoft.com/microsoft-edge/devtools/performance/).

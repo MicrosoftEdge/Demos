@@ -93,6 +93,7 @@ h2, h3 {
 }
 
 textarea,
+[contenteditable],
 input,
 select {
   width: 100%;
@@ -102,6 +103,11 @@ select {
   color: #333;
   box-shadow: 0 0 0 1px var(--divider-color);
   border: none;
+}
+
+[contenteditable] {
+  overflow: auto;
+  resize: vertical;
 }
 
 label {

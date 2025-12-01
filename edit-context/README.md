@@ -8,8 +8,10 @@ With the EditContext API, you get the flexibility to render your own editable te
 
 This demo is a simple HTML text editor that uses the EditContext API to allow entering HTML code. The HTML code appears highlighted, with tags, attributes, and text content in different colors. IME composition and emoji picker are also supported and appear in the right place.
 
+
+<!-- ====================================================================== -->
 ## Learn more
 
-- [EditContext API documentation](#) (coming soon).
-- [EditContext API specification](https://w3c.github.io/edit-context/).
-- [EditContext API explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/EditContext/explainer.md).
+- [EditContext API](https://developer.mozilla.org/docs/Web/API/EditContext_API) at MDN.
+- [EditContext API](https://w3c.github.io/edit-context/) W3C specification.
+- [EditContext API Explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/EditContext/explainer.md)

@@ -1,0 +1,224 @@
+html {
+  font-size: 14pt;
+  font-family: consolas, monospace;
+}
+
+body {
+  margin: 4rem;
+  position: relative;
+}
+
+header,
+article,
+section {
+  padding: 1rem;
+  margin: 1rem -1rem;
+  border-radius: 1rem;
+}
+
+article {
+  background: #f7f7f7;
+}
+
+header {
+  text-align: center;
+  padding: 0;
+}
+
+:is(header, section, article)> :first-child {
+  margin-block-start: 0;
+}
+
+:is(header, section, article)> :last-child {
+  margin-block-end: 0;
+}
+
+h1,
+h2,
+p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+code {
+  background: #666;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls input[type="text"] {
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 14pt;
+}
+
+.controls input[type="text"]:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.controls input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0066cc;
+}
+
+/* Shadow DOM container styling */
+#shadow-container {
+  margin: 1rem 0 0 0;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+#shadow-container h3 {
+  margin-top: 0;
+  color: #666;
+}
+
+/* Legend styles */
+.legend {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+}
+
+.legend-item {
+  display: grid;
+  align-content: start;
+  gap: 15px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+}
+
+.legend-highlight {
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 140px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.legend-description {
+  flex: 1;
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.4;
+}
+
+/* Info popup styles */
+.highlight-info {
+  position: absolute;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 350px;
+  font-size: 12pt;
+  line-height: 1.3;
+}
+
+.highlight-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 14pt;
+  color: #333;
+}
+
+.highlight-info .highlight-item {
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10pt;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  border: 1px solid #333;
+}
+
+/* Custom highlights, and corresponding legends. */
+
+/* Search result highlights - yellow background */
+.search-legend,
+::highlight(search-result-highlight) {
+  background-color: rgba(255, 255, 0, 0.8);
+  color: black;
+}
+
+/* Spelling error highlights - red squiggly underline */
+.spelling-legend,
+::highlight(spelling-error) {
+  text-decoration: underline wavy red;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+}
+
+/* Grammar error highlights - blue double underline */
+.grammar-legend,
+::highlight(grammar-error) {
+  text-decoration: underline double blue;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+}
+
+/* Citation highlights - light grey background and thicker text */
+.citation-legend,
+::highlight(citation-highlight) {
+  background-color: rgb(236, 236, 236);
+  color: #666;
+  text-shadow: 0 0 0.8px #666;
+  text-decoration: underline solid #ccc;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Quotation highlights - green background and font color */
+.quotation-legend,
+::highlight(quotation-highlight) {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  text-decoration: underline solid #4caf50;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.definition-legend,
+::highlight(definition-highlight) {
+  background-color: rgba(173, 216, 230, 0.5);
+  color: darkblue;
+  text-shadow: 0 0 0.8px darkblue;
+  text-decoration: underline dotted darkblue;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Code highlights - dark background with white font color */
+.code-legend,
+::highlight(code-highlight) {
+  background-color: #666;
+  color: white;
+}

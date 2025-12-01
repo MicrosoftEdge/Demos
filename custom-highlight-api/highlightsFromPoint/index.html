@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Custom Highlight highlightsFromPoint API demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>CSS Custom Highlight highlightsFromPoint API demo</h1>
+  </header>
+
+  <search class="controls">
+    <label>
+      Search for
+      <input id="query" type="text" value="" autofocus>
+    </label>
+    <label>
+      <input id="include-shadow" type="checkbox" checked>
+      Include Shadow DOM highlights
+    </label>
+  </search>
+
+  <main>
+    <article>
+      <p>Try searching for text using the search field above. The matching text is highlighted in yellow.</p>
+      <p>Hover any highlighted text to see which highlights are active at that point using CSS.highlights.highlightsFromPoint().</p>
+      <p>Use the checkbox above to control whether the highlightsFromPoint() method should include highlights from Shadow DOM content, and whether to highlight search results in Shadow DOM.</p>
+      <p>
+        For more details, see
+        <a href="https://developer.mozilla.org/docs/Web/API/HighlightRegistry/highlightsFromPoint">HighlightRegistry:
+          highlightsFromPoint() method</a>
+        on MDN.
+      </p>
+    </article>
+
+    <article>
+      <h2>Sample text with pre-existing highlights</h2>
+      <p>
+        This demostrate overlapping highlights with speling errors and grammer mistake, among others. [John Doe et al., 2023] showed that "the future of web-based text editing lies in layered highlihgting capabilities" for modern writting platforms.
+        The highlightsFromPoint() method allowes developers to query active highlights at any position, which is particually usefull for interactive text applications [Someone, 2022].
+      </p>
+
+      <h3>Shadow DOM Content:</h3>
+      <div id="shadow-container">
+        <template id="shadow-template">
+          <p>Shadow DOM highlights work independantly and demonstrate "isolation provided by shadow boundaries" for text processing.</p>
+        </template>
+      </div>
+    </article>
+
+    <section>
+      <h2>Legend</h2>
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-highlight search-legend">Search Results</span>
+          <span class="legend-description">Search results (try searching for "highlight")</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight spelling-legend">Spelling Errors</span>
+          <span class="legend-description">Misspelled words like "demostrate", "speling", "grammer"</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight grammar-legend">Grammar Errors</span>
+          <span class="legend-description">Grammatical errors</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight citation-legend">Citations</span>
+          <span class="legend-description">Academic references like [John Doe et al., 2023]</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight quotation-legend">Quotations</span>
+          <span class="legend-description">Quoted text passages</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight code-legend">Code Elements</span>
+          <span class="legend-description">API names and technical terms</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-highlight definition-legend">Keywords</span>
+          <span class="legend-description">Technical keywords</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Source code</h2>
+      <p>To learn more, check out the demo source code at GitHub:</p>
+      <ul>
+        <li>
+          <a href="https://github.com/MicrosoftEdge/Demos/blob/main/custom-highlight-api/highlightsFromPoint/index.html">index.html</a>
+        </li>
+        <li>
+          <a href="https://github.com/MicrosoftEdge/Demos/blob/main/custom-highlight-api/highlightsFromPoint/style.css">style.css</a>
+        </li>
+        <li>
+          <a href="https://github.com/MicrosoftEdge/Demos/blob/main/custom-highlight-api/highlightsFromPoint/script.js">script.js</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="highlight-info" class="highlight-info" popover>
+    <h4>Highlights at this point:</h4>
+    <div id="highlight-details"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

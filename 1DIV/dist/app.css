@@ -31,7 +31,7 @@ button {
   text-transform: uppercase;
   font-size: 10px;
   cursor: pointer;
-  -webkit-app-region: no-drag;
+  app-region: no-drag;
 }
 
 button:hover {
@@ -109,14 +109,14 @@ header input {
 }
 
 body:not(.demo-selected) header input {
-  -webkit-app-region: no-drag;
+  app-region: no-drag;
 }
 
 header .new {
   display: flex;
   gap: var(--padding);
   align-items: center;
-  -webkit-app-region: no-drag;
+  app-region: no-drag;
 }
 
 header .new::after {
@@ -294,7 +294,7 @@ css-playground.full-size {
 }
 
 .demo-selected .demo-name {
-  -webkit-app-region: no-drag;
+  app-region: no-drag;
 }
 
 .drag {
@@ -302,7 +302,7 @@ css-playground.full-size {
   top: 0;
   width: 100%;
   height: env(titlebar-area-height, 0);
-  -webkit-app-region: drag;
+  app-region: drag;
 }
 
 css-playground {

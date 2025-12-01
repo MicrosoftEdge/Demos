@@ -1,7 +1,13 @@
 # CSS Masonry demos
 
-This directory contains demo pages that showcase the implementation of CSS Masonry in Chromium.
+This directory contains demo pages that showcase the implementation of CSS Masonry in the Chromium browser engine.
 
+See also:
+* [Masonry layout](https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Masonry_layout) at MDN.
+* [Brick by brick: Help us build CSS Masonry](https://developer.chrome.com/blog/masonry-update) at developer.chrome.com.
+
+
+<!-- ====================================================================== -->
 ## Enable Masonry support
 
 To try the demos, first enable Masonry:
@@ -11,6 +17,8 @@ To try the demos, first enable Masonry:
 1. Search for "CSS Masonry Layout" in the search box.
 1. Set the **CSS Masonry Layout** flag to **Enabled**, and then restart the browser.
 
+
+<!-- ====================================================================== -->
 ## Demos
 
 * [Blog](https://microsoftedge.github.io/Demos/css-masonry/blog.html)
@@ -33,11 +41,15 @@ To try the demos, first enable Masonry:
 
   <img alt="Screenshot of the demo page." src="./daily-oddity/screenshot.png" width="300">
 
+* [Kanban board](https://microsoftedge.github.io/Demos/css-masonry/kanban.html)
+
+  <img alt="Screenshot of the demo page." src="./kanban/screenshot.png" width="300">
+
 * Masonry syntax examples:
 
   * [Same size columns](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-columns.html)
   * [Same size rows](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/same-size-rows.html)
-  * [Default track size](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/default-track-size.html)
+  * [Auto repeat track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/auto-repeat-track-sizes.html)
   * [Custom track sizes](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/custom-track-sizes.html)
   * [Masonry shorthand](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/masonry-shorthand.html)
   * [Spanning multiple tracks](https://microsoftedge.github.io/Demos/css-masonry/syntax-examples/span-multiple-tracks.html)

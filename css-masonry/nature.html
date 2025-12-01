@@ -85,8 +85,8 @@
     }
 
     main {
-      display: masonry;
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      display: grid-lanes;
+      grid-lanes: repeat(auto-fit, minmax(10rem, 1fr));
       gap: var(--gap);
     }
 
@@ -95,19 +95,19 @@
     }
 
     :has(input[id="layout-same-size"]:checked) main {
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      grid-lanes: repeat(auto-fit, minmax(10rem, 1fr));
     }
 
     :has(input[id="layout-first-last"]:checked) main {
-      grid-template-columns: 14ch repeat(auto-fill, minmax(28ch, 1fr)) 14ch;
+      grid-lanes: 14ch repeat(auto-fill, minmax(28ch, 1fr)) 14ch;
     }
 
     :has(input[id="layout-narrow-wide"]:checked) main {
-      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr) minmax(16rem, 2fr)) minmax(8rem, 1fr);
+      grid-lanes: repeat(auto-fill, minmax(8rem, 1fr) minmax(16rem, 2fr)) minmax(8rem, 1fr);
     }
 
     :has(input[id="layout-fib"]:checked) main {
-      grid-template-columns: 1fr 1fr 2fr 3fr 5fr 8fr;
+      grid-lanes: 1fr 1fr 2fr 3fr 5fr 8fr;
     }
 
     main .photo img {
@@ -116,7 +116,7 @@
       border-radius: .5rem;
     }
 
-    @supports not (display: masonry) {
+    @supports not (display: grid-lanes) {
       main {
         display: grid;
         align-items: stretch;

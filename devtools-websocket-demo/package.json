@@ -1,0 +1,11 @@
+{
+  "name": "devtools-websocket-demo",
+  "type": "module",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "scripts": {
+    "server": "node server.js"
+  }
+}

@@ -1,0 +1,125 @@
+body {
+  font-family: system-ui;
+  padding: 4rem;
+  font-size: 11pt;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: auto 1fr;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #eee;
+  cursor: default;
+}
+
+.hovering-deletable-highlight {
+  cursor: crosshair;
+}
+
+.creating-highlight {
+  cursor: col-resize;
+}
+
+.tools, main {
+  padding: .5rem;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+  align-self: start;
+}
+
+main {
+  padding: 1rem;
+  line-height: 1.8;
+}
+
+main > :first-child {
+  margin-block-start: 0;
+}
+
+main > :last-child {
+  margin-block-end: 0;
+}
+
+.tools {
+  display: grid;
+  gap: .5rem;
+  grid-auto-rows: min-content;
+  text-align: center;
+}
+
+.tools button {
+  aspect-ratio: 1;
+  background: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.tools button[aria-checked="true"] {
+  background: #333;
+  color: white;
+}
+
+.highlight-styles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.highlight-styles input {
+  display: none;
+}
+
+.highlight-styles label {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlight-styles label span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.highlight-styles input:checked+label {
+  box-shadow: 0 0 0 3px #222;
+}
+
+.highlight-styles #yellow+label,
+::highlight(yellow) {
+  background-color: yellow;
+}
+
+.highlight-styles #green+label,
+::highlight(green) {
+  background-color: lightgreen;
+}
+
+.highlight-styles #pink+label,
+::highlight(pink) {
+  background-color: pink;
+}
+
+.highlight-styles #red-squiggle+label,
+::highlight(red-squiggle) {
+  text-decoration: 1px red wavy underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
+}
+
+.highlight-styles #double-underline+label,
+::highlight(double-underline) {
+  text-decoration: 1px blue double underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
+}

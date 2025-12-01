@@ -1,0 +1,62 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui;
+  font-size: 13pt;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+header {
+  padding: 1rem;
+  background: black;
+  color: white;
+  border-radius: .5rem;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 1.2rem;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+#filename {
+  padding: 0.5rem .5rem .5rem 2.5rem;
+  background: white;
+  color: black;
+  margin-block-start: 1rem;
+  border-radius: .25rem;
+  font-family: monospace;
+  background-image: url(./icons/icon-128.png);
+  background-repeat: no-repeat;
+  background-position: .5rem center;
+  background-size: 1.5rem;
+}
+
+#filename:empty {
+  display: none;
+}
+
+textarea {
+  border-radius: .5rem;
+  border: .5rem solid black;
+  padding: 1rem;
+  line-height: 1.1em;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.1em - 1px), #e9f4f8 calc(1.1em - 1px) 1.1em);
+  background-attachment: local;
+  background-size: 100% 1.1em;
+  font-size: 1.2rem;
+  background-position-y: -0.2em;
+  white-space: nowrap;
+}
