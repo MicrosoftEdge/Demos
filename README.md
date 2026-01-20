@@ -1,6 +1,14 @@
 # Microsoft Edge Demos
 
-<!-- todo: maybe move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo -->
+<!-- todo:
+maybe move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo
+
+maybe change from:
+https://github.com/MicrosoftEdge/Demos/tree/main/ 
+to:
+./
+64x
+-->
 
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  This Readme lists all top-level source code directories.  Below, demos are grouped by major technology area, and then sorted by directory name within each section's table.
 
@@ -8,6 +16,7 @@ This repository contains demo webpages, apps, and sample code to demonstrate var
 * [Microsoft Edge DevTools](#microsoft-edge-devtools)
 * [Microsoft Edge extensions](#microsoft-edge-extensions)
 * [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
+* [WebView2](#webview2)
 * [Cross-browser API samples](#cross-browser-api-samples)
 * [Adding a new demo](#adding-a-new-demo)
 * [Contributing](#contributing)
@@ -102,27 +111,44 @@ https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-
 sync'd Oct. 17, 2025
 -->
 
-| Demo name | Description and docs | Source code & Readme | Live demo page |
+<!-- sort on col 3 (repo dir) -->
+<!-- Description: omit "PWA" & "demo" -->
+| Demo name | Description | Source code & Readme | Live demo page |
 |---|---|---|---|
 | 1DIV | A CSS sandbox app that demonstrates the Window Controls Overlay feature. | [/1DIV/](https://github.com/MicrosoftEdge/Demos/tree/main/1DIV/) | [1DIV](https://microsoftedge.github.io/Demos/1DIV/dist/) demo |
 | Email client | A simulated email client PWA that demonstrates how to use PWA protocol handlers. | [/email-client/](https://github.com/MicrosoftEdge/Demos/tree/main/email-client/) | [Email inbox](https://microsoftedge.github.io/Demos/email-client/) demo |
 | Application Title Meta Tag | Showcases the `application-title` meta tag. | [/pwa-application-title/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-application-title/) | [application-title](https://microsoftedge.github.io/Demos/pwa-application-title/) demo |
+| PWA Background Sync | Lets you send chat messages even when offline.  If you're offline when sending a message, the app uses Background Sync to send the message later, when you're back online. | [/pwa-background-sync/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-background-sync/) | [PWA Background Sync API demo](https://microsoftedge.github.io/Demos/pwa-background-sync/) |
+| PWA file handlers | Handles `*.txt` files like a native application does. | [/pwa-file-handlers/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-file-handlers/) | [PWA file handlers demo](https://microsoftedge.github.io/Demos/pwa-file-handlers/) |
 | PWA installer | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry. | [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer/) | [pwa-installer](https://microsoftedge.github.io/Demos/pwa-installer/) demo |
 | Edge demos (pwastore) | A PWA that uses the Web Install API to install other PWAs.  Also uses CSS Masonry.  An earlier copy of `/pwa-installer/` directory, pointed to by Dev Trial docs. | [/pwa-pwastore/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore/) | [Edge demos](https://microsoftedge.github.io/Demos/pwa-pwastore/) |
 | Timer PWA | Has a **Set timer** button, and you can set the duration of the timer. | [/pwa-timer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-timer/) | [Timer PWA demo](https://microsoftedge.github.io/Demos/pwa-timer/) |
 | PWA To Do | Create lists of tasks locally in your browser, or by installing the app.  Click **About** link in rendered demo. | [/pwa-to-do/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do/) | [PWA To Do](https://microsoftedge.github.io/Demos/pwa-to-do/) demo |
 | PWAmp | A music player that plays local audio files. | [/pwamp/](https://github.com/MicrosoftEdge/Demos/tree/main/pwamp/) | [pwamp](https://microsoftedge.github.io/Demos/pwamp/) demo |
-| Temperature converter | Converts temperatures.  Used for [Temperature convertor sample](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/temperature-converter). | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/temperature-converter/) demo |
+| Temperature converter | Converts temperatures.  To learn how to use and develop PWAs, start with this sample. | [/temperature-converter/](https://github.com/MicrosoftEdge/Demos/tree/main/temperature-converter/) | [Temperature converter](https://microsoftedge.github.io/Demos/temperature-converter/) demo |
 | wami | An image manipulation app to crop, resize, or add effects to images. | [/wami/](https://github.com/MicrosoftEdge/Demos/tree/main/wami/) | [wami](https://microsoftedge.github.io/Demos/wami/) demo |
 
 To learn how to use and develop PWAs, start with the Temperature convertor sample.
 
 See also:
 * [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index) - also lists the demos:
-   * My Movie List
-   * My Tracks
    * BPM Techno
    * Webboard
+
+
+<!-- ====================================================================== -->
+## WebView2
+<!-- sync:
+https://learn.microsoft.com/microsoft-edge/webview2/samples/
+https://github.com/MicrosoftEdge/Demos/blob/main/README.md#webview2
+sync'd Dec. 1, 2025
+-->
+
+The WebView2 samples are in the **MicrosoftEdge / WebView2Samples** repo, rather than in the present, **MicrosoftEdge / Demos** repo.
+
+See:
+* [MicrosoftEdge / WebView2Samples](https://github.com/MicrosoftEdge/WebView2Samples) repo
+* [WebView2 sample apps](https://learn.microsoft.com/microsoft-edge/webview2/samples/) article
 
 
 <!-- ====================================================================== -->

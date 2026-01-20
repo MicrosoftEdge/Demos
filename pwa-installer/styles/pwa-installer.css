@@ -60,9 +60,9 @@ main {
   padding-block-end: 4rem;
 }
 
-@supports (display:masonry) {
+@supports (display:grid-lanes) {
   main {
-    display: masonry;
+    display: grid-lanes;
   }
 }
 
