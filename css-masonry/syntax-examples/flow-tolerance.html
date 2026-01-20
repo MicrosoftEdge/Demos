@@ -18,7 +18,7 @@
       display: grid-lanes;
       grid-lanes: 200px 200px;
       gap: 10px;
-      item-tolerance: 0;
+      flow-tolerance: 0;
       counter-set: photo-counter 1;
     }
 
@@ -62,8 +62,8 @@
       border-radius: 5px;
     }
 
-    :has(#item-tolerance-toggle:checked) main {
-      item-tolerance: 10px;
+    :has(#flow-tolerance-toggle:checked) main {
+      flow-tolerance: 10px;
     }
   </style>
 </head>
@@ -71,8 +71,8 @@
 <body>
   <div class="controls">
     <label>
-      <input type="checkbox" id="item-tolerance-toggle">
-      Set 10px item-tolerance
+      <input type="checkbox" id="flow-tolerance-toggle">
+      Set 10px flow-tolerance
     </label>
   </div>
   <main>
