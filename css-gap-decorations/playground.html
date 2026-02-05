@@ -130,11 +130,11 @@
       column-rule-width: 2px;
       column-rule-style: solid;
       column-rule-color: #555;
-      column-rule-inset: 50%;
+      column-rule-inset: 0;
       row-rule-width: 2px;
       row-rule-style: dashed;
       row-rule-color: #888;
-      row-rule-inset: 50%;
+      row-rule-inset: 0;
       rule-overlap: column-over-row;
     }
 
@@ -169,11 +169,11 @@
       row-rule-width: 4px;
       row-rule-style: dotted;
       row-rule-color: var(--flex-row-rule-color);
-      row-rule-inset: 50%;
+      row-rule-inset: 0;
       column-rule-width: 4px;
       column-rule-style: dotted;
       column-rule-color: var(--flex-col-rule-color);
-      column-rule-inset: 50%;
+      column-rule-inset: 0;
       rule-overlap: row-over-column;
     }
 
@@ -208,11 +208,11 @@
       row-rule-width: 3px;
       row-rule-style: solid;
       row-rule-color: var(--accent);
-      row-rule-inset: 50%;
+      row-rule-inset: 0;
       column-rule-width: 3px;
       column-rule-style: solid;
       column-rule-color: var(--grid-rule-color);
-      column-rule-inset: 50%;
+      column-rule-inset: 0;
       rule-overlap: row-over-column;
     }
 
@@ -276,8 +276,8 @@
         <label>Row-rule-width (px): <output id="grRowRuleWVal">3</output></label>
         <input type="range" min="0" max="20" value="3" data-prop="row-rule-width" data-unit="px"
           oninput="grRowRuleWVal.value=this.value" />
-        <label>Row-rule-inset (%): <output id="grRowRuleOVal">50</output>%</label>
-        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="grRowRuleOVal">0</output>%</label>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-inset" data-unit="%"
           oninput="grRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
@@ -345,8 +345,8 @@
         <label>Row-rule-width (px): <output id="fxRowRuleWVal">4</output></label>
         <input type="range" min="0" max="20" value="4" data-prop="row-rule-width" data-unit="px"
           oninput="fxRowRuleWVal.value=this.value" />
-        <label>Row-rule-inset (%): <output id="fxRowRuleOVal">50</output>%</label>
-        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="fxRowRuleOVal">0</output>%</label>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-inset" data-unit="%"
           oninput="fxRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
@@ -429,8 +429,8 @@
         <label>Row-rule-width (px): <output id="mcRowRuleWVal">2</output></label>
         <input type="range" min="0" max="20" value="2" data-prop="row-rule-width" data-unit="px"
           oninput="mcRowRuleWVal.value=this.value" />
-        <label>Row-rule-inset (%): <output id="mcRowRuleOVal">50</output>%</label>
-        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="mcRowRuleOVal">0</output>%</label>
+        <input type="range" min="0" max="100" value="0" data-prop="row-rule-inset" data-unit="%"
           oninput="mcRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
