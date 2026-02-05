@@ -47,7 +47,7 @@
       column-rule-width: 1px;
       column-rule-style: solid;
       column-rule-color: var(--accent);
-      gap-rule-paint-order: column-over-row;
+      rule-overlap: column-over-row;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -73,7 +73,7 @@
       row-rule-width: 1px;
       row-rule-style: solid;
       row-rule-color: var(--rule);
-      gap-rule-paint-order: row-over-column;
+      rule-overlap: row-over-column;
       background: rgba(255, 255, 255, 0.1);
       padding: 0.5rem 1rem;
       border-radius: 4px;
@@ -98,9 +98,8 @@
       grid-template-columns: 2fr 1fr;
       gap: 2rem;
       padding: 2rem;
-      rule-width: 2px;
-      rule-style: dashed;
-      rule-color: var(--rule);
+      row-rule: 2px dashed var(--rule);
+      column-rule: 2px dashed var(--rule);
     }
 
     @media (max-width: 900px) {
@@ -137,7 +136,7 @@
       column-rule-width: 1px;
       column-rule-style: solid;
       column-rule-color: var(--rule);
-      gap-rule-paint-order: column-over-row;
+      rule-overlap: column-over-row;
       margin: 0;
     }
 
@@ -147,7 +146,7 @@
       row-rule-width: 3px;
       row-rule-style: solid;
       row-rule-color: var(--rule);
-      row-rule-outset: 0%;
+      row-rule-inset: 50%;
       column-count: 2;
       column-gap: 1rem;
       column-rule-width: 2px;
@@ -156,7 +155,7 @@
       column-fill: auto;
       column-height: 10em;
       column-rule-break: intersection;
-      column-rule-outset: -20px;
+      column-rule-inset: 20px;
     }
 
     .sidebar {
@@ -166,7 +165,7 @@
       row-rule-width: 1px;
       row-rule-style: dotted;
       row-rule-color: var(--rule);
-      gap-rule-paint-order: column-over-row;
+      rule-overlap: column-over-row;
     }
 
     .sidebar section {
@@ -196,13 +195,13 @@
       display: grid;
       grid-template-columns: repeat(9, 1fr);
       gap: 6px;
-      column-rule-width: repeat(2, 1px) 4px repeat(2, 1px) 4px repeat(2, 1px);
+      column-rule-width: repeat(2, 1px), 4px, repeat(2, 1px), 4px, repeat(2, 1px);
       column-rule-style: solid;
       column-rule-color: var(--secondary);
-      row-rule-width: repeat(2, 1px) 4px repeat(2, 1px) 4px repeat(2, 1px);
+      row-rule-width: repeat(2, 1px), 4px, repeat(2, 1px), 4px, repeat(2, 1px);
       row-rule-style: solid;
       row-rule-color: var(--secondary);
-      gap-rule-paint-order: row-over-column;
+      rule-overlap: row-over-column;
     }
 
     .sudoku .cell {
@@ -246,7 +245,7 @@
           the highly anticipated Gap Decorations Module.
           This early access program empowers front-end engineers to experiment with powerful new
           properties—<strong>column-rule</strong>, <strong>row-rule</strong>, and
-          <strong>gap-rule-paint-order</strong>—to style gaps in grid, flex, and multicol containers
+          <strong>rule-overlap</strong>—to style gaps in grid, flex, and multicol containers
           without relying on additional markup or pseudo-elements. In these trials, participants can test
           <strong>row-rule</strong> support in multicol layouts, leverage <strong>column-wrap</strong>
           to achieve sophisticated magazine-style flows, and fine-tune separator styles across
@@ -276,7 +275,7 @@
           can safely adopt gap decorations in production, delivering consistent visual
           experiences across platforms. Developers are encouraged to experiment with
           combinations of <strong>column-rule</strong>, <strong>row-rule</strong>,
-          and paint-order options to craft unique layouts that were previously only
+          and overlap options to craft unique layouts that were previously only
           achievable with complex workarounds.</p>
       </article>
     </div>

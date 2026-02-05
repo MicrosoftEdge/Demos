@@ -130,12 +130,12 @@
       column-rule-width: 2px;
       column-rule-style: solid;
       column-rule-color: #555;
-      column-rule-outset: 0px;
+      column-rule-inset: 50%;
       row-rule-width: 2px;
       row-rule-style: dashed;
       row-rule-color: #888;
-      row-rule-outset: 0%;
-      gap-rule-paint-order: column-over-row;
+      row-rule-inset: 50%;
+      rule-overlap: column-over-row;
     }
 
     .multicol h3 {
@@ -169,12 +169,12 @@
       row-rule-width: 4px;
       row-rule-style: dotted;
       row-rule-color: var(--flex-row-rule-color);
-      row-rule-outset: 0%;
+      row-rule-inset: 50%;
       column-rule-width: 4px;
       column-rule-style: dotted;
       column-rule-color: var(--flex-col-rule-color);
-      column-rule-outset: 0px;
-      gap-rule-paint-order: row-over-column;
+      column-rule-inset: 50%;
+      rule-overlap: row-over-column;
     }
 
     .flex-item {
@@ -208,12 +208,12 @@
       row-rule-width: 3px;
       row-rule-style: solid;
       row-rule-color: var(--accent);
-      row-rule-outset: 0%;
+      row-rule-inset: 50%;
       column-rule-width: 3px;
       column-rule-style: solid;
       column-rule-color: var(--grid-rule-color);
-      column-rule-outset: 0px;
-      gap-rule-paint-order: row-over-column;
+      column-rule-inset: 50%;
+      rule-overlap: row-over-column;
     }
 
     .grid-item {
@@ -253,7 +253,7 @@
     <p>This interactive demo showcases the features of the <a href="https://drafts.csswg.org/css-gaps-1/"
         target="_blank">
         CSS Gaps Decorations Module Level 1</a>.
-      Use the controls to tweak gap, rule, and paint-order properties in real time
+      Use the controls to tweak gap, rule, and overlap properties in real time
       and see how they affect <a href="#grid">grid</a>, <a href="#flex">flex</a>, and <a href="#multicolumn">multicolumn</a> layouts.
     </p>
     <p>
@@ -276,8 +276,8 @@
         <label>Row-rule-width (px): <output id="grRowRuleWVal">3</output></label>
         <input type="range" min="0" max="20" value="3" data-prop="row-rule-width" data-unit="px"
           oninput="grRowRuleWVal.value=this.value" />
-        <label>Row-rule-outset (%): <output id="grRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="grRowRuleOVal">50</output>%</label>
+        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
           oninput="grRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
@@ -296,8 +296,8 @@
         <label>Column-rule-width (px): <output id="grColRuleWVal">3</output></label>
         <input type="range" min="0" max="20" value="3" data-prop="column-rule-width" data-unit="px"
           oninput="grColRuleWVal.value=this.value" />
-        <label>Column-rule-outset (px): <output id="grColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+        <label>Column-rule-inset (px): <output id="grColRuleOVal">0</output></label>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-inset" data-unit="px"
           oninput="grColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
@@ -313,8 +313,8 @@
           <option value="intersection">intersection</option>
           <option value="spanning-item">spanning-item</option>
         </select>
-        <label>Gap-rule-paint-order:</label>
-        <select data-prop="gap-rule-paint-order">
+        <label>Rule-overlap:</label>
+        <select data-prop="rule-overlap">
           <option value="row-over-column">row-over-column</option>
           <option value="column-over-row">column-over-row</option>
         </select>
@@ -345,8 +345,8 @@
         <label>Row-rule-width (px): <output id="fxRowRuleWVal">4</output></label>
         <input type="range" min="0" max="20" value="4" data-prop="row-rule-width" data-unit="px"
           oninput="fxRowRuleWVal.value=this.value" />
-        <label>Row-rule-outset (%): <output id="fxRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="fxRowRuleOVal">50</output>%</label>
+        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
           oninput="fxRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
@@ -359,8 +359,8 @@
         <label>Column-rule-width (px): <output id="fxColRuleWVal">4</output></label>
         <input type="range" min="0" max="20" value="4" data-prop="column-rule-width" data-unit="px"
           oninput="fxColRuleWVal.value=this.value" />
-        <label>Column-rule-outset (px): <output id="fxColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+        <label>Column-rule-inset (px): <output id="fxColRuleOVal">0</output></label>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-inset" data-unit="px"
           oninput="fxColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
@@ -382,8 +382,8 @@
           <option value="intersection">intersection</option>
           <option value="spanning-item">spanning-item</option>
         </select>
-        <label>Gap-rule-paint-order:</label>
-        <select data-prop="gap-rule-paint-order">
+        <label>Rule-overlap:</label>
+        <select data-prop="rule-overlap">
           <option value="row-over-column">row-over-column</option>
           <option value="column-over-row">column-over-row</option>
         </select>
@@ -409,8 +409,8 @@
         <label>Column-rule-width (px): <output id="mcColRuleWVal">2</output></label>
         <input type="range" min="0" max="20" value="2" data-prop="column-rule-width" data-unit="px"
           oninput="mcColRuleWVal.value=this.value" />
-        <label>Column-rule-outset (px): <output id="mcColRuleOVal">0</output></label>
-        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-outset" data-unit="px"
+        <label>Column-rule-inset (px): <output id="mcColRuleOVal">0</output></label>
+        <input type="range" min="-50" max="50" value="0" data-prop="column-rule-inset" data-unit="px"
           oninput="mcColRuleOVal.value=this.value" />
         <label>Column-rule-style:</label>
         <select data-prop="column-rule-style">
@@ -429,8 +429,8 @@
         <label>Row-rule-width (px): <output id="mcRowRuleWVal">2</output></label>
         <input type="range" min="0" max="20" value="2" data-prop="row-rule-width" data-unit="px"
           oninput="mcRowRuleWVal.value=this.value" />
-        <label>Row-rule-outset (%): <output id="mcRowRuleOVal">0</output>%</label>
-        <input type="range" min="0" max="100" value="0" data-prop="row-rule-outset" data-unit="%"
+        <label>Row-rule-inset (%): <output id="mcRowRuleOVal">50</output>%</label>
+        <input type="range" min="0" max="100" value="50" data-prop="row-rule-inset" data-unit="%"
           oninput="mcRowRuleOVal.value=this.value" />
         <label>Row-rule-style:</label>
         <select data-prop="row-rule-style">
@@ -454,8 +454,8 @@
           <option value="intersection">intersection</option>
           <option value="spanning-item">spanning-item</option>
         </select>
-        <label>Gap-rule-paint-order:</label>
-        <select data-prop="gap-rule-paint-order">
+        <label>Rule-overlap:</label>
+        <select data-prop="rule-overlap">
           <option value="column-over-row">column-over-row</option>
           <option value="row-over-column">row-over-column</option>
         </select>
@@ -464,15 +464,15 @@
         <h3>Exploring Gap Decorations</h3>
         <p>Gap decorations provide a flexible way to visually separate content without extra markup. Columns adapt
           dynamically to viewport size, maintaining readability.</p>
-        <p>Use <strong>column-rule</strong> properties to style separators, control their outset, and define how they
+        <p>Use <strong>column-rule</strong> properties to style separators, control their inset, and define how they
           interact with multi-column spans.</p>
         <blockquote>“Effective gap decorations enhance layout clarity while preserving semantic structure.”</blockquote>
         <ul>
           <li>Adjust <em>column-gap</em> for spacing.</li>
-          <li>Tweak <em>column-rule-width</em> and <em>column-rule-outset</em>.</li>
+          <li>Tweak <em>column-rule-width</em> and <em>column-rule-inset</em>.</li>
           <li>Control break behavior with <em>row-rule-break</em> and <em>column-rule-break</em>.</li>
         </ul>
-        <p>Combine with <code>gap-rule-paint-order</code> to layer rules in complex layouts.</p>
+        <p>Combine with <code>rule-overlap</code> to layer rules in complex layouts.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec est at dolor scelerisque elementum.</p>
         <p>Mauris posuere, libero non suscipit consectetur, odio tortor vulputate mi, vitae consequat justo arcu non ex.
         </p>

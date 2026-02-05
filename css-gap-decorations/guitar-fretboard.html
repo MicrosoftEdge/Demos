@@ -25,8 +25,8 @@
       row-gap: var(--fret-width);
       column-rule: var(--string-width) solid white;
       row-rule: var(--fret-width) solid #737778;
-      row-rule-outset: var(--space-around-neck);
-      gap-rule-paint-order: column-over-row;
+      row-rule-inset: calc(-1 * var(--space-around-neck));
+      rule-overlap: column-over-row;
       
       background-image:
         radial-gradient(circle, white 0 calc(var(--space-between-strings) / 4), transparent 0),
