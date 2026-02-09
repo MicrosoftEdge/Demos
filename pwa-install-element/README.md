@@ -17,6 +17,34 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ```javascript
 /* Current Document: no attributes*/
+<install id="install-button"></install>
+
+if ('HTMLInstallElement' in window) {
+    let button = document.getElementById('install-button');
+
+    // Same as kSuccess in navigator.install
+    button.addEventListener('promptaction', (event) => {
+        console.log(`User accepted install`);
+    });
+
+    // Same as kAbortError in navigator.install
+    button.addEventListener('promptdismiss', (event) => {
+        console.log(`Install failed`);
+    });
+
+    // Same as kDataError in navigator.install,
+    // Note: In this case, promptaction will also be fired, since
+    // the user must accept installation before a data error can
+    // be checked for.
+    button.onvalidationstatuschange = (event) => {
+        if (event.target.invalidReason ===
+                'web app installation data error') {
+            console.log(event.target.invalidReason);
+        }
+    };
+} else {
+  console.warn('HTMLInstallElement not supported');
+}
 ```
 ### Install a background document (any app that's not the current document)
 
