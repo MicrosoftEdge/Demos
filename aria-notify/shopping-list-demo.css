@@ -1,0 +1,44 @@
+ html {
+  box-sizing: border-box;
+  font: 1.2em / 1.5 system-ui;
+}
+
+body {
+  width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  padding: 0 50px;
+}
+
+
+label {
+  flex: 2;
+}
+
+input {
+  flex: 4;
+  padding: 5px;
+}
+
+form button {
+  padding: 5px 10px;
+  font-size: 1em;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li button {
+  font-size: 0.6rem;
+  margin-left: 10px;
+}
+
+#notes {
+  border: 1px solid gray;
+}
+
