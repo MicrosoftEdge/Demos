@@ -16,32 +16,29 @@ This directory contains demos that showcase the use of the [install element](htt
 * The manifest file must have an `id` field defined.
 
 ```javascript
-/* Current Document: no attributes*/
+/* Current Document: no attributes required */
 <install id="install-button"></install>
 
 if ('HTMLInstallElement' in window) {
     let button = document.getElementById('install-button');
 
-    // Same as kSuccess in navigator.install
+    // Same as kSuccess in navigator.install.
     button.addEventListener('promptaction', (event) => {
-        console.log(`User accepted install`);
+        console.log(`Install succeeded`);
     });
 
-    // Same as kAbortError in navigator.install
+    // Same as kAbortError in navigator.install.
     button.addEventListener('promptdismiss', (event) => {
         console.log(`Install failed`);
     });
 
-    // Same as kDataError in navigator.install,
-    // Note: In this case, promptaction will also be fired, since
-    // the user must accept installation before a data error can
-    // be checked for.
-    button.onvalidationstatuschange = (event) => {
+    // Same as kDataError in navigator.install.
+    button.addEventListener('validationstatuschanged', (event) => {
         if (event.target.invalidReason ===
-                'web app installation data error') {
+                'install_data_invalid') {
             console.log(event.target.invalidReason);
         }
-    };
+    });
 } else {
   console.warn('HTMLInstallElement not supported');
 }
@@ -54,6 +51,31 @@ if ('HTMLInstallElement' in window) {
 
 ```javascript
 /*Background Document: 1-attribute*/
+<install installurl="https://foo.com" id="install-button"></install>
+
+if ('HTMLInstallElement' in window) {
+    let button = document.getElementById('install-button');
+
+    // Same as kSuccess in navigator.install.
+    button.addEventListener('promptaction', (event) => {
+        console.log(`Install succeeded`);
+    });
+
+    // Same as kAbortError in navigator.install.
+    button.addEventListener('promptdismiss', (event) => {
+        console.log(`Install failed`);
+    });
+
+    // Same as kDataError in navigator.install.
+    button.addEventListener('validationstatuschanged', (event) => {
+        if (event.target.invalidReason ===
+                'install_data_invalid') {
+            console.log(event.target.invalidReason);
+        }
+    });
+} else {
+  console.warn('HTMLInstallElement not supported');
+}
 ```
 **&lt;install installurl=https://foo.com manifestid=https://foo.com/someid&gt;&lt;/install&gt; Requirements:**
 * The document at  `installurl` must link to a manifest file.
@@ -61,7 +83,34 @@ if ('HTMLInstallElement' in window) {
 
 ```javascript
 /*Background Document: 2-attributes*/
+<install installurl="https://foo.com"
+         manifestid="https://foo.com/someid"
+         id="install-button">
+</install>
 
+if ('HTMLInstallElement' in window) {
+    let button = document.getElementById('install-button');
+
+    // Same as kSuccess in navigator.install.
+    button.addEventListener('promptaction', (event) => {
+        console.log(`Install succeeded`);
+    });
+
+    // Same as kAbortError in navigator.install.
+    button.addEventListener('promptdismiss', (event) => {
+        console.log(`Install failed`);
+    });
+
+    // Same as kDataError in navigator.install.
+    button.addEventListener('validationstatuschanged', (event) => {
+        if (event.target.invalidReason ===
+                'install_data_invalid') {
+            console.log(event.target.invalidReason);
+        }
+    });
+} else {
+  console.warn('HTMLInstallElement not supported');
+}
 ```
 
 ## Try it with Origin Trials!
