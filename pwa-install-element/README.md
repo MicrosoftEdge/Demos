@@ -11,7 +11,7 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ### Install the current loaded document
 
-**&lt;install&gt;&lt;/install&gt; Requirements**: 
+**&lt;install&gt;&lt;/install&gt; Requirements**:
 * The current document must link to a manifest file.
 * The manifest file must have an `id` field defined.
 
@@ -115,9 +115,10 @@ if ('HTMLInstallElement' in window) {
 
 ## Try it with Origin Trials!
 
-The install element is currently available as an [Origin Trial](https://developer.chrome.com/docs/web-platform/origin-trials/) in Chrome and Microsoft Edge versions 14X-14X. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
+The install element is currently available as an [Origin Trial](https://developer.chrome.com/docs/web-platform/origin-trials/) in Chrome and Microsoft Edge versions 147-152. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
 
 To participate, you'll need to:
+>TODO(ADD REAL OT PORTAL LINK)
 1. **Register for the Origin Trial:** [Install element registration page link](https://developer.chrome.com/origintrials/#/view_trial/XXXXXXXXXX)
 2. **Add the Origin Trial Token:** Once you have your token, add it to your pages via a `<meta>` tag or an HTTP header.
 
@@ -131,7 +132,7 @@ See [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/Ori
 
 Your feedback is crucial to the development of this feature. If you encounter any issues, have suggestions, or want to share how you're using the Web Install API, please:
 
-**Log an issue here:** [Install element Feedback Link](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=web-install-api.md)
+**Log an issue here:** [Install element Feedback Link](https://github.com/WICG/install-element/issues/new?template=install-element-ot-feedback.md)
 
 We look forward to hearing from you!
 
