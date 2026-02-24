@@ -4,7 +4,7 @@
 maybe move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo
 
 maybe change from:
-https://github.com/MicrosoftEdge/Demos/tree/main/
+https://github.com/MicrosoftEdge/Demos/tree/main/ 
 to:
 ./
 64x
