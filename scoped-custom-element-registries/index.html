@@ -336,24 +336,30 @@
       }
     }
 
-    // Create two registries, one for each custom element.
-    const registryForV1 = new CustomElementRegistry();
-    registryForV1.define('contoso-button', ContosoComponentLibV1Button);
-    
-    const registryForV2 = new CustomElementRegistry();
-    registryForV2.define('contoso-button', ContosoComponentLibraryV2Button);
-    
-    // Create instances of the custom elements, specifying the registry to use for each.
-    const ContosoComponentLibV1ButtonElement = document.createElement('contoso-button', {
-      customElementRegistry: registryForV1
-    });
-    const ContosoComponentLibraryV2ButtonElement = document.createElement('contoso-button', {
-      customElementRegistry: registryForV2
-    });
+    try {
+      // Create two registries, one for each custom element.
+      const registryForV1 = new CustomElementRegistry();
+      registryForV1.define('contoso-button', ContosoComponentLibV1Button);
+      
+      const registryForV2 = new CustomElementRegistry();
+      registryForV2.define('contoso-button', ContosoComponentLibraryV2Button);
+      
+      // Create instances of the custom elements, specifying the registry to use for each.
+      const ContosoComponentLibV1ButtonElement = document.createElement('contoso-button', {
+        customElementRegistry: registryForV1
+      });
+      const ContosoComponentLibraryV2ButtonElement = document.createElement('contoso-button', {
+        customElementRegistry: registryForV2
+      });
 
-    // Append the elements to the DOM.
-    document.getElementById('cool-button-container').appendChild(ContosoComponentLibV1ButtonElement);
-    document.getElementById('wave-button-container').appendChild(ContosoComponentLibraryV2ButtonElement);
+      // Append the elements to the DOM.
+      document.getElementById('cool-button-container').appendChild(ContosoComponentLibV1ButtonElement);
+      document.getElementById('wave-button-container').appendChild(ContosoComponentLibraryV2ButtonElement);
+    } catch (error) {
+      const message = "Your browser doesn't support scoped custom element registries yet 😢. If you need this feature, add a thumbs up 👍 reaction to <a href='https://github.com/web-platform-dx/developer-signals/issues/364'>this issue</a>.";
+      document.querySelector(".demo").innerHTML = `<p>${message}</p>`;
+      console.error(error);
+    }
   </script>
 </body>
 
