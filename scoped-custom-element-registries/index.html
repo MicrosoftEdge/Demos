@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scoped custom element registries demo</title>
+  <style>
+    :root {
+      --spacing: 2rem;
+      --background: white;
+      --text-color: black;
+      --subtle-background: #eee3e3;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--text-color);
+      font-family: system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: var(--spacing) auto;
+      max-width: 1000px;
+      padding: 0 var(--spacing);
+    }
+
+    body > * {
+      margin: var(--spacing) 0;
+    }
+
+    .demo {
+      background: var(--subtle-background);
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing);
+      padding: var(--spacing);
+      border-radius: 1rem;
+    }
+
+    code {
+      background: var(--subtle-background);
+      padding: .25rem .5rem;
+      border-radius: .25rem;
+      font-family: 'Courier New', monospace;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Scoped custom element registries Demo</h1>
+
+  <section class="intro">
+    <p>This page uses two <code>&lt;contoso-button&gt;</code> custom elements, which are defined in two separate scoped custom element registries.<br>
+    Without scoped registries, the second definition would throw an error. With scoped registries, both coexist peacefully.</p>
+
+    <strong>What's happening:</strong>
+
+    <ul>
+      <li>Two separate scoped registries are created using <code>new CustomElementRegistry()</code>.</li>
+      <li>Each registry is <em>scoped</em> to a different DOM element via the <code>customElementRegistry</code> option.</li>
+      <li>Two <code>&lt;contoso-button&gt;</code> elements are created, one in each DOM element, and using different custom element definitions.</li>
+      <li><strong>No naming conflicts.</strong> The same tag name has completely different behaviors in different scopes.</li>
+    </ul>
+  </section>
+
+  <section class="demo">
+    <div id="cool-button-container"></div>
+    <div id="wave-button-container"></div>
+  </section>
+
+  <script>
+    // Shared canvas confetti manager for better performance
+    class CanvasConfettiManager {
+      constructor() {
+        this.canvas = null;
+        this.ctx = null;
+        this.particles = [];
+        this.animationId = null;
+      }
+      
+      ensureCanvas() {
+        if (!this.canvas) {
+          this.canvas = document.createElement('canvas');
+          this.canvas.style.position = 'fixed';
+          this.canvas.style.top = '0';
+          this.canvas.style.left = '0';
+          this.canvas.style.width = '100%';
+          this.canvas.style.height = '100%';
+          this.canvas.style.pointerEvents = 'none';
+          this.canvas.style.zIndex = '1';
+          document.body.appendChild(this.canvas);
+          this.ctx = this.canvas.getContext('2d');
+          this.resize();
+          window.addEventListener('resize', () => this.resize());
+        }
+      }
+      
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+      
+      addParticles(particles) {
+        this.ensureCanvas();
+        this.particles.push(...particles);
+        if (!this.animationId) {
+          this.animate();
+        }
+      }
+      
+      animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particles = this.particles.filter(particle => {
+          particle.update();
+          particle.draw(this.ctx);
+          return particle.life > 0;
+        });
+        
+        if (this.particles.length > 0) {
+          this.animationId = requestAnimationFrame(() => this.animate());
+        } else {
+          this.animationId = null;
+          if (this.canvas) {
+            this.canvas.remove();
+            this.canvas = null;
+            this.ctx = null;
+          }
+        }
+      }
+    }
+    
+    const confettiManager = new CanvasConfettiManager();
+    
+    // Custom Element Definition: Fancy Button from Cool Library.
+    class ContosoComponentLibV1Button extends HTMLElement {
+      nbOfConfettis = 10;
+      velocityBase = 3;
+      velocityRandom = 2;
+      upwardBoost = 2;
+      sizeBase = 6;
+      sizeRandom = 4;
+      gravity = 0.15;
+      lifeDrain = 0.01;
+
+      connectedCallback() {
+        this.innerHTML = `
+          <style>
+            @scope {
+              button {
+                font-family: 'Georgia', serif;
+                background: white;
+                color: #00a876;
+                border: 3px solid #00a876;
+                padding: 12px 28px;
+                border-radius: 2px;
+                font-weight: 500;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all 0.4s ease;
+                letter-spacing: 0.2px;
+              }
+              button:hover {
+                background: #00a876;
+                color: white;
+                box-shadow: 0 8px 24px rgba(0, 168, 118, 0.25);
+                border-color: #00a876;
+              }
+              button:active {
+                transform: scale(0.97);
+              }
+            }
+          </style>
+          <button>Contoso button V1</button>
+        `;
+        
+        const button = this.querySelector('button');
+        button.addEventListener('click', (e) => this.createConfetti(e));
+      }
+      
+      createConfetti(e) {
+        const rect = e.target.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const particles = [];
+        for (let i = 0; i < this.nbOfConfettis; i++) {
+          const angle = (Math.PI * 2 * i) / this.nbOfConfettis;
+          const velocity = this.velocityBase + Math.random() * this.velocityRandom;
+          const gravity = this.gravity;
+          const lifeDrain = this.lifeDrain;
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * velocity,
+            vy: Math.sin(angle) * velocity - this.upwardBoost,
+            life: 1,
+            size: this.sizeBase + Math.random() * this.sizeRandom,
+            color: '#00a876',
+            update() {
+              this.vy += gravity;
+              this.x += this.vx;
+              this.y += this.vy;
+              this.life -= lifeDrain;
+            },
+            draw(ctx) {
+              ctx.globalAlpha = this.life;
+              ctx.fillStyle = this.color;
+              ctx.beginPath();
+              ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.globalAlpha = 1;
+            }
+          });
+        }
+        
+        confettiManager.addParticles(particles);
+      }
+    }
+
+    // Custom Element Definition: Fancy Button from Wave Library.
+    class ContosoComponentLibraryV2Button extends HTMLElement {
+      nbOfConfettis = 100;
+      angleVariation = 0.5;
+      velocityBase = 4;
+      velocityRandom = 4;
+      upwardBoost = 3;
+      sizeBase = 10;
+      sizeRandom = 6;
+      rotationSpeedMax = 0.3;
+      damping = 0.99;
+      gravity = 0.18;
+      lifeDrain = 0.008;
+      shadowBlur = 12;
+      starPoints = 5;
+      colors = ['#ff1744', '#ff6b3b', '#ffd700', '#00e5ff', '#7c4dff', '#ff4081', '#00bfa5'];
+
+      connectedCallback() {
+        this.innerHTML = `
+          <style>
+              @scope {
+              button {
+                font-family: 'Courier New', monospace;
+                background: linear-gradient(135deg, #ff6b3b 0%, #ff1744 100%);
+                color: white;
+                border: none;
+                padding: 14px 32px;
+                border-radius: 24px;
+                font-weight: 700;
+                font-size: 15px;
+                letter-spacing: 0.5px;
+                cursor: pointer;
+                box-shadow: 0 8px 24px rgba(255, 23, 68, 0.35);
+                transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+                text-transform: uppercase;
+              }
+              button:hover {
+                transform: translateY(-4px) scale(1.05);
+                box-shadow: 0 12px 32px rgba(255, 23, 68, 0.5);
+              }
+              button:active {
+                transform: translateY(-1px) scale(1);
+              }
+            }
+          </style>
+          <button>Contoso button V2 ✨</button>
+        `;
+        
+        const button = this.querySelector('button');
+        button.addEventListener('click', (e) => this.createFancyConfetti(e));
+      }
+      
+      createFancyConfetti(e) {
+        const rect = e.target.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const particles = [];
+        for (let i = 0; i < this.nbOfConfettis; i++) {
+          const angle = (Math.PI * 2 * i) / this.nbOfConfettis + (Math.random() - 0.5) * this.angleVariation;
+          const velocity = this.velocityBase + Math.random() * this.velocityRandom;
+          const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+          const damping = this.damping;
+          const gravity = this.gravity;
+          const lifeDrain = this.lifeDrain;
+          const shadowBlur = this.shadowBlur;
+          const starPoints = this.starPoints;
+          const particleSize = this.sizeBase + Math.random() * this.sizeRandom;
+          
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * velocity,
+            vy: Math.sin(angle) * velocity - this.upwardBoost,
+            life: 1,
+            size: particleSize,
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * this.rotationSpeedMax,
+            color,
+            update() {
+              this.vx *= damping;
+              this.vy += gravity;
+              this.x += this.vx;
+              this.y += this.vy;
+              this.rotation += this.rotationSpeed;
+              this.life -= lifeDrain;
+            },
+            draw(ctx) {
+              ctx.save();
+              ctx.globalAlpha = this.life;
+              ctx.translate(this.x, this.y);
+              ctx.rotate(this.rotation);
+              
+              ctx.fillStyle = this.color;
+              ctx.shadowBlur = shadowBlur;
+              ctx.shadowColor = this.color;
+              ctx.beginPath();
+              for (let i = 0; i < starPoints; i++) {
+                const angle = (i * 4 * Math.PI) / starPoints - Math.PI / 2;
+                const radius = i % 2 === 0 ? this.size : this.size / 2;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+              }
+              ctx.closePath();
+              ctx.fill();
+              
+              ctx.restore();
+            }
+          });
+        }
+        
+        confettiManager.addParticles(particles);
+      }
+    }
+
+    // Create two registries, one for each custom element.
+    const registryForV1 = new CustomElementRegistry();
+    registryForV1.define('contoso-button', ContosoComponentLibV1Button);
+    
+    const registryForV2 = new CustomElementRegistry();
+    registryForV2.define('contoso-button', ContosoComponentLibraryV2Button);
+    
+    // Create instances of the custom elements, specifying the registry to use for each.
+    const ContosoComponentLibV1ButtonElement = document.createElement('contoso-button', {
+      customElementRegistry: registryForV1
+    });
+    const ContosoComponentLibraryV2ButtonElement = document.createElement('contoso-button', {
+      customElementRegistry: registryForV2
+    });
+
+    // Append the elements to the DOM.
+    document.getElementById('cool-button-container').appendChild(ContosoComponentLibV1ButtonElement);
+    document.getElementById('wave-button-container').appendChild(ContosoComponentLibraryV2ButtonElement);
+  </script>
+</body>
+
+</html>
