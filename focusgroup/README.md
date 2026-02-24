@@ -18,7 +18,7 @@ pattern natively without JavaScript.
 
 ## Learn more
 
-- [Scoped Focusgroup Explainer (Open UI)](https://open-ui.org/components/scoped-focusgroup.explainer/)
+- [Focusgroup Explainer (Open UI)](https://open-ui.org/components/scoped-focusgroup.explainer/)
 - [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/)
 
 ## Requirements
