@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusgroup: Radio Group Pattern</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Radio Group Pattern</h1>
+        <p>Custom radio buttons with arrow-key navigation powered by <code>focusgroup</code>.</p>
+        <nav><a href="index.html">← All Demos</a></nav>
+    </header>
+
+    <main class="page-content">
+
+        <!-- ============================================================ -->
+        <!-- Comparison: Native vs. Focusgroup Radio Group -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>Comparison: Native vs. Focusgroup</h2>
+            <p>
+                Side-by-side comparison showing that a <code>focusgroup</code> radio group
+                can behave identically to native <code>&lt;input type="radio"&gt;</code>.
+            </p>
+
+            <div class="try-it">
+                <strong>Try it:</strong> Use <kbd>↓</kbd> <kbd>↑</kbd> to navigate in both groups.
+                Toggle the switch on the right to match native radio behavior, where selection follows focus.
+            </div>
+
+            <div class="demo-container">
+                <div class="comparison">
+                    <div class="comparison-column">
+                        <h3>Native Radio Buttons</h3>
+                        <fieldset>
+                            <legend>Favorite color</legend>
+                            <label><input type="radio" name="native-color" value="red" checked> Red</label><br>
+                            <label><input type="radio" name="native-color" value="green"> Green</label><br>
+                            <label><input type="radio" name="native-color" value="blue"> Blue</label><br>
+                            <label><input type="radio" name="native-color" value="purple"> Purple</label>
+                        </fieldset>
+                    </div>
+                    <div class="comparison-column">
+                        <h3>Focusgroup Radio Group</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="selection-follows-focus">
+                            <span class="toggle-slider"></span>
+                            Selection follows focus
+                        </label>
+                        <div focusgroup="radiogroup" aria-label="Favorite color" class="radio-group radio-group-column">
+                            <span aria-checked="true" tabindex="0" class="radio-option checked" focusgroupstart>Red</span>
+                            <span aria-checked="false" tabindex="0" class="radio-option">Green</span>
+                            <span aria-checked="false" tabindex="0" class="radio-option">Blue</span>
+                            <span aria-checked="false" tabindex="0" class="radio-option">Purple</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="notice-list">
+                <li>Both groups use arrow keys to navigate between options</li>
+                <li>Both are single tab stops — Tab enters, arrows navigate, Tab exits</li>
+                <li>The <code>focusgroup</code> version gives you full control over styling</li>
+                <li>
+                    <strong>Selection follows focus (off):</strong> Arrow keys only move focus;
+                    press <kbd>Enter</kbd> or <kbd>Space</kbd> to select.
+                    <strong>Selection follows focus (on):</strong> Moving focus also selects the option,
+                    matching native radio behavior.
+                </li>
+            </ul>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;div focusgroup="radiogroup" aria-label="Favorite color"&gt;
+    &lt;span class="radio-option checked" aria-checked="true" tabindex="0" focusgroupstart&gt;Red&lt;/span&gt;
+    &lt;span class="radio-option" aria-checked="false" tabindex="0"&gt;Green&lt;/span&gt;
+    &lt;span class="radio-option" aria-checked="false" tabindex="0"&gt;Blue&lt;/span&gt;
+    &lt;span class="radio-option" aria-checked="false" tabindex="0"&gt;Purple&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </section>
+
+        <section class="demo-section">
+            <h2>Key Point: Navigation ≠ Selection</h2>
+            <p>
+                With native <code>&lt;input type="radio"&gt;</code>, moving focus with arrows also selects the option.
+                With <code>focusgroup</code>, navigation and selection are <strong>decoupled by default</strong>.
+                You can add selection-follows-focus behavior in JavaScript (toggle the switch above to see it),
+                or require an explicit <kbd>Enter</kbd>/<kbd>Space</kbd> to confirm — giving you more flexibility.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="shared.js"></script>
+    <script src="radiogroup.js"></script>
+</body>
+</html>

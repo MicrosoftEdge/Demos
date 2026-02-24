@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusgroup: Additional Concepts</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Additional Concepts</h1>
+        <p>Nested focusgroups, opt-out, deep descendants, reading-flow, and feature detection.</p>
+        <nav><a href="index.html">← All Demos</a></nav>
+    </header>
+
+    <main class="page-content">
+
+        <!-- ============================================================ -->
+        <!-- Demo 1: Nested Focusgroups -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>Nested Focusgroups</h2>
+            <p>
+                A nested focusgroup creates an independent navigation scope within an outer focusgroup.
+                Each group has its own axis, wrapping, memory, and entry point. <kbd>Tab</kbd> moves between groups;
+                arrows navigate within.
+            </p>
+            <div class="attr-label">focusgroup="toolbar inline" (outer) + focusgroup="toolbar inline wrap" (inner)</div>
+
+            <div class="try-it">
+                <strong>Try it:</strong> Use <kbd>→</kbd> in the outer toolbar. When focus reaches the nested group, press <kbd>Tab</kbd> to enter it. Use arrows inside, then <kbd>Tab</kbd> to exit back to the outer toolbar.
+            </div>
+
+            <div class="demo-container">
+                <div focusgroup="toolbar inline" aria-label="Main toolbar" class="toolbar-horizontal">
+                    <button type="button">Save</button>
+                    <button type="button" focusgroupstart>Print</button>
+                    <div focusgroup="toolbar inline wrap" aria-label="Text formatting" class="nested-toolbar">
+                        <button type="button">Bold</button>
+                        <button type="button">Italic</button>
+                        <button type="button">Underline</button>
+                    </div>
+                    <button type="button">Close</button>
+                    <button type="button">Exit</button>
+                </div>
+            </div>
+
+            <ul class="notice-list">
+                <li>The nested toolbar is an <strong>independent scope</strong> inside the outer toolbar</li>
+                <li><kbd>Tab</kbd> moves between the outer and inner focusgroups</li>
+                <li>Arrow keys navigate within whichever group currently has focus</li>
+                <li>Each group can have its own wrapping/memory/axis settings</li>
+            </ul>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;div focusgroup="toolbar inline" aria-label="Main toolbar"&gt;
+    &lt;button type="button"&gt;Save&lt;/button&gt;
+    &lt;button type="button" focusgroupstart&gt;Print&lt;/button&gt;
+    &lt;div focusgroup="toolbar inline wrap" aria-label="Text formatting"&gt;
+        &lt;button type="button"&gt;Bold&lt;/button&gt;
+        &lt;button type="button"&gt;Italic&lt;/button&gt;
+        &lt;button type="button"&gt;Underline&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;button type="button"&gt;Close&lt;/button&gt;
+    &lt;button type="button"&gt;Exit&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- Demo 2: Opt-out with focusgroup="none" -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>Opt-Out Segments with <code>focusgroup="none"</code></h2>
+            <p>
+                Use <code>focusgroup="none"</code> to exclude specific elements from arrow navigation
+                while keeping them tabbable. Arrow keys skip right over them.
+            </p>
+            <div class="attr-label">focusgroup="toolbar inline"</div>
+
+            <div class="try-it">
+                <strong>Try it:</strong> Use <kbd>→</kbd> to navigate through the toolbar. Notice that "Help" and "Shortcuts" are <strong>skipped</strong> by arrow keys but still reachable via <kbd>Tab</kbd>.
+            </div>
+
+            <div class="demo-container">
+                <div focusgroup="toolbar inline" aria-label="Segmented toolbar" class="toolbar-horizontal">
+                    <button type="button">New</button>
+                    <button type="button">Open</button>
+                    <button type="button">Save</button>
+                    <span focusgroup="none" style="display: contents;">
+                        <button type="button" style="opacity: 0.6;">Help</button>
+                        <button type="button" style="opacity: 0.6;">Shortcuts</button>
+                    </span>
+                    <button type="button">Close</button>
+                    <button type="button">Exit</button>
+                </div>
+            </div>
+
+            <ul class="notice-list">
+                <li>Arrow keys navigate: New → Open → Save → Close → Exit (skipping Help &amp; Shortcuts)</li>
+                <li><kbd>Tab</kbd> still reaches Help and Shortcuts</li>
+                <li>The dimmed buttons visually indicate they're in a <code>focusgroup="none"</code> zone</li>
+            </ul>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;div focusgroup="toolbar inline" aria-label="Segmented toolbar"&gt;
+    &lt;button type="button"&gt;New&lt;/button&gt;
+    &lt;button type="button"&gt;Open&lt;/button&gt;
+    &lt;button type="button"&gt;Save&lt;/button&gt;
+    &lt;span focusgroup="none"&gt;
+        &lt;button type="button"&gt;Help&lt;/button&gt;
+        &lt;button type="button"&gt;Shortcuts&lt;/button&gt;
+    &lt;/span&gt;
+    &lt;button type="button"&gt;Close&lt;/button&gt;
+    &lt;button type="button"&gt;Exit&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- Demo 3: Deep Descendant Discovery -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>Deep Descendant Discovery</h2>
+            <p>
+                Focusgroup items don't need to be direct children. The browser discovers focusable
+                descendants at any depth (unless they are inside a nested focusgroup or <code>focusgroup="none"</code>).
+            </p>
+            <div class="attr-label">focusgroup="toolbar inline"</div>
+
+            <div class="try-it">
+                <strong>Try it:</strong> Use <kbd>→</kbd> <kbd>←</kbd> — arrow navigation works even though buttons are deeply nested inside <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> wrappers.
+            </div>
+
+            <div class="demo-container">
+                <div focusgroup="toolbar inline" aria-label="Nested wrappers" class="toolbar-horizontal">
+                    <div>
+                        <span><button type="button">Alpha</button></span>
+                        <span><button type="button">Beta</button></span>
+                        <span><button type="button">Gamma</button></span>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="notice-list">
+                <li>Buttons are nested inside <code>&lt;div&gt;&lt;span&gt;</code> wrappers</li>
+                <li>Focusgroup discovers them at any depth in the DOM tree</li>
+                <li>No flat list requirement — wrapper elements for styling are fine</li>
+            </ul>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;div focusgroup="toolbar inline" aria-label="Nested wrappers"&gt;
+    &lt;div&gt;
+        &lt;span&gt;&lt;button type="button"&gt;Alpha&lt;/button&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;button type="button"&gt;Beta&lt;/button&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;button type="button"&gt;Gamma&lt;/button&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- Demo 4: CSS reading-flow Integration -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>CSS <code>reading-flow</code> Integration</h2>
+            <p>
+                When CSS changes the visual order (e.g., <code>flex-direction: row-reverse</code>),
+                <code>reading-flow: flex-visual</code> tells the focusgroup to follow the <strong>visual</strong>
+                order rather than the DOM source order.
+            </p>
+            <div class="attr-label">focusgroup="toolbar" + reading-flow: flex-visual</div>
+
+            <div class="try-it">
+                <strong>Try it:</strong> Use <kbd>→</kbd> to navigate. With <code>reading-flow: flex-visual</code>, arrow navigation follows the visual left-to-right order (C → B → A), not the DOM order (A → B → C).
+            </div>
+
+            <div class="demo-container">
+                <div focusgroup="toolbar" aria-label="Visual order"
+                     style="display: flex; flex-direction: row-reverse; reading-flow: flex-visual; gap: 0.35rem;">
+                    <button type="button">A (DOM first)</button>
+                    <button type="button">B (DOM second)</button>
+                    <button type="button">C (DOM third)</button>
+                </div>
+            </div>
+
+            <ul class="notice-list">
+                <li>DOM order: A, B, C — but <code>flex-direction: row-reverse</code> visually renders C, B, A</li>
+                <li><code>reading-flow: flex-visual</code> tells focusgroup to follow visual order</li>
+                <li>Right arrow from C goes to B, then A (visual left-to-right)</li>
+                <li>Without <code>reading-flow</code>, arrow keys would follow DOM order (A → B → C), which is visually backwards</li>
+            </ul>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;div focusgroup="toolbar" aria-label="Visual order"
+     style="display: flex; flex-direction: row-reverse;
+            reading-flow: flex-visual;"&gt;
+    &lt;button type="button"&gt;A (DOM first)&lt;/button&gt;
+    &lt;button type="button"&gt;B (DOM second)&lt;/button&gt;
+    &lt;button type="button"&gt;C (DOM third)&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- Demo 5: Feature Detection -->
+        <!-- ============================================================ -->
+        <section class="demo-section">
+            <h2>Feature Detection</h2>
+            <p>
+                Check whether the browser supports <code>focusgroup</code> before relying on it.
+                If unsupported, you can fall back to a JavaScript-based roving tabindex or show a notice.
+            </p>
+
+            <div class="demo-container">
+                <div id="feature-detect-result" style="padding: 0.75rem; border-radius: 4px;"></div>
+            </div>
+
+            <details class="source-code">
+                <summary>View source</summary>
+                <pre><code>&lt;script&gt;
+if ('focusgroup' in HTMLElement.prototype) {
+    // focusgroup is supported — use it!
+    console.log('focusgroup is supported');
+} else {
+    // Not supported — fall back to JS roving tabindex
+    console.log('focusgroup is NOT supported');
+}
+&lt;/script&gt;</code></pre>
+            </details>
+        </section>
+
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        // Live feature detection result
+        (function () {
+            var result = document.getElementById("feature-detect-result");
+            if (!result) return;
+            if ("focusgroup" in HTMLElement.prototype) {
+                result.textContent = "✅ focusgroup IS supported in this browser.";
+                result.style.background = "var(--accent-light)";
+                result.style.color = "var(--success)";
+            } else {
+                result.textContent = "❌ focusgroup is NOT supported in this browser. Enable experimental flags to try these demos.";
+                result.style.background = "var(--warning-bg)";
+                result.style.color = "var(--warning-text)";
+            }
+        })();
+    </script>
+</body>
+</html>

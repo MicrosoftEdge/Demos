@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusgroup: Interactive Demos</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Focusgroup: Interactive Demos</h1>
+        <p>Declarative arrow-key keyboard navigation for composite widgets — no JavaScript required.</p>
+    </header>
+
+    <main class="page-content">
+        <!-- Feature detection warning inserted here by script.js if unsupported -->
+
+        <section class="demo-section">
+            <h2>What is <code>focusgroup</code>?</h2>
+            <p>
+                The <code>focusgroup</code> HTML attribute lets you add arrow-key navigation to groups of
+                focusable elements — implementing the <strong>"roving tabindex" pattern</strong> natively
+                without writing any JavaScript for focus management.
+            </p>
+            <p>
+                Composite widgets like toolbars, tablists, menus, radio groups, and listboxes typically need
+                arrow-key navigation so they behave as a single tab stop. Traditionally, this required
+                significant JS to manage focus with the "roving tabindex" pattern. With <code>focusgroup</code>, you
+                simply add an attribute and the browser handles everything:
+            </p>
+            <ul>
+                <li><strong>Arrow-key navigation</strong> between focusable descendants</li>
+                <li><strong>Single tab stop</strong> — Tab enters the group, arrows navigate within, Tab exits</li>
+                <li><strong>Focus memory</strong> — remembers which element had focus when you return</li>
+                <li><strong>Wrapping</strong> — optional wrap-around at boundaries</li>
+                <li><strong>Axis locking</strong> — restrict to horizontal (<code>inline</code>) or vertical (<code>block</code>)</li>
+                <li><strong>Opt-out</strong> — exclude elements from the group with <code>focusgroup="none"</code></li>
+            </ul>
+        </section>
+
+        <section class="demo-section">
+            <h2>Quick Demo: Try It Now</h2>
+            <p>Click on the first button below, then use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate. Press <kbd>Tab</kbd> to exit.</p>
+            <div class="demo-container">
+                <div focusgroup="toolbar inline wrap" aria-label="Quick demo toolbar" class="toolbar-horizontal">
+                    <button type="button">Bold</button>
+                    <button type="button">Italic</button>
+                    <button type="button">Underline</button>
+                    <button type="button">Strikethrough</button>
+                    <button type="button">Link</button>
+                </div>
+            </div>
+            <div class="attr-label">focusgroup="toolbar inline wrap"</div>
+            <ul class="notice-list">
+                <li>The entire toolbar is <strong>one tab stop</strong></li>
+                <li>Left/Right arrows move focus between buttons</li>
+                <li>Focus wraps from the last button back to the first (and vice versa)</li>
+                <li><strong>No JavaScript</strong> was used for focus management</li>
+            </ul>
+        </section>
+
+        <section class="demo-section">
+            <h2>Explore the Demos</h2>
+            <p>Each demo page showcases a specific UI pattern with interactive examples and source code.</p>
+            <nav aria-label="Explore the Demos">
+                <ul class="card-grid" focusgroup="listbox">
+                    <li>
+                        <a href="toolbar.html" class="card-link">
+                            <h3>Toolbar</h3>
+                            <p>Horizontal and vertical toolbars with arrow-key navigation, entry points, and axis locking.</p>
+                            <span class="attr-label">focusgroup="toolbar inline"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tablist.html" class="card-link">
+                            <h3>Tablist</h3>
+                            <p>Tab control with inline wrapping, no-memory for selected tab, and vertical variant.</p>
+                            <span class="attr-label">focusgroup="tablist inline wrap"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="menu.html" class="card-link">
+                            <h3>Menu &amp; Menubar</h3>
+                            <p>Vertical menus and menubar with popover submenus using nested focusgroups.</p>
+                            <span class="attr-label">focusgroup="menu block"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="radiogroup.html" class="card-link">
+                            <h3>Radio Group</h3>
+                            <p>Custom radio button groups with arrow-key navigation, compared to native radios.</p>
+                            <span class="attr-label">focusgroup="radiogroup"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="listbox.html" class="card-link">
+                            <h3>Listbox</h3>
+                            <p>Selectable list with vertical navigation and selection management.</p>
+                            <span class="attr-label">focusgroup="listbox block"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="accordion.html" class="card-link">
+                            <h3>Accordion</h3>
+                            <p>Accordion headers with block-axis navigation and opt-out panels.</p>
+                            <span class="attr-label">focusgroup="toolbar block"</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="additional-concepts.html" class="card-link">
+                            <h3>Additional Concepts</h3>
+                            <p>Nested focusgroups, opt-out, deep descendants, reading-flow, and feature detection.</p>
+                            <span class="attr-label">focusgroup="none"</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <section class="demo-section">
+            <h2>Resources</h2>
+            <ul>
+                <li><a href="https://open-ui.org/components/scoped-focusgroup.explainer/">Scoped Focusgroup Explainer (Open UI)</a></li>
+                <li><a href="https://www.w3.org/WAI/ARIA/apg/">ARIA Authoring Practices Guide (APG)</a></li>
+                <li><a href="https://github.com/janewman/focusgroup_examples">Reference implementation examples</a></li>
+                <li><a href="https://github.com/MicrosoftEdge/Demos">MicrosoftEdge/Demos on GitHub</a></li>
+            </ul>
+        </section>
+
+        <section class="demo-section">
+            <h2>Browser Support</h2>
+            <p>
+                The <code>focusgroup</code> attribute is an <strong>experimental feature</strong>. At the time
+                of writing, you may need to enable experimental browser flags in Microsoft Edge or another
+                Chromium-based browser:
+            </p>
+            <ol>
+                <li>Open <code>about://flags</code> in Microsoft Edge or another Chromium-based browser</li>
+                <li>Search for <strong>Experimental Web Platform features</strong></li>
+                <li>Set the flag to <strong>Enabled</strong></li>
+                <li>Restart the browser</li>
+            </ol>
+        </section>
+    </main>
+
+    <script src="shared.js"></script>
+</body>
+</html>
