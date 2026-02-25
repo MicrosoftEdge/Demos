@@ -3,8 +3,7 @@
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/focusgroup/)** ⬅️
 
 Interactive demos for the HTML `focusgroup` attribute, which provides declarative
-arrow-key keyboard navigation for composite widgets — implementing the "roving tabindex"
-pattern natively without JavaScript.
+arrow-key keyboard navigation for composite widgets by implementing the _roving tabindex_ pattern natively without JavaScript.
 
 ## Demos
 
