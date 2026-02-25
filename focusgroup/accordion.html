@@ -1,136 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focusgroup: Accordion Pattern</title>
-    <link rel="icon" type="image/png"
-        href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focusgroup: Accordion Pattern</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header class="page-header">
-        <h1>Accordion Pattern</h1>
-        <p>Accordion headers with block-axis navigation and
-            <code>focusgroup="none"</code> opt-out for panel content.</p>
-        <nav><a href="index.html">← All Demos</a></nav>
-    </header>
+  <header class="page-header">
+    <h1>Accordion Pattern</h1>
+    <p>Accordion headers with block-axis navigation and
+      <code>focusgroup="none"</code> opt-out for panel content.
+    </p>
+    <nav><a href="index.html">← All Demos</a></nav>
+  </header>
 
-    <main class="page-content">
+  <main class="page-content">
 
-        <!-- ============================================================ -->
-        <!-- Demo 1: Accordion -->
-        <!-- ============================================================ -->
-        <section class="demo-section">
-            <h2>Accordion with Opt-Out Panels</h2>
+    <!-- ============================================================ -->
+    <!-- Demo 1: Accordion -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2>Accordion with Opt-Out Panels</h2>
+      <p>
+        Up/Down arrows navigate between accordion headers. Panel
+        content is <strong>opted out</strong>
+        of arrow navigation with <code>focusgroup="none"</code>, but
+        interactive elements inside panels
+        remain reachable via <kbd>Tab</kbd>.
+      </p>
+      <div class="attr-label">focusgroup="toolbar block"</div>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Use <kbd>↓</kbd> <kbd>↑</kbd> to move
+        between accordion headers.
+        Click a header or press <kbd>Enter</kbd>/<kbd>Space</kbd> to
+        expand/collapse.
+        Press <kbd>Tab</kbd> to reach interactive content inside
+        expanded panels.
+      </div>
+
+      <div class="demo-container">
+        <div focusgroup="toolbar block" role="group" aria-label="Accordion sections" class="accordion">
+          <h3><button type="button" class="expanded" aria-expanded="true" aria-controls="acc-panel1">Section
+              1: Getting Started</button></h3>
+          <div focusgroup="none" role="region" id="acc-panel1" class="panel" aria-label="Section 1 content">
             <p>
-                Up/Down arrows navigate between accordion headers. Panel
-                    content is <strong>opted out</strong>
-                of arrow navigation with <code>focusgroup="none"</code>, but
-                    interactive elements inside panels
-                remain reachable via <kbd>Tab</kbd>.
+              The <code>focusgroup</code> attribute provides
+              declarative arrow-key navigation for
+              composite widgets. Try these <a href="#">documentation
+                links</a>
+              and <input type="text" placeholder="type here"> —
+              they're still reachable via Tab,
+              but arrow keys skip right over this panel.
             </p>
-            <div class="attr-label">focusgroup="toolbar block"</div>
+          </div>
 
-            <div class="try-it">
-                <strong>Try it:</strong> Use <kbd>↓</kbd> <kbd>↑</kbd> to move
-                    between accordion headers.
-                Click a header or press <kbd>Enter</kbd>/<kbd>Space</kbd> to
-                    expand/collapse.
-                Press <kbd>Tab</kbd> to reach interactive content inside
-                    expanded panels.
-            </div>
+          <h3><button type="button" aria-expanded="false" aria-controls="acc-panel2">Section 2:
+              Configuration</button></h3>
+          <div focusgroup="none" role="region" id="acc-panel2" class="panel" hidden aria-label="Section 2 content">
+            <p>
+              Configure your focusgroup with tokens:
+              <code>inline</code>, <code>block</code>,
+              <code>wrap</code>, <code>no-memory</code>, and
+              more. Check the
+              <a href="#">focusgroup
+                explainer</a>
+              for the latest syntax.
+            </p>
+            <p><button type="button">A button inside the
+                panel</button></p>
+          </div>
 
-            <div class="demo-container">
-                <div focusgroup="toolbar block" role="group"
-                    aria-label="Accordion sections" class="accordion">
-                    <h3><button type="button" class="expanded"
-                        aria-expanded="true" aria-controls="acc-panel1">Section
-                        1: Getting Started</button></h3>
-                    <div focusgroup="none" role="region" id="acc-panel1"
-                        class="panel" aria-label="Section 1 content">
-                        <p>
-                            The <code>focusgroup</code> attribute provides
-                                declarative arrow-key navigation for
-                            composite widgets. Try these <a
-                                href="#">documentation
-                                links</a>
-                            and <input type="text" placeholder="type here"> —
-                                they're still reachable via Tab,
-                            but arrow keys skip right over this panel.
-                        </p>
-                    </div>
+          <h3><button type="button" aria-expanded="false" aria-controls="acc-panel3">Section 3: Advanced
+              Usage</button></h3>
+          <div focusgroup="none" role="region" id="acc-panel3" class="panel" hidden aria-label="Section 3 content">
+            <p>
+              Explore nested focusgroups, grid navigation, and
+              CSS <code>reading-flow</code> integration
+              on the <a href="additional-concepts.html">additional
+                concepts</a> page.
+            </p>
+          </div>
 
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="acc-panel2">Section 2:
-                        Configuration</button></h3>
-                    <div focusgroup="none" role="region" id="acc-panel2"
-                        class="panel" hidden aria-label="Section 2 content">
-                        <p>
-                            Configure your focusgroup with tokens:
-                                <code>inline</code>, <code>block</code>,
-                            <code>wrap</code>, <code>no-memory</code>, and
-                                more. Check the
-                            <a href="#">focusgroup
-                                explainer</a>
-                            for the latest syntax.
-                        </p>
-                        <p><button type="button">A button inside the
-                            panel</button></p>
-                    </div>
+          <h3><button type="button" aria-expanded="false" aria-controls="acc-panel4">Section 4: Browser
+              Support</button></h3>
+          <div focusgroup="none" role="region" id="acc-panel4" class="panel" hidden aria-label="Section 4 content">
+            <p>
+              The <code>focusgroup</code> attribute is
+              experimental. Enable
+              <em>Experimental Web Platform features</em> in
+              <code>about://flags</code>
+              in Microsoft Edge or another Chromium-based browser.
+            </p>
+          </div>
+        </div>
+      </div>
 
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="acc-panel3">Section 3: Advanced
-                        Usage</button></h3>
-                    <div focusgroup="none" role="region" id="acc-panel3"
-                        class="panel" hidden aria-label="Section 3 content">
-                        <p>
-                            Explore nested focusgroups, grid navigation, and
-                                CSS <code>reading-flow</code> integration
-                            on the <a
-                                href="additional-concepts.html">additional
-                                concepts</a> page.
-                        </p>
-                    </div>
+      <ul class="notice-list">
+        <li><code>role="group"</code> overrides the
+          <code>toolbar</code> role that the behavior token would
+          otherwise infer on the container
+        </li>
+        <li>The <code>&lt;button&gt;</code> items keep their native
+          <code>button</code> role — no child role override is needed
+          because the <code>toolbar</code> behavior has no child role
+          inference
+        </li>
+        <li><code>focusgroup="none"</code> opts panel content out of
+          arrow-key navigation</li>
+        <li>Up/Down arrows move <strong>only between headers</strong>,
+          skipping panels entirely</li>
+        <li><kbd>Tab</kbd> still reaches focusable content inside
+          expanded panels (links, inputs, buttons)</li>
+        <li>JavaScript handles <code>aria-expanded</code> toggling and
+          <code>hidden</code> visibility
+        </li>
+      </ul>
 
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="acc-panel4">Section 4: Browser
-                        Support</button></h3>
-                    <div focusgroup="none" role="region" id="acc-panel4"
-                        class="panel" hidden aria-label="Section 4 content">
-                        <p>
-                            The <code>focusgroup</code> attribute is
-                                experimental. Enable
-                            <em>Experimental Web Platform features</em> in
-                                <code>about://flags</code>
-                            in Microsoft Edge or another Chromium-based browser.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="notice-list">
-                <li><code>role="group"</code> overrides the
-                    <code>toolbar</code> role that the behavior token would
-                    otherwise infer on the container</li>
-                <li>The <code>&lt;button&gt;</code> items keep their native
-                    <code>button</code> role — no child role override is needed
-                    because the <code>toolbar</code> behavior has no child role
-                    inference</li>
-                <li><code>focusgroup="none"</code> opts panel content out of
-                    arrow-key navigation</li>
-                <li>Up/Down arrows move <strong>only between headers</strong>,
-                    skipping panels entirely</li>
-                <li><kbd>Tab</kbd> still reaches focusable content inside
-                    expanded panels (links, inputs, buttons)</li>
-                <li>JavaScript handles <code>aria-expanded</code> toggling and
-                    <code>hidden</code> visibility</li>
-            </ul>
-
-            <details class="source-code">
-                <summary>View source</summary>
-                <pre><code>&lt;div focusgroup="toolbar block" role="group"
+      <details class="source-code">
+        <summary>View source</summary>
+        <pre><code>&lt;div focusgroup="toolbar block" role="group"
      aria-label="Accordion sections"&gt;
     &lt;h3&gt;
         &lt;button type="button" class="expanded" aria-expanded="true"
@@ -161,187 +155,183 @@
         &lt;p&gt;Even more content...&lt;/p&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-            </details>
-        </section>
+      </details>
+    </section>
 
-        <!-- ============================================================ -->
-        <!-- Demo 2: Long Content Mitigation -->
-        <!-- ============================================================ -->
-        <section class="demo-section">
-            <h2>Long Content: A Possible Mitigation</h2>
-            <p>
-                Because focusgroup arrow keys jump directly between headers,
-                    <strong>long panel content
-                can be missed entirely</strong>. If a panel has more content
-                    than fits on screen,
-                the user may never see it when arrowing through headers.
+    <!-- ============================================================ -->
+    <!-- Demo 2: Long Content Mitigation -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2>Long Content: A Possible Mitigation</h2>
+      <p>
+        Because focusgroup arrow keys jump directly between headers,
+        <strong>long panel content
+          can be missed entirely</strong>. If a panel has more content
+        than fits on screen,
+        the user may never see it when arrowing through headers.
+      </p>
+      <p>
+        <strong>One possible mitigation:</strong> When a section is
+        expanded, move focus into the panel.
+        The panel is a focusable scrollable region
+        (<code>tabindex="0"</code>) with
+        <code>focusgroup="none"</code>, so arrow keys scroll its
+        content instead of
+        jumping to the next header. The user can press <kbd>Tab</kbd>
+        to move back
+        to the accordion headers when they're done reading.
+        Other approaches — such as requiring an activation step before
+        navigating away,
+        showing a "skip to next section" link inside the panel, or
+        avoiding focusgroup
+        entirely for content-heavy accordions — may be more appropriate
+        depending on
+        the use case.
+      </p>
+      <div class="attr-label">focusgroup="toolbar block"</div>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Click a header or press
+        <kbd>Enter</kbd>/<kbd>Space</kbd> to expand.
+        Focus moves into the panel — use <kbd>↓</kbd> <kbd>↑</kbd> to
+        <strong>scroll</strong>
+        the long content. Press <kbd>Tab</kbd> to return to the
+        accordion headers.
+      </div>
+
+      <div class="demo-container">
+        <div focusgroup="toolbar block" role="group" aria-label="Articles" class="accordion accordion-focus-into">
+          <h3><button type="button" aria-expanded="false" aria-controls="long-panel1">The Focusgroup
+              Problem</button></h3>
+          <div focusgroup="none" role="region" tabindex="0" id="long-panel1" class="panel panel-scrollable" hidden
+            aria-label="The Focusgroup Problem">
+            <p>When focusgroup is used on an accordion, arrow keys
+              navigate between
+              section headers. This provides fast movement through
+              the accordion — but
+              it also means that any content between headers is
+              <strong>completely
+                skipped</strong> by arrow-key navigation.
             </p>
-            <p>
-                <strong>One possible mitigation:</strong> When a section is
-                    expanded, move focus into the panel.
-                The panel is a focusable scrollable region
-                    (<code>tabindex="0"</code>) with
-                <code>focusgroup="none"</code>, so arrow keys scroll its
-                    content instead of
-                jumping to the next header. The user can press <kbd>Tab</kbd>
-                    to move back
-                to the accordion headers when they're done reading.
-                Other approaches — such as requiring an activation step before
-                    navigating away,
-                showing a "skip to next section" link inside the panel, or
-                    avoiding focusgroup
-                entirely for content-heavy accordions — may be more appropriate
-                    depending on
-                the use case.
+            <p>For short panels this is fine — the user can see the
+              content without
+              scrolling. But if a panel contains a lengthy article, a
+              long list of
+              options, or other tall content, the user may never
+              encounter it at all.
+              Pressing <kbd>↓</kbd> on the expanded header jumps
+              straight to the next
+              header, bypassing everything in between.</p>
+            <p>This is a known consideration in the focusgroup
+              design. The explainer
+              notes: <em>"Authors should be aware that since
+                focusgroup navigation takes
+                priority over scrolling, they should take care when
+                constructing large
+                focusgroups to avoid a situation where content can be
+                missed when jumping
+                from one item to another."</em></p>
+            <p>The solution is for authors to provide an explicit
+              path into the
+              panel content. By making the panel focusable and moving
+              focus into it
+              on expansion, the user's arrow keys scroll the content
+              rather than
+              navigating the focusgroup, because the panel is opted
+              out via
+              <code>focusgroup="none"</code>.
             </p>
-            <div class="attr-label">focusgroup="toolbar block"</div>
+          </div>
 
-            <div class="try-it">
-                <strong>Try it:</strong> Click a header or press
-                    <kbd>Enter</kbd>/<kbd>Space</kbd> to expand.
-                Focus moves into the panel — use <kbd>↓</kbd> <kbd>↑</kbd> to
-                    <strong>scroll</strong>
-                the long content. Press <kbd>Tab</kbd> to return to the
-                    accordion headers.
-            </div>
+          <h3><button type="button" aria-expanded="false" aria-controls="long-panel2">The Mitigation
+              Strategy</button></h3>
+          <div focusgroup="none" role="region" tabindex="0" id="long-panel2" class="panel panel-scrollable" hidden
+            aria-label="The Mitigation Strategy">
+            <h4>Step 1: Make the panel focusable</h4>
+            <p>Add <code>tabindex="0"</code> to the panel element.
+              This makes it a
+              focusable scrollable region. Screen readers will
+              announce it as a region
+              with its <code>aria-label</code>.</p>
+            <h4>Step 2: Opt out of the focusgroup</h4>
+            <p>Add <code>focusgroup="none"</code> to the panel.
+              This ensures that
+              when the panel has focus, arrow keys scroll its content
+              rather than
+              navigating the ancestor focusgroup.</p>
+            <h4>Step 3: Move focus on expand</h4>
+            <p>When the user expands a section (click or
+              Enter/Space), JavaScript
+              moves focus to the panel. This puts the user directly
+              into the content
+              where arrow keys will scroll.</p>
+            <h4>Step 4: Let Tab return to headers</h4>
+            <p>Because the panel is opted out of the focusgroup,
+              pressing
+              <kbd>Tab</kbd> exits the panel and enters the next
+              focusgroup segment.
+              The user is back on the accordion headers and can
+              arrow-navigate
+              to another section.
+            </p>
+            <p>This pattern ensures that long content is never
+              silently skipped,
+              while still preserving fast header-to-header navigation
+              when the user
+              wants it.</p>
+          </div>
 
-            <div class="demo-container">
-                <div focusgroup="toolbar block" role="group"
-                    aria-label="Articles" class="accordion accordion-focus-into"
-                    >
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="long-panel1">The Focusgroup
-                        Problem</button></h3>
-                    <div focusgroup="none" role="region" tabindex="0"
-                        id="long-panel1" class="panel panel-scrollable" hidden
-                        aria-label="The Focusgroup Problem">
-                        <p>When focusgroup is used on an accordion, arrow keys
-                            navigate between
-                        section headers. This provides fast movement through
-                            the accordion — but
-                        it also means that any content between headers is
-                            <strong>completely
-                        skipped</strong> by arrow-key navigation.</p>
-                        <p>For short panels this is fine — the user can see the
-                            content without
-                        scrolling. But if a panel contains a lengthy article, a
-                            long list of
-                        options, or other tall content, the user may never
-                            encounter it at all.
-                        Pressing <kbd>↓</kbd> on the expanded header jumps
-                            straight to the next
-                        header, bypassing everything in between.</p>
-                        <p>This is a known consideration in the focusgroup
-                            design. The explainer
-                        notes: <em>"Authors should be aware that since
-                            focusgroup navigation takes
-                        priority over scrolling, they should take care when
-                            constructing large
-                        focusgroups to avoid a situation where content can be
-                            missed when jumping
-                        from one item to another."</em></p>
-                        <p>The solution is for authors to provide an explicit
-                            path into the
-                        panel content. By making the panel focusable and moving
-                            focus into it
-                        on expansion, the user's arrow keys scroll the content
-                            rather than
-                        navigating the focusgroup, because the panel is opted
-                            out via
-                        <code>focusgroup="none"</code>.</p>
-                    </div>
-
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="long-panel2">The Mitigation
-                        Strategy</button></h3>
-                    <div focusgroup="none" role="region" tabindex="0"
-                        id="long-panel2" class="panel panel-scrollable" hidden
-                        aria-label="The Mitigation Strategy">
-                        <h4>Step 1: Make the panel focusable</h4>
-                        <p>Add <code>tabindex="0"</code> to the panel element.
-                            This makes it a
-                        focusable scrollable region. Screen readers will
-                            announce it as a region
-                        with its <code>aria-label</code>.</p>
-                        <h4>Step 2: Opt out of the focusgroup</h4>
-                        <p>Add <code>focusgroup="none"</code> to the panel.
-                            This ensures that
-                        when the panel has focus, arrow keys scroll its content
-                            rather than
-                        navigating the ancestor focusgroup.</p>
-                        <h4>Step 3: Move focus on expand</h4>
-                        <p>When the user expands a section (click or
-                            Enter/Space), JavaScript
-                        moves focus to the panel. This puts the user directly
-                            into the content
-                        where arrow keys will scroll.</p>
-                        <h4>Step 4: Let Tab return to headers</h4>
-                        <p>Because the panel is opted out of the focusgroup,
-                            pressing
-                        <kbd>Tab</kbd> exits the panel and enters the next
-                            focusgroup segment.
-                        The user is back on the accordion headers and can
-                            arrow-navigate
-                        to another section.</p>
-                        <p>This pattern ensures that long content is never
-                            silently skipped,
-                        while still preserving fast header-to-header navigation
-                            when the user
-                        wants it.</p>
-                    </div>
-
-                    <h3><button type="button" aria-expanded="false"
-                        aria-controls="long-panel3">When To Use This
-                        Pattern</button></h3>
-                    <div focusgroup="none" role="region" tabindex="0"
-                        id="long-panel3" class="panel panel-scrollable" hidden
-                        aria-label="When To Use This Pattern">
-                        <p>Not every accordion needs this mitigation. Consider
-                            using it when:</p>
-                        <ul>
-                            <li>Panel content is likely taller than the
-                                viewport</li>
-                            <li>Panels contain long-form text, articles, or
-                                documentation</li>
-                            <li>Panels contain many interactive controls that
-                                the user needs to reach</li>
-                            <li>Users are expected to read panel content
-                                sequentially</li>
-                        </ul>
-                        <p>For short panels (a few lines of text, a small
-                            number of controls),
-                        the basic accordion pattern from Demo 1 is sufficient.
-                            The user can
-                        see the entire panel without scrolling, and
-                            <kbd>Tab</kbd> still reaches
-                        any interactive content inside.</p>
-                        <p>The key question is: <em>will the user miss
-                            important content if
-                        arrow keys skip over this panel?</em> If the answer is
-                            yes, use the
-                        focus-into-panel mitigation shown here.</p>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="notice-list">
-                <li>Expanding a section moves focus into the panel — arrow keys
-                    now <strong>scroll content</strong> instead of jumping
-                    headers</li>
-                <li>The panel is a focusable scrollable region
-                    (<code>tabindex="0"</code> + <code>overflow: auto</code> +
-                    constrained height)</li>
-                <li><code>focusgroup="none"</code> on the panel ensures arrow
-                    keys are not consumed by the ancestor focusgroup</li>
-                <li><kbd>Tab</kbd> exits the panel and returns to the accordion
-                    headers</li>
-                <li>This prevents long content from being silently skipped by
-                    focusgroup navigation</li>
+          <h3><button type="button" aria-expanded="false" aria-controls="long-panel3">When To Use This
+              Pattern</button></h3>
+          <div focusgroup="none" role="region" tabindex="0" id="long-panel3" class="panel panel-scrollable" hidden
+            aria-label="When To Use This Pattern">
+            <p>Not every accordion needs this mitigation. Consider
+              using it when:</p>
+            <ul>
+              <li>Panel content is likely taller than the
+                viewport</li>
+              <li>Panels contain long-form text, articles, or
+                documentation</li>
+              <li>Panels contain many interactive controls that
+                the user needs to reach</li>
+              <li>Users are expected to read panel content
+                sequentially</li>
             </ul>
+            <p>For short panels (a few lines of text, a small
+              number of controls),
+              the basic accordion pattern from Demo 1 is sufficient.
+              The user can
+              see the entire panel without scrolling, and
+              <kbd>Tab</kbd> still reaches
+              any interactive content inside.
+            </p>
+            <p>The key question is: <em>will the user miss
+                important content if
+                arrow keys skip over this panel?</em> If the answer is
+              yes, use the
+              focus-into-panel mitigation shown here.</p>
+          </div>
+        </div>
+      </div>
 
-            <details class="source-code">
-                <summary>View source</summary>
-                <pre><code>&lt;div focusgroup="toolbar block" role="group"
+      <ul class="notice-list">
+        <li>Expanding a section moves focus into the panel — arrow keys
+          now <strong>scroll content</strong> instead of jumping
+          headers</li>
+        <li>The panel is a focusable scrollable region
+          (<code>tabindex="0"</code> + <code>overflow: auto</code> +
+          constrained height)</li>
+        <li><code>focusgroup="none"</code> on the panel ensures arrow
+          keys are not consumed by the ancestor focusgroup</li>
+        <li><kbd>Tab</kbd> exits the panel and returns to the accordion
+          headers</li>
+        <li>This prevents long content from being silently skipped by
+          focusgroup navigation</li>
+      </ul>
+
+      <details class="source-code">
+        <summary>View source</summary>
+        <pre><code>&lt;div focusgroup="toolbar block" role="group"
      aria-label="Articles"&gt;
     &lt;h3&gt;
         &lt;button type="button" aria-expanded="false"
@@ -369,31 +359,30 @@ accordion.querySelectorAll("h3 button").forEach(function (btn) {
     });
 });
 &lt;/script&gt;</code></pre>
-            </details>
-        </section>
+      </details>
+    </section>
 
-        <section class="demo-section">
-            <h2>Key Point: <code>focusgroup="none"</code></h2>
-            <p>
-                The <code>none</code> value opts an element and its subtree out
-                    of the ancestor focusgroup.
-                This is crucial for composite widgets like accordions where:
-            </p>
-            <ul>
-                <li>You want arrow keys to move between <strong>headers
-                    only</strong></li>
-                <li>Panel content (links, inputs, buttons) should remain
-                    reachable via <kbd>Tab</kbd></li>
-                <li>Without <code>none</code>, arrow keys would navigate into
-                    panel content too</li>
-            </ul>
-        </section>
+    <section class="demo-section">
+      <h2>Key Point: <code>focusgroup="none"</code></h2>
+      <p>
+        The <code>none</code> value opts an element and its subtree out
+        of the ancestor focusgroup.
+        This is crucial for composite widgets like accordions where:
+      </p>
+      <ul>
+        <li>You want arrow keys to move between <strong>headers
+            only</strong></li>
+        <li>Panel content (links, inputs, buttons) should remain
+          reachable via <kbd>Tab</kbd></li>
+        <li>Without <code>none</code>, arrow keys would navigate into
+          panel content too</li>
+      </ul>
+    </section>
 
-    </main>
+  </main>
 
-    <script src="shared.js"></script>
-    <script src="accordion.js"></script>
+  <script src="shared.js"></script>
+  <script src="accordion.js"></script>
 </body>
+
 </html>
-
-
