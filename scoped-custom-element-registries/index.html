@@ -51,7 +51,7 @@
   <h1>Scoped custom element registries Demo</h1>
 
   <section class="intro">
-    <p>This page uses two <code>&lt;contoso-button&gt;</code> custom elements, which are defined in two separate scoped custom element registries.<br>
+    <p>This page uses two <code>&lt;my-button&gt;</code> custom elements, which are defined in two separate scoped custom element registries.<br>
     Without scoped registries, the second definition would throw an error. With scoped registries, both coexist peacefully.</p>
 
     <strong>What's happening:</strong>
@@ -59,7 +59,7 @@
     <ul>
       <li>Two separate scoped registries are created using <code>new CustomElementRegistry()</code>.</li>
       <li>Each registry is <em>scoped</em> to a different DOM element via the <code>customElementRegistry</code> option.</li>
-      <li>Two <code>&lt;contoso-button&gt;</code> elements are created, one in each DOM element, and using different custom element definitions.</li>
+      <li>Two <code>&lt;my-button&gt;</code> elements are created, one in each DOM element, and using different custom element definitions.</li>
       <li><strong>No naming conflicts.</strong> The same tag name has completely different behaviors in different scopes.</li>
     </ul>
   </section>
@@ -134,7 +134,7 @@
     const confettiManager = new CanvasConfettiManager();
     
     // Custom Element Definition: Fancy Button from Cool Library.
-    class ContosoComponentLibV1Button extends HTMLElement {
+    class MyComponentLibV1Button extends HTMLElement {
       nbOfConfettis = 10;
       velocityBase = 3;
       velocityRandom = 2;
@@ -172,7 +172,7 @@
               }
             }
           </style>
-          <button>Contoso button V1</button>
+          <button>My button V1</button>
         `;
         
         const button = this.querySelector('button');
@@ -220,7 +220,7 @@
     }
 
     // Custom Element Definition: Fancy Button from Wave Library.
-    class ContosoComponentLibraryV2Button extends HTMLElement {
+    class MyComponentLibraryV2Button extends HTMLElement {
       nbOfConfettis = 100;
       angleVariation = 0.5;
       velocityBase = 4;
@@ -264,7 +264,7 @@
               }
             }
           </style>
-          <button>Contoso button V2 ✨</button>
+          <button>My button V2 ✨</button>
         `;
         
         const button = this.querySelector('button');
@@ -339,22 +339,22 @@
     try {
       // Create two registries, one for each custom element.
       const registryForV1 = new CustomElementRegistry();
-      registryForV1.define('contoso-button', ContosoComponentLibV1Button);
+      registryForV1.define('my-button', MyComponentLibV1Button);
       
       const registryForV2 = new CustomElementRegistry();
-      registryForV2.define('contoso-button', ContosoComponentLibraryV2Button);
+      registryForV2.define('my-button', MyComponentLibraryV2Button);
       
       // Create instances of the custom elements, specifying the registry to use for each.
-      const ContosoComponentLibV1ButtonElement = document.createElement('contoso-button', {
+      const MyComponentLibV1ButtonElement = document.createElement('my-button', {
         customElementRegistry: registryForV1
       });
-      const ContosoComponentLibraryV2ButtonElement = document.createElement('contoso-button', {
+      const MyComponentLibraryV2ButtonElement = document.createElement('my-button', {
         customElementRegistry: registryForV2
       });
 
       // Append the elements to the DOM.
-      document.getElementById('cool-button-container').appendChild(ContosoComponentLibV1ButtonElement);
-      document.getElementById('wave-button-container').appendChild(ContosoComponentLibraryV2ButtonElement);
+      document.getElementById('cool-button-container').appendChild(MyComponentLibV1ButtonElement);
+      document.getElementById('wave-button-container').appendChild(MyComponentLibraryV2ButtonElement);
     } catch (error) {
       const message = "Your browser doesn't support scoped custom element registries yet 😢. If you need this feature, add a thumbs up 👍 reaction to <a href='https://github.com/web-platform-dx/developer-signals/issues/364'>this issue</a>.";
       document.querySelector(".demo").innerHTML = `<p>${message}</p>`;
