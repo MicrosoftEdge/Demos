@@ -11,14 +11,8 @@ Demos are hosted as GitHub Pages at `https://microsoftedge.github.io/Demos/<demo
 ```
 /                         <- repo root
 ├── .github/              <- GitHub config (this file lives here)
-├── .hintrc               <- webhint linting configuration (browserslist)
 ├── .gitignore
 ├── README.md             <- index of all demos, grouped by category
-├── template/             <- minimal template to copy when adding a new demo
-│   ├── index.html
-│   ├── style.css
-│   ├── script.js
-│   └── README.md
 ├── <demo-name>/          <- each demo is self-contained in its own directory
 │   ├── index.html
 │   ├── README.md         <- required; includes live demo link
@@ -44,11 +38,13 @@ Always check the directory's own `package.json` for available scripts before bui
 
 ## Adding a New Demo
 
-1. Copy `/template/` to a new top-level directory (e.g., `/my-demo/`).
-2. Edit `README.md` in the new directory:
-   - Describe what the demo does.
-   - Include a live link: `https://microsoftedge.github.io/Demos/my-demo/`.
-3. Edit `index.html`, `style.css`, `script.js` as needed.
+1. Create a new top-level directory (e.g., `/my-demo/`).
+2. Create `README.md` in the new directory:
+   - Add a self-explanatory title as a h1 header.
+   - Immediately below the title, add a link to the live demo: `➡️ **[Open the demo](https://microsoftedge.github.io/Demos/my-demo/)** ⬅️`
+   - Add a paragraph that describes what the demonstrated feature is about, and what the demo does. Provide any links to specs or docs about the demonstrated feature.
+   - Include instructions to enable the feature in Edge if needed.
+3. Create an `index.html` file for the demo. Prefer embedding all necessary CSS and JS code inside the file directly, but extract to `style.css` and `script.js` files as needed.
 4. Add a row to the appropriate table in the root `README.md`.
 
 ## Coding Conventions
@@ -58,15 +54,6 @@ Always check the directory's own `package.json` for available scripts before bui
 - **Minimal dependencies.** Demos are plain HTML/CSS/JS whenever possible. Only add npm packages if the demo genuinely needs them.
 - **Self-contained directories.** Each demo directory contains everything it needs. Do not create shared utility packages across demos.
 - **Node modules excluded from git.** The `.gitignore` excludes `node_modules/` globally. Never commit `node_modules/`.
-- **Browser compatibility.** `.hintrc` configures webhint with a `browserslist` targeting modern browsers (defaults, no IE 11, no Firefox ≤ 91, no iOS Safari ≤ 14.8).
-
-## Linting
-
-The repo uses [webhint](https://webhint.io/) configured via `.hintrc`. There is no npm script at the root to run it. If you need to lint, install and run webhint per-demo:
-```bash
-cd <demo-directory>
-npx hint .
-```
 
 ## Common Errors and Workarounds
 
@@ -80,4 +67,3 @@ npx hint .
 - Microsoft Edge DevTools docs: `https://learn.microsoft.com/microsoft-edge/devtools/`
 - PWA docs: `https://learn.microsoft.com/microsoft-edge/progressive-web-apps/`
 - Contributing guide: see `README.md` → Contributing section
-- Template for new demos: `/template/`
