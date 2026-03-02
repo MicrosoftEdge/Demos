@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reference Target — Demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="prism.css" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b0d12;
+      --panel: #121725;
+      --panel2: #0f1320;
+      --text: #e7e9ee;
+      --muted: #a7afc3;
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.14);
+      --accent: #6ea8ff;
+      --good: #5fe1b6;
+      --warn: #ffd36e;
+      --bad: #ff7d7d;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --panel2: #fbfcff;
+        --text: #121524;
+        --muted: #495166;
+        --border: rgba(0,0,0,.10);
+        --border2: rgba(0,0,0,.14);
+        --shadow: 0 12px 28px rgba(16,24,40,.12);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      padding-top: 76px;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(110,168,255,.25), transparent 60%),
+                  radial-gradient(900px 500px at 80% 0%, rgba(95,225,182,.18), transparent 55%),
+                  var(--bg);
+      background-attachment: fixed;
+    }
+
+    /* ── Top bar ─────────────────────────────── */
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      body { padding-top: 130px; }
+      .topbar-inner { flex-wrap: wrap; }
+      .brand { flex-wrap: wrap; }
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: .2px;
+      font-weight: 650;
+    }
+
+    .brand .subtitle {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .topbar-link {
+      color: var(--accent);
+      font-size: 18px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .topbar-link:hover {
+      text-decoration: underline;
+    }
+
+    .topbar-links {
+      display: flex;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    /* ── Demo grid ───────────────────────────── */
+
+    .wrap {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 980px) {
+      .demo-grid {
+        grid-template-columns: minmax(180px, 1fr) minmax(320px, 2.4fr) minmax(200px, 1.2fr);
+      }
+
+      .demo-grid.two-col {
+        grid-template-columns: minmax(200px, 1fr) minmax(400px, 2.4fr);
+      }
+    }
+
+    .section-heading {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 80px 0 8px;
+    }
+
+    .section-description {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    /* Column headers */
+    .col-header {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+      margin: 0;
+      padding: 0 4px 6px;
+      border-bottom: 1px solid var(--border);
+      display: none;
+    }
+
+    @media (min-width: 980px) {
+      .col-header { display: block; }
+    }
+
+    /* Row label — spans all 3 cols on mobile, first col on desktop */
+    .row-label {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--accent);
+      padding: 18px 0 2px;
+    }
+
+    @media (min-width: 980px) {
+      .row-label {
+        grid-column: 1 / -1;
+        padding: 24px 0 2px;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    /* Cells */
+    .cell {
+      min-width: 0;
+    }
+
+    .cell.description {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      padding: 4px 0;
+    }
+
+    .cell.description strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Source code blocks ───────────────────── */
+
+    .source-code {
+      background: color-mix(in oklab, var(--panel) 70%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      overflow-x: auto;
+    }
+
+    .source-code pre {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      color: var(--text);
+    }
+
+    /* ── Demo area ───────────────────────────── */
+
+    .demo-area {
+      background: color-mix(in oklab, var(--panel) 70%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    label, input, select {
+      font-family: var(--sans);
+      font-size: 16px;
+    }
+
+    .intro-blurb {
+      max-width: 900px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .intro-blurb a {
+      color: var(--accent);
+    }
+
+    .intro-blurb code {
+      font-family: var(--mono);
+      background: var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .browser-warning {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px 1.5rem;
+      background: color-mix(in oklab, var(--bad) 15%, transparent);
+      border: 1px solid color-mix(in oklab, var(--bad) 40%, transparent);
+      border-radius: 10px;
+      color: var(--bad);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <!-- ── Top bar ──────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1>Reference Target</h1>
+        <span class="subtitle">Interactive Demos</span>
+      </div>
+      <div class="topbar-links">
+        <a class="topbar-link" href="https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md">Explainer ↗</a>
+        <a class="topbar-link" href="https://github.com/WICG/webcomponents/issues/1120">Feedback ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Intro blurb ──────────────────────── -->
+  <p class="intro-blurb">
+    This page shows a few of the things that can be achieved with the Reference Target proposal.<br>
+    For more information, see the <a href="https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md">explainer</a>.
+    To use the demos below, load this page in a browser that supports Reference Target. Currently, you can use Edge or Chrome, but you also need to enable the <code>edge://flags/#enable-experimental-web-platform-features</code> flag.
+  </p>
+  <div class="browser-warning" id="browser-warning">
+    ⚠️ Reference target isn't enabled in your browser, so these demos won't work yet.
+  </div>
+  <script>
+    const supported = (document.createElement("div")
+      .attachShadow({ mode: "open", referenceTarget: "supported" })
+      .referenceTarget === "supported");
+    if (!supported) document.getElementById("browser-warning").style.display = "block";
+  </script>
+  <!-- ── Main content ─────────────────────── -->
+  <main class="wrap">
+    <div class="demo-grid">
+      <!-- Column headers (visible on wide screens) -->
+      <h2 class="col-header" id="col-description">Description</h2>
+      <h2 class="col-header" id="col-source">Source</h2>
+      <h2 class="col-header" id="col-demo">Demo</h2>
+
+      <!-- ═══ Row 1: Label ═══════════════════ -->
+      <h2 class="row-label">Label</h2>
+
+      <div class="cell description" aria-labelledby="col-description">
+        <p>
+          <strong>Label association across shadow DOM.</strong>
+          A <code>&lt;label&gt;</code> element in the light DOM targets an
+          <code>&lt;input&gt;</code> inside a custom element's shadow tree via
+          <code>referenceTarget</code>, enabling click-to-focus and
+          accessibility wiring without exposing internals (try clicking "Checkbox value").
+        </p>
+      </div>
+
+      <div class="cell" aria-labelledby="col-source">
+        <div class="source-code">
+          <pre><code class="language-html" data-demo="demo-label">&lt;label for=&quot;my-checkbox&quot;&gt;Checkbox value (click me to toggle checkbox)&lt;/label&gt;
+&lt;custom-checkbox id=&quot;my-checkbox&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot; shadowrootreferencetarget=&quot;real-checkbox&quot;&gt;
+    &lt;input id=&quot;real-checkbox&quot; type=&quot;checkbox&quot;&gt;
+  &lt;/template&gt;
+&lt;/custom-checkbox&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="cell" aria-labelledby="col-demo">
+        <div class="demo-area" id="demo-label"></div>
+      </div>
+
+      <!-- ═══ Row 2: Popover ═════════════════ -->
+      <h2 class="row-label">Popover</h2>
+
+      <div class="cell description" aria-labelledby="col-description">
+        <p>
+          <strong>Popover invocation across shadow DOM.</strong>
+          A <code>button[popovertarget]</code> in the light DOM toggles a
+          popover living inside a custom element's shadow tree, using
+          <code>referenceTarget</code> to bridge the encapsulation boundary.
+        </p>
+      </div>
+
+      <div class="cell" aria-labelledby="col-source">
+        <div class="source-code">
+          <pre><code class="language-html" data-demo="demo-popover">&lt;button popovertarget=&quot;custom-popover&quot;&gt;Toggle popover&lt;/button&gt;
+&lt;custom-popover id=&quot;custom-popover&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot; shadowrootreferencetarget=&quot;real-popover&quot;&gt;
+    &lt;style&gt;
+      [popover] { border-radius: 50%; padding: 5em 1em; }
+    &lt;/style&gt;
+    &lt;div id=&quot;real-popover&quot; popover&gt;Here&#39;s the popover content&lt;/div&gt;
+  &lt;/template&gt;
+&lt;/custom-popover&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="cell" aria-labelledby="col-demo">
+        <div class="demo-area" id="demo-popover"></div>
+      </div>
+
+      <!-- ═══ Row 3: aria-labelledby ═════════ -->
+      <h2 class="row-label">aria-labelledby</h2>
+
+      <div class="cell description" aria-labelledby="col-description">
+        <p>
+          <strong>Fine-grained ARIA labelling.</strong>
+          In some cases we might want to use only part of a component's shadow
+          content as the accessible name for another element. <code>aria-labelledby</code>
+          can be combined with <code>referenceTarget</code> to achieve this by pointing to a
+          specific element inside the shadow tree.
+        </p>
+      </div>
+
+      <div class="cell" aria-labelledby="col-source">
+        <div class="source-code">
+          <pre><code class="language-html" data-demo="demo-aria-labelledby">&lt;input aria-labelledby=&quot;fancy-label&quot;&gt;
+&lt;fancy-description id=&quot;fancy-label&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot; shadowrootreferencetarget=&quot;inner-label&quot;&gt;
+    &lt;div id=&quot;inner-label&quot;&gt;This is the text we want to use as the accessible name.&lt;/div&gt;
+    &lt;div&gt;This other text won&#39;t be included in the accessible name.&lt;/div&gt;
+ &lt;/template&gt;
+&lt;/fancy-description&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="cell" aria-labelledby="col-demo">
+        <div class="demo-area" id="demo-aria-labelledby"></div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">Things Reference Target does ⚠️ <em>not</em> ⚠️ do</h2>
+    <p class="section-description">To clear up misconceptions about what reference target does, the following table shows some scenarios that are out of scope.</p>
+
+    <div class="demo-grid two-col">
+      <!-- Column headers (visible on wide screens) -->
+      <h2 class="col-header" id="col2-description">Description</h2>
+      <h2 class="col-header" id="col2-source">Source</h2>
+
+      <!-- ═══ Row 1: Attribute forwarding ════ -->
+      <h2 class="row-label">Attribute forwarding</h2>
+
+      <div class="cell description" aria-labelledby="col2-description">
+        <p>
+          <strong>Attribute forwarding is not supported.</strong>
+          The <code>referenceTarget</code> attribute does not copy attributes from the light DOM to elements inside the shadow tree.
+        </p>
+      </div>
+
+      <div class="cell" aria-labelledby="col2-source">
+        <div class="source-code">
+          <pre><code class="language-html">&lt;fancy-description aria-label=&quot;This is an accessible name&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot; shadowrootreferencetarget=&quot;inner-element&quot;&gt;
+    &lt;div id=&quot;inner-element&quot;&gt;The aria-label attribute does not get forwarded to this element.&lt;/div&gt;
+  &lt;/template&gt;
+&lt;/fancy-description&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- ═══ Row 2: References out of shadow DOM ═ -->
+      <h2 class="row-label">References <em>out</em> of shadow DOM</h2>
+
+      <div class="cell description" aria-labelledby="col2-description">
+        <p>
+          <strong>References out of the shadow DOM are not supported.</strong>
+          The <code>referenceTarget</code> attribute only works for ID references pointing *into* a shadow tree, but not for references pointing out of the shadow DOM.
+        </p>
+      </div>
+
+      <div class="cell" aria-labelledby="col2-source">
+        <div class="source-code">
+          <pre><code class="language-html">&lt;custom-button popovertarget=&quot;my-popover&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot; shadowrootreferencetarget=&quot;real-button&quot;&gt;
+    &lt;!-- The popovertarget reference isn&#39;t forwarded, so this doesn&#39;t work. Put another way, 
+         reference target only works for ID references pointing *into* a shadow, but in this case
+         the ID reference needs to be pointing out of the shadow, from the button to the popover. --&gt;
+    &lt;button id=&quot;real-button&quot;&gt;Open popover?&lt;/button&gt;
+  &lt;/template&gt;
+&lt;/custom-button&gt;
+&lt;div id=&quot;my-popover&quot; popover&gt;Popover contents&lt;/div&gt;
+
+&lt;!-- There&#39;s an alternative way to do this however, setting up the reference using JS: --&gt;
+&lt;working-custom-button popovertarget=&quot;my-working-popover&quot;&gt;
+  &lt;template shadowrootmode=&quot;open&quot;&gt;
+    &lt;button id=&quot;real-button&quot;&gt;Open popover?&lt;/button&gt;
+  &lt;/template&gt;
+&lt;/working-custom-button&gt;
+&lt;div id=&quot;my-working-popover&quot; popover&gt;Popover contents&lt;/div&gt;
+&lt;script&gt;
+  customElements.define(&quot;working-custom-button&quot;, class WorkingCustomButton extends HTMLElement {
+    constructor() {
+      super();
+      this._internals = this.attachInternals();
+      const real_button = this._internals.shadowRoot.querySelector(&quot;#real-button&quot;);
+      const popover = document.querySelector(&quot;#my-working-popover&quot;);
+      // Use script to set up the reference to the popover, pointing *out*
+      // of the shadow. Note that references set up this way can only
+      // point *out* of a shadow root or to a node in the same root.
+      // For references pointing *into* a shadow, we need reference target.
+      real_button.popoverTargetElement = popover;
+    }
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="prism.min.js"></script>
+  <script>
+    // Populate each demo area with live HTML from its paired source block.
+    // <code data-demo="demo-id"> → decoded textContent is injected as innerHTML
+    // into the element with that id.
+    document.querySelectorAll('code[data-demo]').forEach(code => {
+      const target = document.getElementById(code.dataset.demo);
+      if (target) target.setHTMLUnsafe(code.textContent);
+    });
+  </script>
+</body>
+</html>
