@@ -1,7 +1,6 @@
 const textEl = document.querySelector("#text");
 const outputEl = document.querySelector("#output");
 const detectBtn = document.querySelector("#detect");
-const stopBtn = document.querySelector("#stop");
 const spinnerEl = createSpinner();
 
 function prettyLanguageName(languageTag) {
@@ -17,11 +16,6 @@ addEventListener("load", async () => {
 
   const metrics = new PlaygroundMetrics();
   metrics.setNoStreamMode();
-
-  stopBtn.addEventListener("click", () => {
-    session?.destroy();
-    spinnerEl.remove();
-  });
 
   detectBtn.addEventListener("click", async () => {
     if (!textEl.value.trim()) {
