@@ -127,7 +127,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div focusgroup="toolbar block" role="group"
-     aria-label="Accordion sections"&gt;
+     aria-label="Accordion sections" class="accordion"&gt;
     &lt;h3&gt;
         &lt;button id="acc-btn1" type="button" class="expanded" aria-expanded="true"
                 aria-controls="acc-panel1"&gt;Section 1: Getting
@@ -183,9 +183,8 @@
         (<code>tabindex="0"</code>) with
         <code>focusgroup="none"</code>, so arrow keys scroll its
         content instead of
-        jumping to the next header. The user can press <kbd>Tab</kbd>
-        to move back
-        to the accordion headers when they're done reading.
+        jumping to the next header. The user can press <kbd>Shift+Tab</kbd>
+        to return to the accordion headers when done reading.
         Other approaches (such as requiring an activation step before
         navigating away,
         showing a "skip to next section" link inside the panel, or
@@ -326,7 +325,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div focusgroup="toolbar block" role="group"
-     aria-label="Articles"&gt;
+     aria-label="Articles" class="accordion accordion-focus-into"&gt;
     &lt;h3&gt;
         &lt;button id="long-btn1" type="button" aria-expanded="false"
                 aria-controls="long-panel1"&gt;The Focusgroup
@@ -341,13 +340,10 @@
 &lt;/div&gt;
 
 &lt;script&gt;
-// On expand, move focus into the panel so arrow keys scroll.
-// The full accordion script toggles aria-expanded and panel.hidden.
-// This enhancement moves focus to a newly expanded panel.
-// Read aria-expanded AFTER the main script has already toggled it:
-// aria-expanded="true" means the panel was just expanded.
+// accordion.js handles aria-expanded, hidden, and focus-into.
+// On expand: aria-expanded="true" means the panel was just revealed.
 var accordion = document.querySelector(".accordion-focus-into");
-accordion.querySelectorAll("h3 button").forEach(function (btn) {
+accordion.querySelectorAll("h3 button[aria-controls]").forEach(function (btn) {
     btn.addEventListener("click", function () {
         if (btn.getAttribute("aria-expanded") === "true") {
             var panel = document.getElementById(

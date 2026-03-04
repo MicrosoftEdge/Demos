@@ -45,7 +45,7 @@
         <li><code>menu</code> defaults to block axis (Up/Down arrows). No explicit <code>block</code> modifier is needed.</li>
         <li><code>nowrap</code> disables the default wrapping behavior</li>
         <li>The menu is a single tab stop. Arrow keys navigate within.</li>
-        <li>Each <code>&lt;button&gt;</code> needs an explicit <code>role="menuitem"</code>. Because this container already has an explicit <code>role="menu"</code>, the browser skips child role inference. Without the explicit container role, a <code>&lt;button&gt;</code> inside <code>focusgroup="menu"</code> would receive an inferred <code>role="menuitem"</code> automatically.</li>
+        <li>Each <code>&lt;button&gt;</code> needs an explicit <code>role="menuitem"</code> here because the container has an explicit <code>role="menu"</code>. The browser skips child role inference when an explicit container role is present. If you omit <code>role="menu"</code> from the container, the browser infers it and also infers <code>role="menuitem"</code> on each <code>&lt;button&gt;</code> child automatically.</li>
         <li>No JavaScript needed for navigation</li>
       </ul>
 
@@ -132,9 +132,9 @@
           They don't interfere with each other.</li>
         <li>The <code>popover</code> attribute handles submenu
           visibility</li>
-        <li>The focusgroup spec leaves the orthogonal axis (Up/Down on
-          the menubar) free for authors. Add JS to open/close submenus
-          with those keys as a progressive enhancement.</li>
+        <li>The spec leaves the orthogonal axis (Up/Down on the menubar)
+          free for authors. JavaScript can open/close submenus with
+          those keys as a progressive enhancement.</li>
       </ul>
 
       <details class="source-code">
@@ -202,8 +202,9 @@
         if (e.key !== "Escape") return;
         var openPopover = document.querySelector("[popover]:popover-open");
         if (!openPopover) return;
-        var triggerId = openPopover.id;
-        var trigger = document.querySelector("[popovertarget='" + triggerId + "']");
+        e.preventDefault();
+        var popoverId = openPopover.id;
+        var trigger = document.querySelector("[popovertarget='" + popoverId + "']");
         openPopover.hidePopover();
         if (trigger) trigger.focus();
       });

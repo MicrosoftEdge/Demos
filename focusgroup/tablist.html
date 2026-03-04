@@ -12,8 +12,8 @@
 <body>
   <header class="page-header">
     <h1>Tablist Pattern</h1>
-    <p>Tab controls with arrow-key navigation, wrapping, and nomemory for
-      selected-tab re-entry.</p>
+    <p>Tab controls with arrow-key navigation, wrapping, and JavaScript-managed
+      <code>focusgroupstart</code> for selected-tab re-entry.</p>
     <nav><a href="index.html">← All Demos</a></nav>
   </header>
 
@@ -40,7 +40,9 @@
         navigate between tabs.
         Press <kbd>→</kbd> past the last tab to wrap to the first.
         <kbd>Tab</kbd> moves to the panel content. Focusing a tab
-        activates that panel. Arrow keys switch between tabs.
+        activates that panel. Tab away from the tablist, then Tab
+        back in — focus returns to the selected tab, not the last one
+        you arrowed to.
       </div>
 
       <div class="demo-container">
@@ -56,9 +58,8 @@
         </div>
         <div role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" tabindex="0" class="tabpanel">
           <h3>Overview</h3>
-          <p>The <code>focusgroup</code> attribute provides
-            declarative arrow-key navigation for composite widgets
-            without JavaScript.</p>
+          <p>The <code>focusgroup</code> attribute gives composite widgets
+            declarative arrow-key navigation without JavaScript.</p>
         </div>
         <div role="tabpanel" id="panel-features" aria-labelledby="tab-features" tabindex="0" class="tabpanel" hidden>
           <h3>Features</h3>
@@ -98,7 +99,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="tablist" focusgroup="tablist nomemory"
-     aria-label="Sections"&gt;
+     aria-label="Sections" class="tablist"&gt;
     &lt;button role="tab" type="button" id="tab-overview" class="tab selected"
          aria-selected="true"
             aria-controls="panel-overview"
@@ -128,17 +129,18 @@
       <h2 id="vertical-tablist">Vertical Tablist</h2>
       <p>A vertical tablist using <code>block</code> axis for Up/Down
         arrow navigation.</p>
-      <div class="attr-label">focusgroup="tablist block nomemory"</div>
+      <div class="attr-label">focusgroup="tablist block wrap nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>↓</kbd> and <kbd>↑</kbd> to
-        navigate tabs. Left/Right arrows do nothing. Selecting a
+        navigate tabs. Press <kbd>↓</kbd> past the last tab to wrap
+        to the first. Left/Right arrows do nothing. Selecting a
         tab shows its panel.
       </div>
 
       <div class="demo-container">
         <div class="tab-wrapper-vertical">
-          <div role="tablist" focusgroup="tablist block nomemory" aria-orientation="vertical" aria-label="Settings"
+          <div role="tablist" focusgroup="tablist block wrap nomemory" aria-orientation="vertical" aria-label="Settings"
             class="tablist-vertical">
             <button role="tab" type="button" class="tab selected" aria-selected="true" aria-controls="vpanel-general"
               id="vtab-general" focusgroupstart>General</button>
@@ -167,17 +169,17 @@
       </div>
 
       <ul class="notice-list">
-        <li><code>block</code> overrides the default <code>inline</code> axis, so Up/Down arrows navigate instead of Left/Right</li>
+        <li><code>block</code> overrides the default <code>inline wrap</code>, so Up/Down arrows navigate instead of Left/Right and wrapping is disabled unless <code>wrap</code> is re-added explicitly</li>
         <li>Pair with <code>aria-orientation="vertical"</code> for
           screen readers</li>
-        <li>Same <code>wrap</code> and <code>nomemory</code> behavior
-          as the horizontal version</li>
+        <li>Same <code>wrap</code>, <code>nomemory</code>, and JavaScript-managed <code>focusgroupstart</code> behavior
+          as the horizontal version. JavaScript moves <code>focusgroupstart</code> to the selected tab on each selection.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="tablist" focusgroup="tablist block nomemory"
-     aria-orientation="vertical" aria-label="Settings"&gt;
+        <pre><code>&lt;div role="tablist" focusgroup="tablist block wrap nomemory"
+     aria-orientation="vertical" aria-label="Settings" class="tablist-vertical"&gt;
     &lt;button role="tab" type="button" id="vtab-general" class="tab selected"
             aria-selected="true" aria-controls="vpanel-general"
             focusgroupstart&gt;General&lt;/button&gt;

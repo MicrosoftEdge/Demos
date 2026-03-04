@@ -11,7 +11,7 @@ Interactive demos for the HTML `focusgroup` attribute, which lets you add arrow-
 - [Index](https://microsoftedge.github.io/Demos/focusgroup/index.html): Overview page with a quick-demo toolbar and navigation to all demos
 - [Toolbar](https://microsoftedge.github.io/Demos/focusgroup/toolbar.html): Toolbar demos using inline and block navigation
 - [Tablist](https://microsoftedge.github.io/Demos/focusgroup/tablist.html): Tab control using the `tablist` behavior token (which defaults to inline + wrap), with `nomemory` to reset focus position on re-entry
-- [Menu](https://microsoftedge.github.io/Demos/focusgroup/menu.html): Vertical menu and horizontal menubar with nested submenus
+- [Menu & Menubar](https://microsoftedge.github.io/Demos/focusgroup/menu.html): Vertical menu and horizontal menubar with nested submenus
 - [Radio Group](https://microsoftedge.github.io/Demos/focusgroup/radiogroup.html): Radio button group navigation
 - [Listbox](https://microsoftedge.github.io/Demos/focusgroup/listbox.html): Selectable list navigation
 - [Accordion](https://microsoftedge.github.io/Demos/focusgroup/accordion.html): Accordion with block-axis arrow key navigation using `focusgroup="toolbar block"` and `role="group"`

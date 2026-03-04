@@ -31,7 +31,7 @@
       <div class="attr-label">focusgroup="toolbar"</div>
 
       <div class="try-it">
-        <strong>Try it:</strong> Click the first button, then press
+        <strong>Try it:</strong> Tab to the toolbar, then press
         <kbd>→</kbd> and <kbd>←</kbd> to navigate. Press
         <kbd>Tab</kbd> to exit the toolbar.
       </div>
@@ -132,10 +132,10 @@
       <div class="attr-label">focusgroup="toolbar nomemory"</div>
 
       <div class="try-it">
-        <strong>Try it:</strong> Press <kbd>Tab</kbd> to enter. Notice
-        focus lands on "Middle (Entry)", not "First". The
-        <code>nomemory</code> makes it always return to
-        this entry point.
+        <strong>Try it:</strong> Press <kbd>Tab</kbd> to enter. Focus
+        lands on "Middle (Entry)" because <code>focusgroupstart</code>
+        marks it as the entry point. With <code>nomemory</code>,
+        focus returns here every time — not just on the first visit.
       </div>
 
       <div class="demo-container">

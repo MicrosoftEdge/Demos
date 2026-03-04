@@ -48,6 +48,7 @@
 
       tabs.forEach(function (tab) {
         tab.addEventListener("focus", function () { selectTab(tab); });
+        tab.addEventListener("click", function () { selectTab(tab); });
         tab.addEventListener("keydown", function (e) {
           if (e.key === "Home") {
             e.preventDefault();

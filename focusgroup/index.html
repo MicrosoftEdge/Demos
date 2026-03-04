@@ -44,7 +44,7 @@
       </p>
       <p>
         The <code>focusgroup</code> attribute manages keyboard navigation
-        only. For elements with an explicit <code>role=</code> attribute or
+        only. For elements with an explicit <code>role</code> attribute or
         non-generic native semantics (such as <code>&lt;ul&gt;</code> or
         <code>&lt;nav&gt;</code>), the browser does not override or infer a
         role. For plain <code>&lt;div&gt;</code> elements without an explicit
@@ -70,7 +70,7 @@
           <button type="button">Link</button>
         </div>
       </div>
-      <div class="attr-label">focusgroup="toolbar wrap"</div>
+      <div class="attr-label" aria-hidden="true">focusgroup="toolbar wrap"</div>
       <ul class="notice-list">
         <li>The entire toolbar is <strong>one tab stop</strong></li>
         <li>Left/Right arrows move focus between buttons</li>

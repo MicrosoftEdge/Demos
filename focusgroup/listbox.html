@@ -55,8 +55,8 @@
       <ul class="notice-list">
         <li>Up/Down arrows navigate between options</li>
         <li><kbd>Home</kbd> jumps to the first option, <kbd>End</kbd>
-          to the last (built into focusgroup in supporting browsers;
-          JavaScript fallback may be needed otherwise)</li>
+          to the last. This is built into <code>focusgroup</code>;
+          add JavaScript handlers if your target browsers don't support it yet</li>
         <li>The listbox is a single tab stop. Tab enters, arrows navigate, and Tab exits.</li>
         <li>Selection state (<code>aria-selected</code>) is managed by JavaScript. focusgroup handles navigation only.</li>
         <li><code>&lt;div role="option"&gt;</code> is not natively focusable.
