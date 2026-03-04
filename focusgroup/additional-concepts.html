@@ -41,7 +41,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Main toolbar" class="toolbar-horizontal">
+        <div focusgroup="toolbar" aria-label="Main toolbar" class="toolbar-horizontal">
           <button type="button">Save</button>
           <button type="button">Print</button>
           <div role="group" focusgroup="toolbar" tabindex="0" aria-label="Text formatting" class="nested-toolbar">
@@ -67,7 +67,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Main toolbar"
+        <pre><code>&lt;div focusgroup="toolbar" aria-label="Main toolbar"
      class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;Save&lt;/button&gt;
     &lt;button type="button"&gt;Print&lt;/button&gt;
@@ -103,13 +103,13 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Segmented toolbar" class="toolbar-horizontal">
+        <div focusgroup="toolbar" aria-label="Segmented toolbar" class="toolbar-horizontal">
           <button type="button">New</button>
           <button type="button">Open</button>
           <button type="button">Save</button>
           <span focusgroup="none">
-            <button type="button" style="opacity: 0.6;">Help</button>
-            <button type="button" style="opacity: 0.6;">Shortcuts</button>
+            <button type="button" class="opted-out-button">Help</button>
+            <button type="button" class="opted-out-button">Shortcuts</button>
           </span>
           <button type="button">Close</button>
           <button type="button">Exit</button>
@@ -127,14 +127,14 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
+        <pre><code>&lt;div focusgroup="toolbar"
      aria-label="Segmented toolbar" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;New&lt;/button&gt;
     &lt;button type="button"&gt;Open&lt;/button&gt;
     &lt;button type="button"&gt;Save&lt;/button&gt;
     &lt;span focusgroup="none"&gt;
-        &lt;button type="button" style="opacity: 0.6;"&gt;Help&lt;/button&gt;
-        &lt;button type="button" style="opacity: 0.6;"&gt;Shortcuts&lt;/button&gt;
+        &lt;button type="button" class="opted-out-button"&gt;Help&lt;/button&gt;
+        &lt;button type="button" class="opted-out-button"&gt;Shortcuts&lt;/button&gt;
     &lt;/span&gt;
     &lt;button type="button"&gt;Close&lt;/button&gt;
     &lt;button type="button"&gt;Exit&lt;/button&gt;
@@ -163,7 +163,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Nested wrappers" class="toolbar-horizontal">
+        <div focusgroup="toolbar" aria-label="Nested wrappers" class="toolbar-horizontal">
           <div>
             <span><button type="button">Alpha</button></span>
             <span><button type="button">Beta</button></span>
@@ -179,7 +179,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
+        <pre><code>&lt;div focusgroup="toolbar"
      aria-label="Nested wrappers" class="toolbar-horizontal"&gt;
     &lt;div&gt;
         &lt;span&gt;&lt;button type="button"&gt;Alpha&lt;/button&gt;&lt;/span&gt;
@@ -211,8 +211,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Visual order" style="display: flex; flex-direction: row-reverse;
-                         reading-flow: flex-visual; gap: 0.35rem;">
+        <div focusgroup="toolbar" aria-label="Visual order" class="reading-flow-toolbar">
           <button type="button">A (DOM first)</button>
           <button type="button">B (DOM second)</button>
           <button type="button">C (DOM third)</button>
@@ -230,9 +229,8 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Visual order"
-     style="display: flex; flex-direction: row-reverse;
-            reading-flow: flex-visual; gap: 0.35rem;"&gt;
+        <pre><code>&lt;div focusgroup="toolbar" aria-label="Visual order"
+     class="reading-flow-toolbar"&gt;
     &lt;button type="button"&gt;A (DOM first)&lt;/button&gt;
     &lt;button type="button"&gt;B (DOM second)&lt;/button&gt;
     &lt;button type="button"&gt;C (DOM third)&lt;/button&gt;
@@ -253,7 +251,7 @@
       </p>
 
       <div class="demo-container">
-        <div id="feature-detect-result" style="padding: 0.75rem; border-radius: 4px;"></div>
+        <div id="feature-detect-result"></div>
       </div>
 
       <details class="source-code">
