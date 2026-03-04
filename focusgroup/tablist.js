@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demo — Tablist
+   Focusgroup Demo - Tablist
    ============================================================
    focusgroup handles arrow-key navigation between tabs.
    This file handles the remaining application logic:

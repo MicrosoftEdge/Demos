@@ -28,24 +28,23 @@
         A nested focusgroup creates an independent navigation scope
         within an outer focusgroup.
         Each group has its own axis, wrapping, memory, and entry point.
-        <kbd>Tab</kbd> moves between groups;
-        arrows navigate within.
+        Each focusgroup is its own tab stop; arrows navigate within the active group.
       </p>
-      <div class="attr-label" aria-hidden="true">focusgroup="toolbar" (outer) +
-        focusgroup="toolbar" role="group" (inner)</div>
+      <div class="attr-label" aria-hidden="true">focusgroup="toolbar" (outer) + focusgroup="toolbar" + role="group" (inner)</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>→</kbd> to navigate the outer
-        toolbar; arrows skip the nested group. Press <kbd>Tab</kbd>
-        to enter the nested group; once inside, use arrows. Press
-        <kbd>Tab</kbd> again to exit.
+        toolbar; the nested group counts as a <strong>single stop</strong>;
+        arrows land on it as a whole. Press <kbd>Tab</kbd>
+        to move focus inside the nested group; once inside, use
+        arrows. Press <kbd>Tab</kbd> again to exit.
       </div>
 
       <div class="demo-container">
         <div role="toolbar" focusgroup="toolbar" aria-label="Main toolbar" class="toolbar-horizontal">
           <button type="button">Save</button>
           <button type="button">Print</button>
-          <div role="group" focusgroup="toolbar" aria-label="Text formatting" class="nested-toolbar">
+          <div role="group" focusgroup="toolbar" tabindex="0" aria-label="Text formatting" class="nested-toolbar">
             <button type="button">Bold</button>
             <button type="button">Italic</button>
             <button type="button">Underline</button>
@@ -56,24 +55,24 @@
       </div>
 
       <ul class="notice-list">
-        <li><kbd>Tab</kbd> moves between the outer and inner
-          focusgroups</li>
+        <li>Each focusgroup is a separate tab stop in the page's tab order</li>
         <li>Arrow keys navigate within whichever group currently has
           focus</li>
         <li>Sub-groups within a toolbar use <code>role="group"</code>
           rather than another <code>role="toolbar"</code>, as nesting
-          toolbars is architecturally unsound. Per spec, the browser skips
-          minimum-role inference (<code>role="toolbar"</code>) when an
-          explicit <code>role</code> is present; arrow-key navigation still
-          activates on the inner group.</li>
+          toolbars is architecturally unsound. Arrow-key navigation
+          works on the inner group regardless of which
+          explicit <code>role</code> it carries.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Main toolbar"&gt;
+        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Main toolbar"
+     class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;Save&lt;/button&gt;
     &lt;button type="button"&gt;Print&lt;/button&gt;
-    &lt;div role="group" focusgroup="toolbar" aria-label="Text formatting"&gt;
+    &lt;div role="group" focusgroup="toolbar" tabindex="0" aria-label="Text formatting"
+         class="nested-toolbar"&gt;
         &lt;button type="button"&gt;Bold&lt;/button&gt;
         &lt;button type="button"&gt;Italic&lt;/button&gt;
         &lt;button type="button"&gt;Underline&lt;/button&gt;
@@ -129,13 +128,13 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
-     aria-label="Segmented toolbar"&gt;
+     aria-label="Segmented toolbar" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;New&lt;/button&gt;
     &lt;button type="button"&gt;Open&lt;/button&gt;
     &lt;button type="button"&gt;Save&lt;/button&gt;
     &lt;span focusgroup="none" style="display: contents;"&gt;
-        &lt;button type="button"&gt;Help&lt;/button&gt;
-        &lt;button type="button"&gt;Shortcuts&lt;/button&gt;
+        &lt;button type="button" style="opacity: 0.6;"&gt;Help&lt;/button&gt;
+        &lt;button type="button" style="opacity: 0.6;"&gt;Shortcuts&lt;/button&gt;
     &lt;/span&gt;
     &lt;button type="button"&gt;Close&lt;/button&gt;
     &lt;button type="button"&gt;Exit&lt;/button&gt;
@@ -181,13 +180,11 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
-     aria-label="Nested wrappers"&gt;
+     aria-label="Nested wrappers" class="toolbar-horizontal"&gt;
     &lt;div&gt;
-        &lt;span&gt;&lt;button
-             type="button"&gt;Alpha&lt;/button&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;button type="button"&gt;Alpha&lt;/button&gt;&lt;/span&gt;
         &lt;span&gt;&lt;button type="button"&gt;Beta&lt;/button&gt;&lt;/span&gt;
-        &lt;span&gt;&lt;button
-             type="button"&gt;Gamma&lt;/button&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;button type="button"&gt;Gamma&lt;/button&gt;&lt;/span&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </details>
@@ -199,14 +196,12 @@
     <section class="demo-section">
       <h2 id="css-reading-flow-integration">CSS <code>reading-flow</code> Integration</h2>
       <p>
-        When CSS changes the visual order (e.g., <code>flex-direction:
-                    row-reverse</code>),
-        <code>reading-flow: flex-visual</code> tells the focusgroup to
-        follow the <strong>visual</strong>
-        order rather than the DOM source order.
+        When <code>reading-flow: flex-visual</code> is set, the browser
+        uses the visual flex order for all focus navigation,
+        including <code>focusgroup</code> arrow keys, rather than
+        DOM source order.
       </p>
-      <div class="attr-label" aria-hidden="true">focusgroup="toolbar" + reading-flow:
-        flex-visual</div>
+      <div class="attr-label" aria-hidden="true">focusgroup="toolbar" + reading-flow: flex-visual</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>→</kbd> to navigate. With
@@ -225,8 +220,8 @@
       </div>
 
       <ul class="notice-list">
-        <li><code>reading-flow: flex-visual</code> tells focusgroup to
-          follow visual order</li>
+        <li><code>reading-flow: flex-visual</code> makes the browser use
+          visual flex order for focus navigation (Tab and arrow keys)</li>
         <li>Right arrow from C goes to B, then A (visual
           left-to-right)</li>
         <li>Without <code>reading-flow</code>, arrow keys follow
@@ -237,7 +232,7 @@
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Visual order"
      style="display: flex; flex-direction: row-reverse;
-            reading-flow: flex-visual;"&gt;
+            reading-flow: flex-visual; gap: 0.35rem;"&gt;
     &lt;button type="button"&gt;A (DOM first)&lt;/button&gt;
     &lt;button type="button"&gt;B (DOM second)&lt;/button&gt;
     &lt;button type="button"&gt;C (DOM third)&lt;/button&gt;

@@ -30,18 +30,17 @@
         Click or press
         <kbd>Enter</kbd>/<kbd>Space</kbd> to select an item.
       </p>
-      <div class="attr-label">focusgroup="listbox block"</div>
+      <div class="attr-label">focusgroup="listbox block nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>↓</kbd> and <kbd>↑</kbd> to
         navigate. Press <kbd>Enter</kbd> or <kbd>Space</kbd> to
-        select an option. <kbd>Home</kbd> and <kbd>End</kbd> jump
-        to the first and last items.
+        select an option.
       </div>
 
       <div class="demo-container">
-        <div role="listbox" focusgroup="listbox block" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
-          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true">Apple</div>
+        <div role="listbox" focusgroup="listbox block nomemory" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
+          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Apple</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Date</div>
@@ -54,27 +53,33 @@
 
       <ul class="notice-list">
         <li>Up/Down arrows navigate between options</li>
-        <li><kbd>Home</kbd> jumps to the first option, <kbd>End</kbd>
-          to the last. This is built into <code>focusgroup</code>;
-          add JavaScript handlers if your target browsers don't support it yet</li>
+        <li><kbd>Home</kbd> and <kbd>End</kbd> are not built into
+          <code>focusgroup</code>. Add JavaScript handlers if your listbox
+          pattern requires them</li>
         <li>The listbox is a single tab stop. Tab enters, arrows navigate, and Tab exits.</li>
-        <li>Selection state (<code>aria-selected</code>) is managed by JavaScript. focusgroup handles navigation only.</li>
+        <li>Selection state (<code>aria-selected</code>) is managed by JavaScript.
+          <code>focusgroup</code> handles navigation only.</li>
+        <li>This demo uses "browse-then-confirm" selection (Enter or Space
+          to select after arrowing). The ARIA APG recommends
+          selection-follows-focus for single-select listboxes; add a
+          <code>focus</code> event handler calling
+          <code>select(item)</code> on each option for that behavior.</li>
         <li><code>&lt;div role="option"&gt;</code> is not natively focusable.
           Give every option <code>tabindex="0"</code> so the browser can
           focus it. <code>focusgroup</code> collapses those tab stops into
           one. No manual <code>tabindex="-1"</code> management needed.</li>
         <li><code>listbox</code> has no default axis modifier. The explicit
-          <code>block</code> here activates Up/Down arrow navigation.
+          <code>block</code> here applies Up/Down arrow navigation.
           Without it, no axis would be active.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="listbox" focusgroup="listbox block"
+        <pre><code>&lt;div role="listbox" focusgroup="listbox block nomemory"
      aria-label="Favorite fruit"
-     aria-multiselectable="false"&gt;
+     aria-multiselectable="false" class="listbox"&gt;
     &lt;div role="option" class="listbox-option selected" tabindex="0"
-         aria-selected="true"&gt;Apple&lt;/div&gt;
+         aria-selected="true" focusgroupstart&gt;Apple&lt;/div&gt;
     &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Banana&lt;/div&gt;
     &lt;div role="option" class="listbox-option" tabindex="0"
@@ -98,9 +103,9 @@
     <!-- ============================================================ -->
     <section class="demo-section">
       <h2 id="listbox-with-wrapping">Listbox with Wrapping</h2>
-      <p>Adding <code>wrap</code> allows navigation to wrap from the last
-        item back to the first (and vice versa).</p>
-      <div class="attr-label">focusgroup="listbox block wrap"</div>
+      <p>With <code>wrap</code>, navigation continues from the last item
+        back to the first (and vice versa).</p>
+      <div class="attr-label">focusgroup="listbox block wrap nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Navigate to "Mango" (last item), then
@@ -108,8 +113,8 @@
       </div>
 
       <div class="demo-container">
-        <div role="listbox" focusgroup="listbox block wrap" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
-          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true">Avocado</div>
+        <div role="listbox" focusgroup="listbox block wrap nomemory" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
+          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Avocado</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
           <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Kiwi</div>
@@ -118,8 +123,7 @@
       </div>
 
       <ul class="notice-list">
-        <li><code>wrap</code> enables circular navigation at
-          boundaries</li>
+        <li><code>wrap</code> makes navigation circular at boundaries</li>
         <li>Down from last → first; Up from first → last</li>
         <li>Without <code>wrap</code>, navigation stops at the
           boundaries</li>
@@ -130,11 +134,11 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="listbox" focusgroup="listbox block wrap"
+        <pre><code>&lt;div role="listbox" focusgroup="listbox block wrap nomemory"
      aria-label="Tropical fruits"
-     aria-multiselectable="false"&gt;
+     aria-multiselectable="false" class="listbox"&gt;
     &lt;div role="option" class="listbox-option selected" tabindex="0"
-         aria-selected="true"&gt;Avocado&lt;/div&gt;
+         aria-selected="true" focusgroupstart&gt;Avocado&lt;/div&gt;
     &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Coconut&lt;/div&gt;
     &lt;div role="option" class="listbox-option" tabindex="0"

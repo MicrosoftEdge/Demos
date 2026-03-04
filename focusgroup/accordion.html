@@ -49,8 +49,8 @@
               1: Getting Started</button></h3>
           <div focusgroup="none" role="region" id="acc-panel1" class="panel" aria-labelledby="acc-btn1">
             <p>
-              The <code>focusgroup</code> attribute provides
-              declarative arrow-key navigation for
+              The <code>focusgroup</code> attribute adds
+              declarative arrow-key navigation to
               composite widgets. Try these <a href="#">documentation
                 links</a>
               and <input type="text" placeholder="type here">.
@@ -101,14 +101,15 @@
       </div>
 
       <ul class="notice-list">
-        <li>The <code>focusgroup</code> spec requires a behavior token. <code>toolbar</code>
-          is the appropriate behavior token for accordion disclosure buttons, with
-          <code>block</code> overriding its default <code>inline</code> axis to restrict
-          navigation to Up/Down arrows only.</li>
-        <li>The explicit <code>role="group"</code> on the container prevents the browser
-          from inferring <code>role="toolbar"</code> (which <code>focusgroup="toolbar block"</code>
-          would otherwise apply to a plain <code>&lt;div&gt;</code>). Screen readers
-          announce the container as a group, not a toolbar.</li>
+        <li><code>toolbar</code> is used as the behavior token because it best matches
+          accordion disclosure buttons. <code>block</code>
+          overrides the default <code>inline</code> axis, changing navigation to
+          Up/Down arrows only.</li>
+        <li>The explicit <code>role="group"</code> overrides the minimum role that
+          the <code>toolbar</code> behavior token would otherwise map
+          (<code>role="toolbar"</code>). Because an explicit role is present,
+          the behavior token's mapping is skipped and the container keeps
+          <code>role="group"</code>.</li>
         <li><code>focusgroup="none"</code> opts panel content out of arrow-key
           navigation.</li>
         <li>Up/Down arrows move <strong>only between headers</strong>, skipping panels
@@ -134,9 +135,9 @@
                      Started&lt;/button&gt;
     &lt;/h3&gt;
     &lt;div focusgroup="none" role="region" id="acc-panel1"
-         aria-labelledby="acc-btn1"&gt;
+         class="panel" aria-labelledby="acc-btn1"&gt;
         &lt;p&gt;Panel content with &lt;a href="#"&gt;links&lt;/a&gt; and
-        &lt;input type="text" placeholder="inputs"&gt; that remain
+        &lt;input type="text" placeholder="type here"&gt; that remain
         tabbable but are skipped by arrow keys.&lt;/p&gt;
     &lt;/div&gt;
 
@@ -146,7 +147,7 @@
                      Configuration&lt;/button&gt;
     &lt;/h3&gt;
     &lt;div focusgroup="none" role="region" id="acc-panel2"
-         aria-labelledby="acc-btn2" hidden&gt;
+         class="panel" hidden aria-labelledby="acc-btn2"&gt;
         &lt;p&gt;More panel content...&lt;/p&gt;
     &lt;/div&gt;
 
@@ -156,7 +157,7 @@
                      Usage&lt;/button&gt;
     &lt;/h3&gt;
     &lt;div focusgroup="none" role="region" id="acc-panel3"
-         aria-labelledby="acc-btn3" hidden&gt;
+         class="panel" hidden aria-labelledby="acc-btn3"&gt;
         &lt;p&gt;Even more content...&lt;/p&gt;
     &lt;/div&gt;
     &lt;!-- more sections ... --&gt;
@@ -315,9 +316,9 @@
           constrained height)</li>
         <li><code>focusgroup="none"</code> on the panel prevents arrow
           keys from being consumed by the ancestor focusgroup</li>
-        <li><kbd>Shift+Tab</kbd> from the panel returns to the accordion
-          headers; <kbd>Tab</kbd> moves to the next open panel or past
-          the accordion</li>
+        <li><kbd>Shift+Tab</kbd> from the panel returns to the header that was
+          just expanded; <kbd>Tab</kbd> moves to the next header button or
+          into the next expanded panel</li>
         <li>This prevents long content from being silently skipped by
           focusgroup navigation</li>
       </ul>
@@ -339,19 +340,26 @@
     &lt;!-- more sections ... --&gt;
 &lt;/div&gt;
 
+&lt;!-- accordion.js handles all toggle and focus-into logic.
+     The key excerpt for focus-into behavior: --&gt;
 &lt;script&gt;
-// accordion.js handles aria-expanded, hidden, and focus-into.
-// On expand: aria-expanded="true" means the panel was just revealed.
-var accordion = document.querySelector(".accordion-focus-into");
-accordion.querySelectorAll("h3 button[aria-controls]").forEach(function (btn) {
+// excerpt from accordion.js: the focus-into enhancement
+// "accordion" is the current .accordion element from the outer forEach loop
+document.querySelectorAll(".accordion").forEach(function (accordion) {
+  var focusInto = accordion.classList.contains("accordion-focus-into");
+  accordion.querySelectorAll("h3 button[aria-controls]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-        if (btn.getAttribute("aria-expanded") === "true") {
-            var panel = document.getElementById(
-                btn.getAttribute("aria-controls")
-            );
-            if (panel) panel.focus();
+        var expanded = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!expanded));
+        btn.classList.toggle("expanded", !expanded);
+        var panel = document.getElementById(btn.getAttribute("aria-controls"));
+        if (panel) {
+            panel.hidden = expanded;
+            // On expand: move focus into the panel so arrow keys scroll
+            if (!expanded && focusInto) panel.focus();
         }
     });
+  });
 });
 &lt;/script&gt;</code></pre>
       </details>

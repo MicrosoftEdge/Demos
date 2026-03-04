@@ -6,7 +6,7 @@ Interactive demos for the HTML `focusgroup` attribute, which lets you add arrow-
 
 ## Demos
 
-> **Note:** The `focusgroup` attribute only manages keyboard navigation. Explicit ARIA roles (`role="toolbar"`, `role="tablist"`, etc.) must be set separately.
+> **Note:** The `focusgroup` behavior token maps a minimum ARIA role to generic containers (e.g., a plain `<div>`) and can infer child roles (e.g., `tab` on `<button>` inside a `tablist`). When you set an explicit `role` or use a non-generic element, the mapping is skipped. These demos set roles explicitly for clarity.
 
 - [Index](https://microsoftedge.github.io/Demos/focusgroup/index.html): Overview page with a quick-demo toolbar and navigation to all demos
 - [Toolbar](https://microsoftedge.github.io/Demos/focusgroup/toolbar.html): Toolbar demos using inline and block navigation

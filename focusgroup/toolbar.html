@@ -51,16 +51,13 @@
         <li>Left/Right arrows move focus between buttons</li>
         <li><code>toolbar</code> defaults to horizontal (inline) navigation. No explicit <code>inline</code> modifier needed.</li>
         <li>No JavaScript is needed for focus management</li>
-        <li><strong>Note:</strong> Home and End keys for jumping to the
-          first/last item are <strong>not</strong> handled by
-          <code>focusgroup</code>. Add JavaScript handlers if your
-          toolbar requires them.</li>
+        <li><kbd>Home</kbd> and <kbd>End</kbd> are not built into <code>focusgroup</code>.
+          Add JavaScript handlers if your pattern requires them.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Text
-     formatting"&gt;
+        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Text formatting" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;Bold&lt;/button&gt;
     &lt;button type="button"&gt;Italic&lt;/button&gt;
     &lt;button type="button"&gt;Underline&lt;/button&gt;
@@ -75,9 +72,9 @@
     <section class="demo-section">
       <h2 id="no-tabindex-management-needed">No <code>tabindex</code> Management Needed</h2>
       <p>With <code>focusgroup</code>, you don't need to set or manage
-        <code>tabindex</code> on any items. The browser automatically
-        collapses all focusable children into a single tab stop, with no
-        JavaScript "roving tabindex" boilerplate required.
+        <code>tabindex</code> on any items. The browser collapses all
+        focusable children into a single tab stop, with no JavaScript
+        "roving tabindex" boilerplate required.
       </p>
       <div class="attr-label">focusgroup="toolbar"</div>
 
@@ -108,7 +105,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
-     aria-label="Document actions"&gt;
+     aria-label="Document actions" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;New&lt;/button&gt;
     &lt;button type="button"&gt;Open&lt;/button&gt;
     &lt;button type="button"&gt;Save&lt;/button&gt;
@@ -135,7 +132,7 @@
         <strong>Try it:</strong> Press <kbd>Tab</kbd> to enter. Focus
         lands on "Middle (Entry)" because <code>focusgroupstart</code>
         marks it as the entry point. With <code>nomemory</code>,
-        focus returns here every time — not just on the first visit.
+        focus returns here every time, not just on the first visit.
       </div>
 
       <div class="demo-container">
@@ -158,7 +155,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar nomemory"
-     aria-label="Entry point demo"&gt;
+     aria-label="Entry point demo" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;First&lt;/button&gt;
     &lt;button type="button" focusgroupstart&gt;Middle (Entry)&lt;/button&gt;
     &lt;button type="button"&gt;Last&lt;/button&gt;
@@ -206,8 +203,8 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;div role="toolbar" focusgroup="toolbar block"
-     aria-label="Vertical toolbar"
-     aria-orientation="vertical"&gt;
+     aria-label="Vertical toolbar" aria-orientation="vertical"
+     class="toolbar-vertical"&gt;
     &lt;button type="button"&gt;Cut&lt;/button&gt;
     &lt;button type="button"&gt;Copy&lt;/button&gt;
     &lt;button type="button"&gt;Paste&lt;/button&gt;

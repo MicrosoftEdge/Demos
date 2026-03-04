@@ -27,9 +27,7 @@
       <h2 id="comparison-native-vs-focusgroup">Comparison: Native vs. Focusgroup</h2>
       <p>
         Side-by-side comparison showing that a <code>focusgroup</code>
-        radio group
-        can behave identically to native <code>&lt;input
-                    type="radio"&gt;</code>.
+        radio group can behave comparably to native <code>&lt;input type="radio"&gt;</code>.
       </p>
 
       <div class="try-it">
@@ -38,6 +36,8 @@
         by default (matching native radio behavior). Toggle the switch to
         disable it and see how arrow keys move focus without selecting.
       </div>
+
+      <div class="attr-label">focusgroup="radiogroup block wrap nomemory"</div>
 
       <div class="demo-container">
         <div class="comparison">
@@ -58,7 +58,7 @@
               <span class="toggle-slider"></span>
               Selection follows focus
             </label>
-            <div role="radiogroup" focusgroup="radiogroup block" aria-label="Favorite color" class="radio-group radio-group-column">
+            <div role="radiogroup" focusgroup="radiogroup block wrap nomemory" aria-label="Favorite color" class="radio-group radio-group-column">
               <span role="radio" aria-checked="true" tabindex="0" class="radio-option checked" focusgroupstart>Red</span>
               <span role="radio" aria-checked="false" tabindex="0" class="radio-option">Green</span>
               <span role="radio" aria-checked="false" tabindex="0" class="radio-option">Blue</span>
@@ -85,30 +85,32 @@
           <code>role="radio"</code>.
         </li>
         <li><code>radiogroup</code> has no default axis modifier. Unlike
-          <code>menu</code> (which defaults to <code>block</code>) or
-          <code>tablist</code> (which defaults to <code>inline</code>),
+          <code>menu</code> (which defaults to <code>block wrap</code>) or
+          <code>tablist</code> (which defaults to <code>inline wrap</code>),
           you must explicitly add <code>block</code> or <code>inline</code>.
-          <code>block</code> here activates Up/Down arrow navigation.</li>
+          <code>block</code> here sets the navigation axis to Up/Down.
+          <code>wrap</code> matches native radio behavior, looping from last to first
+          and first to last.</li>
         <li><code>&lt;span role="radio"&gt;</code> is not natively focusable.
           Give every radio <code>tabindex="0"</code> so the browser can
           focus it. <code>focusgroup</code> collapses those into one tab
           stop. JavaScript moves <code>focusgroupstart</code> to the
-          selected item on each selection change so Tab re-entry lands
-          on the checked option.</li>
+          selected item on each selection change. Combined with
+          <code>nomemory</code>, Tab re-entry lands on the checked option.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="radiogroup" focusgroup="radiogroup block" aria-label="Favorite
-     color"&gt;
-    &lt;span role="radio" class="radio-option checked" aria-checked="true"
-         tabindex="0" focusgroupstart&gt;Red&lt;/span&gt;
-    &lt;span role="radio" class="radio-option" aria-checked="false"
-         tabindex="0"&gt;Green&lt;/span&gt;
-    &lt;span role="radio" class="radio-option" aria-checked="false"
-         tabindex="0"&gt;Blue&lt;/span&gt;
-    &lt;span role="radio" class="radio-option" aria-checked="false"
-         tabindex="0"&gt;Purple&lt;/span&gt;
+        <pre><code>&lt;div role="radiogroup" focusgroup="radiogroup block wrap nomemory"
+     aria-label="Favorite color" class="radio-group radio-group-column"&gt;
+    &lt;span role="radio" aria-checked="true" tabindex="0"
+          class="radio-option checked" focusgroupstart&gt;Red&lt;/span&gt;
+    &lt;span role="radio" aria-checked="false" tabindex="0"
+          class="radio-option"&gt;Green&lt;/span&gt;
+    &lt;span role="radio" aria-checked="false" tabindex="0"
+          class="radio-option"&gt;Blue&lt;/span&gt;
+    &lt;span role="radio" aria-checked="false" tabindex="0"
+          class="radio-option"&gt;Purple&lt;/span&gt;
 &lt;/div&gt;</code></pre>
       </details>
     </section>

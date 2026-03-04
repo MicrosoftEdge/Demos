@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demos — Shared Utilities
+   Focusgroup Demos - Shared Utilities
    ============================================================
    Common code used across multiple demo pages.
    Include this file before any per-page script.
@@ -33,9 +33,10 @@ function checkFocusgroupSupport() {
 
 /**
  * Set up single-select behavior for a group of items.
- * Adds click and Enter/Space handlers that toggle a boolean
- * ARIA attribute (e.g. aria-checked or aria-selected) so that
- * exactly one item in the group is "on" at a time.
+ * Adds click and Enter/Space handlers so that exactly one item
+ * in the group has its ARIA attribute (e.g. aria-selected) set
+ * to "true" at a time. Activating the already-selected item
+ * has no effect.
  *
  * @param {string} containerSelector  CSS selector for the container(s)
  * @param {string} itemSelector     CSS selector for selectable items

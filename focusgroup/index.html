@@ -17,7 +17,7 @@
   </header>
 
   <main class="page-content">
-    <!-- Feature detection warning inserted here by script.js if
+    <!-- Feature detection warning inserted here by shared.js if
             unsupported -->
 
     <section class="demo-section">
@@ -43,15 +43,12 @@
         boundary behavior and axis restriction.
       </p>
       <p>
-        The <code>focusgroup</code> attribute manages keyboard navigation
-        only. For elements with an explicit <code>role</code> attribute or
-        non-generic native semantics (such as <code>&lt;ul&gt;</code> or
-        <code>&lt;nav&gt;</code>), the browser does not override or infer a
-        role. For plain <code>&lt;div&gt;</code> elements without an explicit
-        role, the behavior token's minimum role is inferred automatically
-        (e.g., <code>focusgroup="toolbar"</code> on a <code>&lt;div&gt;</code>
-        infers <code>role="toolbar"</code>). In either case, set
-        <code>role</code> attributes explicitly to keep authoring intent clear.
+        The <code>focusgroup</code> attribute manages keyboard navigation.
+        Its behavior token also maps a minimum ARIA role to the container
+        (and may infer child roles, e.g. <code>tab</code> on buttons inside
+        a <code>tablist</code>) when no explicit <code>role</code> is present
+        and the element is otherwise generic. When you set <code>role</code>
+        explicitly, as these demos do, the mapping is skipped.
       </p>
     </section>
 
@@ -82,11 +79,11 @@
     <section class="demo-section">
       <h2 id="explore-the-demos">Explore the Demos</h2>
       <nav aria-labelledby="explore-the-demos">
-        <p class="sr-only">Use arrow keys to navigate between demo cards.</p>
-        <!-- <ul> has non-generic native semantics, so the browser skips
-             role mapping and the element retains role="list". focusgroup
-             navigation (inline arrow keys) still activates. -->
-        <ul class="card-grid" focusgroup="toolbar wrap">
+        <p class="sr-only" id="card-nav-hint">Use Left and Right arrow keys to navigate between demo cards.</p>
+        <!-- toolbar behavior token gives arrow-key navigation; role="list" prevents the
+             minimum-role mapping from applying (non-generic element), but we add it
+             explicitly so the intent is clear. -->
+        <ul class="card-grid" role="list" focusgroup="toolbar wrap" aria-describedby="card-nav-hint">
           <li>
             <a href="toolbar.html" class="card-link">
               <h3>Toolbar</h3>
@@ -116,8 +113,7 @@
               <h3>Radio Group</h3>
               <p>Custom radio button groups with arrow-key
                 navigation, compared to native radios.</p>
-              <span class="attr-label" aria-hidden="true">focusgroup="radiogroup"
-              </span>
+              <span class="attr-label" aria-hidden="true">focusgroup="radiogroup"</span>
             </a>
           </li>
           <li>
@@ -125,8 +121,7 @@
               <h3>Listbox</h3>
               <p>Selectable list with vertical navigation and
                 selection management.</p>
-              <span class="attr-label" aria-hidden="true">focusgroup="listbox
-                block"</span>
+              <span class="attr-label" aria-hidden="true">focusgroup="listbox block"</span>
             </a>
           </li>
           <li>
@@ -142,7 +137,7 @@
               <h3>Additional Concepts</h3>
               <p>Nested focusgroups, opt-out, deep descendants,
                 reading-flow, and feature detection.</p>
-              <span class="attr-label" aria-hidden="true">focusgroup="none"</span>
+              <span class="attr-label" aria-hidden="true">nested · opt-out · reading-flow</span>
             </a>
           </li>
         </ul>

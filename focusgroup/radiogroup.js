@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demo — Radio Group
+   Focusgroup Demo - Radio Group
    ============================================================
    focusgroup handles arrow-key navigation between options.
    This file handles the remaining application logic:
