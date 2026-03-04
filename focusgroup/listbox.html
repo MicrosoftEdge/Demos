@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Focusgroup: Listbox Pattern</title>
   <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
@@ -41,47 +40,54 @@
       </div>
 
       <div class="demo-container">
-        <div focusgroup="listbox block" aria-label="Favorite fruit" class="listbox">
-          <div class="listbox-option selected" tabindex="0" aria-selected="true">Apple</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Date</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Elderberry</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Fig</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Grape</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Honeydew</div>
+        <div role="listbox" focusgroup="listbox block" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
+          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true">Apple</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Date</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Elderberry</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Fig</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Grape</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Honeydew</div>
         </div>
       </div>
 
       <ul class="notice-list">
         <li>Up/Down arrows navigate between options</li>
         <li><kbd>Home</kbd> jumps to the first option, <kbd>End</kbd>
-          to the last (built into focusgroup)</li>
-        <li>The listbox is one tab stop — Tab enters, arrows navigate,
-          Tab exits</li>
-        <li>Selection state (<code>aria-selected</code>) is managed by
-          JavaScript — focusgroup handles navigation only</li>
+          to the last (built into focusgroup in supporting browsers;
+          JavaScript fallback may be needed otherwise)</li>
+        <li>The listbox is a single tab stop. Tab enters, arrows navigate, and Tab exits.</li>
+        <li>Selection state (<code>aria-selected</code>) is managed by JavaScript. focusgroup handles navigation only.</li>
+        <li><code>&lt;div role="option"&gt;</code> is not natively focusable.
+          Give every option <code>tabindex="0"</code> so the browser can
+          focus it. <code>focusgroup</code> collapses those tab stops into
+          one. No manual <code>tabindex="-1"</code> management needed.</li>
+        <li><code>listbox</code> has no default axis modifier. The explicit
+          <code>block</code> here activates Up/Down arrow navigation.
+          Without it, no axis would be active.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="listbox block"
-     aria-label="Favorite fruit"&gt;
-    &lt;div class="listbox-option selected" tabindex="0"
+        <pre><code>&lt;div role="listbox" focusgroup="listbox block"
+     aria-label="Favorite fruit"
+     aria-multiselectable="false"&gt;
+    &lt;div role="option" class="listbox-option selected" tabindex="0"
          aria-selected="true"&gt;Apple&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Banana&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Cherry&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Date&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Elderberry&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Fig&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Grape&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Honeydew&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </details>
@@ -98,16 +104,16 @@
 
       <div class="try-it">
         <strong>Try it:</strong> Navigate to "Mango" (last item), then
-        press <kbd>↓</kbd> — focus wraps to "Avocado".
+        press <kbd>↓</kbd> and focus wraps to "Avocado".
       </div>
 
       <div class="demo-container">
-        <div focusgroup="listbox block wrap" aria-label="Tropical fruits" class="listbox">
-          <div class="listbox-option selected" tabindex="0" aria-selected="true">Avocado</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Kiwi</div>
-          <div class="listbox-option" tabindex="0" aria-selected="false">Mango</div>
+        <div role="listbox" focusgroup="listbox block wrap" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
+          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true">Avocado</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Kiwi</div>
+          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Mango</div>
         </div>
       </div>
 
@@ -117,21 +123,25 @@
         <li>Down from last → first; Up from first → last</li>
         <li>Without <code>wrap</code>, navigation stops at the
           boundaries</li>
+        <li>Unlike <code>menu</code> and <code>menubar</code> (which wrap by
+          default), <code>listbox</code> does not wrap by default. The
+          <code>wrap</code> token here is an explicit opt-in.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="listbox block wrap"
-     aria-label="Tropical fruits"&gt;
-    &lt;div class="listbox-option selected" tabindex="0"
+        <pre><code>&lt;div role="listbox" focusgroup="listbox block wrap"
+     aria-label="Tropical fruits"
+     aria-multiselectable="false"&gt;
+    &lt;div role="option" class="listbox-option selected" tabindex="0"
          aria-selected="true"&gt;Avocado&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Coconut&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Guava&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Kiwi&lt;/div&gt;
-    &lt;div class="listbox-option" tabindex="0"
+    &lt;div role="option" class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Mango&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </details>

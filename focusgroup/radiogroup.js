@@ -8,8 +8,10 @@
 
    The toggle (#selection-follows-focus) lets the user switch
    between two modes:
-   - Off (default): arrows only move focus; Enter/Space selects.
-   - On: moving focus also selects, matching native <input type="radio">.
+   - On (default): moving focus also selects, matching native <input type="radio">
+     and the APG Radio Group pattern requirement.
+   - Off: arrows only move focus; Enter/Space selects.
+     This mode is non-conformant for role="radio" and is shown for comparison only.
 
    Requires shared.js to be loaded first.
    ============================================================ */
@@ -23,7 +25,16 @@
       '[focusgroup~="radiogroup"]',
       ".radio-option",
       "aria-checked",
-      "checked"
+      "checked",
+      function (target, items) {
+        items.forEach(function (item) {
+          if (item === target) {
+            item.setAttribute("focusgroupstart", "");
+          } else {
+            item.removeAttribute("focusgroupstart");
+          }
+        });
+      }
     );
 
     // Selection-follows-focus toggle
@@ -36,11 +47,7 @@
       items.forEach(function (item) {
         item.addEventListener("focus", function () {
           if (toggle.checked) {
-            items.forEach(function (i) {
-              var isSelected = i === item;
-              i.setAttribute("aria-checked", String(isSelected));
-              i.classList.toggle("checked", isSelected);
-            });
+            item.click();
           }
         });
       });

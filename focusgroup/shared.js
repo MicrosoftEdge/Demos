@@ -41,8 +41,9 @@ function checkFocusgroupSupport() {
  * @param {string} itemSelector     CSS selector for selectable items
  * @param {string} ariaAttr       ARIA attribute name ("aria-checked" or "aria-selected")
  * @param {string} [selectedClass]  CSS class to toggle on the selected item
+ * @param {Function} [afterSelect]  Optional callback called with (target, items) after each selection
  */
-function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedClass) {
+function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedClass, afterSelect) {
   "use strict";
 
   document.querySelectorAll(containerSelector).forEach(function (container) {
@@ -56,6 +57,9 @@ function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedCla
           item.classList.toggle(selectedClass, isSelected);
         }
       });
+      if (afterSelect) {
+        afterSelect(target, items);
+      }
     }
 
     items.forEach(function (item) {
