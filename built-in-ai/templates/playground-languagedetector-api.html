@@ -1,0 +1,19 @@
+---
+layout: playground.njk
+title: LanguageDetector API playground
+shorttitle: LanguageDetector API
+description: Web API for identifying the likely natural language that some text is written in, using a browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api" target="_blank">Identify a text's language with the LanguageDetector API</a>.
+stylesheet: languagedetector-api.css
+script: languagedetector-api.js
+permalink: languagedetector-api/
+---
+
+<div class="settings-row">
+  <label for="text">Text to analyze</label>
+  <textarea spellcheck="false" id="text">Ordered a Philly cheesesteak, and it was not edible. Their milkshake is just milk with cheap syrup. Horrible place!</textarea>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="detect">Detect the language</button>
+  <button id="stop">Stop</button>
+</div>

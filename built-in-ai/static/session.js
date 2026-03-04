@@ -3,6 +3,7 @@ const PROMPT_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.micros
 const WA_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis'>documentation</a> and try again.";
 const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-apis'>documentation</a> and try again.";
 const PROOFREADER_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api'>documentation</a> and try again.";
+const LANGUAGEDETECTOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api'>documentation</a> and try again.";
 
 const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
 const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
@@ -24,9 +25,13 @@ const ERR_PROOFREADER_API_NOT_DETECTED = `The Proofreader API is not available. 
 const ERR_PROOFREADER_MODEL_NOT_AVAILABLE = `The Proofreader API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
 const INFO_PROOFREADER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${TRANSLATOR_DOCS_INSTRUCTIONS}`;
 const ERR_TRANSLATOR_MODEL_NOT_AVAILABLE = `The Translator API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${TRANSLATOR_DOCS_INSTRUCTIONS}`;
 const INFO_TRANSLATOR_MODEL_DOWNLOADABLE =  "The model for a specified language pair will be downloaded the first time the API is used.";
+
+const ERR_LANGUAGEDETECTOR_API_NOT_DETECTED = `The LanguageDector API is not available. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
+const ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE = `The LanguageDector API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
+const INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
@@ -113,49 +118,52 @@ const defaultTranslatorSessionOptions = {
   targetLanguage: "fr", // The target language code.
   monitor: modelDownloadProgressMonitor
 };
+const defaultLanguageDetectorSessionOptions = {
+  monitor: modelDownloadProgressMonitor
+};
 
 // These APIs used to be under window.ai, but have then moved to window.
 // The following functions return the API object, depending on where it is found.
 function getLanguageModelAPI() {
   if (window.LanguageModel) return window.LanguageModel;
-  if (window.ai && window.ai.languageModel) return window.ai.languageModel;
   displaySessionMessage(ERR_LANGUAGEMODEL_API_NOT_DETECTED, true);
   throw ERR_LANGUAGEMODEL_API_NOT_DETECTED;
 }
 
 function getSummarizerAPI() {
   if (window.Summarizer) return window.Summarizer;
-  if (window.ai && window.ai.summarizer) return window.ai.summarizer;
   displaySessionMessage(ERR_SUMMARIZER_API_NOT_DETECTED, true);
   throw ERR_SUMMARIZER_API_NOT_DETECTED;
 }
 
 function getWriterAPI() {
   if (window.Writer) return window.Writer;
-  if (window.ai && window.ai.writer) return window.ai.writer;
   displaySessionMessage(ERR_WRITER_API_NOT_DETECTED, true);
   throw ERR_WRITER_API_NOT_DETECTED;
 }
 
 function getRewriterAPI() {
   if (window.Rewriter) return window.Rewriter;
-  if (window.ai && window.ai.rewriter) return window.ai.rewriter;
   displaySessionMessage(ERR_REWRITER_API_NOT_DETECTED, true);
   throw ERR_REWRITER_API_NOT_DETECTED;
 }
 
 function getProofreaderAPI() {
   if (window.Proofreader) return window.Proofreader;
-  if (window.ai && window.ai.proofreader) return window.ai.proofreader;
   displaySessionMessage(ERR_PROOFREADER_API_NOT_DETECTED, true);
   throw ERR_PROOFREADER_API_NOT_DETECTED;
 }
 
 function getTranslatorAPI() {
   if (window.Translator) return window.Translator;
-  if (window.ai && window.ai.translator) return window.ai.translator;
   displaySessionMessage(ERR_TRANSLATOR_API_NOT_DETECTED, true);
   throw ERR_TRANSLATOR_API_NOT_DETECTED;
+}
+
+function getLanguageDetectorAPI() {
+  if (window.LanguageDetector) return window.LanguageDetector;
+  displaySessionMessage(ERR_LANGUAGEDETECTOR_API_NOT_DETECTED, true);
+  throw ERR_LANGUAGEDETECTOR_API_NOT_DETECTED;
 }
 
 // The following functions check if the  APIs and models are available, and display messages to the user.
@@ -248,6 +256,16 @@ async function checkTranslatorAPIAvailability(availabilityOptions) {
   return availability;
 }
 
+async function checkLanguageDetectorAPIAvailability() {
+  const availability = await checkAPIAvailability(
+    getLanguageDetectorAPI(),
+    ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE
+  );
+  return availability;
+}
+
 // The following functions create sessions for the APIs, possibly downloading the models first.
 async function getSession(api, defaultOptions, userOptions) {
   let session = null;
@@ -298,4 +316,9 @@ async function getTranslatorSession(options) {
     targetLanguage: options.targetLanguage
   });
   return await getSession(getTranslatorAPI(), defaultTranslatorSessionOptions, options);
+}
+
+async function getLanguageDetectorSession(options) {
+  await checkLanguageDetectorAPIAvailability();
+  return await getSession(getLanguageDetectorAPI(), defaultLanguageDetectorSessionOptions, options);
 }

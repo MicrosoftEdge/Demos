@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
     rel="stylesheet">
-  <title>Summarizer API playground</title>
+  <title>LanguageDetector API playground</title>
   <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
@@ -44,7 +44,7 @@
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item current">Summarizer</a>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
           </li>
           <li>
             <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
@@ -66,7 +66,7 @@
             <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
           </li>
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item current">LanguageDetector</a>
           </li>
         </ul>
       </li>
@@ -100,7 +100,7 @@
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item current">Summarizer</a>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
           </li>
           <li>
             <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
@@ -122,7 +122,7 @@
             <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
           </li>
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item current">LanguageDetector</a>
           </li>
         </ul>
       </li>
@@ -146,74 +146,24 @@
 
   <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
   
-    <link rel="stylesheet" href="/Demos/built-in-ai/static/summarizer-api.css">
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/languagedetector-api.css">
   
 
   <main>
-    <h1>Summarizer API</h1>
-    <p class="description">Web API to summarize text in different styles, lengths, etc. using the browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis" target="_blank">Summarize, write, and rewrite text with the Writing Assistance APIs</a>.</p>
+    <h1>LanguageDetector API</h1>
+    <p class="description">Web API for identifying the likely natural language that some text is written in, using a browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api" target="_blank">Identify a text's language with the LanguageDetector API</a>.</p>
 
     <div id="message-ui" class="message-bar"></div>
 
     <div class="settings card-with-shadow">
       
-<div class="settings-row no-separator">
-  <label for="content">
-    Text to summarize
-    <span role="tooltip" id="text-tooltip" style="anchor-name:--text-anchor;">
-      <span class="tooltip-content" style="position-anchor:--text-anchor;">
-        The content that you want the summarizer to process. This can be any text, such as an article, a blog post, or
-        any other type of content that you want to summarize.
-        The summarizer will generate a summary based on this content.
-      </span>
-    </span>
-  </label>
-  <textarea spellcheck="false" id="content" aria-describedby="text-tooltip"></textarea>
-</div>
-
 <div class="settings-row">
-  <label for="context">
-    Additional context
-    <span role="tooltip" id="context-tooltip" style="anchor-name:--context-anchor;">
-      <span class="tooltip-content" style="position-anchor:--context-anchor;">
-        Additional context about the content that can help the model to summarize the text. Use this to provide
-        information about the text content, such as its nature or purpose.
-      </span>
-    </span>
-  </label>
-  <textarea spellcheck="false" id="context"
-    placeholder="Additional context about the content that can help the summarizer" aria-describedby="context-tooltip"></textarea>
-</div>
-
-<div class="settings-row no-separator">
-  <label for="type">Type of summary</label>
-  <select name="type" id="type">
-    <option value="key-points" selected>Key points</option>
-    <option value="tldr">TL;DR</option>
-    <option value="teaser">Teaser</option>
-    <option value="headline">Headline</option>
-  </select>
-</div>
-
-<div class="settings-row no-separator">
-  <label for="length">Length</label>
-  <select name="length" id="length">
-    <option value="short" selected>Short</option>
-    <option value="medium">Medium</option>
-    <option value="long">Long</option>
-  </select>
-</div>
-
-<div class="settings-row">
-  <label for="format">Format</label>
-  <select name="format" id="format">
-    <option value="markdown" selected>Markdown</option>
-    <option value="plain-text">Plain text</option>
-  </select>
+  <label for="text">Text to analyze</label>
+  <textarea spellcheck="false" id="text">Ordered a Philly cheesesteak, and it was not edible. Their milkshake is just milk with cheap syrup. Horrible place!</textarea>
 </div>
 
 <div class="settings-row submit">
-  <button class="ai-button" id="summarize">Summarize</button>
+  <button class="ai-button" id="detect">Detect the language</button>
   <button id="stop">Stop</button>
 </div>
     </div>
@@ -234,7 +184,7 @@
   <script src="/Demos/built-in-ai/static/metrics.js"></script>
   <script src="/Demos/built-in-ai/static/slider.js"></script>
   
-    <script src="/Demos/built-in-ai/static/summarizer-api.js"></script>
+    <script src="/Demos/built-in-ai/static/languagedetector-api.js"></script>
   
 
 </body>

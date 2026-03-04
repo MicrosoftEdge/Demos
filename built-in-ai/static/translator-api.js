@@ -204,10 +204,12 @@ for (const [category, languages] of Object.entries(LANGUAGE_CATEGORIES)) {
   targetLanguageHTML += `</optgroup>\n`;
 }
 
+sourceLanguageHTML = `<option value="auto">Auto-detect</option>\n` + sourceLanguageHTML;
+
 sourceLanguageEl.innerHTML = sourceLanguageHTML;
 targetLanguageEl.innerHTML = targetLanguageHTML;
 
-async function checkAvailabbility() {
+async function checkAvailability() {
   const sourceLanguage = sourceLanguageEl.value;
   const targetLanguage = targetLanguageEl.value;
 
@@ -220,7 +222,7 @@ async function checkAvailabbility() {
 }
 
 addEventListener("load", async () => {
-  await checkAvailabbility();
+  await checkAvailability();
   let session = null;
 
   let abortController
@@ -235,7 +237,7 @@ addEventListener("load", async () => {
   });
 
   translateBtn.addEventListener("click", async () => {
-    if (inputEl.value === "") {
+    if (!inputEl.value.trim()) {
       return;
     }
 
@@ -295,10 +297,31 @@ addEventListener("load", async () => {
   });
 });
 
+let languageDetectorSession = null;
+async function detectInpuLanguages() {
+  if (!languageDetectorSession) {
+    await checkLanguageDetectorAPIAvailability();
+    languageDetectorSession = await getLanguageDetectorSession();
+  }
+
+  const results = await languageDetectorSession.detect(inputEl.value.trim());
+  return results.filter(result => result.confidence > 0.75);
+}
+
 sourceLanguageEl.addEventListener("change", async () => {
-  await checkAvailabbility();
+  if (sourceLanguageEl.value === "auto") {
+    const languages = await detectInpuLanguages();
+    if (languages.length > 0) {
+      sourceLanguageEl.value = languages[0].detectedLanguage;
+    } else {
+      displaySessionMessage("Could not confidently detect the language of the input text. Defaulting to English.", true);
+      sourceLanguageEl.value = "en";
+    }
+  }
+
+  await checkAvailability();
 });
 
 targetLanguageEl.addEventListener("change", async () => {
-  await checkAvailabbility();
+  await checkAvailability();
 });

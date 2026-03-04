@@ -25,7 +25,7 @@ addEventListener("load", async () => {
   });
 
   rewriteBtn.addEventListener("click", async () => {
-    if (textEl.value === "") {
+    if (!textEl.value.trim()) {
       return;
     }
 

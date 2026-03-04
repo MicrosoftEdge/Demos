@@ -23,7 +23,7 @@ addEventListener("load", async () => {
   });
 
   writeBtn.addEventListener("click", async () => {
-    if (taskEl.value === "") {
+    if (!taskEl.value.trim()) {
       return;
     }
 

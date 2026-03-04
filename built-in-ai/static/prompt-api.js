@@ -87,7 +87,7 @@ addEventListener("load", async () => {
   });
 
   runBtn.addEventListener("click", async () => {
-    if (promptEl.value === "") {
+    if (!promptEl.value.trim()) {
       return;
     }
 

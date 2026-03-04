@@ -22,7 +22,7 @@ addEventListener("load", async () => {
   proofreadBtn.addEventListener("click", async () => {
     const text = textEl.textContent.trim();
 
-    if (text === "") {
+    if (!text.trim()) {
       return;
     }
 

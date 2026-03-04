@@ -37,7 +37,7 @@ addEventListener("load", async () => {
   });
 
   summarizeBtn.addEventListener("click", async () => {
-    if (textEl.value === "") {
+    if (!textEl.value.trim()) {
       return;
     }
 
