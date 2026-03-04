@@ -44,7 +44,6 @@
       <ul class="notice-list">
         <li><code>menu</code> defaults to <code>block wrap</code> (Up/Down with wrapping). This demo uses those defaults.</li>
         <li>The menu is a single tab stop. Arrow keys navigate within.</li>
-        <li>The <code>menu</code> behavior token maps <code>role="menu"</code> on a generic container (like Demo 1's <code>&lt;div&gt;</code>) and infers <code>role="menuitem"</code> on child <code>&lt;button&gt;</code> elements. No explicit <code>role</code> is needed on those elements. In Demo 2, the <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> elements are non-generic, so the behavior token's container mapping is skipped. Explicit <code>role="menubar"</code>, <code>role="menu"</code>, and <code>role="none"</code> are needed to override their native list semantics. The menubar trigger buttons use explicit <code>role="menuitem"</code> because popup buttons (<code>popovertarget</code> + <code>aria-haspopup</code>) are not considered for role inference due to a Blink bug. Submenu buttons without popups get <code>role="menuitem"</code> inferred by the token.</li>
         <li>No JavaScript needed for navigation</li>
       </ul>
 
