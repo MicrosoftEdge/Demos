@@ -1,12 +1,12 @@
 /* ============================================================
-   Focusgroup Demo — Tablist
+   Focusgroup Demo - Tablist
    ============================================================
    focusgroup handles arrow-key navigation between tabs.
    This file handles the remaining application logic:
    - Setting aria-selected on the active tab
    - Showing/hiding the associated tabpanel
    - Moving focusgroupstart to the active tab (so that
-     no-memory re-entry always lands on the selected tab)
+     nomemory re-entry always lands on the selected tab)
 
    Selection follows focus ("follow focus" tabs).
 
@@ -47,8 +47,17 @@
       }
 
       tabs.forEach(function (tab) {
-        tab.addEventListener("click", function () { selectTab(tab); });
         tab.addEventListener("focus", function () { selectTab(tab); });
+        tab.addEventListener("click", function () { selectTab(tab); });
+        tab.addEventListener("keydown", function (e) {
+          if (e.key === "Home") {
+            e.preventDefault();
+            tabs[0].focus();
+          } else if (e.key === "End") {
+            e.preventDefault();
+            tabs[tabs.length - 1].focus();
+          }
+        });
       });
     });
   }

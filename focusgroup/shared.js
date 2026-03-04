@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demos — Shared Utilities
+   Focusgroup Demos - Shared Utilities
    ============================================================
    Common code used across multiple demo pages.
    Include this file before any per-page script.
@@ -33,16 +33,18 @@ function checkFocusgroupSupport() {
 
 /**
  * Set up single-select behavior for a group of items.
- * Adds click and Enter/Space handlers that toggle a boolean
- * ARIA attribute (e.g. aria-checked or aria-selected) so that
- * exactly one item in the group is "on" at a time.
+ * Adds click and Enter/Space handlers so that exactly one item
+ * in the group has its ARIA attribute (e.g. aria-selected) set
+ * to "true" at a time. Activating the already-selected item
+ * has no effect.
  *
  * @param {string} containerSelector  CSS selector for the container(s)
  * @param {string} itemSelector     CSS selector for selectable items
  * @param {string} ariaAttr       ARIA attribute name ("aria-checked" or "aria-selected")
  * @param {string} [selectedClass]  CSS class to toggle on the selected item
+ * @param {Function} [afterSelect]  Optional callback called with (target, items) after each selection
  */
-function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedClass) {
+function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedClass, afterSelect) {
   "use strict";
 
   document.querySelectorAll(containerSelector).forEach(function (container) {
@@ -56,6 +58,9 @@ function initSingleSelect(containerSelector, itemSelector, ariaAttr, selectedCla
           item.classList.toggle(selectedClass, isSelected);
         }
       });
+      if (afterSelect) {
+        afterSelect(target, items);
+      }
     }
 
     items.forEach(function (item) {

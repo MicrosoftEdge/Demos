@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demo — Accordion
+   Focusgroup Demo - Accordion
    ============================================================
    focusgroup handles arrow-key navigation between headers.
    This file handles the remaining application logic:
@@ -12,7 +12,7 @@
    focusable scrollable region (tabindex="0") with
    focusgroup="none", so arrow keys scroll its content.
 
-   Requires shared.js to be loaded first.
+   Load after shared.js for the focusgroup-support warning banner.
    ============================================================ */
 
 (function () {

@@ -1,5 +1,5 @@
 /* ============================================================
-   Focusgroup Demos — Shared Stylesheet
+   Focusgroup Demos - Shared Stylesheet
    ============================================================ */
 
 /* ----- Reset & Base ----- */
@@ -494,6 +494,33 @@ body {
   outline-offset: -2px;
 }
 
+/* Anchor positioning: pair each trigger with its submenu */
+[popovertarget="filemenu"] { anchor-name: --file-trigger; }
+#filemenu { position-anchor: --file-trigger; }
+[popovertarget="editmenu"] { anchor-name: --edit-trigger; }
+#editmenu { position-anchor: --edit-trigger; }
+[popovertarget="viewmenu"] { anchor-name: --view-trigger; }
+#viewmenu { position-anchor: --view-trigger; }
+[popovertarget="helpmenu"] { anchor-name: --help-trigger; }
+#helpmenu { position-anchor: --help-trigger; }
+
+/* ----- Additional Concepts ----- */
+.opted-out-button {
+  opacity: 0.6;
+}
+
+.reading-flow-toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+  reading-flow: flex-visual;
+  gap: 0.35rem;
+}
+
+#feature-detect-result {
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
 /* ----- Radio Group ----- */
 .radio-group {
   display: flex;
@@ -765,7 +792,8 @@ body {
 .mb-1 { margin-bottom: 1rem; }
 .flex-row { display: flex; flex-direction: row; }
 .gap-1 { gap: 1rem; }
-.visually-hidden {
+.visually-hidden,
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -787,3 +815,5 @@ body {
     padding: 1rem;
   }
 }
+
+

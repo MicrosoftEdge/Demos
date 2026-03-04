@@ -2,18 +2,20 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/focusgroup/)** ⬅️
 
-Interactive demos for the HTML `focusgroup` attribute, which provides declarative
-arrow-key keyboard navigation for composite widgets by implementing the _roving tabindex_ pattern natively without JavaScript.
+Interactive demos for the HTML `focusgroup` attribute, which lets you add arrow-key navigation to composite widgets (the roving tabindex pattern) without JavaScript.
 
 ## Demos
 
-- [Toolbar](https://microsoftedge.github.io/Demos/focusgroup/toolbar.html) — Horizontal/vertical toolbar with arrow-key navigation
-- [Tablist](https://microsoftedge.github.io/Demos/focusgroup/tablist.html) — Tab control with inline wrapping and no-memory
-- [Menu](https://microsoftedge.github.io/Demos/focusgroup/menu.html) — Vertical menu and menubar with nested submenus
-- [Radio Group](https://microsoftedge.github.io/Demos/focusgroup/radiogroup.html) — Radio button group navigation
-- [Listbox](https://microsoftedge.github.io/Demos/focusgroup/listbox.html) — Selectable list navigation
-- [Accordion](https://microsoftedge.github.io/Demos/focusgroup/accordion.html) — Accordion with block-axis navigation and opt-out panels
-- [Additional Concepts](https://microsoftedge.github.io/Demos/focusgroup/additional-concepts.html) — Nested focusgroups, opt-out, shadow DOM, reading-flow
+> **Note:** The `focusgroup` behavior token maps a minimum ARIA role to generic containers (e.g., a plain `<div>`) and can infer child roles (e.g., `tab` on `<button>` inside a `tablist`). These demos rely on that automatic mapping. Explicit `role` attributes are only used for intentional overrides (e.g., `role="group"` on the accordion to prevent the `toolbar` role).
+
+- [Index](https://microsoftedge.github.io/Demos/focusgroup/index.html): Overview page with a quick-demo toolbar and navigation to all demos
+- [Toolbar](https://microsoftedge.github.io/Demos/focusgroup/toolbar.html): Toolbar demos using inline and block navigation
+- [Tablist](https://microsoftedge.github.io/Demos/focusgroup/tablist.html): Tab control using the `tablist` behavior token (which defaults to inline + wrap), with `nomemory` to reset focus position on re-entry
+- [Menu & Menubar](https://microsoftedge.github.io/Demos/focusgroup/menu.html): Vertical menu and horizontal menubar with nested submenus
+- [Radio Group](https://microsoftedge.github.io/Demos/focusgroup/radiogroup.html): Radio button group navigation
+- [Listbox](https://microsoftedge.github.io/Demos/focusgroup/listbox.html): Selectable list navigation
+- [Accordion](https://microsoftedge.github.io/Demos/focusgroup/accordion.html): Accordion with block-axis arrow key navigation using `focusgroup="toolbar block"` and `role="group"`
+- [Additional Concepts](https://microsoftedge.github.io/Demos/focusgroup/additional-concepts.html): Nested focusgroups, opt-out, deep descendants, CSS `reading-flow` integration, feature detection
 
 ## Learn more
 
@@ -22,4 +24,4 @@ arrow-key keyboard navigation for composite widgets by implementing the _roving 
 
 ## Requirements
 
-May require enabling the **Experimental Web Platform features** flag at `about://flags` in Microsoft Edge or another Chromium-based browser.
+These demos use the scoped-focusgroup variant of the spec and require enabling the **Experimental Web Platform features** flag at `about://flags` in Microsoft Edge or another Chromium-based browser. The feature is experimental and not yet enabled by default in stable builds. See the [Open UI explainer](https://open-ui.org/components/scoped-focusgroup.explainer/) for the spec status.
