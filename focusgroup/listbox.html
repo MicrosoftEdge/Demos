@@ -39,15 +39,15 @@
       </div>
 
       <div class="demo-container">
-        <div role="listbox" focusgroup="listbox block nomemory" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
-          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Apple</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Date</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Elderberry</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Fig</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Grape</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Honeydew</div>
+        <div focusgroup="listbox block nomemory" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
+          <div class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Apple</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Date</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Elderberry</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Fig</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Grape</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Honeydew</div>
         </div>
       </div>
 
@@ -64,7 +64,8 @@
           selection-follows-focus for single-select listboxes; add a
           <code>focus</code> event handler calling
           <code>select(item)</code> on each option for that behavior.</li>
-        <li><code>&lt;div role="option"&gt;</code> is not natively focusable.
+        <li><code>&lt;div&gt;</code> children are not natively focusable (the
+          <code>listbox</code> token infers <code>role="option"</code> on each).
           Give every option <code>tabindex="0"</code> so the browser can
           focus it. <code>focusgroup</code> collapses those tab stops into
           one. No manual <code>tabindex="-1"</code> management needed.</li>
@@ -75,24 +76,24 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="listbox" focusgroup="listbox block nomemory"
+        <pre><code>&lt;div focusgroup="listbox block nomemory"
      aria-label="Favorite fruit"
      aria-multiselectable="false" class="listbox"&gt;
-    &lt;div role="option" class="listbox-option selected" tabindex="0"
+    &lt;div class="listbox-option selected" tabindex="0"
          aria-selected="true" focusgroupstart&gt;Apple&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Banana&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Cherry&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Date&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Elderberry&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Fig&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Grape&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Honeydew&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </details>
@@ -113,12 +114,12 @@
       </div>
 
       <div class="demo-container">
-        <div role="listbox" focusgroup="listbox block wrap nomemory" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
-          <div role="option" class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Avocado</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Kiwi</div>
-          <div role="option" class="listbox-option" tabindex="0" aria-selected="false">Mango</div>
+        <div focusgroup="listbox block wrap nomemory" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
+          <div class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Avocado</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Kiwi</div>
+          <div class="listbox-option" tabindex="0" aria-selected="false">Mango</div>
         </div>
       </div>
 
@@ -134,18 +135,18 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="listbox" focusgroup="listbox block wrap nomemory"
+        <pre><code>&lt;div focusgroup="listbox block wrap nomemory"
      aria-label="Tropical fruits"
      aria-multiselectable="false" class="listbox"&gt;
-    &lt;div role="option" class="listbox-option selected" tabindex="0"
+    &lt;div class="listbox-option selected" tabindex="0"
          aria-selected="true" focusgroupstart&gt;Avocado&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Coconut&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Guava&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Kiwi&lt;/div&gt;
-    &lt;div role="option" class="listbox-option" tabindex="0"
+    &lt;div class="listbox-option" tabindex="0"
          aria-selected="false"&gt;Mango&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </details>

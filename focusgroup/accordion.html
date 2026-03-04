@@ -107,9 +107,9 @@
           Up/Down arrows only.</li>
         <li>The explicit <code>role="group"</code> overrides the minimum role that
           the <code>toolbar</code> behavior token would otherwise map
-          (<code>role="toolbar"</code>). Because an explicit role is present,
-          the behavior token's mapping is skipped and the container keeps
-          <code>role="group"</code>.</li>
+          (<code>role="toolbar"</code>). This is an intentional override;
+          most other demos rely on the behavior token's automatic role
+          mapping instead.</li>
         <li><code>focusgroup="none"</code> opts panel content out of arrow-key
           navigation.</li>
         <li>Up/Down arrows move <strong>only between headers</strong>, skipping panels

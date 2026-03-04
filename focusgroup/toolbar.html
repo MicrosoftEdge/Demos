@@ -37,7 +37,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Text formatting" class="toolbar-horizontal">
+        <div focusgroup="toolbar" aria-label="Text formatting" class="toolbar-horizontal">
           <button type="button">Bold</button>
           <button type="button">Italic</button>
           <button type="button">Underline</button>
@@ -57,7 +57,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar" aria-label="Text formatting" class="toolbar-horizontal"&gt;
+        <pre><code>&lt;div focusgroup="toolbar" aria-label="Text formatting" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;Bold&lt;/button&gt;
     &lt;button type="button"&gt;Italic&lt;/button&gt;
     &lt;button type="button"&gt;Underline&lt;/button&gt;
@@ -87,7 +87,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar" aria-label="Document actions" class="toolbar-horizontal">
+        <div focusgroup="toolbar" aria-label="Document actions" class="toolbar-horizontal">
           <button type="button">New</button>
           <button type="button">Open</button>
           <button type="button">Save</button>
@@ -104,7 +104,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar"
+        <pre><code>&lt;div focusgroup="toolbar"
      aria-label="Document actions" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;New&lt;/button&gt;
     &lt;button type="button"&gt;Open&lt;/button&gt;
@@ -136,7 +136,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar nomemory" aria-label="Entry point demo" class="toolbar-horizontal">
+        <div focusgroup="toolbar nomemory" aria-label="Entry point demo" class="toolbar-horizontal">
           <button type="button">First</button>
           <button type="button" focusgroupstart>Middle (Entry)</button>
           <button type="button">Last</button>
@@ -154,7 +154,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar nomemory"
+        <pre><code>&lt;div focusgroup="toolbar nomemory"
      aria-label="Entry point demo" class="toolbar-horizontal"&gt;
     &lt;button type="button"&gt;First&lt;/button&gt;
     &lt;button type="button" focusgroupstart&gt;Middle (Entry)&lt;/button&gt;
@@ -172,7 +172,7 @@
         <code>block</code> modifier overrides <code>toolbar</code>'s
         default <code>inline</code>, so only Up/Down arrow keys navigate.
         Set <code>aria-orientation="vertical"</code> on the
-        <code>role="toolbar"</code> element so assistive technologies know
+        container so assistive technologies know
         the toolbar is oriented vertically.</p>
       <div class="attr-label">focusgroup="toolbar block"</div>
 
@@ -182,7 +182,7 @@
       </div>
 
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar block" aria-label="Vertical toolbar" aria-orientation="vertical"
+        <div focusgroup="toolbar block" aria-label="Vertical toolbar" aria-orientation="vertical"
           class="toolbar-vertical">
           <button type="button">Cut</button>
           <button type="button">Copy</button>
@@ -195,14 +195,14 @@
           block axis. <code>block</code> overrides <code>toolbar</code>'s
           default <code>inline</code> modifier.</li>
         <li>Left/Right arrow keys do nothing; only Up/Down navigate</li>
-        <li><code>aria-orientation="vertical"</code> on
-          <code>role="toolbar"</code> is required for correct ARIA
-          semantics</li>
+        <li><code>aria-orientation="vertical"</code> is required for
+          correct ARIA semantics (the <code>toolbar</code> token maps the
+          role automatically)</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="toolbar" focusgroup="toolbar block"
+        <pre><code>&lt;div focusgroup="toolbar block"
      aria-label="Vertical toolbar" aria-orientation="vertical"
      class="toolbar-vertical"&gt;
     &lt;button type="button"&gt;Cut&lt;/button&gt;

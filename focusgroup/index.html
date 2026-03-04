@@ -47,8 +47,11 @@
         Its behavior token also maps a minimum ARIA role to the container
         (and may infer child roles, e.g. <code>tab</code> on buttons inside
         a <code>tablist</code>) when no explicit <code>role</code> is present
-        and the element is otherwise generic. When you set <code>role</code>
-        explicitly, as these demos do, the mapping is skipped.
+        and the element is otherwise generic. These demos rely on the
+        behavior token for role mapping. Explicit <code>role</code>
+        attributes are only used when overriding the default (e.g.,
+        <code>role="group"</code> on an accordion to prevent the
+        <code>toolbar</code> role).
       </p>
     </section>
 
@@ -59,7 +62,7 @@
         exit.
       </p>
       <div class="demo-container">
-        <div role="toolbar" focusgroup="toolbar wrap" aria-label="Quick demo toolbar" class="toolbar-horizontal">
+        <div focusgroup="toolbar wrap" aria-label="Quick demo toolbar" class="toolbar-horizontal">
           <button type="button">Bold</button>
           <button type="button">Italic</button>
           <button type="button">Underline</button>

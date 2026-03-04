@@ -25,7 +25,7 @@
     <section class="demo-section">
       <h2 id="simple-vertical-menu">Simple Vertical Menu</h2>
       <p>A basic vertical menu with Up/Down arrow navigation.</p>
-      <div class="attr-label">focusgroup="menu nowrap"</div>
+      <div class="attr-label">focusgroup="menu"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Tab to (or click) a menu item, then use
@@ -33,30 +33,29 @@
       </div>
 
       <div class="demo-container">
-        <div role="menu" focusgroup="menu nowrap" aria-label="File actions" class="menu-vertical">
-          <button role="menuitem" type="button" class="menu-item">New</button>
-          <button role="menuitem" type="button" class="menu-item">Open…</button>
-          <button role="menuitem" type="button" class="menu-item">Save</button>
-          <button role="menuitem" type="button" class="menu-item">Exit</button>
+        <div focusgroup="menu" aria-label="File actions" class="menu-vertical">
+          <button type="button" class="menu-item">New</button>
+          <button type="button" class="menu-item">Open…</button>
+          <button type="button" class="menu-item">Save</button>
+          <button type="button" class="menu-item">Exit</button>
         </div>
       </div>
 
       <ul class="notice-list">
-        <li><code>menu</code> defaults to <code>block wrap</code> (Up/Down with wrapping). No explicit modifiers are needed.</li>
-        <li><code>nowrap</code> disables the default wrapping behavior</li>
+        <li><code>menu</code> defaults to <code>block wrap</code> (Up/Down with wrapping). This demo uses those defaults.</li>
         <li>The menu is a single tab stop. Arrow keys navigate within.</li>
-        <li>Each <code>&lt;button&gt;</code> has an implicit role of <code>"button"</code>. Inside <code>role="menu"</code>, children must be <code>role="menuitem"</code> (or <code>role="menuitemcheckbox"</code> / <code>role="menuitemradio"</code>). When the container has an explicit <code>role</code>, the behavior token's minimum-role mapping is skipped. These demos set roles explicitly for clarity.</li>
+        <li>The <code>menu</code> behavior token maps <code>role="menu"</code> on a generic container (like this <code>&lt;div&gt;</code>) and infers <code>role="menuitem"</code> on child <code>&lt;button&gt;</code> elements, so no explicit role attributes are needed.</li>
         <li>No JavaScript needed for navigation</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div role="menu" focusgroup="menu nowrap" aria-label="File actions"
+        <pre><code>&lt;div focusgroup="menu" aria-label="File actions"
      class="menu-vertical"&gt;
-    &lt;button role="menuitem" type="button" class="menu-item"&gt;New&lt;/button&gt;
-    &lt;button role="menuitem" type="button" class="menu-item"&gt;Open…&lt;/button&gt;
-    &lt;button role="menuitem" type="button" class="menu-item"&gt;Save&lt;/button&gt;
-    &lt;button role="menuitem" type="button" class="menu-item"&gt;Exit&lt;/button&gt;
+    &lt;button type="button" class="menu-item"&gt;New&lt;/button&gt;
+    &lt;button type="button" class="menu-item"&gt;Open…&lt;/button&gt;
+    &lt;button type="button" class="menu-item"&gt;Save&lt;/button&gt;
+    &lt;button type="button" class="menu-item"&gt;Exit&lt;/button&gt;
 &lt;/div&gt;</code></pre>
       </details>
     </section>
