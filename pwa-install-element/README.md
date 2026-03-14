@@ -4,82 +4,37 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ## Demos
 
-➡️ **[Open the demo](https://kbhlee2121.github.io/pwa/web-install/only-elements.html)** ⬅️
+➡️ **[Open the demo](https://liahiscock.github.io/PWA/WebInstall/element-store.html)** ⬅️
 
 
 ## How to Use It
 
-### Install the current loaded document
+### To install the currently loaded document
 
-**&lt;install&gt;&lt;/install&gt; Requirements**:
-* The current document must link to a manifest file.
-* The manifest file must have an `id` field defined.
+#### &lt;install&gt;&lt;/install&gt; Requirements
+* The current loaded document must link to a manifest file.
+* That manifest file must have an `id` field defined.
 
 ```javascript
 /* Current Document: no attributes required */
 <install id="install-button"></install>
-
-if ('HTMLInstallElement' in window) {
-    let button = document.getElementById('install-button');
-
-    // Same as kSuccess in navigator.install.
-    button.addEventListener('promptaction', (event) => {
-        console.log(`Install succeeded`);
-    });
-
-    // Same as kAbortError in navigator.install.
-    button.addEventListener('promptdismiss', (event) => {
-        console.log(`Install failed`);
-    });
-
-    // Same as kDataError in navigator.install.
-    button.addEventListener('validationstatuschanged', (event) => {
-        if (event.target.invalidReason ===
-                'install_data_invalid') {
-            console.log(event.target.invalidReason);
-        }
-    });
-} else {
-  console.warn('HTMLInstallElement not supported');
-}
 ```
-### Install a background document (any app that's not the current document)
+### To install a background document (anything that's not the current document)
 
-**&lt;install installurl=https://foo.com&gt;&lt;/install&gt; Requirements:**
+**&lt;install installurl=...&gt;&lt;/install&gt; Requirements:**
 * The document at `installurl` must link to a manifest file.
 * The manifest file must have an `id` field defined.
 
 ```javascript
 /*Background Document: 1-attribute*/
-<install installurl="https://foo.com" id="install-button"></install>
-
-if ('HTMLInstallElement' in window) {
-    let button = document.getElementById('install-button');
-
-    // Same as kSuccess in navigator.install.
-    button.addEventListener('promptaction', (event) => {
-        console.log(`Install succeeded`);
-    });
-
-    // Same as kAbortError in navigator.install.
-    button.addEventListener('promptdismiss', (event) => {
-        console.log(`Install failed`);
-    });
-
-    // Same as kDataError in navigator.install.
-    button.addEventListener('validationstatuschanged', (event) => {
-        if (event.target.invalidReason ===
-                'install_data_invalid') {
-            console.log(event.target.invalidReason);
-        }
-    });
-} else {
-  console.warn('HTMLInstallElement not supported');
-}
+<install installurl="https://foo.com"
+         id="install-button"></install>
 ```
-**&lt;install installurl=https://foo.com manifestid=https://foo.com/someid&gt;&lt;/install&gt; Requirements:**
+**&lt;install installurl=... manifestid=...&gt;&lt;/install&gt; Requirements:**
 * The document at  `installurl` must link to a manifest file.
 * `manifestid` must match the computed id after parsing the manifest.
+
+> The computed ID can be found by navigating to `installurl`, opening F12 developer tools > Application tab > Installability section > Computed App ID
 
 ```javascript
 /*Background Document: 2-attributes*/
@@ -87,7 +42,11 @@ if ('HTMLInstallElement' in window) {
          manifestid="https://foo.com/someid"
          id="install-button">
 </install>
+```
 
+### Error handling
+
+```javascript
 if ('HTMLInstallElement' in window) {
     let button = document.getElementById('install-button');
 
@@ -115,7 +74,7 @@ if ('HTMLInstallElement' in window) {
 
 ## Try it with Origin Trials!
 
-The install element is currently available as an [Origin Trial](https://developer.chrome.com/docs/web-platform/origin-trials/) in Chrome and Microsoft Edge versions 147-152. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
+The install element is currently available as an [Origin Trial](https://developer.chrome.com/docs/web-platform/origin-trials/) in Chrome and Microsoft Edge versions 148-153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
 
 To participate, you'll need to:
 >TODO(ADD REAL OT PORTAL LINK)
@@ -123,7 +82,7 @@ To participate, you'll need to:
 2. **Add the Origin Trial Token:** Once you have your token, add it to your pages via a `<meta>` tag or an HTTP header.
 
 ```html
-<!-- Example of adding the token via a meta tag -->
+<!-- Example via a meta tag -->
 <meta http-equiv="origin-trial" content="YOUR_TOKEN_HERE">
 ```
 See [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md) to learn more about Origin Trials.
