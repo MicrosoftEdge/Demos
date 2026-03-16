@@ -1,3 +1,9 @@
-# Create your own DevTools extension
+# Custom DevTools extension
 
-This is the source code for the tutorial to create a Microsoft Edge extension that extends DevTools.  See [Create a DevTools extension, adding a custom tool tab and panel](https://learn.microsoft.com/microsoft-edge/extensions/developer-guide/devtools-extension).
+This DevTools Extension sample is a Microsoft Edge extension that adds a **Custom** tool in Microsoft Edge DevTools, including a tab in the **Activity Bar**, and a panel below the tab.
+
+* The **Custom** DevTools tool calls the DevTools API to display memory information.
+
+* The webpage under inspection, and the **Custom** DevTools tool, send messages back and forth, in two-way communication.
+
+For instructions, see [Sample: Custom DevTools tool](https://learn.microsoft.com/microsoft-edge/extensions/samples/custom-devtools-tool).
