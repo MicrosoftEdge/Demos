@@ -12,7 +12,7 @@ The demo app is localized in English, German, and Arabic.
 
 2. In the address bar, click the **App available** button to install the PWA on your device.
 
-    If your browser is set to English, German, or Arabic, the installed PWA displays the name, short name, icon, description, and shortcuts that are defined in the web app manifest file for that language. 
+   If your browser is set to English, German, or Arabic, the installed PWA displays the name, short name, icon, description, and shortcuts that are defined in the web app manifest file for that language. 
 
 3. In Microsoft Edge, go to `edge://settings/languages`.
 
