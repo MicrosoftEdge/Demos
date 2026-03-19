@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpaqueRange demo</title>
+    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>OpaqueRange demo</h1>
+    <p>
+        The <code>OpaqueRange</code> API lets you create ranges over the value of
+        <code>&lt;textarea&gt;</code> and <code>&lt;input&gt;</code> elements, enabling
+        <code>getBoundingClientRect()</code> and the
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API">CSS Custom Highlight API</a>
+        to work directly on form controls without cloning elements.
+    </p>
+
+    <div id="feature-warning" class="warning" hidden>
+        <strong>⚠️ OpaqueRange is not supported in this browser.</strong>
+        OpaqueRange is available starting in Chromium 147 (Edge 147). If your browser is older, enable it
+        in <code>edge://flags</code> or <code>chrome://flags</code> by searching for "OpaqueRange".
+    </div>
+
+    <!-- Use Case 1: Caret Popup Positioning -->
+    <section class="demo-section">
+        <h2>Use case 1: Caret popup positioning</h2>
+        <p>
+            Type <kbd>@</kbd> in the textarea or the input field below to trigger a mention
+            popup positioned at the caret using
+            <code>OpaqueRange.getBoundingClientRect()</code>.
+        </p>
+
+        <h3>Textarea</h3>
+        <div class="field-wrapper">
+            <textarea id="textarea-popup" rows="5" placeholder="Type @ to show the mention popup..."></textarea>
+        </div>
+
+        <h3>Input</h3>
+        <div class="field-wrapper">
+            <input type="text" id="input-popup" placeholder="Type @ to show the mention popup...">
+        </div>
+
+        <div id="mention-popup" class="popup" hidden>
+            <ul>
+                <li data-user="Alice">👩 Alice</li>
+                <li data-user="Bob">👨 Bob</li>
+                <li data-user="Charlie">🧑 Charlie</li>
+                <li data-user="Diana">👩‍💻 Diana</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Use Case 2: Spell-Check Highlighting -->
+    <section class="demo-section">
+        <h2>Use case 2: Spell-check highlighting</h2>
+        <p>
+            Type in the textarea or the input field below. Words not found in the
+            dictionary are highlighted in real time using the CSS Custom Highlight API
+            with <code>OpaqueRange</code>. Try typing a misspelled word like
+            <kbd>teh</kbd> or <kbd>recieve</kbd>, followed by a space.
+        </p>
+
+        <h3>Textarea</h3>
+        <div class="field-wrapper">
+            <textarea id="textarea-highlight" rows="5" placeholder="Type some text... Misspelled words will be highlighted."></textarea>
+        </div>
+
+        <h3>Input</h3>
+        <div class="field-wrapper">
+            <input type="text" id="input-highlight" placeholder="Type some text... Misspelled words will be highlighted.">
+        </div>
+    </section>
+
+    <!-- Use Case 3: Live Range -->
+    <section class="demo-section">
+        <h2>Use case 3: Live range tracking</h2>
+        <p>
+            <code>OpaqueRange</code> is live — it automatically updates its offsets as
+            the content changes via interactive edits (typing, backspace, delete) or
+            <code>setRangeText()</code>. Click <strong>Highlight "hello"</strong> to
+            highlight the word, then type before it and watch the highlight follow.
+        </p>
+
+        <div class="field-wrapper">
+            <textarea id="textarea-live" rows="3">hello world</textarea>
+        </div>
+        <div class="button-group">
+            <button id="btn-highlight-hello">Highlight "hello"</button>
+            <button id="btn-clear-live">Clear highlight</button>
+        </div>
+        <p id="live-range-info" class="info-text"></p>
+    </section>
+
+    <!-- Use Case 4: disconnect() -->
+    <section class="demo-section">
+        <h2>Use case 4: Disconnecting an OpaqueRange</h2>
+        <p>
+            Calling <code>range.disconnect()</code> detaches the range from its element.
+            The offsets reset to 0, geometry becomes empty, and the range stops
+            receiving live updates. Create a range, then disconnect it and observe the
+            change.
+        </p>
+
+        <div class="field-wrapper">
+            <textarea id="textarea-disconnect" rows="3">The quick brown fox</textarea>
+        </div>
+        <div class="button-group">
+            <button id="btn-create-range">Create range on "quick" (4–9)</button>
+            <button id="btn-disconnect-range">Disconnect range</button>
+        </div>
+        <p id="disconnect-info" class="info-text"></p>
+    </section>
+
+    <!-- Use Case 5: getClientRects() -->
+    <section class="demo-section">
+        <h2>Use case 5: Multi-line <code>getClientRects()</code></h2>
+        <p>
+            <code>OpaqueRange.getClientRects()</code> returns one rectangle per line
+            for multi-line selections. Select a range that spans multiple lines and
+            see each individual line rect.
+        </p>
+
+        <div class="field-wrapper">
+            <textarea id="textarea-rects" rows="5">First line of text
+Second line here
+Third line too</textarea>
+        </div>
+        <div class="button-group">
+            <button id="btn-show-rects">Show rects for full selection</button>
+            <button id="btn-clear-rects">Clear</button>
+        </div>
+        <pre id="rects-output" class="info-text"></pre>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
