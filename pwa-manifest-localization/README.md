@@ -9,12 +9,14 @@ The demo app is localized in English, German, and Arabic.
 ## How to use the demo app
 
 1. In Microsoft Edge, open the [Manifest Localization Test App](https://microsoftedge.github.io/Demos/pwa-manifest-localization/) in a new window or tab.
+
 2. In the address bar, click the **App available** button to install the PWA on your device.
 
-    If your browser is set to English, German, or Arabic, the installed PWA displays the name, short name, icon, description, and shortcuts that are defined in the web app manifest file for that language.
+    If your browser is set to English, German, or Arabic, the installed PWA displays the name, short name, icon, description, and shortcuts that are defined in the web app manifest file for that language. 
+
 3. In Microsoft Edge, go to `edge://settings/languages`.
 
-4. Under **Preferred languages**, click **...** next to English, German, or Arabic, choosing a language that your browser isn't already using.
+4. Under **Preferred languages**, click **...** next to either English, German, or Arabic, choosing the one which your browser isn't already using.
 
 5. Select **Display Microsoft Edge in this language**.
 
