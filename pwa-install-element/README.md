@@ -4,20 +4,21 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ## Demos
 
-➡️ **[Open the demo](https://liahiscock.github.io/PWA/WebInstall/element-store.html)** ⬅️
-
+* ➡️ **[The <install> Element Store](https://liahiscock.github.io/PWA/WebInstall/element-store.html)** ⬅️
 
 ## How to use the `<install>` element
 
 ### Detect support
 
+```javascrit
 if ('HTMLInstallElement' in window) {
   // The <install> element is supported.
 } else {
   // The <install> element is not supported.
 }
+```
 
-### To install the current document
+### Install the current document
 
 To install the currently loaded document:
 
@@ -25,10 +26,9 @@ To install the currently loaded document:
 * The manifest file must have an `id` field defined.
 
 ```javascript
-/* Current Document: no attributes required */
 <install id="install-button"></install>
 ```
-### To install another document
+### Install another document
 
 To install a document that's not the current document, also known as a _background_ document, use either the `installurl` attribute, or both the `installurl` and `manifestid` attributes together:
 
@@ -38,9 +38,7 @@ To use the `installurl` attribute:
 * The manifest file must have an `id` field defined.
 
 ```javascript
-/*Background Document: 1-attribute*/
-<install installurl="https://foo.com"
-         id="install-button"></install>
+<install installurl="https://foo.com" id="install-button"></install>
 ```
 
 To use the `installurl` and `manifestid` attributes together:
@@ -51,11 +49,7 @@ To use the `installurl` and `manifestid` attributes together:
 You can find the computed ID by going to **Application** > **Manifest** > **Identity** > **Computed App ID** in Microsoft Edge DevTools.
 
 ```javascript
-/*Background Document: 2-attributes*/
-<install installurl="https://foo.com"
-         manifestid="https://foo.com/someid"
-         id="install-button">
-</install>
+<install installurl="https://foo.com" manifestid="https://foo.com/someid" id="install-button"></install>
 ```
 
 ### Handle installation success and errors
@@ -64,30 +58,30 @@ To handle the result of the web app installation process, use the `promptaction`
 
 ```javascript
 if ('HTMLInstallElement' in window) {
-    const button = document.getElementById('install-button');
+  const button = document.getElementById('install-button');
 
-    // Listen to the promptaction event to know if the installation succeeded.
-    button.addEventListener('promptaction', (event) => {
-        console.log(`Install succeeded`);
-    });
+  // Listen to the promptaction event to know if the installation succeeded.
+  button.addEventListener('promptaction', (event) => {
+    console.log(`Install succeeded`);
+  });
 
-    // Listen to the promptdismiss event to know if the installation failed.
-    button.addEventListener('promptdismiss', (event) => {
-        console.log(`Install failed`);
-    });
+  // Listen to the promptdismiss event to know if the installation failed.
+  button.addEventListener('promptdismiss', (event) => {
+    console.log(`Install failed`);
+  });
 
-    // Listen to the validationstatuschanged event to detect invalid installation data.
-    button.addEventListener('validationstatuschanged', (event) => {
-        if (event.target.invalidReason === 'install_data_invalid') {
-            console.log(event.target.invalidReason);
-        }
-    });
+  // Listen to the validationstatuschanged event to detect invalid installation data.
+  button.addEventListener('validationstatuschanged', (event) => {
+    if (event.target.invalidReason === 'install_data_invalid') {
+      console.log(event.target.invalidReason);
+    }
+  });
 } else {
   console.warn('HTMLInstallElement not supported');
 }
 ```
 
-## Test the feature in product with origin trials
+## Test the feature in production with origin trials
 
 The install element is currently available as an [Origin Trial](https://learn.microsoft.com/microsoft-edge/origin-trials/) in Microsoft Edge and Chrome versions 148 to 153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
 
