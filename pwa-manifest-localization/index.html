@@ -1,79 +1,70 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A Progressive Web App for testing manifest localization capabilities">
   <meta name="theme-color" content="#2196f3">
-  <title>Manifest Localization Test App</title>
+  <title data-loc="title">PWA manifest localization demo</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="128x128" href="icons/icon-128.png">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
+
     <header>
-      <h1>Manifest Localization Test App</h1>
-      <p class="subtitle">Testing PWA manifest localization capabilities</p>
+      <h1 data-loc="title">PWA manifest localization demo</h1>
+      <p class="subtitle" data-loc="subtitle">Testing PWA manifest localization capabilities</p>
+      <img src="./icons/icon-128.png" alt="App icon">
     </header>
 
-    <div class="content">
-      <div class="section">
-        <div class="info-box">
-          <p>
-            This PWA demonstrates manifest localization using the <code>name_localized</code>, 
-            <code>short_name_localized</code>, <code>icons_localized</code>, 
-            <code>description_localized</code>, and <code>shortcuts_localized</code> fields.
-            The service worker caches the manifest for offline access.
-          </p>
-        </div>
-        <div id="sw-status" class="status">Checking Service Worker...</div>
-      </div>
+    <main>
 
-      <div class="section">
-        <h2>Localized App Names and Icons</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Language</th>
-              <th>App Name</th>
-              <th>Short Name</th>
-              <th>Icon</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="language-code">Default (en)</span></td>
-              <td>Manifest Localization Test App</td>
-              <td>Localization Test</td>
-              <td>
-                <img src="./icons/icon-128.png" alt="Default icon" width="48" height="48">
-              </td>
-            </tr>
-            <tr>
-              <td><span class="language-code">German (de)</span></td>
-              <td>Manifest-Lokalisierungstest-App</td>
-              <td>Lokalisierungstest</td>
-              <td>
-                <img src="./icons/localized_icons/de/icon-128.png" alt="German icon" width="48" height="48">
-              </td>
-            </tr>
-            <tr>
-              <td><span class="language-code">Arabic (ar)</span></td>
-              <td>تطبيق اختبار توطين البيان</td>
-              <td>اختبار التوطين</td>
-              <td>
-                <img src="./icons/localized_icons/ar/icon-128.png" alt="Arabic icon" width="48" height="48">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <section class="info-box">
+        <p data-loc="description">This PWA demonstrates manifest localization using the <code>name_localized</code>, <code>short_name_localized</code>, <code>icons_localized</code>, <code>description_localized</code>, and <code>shortcuts_localized</code> fields.</p>
+      </section>
 
+      <section>
+        <h2 data-loc="how-to-use">How to use this app</h2>
+        <p data-loc="install-app-intro">First, install the app on your device:</p>
+        <ol data-loc="install-app-steps">
+          <li>
+            Open this demo in a new window or tab in Microsoft Edge.
+          </li>
+          <li>
+            In the address bar, click the <strong>App available</strong> button to install the PWA on your device.
+          </li>
+        </ol>
 
-    </div>
+        <p data-loc="installed-app-description">If your browser is set to English, German, Arabic, or French, the installed PWA is displayed in that
+          language:</p>
+        <ul data-loc="installed-app-features">
+          <li>The localized app's name, short name, description, icon, and shortcuts come from the
+            <code>_localized</code> suffix members in the the web app manifest file.
+          </li>
+          <li>The content of this page is localized via runtime JavaScript code.</li>
+        </ul>
+
+        <p data-loc="switch-language-intro">To test the app with another language:</p>
+        <ol data-loc="switch-language-steps">
+          <li>In Microsoft Edge, go to <code>edge://settings/languages</code>.</li>
+          <li>
+            Under <strong>Preferred languages</strong>, click <strong>...</strong> next to English, German,
+            Arabic, or French, choosing the one your browser is not already using.
+          </li>
+          <li>Select <strong>Display Microsoft Edge in this language</strong>.</li>
+          <li>
+            Restart the PWA. You are prompted to update the installed PWA to the new localized values.
+          </li>
+        </ol>
+      </section>
+
+    </main>
   </div>
 
   <script src="main.js"></script>
 </body>
+
 </html>

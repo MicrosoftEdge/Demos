@@ -1,0 +1,38 @@
+{
+  "de": {
+    "title": "PWA Manifest-Lokalisierungs-Demo",
+    "subtitle": "Testen der PWA-Manifest-Lokalisierungsfunktionen",
+    "description": "Diese PWA demonstriert die Manifestlokalisierung mithilfe der Felder <code>name_localized</code>, <code>short_name_localized</code>, <code>icons_localized</code>, <code>description_localized</code> und <code>shortcuts_localized</code>.",
+    "how-to-use": "So verwenden Sie diese App",
+    "install-app-intro": "Installieren Sie die App zunächst auf Ihrem Gerät:",
+    "install-app-steps": "<li>Öffnen Sie diese Demo in einem neuen Fenster oder Tab in Microsoft Edge.</li><li>Klicken Sie in der Adressleiste auf die Schaltfläche <strong>App verfügbar</strong>, um die PWA auf Ihrem Gerät zu installieren.</li>",
+    "installed-app-description": "Wenn Ihr Browser auf Englisch, Deutsch, Arabisch oder Französisch eingestellt ist, wird die installierte PWA in dieser Sprache angezeigt:",
+    "installed-app-features": "<li>Name, Kurzname, Beschreibung, Symbol und Verknüpfungen der lokalisierten App stammen aus den Mitgliedern mit dem Suffix <code>_localized</code> in der Web-App-Manifestdatei.</li><li>Der Inhalt dieser Seite wird über JavaScript-Laufzeitcode lokalisiert.</li>",
+    "switch-language-intro": "So testen Sie die App mit einer anderen Sprache:",
+    "switch-language-steps": "<li>Wechseln Sie in Microsoft Edge zu <code>edge://settings/languages</code>.</li><li>Klicken Sie unter <strong>Bevorzugte Sprachen</strong> auf <strong>...</strong> neben Englisch, Deutsch, Arabisch oder Französisch und wählen Sie eine Sprache aus, die Ihr Browser noch nicht verwendet.</li><li>Wählen Sie <strong>Microsoft Edge in dieser Sprache anzeigen</strong>.</li><li>Starten Sie die PWA neu. Sie werden aufgefordert, die installierte PWA auf die neuen lokalisierten Werte zu aktualisieren.</li>"
+  },
+  "ar": {
+    "title": "تطبيق توضيح توطين بيان PWA",
+    "subtitle": "اختبار إمكانات توطين بيان تطبيقات الويب التقدمية",
+    "description": "يوضح تطبيق الويب التقدمي هذا توطين البيان باستخدام الحقول <code>name_localized</code> و<code>short_name_localized</code> و<code>icons_localized</code> و<code>description_localized</code> و<code>shortcuts_localized</code>.",
+    "how-to-use": "كيفية استخدام هذا التطبيق",
+    "install-app-intro": "أولاً، قم بتثبيت التطبيق على جهازك:",
+    "install-app-steps": "<li>افتح هذا العرض التوضيحي في نافذة أو علامة تبويب جديدة في Microsoft Edge.</li><li>في شريط العناوين، انقر على زر <strong>التطبيق متاح</strong> لتثبيت تطبيق الويب التقدمي على جهازك.</li>",
+    "installed-app-description": "إذا كان متصفحك مضبوطاً على الإنجليزية أو الألمانية أو العربية أو الفرنسية، فسيتم عرض تطبيق الويب التقدمي المثبت بهذه اللغة:",
+    "installed-app-features": "<li>يأتي اسم التطبيق المحلي واسمه المختصر ووصفه وأيقونته واختصاراته من الأعضاء المحددة باللاحقة <code>_localized</code> في ملف بيان تطبيق الويب.</li><li>يتم تعريب محتوى هذه الصفحة عبر كود JavaScript في وقت التشغيل.</li>",
+    "switch-language-intro": "لاختبار التطبيق بلغة أخرى:",
+    "switch-language-steps": "<li>في Microsoft Edge، انتقل إلى <code>edge://settings/languages</code>.</li><li>ضمن <strong>اللغات المفضلة</strong>، انقر على <strong>...</strong> بجانب الإنجليزية أو الألمانية أو العربية أو الفرنسية، واختر اللغة التي لا يستخدمها متصفحك بالفعل.</li><li>حدد <strong>عرض Microsoft Edge بهذه اللغة</strong>.</li><li>أعد تشغيل تطبيق الويب التقدمي. ستتم مطالبتك بتحديث التطبيق المثبت إلى القيم المحلية الجديدة.</li>"
+  },
+  "fr": {
+    "title": "Démonstration de la localisation du manifeste PWA",
+    "subtitle": "Tester les fonctionnalités de localisation du manifeste PWA",
+    "description": "Cette PWA montre la localisation du manifeste à l'aide des champs <code>name_localized</code>, <code>short_name_localized</code>, <code>icons_localized</code>, <code>description_localized</code> et <code>shortcuts_localized</code>.",
+    "how-to-use": "Comment utiliser cette application",
+    "install-app-intro": "Tout d'abord, installez l'application sur votre appareil :",
+    "install-app-steps": "<li>Ouvrez cette démo dans un nouvel onglet ou une nouvelle fenêtre dans Microsoft Edge.</li><li>Dans la barre d'adresse, cliquez sur le bouton <strong>Application disponible</strong> pour installer la PWA sur votre appareil.</li>",
+    "installed-app-description": "Si votre navigateur est configuré en anglais, allemand, arabe ou français, la PWA installée s'affiche dans cette langue :",
+    "installed-app-features": "<li>Le nom, le nom court, la description, l'icône et les raccourcis de l'application localisée proviennent des membres avec le suffixe <code>_localized</code> dans le fichier manifeste de l'application web.</li><li>Le contenu de cette page est localisé via du code JavaScript à l'exécution.</li>",
+    "switch-language-intro": "Pour tester l'application dans une autre langue :",
+    "switch-language-steps": "<li>Dans Microsoft Edge, accédez à <code>edge://settings/languages</code>.</li><li>Sous <strong>Langues préférées</strong>, cliquez sur <strong>...</strong> à côté de l'anglais, de l'allemand, de l'arabe ou du français, en choisissant celui que votre navigateur n'utilise pas déjà.</li><li>Sélectionnez <strong>Afficher Microsoft Edge dans cette langue</strong>.</li><li>Redémarrez la PWA. Vous êtes invité à mettre à jour la PWA installé avec les nouvelles valeurs localisées.</li>"
+  }
+}
