@@ -4,7 +4,7 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ## Demos
 
-* ➡️ **[The <install> Element Store](https://liahiscock.github.io/PWA/WebInstall/element-store.html)** ⬅️
+* ➡️ **[The `<install>` Element Store](https://liahiscock.github.io/PWA/WebInstall/element-store.html)** ⬅️
 
 ## How to use the `<install>` element
 
