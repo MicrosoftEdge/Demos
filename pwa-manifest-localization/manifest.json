@@ -1,6 +1,6 @@
 {
-  "name": "Manifest Localization Test App",
-  "short_name": "Localization Test",
+  "name": "PWA manifest localization demo",
+  "short_name": "Localization demo",
   "description": "A Progressive Web App for testing manifest localization capabilities",
   "start_url": "./",
   "display": "standalone",
@@ -44,16 +44,19 @@
     }
   ],
   "name_localized": {
-    "de": "Manifest-Lokalisierungstest-App",
-    "ar": "تطبيق اختبار توطين البيان"
+    "de": "PWA Manifest-Lokalisierungs-Demo",
+    "ar": "تطبيق توضيح توطين بيان PWA",
+    "fr": "Démonstration de la localisation du manifeste PWA"
   },
   "short_name_localized": {
-    "de": "Lokalisierungstest",
-    "ar": "اختبار التوطين"
+    "de": "Lokalisierungs-Demo",
+    "ar": "توضيح التوطين",
+    "fr": "Démonstration de localisation"
   },
   "description_localized": {
     "de": "Eine Progressive Web App zum Testen der Manifest-Lokalisierungsfunktionen",
-    "ar": "تطبيق ويب تقدمي لاختبار قدرات توطين البيان"
+    "ar": "تطبيق ويب تقدمي لاختبار قدرات توطين البيان",
+    "fr": "Une application web progressive pour tester les capacités de localisation du manifeste"
   },
   "icons_localized": {
     "de": [
@@ -76,6 +79,18 @@
       },
       {
         "src": "./icons/localized_icons/ar/icon-256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      }
+    ],
+    "fr": [
+      {
+        "src": "./icons/localized_icons/fr/icon-128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "./icons/localized_icons/fr/icon-256.png",
         "sizes": "256x256",
         "type": "image/png"
       }
@@ -106,6 +121,21 @@
         "icons": [
           {
             "src": "./icons/localized_icons/ar/icon-128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+          }
+        ]
+      }
+    ],
+    "fr": [
+      {
+        "name": "Ouvrir l'accueil",
+        "short_name": "Accueil",
+        "description": "Naviguer vers la page d'accueil",
+        "url": "./",
+        "icons": [
+          {
+            "src": "./icons/localized_icons/fr/icon-128.png",
             "sizes": "128x128",
             "type": "image/png"
           }

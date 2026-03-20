@@ -15,7 +15,9 @@ const urlsToCache = [
   './icons/localized_icons/ar/icon-128.png',
   './icons/localized_icons/ar/icon-256.png',
   './icons/localized_icons/de/icon-128.png',
-  './icons/localized_icons/de/icon-256.png'
+  './icons/localized_icons/de/icon-256.png',
+  './icons/localized_icons/fr/icon-128.png',
+  './icons/localized_icons/fr/icon-256.png'
 ];
 
 // Install event - cache files
