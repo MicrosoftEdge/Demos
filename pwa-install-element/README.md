@@ -107,8 +107,9 @@ To share feedback, [open a new issue on the WICG/install-element repo](https://g
 
 We look forward to hearing from you!
 
-## Further Reading and References
+## See also
+
 * [Explainer](https://aka.ms/InstallElement)
 * [Chrome Platform Status Entry](https://chromestatus.com/feature/5152834368700416)
-* [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md)
+* [Test experimental APIs and features by using origin trials](https://learn.microsoft.com/microsoft-edge/origin-trials/#using-the-origin-trial-token-at-your-website)
 
