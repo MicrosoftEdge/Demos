@@ -31,21 +31,24 @@
   }
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  min-height: 100dvh;
+  min-block-size: 100dvh;
   background: var(--bg);
   color: var(--text);
-  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui;
 }
 
 body {
   display: grid;
-  grid-template: min-content auto / 1fr;
-  min-height: 100dvh;
+  grid-template: min-content min-content auto / 1fr;
+  min-block-size: 100dvh;
 }
 
 /* Header */
@@ -74,7 +77,7 @@ header h1 code {
 /* Main grid */
 main {
   padding: 1em 2em;
-  max-width: 700px;
+  max-inline-size: 700px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -91,7 +94,7 @@ main {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  text-align: left;
+  text-align: start;
   transition: box-shadow ease-in-out 0.3s;
   box-shadow: 0 0 0 var(--shadow);
 }
@@ -108,7 +111,7 @@ main {
 
 .app_info {
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .app_entry h2 {
@@ -144,7 +147,6 @@ install {
   color: var(--accent);
   cursor: pointer;
   user-select: none;
-  font-family: "Segoe UI", sans-serif;
   font-size: 1.05em;
   font-weight: 600;
   transition: background ease-in 0.2s;
@@ -155,10 +157,41 @@ install:hover {
   color: var(--surface);
 }
 
+.unsupported install,
+.unsupported install:hover {
+  border-color: var(--error);
+  background: var(--surface);
+  color: var(--error);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.unsupported-message {
+  font-size: 1.1em;
+  text-align: center;
+  padding: 1em;
+  max-inline-size: 700px;
+  margin: 1em 2em;
+  display: none;
+  border-radius: 1rem;
+  border: 1px solid var(--error);
+  background: hsl(from var(--error) h s 95);
+  justify-self: center;
+}
+
+.unsupported-message p {
+  margin: 0;
+}
+
+.unsupported .unsupported-message {
+  display: block;
+}
+
 @media only screen and (max-width: 600px) {
   main {
     grid-template-columns: 1fr;
   }
+
   header {
     flex-direction: column;
     text-align: center;

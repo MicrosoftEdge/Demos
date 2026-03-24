@@ -1,60 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/png" href="144x144.png" />
-    <title>The &lt;install&gt; store</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <h1>The <code>&lt;install&gt;</code> Element Store</h1>
-      <install id="install-self" tabindex="0">Install the Store</install>
-    </header>
 
-    <main>
-      <article class="app_entry">
-        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwinter.png"
-             width="75" height="75" class="app_icon">
-        <div class="app_info">
-          <h2><a href="https://diek.us/pwinter" target="_blank">The PWinter</a></h2>
-          <p class="app_descrip">The PWinter is your custom PWA icon generator!</p>
-        </div>
-        <install installurl="https://diek.us/pwinter/" manifestid="https://diek.us/pwinter/index.html?randomize=true" tabindex="0">Install</install>
-      </article>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="144x144.png">
+  <title>The &lt;install&gt; store</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
 
-      <article class="app_entry">
-        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwamp.png"
-             width="75" height="75" class="app_icon">
-        <div class="app_info">
-          <h2><a href="https://microsoftedge.github.io/Demos/pwamp/" target="_blank">PWAmp</a></h2>
-          <p class="app_descrip">A music player PWA demo to play local audio files.</p>
-        </div>
-        <install installurl="https://microsoftedge.github.io/Demos/pwamp/" manifestid="https://microsoftedge.github.io/Demos/pwamp/" tabindex="0">Install</install>
-      </article>
+<body>
+  <header>
+    <h1>The <code>&lt;install&gt;</code> Element Store</h1>
+    <install id="install-self" tabindex="0">Install the Store</install>
+  </header>
 
-      <article class="app_entry">
-        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/bubble.png"
-             width="75" height="75" class="app_icon">
-        <div class="app_info">
-          <h2><a href="https://diek.us/bubble" target="_blank">Bubble</a></h2>
-          <p class="app_descrip">360° equirectangular picture viewer. For images from 360 cameras.</p>
-        </div>
-        <install installurl="https://diek.us/bubble/" manifestid="https://diek.us/bubble/index.html" tabindex="0">Install</install>
-      </article>
+  <section class="unsupported-message">
+    <p>Your browser doesn't support the <code>&lt;install&gt;</code> element yet.<br>
+      See <a
+        href="https://github.com/MicrosoftEdge/Demos/blob/main/pwa-install-element/README.md#test-the-feature-locally">Test
+        the feature locally</a>.</p>
+  </section>
 
-      <article class="app_entry">
-        <img src="https://mustjab.github.io/icon.png"
-             width="75" height="75" class="app_icon">
-        <div class="app_info">
-          <h2><a href="https://mustjab.github.io/" target="_blank">Matrix PWA</a></h2>
-          <p class="app_descrip">😎</p>
-        </div>
-        <install id="install-cross" installurl="https://mustjab.github.io/" tabindex="0">Install</install>
-      </article>
-    </main>
-  </body>
+  <main>
+    <article class="app_entry">
+      <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwinter.png" width="75" height="75"
+        class="app_icon">
+      <div class="app_info">
+        <h2><a href="https://diek.us/pwinter" target="_blank">The PWinter</a></h2>
+        <p class="app_descrip">The PWinter is your custom PWA icon generator!</p>
+      </div>
+      <install installurl="https://diek.us/pwinter/" manifestid="https://diek.us/pwinter/index.html?randomize=true"
+        tabindex="0">Install</install>
+    </article>
+
+    <article class="app_entry">
+      <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwamp.png" width="75" height="75"
+        class="app_icon">
+      <div class="app_info">
+        <h2><a href="https://microsoftedge.github.io/Demos/pwamp/" target="_blank">PWAmp</a></h2>
+        <p class="app_descrip">A music player PWA demo to play local audio files.</p>
+      </div>
+      <install installurl="https://microsoftedge.github.io/Demos/pwamp/"
+        manifestid="https://microsoftedge.github.io/Demos/pwamp/" tabindex="0">Install</install>
+    </article>
+
+    <article class="app_entry">
+      <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/bubble.png" width="75" height="75"
+        class="app_icon">
+      <div class="app_info">
+        <h2><a href="https://diek.us/bubble" target="_blank">Bubble</a></h2>
+        <p class="app_descrip">360° equirectangular picture viewer. For images from 360 cameras.</p>
+      </div>
+      <install installurl="https://diek.us/bubble/" manifestid="https://diek.us/bubble/index.html" tabindex="0">Install
+      </install>
+    </article>
+
+    <article class="app_entry">
+      <img src="https://mustjab.github.io/icon.png" width="75" height="75" class="app_icon">
+      <div class="app_info">
+        <h2><a href="https://mustjab.github.io/" target="_blank">Matrix PWA</a></h2>
+        <p class="app_descrip">😎</p>
+      </div>
+      <install id="install-cross" installurl="https://mustjab.github.io/" tabindex="0">Install</install>
+    </article>
+  </main>
+</body>
+
 </html>
