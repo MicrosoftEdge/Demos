@@ -83,10 +83,10 @@ if ('HTMLInstallElement' in window) {
 
 ## Test the feature locally
 
-The install element can be tested via a command line flag, which is available in Chromium-based browsers (such as Microsoft Edge) starting with **version 148**.
+To test the `<install>` element feature locally, in your browser only, use Microsoft Edge version 148 or later (or another Chromium-based browser) and enable the **Web App Install Element** experiment:
 
 1. In the browser, open a new tab and go to `about://flags/#web-app-install-element`.
-2. Set the Web App Install Element flag to **Enabled**.
+2. Enable the **Web App Install Element** flag.
 3. Click the **Restart** button in the bottom right. The browser restarts.
 
 <!--
