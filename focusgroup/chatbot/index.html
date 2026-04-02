@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focusgroup: Chat Pattern</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="chat.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>Chatbot Pattern</h1>
+    <p>This demonstrates two different uses of <code>focusgroup</code>:
+      <ol>
+        <li>A block-level customized arrow navigation region between messages</li>
+        <li>A toolbar of actions that appears over a focused or hovered message.</li>
+      </ol>
+    </p>
+    <nav><a href="../index.html">← All Demos</a></nav>
+  </header>
+
+  <main class="page-content">
+
+    <!-- ============================================================ -->
+    <!-- Demo Chatbot UI -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="catbot-start">Catbot</h2>
+      <p>
+        An unassuming chatbot that responds to any message with a randomly-chosen cat fact from Wikipedia.
+      </p>
+      <p>
+        The message list is a <code>focusgroup="toolbar block nomemory"</code> with <code>role="feed"</code> applied on top, since there are no out-of-the-box semantics that exactly fit a chat message list. This example also demonstrates using <code>focusgroupstart</code> to manually handle memory with the exception of updating to the latest message when a new one arrives.
+      </p>
+      <div class="attr-label">focusgroup="toolbar block nomemory"</div>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Use <kbd>↓</kbd> and <kbd>↑</kbd> to
+        navigate. Press <kbd>Tab</kbd> when on a specific message to reach its actions toolbar, or any links within the message. Try typing a new message into the input and tabbing back to the message list to see the latest catbot response focused.
+      </div>
+
+      <div class="demo-container">
+        <div focusgroup="toolbar block nomemory" aria-label="Chat with catbot" role="feed" id="message-list">
+        </div>
+        <form id="chatinput" class="chat-form" novalidate>
+          <input type="text" aria-label="message catbot" placeholder="Ask me about cats!">
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+      <ul class="notice-list">
+        <li>Up/Down arrows navigate between messages</li>
+        <li><kbd>PageUp</kbd> and <kbd>PageDown</kbd> are not built into
+          <code>focusgroup</code>. Add JavaScript handlers if your chat
+          pattern requires them</li>
+        <li>The message that functions as the tab entry point state (<code>focusgroupstart</code>)
+          is managed by JavaScript. This enables manual "memory" that updates when a new message is posted.</li>
+        <li>Because there is no well-established semantic pattern for chat message lists,
+          <code>role="feed"</code> and <code>role="article"</code> are manually added in this example.
+          The <code>toolbar</code> token is used as the base, since it doesn't automatically apply
+          roles to its children.
+        </li>
+        <li>Press <kbd>Tab</kbd> from bot responses to reach the inner message actions toolbar.</li>
+        <li>Left/Right arrows navigate between actions in the inner message actions toolbar.</li>
+      </ul>
+
+      <details class="source-code">
+        <summary>View source</summary>
+        <pre><code>&lt;div focusgroup="toolbar block nomemory"
+     aria-label="Chat with catbot"
+     role="feed" id="message-list"&gt;
+  &lt;div class="message user" role="article" tabindex="0"&gt;
+    When were cats domesticated?
+  &lt;/div&gt;
+  &lt;div class="message catbot" role="article" tabindex="0" focusgroupstart&gt;
+    &lt;div class="message-actions" focusgroup="toolbar nomemory"&gt;
+      &lt;button&gt;Copy&lt;/button&gt;
+      &lt;button&gt;Like&lt;/button&gt;
+      &lt;button&gt;Dislike&lt;/button&gt;
+      &lt;button&gt;Share&lt;/button&gt;
+    &lt;/div&gt;
+    The domestic cat is the only domesticated species of the family Felidae.
+    Advances in archaeology and genetics have shown that the domestication of the cat
+    started in the Near East around 7500 BCE.
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </details>
+    </section>
+
+  </main>
+
+  <script src="../shared.js"></script>
+  <script type="module" src="chat.js"></script>
+</body>
+
+</html>

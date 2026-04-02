@@ -1,0 +1,65 @@
+/* Message list */
+[role=feed] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  position:relative;
+  width: fit-content;
+  max-width: 80%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.catbot {
+  align-self: flex-start;
+  background: var(--hover-bg);
+  color: var(--text);
+}
+
+.user {
+  align-self: flex-end;
+  background: var(--selected-bg);
+  color: var(--selected-text);
+}
+
+/* Message action toolbar */
+.message-actions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  transform: translateY(-80%);
+  background-color: var(--bg);
+  padding: 0.25rem;
+  border-radius: 6px;
+}
+
+.message:focus-within .message-actions,
+.message:hover .message-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+/* Chat input */
+.chat-form {
+  display: flex;
+  gap: 0.25rem;
+  align-items: stretch;
+  margin-top: 1rem;
+}
+
+.chat-form input {
+  flex: 1 1 auto;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.chat-form button[type=submit] {
+  flex: 0 0 auto;
+}
