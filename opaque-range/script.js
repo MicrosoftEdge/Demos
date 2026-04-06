@@ -1,8 +1,5 @@
 // ---- Feature detection ----
 const supportsOpaqueRange = typeof HTMLTextAreaElement.prototype.createValueRange === "function";
-console.log("OpaqueRange supported:", supportsOpaqueRange);
-console.log("CSS.highlights available:", typeof CSS !== "undefined" && "highlights" in CSS);
-console.log("Highlight constructor available:", typeof Highlight !== "undefined");
 
 if (!supportsOpaqueRange) {
     document.getElementById("feature-warning").hidden = false;
@@ -15,6 +12,8 @@ if (!supportsOpaqueRange) {
 const mentionPopup = document.getElementById("mention-popup");
 const textareaPopup = document.getElementById("textarea-popup");
 const inputPopup = document.getElementById("input-popup");
+
+let mentionTriggerField = null;
 
 /**
  * Show the mention popup at the caret position using OpaqueRange.
@@ -33,22 +32,24 @@ function showMentionPopup(element) {
     mentionPopup.style.left = `${rect.left}px`;
     mentionPopup.style.top = `${rect.bottom + 4}px`;
     mentionPopup.hidden = false;
+    mentionTriggerField = element;
 }
 
 function hideMentionPopup() {
     mentionPopup.hidden = true;
+    mentionTriggerField = null;
 }
 
 /**
  * Handle input in the mention fields.
- * Shows the popup when the user types '@'.
+ * Shows the popup when the user types ':'.
  */
 function handleMentionInput(event) {
     const el = event.target;
     const text = el.value;
     const pos = el.selectionStart;
 
-    if (pos > 0 && text[pos - 1] === "@") {
+    if (pos > 0 && text[pos - 1] === ":") {
         showMentionPopup(el);
     } else {
         hideMentionPopup();
@@ -58,23 +59,23 @@ function handleMentionInput(event) {
 textareaPopup.addEventListener("input", handleMentionInput);
 inputPopup.addEventListener("input", handleMentionInput);
 
-// Insert selected user name and close popup.
+// Insert selected emoji and close popup.
 mentionPopup.addEventListener("click", (event) => {
-    const li = event.target.closest("li[data-user]");
+    const li = event.target.closest("li[data-emoji]");
     if (!li) {
         return;
     }
 
-    const username = li.dataset.user;
-    // Determine which field is active.
-    const activeField = document.activeElement === inputPopup ? inputPopup : textareaPopup;
+    const emoji = li.dataset.emoji;
+    const activeField = mentionTriggerField || textareaPopup;
     const pos = activeField.selectionStart;
-    const before = activeField.value.slice(0, pos);
+    // Replace the trigger character ':' with the emoji.
+    const before = activeField.value.slice(0, pos - 1);
     const after = activeField.value.slice(pos);
-    activeField.value = before + username + " " + after;
+    activeField.value = before + emoji + " " + after;
 
-    // Move caret after inserted name.
-    const newPos = pos + username.length + 1;
+    // Move caret after inserted emoji.
+    const newPos = before.length + emoji.length + 1;
     activeField.setSelectionRange(newPos, newPos);
     activeField.focus();
     hideMentionPopup();
@@ -88,95 +89,67 @@ document.addEventListener("click", (event) => {
 });
 
 // ===========================================================================
-// Use Case 2: Spell-Check Highlighting
+// Use Case 2: Search/Find Highlighting
 // ===========================================================================
 
-// A small sample dictionary of common English words.
-const dictionary = new Set([
-    "a", "about", "all", "also", "an", "and", "any", "are", "as", "at",
-    "be", "been", "but", "by", "can", "come", "could", "day", "did", "do",
-    "each", "even", "find", "first", "for", "from", "get", "give", "go",
-    "good", "great", "had", "has", "have", "he", "hello", "her", "here",
-    "him", "his", "how", "i", "if", "in", "into", "is", "it", "its",
-    "just", "know", "let", "like", "long", "look", "make", "many", "may",
-    "me", "more", "most", "much", "my", "new", "no", "not", "now", "of",
-    "on", "one", "only", "or", "other", "our", "out", "over", "own",
-    "people", "say", "see", "she", "so", "some", "still", "such", "take",
-    "tell", "than", "that", "the", "their", "them", "then", "there",
-    "these", "they", "thing", "think", "this", "those", "through", "time",
-    "to", "too", "two", "up", "us", "use", "very", "want", "was", "way",
-    "we", "well", "were", "what", "when", "which", "while", "who", "will",
-    "with", "word", "work", "world", "would", "write", "year", "you",
-    "your", "type", "some", "text", "test", "demo", "range", "opaque",
-    "check", "words", "misspelled", "try", "typing", "followed", "space"
-]);
+const searchInput = document.getElementById("search-input");
+const textareaSearch = document.getElementById("textarea-search");
+const searchCount = document.getElementById("search-count");
 
-const textareaHighlight = document.getElementById("textarea-highlight");
-const inputHighlight = document.getElementById("input-highlight");
+let currentSearchRanges = [];
 
-// Track current OpaqueRanges so we can disconnect them before creating new ones.
-
-let currentSpellRanges = [];
-
-/**
- * Find all word boundaries in the given text and return an array of
- * { start, end, word } objects.
- */
-function findWords(text) {
-    const words = [];
-    const regex = /\b[a-zA-Z']+\b/g;
-    let match;
-    while ((match = regex.exec(text)) !== null) {
-        words.push({ start: match.index, end: match.index + match[0].length, word: match[0] });
-    }
-    return words;
-}
-
-/**
- * Re-run spell checking and update the shared "misspelled" CSS custom
- * highlight. We collect OpaqueRanges from both fields into a single
- * Highlight so a single ::highlight(misspelled) CSS rule covers both.
- */
-function updateAllSpellHighlights() {
+function updateSearchHighlights() {
     if (!supportsOpaqueRange) {
         return;
     }
 
-    // Disconnect old ranges so they don't accumulate in the element's
-    // set of associated OpaqueRanges.
-    currentSpellRanges.forEach((r) => r.disconnect());
-    currentSpellRanges = [];
+    // Disconnect old ranges.
+    currentSearchRanges.forEach((r) => r.disconnect());
+    currentSearchRanges = [];
 
+    const query = searchInput.value;
+    if (!query) {
+        CSS.highlights.delete("search-match");
+        searchCount.textContent = "";
+        return;
+    }
+
+    const text = textareaSearch.value;
     const newRanges = [];
 
-    [textareaHighlight, inputHighlight].forEach((element) => {
-        try {
-            const text = element.value;
-            const words = findWords(text);
-            const misspelled = words.filter((w) => !dictionary.has(w.word.toLowerCase()));
-            console.log("Spell-check: element =", element.id, "text =", JSON.stringify(text), "misspelled words =", misspelled.map(w => w.word));
-            misspelled.forEach((w) => {
-                const range = element.createValueRange(w.start, w.end);
-                console.log("  Created OpaqueRange for", JSON.stringify(w.word), "offsets", w.start, "-", w.end,
-                    "range type:", range.constructor.name,
-                    "startOffset:", range.startOffset, "endOffset:", range.endOffset);
-                currentSpellRanges.push(range);
-                newRanges.push(range);
-            });
-        } catch (e) {
-            console.log("Spell-check highlighting error:", e);
-        }
-    });
+    try {
+        // Find all case-insensitive occurrences of the search term.
+        const lowerText = text.toLowerCase();
+        const lowerQuery = query.toLowerCase();
+        let startIndex = 0;
 
-    // Create a fresh Highlight and register it each time, matching the
-    // pattern from the OpaqueRange explainer.
-    const spellHighlight = new Highlight(...newRanges);
-    CSS.highlights.set("misspelled", spellHighlight);
-    console.log("Spell-check update complete. Total ranges:", spellHighlight.size, "CSS.highlights has 'misspelled':", CSS.highlights.has("misspelled"));
+        while (startIndex < lowerText.length) {
+            const idx = lowerText.indexOf(lowerQuery, startIndex);
+            if (idx === -1) {
+                break;
+            }
+            const range = textareaSearch.createValueRange(idx, idx + query.length);
+            currentSearchRanges.push(range);
+            newRanges.push(range);
+            startIndex = idx + 1;
+        }
+    } catch (e) {
+        console.error("Search highlighting error:", e);
+    }
+
+    if (newRanges.length > 0) {
+        const searchHighlight = new Highlight(...newRanges);
+        CSS.highlights.set("search-match", searchHighlight);
+    } else {
+        CSS.highlights.delete("search-match");
+    }
+
+    const count = newRanges.length;
+    searchCount.textContent = count === 1 ? "1 match" : `${count} matches`;
 }
 
-textareaHighlight.addEventListener("input", updateAllSpellHighlights);
-inputHighlight.addEventListener("input", updateAllSpellHighlights);
+searchInput.addEventListener("input", updateSearchHighlights);
+textareaSearch.addEventListener("input", updateSearchHighlights);
 
 // ===========================================================================
 // Use Case 3: Live Range Tracking
@@ -209,14 +182,12 @@ btnHighlight.addEventListener("click", () => {
 
     try {
         liveRange = textareaLive.createValueRange(idx, idx + "hello".length);
-        console.log("Live range created:", liveRange.constructor.name, "startOffset:", liveRange.startOffset, "endOffset:", liveRange.endOffset);
         const trackedHighlight = new Highlight(liveRange);
         CSS.highlights.set("tracked-word", trackedHighlight);
-        console.log("trackedHighlight.size:", trackedHighlight.size, "CSS.highlights has 'tracked-word':", CSS.highlights.has("tracked-word"));
 
         liveInfo.textContent = `Highlighted "hello" at offsets ${liveRange.startOffset}–${liveRange.endOffset}. Type before it and watch the highlight follow!`;
     } catch (e) {
-        console.log("Live range highlighting error:", e);
+        console.error("Live range highlighting error:", e);
     }
 });
 
@@ -266,14 +237,12 @@ btnCreateRange.addEventListener("click", () => {
     // "quick" is at positions 4–9 in "The quick brown fox"
     try {
         disconnectRange = textareaDisconnect.createValueRange(4, 9);
-        console.log("Disconnect range created:", disconnectRange.constructor.name, "startOffset:", disconnectRange.startOffset, "endOffset:", disconnectRange.endOffset);
         const disconnectHighlight = new Highlight(disconnectRange);
         CSS.highlights.set("disconnect-demo", disconnectHighlight);
-        console.log("disconnectHighlight.size:", disconnectHighlight.size, "CSS.highlights has 'disconnect-demo':", CSS.highlights.has("disconnect-demo"));
 
         disconnectInfo.textContent = showRangeState(disconnectRange, "Created");
     } catch (e) {
-        console.log("Disconnect demo highlighting error:", e);
+        console.error("Disconnect demo highlighting error:", e);
     }
 });
 
@@ -296,39 +265,4 @@ textareaDisconnect.addEventListener("input", () => {
     if (disconnectRange) {
         disconnectInfo.textContent = showRangeState(disconnectRange, "Live update");
     }
-});
-
-// ===========================================================================
-// Use Case 5: getClientRects()
-// ===========================================================================
-
-const textareaRects = document.getElementById("textarea-rects");
-const btnShowRects = document.getElementById("btn-show-rects");
-const btnClearRects = document.getElementById("btn-clear-rects");
-const rectsOutput = document.getElementById("rects-output");
-
-btnShowRects.addEventListener("click", () => {
-    if (!supportsOpaqueRange) {
-        rectsOutput.textContent = "OpaqueRange is not supported in this browser.";
-        return;
-    }
-
-    const range = textareaRects.createValueRange(0, textareaRects.value.length);
-    const boundingRect = range.getBoundingClientRect();
-    const clientRects = range.getClientRects();
-
-    let output = `getBoundingClientRect():\n  x=${boundingRect.x.toFixed(1)}, y=${boundingRect.y.toFixed(1)}, ` +
-        `width=${boundingRect.width.toFixed(1)}, height=${boundingRect.height.toFixed(1)}\n\n` +
-        `getClientRects() — ${clientRects.length} rect(s):\n`;
-
-    for (let i = 0; i < clientRects.length; i++) {
-        const r = clientRects[i];
-        output += `  [${i}] x=${r.x.toFixed(1)}, y=${r.y.toFixed(1)}, width=${r.width.toFixed(1)}, height=${r.height.toFixed(1)}\n`;
-    }
-
-    rectsOutput.textContent = output;
-});
-
-btnClearRects.addEventListener("click", () => {
-    rectsOutput.textContent = "";
 });
