@@ -91,7 +91,7 @@ To test the `<install>` element feature locally, in your browser only, use Micro
 
 ## Test the feature in production with origin trials
 
-The install element is currently available as an [Origin Trial](https://learn.microsoft.com/microsoft-edge/origin-trials/) in Microsoft Edge and Chrome versions 148 to 153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
+The `<install>` element is currently available as an [Origin Trial](https://learn.microsoft.com/microsoft-edge/origin-trials/) in Microsoft Edge and Chrome versions 148 to 153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
 
 To use the install element on your production site, participate in the origin trial:
 
