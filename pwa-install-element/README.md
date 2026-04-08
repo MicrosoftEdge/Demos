@@ -89,20 +89,18 @@ To test the `<install>` element feature locally, in your browser only, use Micro
 2. Enable the **Web App Install Element** flag.
 3. Click the **Restart** button in the bottom right. The browser restarts.
 
-<!--
 ## Test the feature in production with origin trials
 
-The install element is currently available as an [Origin Trial](https://learn.microsoft.com/microsoft-edge/origin-trials/) in Microsoft Edge and Chrome versions 148 to 153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
+The `<install>` element is currently available as an [Origin Trial](https://learn.microsoft.com/microsoft-edge/origin-trials/) in Microsoft Edge and Chrome versions 148 to 153. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
 
-To use the install element on your production site, participate in the origin trial:
+To use the `<install>` element on your production site, participate in the origin trial:
 
-1. **Register for the origin trial:** [Install element registration page link](https://developer.chrome.com/origintrials/#/view_trial/XXXXXXXXXX)
+1. **Register for the origin trial:** [Install element registration page link](https://developer.chrome.com/origintrials/#/view_trial/506092008125759489)
 2. **Add the origin trial token:** Once you have the origin trial registration token, add the token to your pages by using a `<meta>` tag or an HTTP header. To learn more, see [Using the origin trial token at your website](https://learn.microsoft.com/microsoft-edge/origin-trials/#using-the-origin-trial-token-at-your-website).
 
 ```html
 <meta http-equiv="origin-trial" content="YOUR_TOKEN_HERE">
 ```
--->
 
 ## Provide feedback
 
