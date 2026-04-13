@@ -162,6 +162,8 @@ const liveInfo = document.getElementById("live-range-info");
 
 let liveRange = null;
 
+const liveRangeWord = "world";
+
 btnHighlight.addEventListener("click", () => {
   if (!supportsOpaqueRange) {
     liveInfo.textContent = "OpaqueRange is not supported in this browser.";
@@ -169,9 +171,9 @@ btnHighlight.addEventListener("click", () => {
   }
 
   const text = textareaLive.value;
-  const idx = text.indexOf("hello");
+  const idx = text.indexOf(liveRangeWord);
   if (idx === -1) {
-    liveInfo.textContent = '"hello" not found in the textarea.';
+    liveInfo.textContent = `"${liveRangeWord}" not found in the textarea.`;
     return;
   }
 
@@ -181,11 +183,11 @@ btnHighlight.addEventListener("click", () => {
   }
 
   try {
-    liveRange = textareaLive.createValueRange(idx, idx + "hello".length);
+    liveRange = textareaLive.createValueRange(idx, idx + liveRangeWord.length);
     const trackedHighlight = new Highlight(liveRange);
     CSS.highlights.set("tracked-word", trackedHighlight);
 
-    liveInfo.textContent = `Highlighted "hello" at offsets ${liveRange.startOffset}–${liveRange.endOffset}. Type before it and watch the highlight follow!`;
+    liveInfo.textContent = `Highlighted "${liveRangeWord}" at offsets ${liveRange.startOffset}–${liveRange.endOffset}. Type before it and watch the highlight follow!`;
   } catch (e) {
     console.error("Live range highlighting error:", e);
   }

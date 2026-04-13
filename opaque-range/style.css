@@ -59,6 +59,10 @@ kbd {
   border-radius: 3px;
 }
 
+.demo-section code {
+  background: white;
+}
+
 kbd {
   border: 1px solid #ccc;
   box-shadow: 0 1px 0 #bbb;
