@@ -6,10 +6,10 @@
 
 ## Demos
 
-- **Caret popup positioning** — Type `:` to trigger an emoji picker positioned at the caret
-- **Search highlighting** — All occurrences of a search term are highlighted in real time using the CSS Custom Highlight API
-- **Live range tracking** — Highlight "hello", then type before it and watch the highlight follow
-- **Disconnecting a range** — Call `disconnect()` to detach a range and observe offsets reset to 0
+- Caret popup positioning: Type `:` to trigger an emoji picker positioned at the caret.
+- Search highlighting: All occurrences of a search term are highlighted in real time using the CSS Custom Highlight API.
+- Live range tracking: Highlight "hello", then type before it and watch the highlight follow.
+- Disconnecting a range: Call `disconnect()` to detach a range and observe offsets reset to 0.
 
 ## Learn more
 
