@@ -31,12 +31,12 @@ function showMentionPopup(element) {
 
   mentionPopup.style.left = `${rect.left}px`;
   mentionPopup.style.top = `${rect.bottom + 4}px`;
-  mentionPopup.hidden = false;
+  mentionPopup.showPopover({ source: element });
   mentionTriggerField = element;
 }
 
 function hideMentionPopup() {
-  mentionPopup.hidden = true;
+  mentionPopup.hidePopover();
   mentionTriggerField = null;
 }
 

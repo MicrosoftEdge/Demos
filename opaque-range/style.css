@@ -109,7 +109,7 @@ input[type="text"]:focus {
 /* Mention popup */
 .popup {
   position: fixed;
-  z-index: 1000;
+  margin: 0;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -120,16 +120,24 @@ input[type="text"]:focus {
 .popup ul {
   list-style: none;
   margin: 0;
-  padding: 0.25rem 0;
+  padding: 0;
 }
 
-.popup li {
+.popup button {
+  display: block;
+  width: 100%;
+  text-align: start;
+  border-radius: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  font-family: inherit;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   font-size: 0.95rem;
 }
 
-.popup li:hover {
+.popup button:hover {
   background: #e8f0fe;
 }
 
