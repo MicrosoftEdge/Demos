@@ -13,7 +13,7 @@ button {
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
   font-size: 16px;
-  font-family: Segoe UI, SegoeUI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: system-ui, sans-serif;
   font-weight: 400;
 }
 
@@ -24,21 +24,25 @@ html {
 body {
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem;
   color: #1b1b1b;
   line-height: 1.6;
 }
 
 h1 {
-  margin-bottom: 0.25rem;
+  margin: 2rem 0;
   font-size: 1.75rem;
 }
 
+body > p {
+  margin: 2rem 0;
+}
+
 h2 {
-  margin-top: 2rem;
   font-size: 1.3rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.4rem;
+  margin: 0 0 1rem 0;
+  border-block-end: 1px solid #ddd;
+  padding-block-end: 1rem;
 }
 
 h3 {
@@ -74,7 +78,10 @@ a {
 }
 
 .demo-section {
-  margin-bottom: 2rem;
+  margin-block-end: 2rem;
+  background: #eee;
+  padding: 1rem;
+  border-radius: 6px;
 }
 
 .field-wrapper {
