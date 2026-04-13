@@ -19,4 +19,12 @@
 
 ## Requirements
 
-The feature is experimental and not yet enabled by default in stable builds. It is available in Microsoft Edge 148 and other Chromium-based browsers version 148 and later. Sign up for the [Origin Trial](https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401) to enable the feature without a flag. Otherwise, enable the **Experimental Web Platform features** flag at `about://flags` in Microsoft Edge or another Chromium-based browser.
+The feature is experimental and not yet enabled by default in Microsoft Edge's stable version.
+
+To test the feature:
+
+* Use Microsoft Edge version 148, or another Chromium-based browser with a matching version, or later.
+* For local testing:
+  * Go to `about://flags`.
+  * Enable the **Experimental Web Platform features** flag.
+* For testing on your production site: register for the [origin trial](https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401).
