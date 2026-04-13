@@ -13,9 +13,9 @@
 
 ## Learn more
 
-- [Give feedback on the feature](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=opaque-range.md)
-- [OpaqueRange explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/OpaqueRange/explainer.md)
-- [Origin Trial](https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401)
+- To learn more, read the [OpaqueRange explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/OpaqueRange/explainer.md).
+- To give feedback on the feature, [create a new issue](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=opaque-range.md).
+- To test the feature on your production website, [register for the origin trial](https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401). To learn more about origin trials, see [Test experimental APIs and features by using origin trials](https://learn.microsoft.com/microsoft-edge/origin-trials/).
 
 ## Requirements
 
