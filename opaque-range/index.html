@@ -1,118 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpaqueRange demo</title>
-    <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpaqueRange demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>OpaqueRange demo</h1>
+  <h1>OpaqueRange demo</h1>
+  <p>
+    The <code>OpaqueRange</code> API lets you create ranges over the value of
+    <code>&lt;textarea&gt;</code> and <code>&lt;input&gt;</code> elements, enabling
+    <code>getBoundingClientRect()</code> and the
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API">CSS Custom Highlight API</a>
+    to work directly on form controls without cloning elements.
+    <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=opaque-range.md">Give feedback on the
+      feature</a>.
+  </p>
+
+  <div id="feature-warning" class="warning" hidden>
+    <strong>⚠️ OpaqueRange is not supported in this browser.</strong>
+    OpaqueRange is available in Microsoft Edge 148 and other Chromium-based browsers version 148 and later.
+    Enable the <strong>Experimental Web Platform features</strong> flag at
+    <code>edge://flags</code> or <code>chrome://flags</code>, or sign up for the
+    <a href="https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401">Origin Trial</a>.
+  </div>
+
+  <!-- Use Case 1: Caret Popup Positioning -->
+  <section class="demo-section">
+    <h2>Use case 1: Caret popup positioning</h2>
     <p>
-        The <code>OpaqueRange</code> API lets you create ranges over the value of
-        <code>&lt;textarea&gt;</code> and <code>&lt;input&gt;</code> elements, enabling
-        <code>getBoundingClientRect()</code> and the
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API">CSS Custom Highlight API</a>
-        to work directly on form controls without cloning elements.
-        <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=opaque-range.md">Give feedback on the feature</a>.
+      Type <kbd>:</kbd> in the textarea or the input field below to trigger an
+      emoji picker positioned at the caret.
     </p>
 
-    <div id="feature-warning" class="warning" hidden>
-        <strong>⚠️ OpaqueRange is not supported in this browser.</strong>
-        OpaqueRange is available in Microsoft Edge 148 and other Chromium-based browsers version 148 and later.
-        Enable the <strong>Experimental Web Platform features</strong> flag at
-        <code>edge://flags</code> or <code>chrome://flags</code>, or sign up for the
-        <a href="https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401">Origin Trial</a>.
+    <h3>Textarea</h3>
+    <div class="field-wrapper">
+      <textarea id="textarea-popup" rows="5" placeholder="Type : to show the emoji picker..."></textarea>
     </div>
 
-    <!-- Use Case 1: Caret Popup Positioning -->
-    <section class="demo-section">
-        <h2>Use case 1: Caret popup positioning</h2>
-        <p>
-            Type <kbd>:</kbd> in the textarea or the input field below to trigger an
-            emoji picker positioned at the caret.
-        </p>
+    <h3>Input</h3>
+    <div class="field-wrapper">
+      <input type="text" id="input-popup" placeholder="Type : to show the emoji picker...">
+    </div>
 
-        <h3>Textarea</h3>
-        <div class="field-wrapper">
-            <textarea id="textarea-popup" rows="5" placeholder="Type : to show the emoji picker..."></textarea>
-        </div>
+    <div id="mention-popup" class="popup" hidden>
+      <ul>
+        <li data-emoji="👍">👍 thumbs up</li>
+        <li data-emoji="❤️">❤️ heart</li>
+        <li data-emoji="😂">😂 laugh</li>
+        <li data-emoji="🎉">🎉 celebrate</li>
+      </ul>
+    </div>
+  </section>
 
-        <h3>Input</h3>
-        <div class="field-wrapper">
-            <input type="text" id="input-popup" placeholder="Type : to show the emoji picker...">
-        </div>
+  <!-- Use Case 2: Search/Find Highlighting -->
+  <section class="demo-section">
+    <h2>Use case 2: Search highlighting</h2>
+    <p>
+      Type a search term in the search box below. All matching occurrences
+      in the textarea are highlighted in real time using the CSS Custom
+      Highlight API with <code>OpaqueRange</code>.
+    </p>
 
-        <div id="mention-popup" class="popup" hidden>
-            <ul>
-                <li data-emoji="👍">👍 thumbs up</li>
-                <li data-emoji="❤️">❤️ heart</li>
-                <li data-emoji="😂">😂 laugh</li>
-                <li data-emoji="🎉">🎉 celebrate</li>
-            </ul>
-        </div>
-    </section>
+    <div class="search-bar">
+      <label for="search-input">Search:</label>
+      <input type="text" id="search-input" placeholder="Type a word to find...">
+      <span id="search-count" class="info-text"></span>
+    </div>
+    <div class="field-wrapper">
+      <textarea id="textarea-search"
+        rows="5">The quick brown fox jumps over the lazy dog. The dog barked at the fox, and the fox ran away.</textarea>
+    </div>
+  </section>
 
-    <!-- Use Case 2: Search/Find Highlighting -->
-    <section class="demo-section">
-        <h2>Use case 2: Search highlighting</h2>
-        <p>
-            Type a search term in the search box below. All matching occurrences
-            in the textarea are highlighted in real time using the CSS Custom
-            Highlight API with <code>OpaqueRange</code>.
-        </p>
+  <!-- Use Case 3: Live Range -->
+  <section class="demo-section">
+    <h2>Use case 3: Live range tracking</h2>
+    <p>
+      <code>OpaqueRange</code> is live: it automatically updates its offsets as
+      the content changes via interactive edits (typing, backspace, delete) or
+      <code>setRangeText()</code>. Click <strong>Highlight "hello"</strong> to
+      highlight the word, then type before it and watch the highlight follow.
+    </p>
 
-        <div class="search-bar">
-            <label for="search-input">Search:</label>
-            <input type="text" id="search-input" placeholder="Type a word to find...">
-            <span id="search-count" class="info-text"></span>
-        </div>
-        <div class="field-wrapper">
-            <textarea id="textarea-search" rows="5">The quick brown fox jumps over the lazy dog. The dog barked at the fox, and the fox ran away.</textarea>
-        </div>
-    </section>
+    <div class="field-wrapper">
+      <textarea id="textarea-live" rows="3">hello world</textarea>
+    </div>
+    <div class="button-group">
+      <button id="btn-highlight-hello">Highlight "hello"</button>
+      <button id="btn-clear-live">Clear highlight</button>
+    </div>
+    <p id="live-range-info" class="info-text"></p>
+  </section>
 
-    <!-- Use Case 3: Live Range -->
-    <section class="demo-section">
-        <h2>Use case 3: Live range tracking</h2>
-        <p>
-            <code>OpaqueRange</code> is live: it automatically updates its offsets as
-            the content changes via interactive edits (typing, backspace, delete) or
-            <code>setRangeText()</code>. Click <strong>Highlight "hello"</strong> to
-            highlight the word, then type before it and watch the highlight follow.
-        </p>
+  <!-- Use Case 4: disconnect() -->
+  <section class="demo-section">
+    <h2>Use case 4: Disconnecting an OpaqueRange</h2>
+    <p>
+      Calling <code>range.disconnect()</code> detaches the range from its element.
+      The offsets reset to 0, geometry becomes empty, and the range stops
+      receiving live updates. Create a range, then disconnect it and observe the
+      change.
+    </p>
 
-        <div class="field-wrapper">
-            <textarea id="textarea-live" rows="3">hello world</textarea>
-        </div>
-        <div class="button-group">
-            <button id="btn-highlight-hello">Highlight "hello"</button>
-            <button id="btn-clear-live">Clear highlight</button>
-        </div>
-        <p id="live-range-info" class="info-text"></p>
-    </section>
+    <div class="field-wrapper">
+      <textarea id="textarea-disconnect" rows="3">The quick brown fox</textarea>
+    </div>
+    <div class="button-group">
+      <button id="btn-create-range">Create range on "quick" (4–9)</button>
+      <button id="btn-disconnect-range">Disconnect range</button>
+    </div>
+    <p id="disconnect-info" class="info-text"></p>
+  </section>
 
-    <!-- Use Case 4: disconnect() -->
-    <section class="demo-section">
-        <h2>Use case 4: Disconnecting an OpaqueRange</h2>
-        <p>
-            Calling <code>range.disconnect()</code> detaches the range from its element.
-            The offsets reset to 0, geometry becomes empty, and the range stops
-            receiving live updates. Create a range, then disconnect it and observe the
-            change.
-        </p>
-
-        <div class="field-wrapper">
-            <textarea id="textarea-disconnect" rows="3">The quick brown fox</textarea>
-        </div>
-        <div class="button-group">
-            <button id="btn-create-range">Create range on "quick" (4–9)</button>
-            <button id="btn-disconnect-range">Disconnect range</button>
-        </div>
-        <p id="disconnect-info" class="info-text"></p>
-    </section>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
