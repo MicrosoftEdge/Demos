@@ -2,7 +2,7 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/opaque-range/)** ⬅️
 
-`OpaqueRange` lets developers create live ranges over text inside `<input>` and `<textarea>` elements that automatically update as the user edits. These ranges support geometry methods like `getBoundingClientRect()` and the [CSS Custom Highlight API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API), enabling use cases like caret-positioned popups and inline search highlighting directly on form controls, without cloning elements or exposing internal DOM structure.
+`OpaqueRange` lets developers create live ranges over text inside `<input>` and `<textarea>` elements that automatically update as the user edits. These ranges support geometry methods like `getBoundingClientRect()` and the [CSS Custom Highlight API](https://developer.mozilla.org/docs/Web/API/CSS_Custom_Highlight_API), enabling use cases like caret-positioned popups and inline search highlighting directly on form controls, without cloning elements or exposing internal DOM structure.
 
 ## Demos
 
