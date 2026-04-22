@@ -8,7 +8,7 @@ chrome.runtime.onConnect.addListener(devToolsConnection => {
             id = message.tabId;
             connections[id] = devToolsConnection;
             // Send a message back to DevTools.
-            connections[id].postMessage("Connected!");
+            connections[id].postMessage("Connected!"); // todo: where can we see the message "Connected!" in DevTools?
         }
     };
 
