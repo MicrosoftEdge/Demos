@@ -1,5 +1,5 @@
 {
-    "name": "Custom DevTools Tool",
+    "name": "Custom DevTools tool",
     "description": "A DevTools extension interacting with the inspected page",
     "manifest_version": 3,
     "version": "1.0",
@@ -15,7 +15,7 @@
         ]
     }],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "service-worker.js"
     },
     "permissions": [
         "system.memory"
