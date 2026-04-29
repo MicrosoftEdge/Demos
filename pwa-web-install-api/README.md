@@ -89,7 +89,7 @@ To participate, you'll need to:
 <!-- Example of adding the token via a meta tag -->
 <meta http-equiv="origin-trial" content="YOUR_TOKEN_HERE">
 ```
-See [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md) to learn more about Origin Trials.
+**The token obtained in step 1 will enable the trial for both Chrome and Edge.** See [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md) to learn more about Origin Trials.
 
 ## Provide Feedback
 
