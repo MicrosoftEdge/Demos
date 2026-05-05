@@ -131,7 +131,7 @@
       <h2 id="vertical-tablist">Vertical Tablist</h2>
       <p>A vertical tablist using <code>block</code> axis for Up/Down
         arrow navigation.</p>
-      <div class="attr-label">focusgroup="tablist block wrap nomemory"</div>
+      <div class="attr-label">focusgroup="tablist block nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>↓</kbd> and <kbd>↑</kbd> to
@@ -142,7 +142,7 @@
 
       <div class="demo-container">
         <div class="tab-wrapper-vertical">
-          <div focusgroup="tablist block wrap nomemory" aria-orientation="vertical" aria-label="Settings"
+          <div focusgroup="tablist block nomemory" aria-orientation="vertical" aria-label="Settings"
             class="tablist-vertical">
             <button type="button" class="tab selected" aria-selected="true" aria-controls="vpanel-general"
               id="vtab-general" focusgroupstart>General</button>
@@ -171,18 +171,18 @@
       </div>
 
       <ul class="notice-list">
-        <li><code>block</code> overrides the default <code>inline wrap</code>. This demo
-          re-adds <code>wrap</code> explicitly to keep wrapping active on the
-          block axis, so Down from the last tab wraps to the first</li>
+        <li>Explicit <code>block</code> overrides the default axis of inline.
+          <code>wrap</code> applies from <code>tablist</code>'s
+          defaults. Add <code>nowrap</code> to disable.</li>
         <li>Pair with <code>aria-orientation="vertical"</code> for
           screen readers</li>
-        <li>Same <code>wrap</code>, <code>nomemory</code>, and JavaScript-managed <code>focusgroupstart</code> behavior
+        <li>Same wrap behavior, <code>nomemory</code>, and JavaScript-managed <code>focusgroupstart</code>
           as the horizontal version. JavaScript moves <code>focusgroupstart</code> to the selected tab on each selection.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="tablist block wrap nomemory"
+        <pre><code>&lt;div focusgroup="tablist block nomemory"
      aria-orientation="vertical" aria-label="Settings" class="tablist-vertical"&gt;
     &lt;button type="button" class="tab selected"
             aria-selected="true" aria-controls="vpanel-general"

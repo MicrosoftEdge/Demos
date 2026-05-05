@@ -30,7 +30,7 @@
         Click or press
         <kbd>Enter</kbd>/<kbd>Space</kbd> to select an item.
       </p>
-      <div class="attr-label">focusgroup="listbox block nomemory"</div>
+      <div class="attr-label">focusgroup="listbox nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Use <kbd>↓</kbd> and <kbd>↑</kbd> to
@@ -39,7 +39,7 @@
       </div>
 
       <div class="demo-container">
-        <div focusgroup="listbox block nomemory" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
+        <div focusgroup="listbox nomemory" aria-label="Favorite fruit" aria-multiselectable="false" class="listbox">
           <div class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Apple</div>
           <div class="listbox-option" tabindex="0" aria-selected="false">Banana</div>
           <div class="listbox-option" tabindex="0" aria-selected="false">Cherry</div>
@@ -69,14 +69,14 @@
           Give every option <code>tabindex="0"</code> so the browser can
           focus it. <code>focusgroup</code> collapses those tab stops into
           one. No manual <code>tabindex="-1"</code> management needed.</li>
-        <li><code>listbox</code> has no default axis modifier. The explicit
-          <code>block</code> here applies Up/Down arrow navigation.
-          Without it, no axis would be active.</li>
+        <li><code>listbox</code> defaults to <code>block</code> (Up/Down
+          navigation). Use explicit <code>inline</code> for horizontal
+          listboxes.</li>
       </ul>
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="listbox block nomemory"
+        <pre><code>&lt;div focusgroup="listbox nomemory"
      aria-label="Favorite fruit"
      aria-multiselectable="false" class="listbox"&gt;
     &lt;div class="listbox-option selected" tabindex="0"
@@ -106,7 +106,7 @@
       <h2 id="listbox-with-wrapping">Listbox with Wrapping</h2>
       <p>With <code>wrap</code>, navigation continues from the last item
         back to the first (and vice versa).</p>
-      <div class="attr-label">focusgroup="listbox block wrap nomemory"</div>
+      <div class="attr-label">focusgroup="listbox wrap nomemory"</div>
 
       <div class="try-it">
         <strong>Try it:</strong> Navigate to "Mango" (last item), then
@@ -114,7 +114,7 @@
       </div>
 
       <div class="demo-container">
-        <div focusgroup="listbox block wrap nomemory" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
+        <div focusgroup="listbox wrap nomemory" aria-label="Tropical fruits" aria-multiselectable="false" class="listbox">
           <div class="listbox-option selected" tabindex="0" aria-selected="true" focusgroupstart>Avocado</div>
           <div class="listbox-option" tabindex="0" aria-selected="false">Coconut</div>
           <div class="listbox-option" tabindex="0" aria-selected="false">Guava</div>
@@ -135,7 +135,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="listbox block wrap nomemory"
+        <pre><code>&lt;div focusgroup="listbox wrap nomemory"
      aria-label="Tropical fruits"
      aria-multiselectable="false" class="listbox"&gt;
     &lt;div class="listbox-option selected" tabindex="0"
