@@ -20,6 +20,7 @@ Interactive demos for the HTML `focusgroup` attribute, which lets you add arrow-
 ## Learn more
 
 - [Focusgroup Explainer (Open UI)](https://open-ui.org/components/scoped-focusgroup.explainer/)
+- [Focusgroup polyfill (GitHub)](https://github.com/microsoft/polyfills/tree/main/packages/focusgroup) ([npm: `@microsoft/focusgroup-polyfill`](https://www.npmjs.com/package/@microsoft/focusgroup-polyfill))
 - [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/)
 
 ## Requirements

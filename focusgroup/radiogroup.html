@@ -37,7 +37,7 @@
         disable it and see how arrow keys move focus without selecting.
       </div>
 
-      <div class="attr-label">focusgroup="radiogroup block wrap nomemory"</div>
+      <div class="attr-label">focusgroup="radiogroup block nomemory"</div>
 
       <div class="demo-container">
         <div class="comparison">
@@ -58,7 +58,7 @@
               <span class="toggle-slider"></span>
               Selection follows focus
             </label>
-            <div focusgroup="radiogroup block wrap nomemory" aria-label="Favorite color" class="radio-group radio-group-column">
+            <div focusgroup="radiogroup block nomemory" aria-label="Favorite color" class="radio-group radio-group-column">
               <span aria-checked="true" tabindex="0" class="radio-option checked" focusgroupstart>Red</span>
               <span aria-checked="false" tabindex="0" class="radio-option">Green</span>
               <span aria-checked="false" tabindex="0" class="radio-option">Blue</span>
@@ -84,13 +84,11 @@
           This mode is shown for comparison only. It is non-conformant for
           <code>role="radio"</code>.
         </li>
-        <li><code>radiogroup</code> has no default axis modifier. Unlike
-          <code>menu</code> (which defaults to <code>block wrap</code>) or
-          <code>tablist</code> (which defaults to <code>inline wrap</code>),
-          you must explicitly add <code>block</code> or <code>inline</code>.
-          <code>block</code> here sets the navigation axis to Up/Down.
-          <code>wrap</code> matches native radio behavior, looping from last to first
-          and first to last.</li>
+        <li><code>radiogroup</code> defaults to <code>wrap</code> (matching
+          native radio behavior, looping from last to first and first to
+          last) but does not default an axis. Add explicit <code>block</code>
+          or <code>inline</code> to pick one; add <code>nowrap</code> to
+          disable wrapping.</li>
         <li>The <code>radiogroup</code> token maps <code>role="radiogroup"</code>
           on the container and infers <code>role="radio"</code> on each
           generic child (including <code>&lt;span&gt;</code>).</li>
@@ -105,7 +103,7 @@
 
       <details class="source-code">
         <summary>View source</summary>
-        <pre><code>&lt;div focusgroup="radiogroup block wrap nomemory"
+        <pre><code>&lt;div focusgroup="radiogroup block nomemory"
      aria-label="Favorite color" class="radio-group radio-group-column"&gt;
     &lt;span aria-checked="true" tabindex="0"
           class="radio-option checked" focusgroupstart&gt;Red&lt;/span&gt;
