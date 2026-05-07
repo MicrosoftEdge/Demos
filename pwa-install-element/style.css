@@ -179,6 +179,12 @@ install:hover {
   justify-self: center;
 }
 
+@media (prefers-color-scheme: dark) {
+  .unsupported-message {
+    background: hsl(from var(--error) h s 15);
+  }
+}
+
 .unsupported-message p {
   margin: 0;
 }
