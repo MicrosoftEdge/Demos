@@ -65,8 +65,10 @@ html {
 
 body {
   max-inline-size: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin-inline: auto;
+  margin-block: 0;
+  padding-block: 2rem;
+  padding-inline: 2rem;
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
@@ -83,7 +85,8 @@ body > p {
 
 h2 {
   font-size: 1.3rem;
-  margin: 0 0 1rem 0;
+  margin-block: 0 1rem;
+  margin-inline: 0;
   border-block-end: 1px solid var(--color-border-light);
   padding-block-end: 1rem;
 }
@@ -98,7 +101,8 @@ kbd {
   font-family: Consolas, "Courier New", monospace;
   font-size: 0.9em;
   background: var(--color-code-bg);
-  padding: 0.15em 0.35em;
+  padding-block: 0.15em;
+  padding-inline: 0.35em;
   border-radius: 3px;
 }
 
@@ -119,7 +123,8 @@ a {
   background: var(--color-warning-bg);
   border: 1px solid var(--color-warning-border);
   border-radius: 6px;
-  padding: 0.75rem 1rem;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
   margin-block: 1rem;
   color: var(--color-warning-text);
 }
@@ -127,7 +132,8 @@ a {
 .demo-section {
   margin-block-end: 2rem;
   background: var(--color-surface);
-  padding: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
   border-radius: 6px;
 }
 
@@ -151,7 +157,8 @@ a {
 input[type="text"],
 input[type="email"] {
   inline-size: 100%;
-  padding: 0.6rem 0.75rem;
+  padding-block: 0.6rem;
+  padding-inline: 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 1rem;
@@ -175,7 +182,8 @@ a11y-submit-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1.25rem;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
   border: 2px solid var(--color-accent);
   border-radius: 6px;
   background: var(--color-accent);
@@ -222,17 +230,20 @@ a11y-submit-button:focus-visible {
   background: var(--color-surface-alt);
   border: 1px solid var(--color-border);
   border-radius: 6px;
-  padding: 0.75rem 1rem;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
 }
 
 .output h3 {
-  margin: 0 0 0.5rem 0;
+  margin-block: 0 0.5rem;
+  margin-inline: 0;
   font-size: 0.9rem;
   color: var(--color-muted);
 }
 
 .output pre {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-family: Consolas, "Courier New", monospace;
   font-size: 0.85rem;
   white-space: pre-wrap;

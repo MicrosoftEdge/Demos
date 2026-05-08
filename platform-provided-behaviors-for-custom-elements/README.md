@@ -1,9 +1,9 @@
-# Web component platform behaviors
+# Platform-provided behaviors for custom elements
 
-➡️ **[Open the demo](https://microsoftedge.github.io/Demos/web-component-platform-behaviors/)** ⬅️
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/platform-provided-behaviors-for-custom-elements/)** ⬅️
 
 🔗 **Links:**
-* Explainer: [Platform-provided behaviors explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/PlatformProvidedBehaviors/explainer.md)
+* Explainer: [Platform-provided behaviors for custom elements explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/PlatformProvidedBehaviors/explainer.md)
 * WHATWG issue: [#12150](https://github.com/whatwg/html/issues/12150)
 * Spec PR: [whatwg/html#12409](https://github.com/whatwg/html/pull/12409)
 * Chromium bug: [crbug.com/486928684](https://crbug.com/486928684)
@@ -21,17 +21,17 @@ Platform-provided behaviors allow custom elements to adopt native HTML behaviors
 
 ## Learn more
 
-Read our [platform-provided behaviors explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/PlatformProvidedBehaviors/explainer.md).
+To learn more, read our [platform-provided behaviors for custom elements explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/PlatformProvidedBehaviors/explainer.md).
 
 ## Test the feature
 
-The feature is behind a flag and not yet enabled by default. To test it locally:
+The feature is not enabled by default yet. To test the feature:
 
-1. Use Microsoft Edge or another Chromium-based browser, version 149 or later.
-2. Navigate to `about://flags`.
-3. Search for **Experimental Web Platform features** and enable it.
-4. Restart the browser.
-5. Open this demo. If the feature is active, you will not see any warning banner at the top.
+* Use Microsoft Edge 149 or later, or another Chromium-based browser with a matching version.
+* In a new tab, go to the `about://flags` page.
+* Search for the flag named **Experimental Web Platform features**.
+* Enable the **Experimental Web Platform features** flag.
+* Restart the browser.
 
 ## Provide feedback
 
