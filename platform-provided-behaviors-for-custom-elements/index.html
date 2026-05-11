@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform-provided behaviors for custom elements</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Platform-provided behaviors for custom elements</h1>
+  <p>
+    Platform-provided behaviors allow custom elements to adopt native HTML
+    behaviors through <code>attachInternals({ behaviors: [...] })</code>. The first
+    behavior, <code>HTMLSubmitButtonBehavior</code>, turns a custom element into a
+    submit button that participates in form submission, contributes name/value
+    pairs, supports form override attributes, triggers implicit submission,
+    exposes the correct accessibility semantics, and responds to keyboard
+    activation.
+    <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/PlatformProvidedBehaviors/explainer.md">Read
+      the explainer</a>.
+    <a href="https://github.com/whatwg/html/issues/12150">Give feedback</a>.
+  </p>
+
+  <div id="feature-warning" class="warning" hidden>
+    <strong>⚠️ HTMLSubmitButtonBehavior is not supported in this browser.</strong>
+    Enable the <strong>Experimental Web Platform features</strong> flag at
+    <code>about://flags</code> in Microsoft Edge or another Chromium-based browser (version 149+).
+  </div>
+
+  <!-- Use Case 1: Basic Form Submission -->
+  <section class="demo-section">
+    <h2>Use case 1: Basic form submission</h2>
+    <p>
+      The <strong>Submit form</strong> button below is a <code>&lt;my-submit-button&gt;</code>
+      custom element with <code>HTMLSubmitButtonBehavior</code>, which makes it submit
+      forms just like a native <code>&lt;button type="submit"&gt;</code> element. Click
+      the custom submit button below, or press Enter while focused on a field, to
+      submit the form.
+    </p>
+
+    <form id="form-basic">
+      <div class="form-row">
+        <label for="basic-name">Name:</label>
+        <input type="text" id="basic-name" name="username" placeholder="Enter your name" value="Alice">
+      </div>
+      <div class="form-row">
+        <label for="basic-email">Email:</label>
+        <input type="email" id="basic-email" name="email" placeholder="Enter your email" value="alice@example.com">
+      </div>
+      <my-submit-button>Submit form</my-submit-button>
+    </form>
+    <div id="basic-output" class="output" hidden>
+      <h3>Form data submitted:</h3>
+      <pre id="basic-data"></pre>
+    </div>
+    <p class="info-text">
+      <a href="https://github.com/MicrosoftEdge/Demos/blob/main/platform-provided-behaviors-for-custom-elements/script.js#L11-L20">View source on GitHub</a>
+    </p>
+  </section>
+
+  <!-- Use Case 2: Form Override Properties -->
+  <section class="demo-section">
+    <h2>Use case 2: Form override properties</h2>
+    <p>
+      The two buttons below are <code>&lt;override-submit-button&gt;</code> custom elements.
+      Each one sets <code>name</code>, <code>value</code>, and <code>formMethod</code>
+      on its <code>HTMLSubmitButtonBehavior</code> instance to override the form's
+      default method and include its own name/value pair in the submission data.
+    </p>
+
+    <form id="form-overrides">
+      <div class="form-row">
+        <label for="override-message">Message:</label>
+        <input type="text" id="override-message" name="message" value="Hello, world!">
+      </div>
+      <div class="button-group">
+        <override-submit-button id="save-btn">
+          Save (POST)
+        </override-submit-button>
+        <override-submit-button id="draft-btn">
+          Save as draft (GET)
+        </override-submit-button>
+      </div>
+    </form>
+    <div id="overrides-output" class="output" hidden>
+      <h3>Submission details:</h3>
+      <pre id="overrides-data"></pre>
+    </div>
+    <p class="info-text">
+      <a href="https://github.com/MicrosoftEdge/Demos/blob/main/platform-provided-behaviors-for-custom-elements/script.js#L22-L45">View source on GitHub</a>
+    </p>
+  </section>
+
+  <!-- Use Case 3: Implicit Submission -->
+  <section class="demo-section">
+    <h2>Use case 3: Implicit submission</h2>
+    <p>
+      The <strong>Search</strong> button below is an <code>&lt;implicit-submit-button&gt;</code>
+      custom element. When a form contains a custom element with
+      <code>HTMLSubmitButtonBehavior</code>, pressing <kbd>Enter</kbd> in a text field
+      triggers implicit submission through that element, just like it would with a
+      native submit button. Try pressing <kbd>Enter</kbd> in the input below.
+    </p>
+
+    <form id="form-implicit">
+      <div class="form-row">
+        <label for="implicit-search">Search:</label>
+        <input type="text" id="implicit-search" name="query" placeholder="Type something and press Enter...">
+      </div>
+      <implicit-submit-button>Search</implicit-submit-button>
+    </form>
+    <div id="implicit-output" class="output" hidden>
+      <h3>Implicitly submitted:</h3>
+      <pre id="implicit-data"></pre>
+    </div>
+    <p class="info-text">
+      <a href="https://github.com/MicrosoftEdge/Demos/blob/main/platform-provided-behaviors-for-custom-elements/script.js#L47-L56">View source on GitHub</a>
+    </p>
+  </section>
+
+  <!-- Use Case 4: Accessibility -->
+  <section class="demo-section">
+    <h2>Use case 4: Accessibility and keyboard activation</h2>
+    <p>
+      The <strong>Accessible submit</strong> button below is an
+      <code>&lt;a11y-submit-button&gt;</code> custom element. Custom elements with
+      <code>HTMLSubmitButtonBehavior</code> automatically get:
+    </p>
+    <ul>
+      <li>Implicit ARIA <code>role="button"</code></li>
+      <li>Focusability (default <code>tabindex=0</code>)</li>
+      <li>Keyboard activation via <kbd>Enter</kbd> and <kbd>Space</kbd></li>
+    </ul>
+    <p>
+      Try using <kbd>Tab</kbd> to focus the button below, then press
+      <kbd>Enter</kbd> or <kbd>Space</kbd> to activate it.
+    </p>
+
+    <form id="form-a11y">
+      <div class="form-row">
+        <label for="a11y-data">Data:</label>
+        <input type="text" id="a11y-data" name="payload" value="keyboard-submitted">
+      </div>
+      <a11y-submit-button>Accessible submit</a11y-submit-button>
+    </form>
+    <div id="a11y-output" class="output" hidden>
+      <h3>Activated via keyboard:</h3>
+      <pre id="a11y-data-output"></pre>
+    </div>
+    <p id="a11y-info" class="info-text">
+      Inspect the custom element in DevTools. Its computed accessibility role is
+      <code>button</code>, with no explicit ARIA attributes needed.
+      <a href="https://github.com/MicrosoftEdge/Demos/blob/main/platform-provided-behaviors-for-custom-elements/script.js#L58-L67">View source on GitHub</a>
+    </p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+:root {
+  --color-text: #1b1b1b;
+  --color-bg: white;
+  --color-surface: #eee;
+  --color-surface-alt: white;
+  --color-border: #bbb;
+  --color-border-light: #ddd;
+  --color-muted: #555;
+  --color-accent: #0067b8;
+  --color-accent-hover: #005a9e;
+  --color-accent-active: #004578;
+  --color-accent-focus-ring: rgba(0, 103, 184, 0.2);
+  --color-code-bg: #f0f0f0;
+  --color-kbd-border: #ccc;
+  --color-kbd-shadow: #bbb;
+  --color-warning-bg: #fff3cd;
+  --color-warning-border: #ffecb5;
+  --color-warning-text: #664d03;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #e0e0e0;
+    --color-bg: #1e1e1e;
+    --color-surface: #2a2a2a;
+    --color-surface-alt: #333;
+    --color-border: #555;
+    --color-border-light: #444;
+    --color-muted: #aaa;
+    --color-accent: #4fc3f7;
+    --color-accent-hover: #81d4fa;
+    --color-accent-active: #29b6f6;
+    --color-accent-focus-ring: rgba(79, 195, 247, 0.25);
+    --color-code-bg: #2d2d2d;
+    --color-kbd-border: #555;
+    --color-kbd-shadow: #444;
+    --color-warning-bg: #3e3219;
+    --color-warning-border: #5c4a1c;
+    --color-warning-text: #ffd54f;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+input,
+textarea,
+button {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 16px;
+  font-family: system-ui, sans-serif;
+  font-weight: 400;
+}
+
+html {
+  min-block-size: 100vh;
+}
+
+body {
+  max-inline-size: 800px;
+  margin-inline: auto;
+  margin-block: 0;
+  padding-block: 2rem;
+  padding-inline: 2rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+h1 {
+  margin-block: 2rem;
+  font-size: 1.75rem;
+}
+
+body > p {
+  margin-block: 2rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-block: 0 1rem;
+  margin-inline: 0;
+  border-block-end: 1px solid var(--color-border-light);
+  padding-block-end: 1rem;
+}
+
+h3 {
+  font-size: 1rem;
+  margin-block-end: 0.25rem;
+}
+
+code,
+kbd {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  background: var(--color-code-bg);
+  padding-block: 0.15em;
+  padding-inline: 0.35em;
+  border-radius: 3px;
+}
+
+.demo-section code {
+  background: var(--color-surface-alt);
+}
+
+kbd {
+  border: 1px solid var(--color-kbd-border);
+  box-shadow: 0 1px 0 var(--color-kbd-shadow);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+.warning {
+  background: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+  border-radius: 6px;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+  margin-block: 1rem;
+  color: var(--color-warning-text);
+}
+
+.demo-section {
+  margin-block-end: 2rem;
+  background: var(--color-surface);
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  border-radius: 6px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: 0.75rem;
+}
+
+.form-row label {
+  font-weight: 600;
+  white-space: nowrap;
+  min-inline-size: 5rem;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="email"] {
+  inline-size: 100%;
+  padding-block: 0.6rem;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-focus-ring);
+}
+
+/* Custom element submit buttons */
+my-submit-button,
+override-submit-button,
+implicit-submit-button,
+a11y-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  user-select: none;
+}
+
+my-submit-button:hover,
+override-submit-button:hover,
+implicit-submit-button:hover,
+a11y-submit-button:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+my-submit-button:active,
+override-submit-button:active,
+implicit-submit-button:active,
+a11y-submit-button:active {
+  background: var(--color-accent-active);
+  border-color: var(--color-accent-active);
+}
+
+my-submit-button:focus-visible,
+override-submit-button:focus-visible,
+implicit-submit-button:focus-visible,
+a11y-submit-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.output {
+  margin-block-start: 1rem;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+}
+
+.output h3 {
+  margin-block: 0 0.5rem;
+  margin-inline: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.output pre {
+  margin-block: 0;
+  margin-inline: 0;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  min-block-size: 1.4rem;
+}
+
+ul {
+  padding-inline-start: 1.5rem;
+  margin-block: 0.5rem;
+}
+
+li {
+  margin-block-end: 0.25rem;
+}
