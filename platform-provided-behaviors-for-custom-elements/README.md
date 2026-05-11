@@ -27,11 +27,11 @@ To learn more, read our [platform-provided behaviors for custom elements explain
 
 The feature is not enabled by default yet. To test the feature:
 
-* Use Microsoft Edge 149 or later, or another Chromium-based browser with a matching version.
-* In a new tab, go to the `about://flags` page.
-* Search for the flag named **Experimental Web Platform features**.
-* Enable the **Experimental Web Platform features** flag.
-* Restart the browser.
+1. Use Microsoft Edge 149 or later, or another Chromium-based browser with a matching version.
+1. In a new tab, go to the `about://flags` page.
+1. Search for the flag named **Experimental Web Platform features**.
+1. Enable the **Experimental Web Platform features** flag.
+1. Restart the browser.
 
 ## Provide feedback
 
