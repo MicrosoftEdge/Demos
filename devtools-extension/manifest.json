@@ -1,0 +1,23 @@
+{
+    "name": "Custom DevTools tool",
+    "description": "A DevTools extension interacting with the inspected page",
+    "manifest_version": 3,
+    "version": "1.0",
+    "devtools_page": "devtools.html",
+    "content_scripts": [{
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+        ],
+        "run_at": "document_idle",
+        "js": [
+            "content_script.js"
+        ]
+    }],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "permissions": [
+        "system.memory"
+    ]
+}
