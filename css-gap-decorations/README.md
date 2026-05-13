@@ -30,21 +30,7 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 <!-- ====================================================================== -->
 ## Try the feature
 
-To try the feature, follow these steps:
-
-1. Open a Chromium-based browser, such as Microsoft Edge or Chrome, and make sure the version is at least 139.
-
-1. In the browser, open a new tab and go to `about:flags`.
-
-   In Microsoft Edge, you end up at `edge://flags`.
-
-1. In the **Search flags** box, enter **Experimental Web Platform features**.
-
-1. Set the **Experimental Web Platform features** flag to **Enabled**.
-
-1. Click the **Restart** button.
-
-   The browser restarts, with the flag applied.
+CSS Gap Decorations is available by default in Chrome and Edge 149+. Just open any of the demos above in a supported browser.
 
 
 <!-- ====================================================================== -->
