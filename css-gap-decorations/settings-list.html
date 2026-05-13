@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings List - CSS Gap Decorations Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #1a1a2e;
+    --bg-card: #16213e;
+    --text-primary: #eaf0fb;
+    --text-secondary: #7b8dad;
+    --text-muted: #4a5a78;
+    --accent: #e2b04a;
+    --rule-color: #243352;
+    --chevron-color: #4a5a78;
+    --code-bg: #243352;
+    --code-text: #c0c8dc;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: var(--bg-page);
+    padding: 40px 16px;
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  .caption {
+    max-width: 400px;
+    margin: 0 auto 16px;
+    padding: 0 8px;
+  }
+
+  pre.caption {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+  }
+
+  pre.caption code {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--code-text);
+    background: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .section-header {
+    max-width: 400px;
+    margin: 0 auto 8px;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .settings-panel {
+    max-width: 400px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+
+    row-rule: 1px solid var(--rule-color);
+    row-rule-width: repeat(2, 1px), 4px;
+    rule-inset-start: 16px;
+  }
+
+  .settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .settings-item .label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .settings-item .icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .settings-item .value {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .settings-item .chevron {
+    color: var(--chevron-color);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+
+  .settings-item .right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+</style>
+</head>
+<body>
+
+<pre class="caption"><code>.flex-settings {
+  row-gap: 1px;
+  row-rule: 1px solid #243352;
+  row-rule-width: repeat(2, 1px), 4px;
+  rule-inset-start: 16px;
+}</code></pre>
+
+<p class="section-header">General</p>
+
+<div class="settings-panel">
+  <!-- Connectivity group -->
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F4F6;</span>
+      <span>Wi-Fi</span>
+    </span>
+    <span class="right">
+      <span class="value">Home</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F91D;</span>
+      <span>Bluetooth</span>
+    </span>
+    <span class="right">
+      <span class="value">On</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F4F1;</span>
+      <span>Hotspot</span>
+    </span>
+    <span class="right">
+      <span class="value">Off</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <!-- Alerts group -->
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F514;</span>
+      <span>Notifications</span>
+    </span>
+    <span class="right">
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F50A;</span>
+      <span>Sound</span>
+    </span>
+    <span class="right">
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F4F3;</span>
+      <span>Vibration</span>
+    </span>
+    <span class="right">
+      <span class="value">On</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <!-- System group -->
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x2600;</span>
+      <span>Display</span>
+    </span>
+    <span class="right">
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F4BE;</span>
+      <span>Storage</span>
+    </span>
+    <span class="right">
+      <span class="value">28 GB</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+  <div class="settings-item">
+    <span class="label">
+      <span class="icon">&#x1F50B;</span>
+      <span>Battery</span>
+    </span>
+    <span class="right">
+      <span class="value">84%</span>
+      <span class="chevron">&#x276F;</span>
+    </span>
+  </div>
+</div>
+
+</body>
+</html>

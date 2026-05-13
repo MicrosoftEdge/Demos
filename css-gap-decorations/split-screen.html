@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Gap Decorations: Split Screen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f4f1ec;
+      --bg-sidebar: #1e1e2e;
+      --bg-editor: #faf9f7;
+      --bg-preview: #ffffff;
+      --text-primary: #2c2c34;
+      --text-muted: #6e6b7b;
+      --text-sidebar: #cdd6f4;
+      --text-sidebar-muted: #7f849c;
+      --accent: #cba6f7;
+      --accent-dim: #45475a;
+      --rule-color: #d4d0c8;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-page);
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      color: var(--text-primary);
+      padding: 40px 24px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .caption {
+      max-width: 880px;
+      margin: 0 auto 32px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .caption h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .caption p {
+      max-width: 560px;
+    }
+
+    .caption pre {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+      padding: 12px 16px;
+      overflow-x: auto;
+      max-width: 560px;
+    }
+
+    .caption pre code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .caption code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(0, 0, 0, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .split {
+      display: flex;
+      flex-direction: row;
+      gap: 1px;
+      column-rule-width: 2px;
+      column-rule-style: dashed, solid;
+      column-rule-color: var(--rule-color);
+      row-rule-width: 2px;
+      row-rule-style: dashed, solid;
+      row-rule-color: var(--rule-color);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Sidebar panel */
+    .panel-sidebar {
+      flex: 0 0 200px;
+      background: var(--bg-editor);
+      padding: 24px 20px;
+      min-width: 0;
+    }
+
+    .panel-sidebar h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .nav-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .nav-list li {
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: default;
+    }
+
+    .nav-list li.active {
+      background: rgba(0, 0, 0, 0.06);
+      font-weight: 500;
+    }
+
+    .nav-list li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: var(--text-muted);
+      vertical-align: middle;
+    }
+
+    .nav-list li.active::before {
+      background: var(--text-primary);
+    }
+
+    /* Main content panel */
+    .panel-main {
+      flex: 1;
+      background: var(--bg-editor);
+      padding: 24px;
+      min-width: 0;
+    }
+
+    .panel-main h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .content-block {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .content-block p {
+      margin-bottom: 12px;
+    }
+
+    .content-swatch {
+      display: inline-block;
+      width: 100%;
+      height: 10px;
+      background: #ddd8d0;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .content-swatch:nth-child(2) { width: 92%; }
+    .content-swatch:nth-child(3) { width: 78%; }
+    .content-swatch:nth-child(4) { width: 85%; }
+    .content-swatch:nth-child(5) { width: 65%; }
+    .content-swatch:nth-child(6) { width: 90%; }
+
+    /* Detail panel */
+    .panel-detail {
+      flex: 1;
+      background: var(--bg-preview);
+      padding: 24px;
+      min-width: 0;
+    }
+
+    .panel-detail h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .detail-card {
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(135deg, #cba6f7 0%, #89b4fa 100%);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .detail-line {
+      height: 10px;
+      background: #e8e6e1;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .detail-line:nth-child(2) { width: 85%; }
+    .detail-line:nth-child(3) { width: 70%; }
+    .detail-line:nth-child(4) { width: 90%; }
+    .detail-line:nth-child(5) { width: 55%; }
+
+    @media (max-width: 600px), (orientation: portrait) {
+      .split {
+        flex-direction: column;
+      }
+
+      .panel-sidebar {
+        flex: none;
+      }
+
+      .nav-list {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="caption">
+    <h1>Split Screen with Gap Decorations</h1>
+    <pre><code>.flex-split {
+  gap: 1px;
+  column-rule-width: 2px;
+  column-rule-style: dashed, solid;
+  column-rule-color: #d4d0c8;
+  row-rule-width: 2px;
+  row-rule-style: dashed, solid;
+  row-rule-color: #d4d0c8;
+}
+@media (max-width: 600px) {
+  .flex-split { flex-direction: column; }
+}</code></pre>
+  </div>
+
+  <div class="split">
+    <div class="panel-sidebar">
+      <h2>Menu</h2>
+      <ul class="nav-list">
+        <li class="active">Dashboard</li>
+        <li>Analytics</li>
+        <li>Reports</li>
+        <li>Settings</li>
+      </ul>
+    </div>
+    <div class="panel-main">
+      <h2>Content</h2>
+      <div class="content-block">
+        <div class="content-swatch"></div>
+        <div class="content-swatch"></div>
+        <div class="content-swatch"></div>
+        <div class="content-swatch"></div>
+        <div class="content-swatch"></div>
+        <div class="content-swatch"></div>
+      </div>
+    </div>
+    <div class="panel-detail">
+      <h2>Details</h2>
+      <div class="detail-card"></div>
+      <div class="detail-line"></div>
+      <div class="detail-line"></div>
+      <div class="detail-line"></div>
+      <div class="detail-line"></div>
+    </div>
+  </div>
+</body>
+</html>

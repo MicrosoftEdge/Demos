@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar Week View with CSS Gap Decorations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400&family=Source+Sans+3:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: #e8e4df;
+    --border-light: #f0ece7;
+    --text: #3d3832;
+    --text-muted: #a09890;
+    --text-secondary: #6b6460;
+    --header-bg: #f6f4f0;
+    --today-bg: #fef7ed;
+    --today-accent: #e8985a;
+
+    --event-coral: #fce8e4;
+    --event-coral-border: #e8937e;
+    --event-coral-text: #9c4a38;
+
+    --event-sage: #e8f0e4;
+    --event-sage-border: #8aba7c;
+    --event-sage-text: #3d6b32;
+
+    --event-lavender: #ede4f5;
+    --event-lavender-border: #a87ec8;
+    --event-lavender-text: #5e3a7a;
+
+    --event-sand: #f5edde;
+    --event-sand-border: #cba86a;
+    --event-sand-text: #7a6230;
+
+    --event-sky: #e2edf8;
+    --event-sky-border: #7aaad4;
+    --event-sky-text: #2e5a7e;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "DM Sans", sans-serif;
+    background: var(--bg);
+    padding: 32px;
+    color: var(--text);
+  }
+
+  .caption {
+    max-width: 960px;
+    margin: 0 auto 16px;
+  }
+
+  pre.caption {
+    background: #2c2a24;
+    border-radius: 6px;
+    padding: 12px 16px;
+    overflow-x: auto;
+  }
+
+  pre.caption code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #e8985a;
+  }
+
+  .calendar {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+
+    display: grid;
+    grid-template-columns: 56px repeat(7, 1fr);
+    grid-template-rows: 40px repeat(20, 28px);
+
+    column-rule: 2px solid var(--border);
+
+    row-rule-width: 2px, 1px;
+    row-rule-style: solid, dashed;
+    row-rule-color: var(--border), var(--border-light);
+
+    row-rule-inset: 0 0 0 0;
+  }
+
+  /* Day headers */
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-header.today {
+    color: var(--today-accent);
+    background: var(--today-bg);
+  }
+
+  .time-corner {
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Time labels */
+  .time-label {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 2px 8px 0;
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  /* Calendar events */
+  .event {
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow: hidden;
+    margin: 1px 3px;
+    border-left: 3px solid;
+  }
+
+  .event-title {
+    font-weight: 600;
+    display: block;
+  }
+
+  .event-time {
+    font-family: "Source Sans 3", sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+
+  .event-coral {
+    background: var(--event-coral);
+    color: var(--event-coral-text);
+    border-left-color: var(--event-coral-border);
+  }
+
+  .event-sage {
+    background: var(--event-sage);
+    color: var(--event-sage-text);
+    border-left-color: var(--event-sage-border);
+  }
+
+  .event-lavender {
+    background: var(--event-lavender);
+    color: var(--event-lavender-text);
+    border-left-color: var(--event-lavender-border);
+  }
+
+  .event-sand {
+    background: var(--event-sand);
+    color: var(--event-sand-text);
+    border-left-color: var(--event-sand-border);
+  }
+
+  .event-sky {
+    background: var(--event-sky);
+    color: var(--event-sky-text);
+    border-left-color: var(--event-sky-border);
+  }
+</style>
+</head>
+<body>
+
+
+<pre class="caption"><code>.grid-calendar {
+  column-rule: 2px solid #e8e4df;
+  row-rule-width: 2px, 1px;
+  row-rule-style: solid, dashed;
+  row-rule-color: #e8e4df, #f0ece7;
+}</code></pre>
+
+<div class="calendar">
+  <!-- Row 1: header -->
+  <div class="time-corner"></div>
+  <div class="day-header">Mon</div>
+  <div class="day-header today">Tue</div>
+  <div class="day-header">Wed</div>
+  <div class="day-header">Thu</div>
+  <div class="day-header">Fri</div>
+  <div class="day-header">Sat</div>
+  <div class="day-header">Sun</div>
+
+  <!--
+    Time labels: 8 AM to 5 PM
+    Row 2 = 8:00, Row 3 = 8:30, Row 4 = 9:00, ...
+    Formula: row = 2 + (hour - 8) * 2
+  -->
+  <span class="time-label" style="grid-row: 2 / 4">8 AM</span>
+  <span class="time-label" style="grid-row: 4 / 6">9 AM</span>
+  <span class="time-label" style="grid-row: 6 / 8">10 AM</span>
+  <span class="time-label" style="grid-row: 8 / 10">11 AM</span>
+  <span class="time-label" style="grid-row: 10 / 12">12 PM</span>
+  <span class="time-label" style="grid-row: 12 / 14">1 PM</span>
+  <span class="time-label" style="grid-row: 14 / 16">2 PM</span>
+  <span class="time-label" style="grid-row: 16 / 18">3 PM</span>
+  <span class="time-label" style="grid-row: 18 / 20">4 PM</span>
+  <span class="time-label" style="grid-row: 20 / 22">5 PM</span>
+
+  <!-- Events -->
+
+  <!-- Mon: Team Standup 9:00-9:30 -->
+  <div class="event event-sky" style="grid-column: 2; grid-row: 4 / 5">
+    <span class="event-title">Team Standup</span>
+    <span class="event-time">9:00 &ndash; 9:30</span>
+  </div>
+
+  <!-- Tue: Design Review 10:00-11:30 (left half) -->
+  <div class="event event-sage" style="grid-column: 3; grid-row: 6 / 9; margin-right: 50%">
+    <span class="event-title">Design Review</span>
+    <span class="event-time">10:00 &ndash; 11:30</span>
+  </div>
+
+  <!-- Tue: API Sync 10:00-10:30 (right half, top) -->
+  <div class="event event-sky" style="grid-column: 3; grid-row: 6 / 7; margin-left: 50%">
+    <span class="event-title">API Sync</span>
+    <span class="event-time">10:00 &ndash; 10:30</span>
+  </div>
+
+  <!-- Tue: UX Check-in 10:30-11:30 (right half, bottom) -->
+  <div class="event event-coral" style="grid-column: 3; grid-row: 7 / 9; margin-left: 50%">
+    <span class="event-title">UX Check-in</span>
+    <span class="event-time">10:30 &ndash; 11:30</span>
+  </div>
+
+  <!-- Wed: Lunch 12:00-1:00 -->
+  <div class="event event-sand" style="grid-column: 4; grid-row: 10 / 12">
+    <span class="event-title">Lunch</span>
+    <span class="event-time">12:00 &ndash; 1:00</span>
+  </div>
+
+  <!-- Thu: Planning 2:00-3:30 (left third) -->
+  <div class="event event-lavender" style="grid-column: 5; grid-row: 14 / 17; margin-right: 66.66%">
+    <span class="event-title">Sprint Planning</span>
+    <span class="event-time">2:00 &ndash; 3:30</span>
+  </div>
+
+  <!-- Thu: Code Review 2:00-3:30 (middle third) -->
+  <div class="event event-sky" style="grid-column: 5; grid-row: 14 / 17; margin-left: 33.33%; margin-right: 33.33%">
+    <span class="event-title">Code Review</span>
+    <span class="event-time">2:00 &ndash; 3:30</span>
+  </div>
+
+  <!-- Thu: Retro 2:00-3:30 (right third) -->
+  <div class="event event-sand" style="grid-column: 5; grid-row: 14 / 17; margin-left: 66.66%">
+    <span class="event-title">Retro</span>
+    <span class="event-time">2:00 &ndash; 3:30</span>
+  </div>
+
+  <!-- Fri: 1:1 4:00-4:30 -->
+  <div class="event event-coral" style="grid-column: 6; grid-row: 18 / 19">
+    <span class="event-title">1:1 with Sarah</span>
+    <span class="event-time">4:00 &ndash; 4:30</span>
+  </div>
+</div>
+
+</body>
+</html>

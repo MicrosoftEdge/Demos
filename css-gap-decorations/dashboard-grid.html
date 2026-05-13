@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Grid - CSS Gap Decorations Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0f0f1a;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #1f1f35;
+    --border-card: #2a2a45;
+    --text-primary: #e0e0ec;
+    --text-label: #6b6b8d;
+    --text-detail: #4e4e6a;
+    --rule-default: #2a2a45;
+    --rule-hover: #3b82f6;
+    --accent-green: #34d399;
+    --accent-blue: #60a5fa;
+    --accent-amber: #fbbf24;
+    --accent-red: #f87171;
+    --accent-cyan: #22d3ee;
+    --accent-purple: #a78bfa;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-sans: "Outfit", sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 2.5rem 2rem;
+    min-height: 100vh;
+  }
+
+  .caption {
+    max-width: 940px;
+    margin: 0 auto 1.75rem;
+  }
+
+  pre.caption {
+    background: #252540;
+    border-radius: 6px;
+    padding: 12px 16px;
+    overflow-x: auto;
+  }
+
+  pre.caption code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--accent-blue);
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 280px;
+    gap: 1.25rem;
+    max-width: 940px;
+    margin: 0 auto;
+
+    /* Gap decoration properties */
+    column-rule-style: solid;
+    column-rule-color: var(--accent-amber), var(--accent-green);
+    column-rule-width: 1px, 3px;
+    row-rule: 1px solid #1e1e36;
+    column-rule-break: intersection;
+    rule-inset-cap: 0px;
+    rule-inset-junction: 10px;
+
+    transition: column-rule-color 0.4s ease, rule-inset-junction 0.4s ease;
+  }
+
+  .dashboard:hover {
+    column-rule-color: #3b82f6, #3b82f6;
+    rule-inset-junction: 0px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 6px;
+    padding: 1.25rem 1.35rem;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: #35355a;
+  }
+
+  .card h3 {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-label);
+    margin-bottom: 0.6rem;
+  }
+
+  .metric-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .card .metric {
+    font-family: var(--font-mono);
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+  }
+
+  .trend::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .trend.up {
+    color: var(--accent-green);
+    background: rgba(52, 211, 153, 0.1);
+  }
+  .trend.up::before {
+    background: var(--accent-green);
+    box-shadow: 0 0 4px var(--accent-green);
+  }
+
+  .trend.down {
+    color: var(--accent-red);
+    background: rgba(248, 113, 113, 0.1);
+  }
+  .trend.down::before {
+    background: var(--accent-red);
+    box-shadow: 0 0 4px var(--accent-red);
+  }
+
+  .trend.flat {
+    color: var(--text-label);
+    background: rgba(107, 107, 141, 0.1);
+  }
+  .trend.flat::before {
+    background: var(--text-label);
+  }
+
+  .card .detail {
+    font-size: 0.72rem;
+    color: var(--text-detail);
+    margin-top: 0.45rem;
+    line-height: 1.4;
+  }
+
+  .card {
+    border-left: none;
+  }
+</style>
+</head>
+<body>
+
+
+<pre class="caption"><code>.grid-dashboard {
+  gap: 1.25rem;
+  column-rule-width: 1px, 3px;
+  column-rule-style: solid;
+  column-rule-color: #fbbf24, #34d399;
+  column-rule-break: intersection;
+  row-rule: 1px solid #1e1e36;
+  rule-inset-cap: 0px;
+  rule-inset-junction: 10px;
+  transition: column-rule-color 0.4s,
+              rule-inset-junction 0.4s;
+}
+.grid-dashboard:hover {
+  column-rule-color: #3b82f6, #3b82f6;
+  rule-inset-junction: 0px;
+}</code></pre>
+
+<div class="dashboard">
+  <div class="card">
+    <h3>Revenue</h3>
+    <div class="metric-row">
+      <div class="metric">$48,200</div>
+      <span class="trend up">+12%</span>
+    </div>
+    <div class="detail">May 2026, before adjustments</div>
+  </div>
+
+  <div class="card">
+    <h3>Active Users</h3>
+    <div class="metric-row">
+      <div class="metric">3,812</div>
+      <span class="trend up">+8%</span>
+    </div>
+    <div class="detail">Logged in within the last 7 days</div>
+  </div>
+
+  <div class="card">
+    <h3>Server Load</h3>
+    <div class="metric-row">
+      <div class="metric">42%</div>
+      <span class="trend down">+6pt</span>
+    </div>
+    <div class="detail">Average across 6 regions</div>
+  </div>
+
+  <div class="card">
+    <h3>Orders</h3>
+    <div class="metric-row">
+      <div class="metric">1,204</div>
+      <span class="trend up">+3%</span>
+    </div>
+    <div class="detail">Placed this month</div>
+  </div>
+
+  <div class="card">
+    <h3>Bounce Rate</h3>
+    <div class="metric-row">
+      <div class="metric">28.5%</div>
+      <span class="trend up">-5.5pt</span>
+    </div>
+    <div class="detail">Down from 34% in April</div>
+  </div>
+
+  <div class="card">
+    <h3>Uptime</h3>
+    <div class="metric-row">
+      <div class="metric">99.97%</div>
+      <span class="trend flat">0%</span>
+    </div>
+    <div class="detail">Last 30 days</div>
+  </div>
+
+  <div class="card">
+    <h3>Support Tickets</h3>
+    <div class="metric-row">
+      <div class="metric">37</div>
+      <span class="trend up">-14</span>
+    </div>
+    <div class="detail">12 open, 25 resolved</div>
+  </div>
+
+  <div class="card">
+    <h3>Conversion</h3>
+    <div class="metric-row">
+      <div class="metric">4.1%</div>
+      <span class="trend up">+0.3pt</span>
+    </div>
+    <div class="detail">Checkout completion rate</div>
+  </div>
+
+  <div class="card">
+    <h3>Disk Usage</h3>
+    <div class="metric-row">
+      <div class="metric">218 GB</div>
+      <span class="trend down">+22 GB</span>
+    </div>
+    <div class="detail">of 500 GB provisioned</div>
+  </div>
+</div>
+
+</body>
+</html>
