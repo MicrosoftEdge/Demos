@@ -13,6 +13,12 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 * [Notebook](https://microsoftedge.github.io/Demos/css-gap-decorations/notebook.html) - `notebook.html`
 * [Personal site](https://microsoftedge.github.io/Demos/css-gap-decorations/personal-site.html) - `personal-site.html`
 * [The Daily Oddity](https://microsoftedge.github.io/Demos/css-gap-decorations/the-daily-oddity.html) - `the-daily-oddity.html`
+* [Article Grid](https://microsoftedge.github.io/Demos/css-gap-decorations/article-grid.html) - `article-grid.html`
+* [Calendar Week View](https://microsoftedge.github.io/Demos/css-gap-decorations/calendar-week.html) - `calendar-week.html`
+* [Dashboard Grid](https://microsoftedge.github.io/Demos/css-gap-decorations/dashboard-grid.html) - `dashboard-grid.html`
+* [Dynamic Items](https://microsoftedge.github.io/Demos/css-gap-decorations/dynamic-items.html) - `dynamic-items.html`
+* [Settings List](https://microsoftedge.github.io/Demos/css-gap-decorations/settings-list.html) - `settings-list.html`
+* [Split Screen](https://microsoftedge.github.io/Demos/css-gap-decorations/split-screen.html) - `split-screen.html`
 
 
 <!-- ====================================================================== -->

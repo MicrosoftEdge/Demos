@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Items - CSS Gap Decorations Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0f0f1a;
+    --bg-chip: #1a1a2e;
+    --bg-chip-hover: #1f1f35;
+    --border-chip: #2a2a45;
+    --text-primary: #e0e0ec;
+    --text-label: #6b6b8d;
+    --rule-color: #2a2a45;
+    --accent-blue: #60a5fa;
+    --accent-green: #34d399;
+    --accent-purple: #a78bfa;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-sans: "Outfit", sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 2.5rem 2rem;
+    min-height: 100vh;
+  }
+
+  .caption {
+    max-width: 720px;
+    margin: 0 auto 1.75rem;
+  }
+
+  pre.caption {
+    background: #252540;
+    border-radius: 6px;
+    padding: 12px 16px;
+    overflow-x: auto;
+  }
+
+  pre.caption code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--accent-blue);
+  }
+
+  .controls {
+    max-width: 720px;
+    margin: 0 auto 1.25rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  button {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.5em 1.1em;
+    border-radius: 5px;
+    border: 1px solid var(--border-chip);
+    background: var(--bg-chip);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  button:hover {
+    background: var(--bg-chip-hover);
+    border-color: #35355a;
+  }
+
+  button.add {
+    border-color: var(--accent-blue);
+    background: rgba(96, 165, 250, 0.1);
+  }
+
+  button.add:hover {
+    background: rgba(96, 165, 250, 0.18);
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 720px;
+    margin: 0 auto;
+
+    column-rule: 1px solid var(--rule-color);
+    column-rule-color: var(--accent-blue), var(--accent-green), var(--accent-purple);
+    rule-inset: 5px;
+    row-rule: 1px solid var(--rule-color);
+  }
+
+  .chip {
+    min-width: 120px;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-chip);
+    border: 1px solid var(--border-chip);
+    border-radius: 1px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: background 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    background: var(--bg-chip-hover);
+    border-color: #35355a;
+    cursor: pointer;
+  }
+
+  .slider-row {
+    max-width: 720px;
+    margin: 0 auto 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    color: var(--text-label);
+  }
+
+  .slider-row input[type="range"] {
+    flex: 1;
+    accent-color: var(--accent-blue);
+  }
+</style>
+</head>
+<body>
+
+<pre class="caption"><code>.flex-tags {
+  gap: 16px;
+  column-rule: 1px solid #2a2a45;
+  column-rule-color: #60a5fa, #34d399, #a78bfa;
+  rule-inset: 5px;
+  row-rule: 1px solid #2a2a45;
+}</code></pre>
+
+<div class="controls">
+  <button class="add" onclick="addItem()">Add item</button>
+  <button onclick="resetItems()">Reset</button>
+</div>
+
+<div class="slider-row">
+  <span>Container width</span>
+  <input type="range" min="200" max="720" value="720" oninput="resizeContainer(this.value)">
+</div>
+
+<div class="container" id="container"></div>
+
+<script>
+  const labels = [
+    "TypeScript", "Rust", "WebAssembly", "GraphQL", "Postgres",
+    "Redis", "Docker", "Kubernetes", "Terraform", "Go",
+    "Swift", "Kotlin", "Zig", "Svelte", "Deno",
+    "SQLite", "gRPC", "Protobuf", "NGINX", "Caddy",
+    "Vite", "esbuild", "Bun", "Astro", "HTMX"
+  ];
+
+  const initial = ["TypeScript", "Rust", "WebAssembly", "GraphQL", "Postgres", "Redis", "Docker", "Kubernetes", "Terraform", "Go", "Swift"];
+  let index = initial.length;
+
+  function createChip(text) {
+    const el = document.createElement("div");
+    el.className = "chip";
+    el.textContent = text;
+    el.addEventListener("click", () => el.remove());
+    return el;
+  }
+
+  function addItem() {
+    const container = document.getElementById("container");
+    container.appendChild(createChip(labels[index % labels.length]));
+    index++;
+  }
+
+  function resetItems() {
+    const container = document.getElementById("container");
+    container.innerHTML = "";
+    index = initial.length;
+    initial.forEach(label => container.appendChild(createChip(label)));
+  }
+
+  function resizeContainer(val) {
+    document.getElementById("container").style.maxWidth = val + "px";
+  }
+
+  resetItems();
+</script>
+
+</body>
+</html>
