@@ -1,0 +1,20 @@
+@scope (.card) {
+  p {
+    background-color: plum;
+  }
+}
+p {
+  width: max-content;
+  background-color: aquamarine;
+}
+.card {
+  box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
+  border-style: groove;
+  transition: 0.3s;
+  border-radius: 10px;
+  padding: 0px 16px;
+}
+body {
+  width: max-content;
+  font-family: 'Google Sans', sans-serif;
+}
