@@ -1,20 +1,14 @@
-@scope (.card) {
-  p {
-    background-color: plum;
-  }
-}
+@import url(https://fonts.googleapis.com/css2?family=Foldit:wght@700);
 p {
-  width: max-content;
-  background-color: aquamarine;
+  font-family: 'Foldit';
+  font-size: 2rem;
 }
-.card {
-  box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
-  border-style: groove;
-  transition: 0.3s;
-  border-radius: 10px;
-  padding: 0px 16px;
+@font-palette-values --New {
+  font-family: 'Foldit';
+  override-colors:
+    0 gold,
+    1 red;
 }
-body {
-  width: max-content;
-  font-family: 'Google Sans', sans-serif;
+.new {
+  font-palette: --New;
 }
