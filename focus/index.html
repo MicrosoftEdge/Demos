@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Debug disappearing pop up">
+    <meta property="og:title" content="Debug disappearing pop up">
+    <meta property="og:description" content="Debug disappearing pop up">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://jec.fish/assets/img/demo/_demo.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta name="twitter:title" content="Debug disappearing pop up">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@jecfish">
+    <meta name="twitter:description" content="Debug disappearing pop up">
+    <meta name="twitter:image" content="https://jec.fish/assets/img/demo/_demo.jpg">
+    <meta name="twitter:creator" content="@jecfish">
+    <meta name="twitter:widgets:csp" content="on">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 48x48 64x64" href="/favicon.ico">
+    <link rel="mask-icon" href="https://jec.fish/assets/img/favicons/favicon.svg" color="#4C566A">
+    <link rel="apple-touch-icon" href="https://jec.fish/assets/img/favicons/favicon-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="https://jec.fish/assets/img/favicons/favicon-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="https://jec.fish/assets/img/favicons/favicon-180.png" sizes="180x180">
+    <meta name="msapplication-TileColor" content="#4C566A">
+    <meta name="msapplication-TileImage" content="https://jec.fish/assets/img/favicons/favicon-144.png">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/web.manifest">
+    <meta name="theme-color" content="#4C566A">
+    <link rel="prefetch" href="https://jec.fish/assets/img/icons/dark.svg" as="image">
+    <link rel="prefetch" href="https://jec.fish/assets/img/icons/light.svg" as="image">
+    <title>Debug disappearing pop up</title>
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G36G49KV7T"></script>
+    <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-G36G49KV7T");</script>
+    <link id="prism-css" rel="stylesheet" href="https://jec.fish/assets/css/prism-light.css" media="print" onload='this.media="all";'>
+    <noscript>
+      <link rel="stylesheet" href="https://jec.fish/assets/css/prism-light.css">
+    </noscript>
+    <link id="fontCSS" rel="stylesheet" href="https://jec.fish/assets/css/fonts.css" media="print" onload='this.media="all",window.fontOnload&&window.fontOnload();'>
+    <noscript>
+      <link rel="stylesheet" href="https://jec.fish/assets/css/fonts.css">
+    </noscript>
+    <style>
+    @layer base, component, page;
+    body{background-color:#eceff4;color:#4c566a;font-family:Rubik,sans-serif;font-size:18px;min-height:100vh;min-height:-webkit-fill-available;transition:background-color .3s ease-in-out 0s}body.no-js nav #color-scheme-toggle{display:none}body.dark-mode{background-color:#242933;color:#eceff4}p{line-height:1.6}nav{display:flex;justify-content:space-between;padding:4px 10px;margin-bottom:10px}nav #color-scheme-toggle{background:#d8dee9;padding:0 10px;border-radius:4px;width:16px;height:36px;transition:background-color .3s ease-in-out 0s}.dark-mode nav #color-scheme-toggle{background:rgba(46,52,64,.9)}nav #color-scheme-toggle:hover{background-color:rgba(229,233,240,.75)}.dark-mode nav #color-scheme-toggle:hover{background-color:rgba(76,86,106,.9)}nav #logo{color:#2e3440;font-weight:700;text-decoration:none;padding:10px;border-radius:4px}.dark-mode nav #logo{color:#eceff4}
+    @layer base {
+      main a {
+        color: #194f86;
+        text-decoration: none;
+        border-bottom: 1px solid;
+      }
+    }
+    .dark-mode main a{color:#88c0d0}.pic{display:block;width:100%;position:relative}.pic img{position:absolute;top:0;left:0;width:100%;height:100%}.dark-mode img{filter:grayscale(30%)}.pic{border-radius:10px;animation:fading-light 1.5s infinite;background-color:#fff}.dark-mode .pic{animation:fading-dark 1.5s infinite;background-color:#2e3440}@keyframes fading-light{0%{background-color:#fff}50%{background-color:rgb(255,255,255,.5)}100%{background-color:#fff}}@keyframes fading-dark{0%{background-color:#2e3440}50%{background-color:rgb(46,52,64,.5)}100%{background-color:#2e3440}}
+    </style>
+    <style>
+    </style>
+  </head>
+  <body class="no-js">
+    <script>document.body.classList.toggle("no-js");</script>
+    <nav>
+      <a id="logo" href="/">jec.fish</a> 
+      <img id="color-scheme-toggle" width="36px" src="https://jec.fish/assets/img/icons/dark.svg" alt="toggle dark mode">
+    </nav>
+    <style>main{display:grid;justify-items:center;margin-top:10px}main .pic,main img{border-radius:20px}main .pic-wrapper{margin:10px;max-width:90vw}article{border-radius:10px;border:2px solid;padding:0 20px;margin:10px;background:#fff;transition:box-shadow .4s ease-in-out 0s,background-color .4s ease-in-out 0s}.dark-mode article{background:#2e3440}
+    </style>
+    <main>
+      <style>.hide-me{display:none}#result{border:1px solid gray;padding:10px}</style>
+      <p>Imagine you want to debug the disappearing result.  CSS :hover and :focus don't work, because you need page focus.  Use the "Keep page focused" settings in DevTools to emulate a focused page.</p>
+      <input id="query" type="text">
+      <p id="result" class="hide-me">disappearing popup - try to inspect & debug me in DevTools.</p>
+      <script>const query=document.querySelector("#query"),result=document.querySelector("#result");query.addEventListener("input",()=>{document.hasFocus()&&result.classList.remove("hide-me"),console.log(document.hasFocus())}),query.addEventListener("focus",()=>{document.hasFocus()&&query.value&&result.classList.remove("hide-me")}),query.addEventListener("blur",e=>{result.classList.add("hide-me")}),query.value="ta";</script>
+    </main>
+    <script>
+    </script>
+    <script>{const e=document.querySelector("body"),c=document.querySelector("#color-scheme-toggle"),t=document.querySelector("#prism-css"),r="dark",o="light",l="colorSchemeChanged";function toggleColorScheme(){const a=e.classList.toggle("dark-mode"),s=a?r:o;localStorage.setItem("jec.color-scheme",s),a?(c.src=c.src.replace(r,o),c.alt=c.alt.replace(r,o),t&&(t.href=t.href.replace(o,r))):(c.src=c.src.replace(o,r),c.alt=c.alt.replace(o,r),t&&(t.href=t.href.replace(r,o))),c.dispatchEvent(new CustomEvent(l,{detail:s}))}c.addEventListener("click",()=>toggleColorScheme());{function init(){let e=localStorage.getItem("jec.color-scheme");e=!e&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":e||"light","dark"===e&&toggleColorScheme()}init()}}</script>
+  </body>
+</html>
