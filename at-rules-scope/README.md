@@ -1,4 +1,4 @@
-# View `@scope` at-rules
+# View `@scope` CSS at-rules
 
 ➡️ **[View `@scope` at-rules](https://microsoftedge.github.io/Demos/at-rules-scope/)** ⬅️
 

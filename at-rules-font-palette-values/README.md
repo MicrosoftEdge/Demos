@@ -1,4 +1,4 @@
-# View `@font-palette-values` at-rules
+# View `@font-palette-values` CSS at-rules
 
 ➡️ **[View `@font-palette-values` at-rules](https://microsoftedge.github.io/Demos/at-rules-font-palette-values/)** ⬅️
 

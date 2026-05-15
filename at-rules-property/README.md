@@ -1,4 +1,4 @@
-# View `@property` at-rules
+# View `@property` CSS at-rules
 
 ➡️ **[View `@property` at-rules](https://microsoftedge.github.io/Demos/at-rules-property/)** ⬅️
 

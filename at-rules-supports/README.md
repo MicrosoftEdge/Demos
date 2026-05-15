@@ -1,4 +1,4 @@
-# View `@supports` at-rules
+# View `@supports` CSS at-rules
 
 ➡️ **[View `@supports` at-rules](https://microsoftedge.github.io/Demos/at-rules-supports/)** ⬅️
 

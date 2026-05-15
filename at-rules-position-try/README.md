@@ -1,5 +1,5 @@
-# View `@scope` at-rules
+# View `@position-try` CSS at-rules
 
-➡️ **[View `@scope` at-rules](https://microsoftedge.github.io/Demos/at-rules-scope/)** ⬅️
+➡️ **[View `@position-try` at-rules](https://microsoftedge.github.io/Demos/at-rules-position-try/)** ⬅️
 
-For instructions, see [View `@scope` at-rules](https://learn.microsoft.com/microsoft-edge/devtools/css/reference#view-scope-at-rules) in _CSS features reference_.
+For instructions, see [View `@position-try` at-rules](https://learn.microsoft.com/microsoft-edge/devtools/css/reference#view-position-try-at-rules) in _CSS features reference_.
