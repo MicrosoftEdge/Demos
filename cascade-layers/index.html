@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Cascade layers</title>
@@ -6,25 +6,31 @@
   <body>
     <div class="cascade-box"></div>
     <style>
-      .cascade-box{
-      width: 250px;
-      height: 30px;
-      text-align: center;}
+      .cascade-box {
+        width: 250px;
+        height: 30px;
+        text-align: center;
+      }
+
       .cascade-box::after {
         content: "My styles are layered!";
       }
+
       /* Define the specificity */
       @layer base, component, page;
+
       @layer page {
         .cascade-box {
           background: palegreen;
         }
       }
+
       @layer base {
         .cascade-box {
           background: rebeccapurple;
         }
       }
+
       @layer component {
         .cascade-box {
           background: hotpink;

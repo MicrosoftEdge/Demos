@@ -14,10 +14,12 @@ ol {
   --itemSize: 100px;
   --borderWidth: 1px;
 }
+
 .two {
   --itemSize: initial;
   --borderWidth: inherit;
 }
+
 .three {
   --itemSize: large;
   --borderWidth: 3%;
