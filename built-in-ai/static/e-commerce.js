@@ -159,9 +159,9 @@ addEventListener("DOMContentLoaded", async () => {
     console.log("Reviews to summarize:", reviews);
     const stream = summarizerSession.summarizeStreaming(reviews);
 
-    for await (const chunk of stream) {
-      console.log(`Received chunk: "${chunk}"`);
-      summaryOutputEl.textContent += chunk;
+    for await (const token of stream) {
+      console.log(`Received token: "${token}"`);
+      summaryOutputEl.textContent += token;
     }
 
     summarizeReviewBtn.removeAttribute("disabled");

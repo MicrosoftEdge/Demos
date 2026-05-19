@@ -65,17 +65,17 @@ addEventListener("load", async () => {
 
       metrics.signalOnBeforeStream();
 
-      let isFirstTokens = true;
-      for await (const chunk of stream) {
-        if (isFirstTokens) {
+      let isFirstToken = true;
+      for await (const token of stream) {
+        if (isFirstToken) {
           spinnerEl.remove();
-          isFirstTokens = false;
+          isFirstToken = false;
           outputEl.textContent = "";
         }
 
-        metrics.signalOnStreamTokens();
+        metrics.signalOnStreamToken();
 
-        outputEl.textContent += chunk;
+        outputEl.textContent += token;
       }
     } catch (e) {
       displaySessionMessage(`Could not write text: ${e}`, true);

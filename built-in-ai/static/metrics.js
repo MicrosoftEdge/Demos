@@ -3,12 +3,12 @@ class PlaygroundMetrics {
     this.startTime = null;
     this.sessionCreatedTime = null;
     this.streamStartTime = null;
-    this.chunkCount = null;
+    this.tokenCount = null;
 
     this.initLatencyMetricEl = document.querySelector("#init-latency-metric");
-    this.firstTokensLatencyMetricEl = document.querySelector("#first-chunk-latency-metric");
-    this.chunksMetricEl = document.querySelector("#chunks-metric");
-    this.chunkRateMetricEl = document.querySelector("#chunk-rate-metric");
+    this.firstTokenLatencyMetricEl = document.querySelector("#first-token-latency-metric");
+    this.tokensMetricEl = document.querySelector("#tokens-metric");
+    this.tokenRateMetricEl = document.querySelector("#token-rate-metric");
     this.totalTimeMetricEl = document.querySelector("#total-time-metric");
 
     if (!this.checkMetricsElements()) {
@@ -17,7 +17,7 @@ class PlaygroundMetrics {
   }
   
   checkMetricsElements() {
-    return this.initLatencyMetricEl && this.firstTokensLatencyMetricEl && this.chunksMetricEl && this.chunkRateMetricEl;
+    return this.initLatencyMetricEl && this.firstTokenLatencyMetricEl && this.tokensMetricEl && this.tokenRateMetricEl;
   }
 
   setNoStreamMode() {
@@ -51,23 +51,23 @@ class PlaygroundMetrics {
     }
 
     this.streamStartTime = performance.now();
-    this.chunkCount = 0;
+    this.tokenCount = 0;
   }
 
-  signalOnStreamTokens() {
+  signalOnStreamToken() {
     if (!this.checkMetricsElements()) {
       return;
     }
 
-    if (this.chunkCount === 0) {
-      this.firstTokensLatencyMetricEl.innerText = Math.round(performance.now() - this.streamStartTime);
+    if (this.tokenCount === 0) {
+      this.firstTokenLatencyMetricEl.innerText = Math.round(performance.now() - this.streamStartTime);
     }
 
-    this.chunkCount++;
-    this.chunksMetricEl.innerText = this.chunkCount;
+    this.tokenCount++;
+    this.tokensMetricEl.innerText = this.tokenCount;
 
-    const rate = this.chunkCount / ((performance.now() - this.streamStartTime) / 1000);
-    this.chunkRateMetricEl.innerText = rate.toFixed(1);
+    const rate = this.tokenCount / ((performance.now() - this.streamStartTime) / 1000);
+    this.tokenRateMetricEl.innerText = rate.toFixed(1);
   }
 
   signalOnAfterResult() {
