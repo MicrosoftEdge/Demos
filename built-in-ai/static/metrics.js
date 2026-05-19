@@ -6,7 +6,7 @@ class PlaygroundMetrics {
     this.chunkCount = null;
 
     this.initLatencyMetricEl = document.querySelector("#init-latency-metric");
-    this.firstChunkLatencyMetricEl = document.querySelector("#first-chunk-latency-metric");
+    this.firstTokensLatencyMetricEl = document.querySelector("#first-chunk-latency-metric");
     this.chunksMetricEl = document.querySelector("#chunks-metric");
     this.chunkRateMetricEl = document.querySelector("#chunk-rate-metric");
     this.totalTimeMetricEl = document.querySelector("#total-time-metric");
@@ -17,7 +17,7 @@ class PlaygroundMetrics {
   }
   
   checkMetricsElements() {
-    return this.initLatencyMetricEl && this.firstChunkLatencyMetricEl && this.chunksMetricEl && this.chunkRateMetricEl;
+    return this.initLatencyMetricEl && this.firstTokensLatencyMetricEl && this.chunksMetricEl && this.chunkRateMetricEl;
   }
 
   setNoStreamMode() {
@@ -54,13 +54,13 @@ class PlaygroundMetrics {
     this.chunkCount = 0;
   }
 
-  signalOnStreamChunk() {
+  signalOnStreamTokens() {
     if (!this.checkMetricsElements()) {
       return;
     }
 
     if (this.chunkCount === 0) {
-      this.firstChunkLatencyMetricEl.innerText = Math.round(performance.now() - this.streamStartTime);
+      this.firstTokensLatencyMetricEl.innerText = Math.round(performance.now() - this.streamStartTime);
     }
 
     this.chunkCount++;

@@ -65,15 +65,15 @@ addEventListener("load", async () => {
 
       metrics.signalOnBeforeStream();
 
-      let isFirstChunk = true;
+      let isFirstTokens = true;
       for await (const chunk of stream) {
-        if (isFirstChunk) {
+        if (isFirstTokens) {
           spinnerEl.remove();
-          isFirstChunk = false;
+          isFirstTokens = false;
           outputEl.textContent = "";
         }
 
-        metrics.signalOnStreamChunk();
+        metrics.signalOnStreamTokens();
 
         outputEl.textContent += chunk;
       }
