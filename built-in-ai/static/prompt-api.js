@@ -158,17 +158,17 @@ addEventListener("load", async () => {
 
       metrics.signalOnBeforeStream();
 
-      let isFirstChunk = true;
-      for await (const chunk of stream) {
-        if (isFirstChunk) {
+      let isFirstToken = true;
+      for await (const token of stream) {
+        if (isFirstToken) {
           spinnerEl.remove();
-          isFirstChunk = false;
+          isFirstToken = false;
           outputEl.textContent = "";
         }
 
-        metrics.signalOnStreamChunk();
+        metrics.signalOnStreamToken();
 
-        outputEl.textContent += chunk;
+        outputEl.textContent += token;
       }
     } catch (e) {
       displaySessionMessage(`Could not generate a response: ${e}`, true);
