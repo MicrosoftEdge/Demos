@@ -1,17 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
   <head>
     <title>Highlight pseudo-elements</title>
   </head>
-  <body>
-    <div class="text-parent">
-      <div class="highlighted-text">I inherited the style of my parent's highlight pseudo-element.  Select me!</div>
-    </div>
-    <style>
-      .text-parent::selection {
-        background: #ff0;
-        color: #ff1493;
-      }
-    </style>
-  </body>
+
+<body>
+  <div class="text-parent">
+    <div class="highlighted-text">I inherited the style of my parent's highlight pseudo-element. Select me!</div>
+  </div>
+  <style>
+    .text-parent::selection {
+      background: #ff0;
+      color: #ff1493;
+    }
+  </style>
+</body>
+
 </html>
