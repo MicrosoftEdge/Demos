@@ -144,8 +144,8 @@ addEventListener("DOMContentLoaded", () => {
 
     const stream = session.rewriteStreaming(selectedText);
 
-    for await (const chunk of stream) {
-      textToBeRewrittenEl.textContent += chunk;
+    for await (const token of stream) {
+      textToBeRewrittenEl.textContent += token;
     }
 
     proposedText = textToBeRewrittenEl.textContent;

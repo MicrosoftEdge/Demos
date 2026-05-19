@@ -235,8 +235,8 @@ input[type="number"] {
   grid: 1fr / 1fr 1fr;
 }
 
-.metrics.no-stream-mode .metric:has(#first-chunk-latency-metric),
-.metrics.no-stream-mode .metric:has(#chunks-metric),
-.metrics.no-stream-mode .metric:has(#chunk-rate-metric) {
+.metrics.no-stream-mode .metric:has(#first-token-latency-metric),
+.metrics.no-stream-mode .metric:has(#tokens-metric),
+.metrics.no-stream-mode .metric:has(#token-rate-metric) {
   display: none;
 }
