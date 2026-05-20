@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <head>
+    <title>Cascade layers</title>
+  </head>
+
+<body>
+  <div class="cascade-box"></div>
+  <style>
+    .cascade-box {
+      width: 250px;
+      height: 30px;
+      text-align: center;
+    }
+
+    .cascade-box::after {
+      content: "My styles are layered!";
+    }
+
+    /* Define the specificity */
+    @layer base, component, page;
+
+    @layer page {
+      .cascade-box {
+        background: palegreen;
+      }
+    }
+
+    @layer base {
+      .cascade-box {
+        background: rebeccapurple;
+      }
+    }
+
+    @layer component {
+      .cascade-box {
+        background: hotpink;
+      }
+    }
+  </style>
+</body>
+
+</html>

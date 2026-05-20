@@ -1,0 +1,17 @@
+@import url(https://fonts.googleapis.com/css2?family=Foldit:wght@700);
+
+p {
+  font-family: 'Foldit';
+  font-size: 2rem;
+}
+
+@font-palette-values --New {
+  font-family: 'Foldit';
+  override-colors:
+    0 gold,
+    1 red;
+}
+
+.new {
+  font-palette: --New;
+}
