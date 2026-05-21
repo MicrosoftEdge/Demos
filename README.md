@@ -31,11 +31,11 @@ To add a new demo:
 
    The GitHub.io-hosted demo page will be available about an hour after your PR is merged.  You can monitor the job at [Actions](https://github.com/MicrosoftEdge/Demos/actions).
 
-1. Edit the code in the new directory.  Examples of files in a demo directory:
+1. Edit the code in the new directory, such as:
    * `index.html`
-   * `style.css`
-   * `foo.js`
    * `README.md`
+   * `script.js`
+   * `style.css`
    * `manifest.json`
 
 1. Create a pull request (PR) in this repo.
