@@ -1,1 +1,1 @@
-console.log('JavaScript code in my demo');
+console.log('Console log message from script.js');
