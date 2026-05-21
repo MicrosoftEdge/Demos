@@ -38,7 +38,7 @@ To add a new demo:
    * `style.css`
    * `manifest.json`
 
-1. Create a pull request (PR) in this repo.
+1. Create a pull request (PR) in this repo.  See [Pull requests documentation](https://docs.github.com/en/pull-requests).
 
    The Edge team will review, approve, and merge your PR.
 
