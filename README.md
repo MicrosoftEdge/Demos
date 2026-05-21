@@ -2,6 +2,8 @@
 
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.
 
+Overviews of samples are grouped by feature area.
+
 <!-- sorted per toc order -->
 
 | Feature area | Overview of samples |
