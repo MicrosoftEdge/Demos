@@ -25,13 +25,24 @@ To add a new demo:
 
 1. Make a copy of the `/template/` directory at the root of this repository and give it a name, such as `/my-demo/`.
 
-1. Edit the `README.md` file in the new directory to clearly explain what your new demo is about.
+1. Edit `README.md` in the new directory to clearly explain what your new demo is about.
 
-1. In the README file, include a GitHub.io link that points to the live demo.
+1. In `README.md` in the new directory, modify the `github.io` link to point to the live demo; that is, change `/my-new-demo/` to the name of your directory.
 
    This repository is set up to be deployed live using GitHub Pages (GitHub.io), so a rendered `index.html` file in the `/my-demo/` directory (for example) will end up being accessible on the web at `https://microsoftedge.github.io/demos/my-demo/`.
 
-1. Edit the code (such as `index.html` or `style.css`) in the new directory.  Add any files you need.
+   The GitHub.io-hosted demo page will be available about an hour after your PR is merged.  You can monitor the job at [Actions](https://github.com/MicrosoftEdge/Demos/actions).
+
+1. Edit the code in the new directory.  Examples of files in a demo directory:
+   * `index.html`
+   * `style.css`
+   * `foo.js`
+   * `README.md`
+   * `manifest.json`
+
+1. Create a pull request (PR) in this repo.
+
+   The Edge team will review, approve, and merge your PR.
 
 1. The demo creator or the Edge team: Create a PR in the [MicrosoftDocs / edge-developer](https://github.com/MicrosoftDocs/edge-developer) repo to add information about the new demo, in one of the articles that are linked to from this Readme.
 
