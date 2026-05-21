@@ -2,58 +2,18 @@
 
 This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.
 
-**Contents:**
-* [Microsoft Edge DevTools](#microsoft-edge-devtools)
-* [Microsoft Edge extensions](#microsoft-edge-extensions)
-* [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
-* [WebView2](#webview2)
-* [Cross-browser API samples](#cross-browser-api-samples)
-* [Clone the "MicrosoftEdge / Demos" repo to your drive](#clone-the-microsoftedge--demos-repo-to-your-drive)
-* [Adding a new demo](#adding-a-new-demo)
-* [Contributing](#contributing)
-* [Trademarks](#trademarks)
+<!-- sorted per toc order -->
 
+| Feature area | Overview of samples |
+|---|---|
+| DevTools | [Sample code for DevTools](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code) |
+| Microsoft Edge extensions | [Samples for Microsoft Edge extensions](https://learn.microsoft.com/microsoft-edge/extensions/samples) |
+| Progressive Web Apps (PWAs) | [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/) |
+| WebView2 | [WebView2 sample apps](https://learn.microsoft.com/microsoft-edge/webview2/samples/) |
+| Web platform | [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples) |
 
-<!-- ====================================================================== -->
-## Microsoft Edge DevTools
-
-See:
-* [Sample code for DevTools](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code)
-
-
-<!-- ====================================================================== -->
-## Microsoft Edge extensions
-
-See:
-* [Samples for Microsoft Edge extensions](https://learn.microsoft.com/microsoft-edge/extensions/samples)
-
-
-<!-- ====================================================================== -->
-## Progressive Web Apps (PWAs)
-
-See:
-* [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/)
-
-
-<!-- ====================================================================== -->
-## WebView2
-
-See:
-* [WebView2 sample apps](https://learn.microsoft.com/microsoft-edge/webview2/samples/)
-
-
-<!-- ====================================================================== -->
-## Cross-browser API samples
-
-See:
-* [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples)
-
-
-<!-- ====================================================================== -->
-## Clone the "MicrosoftEdge / Demos" repo to your drive
-
-See:
-* [Clone the "MicrosoftEdge / Demos" repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
+See also:
+[Clone the "MicrosoftEdge / Demos" repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
 
 
 <!-- ====================================================================== -->
