@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>Emulate a focused page</title>
+  <style>
+    body {
+      padding: 4rem;
+      margin: 0 auto;
+      max-inline-size: 800px;
+      font-family: system-ui, sans-serif;
+      font-size: 1rem;
+    }
+
+    p {
+      margin: 0 0 4rem 0;
+    }
+
+    .hide-me {
+      display: none
+    }
+
+    #message {
+      padding: 2rem;
+      background: #21527d;
+      border-radius: .5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    input {
+      font-size: inherit;
+      font-family: inherit;
+      padding: 0.5rem;
+    }
+
+    p input {
+      inline-size: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p>When focus is in the input text box below, a message is displayed next to the box.
+    To inspect the message, use <strong>Emulate a focused page</strong> in DevTools.</p>
+
+  <p>
+    <input id="textBox" type="text" placeholder="Focus me to see the message">
+  </p>
+
+  <p id="message" class="hide-me">This message only appears when the text box is focused. Try to inspect and debug the
+    message in DevTools.</p>
+
+  <script>
+    const textBox = document.querySelector("#textBox");
+    const messageEl = document.querySelector("#message");
+
+    textBox.addEventListener("focus", () => {
+      messageEl.classList.remove("hide-me");
+    });
+
+    textBox.addEventListener("blur", () => {
+      messageEl.classList.add("hide-me");
+    });
+  </script>
+</body>
+
+</html>

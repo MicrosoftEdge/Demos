@@ -1,0 +1,33 @@
+@property --itemSize {
+  syntax: "<length> | <percentage>";
+  inherits: true;
+  initial-value: 200px;
+}
+
+@property --borderWidth {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 10px;
+}
+
+ol {
+  --itemSize: 100px;
+  --borderWidth: 1px;
+}
+
+.two {
+  --itemSize: initial;
+  --borderWidth: inherit;
+}
+
+.three {
+  --itemSize: large;
+  --borderWidth: 3%;
+}
+
+li {
+  width: var(--itemSize);
+  border: var(--borderWidth) solid red;
+  background-color: yellow;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,100 @@
+/* anchoring */
+[popovertarget="menu"] {
+  anchor-name: --menu;
+}
+
+[popovertarget="submenu"] {
+  anchor-name: --submenu;
+}
+
+#menu {
+  position: absolute;
+  margin: 0;
+  position-anchor: --menu;
+  left: anchor(--menu left);
+  top: anchor(--menu bottom);
+}
+
+#submenu {
+  position: absolute;
+  margin: 0;
+  position-anchor: --submenu;
+  left: anchor(--submenu right);
+  top: anchor(--submenu top);
+  margin-left: var(--padding);
+  position-try-fallbacks: --bottom;
+  transition: left 0.25s, top 0.25s;
+  width: max-content;
+}
+
+@position-try --bottom {
+  margin: var(--padding) 0 0 var(--padding);
+  left: anchor(--submenu left);
+  top: anchor(--submenu bottom);
+  margin-left: var(--padding);
+}
+
+[popovertarget="submenu"] {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* animating */
+
+/* etc */
+:root {
+  --padding: 1rem;
+}
+
+#menu,
+#submenu {
+  padding: var(--padding);
+  background: skyblue;
+  gap: 1rem;
+  border: none;
+}
+
+#menu:popover-open,
+#submenu:popover-open {
+  display: grid;
+}
+
+#menu-btn {
+  background: royalblue;
+  color: white;
+  padding: var(--padding);
+}
+
+#submenu {
+  background: lightblue;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+}
+
+a,
+button {
+  font-family: system-ui;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0;
+  color: black;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: none;
+  background: none;
+}
+
+.arrow {
+  transition: rotate 0.2s;
+}
+
+#menu:has(:popover-open) {
+  .arrow {
+    rotate: -90deg;
+  }
+}
