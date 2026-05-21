@@ -25,7 +25,7 @@ To add a new demo:
 
 1. Edit `README.md` in the new directory to clearly explain what your new demo is about.
 
-1. In `README.md` in the new directory, modify the `github.io` link to point to the live demo; that is, change `/my-new-demo/` to the name of your directory.
+1. In `README.md` in the new directory, modify the `github.io` link to point to the live demo; that is, change `/my-demo/` to the name of your directory.
 
    This repository is set up to be deployed live using GitHub Pages (GitHub.io), so a rendered `index.html` file in the `/my-demo/` directory (for example) will end up being accessible on the web at `https://microsoftedge.github.io/demos/my-demo/`.
 

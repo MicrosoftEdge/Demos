@@ -1,6 +1,6 @@
-# My new demo
+# My demo
 
-➡️ **[Open the demo](https://microsoftedge.github.io/Demos/my-new-demo/)** ⬅️
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/my-demo/)** ⬅️
 
 Use this file to describe what the demo is about and how to use it.
 
