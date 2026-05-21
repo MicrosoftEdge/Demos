@@ -58,6 +58,10 @@ responseSchemaExampleEl.addEventListener("click", () => {
   systemPromptEl.value = RESPONSE_SCHEMA_EXAMPLE.system;
   initialPromptsEl.value = "";
   responseSchemaEl.value = JSON.stringify(RESPONSE_SCHEMA_EXAMPLE.schema, null, 2);
+  responseSchemaEl.focus();
+  responseSchemaEl.setSelectionRange(0, 0);
+  responseSchemaEl.scrollTop = 0;
+  responseSchemaEl.scrollLeft = 0;
 });
 
 function linkRangewithNumber(rangeEl, numberEl) {
