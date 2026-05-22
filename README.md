@@ -1,8 +1,8 @@
-# Microsoft Edge Demos
+# Microsoft Edge demos
 
-This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.
+This **MicrosoftEdge / Demos** repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.
 
-This Readme lists all top-level source code directories. Below, demos are grouped by major technology area, and then sorted by directory name within each section's table.
+This Readme lists all top-level source code directories.  Below, the demos (samples) are grouped by major technology area, and then sorted by directory name within each section's table.
 
 **Contents:**
 * [Microsoft Edge DevTools](#microsoft-edge-devtools)
@@ -10,8 +10,8 @@ This Readme lists all top-level source code directories. Below, demos are groupe
 * [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
 * [WebView2](#webview2)
 * [Cross-browser API samples](#cross-browser-api-samples)
-* [Adding a new demo](#adding-a-new-demo)
-   * [Contributing](#contributing)
+* [Contributing](#contributing)
+   * [Adding a new demo](#adding-a-new-demo)
 * [Trademarks](#trademarks)
 
 
@@ -156,7 +156,17 @@ See also:
 
 
 <!-- ====================================================================== -->
-## Adding a new demo
+## Contributing
+
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment).  Simply follow the instructions provided by the bot.  You will only need to do this once across all repos using our CLA.
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).  For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+
+<!-- ------------------------------ -->
+### Adding a new demo
 
 To add a new demo:
 
@@ -180,16 +190,6 @@ To add a new demo:
 1. Create a PR in this repo.  See [Pull requests documentation](https://docs.github.com/en/pull-requests).
 
    The Edge team will review, approve, and merge your PR.
-
-
-<!-- ------------------------------ -->
-#### Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment).  Simply follow the instructions provided by the bot.  You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).  For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 
 <!-- ====================================================================== -->
