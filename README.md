@@ -10,6 +10,7 @@ This Readme lists all top-level source code directories.  Below, the demos (samp
 * [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
 * [WebView2](#webview2)
 * [Cross-browser API samples](#cross-browser-api-samples)
+* [Cloning this repo to your drive](#cloning-this-repo-to-your-drive)
 * [Contributing](#contributing)
    * [Adding a new demo](#adding-a-new-demo)
 * [Trademarks](#trademarks)
@@ -153,6 +154,20 @@ See:
 
 See also:
 * [Cross-browser API samples](https://learn.microsoft.com/microsoft-edge/web-platform/samples)
+
+
+<!-- ====================================================================== -->
+## Cloning this repo to your drive
+
+To use this repo, you can do any of the following approaches:
+* Clone the repo.  Enables keeping your copy up-to-date.
+* Fork the repo.  Enables keeping your copy up-to-date.  Enables making a pull request.
+* Download the repo as a `.zip` file.  A static snapshot.
+* Download a specific sample directory as a `.zip` file.  A static snapshot.
+
+See:
+* [Cloning a repository](https://docs.github.com/repositories/creating-and-managing-repositories/cloning-a-repository) in GitHub Docs.
+* [Clone the "MicrosoftEdge / Demos" repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
 
 
 <!-- ====================================================================== -->
