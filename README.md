@@ -110,7 +110,7 @@ See also:
 To learn how to use and develop PWAs, start with the Temperature convertor sample.
 
 See also:
-* [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index) - also lists the demos:
+* [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/) - also lists the demos:
    * BPM Techno
    * Webboard
 
