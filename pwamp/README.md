@@ -1,6 +1,6 @@
 # PWAmp app demo
 
-**Detailed contents:**
+**Contents:**
 * [About the sample](#about-the-sample)
    * [About the name "PWAmp"](#about-the-name-pwamp)
    * [Features available by installing the app](#features-available-by-installing-the-app)
