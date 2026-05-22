@@ -90,7 +90,7 @@ PWAmp uses the following features:
 <!-- ====================================================================== -->
 ## Open the sample
 
-1. Go to [pwamp](https://microsoftedge.github.io/Demos/pwamp/)
+1. Go to [pwamp](https://microsoftedge.github.io/Demos/pwamp/).
 
 1. In the Address bar, click the **App available** button.
 
