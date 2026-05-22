@@ -1,7 +1,25 @@
 # PWAmp app demo
 
 **Detailed contents:**
-todo
+* [About the sample](#about-the-sample)
+   * [About the name "PWAmp"](#about-the-name-pwamp)
+   * [Features available by installing the app](#features-available-by-installing-the-app)
+   * [Features demonstrated](#features-demonstrated)
+* [Open the sample](#open-the-sample)
+* [Use the sample](#use-the-sample)
+   * [Add new songs](#add-new-songs)
+   * [Edit song information](#edit-song-information)
+   * [Add custom artwork for an album](#add-custom-artwork-for-an-album)
+   * [Play, pause, or go to the next or previous song](#play-pause-or-go-to-the-next-or-previous-song)
+   * [Record an audio clip](#record-an-audio-clip)
+   * [Show the visualizer](#show-the-visualizer)
+   * [Download all songs](#download-all-songs)
+   * [Delete all songs](#delete-all-songs)
+   * [Make a custom skin](#make-a-custom-skin)
+   * [Apply a custom skin](#apply-a-custom-skin)
+* [Song credits](#song-credits)
+* [Possible enhancements](#possible-enhancements)
+* [Articles that use this demo](#articles-that-use-this-demo)
 
 
 <!-- ====================================================================== -->
