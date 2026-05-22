@@ -11,7 +11,7 @@ This Readme lists all top-level source code directories. Below, demos are groupe
 * [WebView2](#webview2)
 * [Cross-browser API samples](#cross-browser-api-samples)
 * [Adding a new demo](#adding-a-new-demo)
-* [Contributing](#contributing)
+   * [Contributing](#contributing)
 * [Trademarks](#trademarks)
 
 
@@ -177,15 +177,13 @@ To add a new demo:
    * `style.css`
    * `manifest.json`
 
-1. Create a pull request (PR) in this repo.  See [Pull requests documentation](https://docs.github.com/en/pull-requests).
+1. Create a PR in this repo.  See [Pull requests documentation](https://docs.github.com/en/pull-requests).
 
    The Edge team will review, approve, and merge your PR.
 
-1. The demo creator or the Edge team: Create a PR in the [MicrosoftDocs / edge-developer](https://github.com/MicrosoftDocs/edge-developer) repo to add information about the new demo, in one of the articles that are linked to from this Readme.
 
-
-<!-- ====================================================================== -->
-## Contributing
+<!-- ------------------------------ -->
+#### Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
