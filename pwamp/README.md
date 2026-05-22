@@ -1,89 +1,209 @@
 # PWAmp app demo
 
-➡️ **[Open the demo](https://microsoftedge.github.io/Demos/pwamp/)** ⬅️
-
-PWAmp (pronounced P-W-Amp) is a web audio player demo application. It is an installable Progressive Web App (PWA) specifically made to demonstrate desktop-integration features.
-
-![Screenshot of the PWAmp app](screenshot-playlist.png)
+**Detailed contents:**
+todo
 
 
 <!-- ====================================================================== -->
-## User guide
+## About the sample
 
-* Open the app: https://microsoftedge.github.io/Demos/pwamp/
+PWAmp is pronounced _P-W-Amp_.
 
-* To add new songs:
-  * Either drag and drop audio files from your explorer onto the playlist area.
-  * Or click the `+` button in the bottom toolbar.
+PWAmp is a web audio player demo app; a desktop music player that plays local and remote audio files.
 
-* Artist, title, and album information are parsed from the song files (if available).
+The app is an installable Progressive Web App (PWA) specifically made to demonstrate desktop integration features.
 
-* To edit song information, click on the artist, title, or album fields and edit the text.
+![The PWAmp app, showing playback buttons and a list of songs](./index-images/pwamp.png)<!-- todo: move png -->
 
-* To add custom artworks for albums, drag and drop image files onto songs.
-
-* Use the top toolbar to play, pause, and go to the next or previous songs.
-
-* The bottom toolbar contains the following extra features:
-  * Apply a custom skin: select a .css or .pwampskin file to replace the look and feel of the app with your own.
-  * Record an audio clip: click once to start recording, click once more to stop recording.
-  * Show visualizer: click to toggle the visualizer mode.
-  * More tools: options to download all songs or delete all songs.
-
-* If you install the PWA locally on desktop, the following features become available:
-  * Audio files are handled natively. Just double-click an audio file to add it to your PWAmp library.
-  * *.pwampskin files are also handled natively, Double-click one such file to change the look and feel of the app.
-  * The custom `web+amp` protocol is handled natively. Share links of remote songs with other people by using `web+amp:remote-song:<url-to-song>` links. You can also share skins with other people by using `web+amp:skin:<url-to-skin>`.
-    [Example song link](web+amp:remote-song:ia803003.us.archive.org/17/items/78_by-the-light-of-the-silvery-moon_fats-waller-and-his-rhythm-fats-waller-the-dee_gbia0153541a/BY%20THE%20LIGHT%20OF%20THE%20SILVERY%20-%20%22Fats%22%20Waller%20and%20his%20Rhythm.mp3)
-  * The title bar becomes toggleable. Click the chevron icon in the toolbar to hide it.
-  * The app becomes a share target for audio files. If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
+![The PWAmp sample](./screenshot-playlist.png)
 
 
-<!-- ====================================================================== -->
-## Making a new skin
+<!-- ------------------------------ -->
+### About the name "PWAmp"
 
-A skin is a CSS file that gets applied to the app, replacing the default CSS.
+This app is a "Progressive WebAmp".  PWAmp's name was inspired by [Winamp](https://en.wikipedia.org/wiki/Winamp), which was a popular media player application for Microsoft Windows.
 
-The best way to make a new skin is to open DevTools and look at the HTML structure of the page. Most elements should have handy classes and IDs that will make them easy to style.
+The "Win" part of the name "WinAmp" was replaced by "PW", which are the first two letters of "PWA" (Progressive Web App).
 
-Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background. This will be used at runtime, in JavaScript, by the app to apply the color to the visualizer and the title bar area.
-
-
-<!-- ====================================================================== -->
-## What does the name mean?
-
-[Winamp](https://en.wikipedia.org/wiki/Winamp) was a very successful media player application for Microsoft Windows. PWAmp's name was inspired by it; we just replaced the `win` part with `PW` which are the 2 first letters of PWA (Progressive Web App). The name "Webamp" might have made more sense, but was [already used](https://webamp.org/).
-
-You can think of this app as the "Progressive Web Amp".
+The name "Webamp" was already in use, by [Webamp.org](https://webamp.org).
 
 See also:
 * [Overview of Progressive Web Apps (PWAs)](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/)
 
 
+<!-- ------------------------------ -->
+### Features available by installing the app
+
+When you install the PWA locally on the desktop, the following features become available:
+
+* Audio files are handled natively.  To add an audio file to your PWAmp library, double-click the audio file, such as in File Explorer.
+
+* `*.pwampskin` files are handled natively.  To change the look and feel of the app, double-click a `.pwampskin` file.
+
+* The custom `web+amp` protocol is handled natively.
+
+   * Share links of remote songs with other people by using `web+amp:remote-song:<url-to-song>` links.
+
+   * You can also share skins with other people by using the URL pattern `web+amp:skin:<url-to-skin>`.  Example song link: 
+
+      * [By the Light of the Silvery Moon - Fats Waller](web+amp:remote-song:ia803003.us.archive.org/17/items/78_by-the-light-of-the-silvery-moon_fats-waller-and-his-rhythm-fats-waller-the-dee_gbia0153541a/BY%20THE%20LIGHT%20OF%20THE%20SILVERY%20-%20%22Fats%22%20Waller%20and%20his%20Rhythm.mp3).
+
+* The title bar becomes able to be displayed or hidden.  To hide the title bar, in the toolbar, click the chevron (>>) icon.
+
+* The app becomes a share target for audio files.  If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
+
+
+<!-- ------------------------------ -->
+### Features demonstrated
+
+PWAmp uses the following features:
+
+| Feature | Description | Documentation |
+|---|---|---|
+| Window Controls Overlay | The space normally reserved to the title bar can be used by PWAmp to display a visualization of the current song. | [Display content in the title bar area using Window Controls Overlay](../how-to/window-controls-overlay.md) |
+| Protocol Handling | Links that start with `web+amp:` can be used to share remote songs. | [Handle protocols in a PWA](../how-to/handle-protocols.md) |
+| File Handling | Audio files can be opened with PWAmp directly. Right-click on a file ending with `.mp3` for example and click **Open with**. | [Handle files in a PWA](../how-to/handle-files.md) |
+| Web Share | Songs can be shared with other apps through the operating system sharing dialog. | [Sharing content](../how-to/share.md#sharing-content) |
+| Share Target | Other apps can share audio files with PWAmp, through the operating system sharing dialog. | [Receiving shared content](../how-to/share.md#receiving-shared-content) |
+| Widget | A mini-player Widget can be installed in Windows 11 Widgets dashboard to see the current song. | [Display a PWA widget in the Windows Widgets Board](../how-to/widgets.md) |
+| Sidebar | PWAmp can be pinned to the sidebar in Microsoft Edge. | [Build a PWA for the sidebar in Microsoft Edge](../how-to/sidebar.md) |
+
+
+<!-- ====================================================================== -->
+## Open the sample
+
+1. Go to [pwamp](https://microsoftedge.github.io/Demos/pwamp/)
+
+1. In the Address bar, click the **App available** button.
+
+1. Open the installed app in its own window.
+
+
+<!-- ====================================================================== -->
+## Use the sample
+
+
+<!-- ------------------------------ -->
+### Add new songs
+
+To add new songs, do either:
+* Drag audio files from your explorer onto the playlist area.
+* In the bottom toolbar, click the `+` button.
+
+Artist, title, and album information are parsed from the song files (if available).
+
+
+<!-- ------------------------------ -->
+### Edit song information
+
+To edit song information:
+
+1. Click the artist, title, or album field.
+
+1. Edit the text.
+
+
+<!-- ------------------------------ -->
+### Add custom artwork for an album
+
+To add custom artwork for an album:
+
+1. Drag and drop an image file onto a song.
+
+
+<!-- ------------------------------ -->
+### Play, pause, or go to the next or previous song
+
+To play, pause, or go to the next or previous song:
+
+1. Use the top toolbar.
+
+
+<!-- ------------------------------ -->
+### Record an audio clip
+
+To record an audio clip:
+
+1. Click<!-- todo: click what? --> once to start recording.
+
+1. To stop recording, click<!-- todo: click what? --> again.
+
+
+
+<!-- ------------------------------ -->
+### Show the visualizer
+
+To show the visualizer<!-- todo: define visualizer -->:
+
+1. Click<!-- todo: click what? -->.
+
+   Visualizer mode turns on or off.
+
+
+<!-- ------------------------------ -->
+### Download all songs
+
+To download all songs:
+
+1. More tools: options.<!-- todo: clear steps -->
+
+
+<!-- ------------------------------ -->
+### Delete all songs
+
+To delete all songs:
+
+1. More tools: options.<!-- todo: clear steps -->
+
+
+<!-- ------------------------------ -->
+### Make a custom skin
+
+A skin is a CSS file that gets applied to the app, replacing the default CSS.
+
+The best way to make a new skin is to open DevTools and look at the HTML structure of the page.  Most elements should have handy classes and IDs that will make them easy to style.
+
+Skins are expected to have a `:root {}` rule with at least one variable called `--back` set to the color of the background.  The `:root {}` rule is used at runtime, via JavaScript, to apply the color to the visualizer and the title bar area.
+
+
+<!-- -------------- -->
+#### Apply a custom skin
+
+To replace the look and feel of the app with your own look and feel:
+
+1. Select a `.css` or `.pwampskin` file.
+
+1. Use the bottom toolbar.<!-- todo: specific UI -->
+
+
 <!-- ====================================================================== -->
 ## Song credits
 
-The first time you open the app, a few songs are pre-loaded. These are remote URL songs, so they will only play when you are online.
+The first time you open PWAmp, a few songs are pre-loaded.  These songs use remote URLs.  These songs only play when you are online.
 
-Credits for those songs:
+Credits for the pre-loaded songs:
 
 * "Reunion", and "Over The Stargates" by David Rousset, used with the author's approval. More information and songs on [soundcloud](https://soundcloud.com/david-rousset).
 * "Opening" and "Aloe-Almond Butter And Space Pesto" by Noi2er, from the [Internet Archive](https://archive.org/details/DWK382).
 
 
 <!-- ====================================================================== -->
-## TODO
-
-Possible enhancements for this demo:
+## Possible enhancements<!-- todo -->
 
 * Make sure the app is accessible in high-contrast mode.
+
 * Make it possible to download remote songs locally:
-   * fetch -> `readablestream` -> store chunks in IDB.
+   * Fetch, then `readablestream`, then store chunks in IDB.
    * Then fetch handler in SW to serve these chunks back from IDB when offline.
+
 * Improve song adding performance again: only get duration later, after song has been added.
+
 * Add the ability to drag/drop songs in the playlist to re-order them.
+
 * Ability to export as another file format.
+
 * Use viewport segments to display on dual screen devices.
+
 * Add repeat and shuffle buttons.
 
 
