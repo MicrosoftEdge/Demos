@@ -119,8 +119,6 @@ See also:
 
 The WebView2 samples are in the **MicrosoftEdge / WebView2Samples** repo, rather than in the present, **MicrosoftEdge / Demos** repo.
 
-todo: a main readme for a samples repo should have std table for that repo - avoid maintaining dup table in docset & a samples repo
-
 See:
 * [MicrosoftEdge / WebView2Samples](https://github.com/MicrosoftEdge/WebView2Samples) repo
 * [WebView2 sample apps](https://learn.microsoft.com/microsoft-edge/webview2/samples/) article
