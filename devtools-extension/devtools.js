@@ -34,7 +34,6 @@ setInterval(() => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Messages from content scripts should have sender.tab set.
     if (sender.tab && request.click == true) {
-        console.log('I am here!'); // todo: delete this debug line
         if (youClickedOn) {
             youClickedOn.innerHTML = `(${request.xPosition}, ${request.yPosition})`;
         }
