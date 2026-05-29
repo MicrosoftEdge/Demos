@@ -30,7 +30,7 @@
   height: 1.125rem;
   border: 1px solid var(--divider-color);
   border-radius: var(--inner-radius);
-  background: linear-gradient(90deg, #0f7f48 0%, #89a11f 65%, #a13d2a 100%);
+  background: var(--neutral-color);
   overflow: hidden;
   margin-block-start: 0.5rem;
 }
@@ -38,7 +38,11 @@
 .audio-meter-bar {
   height: 100%;
   width: 0;
-  background: rgba(255, 255, 255, 0.55);
+  background: linear-gradient(90deg, #0f7f48 0%, #89a11f 65%, #a13d2a 100%);
+  /* The gradient should always show its green→red ramp regardless of how wide
+     the bar happens to be, so anchor it to the meter's full width. */
+  background-size: 100vw 100%;
+  background-repeat: no-repeat;
   transition: width 60ms linear;
 }
 
@@ -47,7 +51,7 @@
   inset-block: 0;
   width: 2px;
   left: 0;
-  background: white;
+  background: #222;
   opacity: 0;
 }
 
@@ -57,18 +61,12 @@
   inset-block-start: 50%;
   transform: translateY(-50%);
   font-size: 0.75rem;
-  color: white;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  color: #444;
   pointer-events: none;
 }
 
-.audio-meter.is-idle {
-  background: var(--neutral-color);
-}
-
-.audio-meter.is-idle .audio-meter-hint {
-  color: #444;
-  text-shadow: none;
+.audio-meter.is-idle .audio-meter-bar {
+  background: transparent;
 }
 
 #output:empty::before {

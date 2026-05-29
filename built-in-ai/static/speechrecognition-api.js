@@ -9,6 +9,7 @@ const audioPlayerEl = document.querySelector("#audio-player");
 const inputLanguageEl = document.querySelector("#input-language");
 const startBtn = document.querySelector("#start");
 const stopBtn = document.querySelector("#stop");
+const resetBtn = document.querySelector("#reset");
 const meterEl = document.querySelector("#audio-meter");
 const meterBarEl = document.querySelector("#audio-meter-bar");
 const meterPeakEl = document.querySelector("#audio-meter-peak");
@@ -155,7 +156,7 @@ function updateButtonState() {
   const isActive = isRecognizing || isStarting;
 
   startBtn.disabled = !SpeechRecognitionAPI || isRecognizing || isStarting || (isFileSource && !hasFile);
-  stopBtn.disabled = !isActive;
+  stopBtn.disabled = !isRecognizing;
 
   // Move the prominent style to the currently relevant action.
   startBtn.classList.toggle("ai-button", !isActive);
@@ -213,6 +214,48 @@ function stopRecognition() {
   if (recognition && isRecognizing) {
     recognition.stop();
   }
+}
+
+// Full page-state reset without reloading: stop recognition, clear the
+// transcript and file picker, tear down audio contexts, and forget cached
+// language availability so the next Start re-checks.
+function resetAll() {
+  if (recognition && isRecognizing) {
+    try { recognition.abort(); } catch { /* no-op */ }
+  }
+  recognition = null;
+  isRecognizing = false;
+  isStarting = false;
+  readyLangs.clear();
+
+  finalTranscript = "";
+  outputEl.textContent = "";
+
+  // Clear file picker + previews + cached audio context.
+  mediaFileEl.value = "";
+  activePreviewType = "";
+  for (const previewEl of [mediaPlayerEl, audioPlayerEl]) {
+    try { previewEl.pause(); } catch { /* no-op */ }
+    previewEl.removeAttribute("src");
+    previewEl.load();
+    previewEl.hidden = true;
+  }
+  cleanupFileSource();
+  if (fileAudioCtx) {
+    fileAudioCtx.close().catch(() => {});
+    fileAudioCtx = null;
+    fileAudioVideoSource = null;
+    fileAudioAudioSource = null;
+    fileAudioDestination = null;
+    fileAudioVideoMeter = null;
+    fileAudioAudioMeter = null;
+  }
+
+  stopMeter();
+  setStartButtonState("idle");
+  updateAudioSourceUI();
+  updateButtonState();
+  displaySessionMessage("Reset.");
 }
 
 function onMediaFilePicked() {
@@ -469,8 +512,6 @@ async function startRecognition() {
       }
     }
 
-    // Clean up temporary resources (like object URLs)
-    cleanupFileSource();
     stopMeter();
     displaySessionMessage("Recognition stopped.");
   };
@@ -494,6 +535,7 @@ async function startRecognition() {
   } catch (error) {
     isStarting = false;
     isRecognizing = false;
+    recognition = null;
     updateButtonState();
     stopMeter();
     displaySessionMessage(`Could not start speech recognition: ${error.message}`, true);
@@ -531,6 +573,11 @@ addEventListener("load", async () => {
   stopBtn.addEventListener("click", event => {
     event.preventDefault();
     stopRecognition();
+  });
+
+  resetBtn.addEventListener("click", event => {
+    event.preventDefault();
+    resetAll();
   });
 
   outputEl.textContent = "";
