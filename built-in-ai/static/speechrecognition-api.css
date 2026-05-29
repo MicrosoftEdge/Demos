@@ -1,0 +1,11 @@
+#audio-file-row {
+  display: none;
+}
+
+#audio-file-row.is-visible {
+  display: block;
+}
+
+#output:empty::before {
+  content: "The transcription will appear here";
+}
