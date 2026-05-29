@@ -8,6 +8,9 @@
   "scripts": {
     "build": "npm run build:playgrounds && npm run build:samples",
     "build:playgrounds": " npx @11ty/eleventy --input=templates/playground-* --output=playgrounds",
-    "build:samples": " npx @11ty/eleventy --input=templates/sample-* --output=samples"
+    "build:samples": " npx @11ty/eleventy --input=templates/sample-* --output=samples",
+    "watch": "npm run watch:playgrounds & npm run watch:samples",
+    "watch:playgrounds": "npx @11ty/eleventy --input=templates/playground-* --output=playgrounds --watch",
+    "watch:samples": "npx @11ty/eleventy --input=templates/sample-* --output=samples --watch"
   }
 }

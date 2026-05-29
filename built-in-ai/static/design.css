@@ -147,6 +147,34 @@ button.ai-button:active {
   background: #25282dcc;
 }
 
+input[type="file"] {
+  padding: .25rem;
+  background: white;
+}
+
+input[type="file"]::file-selector-button,
+input[type="file"]::-webkit-file-upload-button {
+  border: 0;
+  box-shadow: 0 0 0 1px var(--divider-color);
+  padding: .5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: normal;
+  background: var(--neutral-color);
+  color: inherit;
+  margin-inline-end: .75rem;
+}
+
+input[type="file"]::file-selector-button:hover,
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: #e2e7edff;
+}
+
+input[type="file"]::file-selector-button:active,
+input[type="file"]::-webkit-file-upload-button:active {
+  background: #d7dfe6ff;
+}
+
 .radio-group {
   display: flex;
   border-radius: var(--inner-radius);
