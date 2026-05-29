@@ -14,13 +14,15 @@
   display: block;
 }
 
-#media-player {
+#media-player,
+#audio-player {
   width: 100%;
-  max-height: 240px;
-  border: 1px solid var(--divider-color);
-  border-radius: var(--inner-radius);
-  background: black;
   margin-block-start: 0.5rem;
+}
+
+#media-player {
+  max-height: 240px;
+  background: black;
 }
 
 .audio-meter {
@@ -61,7 +63,7 @@
 }
 
 .audio-meter.is-idle {
-  background: #d9d9d9;
+  background: var(--neutral-color);
 }
 
 .audio-meter.is-idle .audio-meter-hint {

@@ -5,6 +5,7 @@ const audioFileRowEl = document.querySelector("#audio-file-row");
 const mediaPlayerRowEl = document.querySelector("#media-player-row");
 const mediaFileEl = document.querySelector("#media-file");
 const mediaPlayerEl = document.querySelector("#media-player");
+const audioPlayerEl = document.querySelector("#audio-player");
 const inputLanguageEl = document.querySelector("#input-language");
 const startBtn = document.querySelector("#start");
 const stopBtn = document.querySelector("#stop");
@@ -21,6 +22,7 @@ let isStarting = false;
 let finalTranscript = "";
 let currentObjectUrl = "";
 let fileAudioCtx = null;
+let activePreviewType = "";
 const readyLangs = new Set();
 
 let meterRafId = 0;
@@ -131,8 +133,13 @@ function updateAudioSourceUI() {
 
   if (!isFileSource) {
     mediaFileEl.value = "";
-    mediaPlayerEl.removeAttribute("src");
-    mediaPlayerEl.load();
+    activePreviewType = "";
+    for (const previewEl of [mediaPlayerEl, audioPlayerEl]) {
+      previewEl.pause();
+      previewEl.removeAttribute("src");
+      previewEl.load();
+      previewEl.hidden = true;
+    }
     cleanupFileSource();
   }
 }
@@ -173,15 +180,31 @@ function onMediaFilePicked() {
 
   const file = mediaFileEl.files?.[0];
   if (!file) {
-    mediaPlayerEl.removeAttribute("src");
-    mediaPlayerEl.load();
+    activePreviewType = "";
+    for (const previewEl of [mediaPlayerEl, audioPlayerEl]) {
+      previewEl.pause();
+      previewEl.removeAttribute("src");
+      previewEl.load();
+      previewEl.hidden = true;
+    }
     updateButtonState();
     return;
   }
 
+  const isVideo = file.type.startsWith("video/");
+  activePreviewType = isVideo ? "video" : "audio";
+  const activePreviewEl = isVideo ? mediaPlayerEl : audioPlayerEl;
+  const inactivePreviewEl = isVideo ? audioPlayerEl : mediaPlayerEl;
+
+  inactivePreviewEl.pause();
+  inactivePreviewEl.removeAttribute("src");
+  inactivePreviewEl.load();
+  inactivePreviewEl.hidden = true;
+
   currentObjectUrl = URL.createObjectURL(file);
-  mediaPlayerEl.src = currentObjectUrl;
-  mediaPlayerEl.load();
+  activePreviewEl.src = currentObjectUrl;
+  activePreviewEl.load();
+  activePreviewEl.hidden = false;
   updateButtonState();
 }
 
@@ -315,7 +338,9 @@ function startFileMeter() {
 }
 
 async function getAudioTrackFromSelectedFile() {
-  if (!mediaPlayerEl.src) {
+  const previewEl = activePreviewType === "audio" ? audioPlayerEl : mediaPlayerEl;
+
+  if (!previewEl.src) {
     throw new Error("Please select a media file first.");
   }
 
@@ -324,9 +349,10 @@ async function getAudioTrackFromSelectedFile() {
     throw new Error("Web Audio API is required to recognize speech from a file.");
   }
 
-  if (!fileAudioCtx) {
+  // Create a new context if we don't have one, or if the existing one is closed/invalid.
+  if (!fileAudioCtx || fileAudioCtx.state === "closed") {
     fileAudioCtx = new AudioContextClass();
-    const source = fileAudioCtx.createMediaElementSource(mediaPlayerEl);
+    const source = fileAudioCtx.createMediaElementSource(previewEl);
     const destination = fileAudioCtx.createMediaStreamDestination();
 
     source.connect(destination);
@@ -415,13 +441,16 @@ async function startRecognition() {
     updateButtonState();
 
     if (audioSourceEl.value === "file") {
+      const previewEl = activePreviewType === "audio" ? audioPlayerEl : mediaPlayerEl;
       try {
-        mediaPlayerEl.pause();
+        previewEl.pause();
       } catch {
         // no-op
       }
     }
 
+    // Close the audio context to avoid stale connections when switching files.
+    cleanupFileSource();
     stopMeter();
     displaySessionMessage("Recognition stopped.");
   };
@@ -431,10 +460,11 @@ async function startRecognition() {
     updateButtonState();
 
     if (audioSourceEl.value === "file") {
+      const previewEl = activePreviewType === "audio" ? audioPlayerEl : mediaPlayerEl;
       const track = await getAudioTrackFromSelectedFile();
-      mediaPlayerEl.currentTime = 0;
-      mediaPlayerEl.onended = () => stopRecognition();
-      await mediaPlayerEl.play();
+      previewEl.currentTime = 0;
+      previewEl.onended = () => stopRecognition();
+      await previewEl.play();
       recognition.start(track);
       startFileMeter();
     } else {
