@@ -6,6 +6,69 @@
   display: block;
 }
 
+#media-player-row {
+  display: none;
+}
+
+#media-player-row.is-visible {
+  display: block;
+}
+
+#media-player {
+  width: 100%;
+  max-height: 240px;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--inner-radius);
+  background: black;
+  margin-block-start: 0.5rem;
+}
+
+.audio-meter {
+  position: relative;
+  height: 1.125rem;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--inner-radius);
+  background: linear-gradient(90deg, #0f7f48 0%, #89a11f 65%, #a13d2a 100%);
+  overflow: hidden;
+  margin-block-start: 0.5rem;
+}
+
+.audio-meter-bar {
+  height: 100%;
+  width: 0;
+  background: rgba(255, 255, 255, 0.55);
+  transition: width 60ms linear;
+}
+
+.audio-meter-peak {
+  position: absolute;
+  inset-block: 0;
+  width: 2px;
+  left: 0;
+  background: white;
+  opacity: 0;
+}
+
+.audio-meter-hint {
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: white;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+}
+
+.audio-meter.is-idle {
+  background: #d9d9d9;
+}
+
+.audio-meter.is-idle .audio-meter-hint {
+  color: #444;
+  text-shadow: none;
+}
+
 #output:empty::before {
   content: "The transcription will appear here";
 }

@@ -159,6 +159,20 @@
   <input type="file" id="media-file" name="media-file" accept="audio/*,video/*" disabled>
 </div>
 
+<div class="settings-row" id="media-player-row" aria-hidden="true">
+  <label for="media-player">Media preview</label>
+  <video id="media-player" controls preload="metadata"></video>
+</div>
+
+<div class="settings-row" id="meter-row">
+  <label id="input-audio-meter-label">Input audio meter</label>
+  <div class="audio-meter is-idle" id="audio-meter" role="meter" aria-labelledby="input-audio-meter-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="audio-meter-bar" id="audio-meter-bar"></div>
+    <div class="audio-meter-peak" id="audio-meter-peak"></div>
+    <span class="audio-meter-hint" id="audio-meter-hint">Idle</span>
+  </div>
+</div>
+
 <div class="settings-row submit">
   <button class="ai-button" id="start">Start</button>
   <button id="stop">Stop</button>
@@ -168,18 +182,12 @@
 
     <pre id="output"></pre>
 
-    <div class="metrics card-with-shadow">
-      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
-      <span class="metric">First token latency: <span class="value" id="first-token-latency-metric"></span> ms</span>
-      <span class="metric">Tokens: <span class="value" id="tokens-metric"></span></span>
-      <span class="metric">Rate: <span class="value" id="token-rate-metric"></span> token/sec</span>
-      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
-    </div>
+    
   </main>
 
   <script src="/Demos/built-in-ai/static/session.js"></script>
   <script src="/Demos/built-in-ai/static/spinner.js"></script>
-  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  
   <script src="/Demos/built-in-ai/static/slider.js"></script>
   
     <script src="/Demos/built-in-ai/static/speechrecognition-api.js"></script>
