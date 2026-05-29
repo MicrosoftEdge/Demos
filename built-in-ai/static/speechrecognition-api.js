@@ -22,6 +22,11 @@ let isStarting = false;
 let finalTranscript = "";
 let currentObjectUrl = "";
 let fileAudioCtx = null;
+let fileAudioVideoSource = null; // MediaElementSourceNode for video
+let fileAudioAudioSource = null; // MediaElementSourceNode for audio
+let fileAudioDestination = null; // Shared MediaStreamDestination
+let fileAudioVideoMeter = null; // Analyser node for video meter
+let fileAudioAudioMeter = null; // Analyser node for audio meter
 let activePreviewType = "";
 const readyLangs = new Set();
 
@@ -158,14 +163,49 @@ function updateButtonState() {
 }
 
 function cleanupFileSource() {
-  if (fileAudioCtx) {
-    fileAudioCtx.close().catch(() => {});
-    fileAudioCtx = null;
-  }
-
+  // Clear previews and object URLs, but keep the AudioContext alive for reuse
   if (currentObjectUrl) {
     URL.revokeObjectURL(currentObjectUrl);
     currentObjectUrl = "";
+  }
+}
+
+async function initializeFileAudioContext() {
+  // Create the AudioContext and media sources once, then reuse them.
+  if (fileAudioCtx) {
+    return; // Already initialized
+  }
+
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) {
+    throw new Error("Web Audio API is required to recognize speech from a file.");
+  }
+
+  fileAudioCtx = new AudioContextClass();
+  fileAudioDestination = fileAudioCtx.createMediaStreamDestination();
+
+  // Create sources for both preview elements
+  fileAudioVideoSource = fileAudioCtx.createMediaElementSource(mediaPlayerEl);
+  fileAudioAudioSource = fileAudioCtx.createMediaElementSource(audioPlayerEl);
+
+  // Create analyser nodes for metering
+  fileAudioVideoMeter = fileAudioCtx.createAnalyser();
+  fileAudioVideoMeter.fftSize = 1024;
+  fileAudioAudioMeter = fileAudioCtx.createAnalyser();
+  fileAudioAudioMeter.fftSize = 1024;
+
+  // Connect video source
+  fileAudioVideoSource.connect(fileAudioVideoMeter);
+  fileAudioVideoSource.connect(fileAudioDestination);
+  fileAudioVideoSource.connect(fileAudioCtx.destination);
+
+  // Connect audio source
+  fileAudioAudioSource.connect(fileAudioAudioMeter);
+  fileAudioAudioSource.connect(fileAudioDestination);
+  fileAudioAudioSource.connect(fileAudioCtx.destination);
+
+  if (fileAudioCtx.state === "suspended") {
+    await fileAudioCtx.resume();
   }
 }
 
@@ -320,20 +360,14 @@ async function startMicMeter() {
 
 function startFileMeter() {
   ++meterSessionId;
-  if (!fileAudioCtx || !fileAudioCtx._source) {
+  if (!fileAudioCtx) {
     return;
   }
 
   prepareMeter("Listening to media file...");
 
-  if (!fileAudioCtx._meterAnalyser) {
-    const analyser = fileAudioCtx.createAnalyser();
-    analyser.fftSize = 1024;
-    fileAudioCtx._source.connect(analyser);
-    fileAudioCtx._meterAnalyser = analyser;
-  }
-
-  meterAnalyser = fileAudioCtx._meterAnalyser;
+  // Use the appropriate analyser based on which preview type is active
+  meterAnalyser = activePreviewType === "audio" ? fileAudioAudioMeter : fileAudioVideoMeter;
   startMeterLoop();
 }
 
@@ -344,29 +378,15 @@ async function getAudioTrackFromSelectedFile() {
     throw new Error("Please select a media file first.");
   }
 
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) {
-    throw new Error("Web Audio API is required to recognize speech from a file.");
-  }
+  // Initialize the AudioContext and sources once
+  await initializeFileAudioContext();
 
-  // Create a new context if we don't have one, or if the existing one is closed/invalid.
-  if (!fileAudioCtx || fileAudioCtx.state === "closed") {
-    fileAudioCtx = new AudioContextClass();
-    const source = fileAudioCtx.createMediaElementSource(previewEl);
-    const destination = fileAudioCtx.createMediaStreamDestination();
-
-    source.connect(destination);
-    source.connect(fileAudioCtx.destination);
-
-    fileAudioCtx._source = source;
-    fileAudioCtx._destination = destination;
-  }
-
+  // Resume if suspended (user gesture may have happened)
   if (fileAudioCtx.state === "suspended") {
     await fileAudioCtx.resume();
   }
 
-  const [track] = fileAudioCtx._destination.stream.getAudioTracks();
+  const [track] = fileAudioDestination.stream.getAudioTracks();
   if (!track) {
     throw new Error("No audio track was found in the selected file.");
   }
@@ -449,7 +469,7 @@ async function startRecognition() {
       }
     }
 
-    // Close the audio context to avoid stale connections when switching files.
+    // Clean up temporary resources (like object URLs)
     cleanupFileSource();
     stopMeter();
     displaySessionMessage("Recognition stopped.");
