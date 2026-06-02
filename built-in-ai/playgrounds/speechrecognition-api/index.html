@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
     rel="stylesheet">
-  <title>LanguageDetector API playground</title>
+  <title>SpeechRecognition API playground</title>
   <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
   <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
@@ -66,7 +66,7 @@
             <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
           </li>
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item current">LanguageDetector</a>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
           </li>
         </ul>
       </li>
@@ -76,7 +76,7 @@
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item current">SpeechRecognition</a>
           </li>
         </ul>
       </li>
@@ -119,7 +119,7 @@
             <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
           </li>
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item current">LanguageDetector</a>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
           </li>
         </ul>
       </li>
@@ -129,7 +129,7 @@
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item current">SpeechRecognition</a>
           </li>
         </ul>
       </li>
@@ -140,54 +140,76 @@
 
   <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
   
-    <link rel="stylesheet" href="/Demos/built-in-ai/static/languagedetector-api.css">
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/speechrecognition-api.css">
   
 
   <main>
-    <h1>LanguageDetector API</h1>
-    <p class="description">Web API for identifying the likely natural language that some text is written in, using a browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api" target="_blank">Identify a text's language with the LanguageDetector API</a>.</p>
+    <h1>SpeechRecognition API</h1>
+    <p class="description">Web API for converting speech to text in the browser. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api" target="_blank">Convert speech to text with the SpeechRecognition API</a>.</p>
 
     <div id="message-ui" class="message-bar"></div>
 
     <div class="settings card-with-shadow">
       
 <div class="settings-row">
-  <label for="text">Text to analyze</label>
-  <textarea spellcheck="false" id="text">The Chicxulub crater is an impact crater buried underneath the Yucatán Peninsula in Mexico. Its center is offshore, but the crater is named after the onshore community of Chicxulub Pueblo (not the larger coastal town of Chicxulub Puerto). It was formed slightly over 66 million years ago when an asteroid, about ten kilometers (six miles) in diameter, struck Earth. The crater is estimated to be 200 kilometers (120 miles) in diameter and 1 kilometer (0.62 miles) in depth. It is believed to be the second largest impact structure on Earth, and the only one whose peak ring is intact and directly accessible for scientific research. 
+  <label for="input-language">Input language</label>
+  <select name="input-language" id="input-language">
+    <option value="en-US" selected>English (en-US)</option>
+    <option value="de-DE">Deutsch (de-DE)</option>
+    <option value="it-IT">Italiano (it-IT)</option>
+    <option value="pt-PT">Português (pt-PT)</option>
+    <option value="es-ES">Español (es-ES)</option>
+    <option value="ko-KR">한국어 (ko-KR)</option>
+  </select>
+</div>
 
-The crater was discovered by Antonio Camargo and Glen Penfield, geophysicists who had been looking for petroleum in the Yucatán Peninsula during the late 1970s. Penfield was initially unable to obtain evidence that the geological feature was a crater and gave up his search. Later, through contact with Alan R. Hildebrand in 1990, Penfield obtained samples that suggested it was an impact feature. Evidence for the crater's impact origin includes shocked quartz, a gravity anomaly, and tektites in surrounding areas. 
+<div class="settings-row" id="audio-source-row">
+  <label for="audio-source">Audio source</label>
+  <select name="audio-source" id="audio-source">
+    <option value="microphone" selected>Microphone</option>
+    <option value="file">File</option>
+  </select>
+</div>
 
-The date of the impact coincides with the Cretaceous–Paleogene boundary (commonly known as the K–Pg or K–T boundary). It is now widely accepted that the devastation and climate disruption resulting from the impact was the primary cause of the Cretaceous–Paleogene extinction event, a mass extinction of 75% of plant and animal species on Earth, including all non-avian dinosaurs. 
+<div class="settings-row" id="audio-file-row">
+  <label for="media-file">Media file</label>
+  <input type="file" id="media-file" name="media-file" accept="audio/*,video/*" disabled>
+</div>
 
-From Wikipedia, the free encyclopedia.</textarea>
+<div class="settings-row" id="media-player-row" aria-hidden="true">
+  <label for="media-player">Media preview</label>
+  <video id="media-player" controls preload="metadata" hidden></video>
+  <audio id="audio-player" controls preload="metadata" hidden></audio>
+</div>
+
+<div class="settings-row" id="meter-row">
+  <label id="input-audio-meter-label">Input audio meter</label>
+  <div class="audio-meter is-idle" id="audio-meter" role="meter" aria-labelledby="input-audio-meter-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="audio-meter-bar" id="audio-meter-bar"></div>
+    <div class="audio-meter-peak" id="audio-meter-peak"></div>
+    <span class="audio-meter-hint" id="audio-meter-hint">Idle</span>
+  </div>
 </div>
 
 <div class="settings-row submit">
-  <button class="ai-button" id="detect">Detect language</button>
+  <button class="ai-button" id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset" type="button" title="Stop recognition, clear transcript, clear file">Reset</button>
 </div>
+
     </div>
 
     <pre id="output"></pre>
 
-    
-    <div class="metrics card-with-shadow">
-      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
-      <span class="metric">First token latency: <span class="value" id="first-token-latency-metric"></span> ms</span>
-      <span class="metric">Tokens: <span class="value" id="tokens-metric"></span></span>
-      <span class="metric">Rate: <span class="value" id="token-rate-metric"></span> token/sec</span>
-      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
-    </div>
     
   </main>
 
   <script src="/Demos/built-in-ai/static/session.js"></script>
   <script src="/Demos/built-in-ai/static/spinner.js"></script>
   
-  <script src="/Demos/built-in-ai/static/metrics.js"></script>
-  
   <script src="/Demos/built-in-ai/static/slider.js"></script>
   
-    <script src="/Demos/built-in-ai/static/languagedetector-api.js"></script>
+    <script src="/Demos/built-in-ai/static/speechrecognition-api.js"></script>
   
 
 </body>

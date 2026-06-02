@@ -87,8 +87,6 @@ const modelDownloadProgressMonitor = m => {
 // Default options for the various APIs.
 // These options can be overridden by the demo page when creating a session.
 const defaultLanguageModelSessionOptions = {
-  temperature: 1.0,
-  topK: 1,
   monitor: modelDownloadProgressMonitor
 };
 const defaultSummarizerSessionOptions = {

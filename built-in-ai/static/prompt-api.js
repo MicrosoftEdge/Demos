@@ -2,8 +2,6 @@ const promptEl = document.querySelector("#prompt");
 const systemPromptEl = document.querySelector("#system-prompt");
 const initialPromptsEl = document.querySelector("#initial-prompts");
 const responseSchemaEl = document.querySelector("#response-schema");
-const topKEl = document.querySelector("#top-k");
-const temperatureEl = document.querySelector("#temperature");
 const runBtn = document.querySelector("#run");
 const stopBtn = document.querySelector("#stop");
 const nShotExampleEl = document.querySelector("#n-shot-example");
@@ -64,17 +62,6 @@ responseSchemaExampleEl.addEventListener("click", () => {
   responseSchemaEl.scrollLeft = 0;
 });
 
-function linkRangewithNumber(rangeEl, numberEl) {
-  rangeEl.addEventListener("input", () => {
-    numberEl.value = rangeEl.value;
-  });
-  numberEl.addEventListener("input", () => {
-    rangeEl.value = numberEl.value;
-  });
-}
-linkRangewithNumber(temperatureEl, temperatureEl.nextElementSibling);
-linkRangewithNumber(topKEl, topKEl.nextElementSibling);
-
 addEventListener("load", async () => {
   await checkLanguageModelAPIAvailability();
 
@@ -101,8 +88,6 @@ addEventListener("load", async () => {
     // Destroy the previous session, if any.
     session?.destroy();
 
-    const temperature = parseFloat(temperatureEl.value);
-    const topK = parseInt(topKEl.value);
     const systemPrompt = systemPromptEl.value ? systemPromptEl.value.trim() : undefined;
     let initialPrompts = null;
     try {
@@ -132,7 +117,7 @@ addEventListener("load", async () => {
       ];
     }
 
-    console.log("Prompting with the following settings", { temperature, topK, initialPrompts, responseConstraint });
+    console.log("Prompting with the following settings", { initialPrompts, responseConstraint });
 
     const metrics = new PlaygroundMetrics();
     metrics.signalOnBeforeCreateSession();
@@ -140,8 +125,6 @@ addEventListener("load", async () => {
     // Create a new session.
     try {
       session = await getLanguageModelSession({
-        temperature,
-        topK,
         initialPrompts
       });
     } catch (e) {

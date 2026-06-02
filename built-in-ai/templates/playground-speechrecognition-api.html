@@ -1,0 +1,56 @@
+---
+layout: playground.njk
+title: SpeechRecognition API playground
+shorttitle: SpeechRecognition API
+description: Web API for converting speech to text in the browser. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api" target="_blank">Convert speech to text with the SpeechRecognition API</a>.
+stylesheet: speechrecognition-api.css
+script: speechrecognition-api.js
+permalink: speechrecognition-api/
+nometrics: true
+---
+
+<div class="settings-row">
+  <label for="input-language">Input language</label>
+  <select name="input-language" id="input-language">
+    <option value="en-US" selected>English (en-US)</option>
+    <option value="de-DE">Deutsch (de-DE)</option>
+    <option value="it-IT">Italiano (it-IT)</option>
+    <option value="pt-PT">Português (pt-PT)</option>
+    <option value="es-ES">Español (es-ES)</option>
+    <option value="ko-KR">한국어 (ko-KR)</option>
+  </select>
+</div>
+
+<div class="settings-row" id="audio-source-row">
+  <label for="audio-source">Audio source</label>
+  <select name="audio-source" id="audio-source">
+    <option value="microphone" selected>Microphone</option>
+    <option value="file">File</option>
+  </select>
+</div>
+
+<div class="settings-row" id="audio-file-row">
+  <label for="media-file">Media file</label>
+  <input type="file" id="media-file" name="media-file" accept="audio/*,video/*" disabled>
+</div>
+
+<div class="settings-row" id="media-player-row" aria-hidden="true">
+  <label for="media-player">Media preview</label>
+  <video id="media-player" controls preload="metadata" hidden></video>
+  <audio id="audio-player" controls preload="metadata" hidden></audio>
+</div>
+
+<div class="settings-row" id="meter-row">
+  <label id="input-audio-meter-label">Input audio meter</label>
+  <div class="audio-meter is-idle" id="audio-meter" role="meter" aria-labelledby="input-audio-meter-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="audio-meter-bar" id="audio-meter-bar"></div>
+    <div class="audio-meter-peak" id="audio-meter-peak"></div>
+    <span class="audio-meter-hint" id="audio-meter-hint">Idle</span>
+  </div>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset" type="button" title="Stop recognition, clear transcript, clear file">Reset</button>
+</div>

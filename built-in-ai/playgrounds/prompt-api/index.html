@@ -70,19 +70,16 @@
           </li>
         </ul>
       </li>
-      <!-- li>
+      <li>
         <span class="item parent">
-          Samples
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/samples/news" class="item">News</a>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
           </li>
         </ul>
-      </li -->
+      </li>
     </ul>
   </nav>
 
@@ -126,19 +123,16 @@
           </li>
         </ul>
       </li>
-      <!-- li>
+      <li>
         <span class="item parent">
-          Samples
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
         </span>
         <ul class="menu">
           <li>
-            <a href="/Demos/built-in-ai/samples/e-commerce" class="item">E-commerce</a>
-          </li>
-          <li>
-            <a href="/Demos/built-in-ai/samples/news" class="item">News</a>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
           </li>
         </ul>
-      </li -->
+      </li>
     </ul>
   </nav>
 
@@ -220,42 +214,6 @@
     aria-describedby="n-shot-tooltip" class="code"></textarea>
 </details>
 
-<div class="settings-row no-separator">
-  <label for="top-k">
-    TopK
-    <span role="tooltip" id="top-k-tooltip" style="anchor-name:--topk-anchor;">
-      <span class="tooltip-content" style="position-anchor:--topk-anchor;">
-        TopK is a sampling method that selects the top K most likely next tokens from the model's output distribution.
-        The model then samples from this subset of tokens to generate the next token in the sequence. This method can
-        help to reduce the randomness of the generated text and make it more coherent.
-      </span>
-    </span>
-  </label>
-  <div class="slider">
-    <input type="range" id="top-k" min="1" max="100" value="10" aria-describedby="top-k-tooltip">
-    <input type="number" id="top-k-value" min="1" max="100" value="10" tabindex="-1">
-  </div>
-</div>
-
-<div class="settings-row">
-  <label for="temperature">
-    Temperature
-    <span role="tooltip" id="temperature-tooltip" style="anchor-name:--temp-anchor;">
-      <span class="tooltip-content" style="position-anchor:--temp-anchor;">
-        Temperature is a parameter that controls the randomness of the model's output. A lower temperature (e.g., 0.1)
-        makes the model more deterministic and focused, while a higher temperature (e.g., 1.0) makes it more random and
-        creative. Adjusting the temperature can help you find the right balance between coherence and creativity in the
-        generated text.
-      </span>
-    </span>
-  </label>
-  <div class="slider">
-    <input type="range" id="temperature" min="0" max="1.0" value="0.7" step="0.1"
-      aria-describedby="temperature-tooltip">
-    <input type="number" id="temperature-value" min="0" max="1.0" value="0.7" step="0.1" tabindex="-1">
-  </div>
-</div>
-
 <div class="settings-row submit">
   <button class="ai-button" id="run">Prompt</button>
   <button id="stop">Stop</button>
@@ -264,6 +222,7 @@
 
     <pre id="output"></pre>
 
+    
     <div class="metrics card-with-shadow">
       <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
       <span class="metric">First token latency: <span class="value" id="first-token-latency-metric"></span> ms</span>
@@ -271,11 +230,14 @@
       <span class="metric">Rate: <span class="value" id="token-rate-metric"></span> token/sec</span>
       <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
     </div>
+    
   </main>
 
   <script src="/Demos/built-in-ai/static/session.js"></script>
   <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  
   <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  
   <script src="/Demos/built-in-ai/static/slider.js"></script>
   
     <script src="/Demos/built-in-ai/static/prompt-api.js"></script>

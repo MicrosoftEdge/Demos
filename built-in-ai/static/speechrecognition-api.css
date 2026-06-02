@@ -1,0 +1,74 @@
+#audio-file-row {
+  display: none;
+}
+
+#audio-file-row.is-visible {
+  display: block;
+}
+
+#media-player-row {
+  display: none;
+}
+
+#media-player-row.is-visible {
+  display: block;
+}
+
+#media-player,
+#audio-player {
+  width: 100%;
+  margin-block-start: 0.5rem;
+}
+
+#media-player {
+  max-height: 240px;
+  background: black;
+}
+
+.audio-meter {
+  position: relative;
+  height: 1.125rem;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--inner-radius);
+  background: var(--neutral-color);
+  overflow: hidden;
+  margin-block-start: 0.5rem;
+}
+
+.audio-meter-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #0f7f48 0%, #89a11f 65%, #a13d2a 100%);
+  /* The gradient should always show its green→red ramp regardless of how wide
+     the bar happens to be, so anchor it to the meter's full width. */
+  background-size: 100vw 100%;
+  background-repeat: no-repeat;
+  transition: width 60ms linear;
+}
+
+.audio-meter-peak {
+  position: absolute;
+  inset-block: 0;
+  width: 2px;
+  left: 0;
+  background: #222;
+  opacity: 0;
+}
+
+.audio-meter-hint {
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #444;
+  pointer-events: none;
+}
+
+.audio-meter.is-idle .audio-meter-bar {
+  background: transparent;
+}
+
+#output:empty::before {
+  content: "The transcription will appear here";
+}
