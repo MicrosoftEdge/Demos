@@ -2,7 +2,7 @@
 layout: playground.njk
 title: LanguageDetector API playground
 shorttitle: LanguageDetector API
-description: Web API for identifying the likely natural language that some text is written in, using a browser-provided language model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api" target="_blank">Identify a text's language with the LanguageDetector API</a>.
+description: Web API for identifying the likely natural language of provided text, using an on-device language detection model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api" target="_blank">Identify languages with the LanguageDetector API</a>.
 stylesheet: languagedetector-api.css
 script: languagedetector-api.js
 permalink: languagedetector-api/
@@ -10,13 +10,13 @@ permalink: languagedetector-api/
 
 <div class="settings-row">
   <label for="text">Text to analyze</label>
-  <textarea spellcheck="false" id="text">The Chicxulub crater is an impact crater buried underneath the Yucatán Peninsula in Mexico. Its center is offshore, but the crater is named after the onshore community of Chicxulub Pueblo (not the larger coastal town of Chicxulub Puerto). It was formed slightly over 66 million years ago when an asteroid, about ten kilometers (six miles) in diameter, struck Earth. The crater is estimated to be 200 kilometers (120 miles) in diameter and 1 kilometer (0.62 miles) in depth. It is believed to be the second largest impact structure on Earth, and the only one whose peak ring is intact and directly accessible for scientific research. 
-
-The crater was discovered by Antonio Camargo and Glen Penfield, geophysicists who had been looking for petroleum in the Yucatán Peninsula during the late 1970s. Penfield was initially unable to obtain evidence that the geological feature was a crater and gave up his search. Later, through contact with Alan R. Hildebrand in 1990, Penfield obtained samples that suggested it was an impact feature. Evidence for the crater's impact origin includes shocked quartz, a gravity anomaly, and tektites in surrounding areas. 
-
-The date of the impact coincides with the Cretaceous–Paleogene boundary (commonly known as the K–Pg or K–T boundary). It is now widely accepted that the devastation and climate disruption resulting from the impact was the primary cause of the Cretaceous–Paleogene extinction event, a mass extinction of 75% of plant and animal species on Earth, including all non-avian dinosaurs. 
-
-From Wikipedia, the free encyclopedia.</textarea>
+  <textarea spellcheck="false" id="text">El cráter mide más de 180 km de diámetro y forma una de las zonas de impacto más grandes del mundo. 
+Se estima que el asteroide que formó el cráter medía alrededor de 12 km de diámetro. Fue descubierto a finales de la década de 1970 por 
+Antonio Camargo Zanoguera, Glen Penfield y colaboradores, geofísicos que trabajaban en Yucatán para la empresa paraestatal Petróleos Mexicanos 
+en busca de yacimientos de petróleo. Inicialmente, no se pudieron encontrar pruebas que evidenciaran que esa inusual estructura geológica 
+era en realidad un cráter de impacto, por lo que se abandonaron las investigaciones.
+    
+De Wikipedia, la enciclopedia libre.</textarea>
 </div>
 
 <div class="settings-row submit">
