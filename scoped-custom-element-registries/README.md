@@ -6,4 +6,4 @@ Scoped Custom Element Registries allow you to define custom elements that are sc
 
 To learn more, see:
 
-* [CustomElementRegistry](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry) at MDN.
+* [CustomElementRegistry](https://developer.mozilla.org/docs/Web/API/CustomElementRegistry) at MDN.

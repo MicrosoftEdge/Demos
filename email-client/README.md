@@ -2,13 +2,15 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/email-client/)** ⬅️
 
-This is an email client installable app (which doesn't actually send and receive emails) that demonstrates the PWA protocol handling feature.
+This is an installable email client app that demonstrates the PWA protocol handling feature, and showcases the `application-title` meta tag.
+
+This demo doesn't actually send and receive emails.
 
 
 <!-- ====================================================================== -->
 ## About the demo app
 
-The demo app shows a list of received emails, and a compose button that displays a panel to compose a new email when clicked.
+This simulated email client PWA demonstrates how to use PWA protocol handlers.  The app shows a list of received emails, and a compose button that displays a panel to compose a new email when clicked.
 
 The app can be installed on the device, and upon installation will register a protocol handler for `mailto`.
 
@@ -19,6 +21,13 @@ The two interesting pieces of code here are:
 * The `protocol_handlers` member in the [manifest](https://github.com/MicrosoftEdge/Demos/blob/main/email-client/manifest.json).
 
 * The way protocol handling requests are detected and used in [script.js](https://github.com/MicrosoftEdge/Demos/blob/main/email-client/script.js).
+
+This sample demonstrates the following features:
+
+| Feature | Description | Documentation |
+|---|---|---|
+| Protocol Handling | `mailto` links are handled by the app to start composing a new email. | [Handle protocols in a PWA](../how-to/handle-protocols.md) |
+| `application-title` meta tag | The PWA makes runtime changes to the `<meta name="application-title" content="">` element. | [application-title](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/meta/name#application-name) in _&lt;meta&gt; name attribute_ at MDN. |
 
 
 <!-- ====================================================================== -->

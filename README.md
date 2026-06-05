@@ -1,16 +1,8 @@
-# Microsoft Edge Demos
+# Microsoft Edge demos
 
-<!-- todo:
-maybe move "docs that use the demo" from tables (in Docs repo & Demos repo) to only the Readme in Demos repo
+This **MicrosoftEdge / Demos** repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.
 
-maybe change from:
-https://github.com/MicrosoftEdge/Demos/tree/main/ 
-to:
-./
-64x
--->
-
-This repository contains demo webpages, apps, and sample code to demonstrate various features of Microsoft Edge.  This Readme lists all top-level source code directories.  Below, demos are grouped by major technology area, and then sorted by directory name within each section's table.
+This Readme lists all top-level source code directories.  Below, the demos (samples) are grouped by major technology area, and then sorted by directory name within each section's table.
 
 **Contents:**
 * [Microsoft Edge DevTools](#microsoft-edge-devtools)
@@ -18,27 +10,14 @@ This repository contains demo webpages, apps, and sample code to demonstrate var
 * [Progressive Web Apps (PWAs)](#progressive-web-apps-pwas)
 * [WebView2](#webview2)
 * [Cross-browser API samples](#cross-browser-api-samples)
-* [Adding a new demo](#adding-a-new-demo)
+* [Cloning this repo to your drive](#cloning-this-repo-to-your-drive)
 * [Contributing](#contributing)
+   * [Adding a new demo](#adding-a-new-demo)
 * [Trademarks](#trademarks)
-* [See also](#see-also)
-
-<!-- table columns:
-"Demo name": omit "demo"
-"Description and docs": omit "PWA" unless ambig, omit "demo"
-"Source code directory": sort on this col, to match dir order at https://github.com/MicrosoftEdge/Demos/
-"Live demo page": adds "demo" if not present, for when headers are out of view
--->
 
 
 <!-- ====================================================================== -->
 ## Microsoft Edge DevTools
-<!--
-sync:
-https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#list-of-devtools-samples
-https://github.com/MicrosoftEdge/Demos#readme
-sync'd July 30, 2025
--->
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
@@ -61,7 +40,7 @@ sync'd July 30, 2025
 | CSS Examples | Used for [Get started viewing and changing CSS](https://learn.microsoft.com/microsoft-edge/devtools/css/). | [/devtools-css-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-css-get-started) | [CSS Examples](https://microsoftedge.github.io/Demos/devtools-css-get-started/) demo |
 | DOM Examples | Used for [Get started viewing and changing the DOM](https://learn.microsoft.com/microsoft-edge/devtools/dom/). | [/devtools-dom-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-dom-get-started) | [DOM Examples](https://microsoftedge.github.io/Demos/devtools-dom-get-started/) demo |
 | Explain Console errors and warnings in Copilot in Edge | Generates errors in the Console that can then be explained by using Copilot in Edge. | [/devtools-explain-error/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-explain-error) | [Explain Console errors and warnings in Copilot in Edge](https://microsoftedge.github.io/Demos/devtools-explain-error/) demo |
-| Inspect CSS Grid | Used for [Inspect CSS Grid](https://learn.microsoft.com/microsoft-edge/devtools/css/grid). | [/devtools-grid/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-grid) | [Inspect CSS Grid](https://microsoftedge.github.io/Demos/devtools-grid/) demo |
+| Inspect CSS Grid | Used for [Inspect CSS Grid layouts](https://learn.microsoft.com/microsoft-edge/devtools/css/grid). | [/devtools-grid/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-grid) | [Inspect CSS Grid](https://microsoftedge.github.io/Demos/devtools-grid/) demo |
 | Inspect tool | Used for [Analyze pages using the Inspect tool](https://learn.microsoft.com/microsoft-edge/devtools/css/inspect). | [/devtools-inspect/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-inspect) | [Inspect tool demo](https://microsoftedge.github.io/Demos/devtools-inspect/) |
 | Debugging JavaScript that adds two numbers | Used for [Get started debugging JavaScript](https://learn.microsoft.com/microsoft-edge/devtools/javascript/). | [/devtools-js-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-js-get-started) | [Debugging JavaScript with Microsoft Edge DevTools](https://microsoftedge.github.io/Demos/devtools-js-get-started/) demo |
 | Memory heap snapshot | Used for [Record heap snapshots using the Memory tool ("Heap snapshot" profiling type)](https://learn.microsoft.com/microsoft-edge/devtools/memory-problems/heap-snapshots). | [/devtools-memory-heap-snapshot/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-memory-heap-snapshot) | n/a |
@@ -69,16 +48,16 @@ sync'd July 30, 2025
 | **Performance** tool Activity Tabs | Used for [View activities in a table](https://learn.microsoft.com/microsoft-edge/devtools/performance/reference#view-activities-in-a-table) in _Performance features reference_, about the **Performance** tool's **Bottom-up**, **Call tree**, and **Event log** tabs. | [/devtools-performance-activitytabs/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-activitytabs) | [Activity Tabs demo](https://microsoftedge.github.io/Demos/devtools-performance-activitytabs/) |
 | Sluggish Animation | Used for [Analyze runtime performance (tutorial)](https://learn.microsoft.com/microsoft-edge/devtools/performance/). | [/devtools-performance-get-started/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-performance-get-started) | [Sluggish Animation](https://microsoftedge.github.io/Demos/devtools-performance-get-started/) demo |
 | postMessage Trace Events | Tests `postMessage` trace events in the **Performance** tool.  Used for [View messages between windows, iframes, and dedicated workers](https://learn.microsoft.com/microsoft-edge/devtools/performance/reference#view-messages-between-windows-iframes-and-dedicated-workers) in _Performance features reference_. | [/devtools-postmessage-perf-timeline/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-postmessage-perf-timeline) | [postMessage Trace Events demo](https://microsoftedge.github.io/Demos/devtools-postmessage-perf-timeline/) |
-| CSS :target pseudo-class | Used for [Support forcing the :target CSS state](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/01/devtools#support-forcing-the-target-css-state) in _What's New in DevTools (Microsoft Edge 89)_. | [/devtools-target-pseudo/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-target-pseudo) | [CSS :target pseudo-class demo](https://microsoftedge.github.io/Demos/devtools-target-pseudo/) |
+| CSS :target pseudo-class | Used for [Support forcing the :target CSS state](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2021/01/devtools#support-forcing-the-target-css-state) in _What's new in DevTools (Microsoft Edge 89)_. | [/devtools-target-pseudo/](https://github.com/MicrosoftEdge/Demos/tree/main/devtools-target-pseudo) | [CSS :target pseudo-class demo](https://microsoftedge.github.io/Demos/devtools-target-pseudo/) |
 | Emulate a focused page | Used for [Emulate a focused page](https://learn.microsoft.com/microsoft-edge/devtools/css/reference#emulate-a-focused-page) in _CSS features reference_. | [/emulate-focused-page/](https://github.com/MicrosoftEdge/Demos/tree/main/emulate-focused-page/) | [Emulate a focused page](https://microsoftedge.github.io/Demos/emulate-focused-page/) demo |
-| Exploring the universe | Used for [Monitor Core Web Vitals metrics](../performance/overview.md#monitor-core-web-vitals-metrics) in _Performance tool: Analyze your website's performance_. | [/exploring-the-universe/](https://github.com/MicrosoftEdge/Demos/tree/main/exploring-the-universe) | [Exploring the universe](https://microsoftedge.github.io/Demos/exploring-the-universe/) demo |
-| Heap Snapshot Visualizer | Used for [Heap Snapshot visualizer extension for DevTools](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2023/01/devtools-109#heap-snapshot-visualizer-extension-for-devtools) in _What's New in DevTools (Microsoft Edge 109)_. | [/heap-snapshot-visualizer/](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | n/a |
+| Exploring the universe | Used for [Monitor Core Web Vitals metrics](https://learn.microsoft.com/microsoft-edge/devtools/performance/overview#monitor-core-web-vitals-metrics) in _Performance tool: Analyze your website's performance_. | [/exploring-the-universe/](https://github.com/MicrosoftEdge/Demos/tree/main/exploring-the-universe) | [Exploring the universe](https://microsoftedge.github.io/Demos/exploring-the-universe/) demo |
+| Heap Snapshot Visualizer | Used for [Heap Snapshot visualizer extension for DevTools](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2023/01/devtools-109#heap-snapshot-visualizer-extension-for-devtools) in _What's new in DevTools (Microsoft Edge 109)_. | [/heap-snapshot-visualizer/](https://github.com/MicrosoftEdge/Demos/tree/main/heap-snapshot-visualizer) | n/a |
 | Highlight pseudo-elements | Used for [View inherited highlight pseudo-elements](https://learn.microsoft.com/microsoft-edge/devtools/css/reference#view-inherited-highlight-pseudo-elements) in _CSS features reference_. | [/highlight-pseudo-elements/](https://github.com/MicrosoftEdge/Demos/tree/main/highlight-pseudo-elements/) | [Highlight pseudo-elements](https://microsoftedge.github.io/Demos/highlight-pseudo-elements/) demo |
 | Idle detection | Used for [Emulate idle detector state](https://learn.microsoft.com/microsoft-edge/devtools/sensors/#emulate-idle-detector-state) in _Emulate device sensors_. | [/idle-detection/](https://github.com/MicrosoftEdge/Demos/tree/main/idle-detection) | [Idle detection demo](https://microsoftedge.github.io/Demos/idle-detection/) |
 | JSON dummy data | Simple JSON files.  Used for [View a JSON file or server response with formatting](https://learn.microsoft.com/microsoft-edge/web-platform/json-viewer). | [/json-dummy-data/](https://github.com/MicrosoftEdge/Demos/tree/main/json-dummy-data) | [JSON dummy data](https://microsoftedge.github.io/Demos/json-dummy-data/) (Readme) |
 | Inspect Network Activity | Used for [Inspect network activity](https://learn.microsoft.com/microsoft-edge/devtools/network/). | [/network-tutorial/](https://github.com/MicrosoftEdge/Demos/tree/main/network-tutorial) | [Inspect Network Activity demo](https://microsoftedge.github.io/Demos/network-tutorial/) |
 | Photo gallery | Used for [View your custom data in the performance profile](https://learn.microsoft.com/microsoft-edge/devtools/performance/extension#view-your-custom-data-in-the-performance-profile) in _Customize performance profile with extensibility APIs_, and [The truth about CSS selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/). | [/photo-gallery/](https://github.com/MicrosoftEdge/Demos/tree/main/photo-gallery) | [Photo Gallery](https://microsoftedge.github.io/Demos/photo-gallery/) demo |
-| Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support.  Used for [Added source map support in the Coverage tool](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2024/01/devtools-121#added-source-map-support-in-the-coverage-tool) in _What's New in DevTools (Microsoft Edge 121)_. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) demo |
+| Slow Calendar | Simple calendar demo app to test DevTools features such as the **Performance** tool and source map support.  Used for [Added source map support in the Coverage tool](https://learn.microsoft.com/microsoft-edge/devtools/whats-new/2024/01/devtools-121#added-source-map-support-in-the-coverage-tool) in _What's new in DevTools (Microsoft Edge 121)_. | [/slow-calendar/](https://github.com/MicrosoftEdge/Demos/tree/main/slow-calendar) | [Slow Calendar](https://microsoftedge.github.io/Demos/slow-calendar/public/) demo |
 | Margie's Travel | Demonstrates how to optimize a webpage's resources to make it load, appear, and be interactive faster.  Used for [Optimize website speed using Lighthouse](https://learn.microsoft.com/microsoft-edge/devtools/speed/get-started). | [/travel-site/](https://github.com/MicrosoftEdge/Demos/tree/main/travel-site) | [Margie's Travel](https://microsoftedge.github.io/Demos/travel-site/) demo |
 | Workspaces | Used for [Edit and save files in a workspace (Sources tool Workspace tab)](https://learn.microsoft.com/microsoft-edge/devtools/workspaces/). | [/workspaces/](https://github.com/MicrosoftEdge/Demos/tree/main/workspaces) | [DevTools Workspaces demo](https://microsoftedge.github.io/Demos/workspaces/) |
 <!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
@@ -91,11 +70,6 @@ See also:
 
 <!-- ====================================================================== -->
 ## Microsoft Edge extensions
-<!-- sync:
-https://learn.microsoft.com/microsoft-edge/extensions/samples#microsoftedgedemos-repo
-https://github.com/MicrosoftEdge/Demos/blob/main/README.md#microsoft-edge-extensions
-sync'd July 30, 2025
--->
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
@@ -113,11 +87,6 @@ See also:
 
 <!-- ====================================================================== -->
 ## Progressive Web Apps (PWAs)
-<!-- sync:
-https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index
-https://github.com/MicrosoftEdge/Demos/blob/main/README.md#progressive-web-apps-pwas
-sync'd Oct. 17, 2025
--->
 
 <!-- sort on col 3 (repo dir) -->
 <!-- Description: omit "PWA" & "demo" -->
@@ -141,18 +110,13 @@ sync'd Oct. 17, 2025
 To learn how to use and develop PWAs, start with the Temperature convertor sample.
 
 See also:
-* [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/index) - also lists the demos:
+* [Progressive Web App samples](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/samples/) - also lists the demos:
    * BPM Techno
    * Webboard
 
 
 <!-- ====================================================================== -->
 ## WebView2
-<!-- sync:
-https://learn.microsoft.com/microsoft-edge/webview2/samples/
-https://github.com/MicrosoftEdge/Demos/blob/main/README.md#webview2
-sync'd Dec. 1, 2025
--->
 
 The WebView2 samples are in the **MicrosoftEdge / WebView2Samples** repo, rather than in the present, **MicrosoftEdge / Demos** repo.
 
@@ -163,11 +127,6 @@ See:
 
 <!-- ====================================================================== -->
 ## Cross-browser API samples
-<!-- sync:
-https://learn.microsoft.com/microsoft-edge/web-platform/samples.md
-https://github.com/MicrosoftEdge/Demos/blob/main/README.md#cross-browser-api-samples
-sync'd July 30, 2025
--->
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
@@ -198,54 +157,57 @@ See also:
 
 
 <!-- ====================================================================== -->
-## Adding a new demo
+## Cloning this repo to your drive
 
-To add a new demo:
+To use this repo, you can do any of the following approaches:
+* Clone the repo.  Enables keeping your copy up-to-date.
+* Fork the repo.  Enables keeping your copy up-to-date.  Enables making a pull request.
+* Download the repo as a `.zip` file.  A static snapshot.
+* Download a specific sample directory as a `.zip` file.  A static snapshot.
 
-1. Make a copy of the `/template/` directory at the root of this repository and give it a name, such as `/my-demo/`.
-
-1. Edit the `README.md` file in the new directory to clearly explain what your new demo is about.
-
-1. In the README file, include a GitHub.io link that points to the live demo.
-
-   This repository is set up to be deployed live using GitHub Pages (GitHub.io), so a rendered `index.html` file in the `/my-demo/` directory (for example) will end up being accessible on the web at `https://microsoftedge.github.io/demos/my-demo/`.
-
-1. Edit the code (such as `index.html` or `style.css`) in the new directory. Add any files you need.
-
-1. Add a link to your demo in this `README.md` file, in a new row in one of the tables above, similar to the following row:
-
-| Demo name | Description and docs | Source code & Readme | Live demo page |
-|---|---|---|---|
-| Template | Template directory to copy/paste to add a new demo.  Can be used for [Microsoft Edge Developer documentation](https://learn.microsoft.com/microsoft-edge/developer/). | [/template/](https://github.com/MicrosoftEdge/Demos/tree/main/template) | [My new demo](https://microsoftedge.github.io/Demos/template/) |
+See:
+* [Cloning a repository](https://docs.github.com/repositories/creating-and-managing-repositories/cloning-a-repository) in GitHub Docs.
+* [Clone the "MicrosoftEdge / Demos" repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
 
 
 <!-- ====================================================================== -->
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment).  Simply follow the instructions provided by the bot.  You will only need to do this once across all repos using our CLA.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).  For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+
+<!-- ------------------------------ -->
+### Adding a new demo
+
+To add a new demo:
+
+1. Make a copy of the `/template/` directory at the root of this repository and give it a name, such as `/my-demo/`.
+
+1. Edit `README.md` in the new directory to clearly explain what your new demo is about.
+
+1. In `README.md` in the new directory, modify the `github.io` link to point to the live demo; that is, change `/my-demo/` to the name of your directory.
+
+   This repository is set up to be deployed live using GitHub Pages (GitHub.io), so a rendered `index.html` file in the `/my-demo/` directory (for example) will end up being accessible on the web at `https://microsoftedge.github.io/demos/my-demo/`.
+
+   The GitHub.io-hosted demo page will be available about an hour after your PR is merged.  You can monitor the job at [Actions](https://github.com/MicrosoftEdge/Demos/actions).
+
+1. Edit the code in the new directory, such as:
+   * `index.html`
+   * `README.md`
+   * `script.js`
+   * `style.css`
+   * `manifest.json`
+
+1. Create a PR in this repo.  See [Pull requests documentation](https://docs.github.com/en/pull-requests).
+
+   The Edge team will review, approve, and merge your PR.
 
 
 <!-- ====================================================================== -->
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
-
-
-<!-- ====================================================================== -->
-## See also
-
-* [Clone the Edge Demos repo to your drive](https://learn.microsoft.com/microsoft-edge/devtools/sample-code/sample-code#clone-the-edge-demos-repo-to-your-drive) in _Sample code for DevTools_.
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).  Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.  Any use of third-party trademarks or logos are subject to those third-party's policies.

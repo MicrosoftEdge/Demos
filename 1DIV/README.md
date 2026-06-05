@@ -2,7 +2,15 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/1DIV/dist/)** ⬅️
 
-**1DIV** is a demo web app that enables you to create multiple CSS designs by using a single HTML `div` element. Your CSS designs are only saved locally, in the browser's memory. This demo app can be installed locally as a Progressive Web App (PWA).
+1DIV is a CSS editor that lets you create drawings by applying CSS code to a single HTML element.  Your drawings are saved locally in the browser only.  1DIV can be installed locally as a Progressive Web App (PWA).
+
+![The 1DIV app](./1div-demo.png)
+
+1DIV uses the following features:
+
+| Feature | Description | Documentation |
+|---|---|---|
+| Window Controls Overlay | 1DIV uses the space normally reserved by the title bar to display a logo, search field, and button. | [Display content in the title bar area using Window Controls Overlay](../how-to/window-controls-overlay.md) |
 
 
 <!-- ====================================================================== -->
