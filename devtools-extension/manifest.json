@@ -14,9 +14,6 @@
             "content_script.js"
         ]
     }],
-    "background": {
-        "service_worker": "service-worker.js"
-    },
     "permissions": [
         "system.memory"
     ]
