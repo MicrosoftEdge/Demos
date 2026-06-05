@@ -15,9 +15,7 @@ To open this sample:
 <!-- ====================================================================== -->
 ## About the sample
 
-The `file_handlers` web app manifest member lets your PWA handle files like native applications.
-
-The PWA file handlers app handles `*.txt` files like a native application does.
+The PWA file handlers app handles `*.txt` files like a native application does, by using the `file_handlers` web app manifest member.
 
 ![The "PWA file handlers" demo app](./file-handlers.png)
 
@@ -26,9 +24,3 @@ The PWA file handlers demo uses the following features:
 | Feature | Description | Documentation |
 |---|---|---|
 | File Handling | The `file_handlers` web app manifest member enables a PWA to handle file types like a native application does. | [Handle files in a PWA](../how-to/handle-files.md) |
-
-
-<!-- ====================================================================== -->
-## See also
-
-* [Handle files in a PWA](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/handle-files)

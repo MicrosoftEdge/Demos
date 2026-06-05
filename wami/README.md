@@ -2,10 +2,6 @@
 
 ![The wami app](./screenshot-app.png)
 
-Screenshot 2:
-
-![The wami app](./wami.png)
-
 wami is an image manipulation demo application.  wami is an installable Progressive Web App (PWA) to demonstrate that web technologies can be used to create desktop apps that feel like platform-specific apps.
 
 

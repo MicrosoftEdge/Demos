@@ -29,9 +29,3 @@ The PWA Background Sync API demo uses the following features:
 | Feature | Description | Documentation |
 |---|---|---|
 | Background Sync | Enables using the PWA when offline; synchronizes data with the server when the network connection is restored. | [Synchronize and update a PWA in the background](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/background-syncs) |
-
-
-<!-- ====================================================================== -->
-## See also
-
-* [Use the Background Sync API to synchronize data with the server](https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/background-syncs#use-the-background-sync-api-to-synchronize-data-with-the-server) in _Synchronize and update a PWA in the background_.
