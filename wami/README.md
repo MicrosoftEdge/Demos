@@ -1,8 +1,12 @@
 # wami, the Web App to Manipulate Images
 
+![The wami app](./screenshot-app.png)
 
-<!-- ====================================================================== -->
-## About the sample
+Screenshot 2:
+
+![The wami app](./wami.png)
+
+wami is an image manipulation demo application.  wami is an installable Progressive Web App (PWA) to demonstrate that web technologies can be used to create desktop apps that feel like platform-specific apps.
 
 
 <!-- ====================================================================== -->
@@ -10,25 +14,11 @@
 
 To open this sample:
 
-1. Go to [wami](https://microsoftedge.github.io/Demos/wami/).
+1. Go to the [wami](https://microsoftedge.github.io/Demos/wami/) demo in a new window or tab.
 
 1. In the Address bar, click the **App available** button.
 
 1. Open the installed app in its own window.
-
-
-
-
-
-
-
-
-➡️ **[Open the demo](https://microsoftedge.github.io/Demos/wami/)** ⬅️
-
-wami is an image manipulation demo application. It is an installable web app (PWA) specifically made to demonstrate that web technologies can be used to create desktop apps that feel like platform-specific apps.
-
-![Screenshot of the wami app](screenshot-app.png)
-
 
 
 <!-- ====================================================================== -->
@@ -36,18 +26,14 @@ wami is an image manipulation demo application. It is an installable web app (PW
 
 wami is under development; expect bugs and cross-browser compatibility issues.
 
-
-
 wami can apply a sequence of image manipulation steps such as cropping, resizing, rotating, or adding effects on batch of images.
-
-![The wami app](./index-images/wami.png)
 
 [Readme and source code](https://github.com/MicrosoftEdge/Demos/tree/main/wami/), [App](https://microsoftedge.github.io/Demos/wami/).
 
 wami uses the following features:
 
 | Feature | Description | Documentation |
-|:--- |:--- |:--- |
+|---|---|---|
 | Window Controls Overlay | The space normally reserved to the title bar can be used by wami. | [Display content in the title bar area using Window Controls Overlay](../how-to/window-controls-overlay.md) |
 | File System Access | wami can save transformed images back to disk. | [File System Access API](https://developer.mozilla.org/docs/Web/API/File_System_Access_API) |
 

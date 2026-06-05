@@ -1,5 +1,6 @@
 # PWA Background Sync API demo
 
+
 <!-- ====================================================================== -->
 ## Open the sample
 
@@ -21,7 +22,7 @@ The Background Sync API makes it possible for users to continue using your PWA e
 
 The PWA Background Sync API demo lets you send chat messages even when offline.  If you're offline when sending a message, the app uses Background Sync to send the message later, when you're back online.
 
-![PWA Background Sync API demo](./index-images/background-sync.png)<!-- todo: move png -->
+![PWA Background Sync API demo](./background-sync.png)
 
 The PWA Background Sync API demo uses the following features:
 

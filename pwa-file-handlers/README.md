@@ -19,7 +19,7 @@ The `file_handlers` web app manifest member lets your PWA handle files like nati
 
 The PWA file handlers app handles `*.txt` files like a native application does.
 
-![The "PWA file handlers" demo app](./index-images/file-handlers.png)<!-- todo: move png -->
+![The "PWA file handlers" demo app](./file-handlers.png)
 
 The PWA file handlers demo uses the following features:
 

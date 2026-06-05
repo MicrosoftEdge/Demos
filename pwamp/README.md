@@ -1,11 +1,11 @@
 # PWAmp app demo
 
 **Contents:**
+* [Open the sample](#open-the-sample)
 * [About the sample](#about-the-sample)
    * [About the name "PWAmp"](#about-the-name-pwamp)
    * [Features available by installing the app](#features-available-by-installing-the-app)
    * [Features demonstrated](#features-demonstrated)
-* [Open the sample](#open-the-sample)
 * [Use the sample](#use-the-sample)
    * [Add new songs](#add-new-songs)
    * [Edit song information](#edit-song-information)
@@ -23,6 +23,16 @@
 
 
 <!-- ====================================================================== -->
+## Open the sample
+
+1. Go to the [pwamp](https://microsoftedge.github.io/Demos/pwamp/) demo in a new window or tab.
+
+1. In the Address bar, click the **App available** button.
+
+1. Open the installed app in its own window.
+
+
+<!-- ====================================================================== -->
 ## About the sample
 
 PWAmp is pronounced _P-W-Amp_.
@@ -30,8 +40,6 @@ PWAmp is pronounced _P-W-Amp_.
 PWAmp is a web audio player demo app; a desktop music player that plays local and remote audio files.
 
 The app is an installable Progressive Web App (PWA) specifically made to demonstrate desktop integration features.
-
-![The PWAmp app, showing playback buttons and a list of songs](./index-images/pwamp.png)<!-- todo: move png -->
 
 ![The PWAmp sample](./screenshot-playlist.png)
 
@@ -66,7 +74,7 @@ When you install the PWA locally on the desktop, the following features become a
 
       * [By the Light of the Silvery Moon - Fats Waller](web+amp:remote-song:ia803003.us.archive.org/17/items/78_by-the-light-of-the-silvery-moon_fats-waller-and-his-rhythm-fats-waller-the-dee_gbia0153541a/BY%20THE%20LIGHT%20OF%20THE%20SILVERY%20-%20%22Fats%22%20Waller%20and%20his%20Rhythm.mp3).
 
-* The title bar becomes able to be displayed or hidden.  To hide the title bar, in the toolbar, click the chevron (>>) icon.
+* The title bar can be displayed or hidden.  To hide the title bar, in the toolbar, click the chevron (^) icon.
 
 * The app becomes a share target for audio files.  If you share audio files from another app (or from the explorer), PWAmp is displayed as a target app for these files.
 
@@ -85,16 +93,6 @@ PWAmp uses the following features:
 | Share Target | Other apps can share audio files with PWAmp, through the operating system sharing dialog. | [Receiving shared content](../how-to/share.md#receiving-shared-content) |
 | Widget | A mini-player Widget can be installed in Windows 11 Widgets dashboard to see the current song. | [Display a PWA widget in the Windows Widgets Board](../how-to/widgets.md) |
 | Sidebar | PWAmp can be pinned to the sidebar in Microsoft Edge. | [Build a PWA for the sidebar in Microsoft Edge](../how-to/sidebar.md) |
-
-
-<!-- ====================================================================== -->
-## Open the sample
-
-1. Go to [pwamp](https://microsoftedge.github.io/Demos/pwamp/).
-
-1. In the Address bar, click the **App available** button.
-
-1. Open the installed app in its own window.
 
 
 <!-- ====================================================================== -->
@@ -142,20 +140,21 @@ To play, pause, or go to the next or previous song:
 
 To record an audio clip:
 
-1. Click<!-- todo: click what? --> once to start recording.
+1. Click the **Record an audio clip** button at the bottom of the page.
 
-1. To stop recording, click<!-- todo: click what? --> again.
-
+1. Click the **Stop recording** button at the bottom of the page.
 
 
 <!-- ------------------------------ -->
 ### Show the visualizer
 
-To show the visualizer<!-- todo: define visualizer -->:
+To show or hide the visualizer:
 
-1. Click<!-- todo: click what? -->.
+1. Click the **Show visualizer** button in the upper right of the page.
 
-   Visualizer mode turns on or off.
+   The page UI is replaced by the visualizer.
+
+1. Click the **Stop visualizer** button in the lower right of the page.
 
 
 <!-- ------------------------------ -->
@@ -163,7 +162,11 @@ To show the visualizer<!-- todo: define visualizer -->:
 
 To download all songs:
 
-1. More tools: options.<!-- todo: clear steps -->
+1. Click the **More tools** button in the lower right of the page, and then select **Export all**.
+
+   The first track starts playing.
+
+1. Click the **more options** button, and then select **Download**.
 
 
 <!-- ------------------------------ -->
@@ -171,7 +174,7 @@ To download all songs:
 
 To delete all songs:
 
-1. More tools: options.<!-- todo: clear steps -->
+1. Click the **More tools** button in the lower right of the page, and then select **Delete all**.
 
 
 <!-- ------------------------------ -->
@@ -189,9 +192,11 @@ Skins are expected to have a `:root {}` rule with at least one variable called `
 
 To replace the look and feel of the app with your own look and feel:
 
-1. Select a `.css` or `.pwampskin` file.
+1. Click the **Apply a custom skin** button at the bottom of the page.
 
-1. Use the bottom toolbar.<!-- todo: specific UI -->
+   The **Select a file this site can read** dialog opens.
+
+1. Select a `.css` or `.pwampskin` file.
 
 
 <!-- ====================================================================== -->
@@ -216,13 +221,13 @@ Credits for the pre-loaded songs:
 
 * Improve song adding performance again: only get duration later, after song has been added.
 
-* Add the ability to drag/drop songs in the playlist to re-order them.
+* Add the ability to drag songs onto the playlist to re-order them.
 
-* Ability to export as another file format.
+* Add the ability to export a song as a different file format.
 
-* Use viewport segments to display on dual screen devices.
+* Use viewport segments to display on dual-screen devices.
 
-* Add repeat and shuffle buttons.
+* Add **Repeat** and **Shuffle** buttons.
 
 
 <!-- ====================================================================== -->

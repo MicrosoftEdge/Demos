@@ -6,7 +6,7 @@
 
 1DIV is a CSS editor that lets users create drawings by creating just one HTML element and CSS code.
 
-![The 1DIV app](./index-images/1div-demo.png)<!-- todo: move png -->
+![The 1DIV app](./1div-demo.png)
 
 1DIV uses the following features:
 

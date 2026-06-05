@@ -38,7 +38,7 @@ To test the feature:
 
 * To test in production, with your real users site, register for the origin trial:
 
-  * [Edge origin trial](https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/trials/5f4620e8-2969-4579-a5c6-304b8fae7200).
+  * [Edge origin trial](https://developer.microsoft.com/microsoft-edge/origin-trials/trials/5f4620e8-2969-4579-a5c6-304b8fae7200).
   * [Chrome origin trial](https://developer.chrome.com/origintrials/#/register_trial/1731071106770534401).
 
 ## Provide feedback

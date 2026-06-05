@@ -15,7 +15,7 @@ PWA installer uses the following features:
 | Feature | Description | Documentation |
 |---|---|---|
 | Web Install API | PWA installer uses the `navigator.install()` API to install other PWAs on the device. | [Web Install API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md) |
-| CSS Masonry | Instead of a strict grid that has gaps below shorter items, the items in the following row are raised up to fill the gaps. | [Masonry layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout) |
+| CSS Masonry | Instead of a strict grid that has gaps below shorter items, the items fill the columns in the layout to avoid gaps. | [Masonry layout](https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Masonry_layout) |
 
 
 <!-- ====================================================================== -->
@@ -23,13 +23,9 @@ PWA installer uses the following features:
 
 To open and run the sample:
 
-1. Go to [Open the demo](https://microsoftedge.github.io/Demos/pwa-installer/).
+1. Go to the [PWA installer](https://microsoftedge.github.io/Demos/pwa-installer/) demo in a new window or tab.
 
-   **Enable the Web Install API:**
-
-1. Open a new tab, and then go to `about:flags`.
-
-   You end up at `edge://flags`.
+1. Open a new tab, and then go to `edge://flags`.
 
 1. In the **Search** box, enter **web-app-installation-api**.
 
@@ -37,17 +33,7 @@ To open and run the sample:
 
 1. Set the **Web App Installation API** flag to **Enabled**.
 
-1. Click the **Restart** button in the lower right.
-
-   The browser restarts.
-
-   **Enable CSS Masonry layout** (optional; a progressive enhancement):
-
-1. In the browser, open a new tab and go to `about:flags`.
-
-   You end up at `edge://flags`.
-
-1. In the **Search** box, enter **css-masonry-layout**.
+1. In the **Search** box, enter **css-masonry-layout**<!-- todo: no such flag.  "CSS Grid Lanes Layout" flag exists -->.
 
 1. Set the **CSS Masonry Layout** flag to **Enabled**.
 
