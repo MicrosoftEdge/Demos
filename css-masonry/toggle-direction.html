@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo gallery with toggleable direction</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <style>
+    html,
+    body {
+      margin: 0;
+      block-size: 100vh;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 14pt;
+      background: #211032;
+      color: white;
+      padding: 1rem;
+      box-sizing: border-box;
+      display: grid;
+      gap: 1rem;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+    }
+
+    .control {
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      label {
+        padding: .25rem .5rem;
+        border: 1px solid white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        input {
+          margin: 0 .5rem 0 0;
+          accent-color: black;
+        }
+
+        &:hover {
+          background: #fff3;
+        }
+
+        &:last-child {
+          border-inline-start: 0;
+          border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        &:first-child {
+          margin-inline-start: .5rem;
+          border-radius: 0.5rem 0 0 0.5rem;
+        }
+
+        &:has(input:checked) {
+          background: #fff;
+          color: black;
+        }
+      }
+    }
+
+    main {
+      background: #fff3;
+      --image-size: calc(25% - .5rem);
+      display: grid-lanes;
+      grid-template-rows: repeat(auto-fill, var(--image-size));
+      grid-template-columns: repeat(auto-fill, var(--image-size));
+      gap: .5rem;
+      padding: .5rem;
+      overflow: auto;
+      scrollbar-color: currentColor transparent;
+      scrollbar-width: thin;
+      border-radius: .8rem;
+
+      &.orientation-column {
+        grid-lanes-direction: column;
+        justify-content: center;
+      }
+
+      &.orientation-row {
+        grid-lanes-direction: row;
+        align-content: center;
+      }
+
+      &.size-small {
+        --image-size: calc(10% - .5rem);
+      }
+
+      &.size-large {
+        --image-size: calc(50% - .5rem);
+      }
+
+      article {
+        position: relative;
+        overflow: hidden;
+        border-radius: .5rem;
+
+        img {
+          inline-size: 100%;
+          block-size: auto;
+          display: block;
+        }
+
+        h3 {
+          position: absolute;
+          margin: 0;
+          background: #0008;
+          color: white;
+          font-weight: normal;
+          font-size: .9rem;
+          padding: .25rem;
+          inset: auto 0 -10rem 0;
+          transition: inset 0.3s ease;
+        }
+
+        &:hover h3 {
+          inset: auto 0 0 0;
+        }
+      }
+
+      &.orientation-row article img {
+        inline-size: auto;
+        block-size: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>📂 New York City</h1>
+  <div class="control">
+    Change orientation
+    <label>
+      <input type="radio" name="direction" value="column" checked>
+      Columns
+    </label>
+    <label>
+      <input type="radio" name="direction" value="row">
+      Rows
+    </label>
+  </div>
+  <main class="size-medium orientation-column">
+    <article>
+      <h3><span>Manhattan from the One World tower</span></h3>
+      <img src="nyc/manhattan.JPG" alt="Buildings of Manhattan, NYC, seen from the One World tower." width="480"
+        height="720">
+    </article>
+    <article>
+      <h3><span>Smoke rising from a manhole</span></h3>
+      <img src="nyc/fog.JPG"
+        alt="Street of NYC, at night. A manhole, with smoke coming out, is visible in the foreground." width="480"
+        height="480">
+    </article>
+    <article>
+      <h3><span>Hot-dog stand</span></h3>
+      <img src="nyc/hot dog stand.JPG"
+        alt="A hot-dog stand in a street of NYC, at night, taken from a low angle, with two bright blue and yellow umbrellas above."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Graffitis in Brooklyn</span></h3>
+      <img src="nyc/graffitis.JPG"
+        alt="A blue painted building in Brooklyn, NYC. Graffitis of animals playing musical instruments are painted on the building. A stop street sign is visible in front of the building."
+        width="716" height="480">
+    </article>
+    <article>
+      <h3><span>Bridges and Buildings</span></h3>
+      <img src="nyc/bridges and buildings.JPG"
+        alt="A cropped-out view of a couple of bridges of NYC, one of which is the Brooklyn bridge. A glass building is visible in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Glass buildings</span></h3>
+      <img src="nyc/glass buildings.JPG"
+        alt="Multiple glass buildings in the financial district of NYC, taken from the ground, looking up. The sky is blue and clear."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The Brooklyn Bridge</span></h3>
+      <img src="nyc/brooklyn bridge.JPG"
+        alt="One of the towers on the Brooklyn bridge, where the cables go to support the bridge. The picture is black and white, and taken at night."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square.JPG"
+        alt="Some of the tall buildings of Times Square, partly covered with giant screens running adverts." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>More glass buildings</span></h3>
+      <img src="nyc/glass buildings 2.JPG"
+        alt="Detailed view of a glass building in Times Square. A series of balconies and windows are visible."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Statue of Liberty</span></h3>
+      <img src="nyc/statue of liberty.JPG"
+        alt="The statue of liberty, from a distance, at dusk. A few blurred out shapes are visible in the foreground, with the statue visible in focus in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Plane</span></h3>
+      <img src="nyc/plane.JPG"
+        alt="Silouhette of a plane in the sky, preparing to land, seen above the Brooklyn bridge, at dusk." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>The Westfield World Trade Center</span></h3>
+      <img src="nyc/westfield world trade center.JPG"
+        alt="The inside of the Westfield World Trade Center shopping mall. The picture shows the interesting architecture of the roof of the building, in black and white."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Biking</span></h3>
+      <img src="nyc/bike.JPG"
+        alt="A night photo of a person riding a bike. The picture shows a lot of motion blur as the photographer was following the bike passing by. The background is blurry and colorful, and the bike is partly in focus, giving a sense of speed."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The High Line</span></h3>
+      <img src="nyc/the high line.JPG"
+        alt="A section of the High Line pathway in NYC. Many people are walking on the trail. Vegetation is visible along the trail. And tall buildings stand on either side."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Subway scene</span></h3>
+      <img src="nyc/subway.JPG"
+        alt="Motion blurred picture of the NYC subway passing by. The subway is going towards the left. A couple of people can be seen through the window."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Broadway &amp; Murray</span></h3>
+      <img src="nyc/broadway and murray.JPG"
+        alt="Black and white picture of an intersection sign, at night. The sky is black, a few buildings can be seen, a car driving by, and people walking on the sidewalk."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Beneath the Brooklyn Bridge</span></h3>
+      <img src="nyc/beneath bridge.JPG"
+        alt="Wide angle photo taken below the Brooklyn bridge, on the Brookly side. The underside of the bridge is visible across the photo, and the financial district is visible in the distance across the water. The photo is taken at dusk."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square 2.JPG"
+        alt="One of the streets in Times Square. Many people are walking, and buildings with huge advert screens are on either sides of the street."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The statue, at sunset</span></h3>
+      <img src="nyc/statue of liberty 2.JPG"
+        alt="The Statue of Liberty, at dusk, in the distance, across the water. The statue is visible as a silouhette against the yellow orange sky."
+        width="640" height="960">
+    </article>
+    <article>
+      <h3><span>Manhattan from the One World tower</span></h3>
+      <img src="nyc/manhattan.JPG" alt="Buildings of Manhattan, NYC, seen from the One World tower." width="480"
+        height="720">
+    </article>
+    <article>
+      <h3><span>Smoke rising from a manhole</span></h3>
+      <img src="nyc/fog.JPG"
+        alt="Street of NYC, at night. A manhole, with smoke coming out, is visible in the foreground." width="480"
+        height="480">
+    </article>
+    <article>
+      <h3><span>Hot-dog stand</span></h3>
+      <img src="nyc/hot dog stand.JPG"
+        alt="A hot-dog stand in a street of NYC, at night, taken from a low angle, with two bright blue and yellow umbrellas above."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Graffitis in Brooklyn</span></h3>
+      <img src="nyc/graffitis.JPG"
+        alt="A blue painted building in Brooklyn, NYC. Graffitis of animals playing musical instruments are painted on the building. A stop street sign is visible in front of the building."
+        width="716" height="480">
+    </article>
+    <article>
+      <h3><span>Bridges and Buildings</span></h3>
+      <img src="nyc/bridges and buildings.JPG"
+        alt="A cropped-out view of a couple of bridges of NYC, one of which is the Brooklyn bridge. A glass building is visible in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Glass buildings</span></h3>
+      <img src="nyc/glass buildings.JPG"
+        alt="Multiple glass buildings in the financial district of NYC, taken from the ground, looking up. The sky is blue and clear."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The Brooklyn Bridge</span></h3>
+      <img src="nyc/brooklyn bridge.JPG"
+        alt="One of the towers on the Brooklyn bridge, where the cables go to support the bridge. The picture is black and white, and taken at night."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square.JPG"
+        alt="Some of the tall buildings of Times Square, partly covered with giant screens running adverts." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>More glass buildings</span></h3>
+      <img src="nyc/glass buildings 2.JPG"
+        alt="Detailed view of a glass building in Times Square. A series of balconies and windows are visible."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Statue of Liberty</span></h3>
+      <img src="nyc/statue of liberty.JPG"
+        alt="The statue of liberty, from a distance, at dusk. A few blurred out shapes are visible in the foreground, with the statue visible in focus in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Plane</span></h3>
+      <img src="nyc/plane.JPG"
+        alt="Silouhette of a plane in the sky, preparing to land, seen above the Brooklyn bridge, at dusk." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>The Westfield World Trade Center</span></h3>
+      <img src="nyc/westfield world trade center.JPG"
+        alt="The inside of the Westfield World Trade Center shopping mall. The picture shows the interesting architecture of the roof of the building, in black and white."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Biking</span></h3>
+      <img src="nyc/bike.JPG"
+        alt="A night photo of a person riding a bike. The picture shows a lot of motion blur as the photographer was following the bike passing by. The background is blurry and colorful, and the bike is partly in focus, giving a sense of speed."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The High Line</span></h3>
+      <img src="nyc/the high line.JPG"
+        alt="A section of the High Line pathway in NYC. Many people are walking on the trail. Vegetation is visible along the trail. And tall buildings stand on either side."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Subway scene</span></h3>
+      <img src="nyc/subway.JPG"
+        alt="Motion blurred picture of the NYC subway passing by. The subway is going towards the left. A couple of people can be seen through the window."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Broadway &amp; Murray</span></h3>
+      <img src="nyc/broadway and murray.JPG"
+        alt="Black and white picture of an intersection sign, at night. The sky is black, a few buildings can be seen, a car driving by, and people walking on the sidewalk."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Beneath the Brooklyn Bridge</span></h3>
+      <img src="nyc/beneath bridge.JPG"
+        alt="Wide angle photo taken below the Brooklyn bridge, on the Brookly side. The underside of the bridge is visible across the photo, and the financial district is visible in the distance across the water. The photo is taken at dusk."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square 2.JPG"
+        alt="One of the streets in Times Square. Many people are walking, and buildings with huge advert screens are on either sides of the street."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The statue, at sunset</span></h3>
+      <img src="nyc/statue of liberty 2.JPG"
+        alt="The Statue of Liberty, at dusk, in the distance, across the water. The statue is visible as a silouhette against the yellow orange sky."
+        width="640" height="960">
+    </article>
+    <article>
+      <h3><span>Manhattan from the One World tower</span></h3>
+      <img src="nyc/manhattan.JPG" alt="Buildings of Manhattan, NYC, seen from the One World tower." width="480"
+        height="720">
+    </article>
+    <article>
+      <h3><span>Smoke rising from a manhole</span></h3>
+      <img src="nyc/fog.JPG"
+        alt="Street of NYC, at night. A manhole, with smoke coming out, is visible in the foreground." width="480"
+        height="480">
+    </article>
+    <article>
+      <h3><span>Hot-dog stand</span></h3>
+      <img src="nyc/hot dog stand.JPG"
+        alt="A hot-dog stand in a street of NYC, at night, taken from a low angle, with two bright blue and yellow umbrellas above."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Graffitis in Brooklyn</span></h3>
+      <img src="nyc/graffitis.JPG"
+        alt="A blue painted building in Brooklyn, NYC. Graffitis of animals playing musical instruments are painted on the building. A stop street sign is visible in front of the building."
+        width="716" height="480">
+    </article>
+    <article>
+      <h3><span>Bridges and Buildings</span></h3>
+      <img src="nyc/bridges and buildings.JPG"
+        alt="A cropped-out view of a couple of bridges of NYC, one of which is the Brooklyn bridge. A glass building is visible in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Glass buildings</span></h3>
+      <img src="nyc/glass buildings.JPG"
+        alt="Multiple glass buildings in the financial district of NYC, taken from the ground, looking up. The sky is blue and clear."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The Brooklyn Bridge</span></h3>
+      <img src="nyc/brooklyn bridge.JPG"
+        alt="One of the towers on the Brooklyn bridge, where the cables go to support the bridge. The picture is black and white, and taken at night."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square.JPG"
+        alt="Some of the tall buildings of Times Square, partly covered with giant screens running adverts." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>More glass buildings</span></h3>
+      <img src="nyc/glass buildings 2.JPG"
+        alt="Detailed view of a glass building in Times Square. A series of balconies and windows are visible."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Statue of Liberty</span></h3>
+      <img src="nyc/statue of liberty.JPG"
+        alt="The statue of liberty, from a distance, at dusk. A few blurred out shapes are visible in the foreground, with the statue visible in focus in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Plane</span></h3>
+      <img src="nyc/plane.JPG"
+        alt="Silouhette of a plane in the sky, preparing to land, seen above the Brooklyn bridge, at dusk." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>The Westfield World Trade Center</span></h3>
+      <img src="nyc/westfield world trade center.JPG"
+        alt="The inside of the Westfield World Trade Center shopping mall. The picture shows the interesting architecture of the roof of the building, in black and white."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Biking</span></h3>
+      <img src="nyc/bike.JPG"
+        alt="A night photo of a person riding a bike. The picture shows a lot of motion blur as the photographer was following the bike passing by. The background is blurry and colorful, and the bike is partly in focus, giving a sense of speed."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The High Line</span></h3>
+      <img src="nyc/the high line.JPG"
+        alt="A section of the High Line pathway in NYC. Many people are walking on the trail. Vegetation is visible along the trail. And tall buildings stand on either side."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Subway scene</span></h3>
+      <img src="nyc/subway.JPG"
+        alt="Motion blurred picture of the NYC subway passing by. The subway is going towards the left. A couple of people can be seen through the window."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Broadway &amp; Murray</span></h3>
+      <img src="nyc/broadway and murray.JPG"
+        alt="Black and white picture of an intersection sign, at night. The sky is black, a few buildings can be seen, a car driving by, and people walking on the sidewalk."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Beneath the Brooklyn Bridge</span></h3>
+      <img src="nyc/beneath bridge.JPG"
+        alt="Wide angle photo taken below the Brooklyn bridge, on the Brookly side. The underside of the bridge is visible across the photo, and the financial district is visible in the distance across the water. The photo is taken at dusk."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square 2.JPG"
+        alt="One of the streets in Times Square. Many people are walking, and buildings with huge advert screens are on either sides of the street."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The statue, at sunset</span></h3>
+      <img src="nyc/statue of liberty 2.JPG"
+        alt="The Statue of Liberty, at dusk, in the distance, across the water. The statue is visible as a silouhette against the yellow orange sky."
+        width="640" height="960">
+    </article>
+    <article>
+      <h3><span>Manhattan from the One World tower</span></h3>
+      <img src="nyc/manhattan.JPG" alt="Buildings of Manhattan, NYC, seen from the One World tower." width="480"
+        height="720">
+    </article>
+    <article>
+      <h3><span>Smoke rising from a manhole</span></h3>
+      <img src="nyc/fog.JPG"
+        alt="Street of NYC, at night. A manhole, with smoke coming out, is visible in the foreground." width="480"
+        height="480">
+    </article>
+    <article>
+      <h3><span>Hot-dog stand</span></h3>
+      <img src="nyc/hot dog stand.JPG"
+        alt="A hot-dog stand in a street of NYC, at night, taken from a low angle, with two bright blue and yellow umbrellas above."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Graffitis in Brooklyn</span></h3>
+      <img src="nyc/graffitis.JPG"
+        alt="A blue painted building in Brooklyn, NYC. Graffitis of animals playing musical instruments are painted on the building. A stop street sign is visible in front of the building."
+        width="716" height="480">
+    </article>
+    <article>
+      <h3><span>Bridges and Buildings</span></h3>
+      <img src="nyc/bridges and buildings.JPG"
+        alt="A cropped-out view of a couple of bridges of NYC, one of which is the Brooklyn bridge. A glass building is visible in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Glass buildings</span></h3>
+      <img src="nyc/glass buildings.JPG"
+        alt="Multiple glass buildings in the financial district of NYC, taken from the ground, looking up. The sky is blue and clear."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The Brooklyn Bridge</span></h3>
+      <img src="nyc/brooklyn bridge.JPG"
+        alt="One of the towers on the Brooklyn bridge, where the cables go to support the bridge. The picture is black and white, and taken at night."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square.JPG"
+        alt="Some of the tall buildings of Times Square, partly covered with giant screens running adverts." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>More glass buildings</span></h3>
+      <img src="nyc/glass buildings 2.JPG"
+        alt="Detailed view of a glass building in Times Square. A series of balconies and windows are visible."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Statue of Liberty</span></h3>
+      <img src="nyc/statue of liberty.JPG"
+        alt="The statue of liberty, from a distance, at dusk. A few blurred out shapes are visible in the foreground, with the statue visible in focus in the distance."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Plane</span></h3>
+      <img src="nyc/plane.JPG"
+        alt="Silouhette of a plane in the sky, preparing to land, seen above the Brooklyn bridge, at dusk." width="720"
+        height="480">
+    </article>
+    <article>
+      <h3><span>The Westfield World Trade Center</span></h3>
+      <img src="nyc/westfield world trade center.JPG"
+        alt="The inside of the Westfield World Trade Center shopping mall. The picture shows the interesting architecture of the roof of the building, in black and white."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Biking</span></h3>
+      <img src="nyc/bike.JPG"
+        alt="A night photo of a person riding a bike. The picture shows a lot of motion blur as the photographer was following the bike passing by. The background is blurry and colorful, and the bike is partly in focus, giving a sense of speed."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The High Line</span></h3>
+      <img src="nyc/the high line.JPG"
+        alt="A section of the High Line pathway in NYC. Many people are walking on the trail. Vegetation is visible along the trail. And tall buildings stand on either side."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Subway scene</span></h3>
+      <img src="nyc/subway.JPG"
+        alt="Motion blurred picture of the NYC subway passing by. The subway is going towards the left. A couple of people can be seen through the window."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Broadway &amp; Murray</span></h3>
+      <img src="nyc/broadway and murray.JPG"
+        alt="Black and white picture of an intersection sign, at night. The sky is black, a few buildings can be seen, a car driving by, and people walking on the sidewalk."
+        width="480" height="720">
+    </article>
+    <article>
+      <h3><span>Beneath the Brooklyn Bridge</span></h3>
+      <img src="nyc/beneath bridge.JPG"
+        alt="Wide angle photo taken below the Brooklyn bridge, on the Brookly side. The underside of the bridge is visible across the photo, and the financial district is visible in the distance across the water. The photo is taken at dusk."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>Times Square</span></h3>
+      <img src="nyc/times square 2.JPG"
+        alt="One of the streets in Times Square. Many people are walking, and buildings with huge advert screens are on either sides of the street."
+        width="720" height="480">
+    </article>
+    <article>
+      <h3><span>The statue, at sunset</span></h3>
+      <img src="nyc/statue of liberty 2.JPG"
+        alt="The Statue of Liberty, at dusk, in the distance, across the water. The statue is visible as a silouhette against the yellow orange sky."
+        width="640" height="960">
+    </article>
+  </main>
+
+  <script>
+    const directionRadios = document.querySelectorAll('input[name="direction"]');
+    const sizeRadios = document.querySelectorAll('input[name="size"]');
+    const mainElement = document.querySelector('main');
+
+    directionRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.checked) {
+          if (radio.value === 'row') {
+            mainElement.classList.remove('orientation-column');
+            mainElement.classList.add('orientation-row');
+          } else {
+            mainElement.classList.remove('orientation-row');
+            mainElement.classList.add('orientation-column');
+          }
+        }
+      });
+    });
+
+    sizeRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.checked) {
+          mainElement.classList.remove('size-small', 'size-medium', 'size-large');
+          mainElement.classList.add(`size-${radio.value}`);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

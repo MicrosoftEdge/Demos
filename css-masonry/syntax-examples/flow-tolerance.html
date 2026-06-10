@@ -7,29 +7,45 @@
   <title>Item tolerance</title>
   <style>
     body {
-      margin: 0 3rem;
+      margin: 0 4rem;
       font-family: system-ui;
       font-size: 1rem;
     }
 
     main {
       max-width: 1800px;
-      margin: 3rem auto;
+      margin: 4rem auto;
       display: grid-lanes;
-      grid-template-columns: 200px 200px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 10px;
       flow-tolerance: 0;
       counter-set: photo-counter 1;
     }
 
     main .photo {
-      height: 100px;
+      block-size: 150px;
       position: relative;
     }
 
+    main .photo:nth-child(2n) {
+      block-size: 160px;
+    }
+
+    main .photo:nth-child(3n) {
+      block-size: 170px;
+    }
+
+    main .photo:nth-child(5n) {
+      block-size: 180px;
+    }
+
+    main .photo:nth-child(7n) {
+      block-size: 210px;
+    }
+
     main .photo img {
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       object-fit: cover;
       display: block;
       border-radius: .5rem;
@@ -39,31 +55,30 @@
     main .photo::before {
       content: counter(photo-counter);
       position: absolute;
-      width: 30px;
-      height: 30px;
+      inline-size: 2rem;
+      block-size: 2rem;
       display: grid;
       place-content: center;
-      top: calc(50% - 15px);
-      left: calc(50% - 15px);
+      inset: calc(50% - 15px) auto auto calc(50% - 15px);
       border-radius: 50%;
-      background: #fffd;
-    }
-
-    main .photo:first-child {
-      height: 110px;
+      background: #fffe;
+      border: 2px solid #0009;
     }
 
     .controls {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      z-index: 1;
+      inset: 1rem 1rem auto auto;
       background: #eee;
-      padding: 10px;
-      border-radius: 5px;
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+      border: 2px solid #0009;
     }
 
-    :has(#flow-tolerance-toggle:checked) main {
-      flow-tolerance: 10px;
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
     }
   </style>
 </head>
@@ -71,8 +86,9 @@
 <body>
   <div class="controls">
     <label>
-      <input type="checkbox" id="flow-tolerance-toggle">
-      Set 10px flow-tolerance
+      Set flow-tolerance
+      <input type="range" id="flow-tolerance-range" min="0" max="100" step="1" value="0">
+      <span id="flow-tolerance-value">0px</span>
     </label>
   </div>
   <main>
@@ -293,6 +309,18 @@
       <img src="../nature/plant36.jpg" alt="Picture of a plant.">
     </div>
   </main>
+
+  <script>
+    const flowToleranceRange = document.getElementById('flow-tolerance-range');
+    const flowToleranceValue = document.getElementById('flow-tolerance-value');
+    const layout = document.querySelector('main');
+
+    flowToleranceRange.addEventListener('input', () => {
+      const value = flowToleranceRange.value;
+      flowToleranceValue.textContent = `${value}px`;
+      layout.style.flowTolerance = `${value}px`;
+    });
+  </script>
 </body>
 
 </html>

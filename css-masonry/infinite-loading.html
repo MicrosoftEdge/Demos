@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite loading board</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+
+  <style>
+    html {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-size: 1rem;
+      line-height: 1.6;
+      font-family: system-ui;
+      padding: 2rem;
+      box-sizing: border-box;
+      margin: 0;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin: 0 0 2rem 0;
+      text-align: center;
+      text-fit: grow;
+    }
+
+    .infinite {
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+      gap: 2rem;
+    }
+
+    .item {
+      --fold-length: 2rem;
+
+      background: hsl(calc(sibling-index() * 30), 100%, 85%);
+      padding: 1.5rem;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      rotate: calc(sin(sibling-index()) * 1deg);
+      border-shape: shape(from 0 0, line to calc(100% - var(--fold-length)) 0, line to 100% var(--fold-length), line to 100% 100%, line to 0 100%, line to 0 0);
+      box-shadow: 0 0 1rem 0 #0004;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        content: "";
+        inset: 0 0 calc(100% - var(--fold-length)) calc(100% - var(--fold-length));
+        background: inherit;
+        border-shape: shape(from 0 0, line to 100% 100%, line to 0 100%, line to 0 0);
+        box-shadow: 0 0 1rem 0 #0004;
+      }
+
+      @starting-style {
+        opacity: 0;
+      }
+
+      &.loading {
+        grid-column: 1 / -1;
+        text-align: center;
+        font-style: italic;
+        transition: none;
+        background: transparent;
+        border-shape: unset;
+        box-shadow: unset;
+
+        &::before {
+          content: "";
+          border-shape: unset;
+          box-shadow: unset;
+          position: unset;
+          display: inline-block;
+          width: 1rem;
+          height: 1rem;
+          border: .25rem solid currentColor;
+          border-inline-end-color: transparent;
+          border-radius: 50%;
+          vertical-align: middle;
+          margin-inline-end: 0.5rem;
+          animation: spin 0.8s linear infinite;
+        }
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    .item p:first-child {
+      margin-block-start: 0;
+    }
+
+    .item p:last-child {
+      margin-block-end: 0;
+    }
+
+    footer {
+      margin-block-start: 2rem;
+      text-align: center;
+      display: none;
+      font-weight: bold;
+    }
+
+    body.reached-bottom footer {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Infinite loading board</h1>
+  <div class="infinite"></div>
+  <footer>
+    <p>🎉 You've reached the end!</p>
+  </footer>
+  <script>
+    const PHOTOS = [
+      "nature/plant01.jpg",
+      "nature/plant02.jpg",
+      "nature/plant03.jpg",
+      "nature/plant04.jpg",
+      "nature/plant05.jpg",
+      "nature/plant06.jpg",
+      "nature/plant07.jpg",
+    ];
+
+    const LOREM = [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "Optio laborum obcaecati culpa suscipit cum, ad dignissimos cupiditate aperiam maiores in delectus reprehenderit totam.",
+      "In porro dicta non praesentium autem voluptates nesciunt quibusdam culpa necessitatibus est laudantium, voluptatem exercitationem fugiat voluptatibus similique incidunt neque hic ducimus.",
+      "Possimus odio eveniet aliquam tempore minima dolor libero quibusdam asperiores repellendus?",
+      "Beatae officiis ex minima nemo doloribus nostrum quam provident architecto ipsa, consequatur asperiores laborum fugit quas quia expedita cupiditate quod hic non, illo magni magnam deserunt nesciunt!",
+      "Perferendis illum necessitatibus, minima totam omnis tempore repudiandae eaque ipsum at corporis obcaecati.",
+      "Eius molestiae necessitatibus ex amet ipsam unde ad, expedita, cum vero inventore libero.",
+      "Eum, provident blanditiis voluptates fugiat temporibus nisi, autem eaque dolorum, iusto quibusdam recusandae maxime enim neque veniam velit et.",
+      "Sit officia dicta aliquam praesentium earum, voluptatum quidem. Ratione libero, dolorem culpa vel eum, voluptates dolor nam accusantium provident exercitationem consequatur nulla! Veritatis, tempore eius.",
+      "Quos sed illo, tempore culpa et ipsam ut in consequatur a aspernatur dolore sequi qui ab accusamus cupiditate!",
+      "Inventore blanditiis modi facere debitis labore, delectus deleniti obcaecati ipsa optio porro sint perferendis, tenetur recusandae quis ipsum vel aut eos magnam!",
+      "Eum, labore quibusdam alias maiores ipsam quam eaque aliquid delectus.",
+      "Earum neque eius quod error inventore perferendis consectetur laboriosam, impedit, sunt porro possimus harum velit nam tenetur corporis magni alias eveniet aut, repudiandae cum itaque.",
+      "Quas vitae recusandae illo, quos eius rerum mollitia asperiores laboriosam iste beatae porro aut dignissimos ex, fugit tempore?",
+      "Suscipit voluptatem doloribus ipsa, soluta nemo vel voluptatum accusamus quos porro quibusdam, nam velit nulla exercitationem officia, pariatur dicta eius quae.",
+      "Quisquam fugiat voluptatibus quis, officiis a explicabo cum voluptas ex expedita repudiandae porro facere aperiam ipsa, architecto sed aliquam laboriosam nulla, beatae nemo earum aspernatur velit.",
+      "Praesentium exercitationem assumenda, cumque neque nisi temporibus harum accusantium soluta porro atque, maxime delectus odio tempora?"
+    ];
+
+    const BULK_LOAD_SIZE = 8;
+    const MIN_LOADING_DELAY = 300;
+    const MAX_LOADING_DELAY = 1000;
+    const MAX_ITEMS = 100;
+    const MAX_SENTENCE_COUNT = 2;
+    const container = document.querySelector(".infinite");
+    let sentenceOffset = 0;
+
+    function getSentences() {
+      const sentenceCount = Math.ceil(Math.random() * MAX_SENTENCE_COUNT);
+      const sentences = [];
+
+      while (sentences.length < sentenceCount) {
+        if (sentenceOffset >= LOREM.length) {
+          sentenceOffset = 0;
+        }
+
+        sentences.push(LOREM[sentenceOffset]);
+        sentenceOffset++;
+      }
+
+      return sentences;
+    }
+
+    async function fetchAndCreateItem(delay = 0) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      const item = document.createElement("div");
+      item.classList.add("item");
+
+      const sentences = getSentences();
+
+      if (sentences.length === 1 && Math.random() < 0.5) {
+        const photo = document.createElement("img");
+        photo.src = PHOTOS[Math.floor(Math.random() * PHOTOS.length)];
+        photo.alt = "";
+        photo.loading = "lazy";
+        photo.decoding = "async";
+        photo.style.display = "block";
+        photo.style.inlineSize = "100%";
+        photo.style.marginBlockEnd = "1vmin";
+        item.appendChild(photo);
+      }
+
+      for (const s of sentences) {
+        const p = document.createElement("p");
+        p.textContent = s;
+        item.appendChild(p);
+      }
+
+      return item;
+    }
+
+    function getRandomDelay() {
+      return Math.ceil(Math.random() * (MAX_LOADING_DELAY - MIN_LOADING_DELAY) + MIN_LOADING_DELAY);
+    }
+
+    async function main() {
+      // Create some initial items.
+      for (let i = 0; i < BULK_LOAD_SIZE; i++) {
+        container.appendChild(await fetchAndCreateItem());
+      }
+
+      let lastItem = container.lastChild;
+
+      const options = {
+        root: document.documentElement,
+        threshold: 0.25
+      };
+
+      async function handleIntersection(entries, observer) {
+        if (entries.some(e => e.isIntersecting)) {
+          // We're interesecting the last element, stop observing it.
+          observer.disconnect();
+
+          // Show a loading item right away.
+          const loadingItem = document.createElement("div");
+          loadingItem.classList.add("item");
+          loadingItem.classList.add("loading");
+          loadingItem.textContent = "Loading...";
+          container.appendChild(loadingItem);
+
+          // Create a few new items and observe the last one instead.
+          const items = await Promise.all(Array.from({ length: BULK_LOAD_SIZE }, () => fetchAndCreateItem(getRandomDelay())));
+          loadingItem.remove();
+          items.forEach(item => container.appendChild(item));
+          lastItem = container.lastChild;
+          observer.observe(lastItem);
+
+          // If we've loaded everything, stop observing and show the "end" message.
+          if (container.children.length > MAX_ITEMS) {
+            observer.disconnect();
+            document.body.classList.add("reached-bottom");
+          }
+        }
+      }
+
+      const observer = new IntersectionObserver(handleIntersection, options);
+      observer.observe(lastItem);
+    }
+
+    main();
+  </script>
+</body>
+</html>

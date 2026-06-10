@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>Scroll triggered entry</title>
+  <style>
+    html {
+      scrollbar-gutter: stable;
+      block-size: 100%;
+      font-family: system-ui;
+    }
+
+    body {
+      margin: 0 10vmin;
+      block-size: calc(100% - 20vmin);
+
+      background: radial-gradient(circle at top left, hsl(188 85% 28% / .45), transparent 26%),
+        radial-gradient(circle at top right, hsl(33 90% 45% / .28), transparent 28%),
+        linear-gradient(180deg, hsl(216 38% 14%), hsl(215 33% 10%));
+      background-attachment: fixed;
+    }
+
+    .wall {
+      display: grid-lanes;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2vmin;
+      padding: 10vmin 0;
+    }
+
+    .card {
+      border-radius: 1vmin;
+      background: hsla(215, 30%, 15%, 0.82);
+      box-shadow: 0 1vmin 1vmin 0 #0004;
+      overflow: hidden;
+      display: grid;
+      border: 1px solid #fff3;
+    }
+
+    .card img {
+      inline-size: 100%;
+    }
+
+    .card p {
+      margin: 0;
+      padding: 1vmin;
+      color: white;
+      font-size: 1.5vmin;
+      line-height: 1.8;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes fly-up {
+          from {
+            transform: translateY(25vmin);
+          }
+        }
+
+        .card {
+          animation: fly-up auto linear both;
+          animation-timeline: view(block);
+          animation-range: entry 10% entry 100%;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wall">
+    <div class="card">
+      <img src="nyc/bike.JPG">
+      <p>One city feels restless, the other feels reflective. Both keep changing with the light.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/manhattan.JPG">
+      <p>Some streets in New York feel like they are always already in motion. Everything seems to be heading somewhere
+        just out of frame.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/fog.JPG">
+      <p>These two places carry very different rhythms. Somehow they both feel familiar after a while.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/times square.JPG">
+      <p>New York often gives the impression of density without needing much explanation. A lot can happen in a very
+        small
+        slice of space.</p>
+    </div>
+    <div class="card" style="grid-column: span 2;">
+      <img src="nyc/brooklyn bridge.JPG">
+      <p>One city leans into momentum, the other into atmosphere. Each one leaves a distinct mood behind.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-1.JPG">
+      <p>Even when the city softens a little, it still feels unmistakably urban. There is always structure hiding behind
+        the atmosphere.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/glass buildings 2.JPG">
+      <p>The streets tell different stories in each city. Together they feel like two sides of the same idea.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-13.JPG">
+      <p>Some parts of New York feel designed to keep your attention moving. Light, scale, and noise all seem to layer
+        on
+        top of each other.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-4.JPG">
+      <p>In one place, energy rises quickly. In the other, it settles and stretches out.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-9.JPG">
+      <p>The city has a way of balancing landmark views with everyday movement. Big shapes and quick moments tend to
+        coexist easily.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-10.JPG">
+      <p>Both cities feel alive in very different ways. The contrast is quiet, but impossible to miss.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/subway.JPG">
+      <p>One city feels immediate and sharp. The other feels layered and patient.</p>
+    </div>
+    <div class="card" style="grid-column: span 2;">
+      <img src="nyc/hot dog stand.JPG">
+      <p>In New York, reflective surfaces often turn the city back onto itself. The surroundings feel multiplied rather
+        than simply repeated.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-8.JPG">
+      <p>These scenes could belong to different worlds. Still, they share the same urban pulse.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-2.JPG">
+      <p>Seattle often leaves room for weather and light to shape the mood. The city feels as much observed as built.
+      </p>
+    </div>
+    <div class="card">
+      <img src="nyc/statue of liberty.JPG">
+      <p>There is a softness to Seattle that changes how distance reads. Things can feel close and far away at the same
+        time.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-15.JPG">
+      <p>Seattle tends to feel open without feeling empty. The city gives you space while still keeping a clear sense of
+        place.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/plane.JPG">
+      <p>There is a different tempo in each place. You can feel it before you can name it.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-4.JPG">
+      <p>In one place, energy rises quickly. In the other, it settles and stretches out.</p>
+    </div>
+    <div class="card" style="grid-column: span 2;">
+      <img src="nyc/hot dog stand.JPG">
+      <p>In New York, reflective surfaces often turn the city back onto itself. The surroundings feel multiplied rather
+        than simply repeated.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-13.JPG">
+      <p>Some parts of New York feel designed to keep your attention moving. Light, scale, and noise all seem to layer
+        on
+        top of each other.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/brooklyn bridge.JPG">
+      <p>One city leans into momentum, the other into atmosphere. Each one leaves a distinct mood behind.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/plane.JPG">
+      <p>There is a different tempo in each place. You can feel it before you can name it.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-10.JPG">
+      <p>Both cities feel alive in very different ways. The contrast is quiet, but impossible to miss.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/fog.JPG">
+      <p>These two places carry very different rhythms. Somehow they both feel familiar after a while.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-2.JPG">
+      <p>Seattle often leaves room for weather and light to shape the mood. The city feels as much observed as built.
+      </p>
+    </div>
+    <div class="card" style="grid-column: span 2;">
+      <img src="nyc/subway.JPG">
+      <p>One city feels immediate and sharp. The other feels layered and patient.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/manhattan.JPG">
+      <p>Some streets in New York feel like they are always already in motion. Everything seems to be heading somewhere
+        just out of frame.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-9.JPG">
+      <p>The city has a way of balancing landmark views with everyday movement. Big shapes and quick moments tend to
+        coexist easily.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/statue of liberty.JPG">
+      <p>There is a softness to Seattle that changes how distance reads. Things can feel close and far away at the same
+        time.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-1.JPG">
+      <p>Even when the city softens a little, it still feels unmistakably urban. There is always structure hiding behind
+        the atmosphere.</p>
+    </div>
+    <div class="card" style="grid-column: span 2;">
+      <img src="nyc/glass buildings 2.JPG">
+      <p>The streets tell different stories in each city. Together they feel like two sides of the same idea.</p>
+    </div>
+    <div class="card">
+      <img src="seattle/seattle-8.JPG">
+      <p>These scenes could belong to different worlds. Still, they share the same urban pulse.</p>
+    </div>
+    <div class="card">
+      <img src="nyc/times square.JPG">
+      <p>New York often gives the impression of density without needing much explanation. A lot can happen in a very
+        small
+        slice of space.</p>
+    </div>
+  </div>
+</body>
+
+</html>

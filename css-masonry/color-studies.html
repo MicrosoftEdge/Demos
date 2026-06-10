@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>Color Studies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 2.25rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .layout {
+      display: grid-lanes;
+      inline-size: 31rem;
+      gap: 5rem 2.8rem;
+      margin: 2.8rem auto;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    img {
+      grid-column: 2 / span 2;
+      inline-size: 60%;
+      aspect-ratio: 1 / 1.3;
+      object-fit: cover;
+      justify-self: start;
+      box-shadow: 0 0 0 0.56rem beige, 0 0 0 0.62rem black, 0 0 0 0.9rem #7e6d4c, 0 0.56rem 1.125rem 1.125rem #0003;
+      margin: 1.1vmin;
+    }
+
+    img:nth-of-type(even) {
+      grid-column: 1 / span 2;
+      justify-self: end;
+      inline-size: 100%;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    p::first-letter {
+      initial-letter: 3;
+      font-weight: 100;
+      margin: 0 0.55rem 0.55rem 0;
+    }
+
+    p:nth-of-type(odd) {
+      text-align: end;
+    }
+
+    p strong {
+      display: block;
+      margin-block-start: 0.56rem;
+      font-size: 0.56rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 6.8rem;
+      grid-column: span 3;
+      line-height: 1;
+      font-weight: 100;
+      letter-spacing: -0.39rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .layout {
+        inline-size: 100%;
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        grid-column: auto;
+      }
+
+      img, p, img:nth-of-type(even) {
+        grid-column: 1;
+        justify-self: center;
+        inline-size: 80%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <h1>COLOR / STUDIES</h1>
+    <img src="color-studies/blue.png">
+    <p>Depth and motion in a layered composition where saturated blues dissolve into softer, atmospheric
+      tones.
+      The piece evokes the sensation of looking through water or memory—fluid, shifting, and unresolved.
+      <strong>&mdash; STUDY IN BLUE, acrylic on canvas, 2023</strong>
+    </p>
+    <img src="color-studies/green.png">
+    <p>Angular gestures and overlapping strokes create a rhythmic field of greens, oscillating between organic growth
+      and
+      constructed movement.
+      The composition suggests direction without destination, like paths cutting through a dense landscape.
+      <strong>&mdash; STUDY IN GREEN, acrylic on canvas, 2023</strong>
+    </p>
+    <img src="color-studies/yellow.png">
+    <p>Study in the art of luminosity and restraint, this work explores the tension between form and light.
+      Subtle variations in yellow create a quiet, almost vibrating surface that rewards prolonged observation.
+      <strong>&mdash; STUDY IN YELLOW, acrylic on canvas, 2023</strong>
+    </p>
+    <img src="color-studies/aqua.png">
+    <p>Cool, translucent tones intersect in a composition that feels both structured and fluid.
+      Lines dissolve into planes, suggesting architectural fragments suspended in water.
+      <strong>&mdash; STUDY IN AQUA, acrylic on canvas, 2023</strong>
+    </p>
+    <img src="color-studies/purple.png">
+    <p>Dense layers of violet and indigo create a sense of depth and introspection.
+      The composition leans inward, inviting the viewer into a more intimate, contemplative space.
+      <strong>&mdash; STUDY IN PURPLE, acrylic on canvas, 2023</strong>
+    </p>
+    <img src="color-studies/red.png">
+    <p>Bold, dynamic strokes dominate the surface, driven by contrast and intensity.
+      The composition captures a moment of tension—raw, immediate, and deliberately unresolved.
+      <strong>&mdash; STUDY IN RED, acrylic on canvas, 2023</strong>
+    </p>
+  </div>
+</body>
+</html>
