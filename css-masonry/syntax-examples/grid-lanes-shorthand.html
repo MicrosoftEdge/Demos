@@ -4,8 +4,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
   <title>Masonry shorthand</title>
   <style>
+    @supports not (display:grid-lanes) {
+      body::before {
+        content: "Your browser does not support CSS Grid Lanes.";
+        position: fixed;
+        inset: 50%;
+        inline-size: 50vw;
+        block-size: max-content;
+        transform: translate(-50%, -50%);
+        background: white;
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        font-family: system-ui;
+        text-align: center;
+        padding: 1rem 2rem;
+        z-index: 1;
+        box-shadow: 0 0 1rem 0 #0004;
+      }
+    }
+
     html {
       height: 100%;
     }

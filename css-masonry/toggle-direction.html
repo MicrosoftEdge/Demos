@@ -7,6 +7,27 @@
   <title>Photo gallery with toggleable direction</title>
   <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
   <style>
+    @supports not (display:grid-lanes) {
+      body::before {
+        content: "Your browser does not support CSS Grid Lanes.";
+        position: fixed;
+        inset: 50%;
+        inline-size: 50vw;
+        block-size: max-content;
+        transform: translate(-50%, -50%);
+        background: white;
+        color: black;
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        font-family: system-ui;
+        text-align: center;
+        padding: 1rem 2rem;
+        z-index: 1;
+        box-shadow: 0 0 1rem 0 #0004;
+      }
+    }
+
     html,
     body {
       margin: 0;
@@ -72,6 +93,7 @@
     main {
       background: #fff3;
       --image-size: calc(25% - .5rem);
+      display: grid;
       display: grid-lanes;
       grid-template-rows: repeat(auto-fill, var(--image-size));
       grid-template-columns: repeat(auto-fill, var(--image-size));

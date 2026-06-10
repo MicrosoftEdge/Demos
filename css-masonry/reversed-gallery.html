@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <title>Reversed gallery</title>
+  <style>
+    @supports not (display:grid-lanes) {
+      body::before {
+        content: "Your browser does not support CSS Grid Lanes.";
+        position: fixed;
+        inset: 50%;
+        inline-size: 50vw;
+        block-size: max-content;
+        transform: translate(-50%, -50%);
+        background: white;
+        color: black;
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        font-family: system-ui;
+        text-align: center;
+        padding: 1rem 2rem;
+        z-index: 1;
+        box-shadow: 0 0 1rem 0 #0004;
+      }
+    }
+
+    body {
+      font-family: system-ui;
+      display: grid;
+      grid-template-rows: 100vh 7.7vw 100vh;
+      max-inline-size: 80vw;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      background: black;
+    }
+
+    .photos {
+      display: grid-lanes;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1vmin;
+    }
+
+    .photo {
+      outline: 1.5vmin solid white;
+      outline-offset: -1.5vmin;
+    }
+
+    .photos.bottom-up {
+      grid-lanes-direction: column fill-reverse;
+    }
+
+    .photos.top-down {
+      grid-lanes-direction: column;
+    }
+
+    .photo img {
+      inline-size: 100%;
+      block-size: auto;
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      text-fit: grow;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -1vmin;
+      text-align: center;
+      color: white;
+      font-family: arial black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="photos bottom-up">
+    <div class="photo"><img src="seattle/seattle-10.JPG" alt="Seattle" width="667" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-2.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-3.JPG" alt="Seattle" width="1000" height="667"></div>
+    <div class="photo"><img src="seattle/seattle-4.JPG" alt="Seattle" width="667" height="1000"></div>
+    <div class="photo"><img src="seattle/seattle-5.JPG" alt="Seattle" width="667" height="1000"></div>
+    <div class="photo"><img src="seattle/seattle-6.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-7.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-8.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+  </div>
+  <h1>Streets of Seattle</h1>
+  <div class="photos top-down">
+    <div class="photo"><img src="seattle/seattle-1.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-9.JPG" alt="Seattle" width="667" height="1000"></div>
+    <div class="photo"><img src="seattle/seattle-12.JPG" alt="Seattle" width="1000" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-13.JPG" alt="Seattle" width="1000" height="747">
+    </div>
+    <div class="photo"><img src="seattle/seattle-14.JPG" alt="Seattle" width="1000" height="667">
+    </div>
+    <div class="photo"><img src="seattle/seattle-15.JPG" alt="Seattle" width="1000" height="667">
+    </div>
+    <div class="photo"><img src="seattle/seattle-11.JPG" alt="Seattle" width="667" height="1000">
+    </div>
+    <div class="photo"><img src="seattle/seattle-16.JPG" alt="Seattle" width="1000" height="667">
+    </div>
+  </div>
+</body>
+
+</html>
