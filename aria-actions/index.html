@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA Actions: Interactive Demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>ARIA Actions Demo</h1>
+    <p>Expose secondary actions on elements to assistive technology using the
+      <code>aria-actions</code> attribute.</p>
+  </header>
+
+  <noscript>
+    <div class="warning-banner" role="alert">
+      <strong>JavaScript is disabled.</strong>
+      The tab, listbox, and grid widgets need JavaScript to handle clicks and
+      keyboard input. The layout will render but the widgets won't respond.
+    </div>
+  </noscript>
+
+  <main class="page-content">
+    <!-- Feature-detection banner: shown only when the ariaActionsElements IDL
+         is not present (i.e., the AriaActions Blink runtime flag is not on).
+         The dismiss button lets users close the banner after toggling the
+         flag, on their way to relaunching the browser. -->
+    <div id="feature-banner" class="warning-banner" role="alert" hidden>
+      <button type="button" id="feature-banner-dismiss"
+        class="banner-dismiss" aria-label="Dismiss this notice">&times;</button>
+      <strong>&#x26A0; aria-actions is not enabled in this browser.</strong>
+      The attribute is an experimental Blink feature behind a runtime flag.
+      Enable <em>Experimental Web Platform features</em> at
+      <code>about://flags/#enable-experimental-web-platform-features</code>
+      in Microsoft Edge (or another Chromium-based browser) and relaunch.
+      If you already enabled the flag and still see this banner, the relaunch
+      is what's missing.
+    </div>
+
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#what-is-aria-actions">What is aria-actions?</a>
+      <a href="#tabs-with-actions">Tabs with Actions</a>
+      <a href="#listbox-with-actions">Listbox with Actions</a>
+      <a href="#grid-with-row-actions">Grid with Row Actions</a>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- §1 - What is aria-actions? -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="what-is-aria-actions">What is <code>aria-actions</code>?</h2>
+      <p>
+        <code>aria-actions</code> is a proposed ARIA attribute. Authors point
+        it at a list of element IDs; each referenced element becomes a
+        secondary action that screen-reader users can invoke from the focused
+        item, without first moving focus to the action button.
+      </p>
+      <p>
+        The value is an IDREFS list (space-separated IDs). Each target needs
+        an accessible name, a click handler, and a keyboard path. See the
+        <a href="https://gist.github.com/smhigley/8dbe67f834cc472e3a14bf6b289e6f0c">explainer</a>
+        for the full authoring requirements.
+      </p>
+      <p>
+        <strong>Spec status:</strong>
+        <a href="https://github.com/w3c/aria/pull/1805">w3c/aria PR 1805</a>,
+        still under review. The
+        <a href="https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html">rendered
+          preview</a> has the current normative text, and the
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-actions/">APG
+          Tabs with Action Buttons example</a> shows a working reference
+        implementation.
+      </p>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- §2 - Tabs with Actions -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="tabs-with-actions">Tabs with Actions</h2>
+      <p>
+        Each tab points at two action buttons. A screen reader can invoke
+        Close or Pin from the tab itself; keyboard users press
+        <kbd>Delete</kbd> on the focused tab as a shortcut for Close.
+      </p>
+      <pre class="attr-label"><code>aria-actions="close-tab-N pin-tab-N"</code></pre>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Tab into the tablist;
+        <kbd>&larr;</kbd>/<kbd>&rarr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+        move focus, and <kbd>Delete</kbd> closes the focused tab. With a
+        screen reader, Close and Pin appear as actions on whichever tab has
+        focus.
+      </div>
+
+      <div class="demo-container">
+        <div role="tablist" aria-label="Project files" class="tablist">
+          <button role="tab" class="tab" id="tab-1" aria-selected="true"
+            aria-controls="panel-1" tabindex="0"
+            aria-keyshortcuts="Delete"
+            aria-actions="close-tab-1 pin-tab-1">index.html</button>
+          <button role="tab" class="tab" id="tab-2" aria-selected="false"
+            aria-controls="panel-2" tabindex="-1"
+            aria-keyshortcuts="Delete"
+            aria-actions="close-tab-2 pin-tab-2">style.css</button>
+          <button role="tab" class="tab" id="tab-3" aria-selected="false"
+            aria-controls="panel-3" tabindex="-1"
+            aria-keyshortcuts="Delete"
+            aria-actions="close-tab-3 pin-tab-3">app.js</button>
+        </div>
+
+        <div role="tabpanel" id="panel-1" class="tabpanel"
+          aria-labelledby="tab-1" tabindex="0">
+          <p>Contents of <strong>index.html</strong>.</p>
+        </div>
+        <div role="tabpanel" id="panel-2" class="tabpanel"
+          aria-labelledby="tab-2" tabindex="0" hidden>
+          <p>Contents of <strong>style.css</strong>.</p>
+        </div>
+        <div role="tabpanel" id="panel-3" class="tabpanel"
+          aria-labelledby="tab-3" tabindex="0" hidden>
+          <p>Contents of <strong>app.js</strong>.</p>
+        </div>
+
+        <!-- Action targets: visible, focusable, and labeled.
+             aria-controls points each button back at its tab. Close and Pin
+             really do control the tab, so the back-reference is appropriate
+             here (in the listbox and grid sections it isn't, and isn't set). -->
+        <div class="tab-actions" role="group"
+          aria-label="Actions for tabs">
+          <button id="close-tab-1" aria-controls="tab-1"
+            aria-label="Close index.html"
+            data-action="close" data-target="index.html">Close</button>
+          <button id="pin-tab-1" aria-controls="tab-1"
+            aria-label="Pin index.html"
+            data-action="pin" data-target="index.html">Pin</button>
+          <button id="close-tab-2" aria-controls="tab-2"
+            aria-label="Close style.css"
+            data-action="close" data-target="style.css">Close</button>
+          <button id="pin-tab-2" aria-controls="tab-2"
+            aria-label="Pin style.css"
+            data-action="pin" data-target="style.css">Pin</button>
+          <button id="close-tab-3" aria-controls="tab-3"
+            aria-label="Close app.js"
+            data-action="close" data-target="app.js">Close</button>
+          <button id="pin-tab-3" aria-controls="tab-3"
+            aria-label="Pin app.js"
+            data-action="pin" data-target="app.js">Pin</button>
+        </div>
+      </div>
+
+      <ul class="notice-list">
+        <li>Each tab's <code>aria-actions</code> lists two button IDs</li>
+        <li>The buttons sit outside the tablist. <code>role="tab"</code> is
+          Children Presentational, so any interactive element nested inside a
+          tab loses its semantics; siblings are the safe place for them</li>
+        <li>Each button also sets <code>aria-controls</code> back to its tab.
+          That fits here because Close and Pin really do control the tab
+          (the listbox and grid sections omit the back-reference for that
+          reason)</li>
+        <li><kbd>Delete</kbd> on the focused tab triggers Close;
+          <code>aria-keyshortcuts</code> tells AT about the shortcut</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- §3 - Listbox with Actions -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="listbox-with-actions">Listbox with Actions</h2>
+      <p>
+        Each option points at two per-item buttons. AT users invoke Edit or
+        Delete from the option without moving off it. The same buttons live
+        in a side panel next to the listbox, so non-AT keyboard users can Tab
+        over and press them too.
+      </p>
+      <pre class="attr-label"><code>aria-actions="edit-item-N delete-item-N"</code></pre>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Tab into the listbox;
+        <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+        change the selection. Tab again to land on the side panel and press
+        Edit or Delete by keyboard. <kbd>Esc</kbd> from a button returns
+        focus to the listbox. With a screen reader, both actions are listed
+        on whichever option has focus.
+      </div>
+
+      <div class="demo-container">
+        <div class="listbox-with-actions">
+          <ul role="listbox" aria-label="Saved bookmarks" class="listbox"
+            id="bookmarks-listbox">
+            <li role="option" class="listbox-option" id="opt-1"
+              tabindex="0" aria-selected="true"
+              aria-actions="edit-item-1 delete-item-1">MDN Web Docs</li>
+            <li role="option" class="listbox-option" id="opt-2"
+              tabindex="-1" aria-selected="false"
+              aria-actions="edit-item-2 delete-item-2">CSS Tricks</li>
+            <li role="option" class="listbox-option" id="opt-3"
+              tabindex="-1" aria-selected="false"
+              aria-actions="edit-item-3 delete-item-3">Web.dev</li>
+          </ul>
+
+          <!-- Action targets sit outside the listbox so they keep their button
+               semantics. role="option" is Children Presentational in ARIA
+               1.2/1.3 and would strip any nested interactive element.
+               No aria-controls back-reference: Edit/Delete don't "control"
+               the option the way Close controls a tab. The aria-actions
+               attribute on each option expresses the relationship. -->
+          <div class="bookmark-actions" role="group"
+            aria-label="Actions for saved bookmarks">
+            <span class="action-row" data-for="opt-1">
+              <button id="edit-item-1"
+                aria-label="Edit MDN Web Docs"
+                data-action="edit" data-target="MDN Web Docs">Edit</button>
+              <button id="delete-item-1"
+                aria-label="Delete MDN Web Docs"
+                data-action="delete" data-target="MDN Web Docs">Delete</button>
+            </span>
+            <span class="action-row" data-for="opt-2">
+              <button id="edit-item-2"
+                aria-label="Edit CSS Tricks"
+                data-action="edit" data-target="CSS Tricks">Edit</button>
+              <button id="delete-item-2"
+                aria-label="Delete CSS Tricks"
+                data-action="delete" data-target="CSS Tricks">Delete</button>
+            </span>
+            <span class="action-row" data-for="opt-3">
+              <button id="edit-item-3"
+                aria-label="Edit Web.dev"
+                data-action="edit" data-target="Web.dev">Edit</button>
+              <button id="delete-item-3"
+                aria-label="Delete Web.dev"
+                data-action="delete" data-target="Web.dev">Delete</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="notice-list">
+        <li>Each <code>role="option"</code> lists its action button IDs in
+          <code>aria-actions</code></li>
+        <li>The buttons cannot live inside the <code>&lt;li&gt;</code>:
+          <code>role="option"</code> is Children Presentational in ARIA
+          1.2/1.3, so any nested interactive element loses its semantics.
+          They live in a side panel instead</li>
+        <li>The JS keeps <code>tabindex</code> and <code>aria-selected</code>
+          in sync as <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+          move the selection</li>
+        <li>Tab reaches the side panel; <kbd>Esc</kbd> sends focus back to
+          the listbox</li>
+        <li>The side panel uses <code>role="group"</code> so its
+          <code>aria-label</code> reaches AT. A bare <code>&lt;div&gt;</code>
+          would swallow the label</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- §4 - Grid with Row Actions -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="grid-with-row-actions">Grid with Row Actions</h2>
+      <p>
+        Each row exposes its action buttons via <code>aria-actions</code> set
+        on the <code>&lt;tr&gt;</code>. AT users invoke View details or
+        Archive from the row, without descending into the Actions cell.
+      </p>
+      <pre class="attr-label"><code>aria-actions="view-row-N archive-row-N"</code></pre>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Tab into the grid;
+        <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+        move between rows. Tab from a row to reach its action buttons, and
+        <kbd>Esc</kbd> to return. With a screen reader, View and Archive
+        appear as actions on whichever row has focus.
+      </div>
+
+      <div class="demo-container">
+        <table role="grid" aria-label="Recent orders" class="data-grid">
+          <thead>
+            <tr role="row">
+              <th role="columnheader" scope="col">Order</th>
+              <th role="columnheader" scope="col">Customer</th>
+              <th role="columnheader" scope="col">Status</th>
+              <th role="columnheader" scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr role="row" id="row-1" tabindex="0"
+              aria-actions="view-row-1 archive-row-1">
+              <td role="gridcell">#1024</td>
+              <td role="gridcell">Alice Johnson</td>
+              <td role="gridcell">Shipped</td>
+              <td role="gridcell">
+                <span class="row-actions">
+                  <button id="view-row-1" tabindex="-1"
+                    aria-label="View details for order 1024"
+                    data-action="view" data-target="order 1024">View</button>
+                  <button id="archive-row-1" tabindex="-1"
+                    aria-label="Archive order 1024"
+                    data-action="archive" data-target="order 1024">Archive</button>
+                </span>
+              </td>
+            </tr>
+            <tr role="row" id="row-2" tabindex="-1"
+              aria-actions="view-row-2 archive-row-2">
+              <td role="gridcell">#1025</td>
+              <td role="gridcell">Bob Chen</td>
+              <td role="gridcell">Processing</td>
+              <td role="gridcell">
+                <span class="row-actions">
+                  <button id="view-row-2" tabindex="-1"
+                    aria-label="View details for order 1025"
+                    data-action="view" data-target="order 1025">View</button>
+                  <button id="archive-row-2" tabindex="-1"
+                    aria-label="Archive order 1025"
+                    data-action="archive" data-target="order 1025">Archive</button>
+                </span>
+              </td>
+            </tr>
+            <tr role="row" id="row-3" tabindex="-1"
+              aria-actions="view-row-3 archive-row-3">
+              <td role="gridcell">#1026</td>
+              <td role="gridcell">Carol Davis</td>
+              <td role="gridcell">Delivered</td>
+              <td role="gridcell">
+                <span class="row-actions">
+                  <button id="view-row-3" tabindex="-1"
+                    aria-label="View details for order 1026"
+                    data-action="view" data-target="order 1026">View</button>
+                  <button id="archive-row-3" tabindex="-1"
+                    aria-label="Archive order 1026"
+                    data-action="archive" data-target="order 1026">Archive</button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="notice-list">
+        <li><code>aria-actions</code> on each <code>role="row"</code> exposes
+          the row's actions</li>
+        <li>The buttons live in the Actions column. Only the focused row's
+          buttons are Tab stops; the JS swaps <code>tabindex</code> as row
+          focus moves</li>
+        <li><kbd>Esc</kbd> from a button returns focus to its row
+          (APG grid widget-mode)</li>
+        <li>The exact set of roles that can carry <code>aria-actions</code>
+          is still under discussion in <a href="https://github.com/w3c/aria/pull/1805">PR 1805</a>.
+          So far the consensus targets child roles of composite widgets:
+          tabs, options, rows, gridcells, treeitems, and similar</li>
+        <li>Roving <code>tabindex</code> on <code>&lt;tr&gt;</code> plus the
+          arrow-key handler make the grid keyboard-operable</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    /* ================================================================
+       Feature detection + dismissible banner
+       ----------------------------------------------------------------
+       The ariaActionsElements IDL property is reflected onto Element
+       when the AriaActions Blink runtime flag is on. If it's missing,
+       show the flag-instructions banner. The dismiss button is there
+       so users who just toggled the flag can close the banner before
+       relaunching.
+       ================================================================ */
+    (function () {
+      var banner = document.getElementById("feature-banner");
+      if (!banner) return;
+      var supported = "ariaActionsElements" in Element.prototype;
+      if (!supported) banner.hidden = false;
+      var dismiss = document.getElementById("feature-banner-dismiss");
+      if (dismiss) {
+        dismiss.addEventListener("click", function () {
+          banner.hidden = true;
+        });
+      }
+    })();
+
+    /* ================================================================
+       Tabs: roving tabindex + Arrow/Home/End/Delete
+       ================================================================ */
+    (function () {
+      var tablist = document.querySelector('[role="tablist"]');
+      if (!tablist) return;
+      var tabs = Array.prototype.slice.call(
+        tablist.querySelectorAll('[role="tab"]'));
+      var panels = tabs.map(function (t) {
+        return document.getElementById(t.getAttribute("aria-controls"));
+      });
+
+      function activate(tab, setFocus) {
+        tabs.forEach(function (t, i) {
+          var selected = (t === tab);
+          t.setAttribute("aria-selected", selected ? "true" : "false");
+          t.setAttribute("tabindex", selected ? "0" : "-1");
+          if (panels[i]) panels[i].hidden = !selected;
+        });
+        if (setFocus) tab.focus();
+      }
+
+      tablist.addEventListener("click", function (e) {
+        var tab = e.target.closest('[role="tab"]');
+        if (tab) activate(tab, true);
+      });
+
+      tablist.addEventListener("keydown", function (e) {
+        var current = document.activeElement;
+        if (!current || current.getAttribute("role") !== "tab") return;
+        var index = tabs.indexOf(current);
+        var target = null;
+        switch (e.key) {
+          case "ArrowRight":
+            target = tabs[(index + 1) % tabs.length];
+            break;
+          case "ArrowLeft":
+            target = tabs[(index - 1 + tabs.length) % tabs.length];
+            break;
+          case "Home":
+            target = tabs[0];
+            break;
+          case "End":
+            target = tabs[tabs.length - 1];
+            break;
+          case "Delete":
+            // Invoke the focused tab's "Close" action (first aria-actions ID).
+            var actions = (current.getAttribute("aria-actions") || "")
+              .split(/\s+/).filter(Boolean);
+            var closeBtn = actions.length && document.getElementById(actions[0]);
+            if (closeBtn) {
+              e.preventDefault();
+              closeBtn.click();
+            }
+            return;
+        }
+        if (target) {
+          e.preventDefault();
+          activate(target, true);
+        }
+      });
+    })();
+
+    /* ================================================================
+       Listbox: roving tabindex + aria-selected + Arrow/Home/End.
+       Escape from the adjacent actions panel returns focus to the
+       currently selected option.
+       ================================================================ */
+    (function () {
+      var listbox = document.getElementById("bookmarks-listbox");
+      if (!listbox) return;
+      var actionsPanel = document.querySelector(".bookmark-actions");
+      var options = Array.prototype.slice.call(
+        listbox.querySelectorAll('[role="option"]'));
+
+      function select(option, setFocus) {
+        options.forEach(function (o) {
+          var selected = (o === option);
+          o.setAttribute("aria-selected", selected ? "true" : "false");
+          o.setAttribute("tabindex", selected ? "0" : "-1");
+        });
+        if (setFocus) option.focus();
+      }
+
+      function selectedOption() {
+        return listbox.querySelector('[role="option"][aria-selected="true"]')
+          || options[0];
+      }
+
+      listbox.addEventListener("click", function (e) {
+        var option = e.target.closest('[role="option"]');
+        if (option) select(option, true);
+      });
+
+      listbox.addEventListener("keydown", function (e) {
+        var current = document.activeElement;
+        if (!current || current.getAttribute("role") !== "option") return;
+        var index = options.indexOf(current);
+        var target = null;
+        switch (e.key) {
+          case "ArrowDown":
+            target = options[Math.min(index + 1, options.length - 1)];
+            break;
+          case "ArrowUp":
+            target = options[Math.max(index - 1, 0)];
+            break;
+          case "Home":
+            target = options[0];
+            break;
+          case "End":
+            target = options[options.length - 1];
+            break;
+        }
+        if (target) {
+          e.preventDefault();
+          select(target, true);
+        }
+      });
+
+      if (actionsPanel) {
+        actionsPanel.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          var sel = selectedOption();
+          if (sel) {
+            e.preventDefault();
+            sel.focus();
+          }
+        });
+      }
+    })();
+
+    /* ================================================================
+       Grid: roving tabindex on rows + Arrow/Home/End.
+       In-row action buttons are also rotated through tabindex so only
+       the currently focused row's buttons are tab stops (matches the
+       APG grid expectation that interactive widgets in non-active
+       rows are skipped by Tab).
+       Escape from a focused in-row button returns focus to the row.
+       ================================================================ */
+    (function () {
+      var grid = document.querySelector('[role="grid"]');
+      if (!grid) return;
+      var rows = Array.prototype.slice.call(
+        grid.querySelectorAll('tbody [role="row"]'));
+
+      function rowButtons(row) {
+        return Array.prototype.slice.call(row.querySelectorAll("button"));
+      }
+
+      function syncButtonTabindex(activeRow) {
+        rows.forEach(function (r) {
+          var ti = (r === activeRow) ? "0" : "-1";
+          rowButtons(r).forEach(function (b) {
+            b.setAttribute("tabindex", ti);
+          });
+        });
+      }
+
+      function focusRow(row) {
+        rows.forEach(function (r) {
+          r.setAttribute("tabindex", r === row ? "0" : "-1");
+        });
+        syncButtonTabindex(row);
+        row.focus();
+      }
+
+      // Initial sync: buttons on the initial active row become tab stops.
+      syncButtonTabindex(rows[0]);
+
+      grid.addEventListener("keydown", function (e) {
+        var current = document.activeElement;
+        if (!current) return;
+
+        // Escape from an in-row button returns focus to that row.
+        if (e.key === "Escape" && current.closest(".row-actions button")) {
+          var row = current.closest('[role="row"]');
+          if (row && rows.indexOf(row) !== -1) {
+            e.preventDefault();
+            row.focus();
+            return;
+          }
+        }
+
+        // Arrow / Home / End only operate when a row itself has focus.
+        if (current.getAttribute("role") !== "row") return;
+        var index = rows.indexOf(current);
+        if (index === -1) return;
+        var target = null;
+        switch (e.key) {
+          case "ArrowDown":
+            target = rows[Math.min(index + 1, rows.length - 1)];
+            break;
+          case "ArrowUp":
+            target = rows[Math.max(index - 1, 0)];
+            break;
+          case "Home":
+            target = rows[0];
+            break;
+          case "End":
+            target = rows[rows.length - 1];
+            break;
+        }
+        if (target) {
+          e.preventDefault();
+          focusRow(target);
+        }
+      });
+
+      // When focus moves into a row's button (e.g., via Tab), promote that
+      // row to be the active one so the roving tabindex stays consistent.
+      grid.addEventListener("focusin", function (e) {
+        var row = e.target.closest('[role="row"]');
+        if (!row || rows.indexOf(row) === -1) return;
+        rows.forEach(function (r) {
+          r.setAttribute("tabindex", r === row ? "0" : "-1");
+        });
+        syncButtonTabindex(row);
+      });
+    })();
+
+    /* ================================================================
+       Delegated click handler for all data-action buttons
+       (replaces inline onclick handlers for CSP friendliness)
+       ================================================================ */
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      var action = btn.getAttribute("data-action");
+      var target = btn.getAttribute("data-target") || "";
+      var verb = action.charAt(0).toUpperCase() + action.slice(1);
+      window.alert(verb + ": " + target);
+    });
+  </script>
+</body>
+
+</html>
