@@ -2,7 +2,7 @@
 
 ➡️ **[Open the demo](https://microsoftedge.github.io/Demos/aria-actions/)** ⬅️
 
-Interactive demo of [`aria-actions`](https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html), a proposed ARIA attribute that exposes secondary actions on an element to assistive technology. The value is an IDREFS list; each referenced element becomes an action that screen-reader users can invoke directly from the focused item.
+Interactive demo of [`aria-actions`](https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html), a new ARIA attribute that exposes secondary actions on an element to assistive technology. The value is an IDREFS list; each referenced element becomes an action that screen-reader users can invoke directly from the focused item.
 
 The demo covers three composite-widget patterns: tabs, a listbox, and a data grid. Naming and structure follow [ARIA PR 1805](https://github.com/w3c/aria/pull/1805) and the [APG Tabs with Action Buttons example](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-actions/).
 

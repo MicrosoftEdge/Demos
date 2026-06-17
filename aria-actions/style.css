@@ -173,6 +173,48 @@ body {
   cursor: pointer;
 }
 
+/* ----- Action announcement toast -----
+   Polite live region; visible only when non-empty so it doesn't
+   clutter the page or trap focus. Replaces window.alert() in the
+   delegated action-button click handler. */
+.action-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 2rem);
+  padding: 0.625rem 1.25rem;
+  background: var(--accent);
+  color: var(--selected-text);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+}
+
+.action-toast:not(:empty) {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-toast {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .action-toast {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+}
+
 .banner-dismiss:hover {
   background: rgba(0, 0, 0, 0.08);
 }

@@ -54,7 +54,7 @@
     <section class="demo-section">
       <h2 id="what-is-aria-actions">What is <code>aria-actions</code>?</h2>
       <p>
-        <code>aria-actions</code> is a proposed ARIA attribute. Authors point
+        <code>aria-actions</code> is a new ARIA attribute. Authors point
         it at a list of element IDs; each referenced element becomes a
         secondary action that screen-reader users can invoke from the focused
         item, without first moving focus to the action button.
@@ -66,9 +66,9 @@
         for the full authoring requirements.
       </p>
       <p>
-        <strong>Spec status:</strong>
-        <a href="https://github.com/w3c/aria/pull/1805">w3c/aria PR 1805</a>,
-        still under review. The
+        <strong>Reference:</strong>
+        <a href="https://github.com/w3c/aria/pull/1805">w3c/aria PR 1805</a>
+        defines the attribute. The
         <a href="https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html">rendered
           preview</a> has the current normative text, and the
         <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-actions/">APG
@@ -349,16 +349,23 @@
           focus moves</li>
         <li><kbd>Esc</kbd> from a button returns focus to its row
           (APG grid widget-mode)</li>
-        <li>The exact set of roles that can carry <code>aria-actions</code>
-          is still under discussion in <a href="https://github.com/w3c/aria/pull/1805">PR 1805</a>.
-          So far the consensus targets child roles of composite widgets:
-          tabs, options, rows, gridcells, treeitems, and similar</li>
+        <li>The set of roles that can carry <code>aria-actions</code>
+          is defined by <a href="https://github.com/w3c/aria/pull/1805">PR 1805</a>
+          and targets child roles of composite widgets: tabs, options, rows,
+          gridcells, treeitems, and similar</li>
         <li>Roving <code>tabindex</code> on <code>&lt;tr&gt;</code> plus the
           arrow-key handler make the grid keyboard-operable</li>
       </ul>
     </section>
 
   </main>
+
+  <!-- Polite live region for action announcements. Always in the DOM so
+       screen readers register it; visually shown only when non-empty.
+       Replaces the previous window.alert() so action invocations are
+       announced without a blocking modal. -->
+  <div id="action-toast" class="action-toast"
+       role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     "use strict";
@@ -607,15 +614,29 @@
 
     /* ================================================================
        Delegated click handler for all data-action buttons
-       (replaces inline onclick handlers for CSP friendliness)
+       (replaces inline onclick handlers for CSP friendliness).
+       Announces invocations via the #action-toast live region instead
+       of window.alert(), so the page stays responsive and screen
+       readers hear the announcement without a blocking dialog.
        ================================================================ */
+    var actionToast = document.getElementById("action-toast");
+    var actionToastTimer = null;
+    function announceAction(message) {
+      if (!actionToast) return;
+      actionToast.textContent = message;
+      if (actionToastTimer) clearTimeout(actionToastTimer);
+      actionToastTimer = setTimeout(function () {
+        actionToast.textContent = "";
+        actionToastTimer = null;
+      }, 4000);
+    }
     document.addEventListener("click", function (e) {
       var btn = e.target.closest("button[data-action]");
       if (!btn) return;
       var action = btn.getAttribute("data-action");
       var target = btn.getAttribute("data-target") || "";
       var verb = action.charAt(0).toUpperCase() + action.slice(1);
-      window.alert(verb + ": " + target);
+      announceAction(verb + ": " + target);
     });
   </script>
 </body>
