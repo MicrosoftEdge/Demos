@@ -173,47 +173,139 @@ body {
   cursor: pointer;
 }
 
-/* ----- Action announcement toast -----
-   Polite live region; visible only when non-empty so it doesn't
-   clutter the page or trap focus. Replaces window.alert() in the
-   delegated action-button click handler.
-   Uses an inverted-surface pairing (text-tone on card-tone) so contrast
-   is well above WCAG AA in both themes (~14:1 light, ~13:1 dark). */
-.action-toast {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: calc(100vw - 2rem);
-  padding: 0.625rem 1.25rem;
-  background: var(--text);
-  color: var(--bg-card);
-  border: 1px solid var(--text);
+/* ----- Per-widget action status & reset bar -----
+   The status row is a polite live region (role=status) co-located
+   with its widget so the announce reaches both AT (via aria-live)
+   and sighted users (visually). The reset button restores starting
+   state so the demo stays replayable. */
+.action-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  font-size: 0.95rem;
-  line-height: 1.4;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.18s ease;
-  pointer-events: none;
 }
 
-.action-toast:not(:empty) {
-  opacity: 1;
+.action-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  min-width: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .action-toast {
-    transition: none;
-  }
+.action-status-label {
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
+.action-status-message {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+.action-reset {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.action-reset:hover {
+  background: var(--hover-bg);
+}
+
+/* ----- Item state visuals -----
+   Action invocations toggle a data-* attribute on the target item;
+   these rules render the result. Each is reversible (toggle again or
+   click Reset). Visible to sighted users; the polite status region
+   above announces the change to AT users. */
+
+/* Tabs: Close & Pin */
+.tablist .tab[data-closed] {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  color: var(--text-muted);
+}
+
+.tablist .tab[data-closed]::after {
+  content: " (closed)";
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
+.tablist .tab[data-pinned]::before {
+  content: "\1F4CC\00A0"; /* 📌 + nbsp */
+  font-size: 0.85em;
+  vertical-align: 1px;
+}
+
+/* Listbox: Edit & Delete */
+.listbox-option[data-edited] {
+  font-style: italic;
+}
+
+.listbox-option[data-edited]::after {
+  content: " (edited)";
+  font-style: normal;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
+.listbox-option[data-deleted] {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.listbox-option[data-deleted]::after {
+  content: " (deleted)";
+  text-decoration: none;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
+/* Grid: View & Archive */
+.data-grid tbody tr[data-viewing] {
+  background: var(--accent-light);
+}
+
+.data-grid tbody tr[data-archived] {
+  opacity: 0.55;
+}
+
+.data-grid tbody tr[data-archived] .status-cell {
+  font-style: italic;
+}
+
+/* HCM mappings: don't lose state cues when system colors take over. */
 @media (forced-colors: active) {
-  .action-toast {
-    background: Canvas;
-    color: CanvasText;
-    border-color: CanvasText;
+  .tablist .tab[data-closed],
+  .listbox-option[data-deleted] {
+    /* line-through survives HCM; ensure colour falls back to GrayText. */
+    color: GrayText;
+  }
+  .data-grid tbody tr[data-viewing] {
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+  .data-grid tbody tr[data-archived] {
+    opacity: 1;
+    color: GrayText;
   }
 }
 

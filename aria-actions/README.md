@@ -6,6 +6,10 @@ Interactive demo of [`aria-actions`](https://pr-preview.s3.amazonaws.com/w3c/ari
 
 The demo covers three composite-widget patterns: tabs, a listbox, and a data grid. Naming and structure follow [ARIA PR 1805](https://github.com/w3c/aria/pull/1805) and the [APG Tabs with Action Buttons example](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-actions/).
 
+## What the action buttons do
+
+Clicking (or AT-invoking) an action toggles a visible state on its target item — Close strikes through the tab, Pin adds a 📌 prefix, Edit italicises the option, Delete strikes it through, View highlights the row, Archive dims the row and rewrites its Status cell. Clicking the same action again reverses the state. Each section has a polite live-region "Last action:" status row that announces what changed, and a **Reset section** button that restores the starting state so the demo is replayable.
+
 ## Learn more
 
 - [ARIA spec PR 1805 — rendered preview](https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html) (current normative text)

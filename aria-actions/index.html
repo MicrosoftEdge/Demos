@@ -134,23 +134,35 @@
           aria-label="Actions for tabs">
           <button id="close-tab-1" aria-controls="tab-1"
             aria-label="Close index.html"
-            data-action="close" data-target="index.html">Close</button>
+            data-action="close" data-target="index.html" data-target-id="tab-1">Close</button>
           <button id="pin-tab-1" aria-controls="tab-1"
             aria-label="Pin index.html"
-            data-action="pin" data-target="index.html">Pin</button>
+            data-action="pin" data-target="index.html" data-target-id="tab-1">Pin</button>
           <button id="close-tab-2" aria-controls="tab-2"
             aria-label="Close style.css"
-            data-action="close" data-target="style.css">Close</button>
+            data-action="close" data-target="style.css" data-target-id="tab-2">Close</button>
           <button id="pin-tab-2" aria-controls="tab-2"
             aria-label="Pin style.css"
-            data-action="pin" data-target="style.css">Pin</button>
+            data-action="pin" data-target="style.css" data-target-id="tab-2">Pin</button>
           <button id="close-tab-3" aria-controls="tab-3"
             aria-label="Close app.js"
-            data-action="close" data-target="app.js">Close</button>
+            data-action="close" data-target="app.js" data-target-id="tab-3">Close</button>
           <button id="pin-tab-3" aria-controls="tab-3"
             aria-label="Pin app.js"
-            data-action="pin" data-target="app.js">Pin</button>
+            data-action="pin" data-target="app.js" data-target-id="tab-3">Pin</button>
         </div>
+      </div>
+
+      <!-- Per-widget status row + reset.
+           Polite live region (role=status), co-located with the widget so
+           SR users hear the result of an action and sighted users see it
+           below the widget they just operated. -->
+      <div class="action-status-bar">
+        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
+          <span class="action-status-label">Last action:</span>
+          <span class="action-status-message">(none yet)</span>
+        </p>
+        <button type="button" class="action-reset" data-reset-section="tabs">Reset section</button>
       </div>
 
       <ul class="notice-list">
@@ -215,29 +227,37 @@
             <span class="action-row" data-for="opt-1">
               <button id="edit-item-1"
                 aria-label="Edit MDN Web Docs"
-                data-action="edit" data-target="MDN Web Docs">Edit</button>
+                data-action="edit" data-target="MDN Web Docs" data-target-id="opt-1">Edit</button>
               <button id="delete-item-1"
                 aria-label="Delete MDN Web Docs"
-                data-action="delete" data-target="MDN Web Docs">Delete</button>
+                data-action="delete" data-target="MDN Web Docs" data-target-id="opt-1">Delete</button>
             </span>
             <span class="action-row" data-for="opt-2">
               <button id="edit-item-2"
                 aria-label="Edit CSS Tricks"
-                data-action="edit" data-target="CSS Tricks">Edit</button>
+                data-action="edit" data-target="CSS Tricks" data-target-id="opt-2">Edit</button>
               <button id="delete-item-2"
                 aria-label="Delete CSS Tricks"
-                data-action="delete" data-target="CSS Tricks">Delete</button>
+                data-action="delete" data-target="CSS Tricks" data-target-id="opt-2">Delete</button>
             </span>
             <span class="action-row" data-for="opt-3">
               <button id="edit-item-3"
                 aria-label="Edit Web.dev"
-                data-action="edit" data-target="Web.dev">Edit</button>
+                data-action="edit" data-target="Web.dev" data-target-id="opt-3">Edit</button>
               <button id="delete-item-3"
                 aria-label="Delete Web.dev"
-                data-action="delete" data-target="Web.dev">Delete</button>
+                data-action="delete" data-target="Web.dev" data-target-id="opt-3">Delete</button>
             </span>
           </div>
         </div>
+      </div>
+
+      <div class="action-status-bar">
+        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
+          <span class="action-status-label">Last action:</span>
+          <span class="action-status-message">(none yet)</span>
+        </p>
+        <button type="button" class="action-reset" data-reset-section="listbox">Reset section</button>
       </div>
 
       <ul class="notice-list">
@@ -293,15 +313,15 @@
               aria-actions="view-row-1 archive-row-1">
               <td role="gridcell">#1024</td>
               <td role="gridcell">Alice Johnson</td>
-              <td role="gridcell">Shipped</td>
+              <td role="gridcell" class="status-cell">Shipped</td>
               <td role="gridcell">
                 <span class="row-actions">
                   <button id="view-row-1" tabindex="-1"
                     aria-label="View details for order 1024"
-                    data-action="view" data-target="order 1024">View</button>
+                    data-action="view" data-target="order 1024" data-target-id="row-1">View</button>
                   <button id="archive-row-1" tabindex="-1"
                     aria-label="Archive order 1024"
-                    data-action="archive" data-target="order 1024">Archive</button>
+                    data-action="archive" data-target="order 1024" data-target-id="row-1">Archive</button>
                 </span>
               </td>
             </tr>
@@ -309,15 +329,15 @@
               aria-actions="view-row-2 archive-row-2">
               <td role="gridcell">#1025</td>
               <td role="gridcell">Bob Chen</td>
-              <td role="gridcell">Processing</td>
+              <td role="gridcell" class="status-cell">Processing</td>
               <td role="gridcell">
                 <span class="row-actions">
                   <button id="view-row-2" tabindex="-1"
                     aria-label="View details for order 1025"
-                    data-action="view" data-target="order 1025">View</button>
+                    data-action="view" data-target="order 1025" data-target-id="row-2">View</button>
                   <button id="archive-row-2" tabindex="-1"
                     aria-label="Archive order 1025"
-                    data-action="archive" data-target="order 1025">Archive</button>
+                    data-action="archive" data-target="order 1025" data-target-id="row-2">Archive</button>
                 </span>
               </td>
             </tr>
@@ -325,20 +345,28 @@
               aria-actions="view-row-3 archive-row-3">
               <td role="gridcell">#1026</td>
               <td role="gridcell">Carol Davis</td>
-              <td role="gridcell">Delivered</td>
+              <td role="gridcell" class="status-cell">Delivered</td>
               <td role="gridcell">
                 <span class="row-actions">
                   <button id="view-row-3" tabindex="-1"
                     aria-label="View details for order 1026"
-                    data-action="view" data-target="order 1026">View</button>
+                    data-action="view" data-target="order 1026" data-target-id="row-3">View</button>
                   <button id="archive-row-3" tabindex="-1"
                     aria-label="Archive order 1026"
-                    data-action="archive" data-target="order 1026">Archive</button>
+                    data-action="archive" data-target="order 1026" data-target-id="row-3">Archive</button>
                 </span>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="action-status-bar">
+        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
+          <span class="action-status-label">Last action:</span>
+          <span class="action-status-message">(none yet)</span>
+        </p>
+        <button type="button" class="action-reset" data-reset-section="grid">Reset section</button>
       </div>
 
       <ul class="notice-list">
@@ -359,13 +387,6 @@
     </section>
 
   </main>
-
-  <!-- Polite live region for action announcements. Always in the DOM so
-       screen readers register it; visually shown only when non-empty.
-       Replaces the previous window.alert() so action invocations are
-       announced without a blocking modal. -->
-  <div id="action-toast" class="action-toast"
-       role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     "use strict";
@@ -613,38 +634,95 @@
     })();
 
     /* ================================================================
-       Delegated click handler for all data-action buttons
-       (replaces inline onclick handlers for CSP friendliness).
-       Announces invocations via the #action-toast live region instead
-       of window.alert(), so the page stays responsive and screen
-       readers hear the announcement without a blocking dialog.
+       Action invocation
+       ----------------------------------------------------------------
+       Each action button does a real, reversible visible change on
+       the item it targets (close strikes through the tab, archive
+       dims the row, etc.) so the demo communicates what aria-actions
+       is FOR. The change happens via a data-* attribute on the target
+       which CSS hooks into; the matching announce goes into the
+       section's polite #status region. Reset buttons restore the
+       section to its starting state.
        ================================================================ */
-    var actionToast = document.getElementById("action-toast");
-    var actionToastTimer = null;
-    var actionToastSetTimer = null;
-    function announceAction(message) {
-      if (!actionToast) return;
+    var ACTIONS = {
+      close:   { attr: "data-closed",   on: "Closed",                off: "Reopened" },
+      pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned" },
+      edit:    { attr: "data-edited",   on: "Edited",                off: "Edit cleared for" },
+      delete:  { attr: "data-deleted",  on: "Deleted",               off: "Restored" },
+      view:    { attr: "data-viewing",  on: "Viewing details for",   off: "Stopped viewing" },
+      archive: { attr: "data-archived", on: "Archived",              off: "Unarchived" }
+    };
+
+    function announceInto(statusEl, message) {
+      if (!statusEl) return;
+      var msgEl = statusEl.querySelector(".action-status-message");
+      if (!msgEl) return;
       // Clear first so identical successive messages still announce —
-      // many ATs ignore live-region updates that don't change textContent.
-      actionToast.textContent = "";
-      if (actionToastSetTimer) clearTimeout(actionToastSetTimer);
-      actionToastSetTimer = setTimeout(function () {
-        actionToast.textContent = message;
-        actionToastSetTimer = null;
+      // some ATs ignore live-region updates whose textContent is unchanged.
+      msgEl.textContent = "";
+      if (statusEl._setTimer) clearTimeout(statusEl._setTimer);
+      statusEl._setTimer = setTimeout(function () {
+        msgEl.textContent = message;
+        statusEl._setTimer = null;
       }, 30);
-      if (actionToastTimer) clearTimeout(actionToastTimer);
-      actionToastTimer = setTimeout(function () {
-        actionToast.textContent = "";
-        actionToastTimer = null;
-      }, 4000);
     }
-    document.addEventListener("click", function (e) {
-      var btn = e.target.closest("button[data-action]");
-      if (!btn) return;
+
+    function performAction(btn) {
       var action = btn.getAttribute("data-action");
-      var target = btn.getAttribute("data-target") || "";
-      var verb = action.charAt(0).toUpperCase() + action.slice(1);
-      announceAction(verb + ": " + target);
+      var targetId = btn.getAttribute("data-target-id");
+      var targetName = btn.getAttribute("data-target") || "";
+      var cfg = ACTIONS[action];
+      var target = targetId && document.getElementById(targetId);
+      if (!cfg || !target) return;
+
+      var nowOn = !target.hasAttribute(cfg.attr);
+      if (nowOn) target.setAttribute(cfg.attr, "true");
+      else target.removeAttribute(cfg.attr);
+
+      // Side effect: archive swaps the Status column text in/out so the
+      // grid's a11y tree reflects the change (CSS-only swap wouldn't).
+      if (action === "archive") {
+        var statusCell = target.querySelector(".status-cell");
+        if (statusCell) {
+          if (nowOn) {
+            statusCell.setAttribute("data-original", statusCell.textContent);
+            statusCell.textContent = "Archived";
+          } else if (statusCell.hasAttribute("data-original")) {
+            statusCell.textContent = statusCell.getAttribute("data-original");
+            statusCell.removeAttribute("data-original");
+          }
+        }
+      }
+
+      var section = btn.closest(".demo-section");
+      var statusEl = section && section.querySelector(".action-status");
+      announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
+    }
+
+    function resetSection(btn) {
+      var section = btn.closest(".demo-section");
+      if (!section) return;
+      // Clear all action state attributes on any item that might carry them.
+      Object.keys(ACTIONS).forEach(function (key) {
+        var attr = ACTIONS[key].attr;
+        section.querySelectorAll("[" + attr + "]").forEach(function (el) {
+          el.removeAttribute(attr);
+        });
+      });
+      // Restore any cached original status-cell text (grid archive).
+      section.querySelectorAll(".status-cell[data-original]").forEach(function (cell) {
+        cell.textContent = cell.getAttribute("data-original");
+        cell.removeAttribute("data-original");
+      });
+      var statusEl = section.querySelector(".action-status");
+      announceInto(statusEl, "Section reset");
+    }
+
+    document.addEventListener("click", function (e) {
+      var actionBtn = e.target.closest("button[data-action]");
+      if (actionBtn) { performAction(actionBtn); return; }
+      var resetBtn = e.target.closest("button.action-reset");
+      if (resetBtn) { resetSection(resetBtn); return; }
     });
   </script>
 </body>
