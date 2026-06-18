@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS gap decorations — editorial personal site</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1.1rem;
+      background: #0d0d0d;
+      color: #efefef;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    /* The page itself is one grid. Each section is spaced apart, and the
+       off-white separators between them set the editorial rhythm.
+       repeat(auto, ...) keeps the rules working no matter how many
+       sections the site grows to. */
+    body {
+      display: grid;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding-inline: clamp(1.5rem, 4vw, 3rem);
+      box-sizing: border-box;
+
+      row-rule:
+        1rem solid #efefef,
+        repeat(auto, 2px solid #efefef);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    header .tagline {
+      color: #999;
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---- Base content styling --------------------------------------- */
+    /* Like Patrick's starter (which set `article img { width: 100%;
+       max-width: 600px; height: 100%; object-fit: cover }`), we size the
+       masthead photos up front. This is ordinary image hygiene, not a gap
+       decoration: an unstyled <img> reports its natural width as the flex
+       item's min-content size, which would stop flex-basis from shrinking
+       it and blow the layout apart. With this in place, the photos behave
+       like any other block and the gap-decoration steps stay clean. */
+    .portrait {
+      max-width: 280px;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ---- Nav: dashed column rules between links ---------------------- */
+    nav ul {
+      font-size: 1.2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      column-rule: 2px dashed #666;
+    }
+
+    /* ---- Home: masthead with varied flex-basis over two lines ------- */
+    /* Echoing the original demo's main grid, the masthead blocks declare
+       DIFFERENT flex-basis values — wide text blocks (420px / 360px) next
+       to narrow image and aside blocks (200px) — so the row wraps into
+       two lines. That makes both decorations earn their place: row-rule
+       draws between the two lines and column-rule between the items in a
+       line. column-rule-inset: 0 keeps the vertical rules spanning each
+       line's content height rather than bleeding into the row gap.
+       (Photo sizing lives in the base content styles above.) */
+    .home {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+
+      row-rule: 2px solid #999;
+      column-rule: 2px solid #999;
+      column-rule-inset: 0;
+    }
+
+    .home > * {
+      flex: 1 1 200px;
+    }
+
+    .home .greeting {
+      flex-basis: 420px;
+    }
+
+    .home .note {
+      flex-basis: 360px;
+    }
+
+    .home .greeting .lead {
+      font-size: 1.35rem;
+      line-height: 1.4;
+    }
+
+    .home .greeting .lead strong {
+      font-weight: 600;
+    }
+
+    .home .now h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 0.75rem;
+    }
+
+    .home .now ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .home .now li {
+      padding: 0.35rem 0;
+    }
+
+    .home .now li span {
+      color: #999;
+    }
+
+    /* ---- Blog: mixed-span grid of photo + title cards --------------- */
+    .blog .posts {
+      display: grid;
+      /* A fixed three-column grid keeps the spanning/empty-cell behaviour
+         below predictable. (On a real site you'd swap in
+         repeat(auto-fill, minmax(...)) for responsiveness; we pin it to 3
+         here so the demo always lays out the same way.) */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+
+      rule: 2px solid #999;
+
+
+      /* Only paint a separator when BOTH sides of the gap hold a post.
+         The interior hole left when a wide post bumps to the next row,
+         and the ragged last row, stay clean instead of dangling lines
+         into empty space. */
+      rule-visibility-items: between;
+    }
+
+    .post {
+      padding: 0.5rem 0.25rem;
+    }
+
+    .post .thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      margin-bottom: 0.75rem;
+    }
+
+    .post .date {
+      display: block;
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+
+    .post h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .post p {
+      font-size: 0.95rem;
+      color: #cfcfcf;
+    }
+
+    .post.feature {
+      grid-column: span 2;
+    }
+
+    .post.feature .thumb {
+      aspect-ratio: 21 / 9;
+    }
+
+    .post.tall {
+      grid-row: span 2;
+    }
+
+    .post.tall .thumb {
+      /* A portrait crop so the taller card fills its two-row span. */
+      aspect-ratio: 3 / 4;
+    }
+
+    /* ---- About: profile card (avatar | bio) ------------------------- */
+    /* A circular portrait on the left, heading and bio on the right,
+       divided by a single vertical hairline. column-rule-inset pulls the
+       rule in from the top and bottom so it reads as a clean gutter
+       rather than a full-height bar (echoing the home masthead). */
+    .about .bio {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: start;
+      gap: 2.5rem;
+
+      column-rule: 2px solid #999;
+      column-rule-inset: 0.5rem;
+    }
+
+    .about .avatar {
+      flex: 0 0 auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .about .bio .text {
+      flex: 1 1 320px;
+    }
+
+    .about .bio .text p {
+      margin: 0 0 1rem;
+    }
+
+    .about .bio .text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ---- Links: inline row with dashed separators ------------------- */
+    /* Plain dashed column rules, reminiscent of the nav at the top. */
+    .links ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+
+      column-rule: 2px dashed #666;
+    }
+
+    footer {
+      color: #999;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>My personal site</h1>
+    <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#links">Links</a></li>
+    </ul>
+  </nav>
+
+  <section id="home" class="home">
+    <div class="greeting">
+      <p class="lead">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="portrait">
+      <img src="cat.jpg" alt="A sleeping cat.">
+    </div>
+    <aside class="now">
+      <h3>Currently</h3>
+      <ul>
+        <li>Lorem <span>— ipsum dolor sit amet</span></li>
+        <li>Sed <span>— eiusmod tempor incididunt</span></li>
+        <li>Ut enim <span>— ad minim veniam</span></li>
+        <li>Quis <span>— nostrud exercitation</span></li>
+      </ul>
+    </aside>
+    <div class="note">
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+    </div>
+    <div class="portrait">
+      <img src="tree.jpg" alt="An old olive tree trunk.">
+    </div>
+  </section>
+
+  <section id="blog" class="blog">
+    <h2>Blog</h2>
+    <div class="posts">
+      <article class="post">
+        <span class="date">June 2025</span>
+        <h3>Lorem ipsum dolor</h3>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+      </article>
+      <article class="post">
+        <span class="date">May 2025</span>
+        <h3>Consectetur adipiscing</h3>
+        <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </article>
+      <article class="post feature">
+        <img class="thumb" src="strings.jpg" alt="Guitar strings in close-up.">
+        <span class="date">April 2025</span>
+        <h3>Ut enim ad minim veniam</h3>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur,
+          sunt in culpa qui officia deserunt mollit anim.</p>
+      </article>
+      <article class="post tall">
+        <img class="thumb" src="tree.jpg" alt="An old olive tree trunk.">
+        <span class="date">March 2025</span>
+        <h3>Quis nostrud exercitation</h3>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum, sed do eiusmod tempor incididunt.</p>
+        <p>Ut labore et dolore magna aliqua, quis nostrud.</p>
+      </article>
+      <article class="post">
+        <span class="date">February 2025</span>
+        <h3>Duis aute irure</h3>
+        <p>Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      </article>
+      <article class="post">
+        <span class="date">January 2025</span>
+        <h3>Excepteur sint occaecat</h3>
+        <p>Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </article>
+      <article class="post">
+        <span class="date">December 2024</span>
+        <h3>Lorem ipsum dolor sit</h3>
+        <p>Amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About</h2>
+    <div class="bio">
+      <img class="avatar" src="cat.jpg" alt="A sleeping cat.">
+      <div class="text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+          rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="links" class="links">
+    <h2>Elsewhere</h2>
+    <ul>
+      <li><a href="#">GitHub</a></li>
+      <li><a href="#">Mastodon</a></li>
+      <li><a href="#">RSS</a></li>
+      <li><a href="#">Email</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My personal site.</p>
+  </footer>
+</body>
+
+</html>
+
+
