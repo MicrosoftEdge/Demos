@@ -176,7 +176,9 @@ body {
 /* ----- Action announcement toast -----
    Polite live region; visible only when non-empty so it doesn't
    clutter the page or trap focus. Replaces window.alert() in the
-   delegated action-button click handler. */
+   delegated action-button click handler.
+   Uses an inverted-surface pairing (text-tone on card-tone) so contrast
+   is well above WCAG AA in both themes (~14:1 light, ~13:1 dark). */
 .action-toast {
   position: fixed;
   bottom: 1.5rem;
@@ -184,9 +186,9 @@ body {
   transform: translateX(-50%);
   max-width: calc(100vw - 2rem);
   padding: 0.625rem 1.25rem;
-  background: var(--accent);
-  color: var(--selected-text);
-  border: 1px solid var(--accent);
+  background: var(--text);
+  color: var(--bg-card);
+  border: 1px solid var(--text);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-size: 0.95rem;
@@ -521,10 +523,14 @@ body {
   background: var(--hover-bg);
 }
 
-/* ----- Inline Code ----- */
+/* ----- Inline Code -----
+   Sets an explicit color rather than inheriting from parents like
+   .notice-list (which uses --text-muted) — that combination dropped
+   below WCAG AA 4.5:1 against --code-bg. */
 code {
   font-family: Consolas, Monaco, "Courier New", monospace;
   font-size: 0.9em;
+  color: var(--text);
   background: var(--code-bg);
   padding: 0.1rem 0.3rem;
   border-radius: 3px;

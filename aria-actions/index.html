@@ -621,9 +621,17 @@
        ================================================================ */
     var actionToast = document.getElementById("action-toast");
     var actionToastTimer = null;
+    var actionToastSetTimer = null;
     function announceAction(message) {
       if (!actionToast) return;
-      actionToast.textContent = message;
+      // Clear first so identical successive messages still announce —
+      // many ATs ignore live-region updates that don't change textContent.
+      actionToast.textContent = "";
+      if (actionToastSetTimer) clearTimeout(actionToastSetTimer);
+      actionToastSetTimer = setTimeout(function () {
+        actionToast.textContent = message;
+        actionToastSetTimer = null;
+      }, 30);
       if (actionToastTimer) clearTimeout(actionToastTimer);
       actionToastTimer = setTimeout(function () {
         actionToast.textContent = "";
