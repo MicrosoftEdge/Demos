@@ -98,19 +98,64 @@
       </div>
 
       <div class="demo-container">
+        <!-- Each tab + its action buttons live in a .tab-group wrapper inside
+             the tablist (matches the APG tabs-actions example). The action
+             buttons are siblings of the role="tab" element, not children, so
+             Children Presentational on role="tab" still holds.
+
+             Action buttons set aria-controls back to the tab. Close and Pin
+             really do control the tab, so the back-reference fits here (the
+             listbox and grid sections omit it because Edit/Delete and
+             View/Archive don't "control" their items the same way). -->
+        <!-- aria-required-children note: axe-core flags this tablist for
+             having button descendants (the action buttons) that aren't
+             role="tab". This is a known axe-vs-spec tension that the APG
+             tabs-actions canonical example also triggers; the aria-actions
+             association is precisely what makes nesting them here safe.
+             We accept the warning as the cost of co-located action buttons. -->
         <div role="tablist" aria-label="Project files" class="tablist">
-          <button role="tab" class="tab" id="tab-1" aria-selected="true"
-            aria-controls="panel-1" tabindex="0"
-            aria-keyshortcuts="Delete"
-            aria-actions="close-tab-1 pin-tab-1">index.html</button>
-          <button role="tab" class="tab" id="tab-2" aria-selected="false"
-            aria-controls="panel-2" tabindex="-1"
-            aria-keyshortcuts="Delete"
-            aria-actions="close-tab-2 pin-tab-2">style.css</button>
-          <button role="tab" class="tab" id="tab-3" aria-selected="false"
-            aria-controls="panel-3" tabindex="-1"
-            aria-keyshortcuts="Delete"
-            aria-actions="close-tab-3 pin-tab-3">app.js</button>
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-1" aria-selected="true"
+              aria-controls="panel-1" tabindex="0"
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-1 pin-tab-1">index.html</button>
+            <span class="tab-actions-inline">
+              <button id="close-tab-1" aria-controls="tab-1"
+                aria-label="Close index.html"
+                data-action="close" data-target="index.html" data-target-id="tab-1">Close</button>
+              <button id="pin-tab-1" aria-controls="tab-1"
+                aria-label="Pin index.html"
+                data-action="pin" data-target="index.html" data-target-id="tab-1">Pin</button>
+            </span>
+          </div>
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-2" aria-selected="false"
+              aria-controls="panel-2" tabindex="-1"
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-2 pin-tab-2">style.css</button>
+            <span class="tab-actions-inline">
+              <button id="close-tab-2" aria-controls="tab-2"
+                aria-label="Close style.css"
+                data-action="close" data-target="style.css" data-target-id="tab-2">Close</button>
+              <button id="pin-tab-2" aria-controls="tab-2"
+                aria-label="Pin style.css"
+                data-action="pin" data-target="style.css" data-target-id="tab-2">Pin</button>
+            </span>
+          </div>
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-3" aria-selected="false"
+              aria-controls="panel-3" tabindex="-1"
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-3 pin-tab-3">app.js</button>
+            <span class="tab-actions-inline">
+              <button id="close-tab-3" aria-controls="tab-3"
+                aria-label="Close app.js"
+                data-action="close" data-target="app.js" data-target-id="tab-3">Close</button>
+              <button id="pin-tab-3" aria-controls="tab-3"
+                aria-label="Pin app.js"
+                data-action="pin" data-target="app.js" data-target-id="tab-3">Pin</button>
+            </span>
+          </div>
         </div>
 
         <div role="tabpanel" id="panel-1" class="tabpanel"
@@ -124,32 +169,6 @@
         <div role="tabpanel" id="panel-3" class="tabpanel"
           aria-labelledby="tab-3" tabindex="0" hidden>
           <p>Contents of <strong>app.js</strong>.</p>
-        </div>
-
-        <!-- Action targets: visible, focusable, and labeled.
-             aria-controls points each button back at its tab. Close and Pin
-             really do control the tab, so the back-reference is appropriate
-             here (in the listbox and grid sections it isn't, and isn't set). -->
-        <div class="tab-actions" role="group"
-          aria-label="Actions for tabs">
-          <button id="close-tab-1" aria-controls="tab-1"
-            aria-label="Close index.html"
-            data-action="close" data-target="index.html" data-target-id="tab-1">Close</button>
-          <button id="pin-tab-1" aria-controls="tab-1"
-            aria-label="Pin index.html"
-            data-action="pin" data-target="index.html" data-target-id="tab-1">Pin</button>
-          <button id="close-tab-2" aria-controls="tab-2"
-            aria-label="Close style.css"
-            data-action="close" data-target="style.css" data-target-id="tab-2">Close</button>
-          <button id="pin-tab-2" aria-controls="tab-2"
-            aria-label="Pin style.css"
-            data-action="pin" data-target="style.css" data-target-id="tab-2">Pin</button>
-          <button id="close-tab-3" aria-controls="tab-3"
-            aria-label="Close app.js"
-            data-action="close" data-target="app.js" data-target-id="tab-3">Close</button>
-          <button id="pin-tab-3" aria-controls="tab-3"
-            aria-label="Pin app.js"
-            data-action="pin" data-target="app.js" data-target-id="tab-3">Pin</button>
         </div>
       </div>
 
@@ -167,9 +186,17 @@
 
       <ul class="notice-list">
         <li>Each tab's <code>aria-actions</code> lists two button IDs</li>
-        <li>The buttons sit outside the tablist. <code>role="tab"</code> is
-          Children Presentational, so any interactive element nested inside a
-          tab loses its semantics; siblings are the safe place for them</li>
+        <li>The action buttons sit alongside the tab inside a
+          <code>.tab-group</code> wrapper (with <code>role="none"</code> so
+          the wrapper itself doesn't pollute the tablist's child roles).
+          <code>role="tab"</code> is Children Presentational, so the buttons
+          can't be inside the tab itself; a sibling wrapper inside the
+          tablist is fine (the APG <em>tabs-actions</em> example uses the
+          same pattern). axe-core flags this with
+          <code>aria-required-children</code> because button descendants
+          aren't a recognised tablist child role; <code>aria-actions</code>
+          is precisely what makes the co-location safe, so the warning
+          is a known axe-vs-spec tension rather than a real defect</li>
         <li>Each button also sets <code>aria-controls</code> back to its tab.
           That fits here because Close and Pin really do control the tab
           (the listbox and grid sections omit the back-reference for that
@@ -694,6 +721,15 @@
         }
       }
 
+      // Close ↔ Re-open: the only action that renames its own button to
+      // reflect what the next click will do. Other actions keep static
+      // labels (Pin stays "Pin" both ways, etc.).
+      if (action === "close") {
+        btn.textContent = nowOn ? "Re-open" : "Close";
+        btn.setAttribute("aria-label",
+          (nowOn ? "Re-open " : "Close ") + targetName);
+      }
+
       var section = btn.closest(".demo-section");
       var statusEl = section && section.querySelector(".action-status");
       announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
@@ -713,6 +749,12 @@
       section.querySelectorAll(".status-cell[data-original]").forEach(function (cell) {
         cell.textContent = cell.getAttribute("data-original");
         cell.removeAttribute("data-original");
+      });
+      // Restore Close button labels (the only action that renames itself).
+      section.querySelectorAll('button[data-action="close"]').forEach(function (b) {
+        b.textContent = "Close";
+        b.setAttribute("aria-label",
+          "Close " + (b.getAttribute("data-target") || ""));
       });
       var statusEl = section.querySelector(".action-status");
       announceInto(statusEl, "Section reset");

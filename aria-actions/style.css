@@ -430,15 +430,29 @@ body {
 /* ----- Tab Control ----- */
 .tablist {
   display: flex;
-  gap: 0;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
   border-bottom: 2px solid var(--border);
+  align-items: stretch;
+}
+
+/* Each tab + its action buttons share a horizontal cluster so the actions
+   sit immediately to the right of the tab they target. The role="tab"
+   element is the sibling of the actions, not the parent, so Children
+   Presentational on role="tab" is preserved (matches the APG
+   tabs-actions example's .tab-wrapper pattern). */
+.tab-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-right: 0.25rem;
 }
 
 .tablist .tab {
   border: none;
   border-radius: 0;
   background: transparent;
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 0.75rem 0.65rem 1.25rem;
   font-weight: 500;
   color: var(--text-muted);
   position: relative;
@@ -446,7 +460,10 @@ body {
 }
 
 /* Selected tab uses font-weight + color + bottom border so the state
-   is conveyed by more than color alone (WCAG 1.4.1). */
+   is conveyed by more than color alone (WCAG 1.4.1). The border sits
+   on top of the .tablist's own bottom border via the negative margin
+   (the .tab-group ancestor doesn't interfere because its align-items:
+   center lets the tab keep its own box). */
 .tablist .tab[aria-selected="true"] {
   color: var(--accent);
   font-weight: 700;
@@ -460,27 +477,30 @@ body {
   border-top: none;
   border-radius: 0 0 var(--radius) var(--radius);
   min-height: 60px;
+  margin-top: 0.5rem;
 }
 
-.tab-actions {
+/* Per-tab inline action cluster. Smaller buttons than the main demo
+   buttons so a tab + two actions stays roughly the same vertical
+   weight as the tab itself. */
+.tab-actions-inline {
   display: inline-flex;
   gap: 0.25rem;
-  margin-left: 0.5rem;
-  margin-top: 0.75rem;
-  vertical-align: middle;
+  align-items: center;
 }
 
-.tab-actions button {
-  padding: 0.2rem 0.5rem;
+.tab-actions-inline button {
+  padding: 0.2rem 0.55rem;
   font-size: 0.8rem;
   border: 1px solid var(--border);
   border-radius: 3px;
   background: var(--bg-card);
   color: var(--text);
   cursor: pointer;
+  white-space: nowrap;
 }
 
-.tab-actions button:hover {
+.tab-actions-inline button:hover {
   background: var(--hover-bg);
 }
 
