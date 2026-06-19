@@ -15,7 +15,7 @@
     <p>Expose secondary actions on elements to assistive technology using the
       <code>aria-actions</code> attribute.</p>
     <!-- focusgroup runtime status pill. Populated by the script once it
-         determines whether arrow-key navigation in the tablist + listbox
+         determines whether arrow-key navigation in the tablist + grid
          is provided by native `focusgroup`, by the Microsoft polyfill,
          or by the JS fallback. Starts hidden; revealed by JS so users
          without JS don't see a stale "loading" string. -->
@@ -25,7 +25,7 @@
   <noscript>
     <div class="warning-banner" role="alert">
       <strong>JavaScript is disabled.</strong>
-      The tab, listbox, and grid widgets need JavaScript to handle clicks and
+      The tab and grid widgets need JavaScript to handle clicks and
       keyboard input. The layout will render but the widgets won't respond.
     </div>
   </noscript>
@@ -50,7 +50,6 @@
     <nav class="page-nav" aria-label="On this page">
       <a href="#what-is-aria-actions">What is aria-actions?</a>
       <a href="#tabs-with-actions">Tabs with Actions</a>
-      <a href="#listbox-with-actions">Listbox with Actions</a>
       <a href="#grid-with-row-actions">Grid with Row Actions</a>
     </nav>
 
@@ -111,8 +110,8 @@
 
              Action buttons set aria-controls back to the tab. Close and Pin
              really do control the tab, so the back-reference fits here (the
-             listbox and grid sections omit it because Edit/Delete and
-             View/Archive don't "control" their items the same way). -->
+             grid section omits it because View/Archive don't "control" their
+             rows the same way). -->
         <!-- aria-required-children note: axe-core flags this tablist for
              having button descendants (the action buttons) that aren't
              role="tab". This is a known axe-vs-spec tension that the APG
@@ -220,7 +219,7 @@
           is a known axe-vs-spec tension rather than a real defect</li>
         <li>Each button also sets <code>aria-controls</code> back to its tab.
           That fits here because Close and Pin really do control the tab
-          (the listbox and grid sections omit the back-reference for that
+          (the grid section omits the back-reference for that
           reason)</li>
         <li><kbd>Delete</kbd> on the focused tab triggers Close;
           <code>aria-keyshortcuts</code> tells AT about the shortcut</li>
@@ -236,117 +235,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- §3 - Listbox with Actions -->
-    <!-- ============================================================ -->
-    <section class="demo-section">
-      <h2 id="listbox-with-actions">Listbox with Actions</h2>
-      <p>
-        Each option points at two per-item buttons. AT users invoke Edit or
-        Delete from the option without moving off it. The same buttons live
-        in a side panel next to the listbox, so non-AT keyboard users can Tab
-        over and press them too.
-      </p>
-      <pre class="attr-label"><code>aria-actions="edit-item-N delete-item-N"</code></pre>
-
-      <div class="try-it">
-        <strong>Try it:</strong> Tab into the listbox;
-        <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
-        change the selection. Tab again to land on the side panel and press
-        Edit or Delete by keyboard. <kbd>Esc</kbd> from a button returns
-        focus to the listbox. With a screen reader, both actions are listed
-        on whichever option has focus.
-      </div>
-
-      <div class="demo-container">
-        <div class="listbox-with-actions">
-          <!-- focusgroup="listbox nomemory" gives this listbox declarative
-               Up/Down arrow navigation. The JS keeps a roving-tabindex
-               fallback for browsers that don't support focusgroup. The
-               action panel below sits OUTSIDE the listbox (a sibling),
-               so it's already outside the focusgroup scope. -->
-          <ul role="listbox" aria-label="Saved bookmarks" class="listbox"
-            id="bookmarks-listbox" focusgroup="listbox nomemory">
-            <li role="option" class="listbox-option" id="opt-1"
-              tabindex="0" aria-selected="true" focusgroupstart
-              aria-actions="edit-item-1 delete-item-1">MDN Web Docs</li>
-            <li role="option" class="listbox-option" id="opt-2"
-              tabindex="-1" aria-selected="false"
-              aria-actions="edit-item-2 delete-item-2">CSS Tricks</li>
-            <li role="option" class="listbox-option" id="opt-3"
-              tabindex="-1" aria-selected="false"
-              aria-actions="edit-item-3 delete-item-3">Web.dev</li>
-          </ul>
-
-          <!-- Action targets sit outside the listbox so they keep their button
-               semantics. role="option" is Children Presentational in ARIA
-               1.2/1.3 and would strip any nested interactive element.
-               No aria-controls back-reference: Edit/Delete don't "control"
-               the option the way Close controls a tab. The aria-actions
-               attribute on each option expresses the relationship. -->
-          <div class="bookmark-actions" role="group"
-            aria-label="Actions for saved bookmarks">
-            <span class="action-row" data-for="opt-1">
-              <button id="edit-item-1"
-                aria-label="Edit MDN Web Docs"
-                data-action="edit" data-target="MDN Web Docs" data-target-id="opt-1">Edit</button>
-              <button id="delete-item-1"
-                aria-label="Delete MDN Web Docs"
-                data-action="delete" data-target="MDN Web Docs" data-target-id="opt-1">Delete</button>
-            </span>
-            <span class="action-row" data-for="opt-2">
-              <button id="edit-item-2"
-                aria-label="Edit CSS Tricks"
-                data-action="edit" data-target="CSS Tricks" data-target-id="opt-2">Edit</button>
-              <button id="delete-item-2"
-                aria-label="Delete CSS Tricks"
-                data-action="delete" data-target="CSS Tricks" data-target-id="opt-2">Delete</button>
-            </span>
-            <span class="action-row" data-for="opt-3">
-              <button id="edit-item-3"
-                aria-label="Edit Web.dev"
-                data-action="edit" data-target="Web.dev" data-target-id="opt-3">Edit</button>
-              <button id="delete-item-3"
-                aria-label="Delete Web.dev"
-                data-action="delete" data-target="Web.dev" data-target-id="opt-3">Delete</button>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-status-bar">
-        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
-          <span class="action-status-label">Last action:</span>
-          <span class="action-status-message">(none yet)</span>
-        </p>
-        <button type="button" class="action-reset" data-reset-section="listbox">Reset section</button>
-      </div>
-
-      <ul class="notice-list">
-        <li>Each <code>role="option"</code> lists its action button IDs in
-          <code>aria-actions</code></li>
-        <li>The buttons cannot live inside the <code>&lt;li&gt;</code>:
-          <code>role="option"</code> is Children Presentational in ARIA
-          1.2/1.3, so any nested interactive element loses its semantics.
-          They live in a side panel instead</li>
-        <li>The JS keeps <code>tabindex</code> and <code>aria-selected</code>
-          in sync as <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
-          move the selection</li>
-        <li>Tab reaches the side panel; <kbd>Esc</kbd> sends focus back to
-          the listbox</li>
-        <li>The side panel uses <code>role="group"</code> so its
-          <code>aria-label</code> reaches AT. A bare <code>&lt;div&gt;</code>
-          would swallow the label</li>
-        <li>Arrow-key navigation uses
-          <code>focusgroup="listbox nomemory"</code> on the
-          <code>&lt;ul&gt;</code> when the browser supports it; the
-          script keeps a roving-tabindex fallback otherwise. The action
-          panel is a sibling of the listbox, so it's already outside
-          the focusgroup's arrow-key scope</li>
-      </ul>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- §4 - Grid with Row Actions -->
+    <!-- §3 - Grid with Row Actions -->
     <!-- ============================================================ -->
     <section class="demo-section">
       <h2 id="grid-with-row-actions">Grid with Row Actions</h2>
@@ -732,118 +621,6 @@
     })();
 
     /* ================================================================
-       Listbox: aria-selected (always) + roving tabindex + Arrow keys
-       + Home/End (fallback when focusgroup is unsupported). Escape
-       from the adjacent actions panel returns focus to the currently
-       selected option (always).
-       ================================================================ */
-    (function () {
-      var listbox = document.getElementById("bookmarks-listbox");
-      if (!listbox) return;
-      var actionsPanel = document.querySelector(".bookmark-actions");
-      var options = Array.prototype.slice.call(
-        listbox.querySelectorAll('[role="option"]'));
-
-      function select(option, setFocus) {
-        options.forEach(function (o) {
-          var selected = (o === option);
-          o.setAttribute("aria-selected", selected ? "true" : "false");
-          if (focusgroupActive()) {
-            if (selected) o.setAttribute("focusgroupstart", "");
-            else o.removeAttribute("focusgroupstart");
-            if (focusgroupManagesTabindex()) {
-              o.setAttribute("tabindex", "0");
-            }
-          } else {
-            o.setAttribute("tabindex", selected ? "0" : "-1");
-          }
-        });
-        if (setFocus) option.focus();
-      }
-
-      // Make every option tabindex=0 up front when focusgroup is
-      // already active. Until the polyfill resolves, the initial
-      // roving markup keeps the JS fallback path keyboard-operable.
-      if (focusgroupManagesTabindex()) {
-        options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
-      }
-      onFocusgroupReady(function () {
-        if (!focusgroupManagesTabindex()) return;
-        // After the polyfill resolves, set tabindex=0 on every option
-        // so the polyfill can discover them all as items, and re-sync
-        // focusgroupstart to whichever option is currently selected.
-        // This matters when the user clicked a non-default option
-        // during the loading window: select() updated aria-selected
-        // but couldn't move focusgroupstart yet, so without this re-
-        // sync `nomemory` Tab-re-entry would land on the stale start.
-        options.forEach(function (o) {
-          o.setAttribute("tabindex", "0");
-          if (o.getAttribute("aria-selected") === "true") {
-            o.setAttribute("focusgroupstart", "");
-          } else {
-            o.removeAttribute("focusgroupstart");
-          }
-        });
-      });
-
-      function selectedOption() {
-        return listbox.querySelector('[role="option"][aria-selected="true"]')
-          || options[0];
-      }
-
-      listbox.addEventListener("click", function (e) {
-        var option = e.target.closest('[role="option"]');
-        if (option) select(option, true);
-      });
-
-      // Selection-follows-focus parity with the JS-fallback path.
-      listbox.addEventListener("focusin", function (e) {
-        var option = e.target.closest('[role="option"]');
-        if (option && option.getAttribute("aria-selected") !== "true") {
-          select(option, false);
-        }
-      });
-
-      listbox.addEventListener("keydown", function (e) {
-        var current = document.activeElement;
-        if (!current || current.getAttribute("role") !== "option") return;
-        var index = options.indexOf(current);
-        var target = null;
-        switch (e.key) {
-          case "ArrowDown":
-            if (focusgroupActive()) return;
-            target = options[Math.min(index + 1, options.length - 1)];
-            break;
-          case "ArrowUp":
-            if (focusgroupActive()) return;
-            target = options[Math.max(index - 1, 0)];
-            break;
-          case "Home":
-            target = options[0];
-            break;
-          case "End":
-            target = options[options.length - 1];
-            break;
-        }
-        if (target) {
-          e.preventDefault();
-          select(target, true);
-        }
-      });
-
-      if (actionsPanel) {
-        actionsPanel.addEventListener("keydown", function (e) {
-          if (e.key !== "Escape") return;
-          var sel = selectedOption();
-          if (sel) {
-            e.preventDefault();
-            sel.focus();
-          }
-        });
-      }
-    })();
-
-    /* ================================================================
        Grid: aria-selected-equivalent state + in-row button tabindex
        roving (always) + row tabindex roving + Arrow keys (fallback
        only). When focusgroup is active the row arrow nav is handled
@@ -988,8 +765,6 @@
     var ACTIONS = {
       close:   { attr: "data-closed",   on: "Closed",                off: "Reopened" },
       pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned" },
-      edit:    { attr: "data-edited",   on: "Edited",                off: "Edit cleared for" },
-      delete:  { attr: "data-deleted",  on: "Deleted",               off: "Restored" },
       view:    { attr: "data-viewing",  on: "Viewing details for",   off: "Stopped viewing" },
       archive: { attr: "data-archived", on: "Archived",              off: "Unarchived" }
     };

@@ -117,9 +117,9 @@ body {
 
 /* ----- focusgroup runtime status pill -----
    Small badge in the page header reporting which arrow-key navigation
-   path is active for the tablist + listbox: native focusgroup,
-   Microsoft focusgroup polyfill, or pure JS fallback. data-tone
-   controls the accent (ok / neutral / warn). */
+   path is active for the tablist + grid: native focusgroup, Microsoft
+   focusgroup polyfill, or pure JS fallback. data-tone controls the
+   accent (ok / neutral / warn). */
 .focusgroup-status {
   display: inline-block;
   margin-top: 0.5rem;
@@ -295,30 +295,6 @@ body {
   vertical-align: 1px;
 }
 
-/* Listbox: Edit & Delete */
-.listbox-option[data-edited] {
-  font-style: italic;
-}
-
-.listbox-option[data-edited]::after {
-  content: " (edited)";
-  font-style: normal;
-  font-size: 0.85em;
-  color: var(--text);
-}
-
-.listbox-option[data-deleted] {
-  text-decoration: line-through;
-  color: var(--text-muted);
-}
-
-.listbox-option[data-deleted]::after {
-  content: " (deleted)";
-  text-decoration: none;
-  font-size: 0.85em;
-  color: var(--text);
-}
-
 /* Grid: View & Archive */
 .data-grid tbody tr[data-viewing] {
   background: var(--accent-light);
@@ -334,8 +310,7 @@ body {
 
 /* HCM mappings: don't lose state cues when system colors take over. */
 @media (forced-colors: active) {
-  .tablist .tab[data-closed],
-  .listbox-option[data-deleted] {
+  .tablist .tab[data-closed] {
     /* line-through survives HCM; ensure colour falls back to GrayText. */
     color: GrayText;
   }
@@ -563,88 +538,6 @@ body {
   height: 1.05rem;
 }
 
-/* ----- Listbox-with-actions layout -----
-   Listbox in the left column; action buttons in a sibling panel on the
-   right. Each action row visually aligns with its option via matching
-   row heights. Buttons are NOT inside the <li role="option"> elements
-   (option has Children Presentational: True; nested interactives would
-   lose their semantics). */
-.listbox-with-actions {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  max-width: 500px;
-  background: var(--bg-card);
-  overflow: hidden;
-}
-
-.listbox-with-actions .listbox {
-  border: none;
-  border-radius: 0;
-  max-width: none;
-  margin: 0;
-}
-
-.listbox {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  max-width: 400px;
-}
-
-.listbox-option {
-  padding: 0.6rem 1rem;
-  border-bottom: 1px solid var(--border);
-  cursor: default;
-}
-
-.listbox-option:last-child {
-  border-bottom: none;
-}
-
-.listbox-option:hover {
-  background: var(--hover-bg);
-}
-
-.listbox-option[aria-selected="true"] {
-  background: var(--accent-light);
-}
-
-.bookmark-actions {
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  border-left: 1px solid var(--border);
-}
-
-.bookmark-actions .action-row {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-  padding: 0.6rem 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.bookmark-actions .action-row:last-child {
-  border-bottom: none;
-}
-
-.bookmark-actions button {
-  padding: 0.2rem 0.5rem;
-  font-size: 0.8rem;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--bg-card);
-  color: var(--text);
-  cursor: pointer;
-}
-
-.bookmark-actions button:hover {
-  background: var(--hover-bg);
-}
-
 /* ----- Grid ----- */
 .data-grid {
   width: 100%;
@@ -724,12 +617,6 @@ a {
   .tablist .tab[aria-selected="true"] {
     border-bottom-color: Highlight;
     color: Highlight;
-  }
-
-  .listbox-option[aria-selected="true"] {
-    background: Highlight;
-    color: HighlightText;
-    forced-color-adjust: none;
   }
 
   .data-grid tbody tr:focus-visible {
