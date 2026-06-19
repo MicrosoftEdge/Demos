@@ -480,28 +480,46 @@ body {
   margin-top: 0.5rem;
 }
 
-/* Per-tab inline action cluster. Smaller buttons than the main demo
-   buttons so a tab + two actions stays roughly the same vertical
-   weight as the tab itself. */
+/* Per-tab inline action cluster. The buttons are small square icon
+   buttons (X for Close, pushpin for Pin); aria-label + title carry the
+   action verb for AT + sighted-hover tooltip. */
 .tab-actions-inline {
   display: inline-flex;
   gap: 0.25rem;
   align-items: center;
 }
 
-.tab-actions-inline button {
-  padding: 0.2rem 0.55rem;
-  font-size: 0.8rem;
+.tab-actions-inline .icon-btn {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--border);
   border-radius: 3px;
   background: var(--bg-card);
   color: var(--text);
   cursor: pointer;
-  white-space: nowrap;
+  line-height: 1;
 }
 
-.tab-actions-inline button:hover {
+.tab-actions-inline .icon-btn:hover {
   background: var(--hover-bg);
+}
+
+.tab-actions-inline .icon-btn .icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+}
+
+/* Re-open icon (Lucide rotate-ccw) uses a 24-unit viewBox; the close
+   and pin icons use a 16-unit viewBox. Both render to the same
+   container size; only the strokes/paths differ. */
+.tab-actions-inline .icon-btn[data-icon="reopen"] .icon {
+  width: 1.05rem;
+  height: 1.05rem;
 }
 
 /* ----- Listbox-with-actions layout -----
