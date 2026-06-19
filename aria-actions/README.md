@@ -10,6 +10,10 @@ The demo covers three composite-widget patterns: tabs, a listbox, and a data gri
 
 Clicking (or AT-invoking) an action toggles a visible state on its target item — Close strikes through the tab, Pin adds a 📌 prefix, Edit italicises the option, Delete strikes it through, View highlights the row, Archive dims the row and rewrites its Status cell. Clicking the same action again reverses the state. Each section has a polite live-region "Last action:" status row that announces what changed, and a **Reset section** button that restores the starting state so the demo is replayable.
 
+## Keyboard navigation
+
+The tablist and listbox use the experimental [`focusgroup`](https://open-ui.org/components/scoped-focusgroup.explainer/) attribute (`focusgroup="tablist nomemory"` and `focusgroup="listbox nomemory"`) for declarative arrow-key navigation when the browser supports it. The script keeps a roving-tabindex + arrow-key fallback for browsers without focusgroup support. The grid is JS-only because there is no canonical focusgroup token for its row-only navigation pattern.
+
 ## Learn more
 
 - [ARIA spec PR 1805 — rendered preview](https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html) (current normative text)
