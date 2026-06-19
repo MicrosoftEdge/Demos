@@ -112,23 +112,14 @@
              role="tab". This is a known axe-vs-spec tension that the APG
              tabs-actions canonical example also triggers; the aria-actions
              association is precisely what makes nesting them here safe.
-             We accept the warning as the cost of co-located action buttons.
-
-             focusgroup="tablist nomemory" gives this tablist declarative
-             arrow-key navigation (Left/Right with wrap) on browsers that
-             support the focusgroup attribute. The JS keeps a roving-
-             tabindex + arrow-key fallback for browsers that don't.
-             Each tab-actions-inline span carries focusgroup="none" so
-             the action buttons stay reachable by Tab but are excluded
-             from the tablist's arrow-key navigation. -->
-        <div role="tablist" aria-label="Project files" class="tablist"
-             focusgroup="tablist nomemory">
+             We accept the warning as the cost of co-located action buttons. -->
+        <div role="tablist" aria-label="Project files" class="tablist">
           <div class="tab-group" role="none">
             <button role="tab" class="tab" id="tab-1" aria-selected="true"
-              aria-controls="panel-1" tabindex="0" focusgroupstart
+              aria-controls="panel-1" tabindex="0"
               aria-keyshortcuts="Delete"
               aria-actions="close-tab-1 pin-tab-1">index.html</button>
-            <span class="tab-actions-inline" focusgroup="none">
+            <span class="tab-actions-inline">
               <button id="close-tab-1" class="icon-btn" aria-controls="tab-1"
                 aria-label="Close index.html" title="Close index.html"
                 data-action="close" data-target="index.html" data-target-id="tab-1"
@@ -144,7 +135,7 @@
               aria-controls="panel-2" tabindex="-1"
               aria-keyshortcuts="Delete"
               aria-actions="close-tab-2 pin-tab-2">style.css</button>
-            <span class="tab-actions-inline" focusgroup="none">
+            <span class="tab-actions-inline">
               <button id="close-tab-2" class="icon-btn" aria-controls="tab-2"
                 aria-label="Close style.css" title="Close style.css"
                 data-action="close" data-target="style.css" data-target-id="tab-2"
@@ -160,7 +151,7 @@
               aria-controls="panel-3" tabindex="-1"
               aria-keyshortcuts="Delete"
               aria-actions="close-tab-3 pin-tab-3">app.js</button>
-            <span class="tab-actions-inline" focusgroup="none">
+            <span class="tab-actions-inline">
               <button id="close-tab-3" class="icon-btn" aria-controls="tab-3"
                 aria-label="Close app.js" title="Close app.js"
                 data-action="close" data-target="app.js" data-target-id="tab-3"
@@ -218,14 +209,6 @@
           reason)</li>
         <li><kbd>Delete</kbd> on the focused tab triggers Close;
           <code>aria-keyshortcuts</code> tells AT about the shortcut</li>
-        <li>Arrow-key navigation uses the
-          <code>focusgroup="tablist nomemory"</code> attribute on the
-          tablist when the browser supports it (declarative roving
-          tabindex). The script keeps an arrow-key + roving-tabindex
-          fallback for browsers without focusgroup. The action buttons
-          carry <code>focusgroup="none"</code> on their wrapper so they
-          stay reachable by <kbd>Tab</kbd> but are skipped by the
-          tablist's arrow keys</li>
       </ul>
     </section>
 
@@ -253,15 +236,10 @@
 
       <div class="demo-container">
         <div class="listbox-with-actions">
-          <!-- focusgroup="listbox nomemory" gives this listbox declarative
-               Up/Down arrow navigation. The JS keeps a roving-tabindex
-               fallback for browsers that don't support focusgroup. The
-               action panel below sits OUTSIDE the listbox (a sibling),
-               so it's already outside the focusgroup scope. -->
           <ul role="listbox" aria-label="Saved bookmarks" class="listbox"
-            id="bookmarks-listbox" focusgroup="listbox nomemory">
+            id="bookmarks-listbox">
             <li role="option" class="listbox-option" id="opt-1"
-              tabindex="0" aria-selected="true" focusgroupstart
+              tabindex="0" aria-selected="true"
               aria-actions="edit-item-1 delete-item-1">MDN Web Docs</li>
             <li role="option" class="listbox-option" id="opt-2"
               tabindex="-1" aria-selected="false"
@@ -330,12 +308,6 @@
         <li>The side panel uses <code>role="group"</code> so its
           <code>aria-label</code> reaches AT. A bare <code>&lt;div&gt;</code>
           would swallow the label</li>
-        <li>Arrow-key navigation uses
-          <code>focusgroup="listbox nomemory"</code> on the
-          <code>&lt;ul&gt;</code> when the browser supports it; the
-          script keeps a roving-tabindex fallback otherwise. The action
-          panel is a sibling of the listbox, so it's already outside
-          the focusgroup's arrow-key scope</li>
       </ul>
     </section>
 
@@ -453,23 +425,6 @@
     "use strict";
 
     /* ================================================================
-       focusgroup detection
-       ----------------------------------------------------------------
-       When the focusgroup attribute is supported, the browser handles
-       Left/Right (tabs) and Up/Down (listbox) arrow-key navigation
-       declaratively from the focusgroup="tablist"/"listbox" tokens on
-       the container elements. The roving tabindex + arrow-key handlers
-       below stay in place as a fallback for browsers that don't
-       support focusgroup. When focusgroup IS supported they no-op for
-       the navigation keys; Home/End, Delete (tabs), and Escape (grid)
-       are still handled here either way (focusgroup does not bind
-       those keys). The grid is JS-only because there is no canonical
-       focusgroup behavior token for the row-only navigation pattern
-       used here.
-       ================================================================ */
-    var FOCUSGROUP_SUPPORTED = "focusgroup" in HTMLElement.prototype;
-
-    /* ================================================================
        Feature detection + dismissible banner
        ----------------------------------------------------------------
        The ariaActionsElements IDL property is reflected onto Element
@@ -492,13 +447,7 @@
     })();
 
     /* ================================================================
-       Tabs: aria-selected, panel show/hide, Delete (always) +
-       roving tabindex + Arrow keys + Home/End (fallback when
-       focusgroup is unsupported). When focusgroup IS supported,
-       activate() also moves the focusgroupstart attribute so
-       re-entry via Tab lands on the active tab (focusgroup="tablist
-       nomemory" ignores history; focusgroupstart marks the entry
-       point).
+       Tabs: roving tabindex + Arrow/Home/End/Delete
        ================================================================ */
     (function () {
       var tablist = document.querySelector('[role="tablist"]');
@@ -513,44 +462,15 @@
         tabs.forEach(function (t, i) {
           var selected = (t === tab);
           t.setAttribute("aria-selected", selected ? "true" : "false");
-          if (FOCUSGROUP_SUPPORTED) {
-            // focusgroup collapses to one tab stop; mark the entry point.
-            if (selected) t.setAttribute("focusgroupstart", "");
-            else t.removeAttribute("focusgroupstart");
-            // Keep every tab tabindex=0 so focusgroup's arrow nav lands
-            // on a focusable element; focusgroup collapses them into a
-            // single sequential tab stop.
-            t.setAttribute("tabindex", "0");
-          } else {
-            // Roving tabindex fallback for non-focusgroup browsers.
-            t.setAttribute("tabindex", selected ? "0" : "-1");
-          }
+          t.setAttribute("tabindex", selected ? "0" : "-1");
           if (panels[i]) panels[i].hidden = !selected;
         });
         if (setFocus) tab.focus();
       }
 
-      // Re-apply the right tabindex regime on load so the initial
-      // markup (which uses the roving pattern) matches what focusgroup
-      // expects when it IS supported.
-      if (FOCUSGROUP_SUPPORTED) {
-        tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
-      }
-
       tablist.addEventListener("click", function (e) {
         var tab = e.target.closest('[role="tab"]');
         if (tab) activate(tab, true);
-      });
-
-      // Selection-follows-focus: when focusgroup arrows focus a tab,
-      // activate its panel. (Without focusgroup the keydown handler
-      // below calls activate() directly; this focusin path covers the
-      // focusgroup-driven case where keydown never fires here.)
-      tablist.addEventListener("focusin", function (e) {
-        var tab = e.target.closest('[role="tab"]');
-        if (tab && tab.getAttribute("aria-selected") !== "true") {
-          activate(tab, false);
-        }
       });
 
       tablist.addEventListener("keydown", function (e) {
@@ -560,15 +480,12 @@
         var target = null;
         switch (e.key) {
           case "ArrowRight":
-            if (FOCUSGROUP_SUPPORTED) return; // focusgroup handles it
             target = tabs[(index + 1) % tabs.length];
             break;
           case "ArrowLeft":
-            if (FOCUSGROUP_SUPPORTED) return;
             target = tabs[(index - 1 + tabs.length) % tabs.length];
             break;
           case "Home":
-            // Not bound by focusgroup; handle here either way.
             target = tabs[0];
             break;
           case "End":
@@ -593,10 +510,9 @@
     })();
 
     /* ================================================================
-       Listbox: aria-selected (always) + roving tabindex + Arrow keys
-       + Home/End (fallback when focusgroup is unsupported). Escape
-       from the adjacent actions panel returns focus to the currently
-       selected option (always).
+       Listbox: roving tabindex + aria-selected + Arrow/Home/End.
+       Escape from the adjacent actions panel returns focus to the
+       currently selected option.
        ================================================================ */
     (function () {
       var listbox = document.getElementById("bookmarks-listbox");
@@ -609,21 +525,9 @@
         options.forEach(function (o) {
           var selected = (o === option);
           o.setAttribute("aria-selected", selected ? "true" : "false");
-          if (FOCUSGROUP_SUPPORTED) {
-            if (selected) o.setAttribute("focusgroupstart", "");
-            else o.removeAttribute("focusgroupstart");
-            o.setAttribute("tabindex", "0");
-          } else {
-            o.setAttribute("tabindex", selected ? "0" : "-1");
-          }
+          o.setAttribute("tabindex", selected ? "0" : "-1");
         });
         if (setFocus) option.focus();
-      }
-
-      // Make every option tabindex=0 up front when focusgroup will
-      // collapse them; otherwise leave the roving markup in place.
-      if (FOCUSGROUP_SUPPORTED) {
-        options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
       }
 
       function selectedOption() {
@@ -636,14 +540,6 @@
         if (option) select(option, true);
       });
 
-      // Selection-follows-focus parity with the JS-fallback path.
-      listbox.addEventListener("focusin", function (e) {
-        var option = e.target.closest('[role="option"]');
-        if (option && option.getAttribute("aria-selected") !== "true") {
-          select(option, false);
-        }
-      });
-
       listbox.addEventListener("keydown", function (e) {
         var current = document.activeElement;
         if (!current || current.getAttribute("role") !== "option") return;
@@ -651,11 +547,9 @@
         var target = null;
         switch (e.key) {
           case "ArrowDown":
-            if (FOCUSGROUP_SUPPORTED) return;
             target = options[Math.min(index + 1, options.length - 1)];
             break;
           case "ArrowUp":
-            if (FOCUSGROUP_SUPPORTED) return;
             target = options[Math.max(index - 1, 0)];
             break;
           case "Home":
