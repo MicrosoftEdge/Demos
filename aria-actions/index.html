@@ -459,54 +459,49 @@
     "use strict";
 
     /* ================================================================
-       focusgroup detection + polyfill loader
+       focusgroup mode + polyfill loader
        ----------------------------------------------------------------
-       When the focusgroup attribute is supported, the browser handles
-       Left/Right (tabs) and Up/Down (listbox) arrow-key navigation
-       declaratively from the focusgroup="tablist"/"listbox" tokens on
-       the container elements.
+       The Microsoft focusgroup polyfill is always fetched (lazily,
+       after parse) and is also the source of truth for native-support
+       detection — we call its exported `supportsFocusGroup()` rather
+       than inlining our own probe, so we can't get out of sync with
+       the polyfill on attribute/IDL-name evolution (the property is
+       reflected as `focusGroup` IDL on current Chromium; older builds
+       may use the lowercase `focusgroup` form).
 
-       When native support is missing, we dynamically load the
-       Microsoft focusgroup polyfill (@microsoft/focusgroup-polyfill,
-       MIT). If the polyfill loads successfully, focusgroup behaviour
-       is provided by the polyfill and our roving-tabindex + arrow-key
-       handlers below no-op for the navigation keys (the polyfill
-       handles them and also manages tabindex). If neither native nor
-       the polyfill is available (offline, CDN blocked, load error),
-       the JS keeps a roving-tabindex + arrow-key fallback so the
-       widgets stay keyboard-operable.
+       After the module loads:
+         * supportsFocusGroup() === true  → mode = "native"
+           (the polyfill's own polyfill() no-ops in this case)
+         * supportsFocusGroup() === false → mode = "polyfill" after
+           calling mod.polyfill() (no args = whole document)
+       If the module fails to load (offline, CDN blocked, error),
+       mode stays "fallback" and our JS roving-tabindex + arrow-key
+       handlers stay in charge — the initial markup already has the
+       roving pattern in place, so the page is keyboard-operable
+       throughout the brief loading window in every mode.
 
-       Home/End, Delete (tabs), and Escape (grid) are still handled
-       in JS in every mode — focusgroup does not bind those keys.
-       The grid is JS-only because there's no canonical focusgroup
-       behavior token for the row-only navigation pattern used here.
-
-       focusgroupMode is one of: "native" | "polyfill" | "loading" | "fallback".
+       focusgroupMode is one of: "loading" | "native" | "polyfill" | "fallback".
        focusgroupActive() returns true when EITHER native or polyfill
        has taken over (i.e. our JS should not also handle arrow keys
-       or manage roving tabindex).
+       or manage roving tabindex). focusgroupManagesTabindex() returns
+       true whenever focusgroup is active — in both native and polyfill
+       modes we set every item to tabindex=0 so the polyfill's item-
+       discovery walk (which requires keyboard-focusable items) sees
+       every item, and the browser/polyfill then collapses to one tab
+       stop and manages roving from there.
        ================================================================ */
-    var FOCUSGROUP_NATIVE = "focusgroup" in HTMLElement.prototype;
-    var focusgroupMode = FOCUSGROUP_NATIVE ? "native" : "loading";
+    var focusgroupMode = "loading";
     function focusgroupActive() {
       return focusgroupMode === "native" || focusgroupMode === "polyfill";
     }
-    // True when focusgroup (native browser support or the Microsoft
-    // polyfill) is in charge of tabindex roving. In both modes we set
-    // every item to tabindex=0 so the polyfill/browser sees them as
-    // keyboard-focusable candidates; from there focusgroup/polyfill
-    // manages the roving collapse to a single sequential tab stop.
-    // In "fallback" mode our JS handles the roving manually.
     function focusgroupManagesTabindex() {
       return focusgroupActive();
     }
 
     // Registered hooks the per-widget IIFEs use to re-sync tabindex
-    // after the polyfill finishes loading (transitioning from
-    // "loading" → "polyfill" or → "fallback").
+    // after the polyfill module loads.
     var focusgroupReadyHooks = [];
     function onFocusgroupReady(fn) {
-      if (focusgroupMode === "native") { fn(); return; }
       focusgroupReadyHooks.push(fn);
     }
     function runFocusgroupReadyHooks() {
@@ -522,7 +517,6 @@
     var POLYFILL_URL =
       "https://cdn.jsdelivr.net/npm/@microsoft/focusgroup-polyfill@1/build/index.min.mjs";
     function loadPolyfill() {
-      if (focusgroupMode !== "loading") return;
       var importPromise = import(POLYFILL_URL);
       var domPromise = (document.readyState === "loading")
         ? new Promise(function (res) {
@@ -532,11 +526,16 @@
       Promise.all([importPromise, domPromise]).then(function (results) {
         var mod = results[0];
         try {
-          // No argument = polyfill the whole document. Passing
-          // `document` silently no-ops because the API expects an
-          // Element subtree or no arg.
-          mod.polyfill();
-          focusgroupMode = "polyfill";
+          if (mod.supportsFocusGroup()) {
+            // Native support; mod.polyfill() would itself no-op here.
+            focusgroupMode = "native";
+          } else {
+            // No args = polyfill the whole document. Passing `document`
+            // explicitly silently no-ops because the API expects an
+            // Element subtree or no arg.
+            mod.polyfill();
+            focusgroupMode = "polyfill";
+          }
         } catch (e) {
           focusgroupMode = "fallback";
         }
@@ -567,10 +566,7 @@
       el.hidden = false;
     }
 
-    // Kick off the polyfill load if needed.
-    if (focusgroupMode === "loading") {
-      loadPolyfill();
-    }
+    loadPolyfill();
     document.addEventListener("DOMContentLoaded", updateFocusgroupStatus);
 
     /* ================================================================
