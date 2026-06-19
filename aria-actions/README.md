@@ -12,7 +12,7 @@ Clicking (or AT-invoking) an action toggles a visible state on its target item â
 
 ## Keyboard navigation
 
-The tablist and listbox use the experimental [`focusgroup`](https://open-ui.org/components/scoped-focusgroup.explainer/) attribute (`focusgroup="tablist nomemory"` and `focusgroup="listbox nomemory"`) for declarative arrow-key navigation when the browser supports it. The script keeps a roving-tabindex + arrow-key fallback for browsers without focusgroup support. The grid is JS-only because there is no canonical focusgroup token for its row-only navigation pattern.
+The tablist and listbox use the experimental [`focusgroup`](https://open-ui.org/components/scoped-focusgroup.explainer/) attribute (`focusgroup="tablist nomemory"` and `focusgroup="listbox nomemory"`) for declarative arrow-key navigation. When the browser supports it natively, the browser handles arrow keys; otherwise the demo lazy-loads the [Microsoft focusgroup polyfill](https://github.com/microsoft/polyfills/tree/main/packages/focusgroup) from jsDelivr and lets the polyfill provide the same behaviour. If neither is available (offline, CDN blocked), the script keeps a roving-tabindex + arrow-key handler as a final fallback. A small status pill in the header reports which path is currently in use. The grid is JS-only because there is no canonical focusgroup token for its row-only navigation pattern.
 
 ## Learn more
 

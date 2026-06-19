@@ -115,6 +115,47 @@ body {
   color: var(--text-muted);
 }
 
+/* ----- focusgroup runtime status pill -----
+   Small badge in the page header reporting which arrow-key navigation
+   path is active for the tablist + listbox: native focusgroup,
+   Microsoft focusgroup polyfill, or pure JS fallback. data-tone
+   controls the accent (ok / neutral / warn). */
+.focusgroup-status {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.focusgroup-status[data-tone="ok"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.focusgroup-status[data-tone="warn"] {
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+  background: var(--warning-bg);
+}
+
+@media (forced-colors: active) {
+  .focusgroup-status {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+  .focusgroup-status[data-tone="ok"] {
+    border-color: Highlight;
+    color: Highlight;
+  }
+}
+
 .page-content {
   max-width: 960px;
   margin: 0 auto;

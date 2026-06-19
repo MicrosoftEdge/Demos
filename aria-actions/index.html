@@ -14,6 +14,12 @@
     <h1>ARIA Actions Demo</h1>
     <p>Expose secondary actions on elements to assistive technology using the
       <code>aria-actions</code> attribute.</p>
+    <!-- focusgroup runtime status pill. Populated by the script once it
+         determines whether arrow-key navigation in the tablist + listbox
+         is provided by native `focusgroup`, by the Microsoft polyfill,
+         or by the JS fallback. Starts hidden; revealed by JS so users
+         without JS don't see a stale "loading" string. -->
+    <p id="focusgroup-status" class="focusgroup-status" data-tone="neutral" hidden>focusgroup: loading…</p>
   </header>
 
   <noscript>
@@ -453,21 +459,119 @@
     "use strict";
 
     /* ================================================================
-       focusgroup detection
+       focusgroup detection + polyfill loader
        ----------------------------------------------------------------
        When the focusgroup attribute is supported, the browser handles
        Left/Right (tabs) and Up/Down (listbox) arrow-key navigation
        declaratively from the focusgroup="tablist"/"listbox" tokens on
-       the container elements. The roving tabindex + arrow-key handlers
-       below stay in place as a fallback for browsers that don't
-       support focusgroup. When focusgroup IS supported they no-op for
-       the navigation keys; Home/End, Delete (tabs), and Escape (grid)
-       are still handled here either way (focusgroup does not bind
-       those keys). The grid is JS-only because there is no canonical
-       focusgroup behavior token for the row-only navigation pattern
-       used here.
+       the container elements.
+
+       When native support is missing, we dynamically load the
+       Microsoft focusgroup polyfill (@microsoft/focusgroup-polyfill,
+       MIT). If the polyfill loads successfully, focusgroup behaviour
+       is provided by the polyfill and our roving-tabindex + arrow-key
+       handlers below no-op for the navigation keys (the polyfill
+       handles them and also manages tabindex). If neither native nor
+       the polyfill is available (offline, CDN blocked, load error),
+       the JS keeps a roving-tabindex + arrow-key fallback so the
+       widgets stay keyboard-operable.
+
+       Home/End, Delete (tabs), and Escape (grid) are still handled
+       in JS in every mode — focusgroup does not bind those keys.
+       The grid is JS-only because there's no canonical focusgroup
+       behavior token for the row-only navigation pattern used here.
+
+       focusgroupMode is one of: "native" | "polyfill" | "loading" | "fallback".
+       focusgroupActive() returns true when EITHER native or polyfill
+       has taken over (i.e. our JS should not also handle arrow keys
+       or manage roving tabindex).
        ================================================================ */
-    var FOCUSGROUP_SUPPORTED = "focusgroup" in HTMLElement.prototype;
+    var FOCUSGROUP_NATIVE = "focusgroup" in HTMLElement.prototype;
+    var focusgroupMode = FOCUSGROUP_NATIVE ? "native" : "loading";
+    function focusgroupActive() {
+      return focusgroupMode === "native" || focusgroupMode === "polyfill";
+    }
+    // True when focusgroup (native browser support or the Microsoft
+    // polyfill) is in charge of tabindex roving. In both modes we set
+    // every item to tabindex=0 so the polyfill/browser sees them as
+    // keyboard-focusable candidates; from there focusgroup/polyfill
+    // manages the roving collapse to a single sequential tab stop.
+    // In "fallback" mode our JS handles the roving manually.
+    function focusgroupManagesTabindex() {
+      return focusgroupActive();
+    }
+
+    // Registered hooks the per-widget IIFEs use to re-sync tabindex
+    // after the polyfill finishes loading (transitioning from
+    // "loading" → "polyfill" or → "fallback").
+    var focusgroupReadyHooks = [];
+    function onFocusgroupReady(fn) {
+      if (focusgroupMode === "native") { fn(); return; }
+      focusgroupReadyHooks.push(fn);
+    }
+    function runFocusgroupReadyHooks() {
+      var hooks = focusgroupReadyHooks.slice();
+      focusgroupReadyHooks.length = 0;
+      hooks.forEach(function (fn) { try { fn(); } catch (e) {} });
+    }
+
+    // Dynamically import the polyfill from jsDelivr. Pinned to a major
+    // version so spec/polyfill updates don't silently change behaviour.
+    // The polyfill function is invoked after DOMContentLoaded so it can
+    // scan the rendered focusgroup="…" attributes.
+    var POLYFILL_URL =
+      "https://cdn.jsdelivr.net/npm/@microsoft/focusgroup-polyfill@1/build/index.min.mjs";
+    function loadPolyfill() {
+      if (focusgroupMode !== "loading") return;
+      var importPromise = import(POLYFILL_URL);
+      var domPromise = (document.readyState === "loading")
+        ? new Promise(function (res) {
+            document.addEventListener("DOMContentLoaded", res, { once: true });
+          })
+        : Promise.resolve();
+      Promise.all([importPromise, domPromise]).then(function (results) {
+        var mod = results[0];
+        try {
+          // No argument = polyfill the whole document. Passing
+          // `document` silently no-ops because the API expects an
+          // Element subtree or no arg.
+          mod.polyfill();
+          focusgroupMode = "polyfill";
+        } catch (e) {
+          focusgroupMode = "fallback";
+        }
+        runFocusgroupReadyHooks();
+        updateFocusgroupStatus();
+      }, function () {
+        focusgroupMode = "fallback";
+        runFocusgroupReadyHooks();
+        updateFocusgroupStatus();
+      });
+    }
+
+    // Status pill in the page header. Shows the current mode in plain
+    // language so reviewers can tell at a glance whether focusgroup is
+    // native, polyfilled, or falling back to JS.
+    var STATUS_LABELS = {
+      native:   { text: "focusgroup: native",   tone: "ok"      },
+      polyfill: { text: "focusgroup: polyfill", tone: "ok"      },
+      loading:  { text: "focusgroup: loading…", tone: "neutral" },
+      fallback: { text: "focusgroup: JS fallback", tone: "warn" }
+    };
+    function updateFocusgroupStatus() {
+      var el = document.getElementById("focusgroup-status");
+      if (!el) return;
+      var s = STATUS_LABELS[focusgroupMode] || STATUS_LABELS.fallback;
+      el.textContent = s.text;
+      el.setAttribute("data-tone", s.tone);
+      el.hidden = false;
+    }
+
+    // Kick off the polyfill load if needed.
+    if (focusgroupMode === "loading") {
+      loadPolyfill();
+    }
+    document.addEventListener("DOMContentLoaded", updateFocusgroupStatus);
 
     /* ================================================================
        Feature detection + dismissible banner
@@ -513,14 +617,17 @@
         tabs.forEach(function (t, i) {
           var selected = (t === tab);
           t.setAttribute("aria-selected", selected ? "true" : "false");
-          if (FOCUSGROUP_SUPPORTED) {
-            // focusgroup collapses to one tab stop; mark the entry point.
+          if (focusgroupActive()) {
+            // focusgroup (native or polyfill) collapses tab stops; mark
+            // the re-entry point on the selected tab.
             if (selected) t.setAttribute("focusgroupstart", "");
             else t.removeAttribute("focusgroupstart");
-            // Keep every tab tabindex=0 so focusgroup's arrow nav lands
-            // on a focusable element; focusgroup collapses them into a
-            // single sequential tab stop.
-            t.setAttribute("tabindex", "0");
+            // Only force tabindex=0 on every tab when the browser
+            // handles focusgroup natively. The polyfill manages
+            // tabindex on its own and would otherwise fight us.
+            if (focusgroupManagesTabindex()) {
+              t.setAttribute("tabindex", "0");
+            }
           } else {
             // Roving tabindex fallback for non-focusgroup browsers.
             t.setAttribute("tabindex", selected ? "0" : "-1");
@@ -532,10 +639,19 @@
 
       // Re-apply the right tabindex regime on load so the initial
       // markup (which uses the roving pattern) matches what focusgroup
-      // expects when it IS supported.
-      if (FOCUSGROUP_SUPPORTED) {
+      // expects when it IS supported. If the polyfill is still loading
+      // we leave the roving markup in place; once polyfill is ready
+      // it will manage tabindex itself.
+      if (focusgroupManagesTabindex()) {
         tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
       }
+      onFocusgroupReady(function () {
+        if (focusgroupManagesTabindex()) {
+          tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
+        }
+        // In polyfill mode we leave the roving markup as-is; the
+        // polyfill takes over from here.
+      });
 
       tablist.addEventListener("click", function (e) {
         var tab = e.target.closest('[role="tab"]');
@@ -560,11 +676,11 @@
         var target = null;
         switch (e.key) {
           case "ArrowRight":
-            if (FOCUSGROUP_SUPPORTED) return; // focusgroup handles it
+            if (focusgroupActive()) return; // focusgroup handles it
             target = tabs[(index + 1) % tabs.length];
             break;
           case "ArrowLeft":
-            if (FOCUSGROUP_SUPPORTED) return;
+            if (focusgroupActive()) return;
             target = tabs[(index - 1 + tabs.length) % tabs.length];
             break;
           case "Home":
@@ -609,10 +725,12 @@
         options.forEach(function (o) {
           var selected = (o === option);
           o.setAttribute("aria-selected", selected ? "true" : "false");
-          if (FOCUSGROUP_SUPPORTED) {
+          if (focusgroupActive()) {
             if (selected) o.setAttribute("focusgroupstart", "");
             else o.removeAttribute("focusgroupstart");
-            o.setAttribute("tabindex", "0");
+            if (focusgroupManagesTabindex()) {
+              o.setAttribute("tabindex", "0");
+            }
           } else {
             o.setAttribute("tabindex", selected ? "0" : "-1");
           }
@@ -620,11 +738,18 @@
         if (setFocus) option.focus();
       }
 
-      // Make every option tabindex=0 up front when focusgroup will
-      // collapse them; otherwise leave the roving markup in place.
-      if (FOCUSGROUP_SUPPORTED) {
+      // Make every option tabindex=0 up front when the browser handles
+      // focusgroup natively. With the polyfill (loading or active) we
+      // leave roving in place — the polyfill takes over and would
+      // otherwise fight a blanket tabindex=0 assignment.
+      if (focusgroupManagesTabindex()) {
         options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
       }
+      onFocusgroupReady(function () {
+        if (focusgroupManagesTabindex()) {
+          options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
+        }
+      });
 
       function selectedOption() {
         return listbox.querySelector('[role="option"][aria-selected="true"]')
@@ -651,11 +776,11 @@
         var target = null;
         switch (e.key) {
           case "ArrowDown":
-            if (FOCUSGROUP_SUPPORTED) return;
+            if (focusgroupActive()) return;
             target = options[Math.min(index + 1, options.length - 1)];
             break;
           case "ArrowUp":
-            if (FOCUSGROUP_SUPPORTED) return;
+            if (focusgroupActive()) return;
             target = options[Math.max(index - 1, 0)];
             break;
           case "Home":
