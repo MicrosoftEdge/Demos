@@ -375,14 +375,24 @@
               <th role="columnheader" scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr role="row" id="row-1" tabindex="0"
+          <!-- focusgroup="toolbar block nomemory nowrap" gives this row
+               group declarative Up/Down arrow navigation. The toolbar
+               token doesn't imply any particular role (which would
+               conflict with the explicit role="grid"/"row" on the
+               table+rows). Explicit block axis = Up/Down only;
+               nowrap matches the JS-fallback no-wrap behaviour.
+               Each .row-actions span carries focusgroup="none" so the
+               in-row View/Archive buttons stay reachable by Tab from
+               the focused row but are excluded from the row-level
+               arrow nav. -->
+          <tbody focusgroup="toolbar block nomemory nowrap">
+            <tr role="row" id="row-1" tabindex="0" focusgroupstart
               aria-actions="view-row-1 archive-row-1">
               <td role="gridcell">#1024</td>
               <td role="gridcell">Alice Johnson</td>
               <td role="gridcell" class="status-cell">Shipped</td>
               <td role="gridcell">
-                <span class="row-actions">
+                <span class="row-actions" focusgroup="none">
                   <button id="view-row-1" tabindex="-1"
                     aria-label="View details for order 1024"
                     data-action="view" data-target="order 1024" data-target-id="row-1">View</button>
@@ -398,7 +408,7 @@
               <td role="gridcell">Bob Chen</td>
               <td role="gridcell" class="status-cell">Processing</td>
               <td role="gridcell">
-                <span class="row-actions">
+                <span class="row-actions" focusgroup="none">
                   <button id="view-row-2" tabindex="-1"
                     aria-label="View details for order 1025"
                     data-action="view" data-target="order 1025" data-target-id="row-2">View</button>
@@ -414,7 +424,7 @@
               <td role="gridcell">Carol Davis</td>
               <td role="gridcell" class="status-cell">Delivered</td>
               <td role="gridcell">
-                <span class="row-actions">
+                <span class="row-actions" focusgroup="none">
                   <button id="view-row-3" tabindex="-1"
                     aria-label="View details for order 1026"
                     data-action="view" data-target="order 1026" data-target-id="row-3">View</button>
@@ -448,8 +458,13 @@
           is defined by <a href="https://github.com/w3c/aria/pull/1805">PR 1805</a>
           and targets child roles of composite widgets: tabs, options, rows,
           gridcells, treeitems, and similar</li>
-        <li>Roving <code>tabindex</code> on <code>&lt;tr&gt;</code> plus the
-          arrow-key handler make the grid keyboard-operable</li>
+        <li>Arrow-key navigation uses
+          <code>focusgroup="toolbar block nomemory nowrap"</code> on the
+          <code>&lt;tbody&gt;</code> when supported; the script keeps a
+          roving-tabindex + arrow handler as a fallback otherwise. Each
+          <code>.row-actions</code> span carries <code>focusgroup="none"</code>
+          so the in-row buttons stay reachable by <kbd>Tab</kbd> from the
+          focused row but are excluded from the row-level arrow nav</li>
       </ul>
     </section>
 
@@ -829,12 +844,15 @@
     })();
 
     /* ================================================================
-       Grid: roving tabindex on rows + Arrow/Home/End.
-       In-row action buttons are also rotated through tabindex so only
-       the currently focused row's buttons are tab stops (matches the
-       APG grid expectation that interactive widgets in non-active
-       rows are skipped by Tab).
-       Escape from a focused in-row button returns focus to the row.
+       Grid: aria-selected-equivalent state + in-row button tabindex
+       roving (always) + row tabindex roving + Arrow keys (fallback
+       only). When focusgroup is active the row arrow nav is handled
+       by focusgroup/polyfill via focusgroup="toolbar block nomemory
+       nowrap" on the tbody; the in-row buttons sit inside
+       focusgroup="none" wrappers so they're invisible to the arrow
+       nav while staying reachable by Tab from the focused row.
+       Escape from a focused in-row button returns focus to the row
+       in every mode (focusgroup does not bind Escape).
        ================================================================ */
     (function () {
       var grid = document.querySelector('[role="grid"]');
@@ -856,9 +874,11 @@
       }
 
       function focusRow(row) {
-        rows.forEach(function (r) {
-          r.setAttribute("tabindex", r === row ? "0" : "-1");
-        });
+        if (!focusgroupActive()) {
+          rows.forEach(function (r) {
+            r.setAttribute("tabindex", r === row ? "0" : "-1");
+          });
+        }
         syncButtonTabindex(row);
         row.focus();
       }
@@ -866,11 +886,35 @@
       // Initial sync: buttons on the initial active row become tab stops.
       syncButtonTabindex(rows[0]);
 
+      // When focusgroup is active, all rows are tabindex=0 so focusgroup
+      // can discover them all as items (the polyfill rejects items with
+      // tabindex<=-1). Set this up front when active, and re-apply once
+      // the polyfill loads. focusgroupstart is moved to whichever row is
+      // currently active so `nomemory` Tab-re-entry lands there.
+      function activeRow() {
+        return rows.filter(function (r) {
+          return r.getAttribute("tabindex") === "0";
+        })[0] || rows[0];
+      }
+      function applyFocusgroupRowState() {
+        var active = activeRow();
+        rows.forEach(function (r) {
+          r.setAttribute("tabindex", "0");
+          if (r === active) r.setAttribute("focusgroupstart", "");
+          else r.removeAttribute("focusgroupstart");
+        });
+      }
+      if (focusgroupManagesTabindex()) applyFocusgroupRowState();
+      onFocusgroupReady(function () {
+        if (focusgroupManagesTabindex()) applyFocusgroupRowState();
+      });
+
       grid.addEventListener("keydown", function (e) {
         var current = document.activeElement;
         if (!current) return;
 
         // Escape from an in-row button returns focus to that row.
+        // Handled here in every mode — focusgroup does not bind Escape.
         if (e.key === "Escape" && current.closest(".row-actions button")) {
           var row = current.closest('[role="row"]');
           if (row && rows.indexOf(row) !== -1) {
@@ -887,12 +931,15 @@
         var target = null;
         switch (e.key) {
           case "ArrowDown":
+            if (focusgroupActive()) return; // focusgroup handles it
             target = rows[Math.min(index + 1, rows.length - 1)];
             break;
           case "ArrowUp":
+            if (focusgroupActive()) return;
             target = rows[Math.max(index - 1, 0)];
             break;
           case "Home":
+            // Not bound by focusgroup; handle here in every mode.
             target = rows[0];
             break;
           case "End":
@@ -905,14 +952,24 @@
         }
       });
 
-      // When focus moves into a row's button (e.g., via Tab), promote that
-      // row to be the active one so the roving tabindex stays consistent.
+      // When focus moves into a row or one of its buttons, make sure
+      // syncButtonTabindex tracks the active row. In the JS-fallback
+      // mode we also rove row tabindex; in focusgroup mode the
+      // browser/polyfill manages row tabindex, but we still move
+      // focusgroupstart so Tab-re-entry uses the current row.
       grid.addEventListener("focusin", function (e) {
         var row = e.target.closest('[role="row"]');
         if (!row || rows.indexOf(row) === -1) return;
-        rows.forEach(function (r) {
-          r.setAttribute("tabindex", r === row ? "0" : "-1");
-        });
+        if (focusgroupActive()) {
+          rows.forEach(function (r) {
+            if (r === row) r.setAttribute("focusgroupstart", "");
+            else r.removeAttribute("focusgroupstart");
+          });
+        } else {
+          rows.forEach(function (r) {
+            r.setAttribute("tabindex", r === row ? "0" : "-1");
+          });
+        }
         syncButtonTabindex(row);
       });
     })();
