@@ -618,9 +618,10 @@
             // the re-entry point on the selected tab.
             if (selected) t.setAttribute("focusgroupstart", "");
             else t.removeAttribute("focusgroupstart");
-            // Only force tabindex=0 on every tab when the browser
-            // handles focusgroup natively. The polyfill manages
-            // tabindex on its own and would otherwise fight us.
+            // Every tab gets tabindex=0 so focusgroup's item-discovery
+            // walk treats them all as candidates (the polyfill rejects
+            // items with tabindex<=-1). focusgroup then collapses them
+            // into a single sequential tab stop and manages roving.
             if (focusgroupManagesTabindex()) {
               t.setAttribute("tabindex", "0");
             }
@@ -634,19 +635,30 @@
       }
 
       // Re-apply the right tabindex regime on load so the initial
-      // markup (which uses the roving pattern) matches what focusgroup
-      // expects when it IS supported. If the polyfill is still loading
-      // we leave the roving markup in place; once polyfill is ready
-      // it will manage tabindex itself.
+      // roving markup matches what focusgroup expects when it IS
+      // active. Until the polyfill resolves, the initial roving markup
+      // keeps the JS fallback path keyboard-operable.
       if (focusgroupManagesTabindex()) {
         tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
       }
       onFocusgroupReady(function () {
-        if (focusgroupManagesTabindex()) {
-          tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
-        }
-        // In polyfill mode we leave the roving markup as-is; the
-        // polyfill takes over from here.
+        if (!focusgroupManagesTabindex()) return;
+        // After the polyfill resolves, set tabindex=0 on every tab so
+        // the polyfill can discover them all as items, and re-sync
+        // focusgroupstart to whichever tab is currently selected. This
+        // matters when the user clicked a non-default tab during the
+        // loading window: select() updated aria-selected but couldn't
+        // move focusgroupstart yet (focusgroupActive() was false), so
+        // without this re-sync `nomemory` Tab-re-entry would land on
+        // the stale start tab instead of the current selection.
+        tabs.forEach(function (t) {
+          t.setAttribute("tabindex", "0");
+          if (t.getAttribute("aria-selected") === "true") {
+            t.setAttribute("focusgroupstart", "");
+          } else {
+            t.removeAttribute("focusgroupstart");
+          }
+        });
       });
 
       tablist.addEventListener("click", function (e) {
@@ -734,17 +746,29 @@
         if (setFocus) option.focus();
       }
 
-      // Make every option tabindex=0 up front when the browser handles
-      // focusgroup natively. With the polyfill (loading or active) we
-      // leave roving in place — the polyfill takes over and would
-      // otherwise fight a blanket tabindex=0 assignment.
+      // Make every option tabindex=0 up front when focusgroup is
+      // already active. Until the polyfill resolves, the initial
+      // roving markup keeps the JS fallback path keyboard-operable.
       if (focusgroupManagesTabindex()) {
         options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
       }
       onFocusgroupReady(function () {
-        if (focusgroupManagesTabindex()) {
-          options.forEach(function (o) { o.setAttribute("tabindex", "0"); });
-        }
+        if (!focusgroupManagesTabindex()) return;
+        // After the polyfill resolves, set tabindex=0 on every option
+        // so the polyfill can discover them all as items, and re-sync
+        // focusgroupstart to whichever option is currently selected.
+        // This matters when the user clicked a non-default option
+        // during the loading window: select() updated aria-selected
+        // but couldn't move focusgroupstart yet, so without this re-
+        // sync `nomemory` Tab-re-entry would land on the stale start.
+        options.forEach(function (o) {
+          o.setAttribute("tabindex", "0");
+          if (o.getAttribute("aria-selected") === "true") {
+            o.setAttribute("focusgroupstart", "");
+          } else {
+            o.removeAttribute("focusgroupstart");
+          }
+        });
       });
 
       function selectedOption() {
