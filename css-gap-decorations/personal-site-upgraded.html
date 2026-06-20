@@ -60,20 +60,14 @@
     }
 
     /* ---- Base content styling --------------------------------------- */
-    /* Like Patrick's starter (which set `article img { width: 100%;
-       max-width: 600px; height: 100%; object-fit: cover }`), we size the
-       masthead photos up front. This is ordinary image hygiene, not a gap
-       decoration: an unstyled <img> reports its natural width as the flex
-       item's min-content size, which would stop flex-basis from shrinking
-       it and blow the layout apart. With this in place, the photos behave
-       like any other block and the gap-decoration steps stay clean. */
-    .portrait {
-      max-width: 280px;
-    }
-
-    .portrait img {
+    /* Size the masthead photos to a square crop up front. An unstyled <img>
+       reports its natural width as the flex item's min-content size, which
+       would stop flex-basis from shrinking it; a fixed aspect ratio plus
+       object-fit keeps every photo the same shape and lets the
+       gap-decoration steps stay clean. */
+    .photo img {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
     }
 
@@ -92,8 +86,8 @@
 
     /* ---- Home: masthead with varied flex-basis over two lines ------- */
     /* Echoing the original demo's main grid, the masthead blocks declare
-       DIFFERENT flex-basis values — wide text blocks (420px / 360px) next
-       to narrow image and aside blocks (200px) — so the row wraps into
+       DIFFERENT flex-basis values — wide text blocks (26.25rem / 22.5rem) next
+       to narrow image and aside blocks (12.5rem) — so the row wraps into
        two lines. That makes both decorations earn their place: row-rule
        draws between the two lines and column-rule between the items in a
        line. column-rule-inset: 0 keeps the vertical rules spanning each
@@ -110,15 +104,21 @@
     }
 
     .home > * {
-      flex: 1 1 200px;
+      flex: 1 1 12.5rem;
     }
 
     .home .greeting {
-      flex-basis: 420px;
+      flex-basis: 26.25rem;
     }
 
     .home .note {
-      flex-basis: 360px;
+      flex-basis: 22.5rem;
+    }
+
+    /* Keep the masthead photos narrow and uniform: let the text blocks absorb
+       the leftover space so a photo never balloons to fill its row. */
+    .home .photo {
+      flex-grow: 0;
     }
 
     .home .greeting .lead {
@@ -219,18 +219,19 @@
     }
 
     /* ---- About: profile card (avatar | bio) ------------------------- */
-    /* A circular portrait on the left, heading and bio on the right,
-       divided by a single vertical hairline. column-rule-inset pulls the
-       rule in from the top and bottom so it reads as a clean gutter
-       rather than a full-height bar (echoing the home masthead). */
+    /* A circular photo on the left, heading and bio on the right, divided by a
+       single vertical hairline. align-items: center vertically centers the
+       avatar against the taller text column, and a generous column-rule-inset
+       trims the divider top and bottom so it reads as a short centered stroke
+       rather than a full-height bar. */
     .about .bio {
       display: flex;
       flex-wrap: wrap;
-      align-items: start;
+      align-items: center;
       gap: 2.5rem;
 
       column-rule: 2px solid #999;
-      column-rule-inset: 0.5rem;
+      column-rule-inset: 2.5rem;
     }
 
     .about .avatar {
@@ -242,7 +243,7 @@
     }
 
     .about .bio .text {
-      flex: 1 1 320px;
+      flex: 1 1 20rem;
     }
 
     .about .bio .text p {
@@ -253,18 +254,36 @@
       margin-bottom: 0;
     }
 
-    /* ---- Links: inline row with dashed separators ------------------- */
-    /* Plain dashed column rules, reminiscent of the nav at the top. */
+    /* ---- Links: a grid that plays with colour, overlap, and insets --- */
+    /* A roomy grid of links gives the gap decorations space to show off three
+       of the newer controls at once:
+         - different colours per direction (gold rows, alternating blue/magenta
+           columns) so the rules read as a pattern, not a uniform mesh;
+         - rule-overlap, which decides who wins where they cross — here the gold
+           rows paint over the columns;
+         - rule-inset-cap vs rule-inset-junction, trimming the outer ends in
+           from the edges while letting the lines cross fully at the junctions. */
     .links ul {
       list-style: none;
       margin: 0;
       padding: 0;
 
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
 
-      column-rule: 2px dashed #666;
+      row-rule: 4px solid #f5b700;
+      column-rule: 4px solid;
+      column-rule-color: repeat(auto, #4895ef, #f72585);
+
+      rule-overlap: row-over-column;
+
+      rule-inset-cap: 1rem;
+      rule-inset-junction: 0;
+    }
+
+    .links li {
+      padding: 0.4rem 0.2rem;
     }
 
     footer {
@@ -295,7 +314,7 @@
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
         ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
-    <div class="portrait">
+    <div class="photo">
       <img src="cat.jpg" alt="A sleeping cat.">
     </div>
     <aside class="now">
@@ -312,7 +331,7 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.</p>
     </div>
-    <div class="portrait">
+    <div class="photo">
       <img src="tree.jpg" alt="An old olive tree trunk.">
     </div>
   </section>
@@ -385,6 +404,14 @@
       <li><a href="#">Mastodon</a></li>
       <li><a href="#">RSS</a></li>
       <li><a href="#">Email</a></li>
+      <li><a href="#">Bluesky</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">YouTube</a></li>
+      <li><a href="#">Twitch</a></li>
+      <li><a href="#">Dribbble</a></li>
+      <li><a href="#">CodePen</a></li>
+      <li><a href="#">Discord</a></li>
+      <li><a href="#">Newsletter</a></li>
     </ul>
   </section>
 
