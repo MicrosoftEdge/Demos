@@ -283,6 +283,7 @@
               <td role="gridcell">
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-1" tabindex="-1"
+                    popovertarget="popover-row-1" popovertargetaction="show"
                     aria-label="View details for order 1024"
                     data-action="view" data-target="order 1024" data-target-id="row-1">View</button>
                   <button id="archive-row-1" tabindex="-1"
@@ -299,6 +300,7 @@
               <td role="gridcell">
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-2" tabindex="-1"
+                    popovertarget="popover-row-2" popovertargetaction="show"
                     aria-label="View details for order 1025"
                     data-action="view" data-target="order 1025" data-target-id="row-2">View</button>
                   <button id="archive-row-2" tabindex="-1"
@@ -315,6 +317,7 @@
               <td role="gridcell">
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-3" tabindex="-1"
+                    popovertarget="popover-row-3" popovertargetaction="show"
                     aria-label="View details for order 1026"
                     data-action="view" data-target="order 1026" data-target-id="row-3">View</button>
                   <button id="archive-row-3" tabindex="-1"
@@ -325,6 +328,69 @@
             </tr>
           </tbody>
         </table>
+
+        <!-- Per-row detail popovers (native HTML popover API). Sibling of
+             the <table> rather than inside <tbody>/<td> because <div> is
+             not a valid child of those elements. Each carries role="dialog"
+             so AT users get a clear "dialog Order #N" announce on open
+             rather than just hearing the row's polite-status update; the
+             popover's accessible name comes from aria-labelledby. The View
+             button opens its row's popover declaratively via popovertarget
+             with popovertargetaction="show" (not the default "toggle"),
+             so re-clicking View while the popover is open is a no-op
+             rather than silently closing it — that prevents the polite-
+             status announce from contradicting the popover's actual
+             state. The browser handles light-dismiss, Esc-to-close, and
+             returning focus to the trigger. -->
+        <div id="popover-row-1" popover role="dialog" class="row-details-popover"
+             aria-labelledby="popover-row-1-title">
+          <header class="popover-header">
+            <h3 id="popover-row-1-title">Order #1024</h3>
+            <button type="button" class="popover-close"
+              popovertarget="popover-row-1" popovertargetaction="hide"
+              aria-label="Close details for order 1024">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Alice Johnson</dd>
+            <dt>Status</dt><dd>Shipped</dd>
+            <dt>Ordered</dt><dd>2026-06-15</dd>
+            <dt>Items</dt><dd>3</dd>
+            <dt>Total</dt><dd>$89.95</dd>
+          </dl>
+        </div>
+        <div id="popover-row-2" popover role="dialog" class="row-details-popover"
+             aria-labelledby="popover-row-2-title">
+          <header class="popover-header">
+            <h3 id="popover-row-2-title">Order #1025</h3>
+            <button type="button" class="popover-close"
+              popovertarget="popover-row-2" popovertargetaction="hide"
+              aria-label="Close details for order 1025">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Bob Chen</dd>
+            <dt>Status</dt><dd>Processing</dd>
+            <dt>Ordered</dt><dd>2026-06-18</dd>
+            <dt>Items</dt><dd>1</dd>
+            <dt>Total</dt><dd>$24.50</dd>
+          </dl>
+        </div>
+        <div id="popover-row-3" popover role="dialog" class="row-details-popover"
+             aria-labelledby="popover-row-3-title">
+          <header class="popover-header">
+            <h3 id="popover-row-3-title">Order #1026</h3>
+            <button type="button" class="popover-close"
+              popovertarget="popover-row-3" popovertargetaction="hide"
+              aria-label="Close details for order 1026">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Carol Davis</dd>
+            <dt>Status</dt><dd>Delivered</dd>
+            <dt>Ordered</dt><dd>2026-06-12</dd>
+            <dt>Delivered</dt><dd>2026-06-14</dd>
+            <dt>Items</dt><dd>5</dd>
+            <dt>Total</dt><dd>$187.20</dd>
+          </dl>
+        </div>
       </div>
 
       <div class="action-status-bar">
@@ -341,6 +407,12 @@
         <li>The buttons live in the Actions column. Only the focused row's
           buttons are Tab stops; the JS swaps <code>tabindex</code> as row
           focus moves</li>
+        <li>View opens a native HTML popover (<code>popover</code> +
+          <code>popovertarget</code> with <code>popovertargetaction="show"</code>)
+          showing the row's details. The popover carries <code>role="dialog"</code>
+          for a clean AT announce on open. The browser handles
+          light-dismiss, <kbd>Esc</kbd> to close, and returning focus to
+          the View button. No JS needed for the open/close mechanics</li>
         <li><kbd>Esc</kbd> from a button returns focus to its row
           (APG grid widget-mode)</li>
         <li>The set of roles that can carry <code>aria-actions</code>
@@ -692,12 +764,24 @@
 
         // Escape from an in-row button returns focus to that row.
         // Handled here in every mode — focusgroup does not bind Escape.
+        // BUT: when a row's View popover is open, focus is still on the
+        // View button (no autofocus inside the popover); pressing Esc
+        // there should let the popover close-watcher dismiss the
+        // popover instead. Calling preventDefault() here would suppress
+        // the close-watcher per the popover spec, stranding the popover
+        // open. Defer to the popover when any popover in the section is
+        // open.
         if (e.key === "Escape" && current.closest(".row-actions button")) {
-          var row = current.closest('[role="row"]');
-          if (row && rows.indexOf(row) !== -1) {
-            e.preventDefault();
-            row.focus();
-            return;
+          var demoSection = grid.closest(".demo-section");
+          var anyPopoverOpen = demoSection &&
+            demoSection.querySelector("[popover]:popover-open");
+          if (!anyPopoverOpen) {
+            var row = current.closest('[role="row"]');
+            if (row && rows.indexOf(row) !== -1) {
+              e.preventDefault();
+              row.focus();
+              return;
+            }
           }
         }
 
@@ -763,10 +847,15 @@
        section to its starting state.
        ================================================================ */
     var ACTIONS = {
-      close:   { attr: "data-closed",   on: "Closed",                off: "Reopened" },
-      pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned" },
-      view:    { attr: "data-viewing",  on: "Viewing details for",   off: "Stopped viewing" },
-      archive: { attr: "data-archived", on: "Archived",              off: "Unarchived" }
+      close:   { attr: "data-closed",   on: "Closed",                off: "Reopened"     },
+      pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned"     },
+      // view doesn't toggle row state — the View button has a
+      // popovertarget that opens a native popover with the row's
+      // details. We still announce via the polite status row so AT
+      // users hear what was just opened. attr=null tells performAction
+      // to skip the data-* toggle path.
+      view:    { attr: null,            on: "Viewing details for" },
+      archive: { attr: "data-archived", on: "Archived",              off: "Unarchived"   }
     };
 
     function announceInto(statusEl, message) {
@@ -796,6 +885,18 @@
       var cfg = ACTIONS[action];
       var target = targetId && document.getElementById(targetId);
       if (!cfg || !target) return;
+
+      var section = btn.closest(".demo-section");
+      var statusEl = section && section.querySelector(".action-status");
+
+      // Non-toggling actions (cfg.attr === null): no data-* state to
+      // flip, no on/off duality. The browser handles whatever the
+      // button is wired up to do — e.g. View has popovertarget, so the
+      // popover opens declaratively — and we just announce.
+      if (cfg.attr === null) {
+        announceInto(statusEl, cfg.on + ": " + targetName);
+        return;
+      }
 
       var nowOn = !target.hasAttribute(cfg.attr);
       if (nowOn) target.setAttribute(cfg.attr, "true");
@@ -828,17 +929,17 @@
         btn.setAttribute("title", closeLabel);
       }
 
-      var section = btn.closest(".demo-section");
-      var statusEl = section && section.querySelector(".action-status");
       announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
     }
 
     function resetSection(btn) {
       var section = btn.closest(".demo-section");
       if (!section) return;
-      // Clear all action state attributes on any item that might carry them.
+      // Clear all action state attributes on any item that might carry
+      // them. Skip entries with attr=null (non-toggling actions).
       Object.keys(ACTIONS).forEach(function (key) {
         var attr = ACTIONS[key].attr;
+        if (!attr) return;
         section.querySelectorAll("[" + attr + "]").forEach(function (el) {
           el.removeAttribute(attr);
         });
@@ -848,13 +949,18 @@
         cell.textContent = cell.getAttribute("data-original");
         cell.removeAttribute("data-original");
       });
-      // Restore Close button icon + label (the only action that swaps itself).
+      // Restore Close button icon + label (only action that swaps its own SVG).
       section.querySelectorAll('button[data-action="close"]').forEach(function (b) {
         b.innerHTML = CLOSE_SVG;
         b.setAttribute("data-icon", "close");
         var lbl = "Close " + (b.getAttribute("data-target") || "");
         b.setAttribute("aria-label", lbl);
         b.setAttribute("title", lbl);
+      });
+      // Close any open popovers in this section (e.g. the grid's
+      // per-row View popovers).
+      section.querySelectorAll("[popover]").forEach(function (p) {
+        if (p.matches(":popover-open")) p.hidePopover();
       });
       var statusEl = section.querySelector(".action-status");
       announceInto(statusEl, "Section reset");

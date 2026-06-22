@@ -295,11 +295,7 @@ body {
   vertical-align: 1px;
 }
 
-/* Grid: View & Archive */
-.data-grid tbody tr[data-viewing] {
-  background: var(--accent-light);
-}
-
+/* Grid: Archive (View is handled by a popover, not row state). */
 .data-grid tbody tr[data-archived] {
   opacity: 0.55;
 }
@@ -313,11 +309,6 @@ body {
   .tablist .tab[data-closed] {
     /* line-through survives HCM; ensure colour falls back to GrayText. */
     color: GrayText;
-  }
-  .data-grid tbody tr[data-viewing] {
-    background: Highlight;
-    color: HighlightText;
-    forced-color-adjust: none;
   }
   .data-grid tbody tr[data-archived] {
     opacity: 1;
@@ -585,6 +576,83 @@ body {
 
 .row-actions button:hover {
   background: var(--hover-bg);
+}
+
+/* ----- Row details popover -----
+   Native HTML popover (popover attribute). When open, the browser puts
+   the element in the top layer and centers it. We just style the panel
+   itself; positioning is the UA default (auto-centered). */
+.row-details-popover {
+  margin: auto;
+  padding: 0;
+  width: min(90vw, 22rem);
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+}
+
+.row-details-popover::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.popover-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.popover-close {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.popover-close:hover {
+  background: var(--hover-bg);
+}
+
+.popover-body {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.popover-body dt {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.popover-body dd {
+  margin: 0;
+}
+
+@media (forced-colors: active) {
+  .row-details-popover {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
 }
 
 /* ----- Inline Code -----
