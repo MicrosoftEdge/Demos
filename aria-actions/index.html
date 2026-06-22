@@ -917,16 +917,21 @@
         }
       }
 
-      // Close ↔ Re-open: the only action that renames its own button to
-      // reflect what the next click will do. Other actions keep static
-      // labels (Pin stays a pushpin both ways, etc.). Swap the icon SVG
-      // plus the accessible name carried by aria-label + title.
+      // Self-renaming actions: the button's label reflects what the
+       // NEXT click will do. Close ↔ Re-open swaps both the SVG icon
+       // and the accessible name; Archive ↔ Unarchive swaps just the
+       // text label (and aria-label/title). Other actions keep static
+       // labels (Pin stays a pushpin both ways, etc.).
       if (action === "close") {
         btn.innerHTML = nowOn ? REOPEN_SVG : CLOSE_SVG;
         btn.setAttribute("data-icon", nowOn ? "reopen" : "close");
         var closeLabel = (nowOn ? "Re-open " : "Close ") + targetName;
         btn.setAttribute("aria-label", closeLabel);
         btn.setAttribute("title", closeLabel);
+      } else if (action === "archive") {
+        btn.textContent = nowOn ? "Unarchive" : "Archive";
+        var archiveLabel = (nowOn ? "Unarchive " : "Archive ") + targetName;
+        btn.setAttribute("aria-label", archiveLabel);
       }
 
       announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
@@ -956,6 +961,12 @@
         var lbl = "Close " + (b.getAttribute("data-target") || "");
         b.setAttribute("aria-label", lbl);
         b.setAttribute("title", lbl);
+      });
+      // Restore Archive button text + label.
+      section.querySelectorAll('button[data-action="archive"]').forEach(function (b) {
+        b.textContent = "Archive";
+        b.setAttribute("aria-label",
+          "Archive " + (b.getAttribute("data-target") || ""));
       });
       // Close any open popovers in this section (e.g. the grid's
       // per-row View popovers).
