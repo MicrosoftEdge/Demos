@@ -617,11 +617,14 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid transparent;
   border-radius: 4px;
   background: transparent;
   color: var(--text);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
 }
