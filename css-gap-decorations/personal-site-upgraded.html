@@ -225,21 +225,19 @@
 
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2.5rem;
+      gap: 1.5rem 2.5rem;
 
-      row-rule: 4px solid #f5b700;
-      column-rule: 4px solid;
-      column-rule-color: repeat(auto, #4895ef, #f72585);
+      row-rule: 1px solid #c9a96a;
+      column-rule: 3px solid #6a707a;
 
-      rule-overlap: row-over-column;
+      rule-overlap: column-over-row;
 
-      rule-inset-cap: 1rem;
-      rule-inset-junction: 0;
+      column-rule-inset-cap: 1.75rem;
     }
 
     .links li {
-      padding: 0.4rem 0.2rem;
-    }
+      padding: 0.5rem 0.25rem;
+    } 
 
     footer {
       color: #999;
