@@ -25,10 +25,6 @@
       margin: 0;
     }
 
-    /* The page itself is one grid. Each section is spaced apart, and the
-       off-white separators between them set the editorial rhythm.
-       repeat(auto, ...) keeps the rules working no matter how many
-       sections the site grows to. */
     body {
       display: grid;
       gap: 4rem;
@@ -59,12 +55,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* ---- Base content styling --------------------------------------- */
-    /* Size the masthead photos to a square crop up front. An unstyled <img>
-       reports its natural width as the flex item's min-content size, which
-       would stop flex-basis from shrinking it; a fixed aspect ratio plus
-       object-fit keeps every photo the same shape and lets the
-       gap-decoration steps stay clean. */
     .photo img {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -84,15 +74,6 @@
       column-rule: 2px dashed #666;
     }
 
-    /* ---- Home: masthead with varied flex-basis over two lines ------- */
-    /* Echoing the original demo's main grid, the masthead blocks declare
-       DIFFERENT flex-basis values — wide text blocks (26.25rem / 22.5rem) next
-       to narrow image and aside blocks (12.5rem) — so the row wraps into
-       two lines. That makes both decorations earn their place: row-rule
-       draws between the two lines and column-rule between the items in a
-       line. column-rule-inset: 0 keeps the vertical rules spanning each
-       line's content height rather than bleeding into the row gap.
-       (Photo sizing lives in the base content styles above.) */
     .home {
       display: flex;
       flex-wrap: wrap;
@@ -100,7 +81,7 @@
 
       row-rule: 2px solid #999;
       column-rule: 2px solid #999;
-      column-rule-inset: 0;
+      column-rule-inset: overlap-join;
     }
 
     .home > * {
@@ -115,8 +96,6 @@
       flex-basis: 22.5rem;
     }
 
-    /* Keep the masthead photos narrow and uniform: let the text blocks absorb
-       the leftover space so a photo never balloons to fill its row. */
     .home .photo {
       flex-grow: 0;
     }
@@ -153,23 +132,14 @@
     }
 
     /* ---- Blog: mixed-span grid of photo + title cards --------------- */
-    .blog .posts {
+    .posts {
       display: grid;
-      /* A fixed three-column grid keeps the spanning/empty-cell behaviour
-         below predictable. (On a real site you'd swap in
-         repeat(auto-fill, minmax(...)) for responsiveness; we pin it to 3
-         here so the demo always lays out the same way.) */
       grid-template-columns: repeat(3, 1fr);
       gap: 3rem;
 
       rule: 2px solid #999;
-
-
-      /* Only paint a separator when BOTH sides of the gap hold a post.
-         The interior hole left when a wide post bumps to the next row,
-         and the ragged last row, stay clean instead of dangling lines
-         into empty space. */
-      rule-visibility-items: between;
+      rule-visibility-items: around;
+      rule-inset: overlap-join;
     }
 
     .post {
@@ -218,13 +188,7 @@
       aspect-ratio: 3 / 4;
     }
 
-    /* ---- About: profile card (avatar | bio) ------------------------- */
-    /* A circular photo on the left, heading and bio on the right, divided by a
-       single vertical hairline. align-items: center vertically centers the
-       avatar against the taller text column, and a generous column-rule-inset
-       trims the divider top and bottom so it reads as a short centered stroke
-       rather than a full-height bar. */
-    .about .bio {
+    .bio {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -254,15 +218,6 @@
       margin-bottom: 0;
     }
 
-    /* ---- Links: a grid that plays with colour, overlap, and insets --- */
-    /* A roomy grid of links gives the gap decorations space to show off three
-       of the newer controls at once:
-         - different colours per direction (gold rows, alternating blue/magenta
-           columns) so the rules read as a pattern, not a uniform mesh;
-         - rule-overlap, which decides who wins where they cross — here the gold
-           rows paint over the columns;
-         - rule-inset-cap vs rule-inset-junction, trimming the outer ends in
-           from the edges while letting the lines cross fully at the junctions. */
     .links ul {
       list-style: none;
       margin: 0;
@@ -349,33 +304,38 @@
         <h3>Consectetur adipiscing</h3>
         <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </article>
+      <article class="post">
+        <span class="date">April 2025</span>
+        <h3>Sed ut perspiciatis</h3>
+        <p>Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p>
+      </article>
       <article class="post feature">
         <img class="thumb" src="strings.jpg" alt="Guitar strings in close-up.">
-        <span class="date">April 2025</span>
+        <span class="date">March 2025</span>
         <h3>Ut enim ad minim veniam</h3>
         <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur,
           sunt in culpa qui officia deserunt mollit anim.</p>
       </article>
       <article class="post tall">
-        <img class="thumb" src="tree.jpg" alt="An old olive tree trunk.">
-        <span class="date">March 2025</span>
+        <img class="thumb" src="tram.jpg" alt="Tram tracks running down a street.">
+        <span class="date">February 2025</span>
         <h3>Quis nostrud exercitation</h3>
         <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum, sed do eiusmod tempor incididunt.</p>
         <p>Ut labore et dolore magna aliqua, quis nostrud.</p>
       </article>
       <article class="post">
-        <span class="date">February 2025</span>
+        <span class="date">January 2025</span>
         <h3>Duis aute irure</h3>
         <p>Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
       </article>
       <article class="post">
-        <span class="date">January 2025</span>
+        <span class="date">December 2024</span>
         <h3>Excepteur sint occaecat</h3>
         <p>Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </article>
       <article class="post">
-        <span class="date">December 2024</span>
+        <span class="date">November 2024</span>
         <h3>Lorem ipsum dolor sit</h3>
         <p>Amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
       </article>
@@ -385,7 +345,7 @@
   <section id="about" class="about">
     <h2>About</h2>
     <div class="bio">
-      <img class="avatar" src="cat.jpg" alt="A sleeping cat.">
+      <img class="avatar" src="bike.jpg" alt="A bicycle leaning against a post.">
       <div class="text">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
           dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
@@ -421,5 +381,3 @@
 </body>
 
 </html>
-
-
