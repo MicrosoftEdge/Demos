@@ -1,0 +1,29 @@
+<h3>***turn on Screen Reader***</h3>
+<h1><code>ariaNotify</code> demo</h1>
+<h2>Shopping List</h2>
+<p id="budget">Budget £20.00</p>
+
+<form>
+  <div>
+    <label for="item">Enter item name</label>
+    <input type="text" name="item" id="item" required />
+  </div>
+  <div>
+    <label for="price">Enter item price</label>
+    <input type="number" name="price" id="price" step="0.01" required />
+  </div>
+  <div>
+    <button>Submit</button>
+  </div>
+</form>
+
+<hr />
+<ul id="stuff"></ul>
+
+<p id="total">Total: £0.00</p>
+
+<label for="notes">Notes</label>
+<div
+  id="notes"
+  contenteditable="true"
+>Ctrl + B to toggle bolding and trigger ARIA Notify announcement</div>
