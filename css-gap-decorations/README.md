@@ -12,6 +12,7 @@ This directory contains demos that showcase the use of [CSS Gap Decorations](htt
 * [Guitar Fretboard](https://microsoftedge.github.io/Demos/css-gap-decorations/guitar-fretboard.html) - `guitar-fretboard.html`
 * [Notebook](https://microsoftedge.github.io/Demos/css-gap-decorations/notebook.html) - `notebook.html`
 * [Personal site](https://microsoftedge.github.io/Demos/css-gap-decorations/personal-site.html) - `personal-site.html`
+* [Personal site (upgraded)](https://microsoftedge.github.io/Demos/css-gap-decorations/personal-site-upgraded.html) - `personal-site-upgraded.html`
 * [The Daily Oddity](https://microsoftedge.github.io/Demos/css-gap-decorations/the-daily-oddity.html) - `the-daily-oddity.html`
 * [Article Grid](https://microsoftedge.github.io/Demos/css-gap-decorations/article-grid.html) - `article-grid.html`
 * [Calendar Week View](https://microsoftedge.github.io/Demos/css-gap-decorations/calendar-week.html) - `calendar-week.html`
