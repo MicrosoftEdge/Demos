@@ -257,30 +257,32 @@
       <div class="demo-container">
         <table role="grid" aria-label="Recent orders" class="data-grid">
           <thead>
-            <tr role="row">
-              <th role="columnheader" scope="col">Order</th>
-              <th role="columnheader" scope="col">Customer</th>
-              <th role="columnheader" scope="col">Status</th>
-              <th role="columnheader" scope="col">Actions</th>
+            <tr>
+              <th scope="col">Order</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <!-- focusgroup="toolbar block nomemory nowrap" gives this row
                group declarative Up/Down arrow navigation. The toolbar
                token doesn't imply any particular role (which would
-               conflict with the explicit role="grid"/"row" on the
-               table+rows). Explicit block axis = Up/Down only;
+               conflict with the explicit role="grid" on the table —
+               <tr>/<th>/<td> implicitly take row/columnheader/gridcell
+               inside a grid, so no role attributes are needed on them).
+               Explicit block axis = Up/Down only;
                nowrap matches the JS-fallback no-wrap behaviour.
                Each .row-actions span carries focusgroup="none" so the
                in-row View/Archive buttons stay reachable by Tab from
                the focused row but are excluded from the row-level
                arrow nav. -->
           <tbody focusgroup="toolbar block nomemory nowrap">
-            <tr role="row" id="row-1" tabindex="0" focusgroupstart
+            <tr id="row-1" tabindex="0" focusgroupstart
               aria-actions="view-row-1 archive-row-1">
-              <td role="gridcell">#1024</td>
-              <td role="gridcell">Alice Johnson</td>
-              <td role="gridcell" class="status-cell">Shipped</td>
-              <td role="gridcell">
+              <td>#1024</td>
+              <td>Alice Johnson</td>
+              <td class="status-cell">Shipped</td>
+              <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-1" tabindex="-1"
                     popovertarget="popover-row-1" popovertargetaction="show"
@@ -292,12 +294,12 @@
                 </span>
               </td>
             </tr>
-            <tr role="row" id="row-2" tabindex="-1"
+            <tr id="row-2" tabindex="-1"
               aria-actions="view-row-2 archive-row-2">
-              <td role="gridcell">#1025</td>
-              <td role="gridcell">Bob Chen</td>
-              <td role="gridcell" class="status-cell">Processing</td>
-              <td role="gridcell">
+              <td>#1025</td>
+              <td>Bob Chen</td>
+              <td class="status-cell">Processing</td>
+              <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-2" tabindex="-1"
                     popovertarget="popover-row-2" popovertargetaction="show"
@@ -309,12 +311,12 @@
                 </span>
               </td>
             </tr>
-            <tr role="row" id="row-3" tabindex="-1"
+            <tr id="row-3" tabindex="-1"
               aria-actions="view-row-3 archive-row-3">
-              <td role="gridcell">#1026</td>
-              <td role="gridcell">Carol Davis</td>
-              <td role="gridcell" class="status-cell">Delivered</td>
-              <td role="gridcell">
+              <td>#1026</td>
+              <td>Carol Davis</td>
+              <td class="status-cell">Delivered</td>
+              <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-3" tabindex="-1"
                     popovertarget="popover-row-3" popovertargetaction="show"
@@ -402,7 +404,8 @@
       </div>
 
       <ul class="notice-list">
-        <li><code>aria-actions</code> on each <code>role="row"</code> exposes
+        <li><code>aria-actions</code> on each <code>&lt;tr&gt;</code>
+          (implicitly <code>role="row"</code> inside the grid) exposes
           the row's actions</li>
         <li>The buttons live in the Actions column. Only the focused row's
           buttons are Tab stops; the JS swaps <code>tabindex</code> as row
@@ -707,7 +710,7 @@
       var grid = document.querySelector('[role="grid"]');
       if (!grid) return;
       var rows = Array.prototype.slice.call(
-        grid.querySelectorAll('tbody [role="row"]'));
+        grid.querySelectorAll('tbody > tr'));
 
       function rowButtons(row) {
         return Array.prototype.slice.call(row.querySelectorAll("button"));
@@ -776,7 +779,7 @@
           var anyPopoverOpen = demoSection &&
             demoSection.querySelector("[popover]:popover-open");
           if (!anyPopoverOpen) {
-            var row = current.closest('[role="row"]');
+            var row = current.closest('tr');
             if (row && rows.indexOf(row) !== -1) {
               e.preventDefault();
               row.focus();
@@ -786,7 +789,7 @@
         }
 
         // Arrow / Home / End only operate when a row itself has focus.
-        if (current.getAttribute("role") !== "row") return;
+        if (rows.indexOf(current) === -1) return;
         var index = rows.indexOf(current);
         if (index === -1) return;
         var target = null;
@@ -819,7 +822,7 @@
       // browser/polyfill manages row tabindex, but we still move
       // focusgroupstart so Tab-re-entry uses the current row.
       grid.addEventListener("focusin", function (e) {
-        var row = e.target.closest('[role="row"]');
+        var row = e.target.closest('tr');
         if (!row || rows.indexOf(row) === -1) return;
         if (focusgroupActive()) {
           rows.forEach(function (r) {
