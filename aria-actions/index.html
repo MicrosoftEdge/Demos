@@ -135,11 +135,11 @@
               aria-actions="close-tab-1 pin-tab-1">index.html</button>
             <span class="tab-actions-inline" focusgroup="none">
               <button id="close-tab-1" class="icon-btn" aria-controls="tab-1"
-                aria-label="Close index.html" title="Close index.html"
+                aria-label="Close index.html"
                 data-action="close" data-target="index.html" data-target-id="tab-1"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-1" class="icon-btn" aria-controls="tab-1"
-                aria-label="Pin index.html" title="Pin index.html"
+                aria-label="Pin index.html"
                 data-action="pin" data-target="index.html" data-target-id="tab-1"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -151,11 +151,11 @@
               aria-actions="close-tab-2 pin-tab-2">style.css</button>
             <span class="tab-actions-inline" focusgroup="none">
               <button id="close-tab-2" class="icon-btn" aria-controls="tab-2"
-                aria-label="Close style.css" title="Close style.css"
+                aria-label="Close style.css"
                 data-action="close" data-target="style.css" data-target-id="tab-2"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-2" class="icon-btn" aria-controls="tab-2"
-                aria-label="Pin style.css" title="Pin style.css"
+                aria-label="Pin style.css"
                 data-action="pin" data-target="style.css" data-target-id="tab-2"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -167,11 +167,11 @@
               aria-actions="close-tab-3 pin-tab-3">app.js</button>
             <span class="tab-actions-inline" focusgroup="none">
               <button id="close-tab-3" class="icon-btn" aria-controls="tab-3"
-                aria-label="Close app.js" title="Close app.js"
+                aria-label="Close app.js"
                 data-action="close" data-target="app.js" data-target-id="tab-3"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-3" class="icon-btn" aria-controls="tab-3"
-                aria-label="Pin app.js" title="Pin app.js"
+                aria-label="Pin app.js"
                 data-action="pin" data-target="app.js" data-target-id="tab-3"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -930,7 +930,6 @@
         btn.setAttribute("data-icon", nowOn ? "reopen" : "close");
         var closeLabel = (nowOn ? "Re-open " : "Close ") + targetName;
         btn.setAttribute("aria-label", closeLabel);
-        btn.setAttribute("title", closeLabel);
       } else if (action === "archive") {
         btn.textContent = nowOn ? "Unarchive" : "Archive";
         var archiveLabel = (nowOn ? "Unarchive " : "Archive ") + targetName;

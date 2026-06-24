@@ -488,8 +488,10 @@ body {
 }
 
 /* Per-tab inline action cluster. The buttons are small square icon
-   buttons (X for Close, pushpin for Pin); aria-label + title carry the
-   action verb for AT + sighted-hover tooltip. */
+   buttons (X for Close, pushpin for Pin); aria-label carries the
+   action verb for AT. (We deliberately omit the title attribute so
+   the same string isn't doubled as accessible name + description —
+   the browser-native tooltip is also keyboard- and AT-inaccessible.) */
 .tab-actions-inline {
   display: inline-flex;
   gap: 0.25rem;
