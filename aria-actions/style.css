@@ -295,7 +295,7 @@ body {
   vertical-align: 1px;
 }
 
-/* Grid: Archive (View is handled by a popover, not row state). */
+/* Grid: Archive (View opens a <dialog>, not row state). */
 .data-grid tbody tr[data-archived] {
   opacity: 0.55;
 }
@@ -580,10 +580,11 @@ body {
   background: var(--hover-bg);
 }
 
-/* ----- Row details popover -----
-   Native HTML popover (popover attribute). When open, the browser puts
-   the element in the top layer and centers it. We just style the panel
-   itself; positioning is the UA default (auto-centered). */
+/* ----- Row details dialog -----
+   Native <dialog> opened with showModal() — the browser puts the
+   element in the top layer and centers it via UA defaults. We just
+   style the panel; positioning is the UA default (auto-centered).
+   ::backdrop draws the dim layer behind the dialog. */
 .row-details-popover {
   margin: auto;
   padding: 0;

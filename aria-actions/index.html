@@ -290,7 +290,7 @@
               <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-1" tabindex="-1"
-                    popovertarget="popover-row-1" popovertargetaction="show"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-1"
                     aria-label="View details for order 1024"
                     data-action="view" data-target="order 1024" data-target-id="row-1">View</button>
                   <button id="archive-row-1" tabindex="-1"
@@ -307,7 +307,7 @@
               <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-2" tabindex="-1"
-                    popovertarget="popover-row-2" popovertargetaction="show"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-2"
                     aria-label="View details for order 1025"
                     data-action="view" data-target="order 1025" data-target-id="row-2">View</button>
                   <button id="archive-row-2" tabindex="-1"
@@ -324,7 +324,7 @@
               <td>
                 <span class="row-actions" focusgroup="none">
                   <button id="view-row-3" tabindex="-1"
-                    popovertarget="popover-row-3" popovertargetaction="show"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-3"
                     aria-label="View details for order 1026"
                     data-action="view" data-target="order 1026" data-target-id="row-3">View</button>
                   <button id="archive-row-3" tabindex="-1"
@@ -336,25 +336,31 @@
           </tbody>
         </table>
 
-        <!-- Per-row detail popovers (native HTML popover API). Sibling of
-             the <table> rather than inside <tbody>/<td> because <div> is
-             not a valid child of those elements. Each carries role="dialog"
-             so AT users get a clear "dialog Order #N" announce on open
-             rather than just hearing the row's polite-status update; the
-             popover's accessible name comes from aria-labelledby. The View
-             button opens its row's popover declaratively via popovertarget
-             with popovertargetaction="show" (not the default "toggle"),
-             so re-clicking View while the popover is open is a no-op
-             rather than silently closing it — that prevents the polite-
-             status announce from contradicting the popover's actual
-             state. The browser handles light-dismiss, Esc-to-close, and
-             returning focus to the trigger. -->
-        <div id="popover-row-1" popover role="dialog" class="row-details-popover"
+        <!-- Per-row detail dialogs (native <dialog> + showModal()).
+             Sibling of the <table> rather than inside <tbody>/<td>
+             because <dialog> is not a valid child of those elements.
+
+             <dialog> has an implicit role="dialog", so no ARIA role
+             is needed; the accessible name comes from
+             aria-labelledby. showModal() opens the dialog modally
+             (focus trap, inert background, Esc-to-close, and
+             returning focus to the trigger are all handled by the
+             browser) — matching the visual backdrop the popover
+             version already showed. This replaces the earlier
+             [popover] + popovertarget wiring, which only looked
+             modal: Tab could leak out behind the backdrop.
+
+             A small JS handler (see below) opens the dialog when
+             View is clicked, closes it via the X button
+             ([data-dialog-close]), and adds backdrop-click-to-close
+             to preserve the prior light-dismiss feel — <dialog>
+             doesn't light-dismiss by default. -->
+        <dialog id="popover-row-1" class="row-details-popover"
              aria-labelledby="popover-row-1-title">
           <header class="popover-header">
             <h3 id="popover-row-1-title">Order #1024</h3>
-            <button type="button" class="popover-close" autofocus
-              popovertarget="popover-row-1" popovertargetaction="hide"
+            <button type="button" class="popover-close"
+              data-dialog-close
               aria-label="Close details for order 1024">&times;</button>
           </header>
           <dl class="popover-body">
@@ -364,13 +370,13 @@
             <dt>Items</dt><dd>3</dd>
             <dt>Total</dt><dd>$89.95</dd>
           </dl>
-        </div>
-        <div id="popover-row-2" popover role="dialog" class="row-details-popover"
+        </dialog>
+        <dialog id="popover-row-2" class="row-details-popover"
              aria-labelledby="popover-row-2-title">
           <header class="popover-header">
             <h3 id="popover-row-2-title">Order #1025</h3>
-            <button type="button" class="popover-close" autofocus
-              popovertarget="popover-row-2" popovertargetaction="hide"
+            <button type="button" class="popover-close"
+              data-dialog-close
               aria-label="Close details for order 1025">&times;</button>
           </header>
           <dl class="popover-body">
@@ -380,13 +386,13 @@
             <dt>Items</dt><dd>1</dd>
             <dt>Total</dt><dd>$24.50</dd>
           </dl>
-        </div>
-        <div id="popover-row-3" popover role="dialog" class="row-details-popover"
+        </dialog>
+        <dialog id="popover-row-3" class="row-details-popover"
              aria-labelledby="popover-row-3-title">
           <header class="popover-header">
             <h3 id="popover-row-3-title">Order #1026</h3>
-            <button type="button" class="popover-close" autofocus
-              popovertarget="popover-row-3" popovertargetaction="hide"
+            <button type="button" class="popover-close"
+              data-dialog-close
               aria-label="Close details for order 1026">&times;</button>
           </header>
           <dl class="popover-body">
@@ -397,7 +403,7 @@
             <dt>Items</dt><dd>5</dd>
             <dt>Total</dt><dd>$187.20</dd>
           </dl>
-        </div>
+        </dialog>
       </div>
 
       <div class="action-status-bar">
@@ -415,12 +421,13 @@
         <li>The buttons live in the Actions column. Only the focused row's
           buttons are Tab stops; the JS swaps <code>tabindex</code> as row
           focus moves</li>
-        <li>View opens a native HTML popover (<code>popover</code> +
-          <code>popovertarget</code> with <code>popovertargetaction="show"</code>)
-          showing the row's details. The popover carries <code>role="dialog"</code>
-          for a clean AT announce on open. The browser handles
-          light-dismiss, <kbd>Esc</kbd> to close, and returning focus to
-          the View button. No JS needed for the open/close mechanics</li>
+        <li>View opens a native <code>&lt;dialog&gt;</code> via
+          <code>showModal()</code> showing the row's details. The dialog
+          has implicit <code>role="dialog"</code> for a clean AT announce
+          on open. The browser handles the focus trap, <kbd>Esc</kbd>
+          to close, and returning focus to the View button. A small JS
+          shim adds backdrop-click-to-close so the prior
+          light-dismiss UX is preserved</li>
         <li><kbd>Esc</kbd> from a button returns focus to its row
           (APG grid widget-mode)</li>
         <li>The set of roles that can carry <code>aria-actions</code>
@@ -772,18 +779,21 @@
 
         // Escape from an in-row button returns focus to that row.
         // Handled here in every mode — focusgroup does not bind Escape.
-        // BUT: when a row's View popover is open, focus is still on the
-        // View button (no autofocus inside the popover); pressing Esc
-        // there should let the popover close-watcher dismiss the
-        // popover instead. Calling preventDefault() here would suppress
-        // the close-watcher per the popover spec, stranding the popover
-        // open. Defer to the popover when any popover in the section is
-        // open.
+        // BUT: when a row's View dialog/popover is open, the browser
+        // is the one that should handle Esc (closes the dialog and
+        // returns focus to the View button). Calling preventDefault()
+        // here in that case would suppress that, stranding the dialog
+        // open. <dialog>.showModal() moves focus into the dialog, so
+        // current.closest('.row-actions button') is normally false
+        // while a dialog is open — but we keep the guard for safety,
+        // and broaden it to recognise both <dialog open> and any
+        // [popover]:popover-open in the section.
         if (e.key === "Escape" && current.closest(".row-actions button")) {
           var demoSection = grid.closest(".demo-section");
-          var anyPopoverOpen = demoSection &&
-            demoSection.querySelector("[popover]:popover-open");
-          if (!anyPopoverOpen) {
+          var modalOpen = demoSection && (
+            demoSection.querySelector("dialog[open]") ||
+            demoSection.querySelector("[popover]:popover-open"));
+          if (!modalOpen) {
             var row = current.closest('tr');
             if (row && rows.indexOf(row) !== -1) {
               e.preventDefault();
@@ -857,11 +867,12 @@
     var ACTIONS = {
       close:   { attr: "data-closed",   on: "Closed",                off: "Reopened"     },
       pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned"     },
-      // view doesn't toggle row state — the View button has a
-      // popovertarget that opens a native popover with the row's
-      // details. We still announce via the polite status row so AT
-      // users hear what was just opened. attr=null tells performAction
-      // to skip the data-* toggle path.
+      // view doesn't toggle row state — performAction's view branch
+      // calls dialog.showModal() on the dialog identified by the
+      // button's data-dialog-target. We still announce via the polite
+      // status row on top of the dialog's own "dialog Order #N"
+      // announce, mirroring the original popover implementation.
+      // attr=null tells performAction to skip the data-* toggle path.
       view:    { attr: null,            on: "Viewing details for" },
       archive: { attr: "data-archived", on: "Archived",              off: "Unarchived"   }
     };
@@ -898,10 +909,19 @@
       var statusEl = section && section.querySelector(".action-status");
 
       // Non-toggling actions (cfg.attr === null): no data-* state to
-      // flip, no on/off duality. The browser handles whatever the
-      // button is wired up to do — e.g. View has popovertarget, so the
-      // popover opens declaratively — and we just announce.
+      // flip, no on/off duality. For View, this handler also opens the
+      // row's <dialog> via showModal() — the dialog id comes from the
+      // button's data-dialog-target attribute. The polite-status row
+      // still announces what was just opened so AT users hear it on
+      // top of the dialog's own "dialog Order #N" announce.
       if (cfg.attr === null) {
+        if (action === "view") {
+          var dialogId = btn.getAttribute("data-dialog-target");
+          var dialog = dialogId && document.getElementById(dialogId);
+          if (dialog && typeof dialog.showModal === "function" && !dialog.open) {
+            dialog.showModal();
+          }
+        }
         announceInto(statusEl, cfg.on + ": " + targetName);
         return;
       }
@@ -987,8 +1007,11 @@
         b.setAttribute("aria-label",
           "Pin " + (b.getAttribute("data-target") || ""));
       });
-      // Close any open popovers in this section (e.g. the grid's
-      // per-row View popovers).
+      // Close any open dialogs / popovers in this section (e.g. the
+      // grid's per-row View dialogs, or any future [popover] widgets).
+      section.querySelectorAll("dialog").forEach(function (d) {
+        if (d.open) d.close();
+      });
       section.querySelectorAll("[popover]").forEach(function (p) {
         if (p.matches(":popover-open")) p.hidePopover();
       });
@@ -1001,6 +1024,28 @@
       if (actionBtn) { performAction(actionBtn); return; }
       var resetBtn = e.target.closest("button.action-reset");
       if (resetBtn) { resetSection(resetBtn); return; }
+      // Delegated [data-dialog-close] handler — replaces the
+      // popovertargetaction="hide" wiring the X buttons used before
+      // the popover -> <dialog> conversion.
+      var dialogCloseBtn = e.target.closest("[data-dialog-close]");
+      if (dialogCloseBtn) {
+        var dialog = dialogCloseBtn.closest("dialog");
+        if (dialog && dialog.open) dialog.close();
+        return;
+      }
+    });
+
+    // Backdrop-click closes the row-details dialogs. <dialog> doesn't
+    // light-dismiss on outside click by default; the prior [popover]
+    // implementation did, so we restore that UX explicitly. The check
+    // e.target === d is true only when the click hits the dialog's
+    // own box (the ::backdrop pseudo). The dialog's children (header,
+    // dl) fill the panel completely, so panel clicks never satisfy
+    // this condition.
+    document.querySelectorAll("dialog.row-details-popover").forEach(function (d) {
+      d.addEventListener("click", function (e) {
+        if (e.target === d) d.close();
+      });
     });
   </script>
 </body>
