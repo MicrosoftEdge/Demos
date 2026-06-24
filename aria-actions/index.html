@@ -139,7 +139,7 @@
                 data-action="close" data-target="index.html" data-target-id="tab-1"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-1" class="icon-btn" aria-controls="tab-1"
-                aria-label="Pin index.html"
+                aria-label="Pin index.html" aria-pressed="false"
                 data-action="pin" data-target="index.html" data-target-id="tab-1"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -155,7 +155,7 @@
                 data-action="close" data-target="style.css" data-target-id="tab-2"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-2" class="icon-btn" aria-controls="tab-2"
-                aria-label="Pin style.css"
+                aria-label="Pin style.css" aria-pressed="false"
                 data-action="pin" data-target="style.css" data-target-id="tab-2"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -171,7 +171,7 @@
                 data-action="close" data-target="app.js" data-target-id="tab-3"
                 data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
               <button id="pin-tab-3" class="icon-btn" aria-controls="tab-3"
-                aria-label="Pin app.js"
+                aria-label="Pin app.js" aria-pressed="false"
                 data-action="pin" data-target="app.js" data-target-id="tab-3"
                 data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
             </span>
@@ -223,6 +223,11 @@
           reason)</li>
         <li><kbd>Delete</kbd> on the focused tab triggers Close;
           <code>aria-keyshortcuts</code> tells AT about the shortcut</li>
+        <li>Pin is a true toggle button: it carries
+          <code>aria-pressed</code> for persistent state and swaps its
+          accessible name between Pin and Unpin so the label reflects
+          the next action. The polite status line still narrates each
+          transition</li>
         <li>Arrow-key navigation uses the
           <code>focusgroup="tablist nomemory"</code> attribute on the
           tablist when the browser supports it (declarative roving
@@ -921,10 +926,13 @@
       }
 
       // Self-renaming actions: the button's label reflects what the
-       // NEXT click will do. Close ↔ Re-open swaps both the SVG icon
-       // and the accessible name; Archive ↔ Unarchive swaps just the
-       // text label (and aria-label/title). Other actions keep static
-       // labels (Pin stays a pushpin both ways, etc.).
+      // NEXT click will do. Close ↔ Re-open swaps both the SVG icon
+      // and the accessible name; Archive ↔ Unarchive swaps just the
+      // text label. Pin keeps its pushpin icon but uses aria-pressed
+      // (the canonical toggle-button pattern) AND swaps Pin ↔ Unpin
+      // so the action verb tracks the next click — and the polite
+      // status region still announces the transition, giving AT users
+      // both the persistent state (pressed) and a one-shot narration.
       if (action === "close") {
         btn.innerHTML = nowOn ? REOPEN_SVG : CLOSE_SVG;
         btn.setAttribute("data-icon", nowOn ? "reopen" : "close");
@@ -934,6 +942,10 @@
         btn.textContent = nowOn ? "Unarchive" : "Archive";
         var archiveLabel = (nowOn ? "Unarchive " : "Archive ") + targetName;
         btn.setAttribute("aria-label", archiveLabel);
+      } else if (action === "pin") {
+        btn.setAttribute("aria-pressed", nowOn ? "true" : "false");
+        var pinLabel = (nowOn ? "Unpin " : "Pin ") + targetName;
+        btn.setAttribute("aria-label", pinLabel);
       }
 
       announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
@@ -962,13 +974,18 @@
         b.setAttribute("data-icon", "close");
         var lbl = "Close " + (b.getAttribute("data-target") || "");
         b.setAttribute("aria-label", lbl);
-        b.setAttribute("title", lbl);
       });
       // Restore Archive button text + label.
       section.querySelectorAll('button[data-action="archive"]').forEach(function (b) {
         b.textContent = "Archive";
         b.setAttribute("aria-label",
           "Archive " + (b.getAttribute("data-target") || ""));
+      });
+      // Restore Pin button toggle state + label.
+      section.querySelectorAll('button[data-action="pin"]').forEach(function (b) {
+        b.setAttribute("aria-pressed", "false");
+        b.setAttribute("aria-label",
+          "Pin " + (b.getAttribute("data-target") || ""));
       });
       // Close any open popovers in this section (e.g. the grid's
       // per-row View popovers).
