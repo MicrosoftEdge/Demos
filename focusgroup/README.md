@@ -16,6 +16,7 @@ Interactive demos for the HTML `focusgroup` attribute, which lets you add arrow-
 - [Listbox](https://microsoftedge.github.io/Demos/focusgroup/listbox.html): Selectable list navigation
 - [Accordion](https://microsoftedge.github.io/Demos/focusgroup/accordion.html): Accordion with block-axis arrow key navigation using `focusgroup="toolbar block"` and `role="group"`
 - [Additional Concepts](https://microsoftedge.github.io/Demos/focusgroup/additional-concepts.html): Nested focusgroups, opt-out, deep descendants, CSS `reading-flow` integration, feature detection
+- [Combined sample](https://microsoftedge.github.io/Demos/focusgroup/combined-sample.html): A combined sample with a toolbar, tablist, menubar, and accordion, demonstrating how to use `focusgroup` in a real-world scenario.
 
 ## Learn more
 

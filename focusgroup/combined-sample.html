@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focusgroup: Combined Real-World Sample</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <style>
+    @layer reset, theme, layout, components;
+
+    @layer reset {
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+    }
+
+    @layer theme {
+      :root {
+        color-scheme: light;
+        --bg: #f3f6f7;
+        --panel: #ffffff;
+        --panel-soft: #f9fbfb;
+        --ink: #11212a;
+        --muted: #58707f;
+        --line: #d5e0e6;
+        --brand: #0a7f6f;
+        --brand-soft: #e3f6f2;
+        --focus: #ff8a00;
+        --shadow: 0 14px 30px rgba(16, 40, 52, 0.1);
+      }
+
+      body {
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 4% 8%, #d9f3ed 0, transparent 26%),
+          radial-gradient(circle at 95% 94%, #d8edf9 0, transparent 24%),
+          var(--bg);
+        font-family: "Manrope", "Segoe UI", "Noto Sans", sans-serif;
+      }
+
+      ::selection {
+        background: #b6ece2;
+        color: #052a23;
+      }
+    }
+
+    @layer layout {
+      .app-shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      .app-main {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 0.9rem;
+      }
+
+      .workspace-body {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 0.9rem;
+      }
+
+      @media (max-width: 980px) {
+        .app-main {
+          grid-template-columns: 1fr;
+        }
+
+        .workspace-body {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    @layer components {
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .warning-banner {
+        display: none;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 2px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .app-menubar {
+        margin: 0;
+        padding: 0.65rem 0.8rem;
+        border-radius: 0;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in oklab, var(--panel) 86%, #eaf3f7 14%);
+        box-shadow: 0 4px 14px rgba(13, 46, 53, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .brand {
+        margin-right: 0.6rem;
+        font-size: 1.02rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+      }
+
+      .app-menubar-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        gap: 0.2rem;
+      }
+
+      .menuitem {
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        padding: 0.4rem 0.7rem;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .menuitem:hover,
+      .menuitem:focus-visible,
+      .menuitem[aria-expanded="true"] {
+        background: var(--brand-soft);
+      }
+
+      .menu-pop {
+        margin: 0;
+        padding: 0.3rem;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        min-width: 180px;
+        list-style: none;
+      }
+
+      .menu-pop[popover] {
+        top: calc(anchor(bottom) + 6px);
+        left: anchor(left);
+      }
+
+      .menu-pop button {
+        width: 100%;
+        text-align: left;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--ink);
+        padding: 0.45rem 0.6rem;
+        cursor: pointer;
+      }
+
+      .menu-pop button:hover,
+      .menu-pop button:focus-visible {
+        background: color-mix(in oklab, var(--brand-soft) 70%, white 30%);
+      }
+
+      [popovertarget="menu-project"] {
+        anchor-name: --menu-project;
+      }
+
+      #menu-project {
+        position-anchor: --menu-project;
+      }
+
+      [popovertarget="menu-book"] {
+        anchor-name: --menu-book;
+      }
+
+      #menu-book {
+        position-anchor: --menu-book;
+      }
+
+      [popovertarget="menu-help"] {
+        anchor-name: --menu-help;
+      }
+
+      #menu-help {
+        position-anchor: --menu-help;
+      }
+
+      .sidebar {
+        padding: 0.9rem;
+        display: grid;
+        gap: 0.8rem;
+        align-content: start;
+      }
+
+      .sidebar h2,
+      .workspace-head h2 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .helper {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .tool-rail {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .tool-btn {
+        border: 1px solid var(--line);
+        background: var(--panel-soft);
+        color: var(--ink);
+        border-radius: 10px;
+        text-align: left;
+        padding: 0.52rem 0.58rem;
+        cursor: pointer;
+      }
+
+      .tool-btn:hover,
+      .tool-btn:focus-visible {
+        background: #ebf7f3;
+      }
+
+      .workspace-head {
+        display: grid;
+        gap: 0.35rem;
+        padding: 0.9rem 1rem;
+      }
+
+      .chip-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        background: #f7fafb;
+        color: var(--ink);
+        border-radius: 99px;
+        padding: 0.36rem 0.72rem;
+        cursor: pointer;
+      }
+
+      .chip.checked {
+        border-color: #5ea799;
+        background: #dcf3ed;
+      }
+
+      .tab-strip {
+        margin: 0;
+        padding: 0.4rem;
+        display: flex;
+        gap: 0.3rem;
+      }
+
+      .tab {
+        border: 1px solid transparent;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--muted);
+        padding: 0.52rem 0.75rem;
+        cursor: pointer;
+      }
+
+      .tab:hover {
+        background: #f4f8fa;
+      }
+
+      .tab.selected {
+        border-color: #8ec6ba;
+        color: #114b40;
+        background: #e6f5f1;
+      }
+
+      .tabpanel {
+        padding: 0.9rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .schedule {
+        margin: 0;
+        padding-left: 1.1rem;
+      }
+
+      .box {
+        padding: 0.85rem;
+      }
+
+      .box h3 {
+        margin: 0 0 0.45rem;
+        font-size: 0.96rem;
+      }
+
+      .listbox {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .list-option {
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 0.4rem 0.5rem;
+        cursor: pointer;
+      }
+
+      .list-option:hover {
+        background: #f4f8fa;
+      }
+
+      .list-option.selected {
+        border-color: #8ec6ba;
+        background: #e6f5f1;
+      }
+
+      .accordion {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: visible;
+      }
+
+      .accordion details {
+        border-top: 1px solid var(--line);
+      }
+
+      .accordion details:first-child {
+        border-top: 0;
+      }
+
+      .accordion summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 0.65rem 0.75rem;
+        background: #f8fbfc;
+        position: relative;
+      }
+
+      .accordion summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .accordion summary:focus-visible {
+        z-index: 1;
+      }
+
+      .accordion summary::before {
+        content: "▸";
+        display: inline-block;
+        margin-right: 0.45rem;
+        transition: transform 0.15s ease;
+      }
+
+      .accordion details[open] summary::before {
+        transform: rotate(90deg);
+      }
+
+      .acc-panel {
+        padding: 0.6rem 0.78rem 0.75rem;
+        border-top: 1px solid var(--line);
+        background: #ffffff;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="app-menubar">
+      <div class="brand">RouteDesk</div>
+      <div class="sr-only" id="menubar-help">Use left and right arrows to move between top menu items.</div>
+      <ul role="menubar" focusgroup="menubar" aria-label="Application menu" aria-describedby="menubar-help"
+        class="app-menubar-list">
+        <li role="none">
+          <button role="menuitem" type="button" class="menuitem" aria-haspopup="menu" aria-expanded="false"
+            popovertarget="menu-project" focusgroupstart>Project</button>
+          <ul role="menu" focusgroup="menu" id="menu-project" popover aria-label="Project menu" class="menu-pop">
+            <li role="none"><button type="button" autofocus>New trip</button></li>
+            <li role="none"><button type="button">Duplicate plan</button></li>
+            <li role="none"><button type="button">Export PDF</button></li>
+          </ul>
+        </li>
+        <li role="none">
+          <button role="menuitem" type="button" class="menuitem" aria-haspopup="menu" aria-expanded="false"
+            popovertarget="menu-book">Bookings</button>
+          <ul role="menu" focusgroup="menu" id="menu-book" popover aria-label="Bookings menu" class="menu-pop">
+            <li role="none"><button type="button" autofocus>Flights</button></li>
+            <li role="none"><button type="button">Hotels</button></li>
+            <li role="none"><button type="button">Transfers</button></li>
+          </ul>
+        </li>
+        <li role="none">
+          <button role="menuitem" type="button" class="menuitem" aria-haspopup="menu" aria-expanded="false"
+            popovertarget="menu-help">Help</button>
+          <ul role="menu" focusgroup="menu" id="menu-help" popover aria-label="Help menu" class="menu-pop">
+            <li role="none"><button type="button" autofocus>Keyboard help</button></li>
+            <li role="none"><button type="button">Contact support</button></li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+
+    <div class="app-main">
+      <aside class="sidebar panel" aria-labelledby="tool-title">
+        <h2 id="tool-title">Tools</h2>
+        <p class="helper">This side rail is one composite widget. Tab exits to the center workspace.</p>
+        <div focusgroup="toolbar block" aria-orientation="vertical" aria-label="Tool actions" class="tool-rail">
+          <button type="button" class="tool-btn" focusgroupstart>Overview</button>
+          <button type="button" class="tool-btn">Map pins</button>
+          <button type="button" class="tool-btn">Guests</button>
+          <button type="button" class="tool-btn">Budget</button>
+          <button type="button" class="tool-btn">Checklist</button>
+        </div>
+      </aside>
+
+      <main class="workspace" aria-label="Planner workspace">
+        <section class="workspace-head panel">
+          <h2>Spring Coastal Trip</h2>
+          <p class="helper">Tab between widgets. Arrow keys are scoped to whichever focusgroup you are in.</p>
+          <div focusgroup="radiogroup inline wrap nomemory" aria-label="Trip pace" class="chip-group" data-mode-group>
+            <span tabindex="0" aria-checked="true" class="chip checked" focusgroupstart>Relaxed</span>
+            <span tabindex="0" aria-checked="false" class="chip">Balanced</span>
+            <span tabindex="0" aria-checked="false" class="chip">Packed</span>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="tabs-label">
+          <h3 id="tabs-label" class="sr-only">Plan views</h3>
+          <div focusgroup="tablist" aria-label="Plan views" class="tab-strip js-tablist">
+            <button type="button" class="tab selected" aria-selected="true" aria-controls="panel-timeline"
+              id="tab-timeline" focusgroupstart>Timeline</button>
+            <button type="button" class="tab" aria-selected="false" aria-controls="panel-routes"
+              id="tab-routes">Routes</button>
+            <button type="button" class="tab" aria-selected="false" aria-controls="panel-notes"
+              id="tab-notes">Notes</button>
+          </div>
+
+          <div role="tabpanel" id="panel-timeline" aria-labelledby="tab-timeline" tabindex="0" class="tabpanel">
+            <ul class="schedule">
+              <li>Day 1 - Arrival, station transfer, old town check-in.</li>
+              <li>Day 2 - Museum loop, riverside dinner, night ferry.</li>
+              <li>Day 3 - Coastal train, harbor walk, lighthouse sunset.</li>
+            </ul>
+          </div>
+
+          <div role="tabpanel" id="panel-routes" aria-labelledby="tab-routes" tabindex="0" class="tabpanel" hidden>
+            <p>Primary route: airport rail to city center, then intercity line C5 to coast.</p>
+          </div>
+
+          <div role="tabpanel" id="panel-notes" aria-labelledby="tab-notes" tabindex="0" class="tabpanel" hidden>
+            <p>Book return seats before Friday. Keep offline map pack for tunnel segments.</p>
+          </div>
+        </section>
+
+        <section class="workspace-body">
+          <section class="box panel" aria-labelledby="destinations-title">
+            <h3 id="destinations-title">Neighborhood Queue</h3>
+            <div focusgroup="listbox wrap nomemory" aria-label="Destination queue" class="listbox"
+              data-destination-listbox>
+              <div class="list-option selected" tabindex="0" aria-selected="true" focusgroupstart>Harbor Front</div>
+              <div class="list-option" tabindex="0" aria-selected="false">Canal District</div>
+              <div class="list-option" tabindex="0" aria-selected="false">Citadel Loop</div>
+              <div class="list-option" tabindex="0" aria-selected="false">Cliff Trail</div>
+            </div>
+          </section>
+
+          <section class="box panel" aria-labelledby="checklist-title">
+            <h3 id="checklist-title">Prep Checklist</h3>
+            <div focusgroup="toolbar block" role="group" aria-label="Checklist sections" class="accordion">
+              <details open name="prep-checklist">
+                <summary focusgroupstart>Documents</summary>
+                <div class="acc-panel">
+                  <p>Passport, insurance, and backup copies in cloud folder.</p>
+                </div>
+              </details>
+
+              <details name="prep-checklist">
+                <summary>Packing</summary>
+                <div class="acc-panel">
+                  <p>Light rain jacket, adapter, and reusable bottle.</p>
+                </div>
+              </details>
+
+              <details name="prep-checklist">
+                <summary>Arrival</summary>
+                <div class="acc-panel">
+                  <p>Transfer code, hotel desk hours, and emergency contact.</p>
+                </div>
+              </details>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    function initTablists() {
+      initSingleSelect(".js-tablist", ".tab", "aria-selected", "selected", function (target, items) {
+        items.forEach(function (item) {
+          const panelId = item.getAttribute("aria-controls");
+          if (!panelId) return;
+
+          const panel = document.getElementById(panelId);
+          if (panel) {
+            panel.hidden = item !== target;
+          }
+        });
+      });
+
+      document.querySelectorAll(".js-tablist .tab").forEach(function (tab) {
+        tab.addEventListener("focus", function () {
+          tab.click();
+        });
+      });
+    }
+
+    function initSelectables() {
+      initSingleSelect("[data-mode-group]", ".chip", "aria-checked", "checked", function (target, items) {
+        items.forEach(function (item) {
+          if (item === target) {
+            item.setAttribute("focusgroupstart", "");
+          } else {
+            item.removeAttribute("focusgroupstart");
+          }
+        });
+      });
+
+      initSingleSelect("[data-destination-listbox]", ".list-option", "aria-selected", "selected", function (target, items) {
+        items.forEach(function (item) {
+          if (item === target) {
+            item.setAttribute("focusgroupstart", "");
+          } else {
+            item.removeAttribute("focusgroupstart");
+          }
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initTablists();
+      initSelectables();
+    });
+  </script>
+</body>
+
+</html>
