@@ -1,0 +1,699 @@
+/* ============================================================
+   ARIA Actions Demo - Stylesheet
+   Adapted from the focusgroup demo's visual conventions.
+   ============================================================ */
+
+/* ----- Reset & Base ----- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+input,
+textarea,
+button {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 16px;
+  font-family: Segoe UI, SegoeUI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+html {
+  min-height: 100vh;
+}
+
+/* ----- CSS Custom Properties (Light theme) -----
+   --focus-color is set for >=3:1 contrast against --bg/--bg-card
+   (WCAG 1.4.11 Non-text Contrast).
+   #b45309 on #f9fafb >= 4.1:1. */
+:root {
+  color-scheme: light dark;
+  --bg: #f9fafb;
+  --bg-card: #ffffff;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --focus-color: #b45309;
+  --success: #10b981;
+  --warning-bg: #fef3c7;
+  --warning-border: #f59e0b;
+  --warning-text: #92400e;
+  --code-bg: #f3f4f6;
+  --selected-bg: #2563eb;
+  --selected-text: #ffffff;
+  --hover-bg: #f3f4f6;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --radius: 8px;
+}
+
+/* ----- Dark theme ----- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111827;
+    --bg-card: #1f2937;
+    --text: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border: #374151;
+    --accent: #60a5fa;
+    --accent-light: #1e3a5f;
+    --focus-color: #fbbf24;
+    --success: #34d399;
+    --warning-bg: #422006;
+    --warning-border: #d97706;
+    --warning-text: #fde68a;
+    --code-bg: #374151;
+    --selected-bg: #3b82f6;
+    --selected-text: #ffffff;
+    --hover-bg: #374151;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ----- Reduced motion ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ----- Body ----- */
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ----- Layout ----- */
+.page-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
+}
+
+.page-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* ----- focusgroup runtime status pill -----
+   Small badge in the page header reporting which arrow-key navigation
+   path is active for the tablist + grid: native focusgroup, Microsoft
+   focusgroup polyfill, or pure JS fallback. data-tone controls the
+   accent (ok / neutral / warn). */
+.focusgroup-status {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.focusgroup-status[data-tone="ok"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.focusgroup-status[data-tone="warn"] {
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+  background: var(--warning-bg);
+}
+
+@media (forced-colors: active) {
+  .focusgroup-status {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+  .focusgroup-status[data-tone="ok"] {
+    border-color: Highlight;
+    color: Highlight;
+  }
+}
+
+.page-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ----- In-page Navigation ----- */
+.page-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.page-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.page-nav a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Warning / Feature-detection Banner ----- */
+.warning-banner {
+  position: relative;
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+  padding: 1rem 2.75rem 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.warning-banner strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.banner-dismiss {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ----- Per-widget action status & reset bar -----
+   The status row is a polite live region (role=status) co-located
+   with its widget so the announce reaches both AT (via aria-live)
+   and sighted users (visually). The reset button restores starting
+   state so the demo stays replayable. */
+.action-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.action-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.action-status-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.action-status-message {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+.action-reset {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.action-reset:hover {
+  background: var(--hover-bg);
+}
+
+/* ----- Item state visuals -----
+   Action invocations toggle a data-* attribute on the target item;
+   these rules render the result. Each is reversible (toggle again or
+   click Reset). Visible to sighted users; the polite status region
+   above announces the change to AT users. */
+
+/* Tabs: Close & Pin */
+.tablist .tab[data-closed] {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  color: var(--text-muted);
+}
+
+.tablist .tab[data-closed]::after {
+  content: " (closed)";
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
+.tablist .tab[data-pinned]::before {
+  content: "\1F4CC\00A0"; /* 📌 + nbsp */
+  font-size: 0.85em;
+  vertical-align: 1px;
+}
+
+/* Grid: Archive (View opens a <dialog>, not row state). */
+.data-grid tbody tr[data-archived] {
+  opacity: 0.55;
+}
+
+.data-grid tbody tr[data-archived] .status-cell {
+  font-style: italic;
+}
+
+/* HCM mappings: don't lose state cues when system colors take over. */
+@media (forced-colors: active) {
+  .tablist .tab[data-closed] {
+    /* line-through survives HCM; ensure colour falls back to GrayText. */
+    color: GrayText;
+  }
+  .data-grid tbody tr[data-archived] {
+    opacity: 1;
+    color: GrayText;
+  }
+}
+
+.banner-dismiss:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ----- Demo Section ----- */
+.demo-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.demo-section h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.demo-section h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.demo-section > p {
+  color: var(--text-muted);
+  margin: 0.25rem 0 1rem;
+  font-size: 0.95rem;
+}
+
+/* ----- Demo Container (the interactive area) ----- */
+.demo-container {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 1rem 0;
+  background: var(--bg);
+}
+
+/* ----- Code Label -----
+   <pre><code> retains the literal-text semantics of the displayed attribute
+   while the visual presentation matches inline code styling. */
+.attr-label {
+  display: inline-block;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  margin: 0 0 0.75rem;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  white-space: pre;
+}
+
+.attr-label code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ----- Try-it Box ----- */
+.try-it {
+  background: var(--accent-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.try-it kbd,
+.demo-section kbd {
+  display: inline-block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+/* ----- Notice List ----- */
+.notice-list {
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.notice-list li {
+  margin-bottom: 0.3rem;
+}
+
+/* ----- Focus Ring ----- */
+:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* ----- Buttons ----- */
+.demo-container button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+
+.demo-container button:hover {
+  background: var(--hover-bg);
+}
+
+/* ----- Tab Control ----- */
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+  align-items: stretch;
+}
+
+/* Each tab + its action buttons share a horizontal cluster so the actions
+   sit immediately to the right of the tab they target. The role="tab"
+   element is the sibling of the actions, not the parent, so Children
+   Presentational on role="tab" is preserved (matches the APG
+   tabs-actions example's .tab-wrapper pattern). */
+.tab-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-right: 0.25rem;
+}
+
+.tablist .tab {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.65rem 0.75rem 0.65rem 1.25rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  position: relative;
+  cursor: pointer;
+}
+
+/* Selected tab uses font-weight + color + bottom border so the state
+   is conveyed by more than color alone (WCAG 1.4.1). The border sits
+   on top of the .tablist's own bottom border via the negative margin
+   (the .tab-group ancestor doesn't interfere because its align-items:
+   center lets the tab keep its own box). */
+.tablist .tab[aria-selected="true"] {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: -2px;
+}
+
+.tabpanel {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  min-height: 60px;
+  margin-top: 0.5rem;
+}
+
+/* Per-tab inline action cluster. The buttons are small square icon
+   buttons (X for Close, pushpin for Pin); aria-label carries the
+   action verb for AT. (We deliberately omit the title attribute so
+   the same string isn't doubled as accessible name + description —
+   the browser-native tooltip is also keyboard- and AT-inaccessible.) */
+.tab-actions-inline {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.tab-actions-inline .icon-btn {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.tab-actions-inline .icon-btn:hover {
+  background: var(--hover-bg);
+}
+
+.tab-actions-inline .icon-btn .icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+}
+
+/* Re-open icon (Lucide rotate-ccw) uses a 24-unit viewBox; the close
+   and pin icons use a 16-unit viewBox. Both render to the same
+   container size; only the strokes/paths differ. */
+.tab-actions-inline .icon-btn[data-icon="reopen"] .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* ----- Grid ----- */
+.data-grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-grid th,
+.data-grid td {
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+}
+
+.data-grid th {
+  background: var(--code-bg);
+  font-weight: 600;
+}
+
+.data-grid tbody tr:hover td {
+  background: var(--hover-bg);
+}
+
+/* Row focus is the primary unit for grid keyboard nav; show a visible
+   indicator on the focused row. */
+.data-grid tbody tr:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: -2px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.row-actions button {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.row-actions button:hover {
+  background: var(--hover-bg);
+}
+
+/* ----- Row details dialog -----
+   Native <dialog> opened with showModal() — the browser puts the
+   element in the top layer and centers it via UA defaults. We just
+   style the panel; positioning is the UA default (auto-centered).
+   ::backdrop draws the dim layer behind the dialog. */
+.row-details-popover {
+  margin: auto;
+  padding: 0;
+  width: min(90vw, 22rem);
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+}
+
+.row-details-popover::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.popover-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.popover-close {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.popover-close:hover {
+  background: var(--hover-bg);
+}
+
+.popover-body {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.popover-body dt {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.popover-body dd {
+  margin: 0;
+}
+
+@media (forced-colors: active) {
+  .row-details-popover {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}
+
+/* ----- Inline Code -----
+   Sets an explicit color rather than inheriting from parents like
+   .notice-list (which uses --text-muted) — that combination dropped
+   below WCAG AA 4.5:1 against --code-bg. */
+code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.9em;
+  color: var(--text);
+  background: var(--code-bg);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+/* ----- Links ----- */
+a {
+  color: var(--accent);
+}
+
+/* ----- Forced Colors Mode (Windows High Contrast) -----
+   Ensure selected states and focus rings are conveyed via system
+   colors (which override CSS colors in HCM). */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .tablist .tab[aria-selected="true"] {
+    border-bottom-color: Highlight;
+    color: Highlight;
+  }
+
+  .data-grid tbody tr:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
