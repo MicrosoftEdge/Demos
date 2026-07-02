@@ -538,51 +538,78 @@
 
   <script src="shared.js"></script>
   <script>
-    function initTablists() {
-      initSingleSelect(".js-tablist", ".tab", "aria-selected", "selected", function (target, items) {
-        items.forEach(function (item) {
-          const panelId = item.getAttribute("aria-controls");
-          if (!panelId) return;
+    // focusgroup handles arrow-key navigation between items. The config list
+    // below wires up the rest: selection state, tab panels, and select-on-focus.
 
-          const panel = document.getElementById(panelId);
-          if (panel) {
-            panel.hidden = item !== target;
-          }
-        });
+    // Point the focusgroup entry at the selected item. With nomemory, Tab comes
+    // back here instead of the first item.
+    function moveStart(target, items) {
+      items.forEach(function (item) {
+        item.focusGroupStart = item === target;
       });
+    }
 
-      document.querySelectorAll(".js-tablist .tab").forEach(function (tab) {
-        tab.addEventListener("focus", function () {
-          tab.click();
+    // Show the selected tab's panel, hide the others.
+    function showLinkedPanel(target, items) {
+      items.forEach(function (item) {
+        const panel = document.getElementById(item.getAttribute("aria-controls"));
+        if (panel) {
+          panel.hidden = item !== target;
+        }
+      });
+    }
+
+    // Popovers don't update the button's aria-expanded, so track open/close here.
+    function syncMenuExpanded() {
+      document.querySelectorAll(".app-menubar [popovertarget]").forEach(function (btn) {
+        const menu = document.getElementById(btn.getAttribute("popovertarget"));
+        if (!menu) return;
+        menu.addEventListener("toggle", function (e) {
+          btn.setAttribute("aria-expanded", e.newState === "open" ? "true" : "false");
         });
       });
     }
 
-    function initSelectables() {
-      initSingleSelect("[data-mode-group]", ".chip", "aria-checked", "checked", function (target, items) {
-        items.forEach(function (item) {
-          if (item === target) {
-            item.setAttribute("focusgroupstart", "");
-          } else {
-            item.removeAttribute("focusgroupstart");
-          }
-        });
-      });
-
-      initSingleSelect("[data-destination-listbox]", ".list-option", "aria-selected", "selected", function (target, items) {
-        items.forEach(function (item) {
-          if (item === target) {
-            item.setAttribute("focusgroupstart", "");
-          } else {
-            item.removeAttribute("focusgroupstart");
-          }
-        });
-      });
-    }
+    const selectGroups = [
+      {
+        container: ".js-tablist",
+        item: ".tab",
+        aria: "aria-selected",
+        selectedClass: "selected",
+        followFocus: true,
+        afterSelect: showLinkedPanel,
+      },
+      {
+        container: "[data-mode-group]",
+        item: ".chip",
+        aria: "aria-checked",
+        selectedClass: "checked",
+        afterSelect: moveStart,
+      },
+      {
+        container: "[data-destination-listbox]",
+        item: ".list-option",
+        aria: "aria-selected",
+        selectedClass: "selected",
+        afterSelect: moveStart,
+      },
+    ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      initTablists();
-      initSelectables();
+      syncMenuExpanded();
+
+      selectGroups.forEach(function (group) {
+        initSingleSelect(group.container, group.item, group.aria, group.selectedClass, group.afterSelect);
+
+        // Tablist: focusing a tab selects it.
+        if (group.followFocus) {
+          document.querySelectorAll(group.container + " " + group.item).forEach(function (item) {
+            item.addEventListener("focus", function () {
+              item.click();
+            });
+          });
+        }
+      });
     });
   </script>
 </body>
