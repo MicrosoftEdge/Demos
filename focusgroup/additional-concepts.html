@@ -249,6 +249,13 @@
         If unsupported, you can fall back to a JavaScript-based roving
         tabindex or show a notice.
       </p>
+      <p>
+        The content attribute is <code>focusgroup</code> (lowercase);
+        the IDL property is <code>focusGroup</code>, a
+        <code>DOMTokenList</code> like <code>classList</code>. The
+        <code>focusgroupstart</code> attribute is reflected as the
+        boolean IDL property <code>focusGroupStart</code>.
+      </p>
 
       <div class="demo-container">
         <div id="feature-detect-result"></div>
@@ -257,7 +264,7 @@
       <details class="source-code">
         <summary>View source</summary>
         <pre><code>&lt;script&gt;
-if ('focusgroup' in HTMLElement.prototype) {
+if ('focusGroup' in HTMLElement.prototype) {
     // focusgroup is supported - use it!
     console.log('focusgroup is supported');
 } else {
@@ -276,7 +283,7 @@ if ('focusgroup' in HTMLElement.prototype) {
     (function () {
       var result = document.getElementById("feature-detect-result");
       if (!result) return;
-      if ("focusgroup" in HTMLElement.prototype) {
+      if ("focusGroup" in HTMLElement.prototype) {
         result.textContent = "✅ focusgroup IS supported in this browser.";
         result.style.background = "var(--accent-light)";
         result.style.color = "var(--success)";

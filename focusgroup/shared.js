@@ -13,7 +13,7 @@
 function checkFocusgroupSupport() {
   "use strict";
 
-  if ("focusgroup" in HTMLElement.prototype) {
+  if ("focusGroup" in HTMLElement.prototype) {
     return;
   }
 
