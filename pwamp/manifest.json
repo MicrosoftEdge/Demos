@@ -40,18 +40,19 @@
     {
       "src": "./screenshot-playlist.png",
       "sizes": "1280x720",
-      "platform": "wide",
+      "form_factor": "wide",
       "label": "The main PWAmp user interface, showing a list of songs, and playback buttons."
     },
     {
       "src": "./screenshot-visualizer.png",
       "sizes": "1280x720",
-      "platform": "wide",
+      "form_factor": "wide",
       "label": "The PWAmp visualizer, showing the current song, the playback buttons, and a colorful visualization of the current song."
     },
     {
       "src": "./screenshot-widget.png",
       "sizes": "600x400",
+      "form_factor": "narrow",
       "label": "The PWAmp mini-player widget"
     }
   ],
