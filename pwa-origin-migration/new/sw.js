@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-origin-migration-new-v1";
+const CACHE_NAME = "pwa-origin-migration-new-v2";
 
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
