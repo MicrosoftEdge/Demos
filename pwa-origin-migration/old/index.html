@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Old app · PWA Origin Migration</title>
+    <meta name="application-name" content="Migration old" />
+    <meta name="theme-color" content="#a62b37" />
+    <link rel="icon" type="image/png" href="./icon-192.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <script>window.DEMO = { role: "old", id: "/Demos/pwa-origin-migration/old/" };</script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <img src="./icon-192.png" alt="Old app icon" />
+        <div>
+          <span class="badge">Old app</span>
+          <h1>PWA Origin Migration &mdash; old app</h1>
+          <div class="sub">The app your users already have installed.</div>
+        </div>
+      </header>
+
+      <div class="panel">
+        <h2>Status</h2>
+        <div id="status" data-kind="idle">Loading&hellip;</div>
+        <button id="install-btn" class="install" hidden>Install this app</button>
+      </div>
+
+      <div class="panel">
+        <h2>What this app declares</h2>
+        <dl class="kv">
+          <dt>Serving origin</dt><dd id="origin" class="mono">&mdash;</dd>
+          <dt>Manifest URL</dt><dd id="manifest-url" class="mono">&mdash;</dd>
+          <dt>Manifest <code>id</code></dt><dd id="resolved-id" class="mono">&mdash;</dd>
+          <dt><code>migrate_to.id</code></dt><dd class="mono">/Demos/pwa-origin-migration/new/</dd>
+        </dl>
+        <p class="sub" style="margin-top:12px">
+          This manifest contains a <code>migrate_to</code> field pointing at the new app, so the
+          browser treats this app as the migration <em>source</em>.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Try the migration</h2>
+        <ol class="steps">
+          <li>Confirm <span class="mono">edge://flags/#web-app-migration-api</span> is <b>Enabled</b> (on by default).</li>
+          <li><b>Install this old app</b> (button above, or the address-bar install icon).</li>
+          <li>Open and install the <a href="../new/">new app</a>.</li>
+          <li>Launch this old app from your OS. With <span class="mono">"behavior": "suggest"</span> you&rsquo;ll see a
+              &ldquo;Review app update&rdquo; prompt in the app window offering to move to the new app.</li>
+          <li>Inspect state at <span class="mono">edge://web-app-internals</span> and <span class="mono">edge://apps</span>.</li>
+        </ol>
+        <div class="pill-row">
+          <a href="../new/">&rarr; Go to the new app</a>
+          <a href="../">&uarr; Demo home</a>
+        </div>
+      </div>
+
+      <footer>PWA Origin Migration demo &middot; old app</footer>
+    </div>
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" });
+      }
+    </script>
+  </body>
+</html>

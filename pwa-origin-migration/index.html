@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PWA Origin Migration &mdash; Demo</title>
+    <meta name="application-name" content="PWA Origin Migration" />
+    <meta name="theme-color" content="#6ea8fe" />
+    <link rel="icon" type="image/png" href="./new/icon-192.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <img src="./new/icon-192.png" alt="Demo icon" />
+        <div>
+          <span class="badge" style="color:var(--accent);border-color:var(--accent);background:rgba(110,168,254,.12)">Microsoft Edge</span>
+          <h1>PWA Origin Migration &mdash; Demo</h1>
+          <div class="sub">Move an installed PWA to a new manifest <code>id</code> without making users reinstall.</div>
+        </div>
+      </header>
+
+      <div class="panel">
+        <h2>How it works</h2>
+        <p class="sub" style="margin-top:0">
+          The <b>old</b> app&rsquo;s manifest adds <span class="mono">migrate_to</span> (pointing at the new app),
+          and the <b>new</b> app&rsquo;s manifest adds <span class="mono">migrate_from</span> (listing the old app).
+          The browser then offers to move the installed app across, like a normal app update.
+        </p>
+        <dl class="kv">
+          <dt>Feature flag</dt><dd class="mono">edge://flags/#web-app-migration-api (on by default)</dd>
+          <dt>Same-site rule</dt><dd>Old and new IDs must share the same registrable domain (eTLD+1).</dd>
+          <dt>Inspect</dt><dd class="mono">edge://web-app-internals &middot; edge://apps</dd>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h2>The two apps</h2>
+        <p class="sub" style="margin-top:0">This demo migrates between two paths on the same origin. Install the old app, then follow its steps.</p>
+        <div class="card-grid">
+          <a class="card old" href="./old/">
+            <div class="role">Old app</div>
+            <div class="path">./old/ &mdash; declares <span class="mono">migrate_to</span></div>
+          </a>
+          <a class="card new" href="./new/">
+            <div class="role">New app</div>
+            <div class="path">./new/ &mdash; declares <span class="mono">migrate_from</span></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Moving to a new subdomain</h2>
+        <p class="sub" style="margin-top:0">
+          The same handshake works across a <b>same-site</b> origin change, such as
+          <span class="mono">example.com/app</span> &rarr; <span class="mono">app.example.com</span>. That case
+          also needs a <span class="mono">/.well-known/web-app-origin-association</span> file on the old origin.
+          See the <a href="./README.md">README</a> for the exact snippets.
+        </p>
+      </div>
+
+      <footer>See <span class="mono">README.md</span> for the full walkthrough.</footer>
+    </div>
+  </body>
+</html>

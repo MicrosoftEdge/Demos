@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New app · PWA Origin Migration</title>
+    <meta name="application-name" content="Migration new" />
+    <meta name="theme-color" content="#1e7a46" />
+    <link rel="icon" type="image/png" href="./icon-192.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <script>window.DEMO = { role: "new", id: "/Demos/pwa-origin-migration/new/" };</script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <img src="./icon-192.png" alt="New app icon" />
+        <div>
+          <span class="badge">New app</span>
+          <h1>PWA Origin Migration &mdash; new app</h1>
+          <div class="sub">Where you want your users&rsquo; installed app to move to.</div>
+        </div>
+      </header>
+
+      <div class="panel">
+        <h2>Status</h2>
+        <div id="status" data-kind="idle">Loading&hellip;</div>
+        <button id="install-btn" class="install" hidden>Install this app</button>
+      </div>
+
+      <div class="panel">
+        <h2>What this app declares</h2>
+        <dl class="kv">
+          <dt>Serving origin</dt><dd id="origin" class="mono">&mdash;</dd>
+          <dt>Manifest URL</dt><dd id="manifest-url" class="mono">&mdash;</dd>
+          <dt>Manifest <code>id</code></dt><dd id="resolved-id" class="mono">&mdash;</dd>
+          <dt><code>migrate_from[].id</code></dt><dd class="mono">/Demos/pwa-origin-migration/old/</dd>
+          <dt><code>behavior</code></dt><dd class="mono">suggest</dd>
+        </dl>
+        <p class="sub" style="margin-top:12px">
+          This manifest declares a <code>migrate_from</code> entry listing the old app, so the browser
+          treats this app as the migration <em>destination</em>. A destination manifest must set an
+          explicit <code>id</code> for <code>migrate_from</code> to be honored.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>suggest vs force</h2>
+        <p class="sub" style="margin-top:0">
+          Change <span class="mono">"behavior": "suggest"</span> to <span class="mono">"force"</span> in this
+          app&rsquo;s <span class="mono">manifest.json</span>. <b>suggest</b> shows a passive &ldquo;Review app
+          update&rdquo; prompt; <b>force</b> shows a blocking dialog when the old app is launched.
+        </p>
+        <div class="pill-row">
+          <a href="../old/">&rarr; Go to the old app</a>
+          <a href="../">&uarr; Demo home</a>
+        </div>
+      </div>
+
+      <footer>PWA Origin Migration demo &middot; new app</footer>
+    </div>
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" });
+      }
+    </script>
+  </body>
+</html>

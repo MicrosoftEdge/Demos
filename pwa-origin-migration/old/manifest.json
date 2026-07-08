@@ -1,0 +1,21 @@
+{
+  "lang": "en-us",
+  "name": "Origin Migration Demo (old app)",
+  "short_name": "Migration old",
+  "description": "The original app. Its manifest points at the new app with migrate_to, so the browser can move an installed copy to the new app.",
+  "id": "/Demos/pwa-origin-migration/old/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#a62b37",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "migrate_to": {
+    "id": "/Demos/pwa-origin-migration/new/",
+    "install_url": "../new/"
+  }
+}
