@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Mixins &amp; Macros &rarr; Desugared CSS</title>
+<!-- Prism syntax highlighting (light theme). Loaded before our <style> so our
+     layout rules win on equal specificity, while Prism's .token color spans
+     (higher specificity) still colorize the output. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" referrerpolicy="no-referrer">
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --panel: #ffffff;
+    --panel-2: #f0f3f6;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --muted: #656d76;
+    --accent: #0969da;
+    --accent-strong: #0969da;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { block-size: 100%; }
+
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .example-picker {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.75rem;
+    max-inline-size: 14rem;
+    cursor: pointer;
+    inline-size: 8em;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex: 1;
+    min-block-size: 0;
+  }
+
+  .output-column { border-inline-start: 1px solid var(--border); }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .column h2 {
+    margin: 0;
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg);
+    min-block-size: 4em;
+  }
+
+  .column pre {
+    margin: 0;
+  }
+
+  /* Shared code typography for both panes. */
+  .source code,
+  .output code {
+    font-family: var(--mono);
+    font-size: 1em;
+    line-height: 1.55;
+    tab-size: 2;
+    white-space: pre;
+  }
+
+  /* Read-only source pane, syntax-highlighted like the output. */
+  .source {
+    flex: 1;
+    margin: 0;
+    padding: 1rem;
+    background: var(--panel);
+    overflow: auto;
+  }
+
+  .source code {
+    background: none;
+    text-shadow: none;
+    padding: 0;
+    color: inherit;
+    display: block;
+  }
+
+  .output {
+    flex: 1;
+    margin: 0;
+    padding: 1rem;
+    background: var(--panel);
+    overflow: auto;
+  }
+
+  .output code {
+    background: none;
+    text-shadow: none;
+    padding: 0;
+    color: inherit;
+    display: block;
+  }
+
+  .output.error,
+  .output.error code { color: #cf222e; }
+
+  @media (max-inline-size: 820px) {
+    main { grid-template-columns: 1fr; }
+    .output-column { border-inline-start: none; }
+    .source { min-block-size: 240px; }
+    .output {
+      border-top: 1px solid var(--border);
+      min-block-size: 240px;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+  <section class="column">
+    <h2>
+      <span>Source (with mixins)</span>
+      <select id="preset" class="example-picker" aria-label="Choose an example"></select>
+    </h2>
+    <pre class="source language-css"><code id="input" class="language-css"></code></pre>
+  </section>
+
+  <section class="column output-column">
+    <h2>
+      <span>Output (desugared)</span>
+    </h2>
+    <pre class="output language-css"><code id="output" class="language-css"></code></pre>
+  </section>
+</main>
+
+<!--
+  ============================================================================
+   CONVERSION MODULE
+  ============================================================================
+  The code below is intentionally kept separate from the UI code, and heavily
+  annotated with references to the CSS Functions & Mixins spec:
+
+      https://drafts.csswg.org/css-mixins-1/
+
+  If the spec evolves, this is the section to update. Each step of the
+  desugaring maps to a numbered section of the spec (cited inline).
+
+  IMPORTANT — level of fidelity:
+  This converter aims to produce the CSS a developer would write *by hand* if
+  mixins weren't supported, following the "roughly equivalent" desugaring the
+  spec shows in its examples (§5 intro, §5.3): the `@result` body is substituted
+  in place of the `@apply`. Mixin *parameters* are inlined at their var(--param)
+  use sites (rather than emitted as `--param: value` declarations), so a
+  parameter that is only used — never re-declared — leaves no trace, matching
+  both hand-written CSS and the spec note that parameters "don't actually show
+  up in the element's styles". Mixin *local variables* are kept as real custom
+  property declarations, since they genuinely are declared in the mixin body.
+
+  It deliberately does NOT implement the fully-precise substitution model of
+  §7.2 "Evaluating Mixins" (anonymous custom functions + hygienic renaming),
+  because that machinery exists to make element-relative values (em units,
+  inherited custom properties, descendant selectors) resolve correctly at
+  computed-value time — it produces output no human would write by hand.
+  See the notes in §5 and §5.3.1 "Variable Hygiene".
+  ============================================================================
+-->
+<script>
+const CSSMixinConverter = (() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------ *
+   * 1. PARSER
+   * ------------------------------------------------------------------ *
+   * A minimal CSS block parser producing a tree of nodes. It only needs
+   * to understand enough structure to recognise the mixin at-rules; it is
+   * NOT a full CSS parser. Node shapes:
+   *
+   *   { type: "decl",   prop, value }
+   *   { type: "rule",   selector, block: Node[] }      // qualified rule
+   *   { type: "atrule", name, prelude, block }         // block may be null
+   *   { type: "raw",    text }                          // comments / notices
+   *
+   * For an at-rule, `block === null` means the statement form (e.g.
+   * `@apply --foo;` or `@contents;`), while `block === []` means an empty
+   * but present block (e.g. `@apply --foo {}`). This distinction matters
+   * for @contents fallback — see the spec §7.1.
+   * ------------------------------------------------------------------ */
+  function parse(input) {
+    let i = 0;
+    const n = input.length;
+
+    function skipWs() {
+      while (i < n) {
+        const c = input[i];
+        if (/\s/.test(c)) { i++; continue; }
+        if (c === "/" && input[i + 1] === "*") {
+          i += 2;
+          while (i < n && !(input[i] === "*" && input[i + 1] === "/")) i++;
+          i += 2;
+          continue;
+        }
+        break;
+      }
+    }
+
+    // Scan forward from `i` until a top-level `{`, `;` or `}`, respecting
+    // strings, comments and (){}[] nesting inside parens/brackets. Returns
+    // the raw text scanned and the delimiter found (or null at EOF).
+    function scanTo() {
+      const start = i;
+      let depth = 0;
+      while (i < n) {
+        const c = input[i];
+        if (c === '"' || c === "'") {
+          i++;
+          while (i < n && input[i] !== c) { if (input[i] === "\\") i++; i++; }
+          i++;
+          continue;
+        }
+        if (c === "/" && input[i + 1] === "*") {
+          i += 2;
+          while (i < n && !(input[i] === "*" && input[i + 1] === "/")) i++;
+          i += 2;
+          continue;
+        }
+        if (c === "(" || c === "[") { depth++; i++; continue; }
+        if (c === ")" || c === "]") { depth--; i++; continue; }
+        if (depth === 0 && (c === "{" || c === ";" || c === "}")) {
+          return { text: input.slice(start, i), delim: c };
+        }
+        i++;
+      }
+      return { text: input.slice(start, i), delim: null };
+    }
+
+    // Parse a run of nodes. Stops (and consumes) at a top-level `}`, or EOF.
+    function parseNodes() {
+      const nodes = [];
+      while (true) {
+        skipWs();
+        if (i >= n) break;
+        if (input[i] === "}") { i++; break; }
+        if (input[i] === ";") { i++; continue; }
+
+        if (input[i] === "@") {
+          i++; // consume '@'
+          const nameStart = i;
+          while (i < n && /[-\w]/.test(input[i])) i++;
+          const name = input.slice(nameStart, i);
+          const scan = scanTo();
+          const prelude = scan.text.trim();
+
+          if (scan.delim === "{") {
+            i++; // consume '{'
+            const block = parseNodes();
+            // An @apply / @contents at-rule may carry a trailing ';' after
+            // its block (spec grammars in §7.1 and §5.4). Consume it if present.
+            const save = i;
+            skipWs();
+            if (input[i] === ";") i++; else i = save;
+            nodes.push({ type: "atrule", name, prelude, block });
+          } else {
+            if (scan.delim === ";") i++;
+            nodes.push({ type: "atrule", name, prelude, block: null });
+          }
+          continue;
+        }
+
+        // Either a declaration or a qualified (style) rule.
+        const scan = scanTo();
+        if (scan.delim === "{") {
+          i++; // consume '{'
+          const block = parseNodes();
+          nodes.push({ type: "rule", selector: scan.text.trim(), block });
+        } else {
+          if (scan.delim === ";") i++;
+          const decl = toDecl(scan.text);
+          if (decl) nodes.push(decl);
+        }
+      }
+      return nodes;
+    }
+
+    return parseNodes();
+  }
+
+  function toDecl(text) {
+    const t = text.trim();
+    if (!t) return null;
+    const idx = t.indexOf(":");
+    if (idx === -1) return { type: "raw", text: t };
+    return {
+      type: "decl",
+      prop: t.slice(0, idx).trim(),
+      value: t.slice(idx + 1).trim(),
+    };
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 2. SMALL UTILITIES
+   * ------------------------------------------------------------------ */
+
+  // Split on a separator, respecting strings and (){}[] nesting. Used for
+  // parameter lists and argument lists.
+  function splitTopLevel(str, sep) {
+    const parts = [];
+    let depth = 0;
+    let last = 0;
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i];
+      if (c === '"' || c === "'") {
+        i++;
+        while (i < str.length && str[i] !== c) { if (str[i] === "\\") i++; i++; }
+        continue;
+      }
+      if (c === "(" || c === "[" || c === "{") depth++;
+      else if (c === ")" || c === "]" || c === "}") depth--;
+      else if (c === sep && depth === 0) {
+        parts.push(str.slice(last, i));
+        last = i + 1;
+      }
+    }
+    parts.push(str.slice(last));
+    return parts;
+  }
+
+  const clone = (nodes) => JSON.parse(JSON.stringify(nodes));
+
+  /* ------------------------------------------------------------------ *
+   * 2a. PARAMETER SUBSTITUTION  (var(--param) -> argument value)
+   * ------------------------------------------------------------------ *
+   * When a mixin parameter is referenced via var(--param) in the result (or
+   * in a local variable, or in a nested @apply's arguments), we substitute
+   * the passed argument value directly in place of the var(). This is what a
+   * developer would write by hand, and it also matches the true spec
+   * semantics better than emitting a `--param: value` declaration: parameters
+   * are hygienic and, per §5 / §5.3.1, "don't actually show up in the
+   * element's styles". A var(--x) whose name is NOT a parameter is left
+   * untouched (it refers to a local variable or a call-site custom property).
+   * ------------------------------------------------------------------ */
+
+  // Read a balanced parenthesised group starting at `open` (index of '(').
+  // Returns { inner, end } where `end` is the index just past the ')'.
+  function readBalanced(str, open) {
+    let depth = 0;
+    let i = open;
+    for (; i < str.length; i++) {
+      const c = str[i];
+      if (c === '"' || c === "'") {
+        i++;
+        while (i < str.length && str[i] !== c) { if (str[i] === "\\") i++; i++; }
+        continue;
+      }
+      if (c === "(") depth++;
+      else if (c === ")") { depth--; if (depth === 0) { i++; break; } }
+    }
+    return { inner: str.slice(open + 1, i - 1), end: i };
+  }
+
+  // Replace every var(--name[, fallback]) whose --name is a key of `paramMap`
+  // with the mapped value. Strings are copied verbatim so a "var(" inside a
+  // content string is never touched.
+  function substituteParamVars(value, paramMap) {
+    if (!value) return value;
+    let out = "";
+    let i = 0;
+    const n = value.length;
+    while (i < n) {
+      const c = value[i];
+      if (c === '"' || c === "'") {
+        out += c;
+        i++;
+        while (i < n && value[i] !== c) { out += value[i]; if (value[i] === "\\") { out += value[i + 1] || ""; i++; } i++; }
+        if (i < n) { out += value[i]; i++; }
+        continue;
+      }
+      const isVar =
+        value.slice(i, i + 4).toLowerCase() === "var(" &&
+        (i === 0 || !/[\w-]/.test(value[i - 1]));
+      if (isVar) {
+        const { inner, end } = readBalanced(value, i + 3);
+        const parts = splitTopLevel(inner, ",");
+        const name = parts[0].trim();
+        const fallback = parts.length > 1 ? parts.slice(1).join(",").trim() : null;
+        if (Object.prototype.hasOwnProperty.call(paramMap, name)) {
+          out += paramMap[name]; // parameter value wins; fallback discarded
+        } else {
+          const fb = fallback !== null ? ", " + substituteParamVars(fallback, paramMap) : "";
+          out += "var(" + name + fb + ")";
+        }
+        i = end;
+      } else {
+        out += c;
+        i++;
+      }
+    }
+    return out;
+  }
+
+  // Apply parameter substitution to every string-bearing field of a node tree
+  // (declaration values, at-rule preludes such as @apply arguments, and
+  // selectors), recursing into nested blocks.
+  function substituteParamsInNodes(nodes, paramMap) {
+    return nodes.map((node) => {
+      const next = { ...node };
+      if (next.type === "decl") {
+        next.value = substituteParamVars(next.value, paramMap);
+      } else if (next.type === "atrule") {
+        next.prelude = substituteParamVars(next.prelude, paramMap);
+      } else if (next.type === "rule") {
+        next.selector = substituteParamVars(next.selector, paramMap);
+      }
+      if (next.block) next.block = substituteParamsInNodes(next.block, paramMap);
+      return next;
+    });
+  }
+
+  // Build { paramName: value } from a mixin's parameters and the passed
+  // arguments, filling in defaults, then resolve any defaults that reference
+  // other parameters (e.g. `--right-color: var(--left-color)`).
+  function buildParamMap(params, args) {
+    const map = {};
+    params.forEach((param, idx) => {
+      const value = idx < args.length && args[idx] !== "" ? args[idx] : param.default;
+      if (value != null) map[param.name] = value;
+    });
+    // Resolve cross-references between parameters (bounded number of passes).
+    for (let pass = 0; pass <= params.length; pass++) {
+      let changed = false;
+      for (const name of Object.keys(map)) {
+        const others = { ...map };
+        delete others[name];
+        const resolved = substituteParamVars(map[name], others);
+        if (resolved !== map[name]) { map[name] = resolved; changed = true; }
+      }
+      if (!changed) break;
+    }
+    return map;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 3. READING DEFINITIONS  (@mixin / @macro)
+   * ------------------------------------------------------------------ *
+   * Spec §5.1 "The @mixin rule" and §6.1 "The @macro rule".
+   *
+   *   <@mixin> = @mixin [ <function-token> <function-parameter>#? ) | <ident-token> ] { ... }
+   *   <@macro> = @macro <dashed-ident> { ... }
+   *
+   * A mixin/macro name must start with two dashes (§5.1.1 / §6.1.1).
+   * Mixins and macros share one namespace; last definition wins (§6.1.1).
+   * ------------------------------------------------------------------ */
+
+  // Parse the prelude of an @mixin, e.g. "--grad(--from <color>: red, --to)".
+  // Returns { name, params: [{ name, default }] }.
+  function parseMixinPrelude(prelude) {
+    const nameMatch = prelude.match(/^\s*(--[\w-]+)/);
+    if (!nameMatch) return null;
+    const name = nameMatch[1];
+
+    let params = [];
+    const open = prelude.indexOf("(");
+    if (open !== -1) {
+      // Grab the balanced content between the outermost parens.
+      const inner = prelude.slice(open + 1, prelude.lastIndexOf(")"));
+      if (inner.trim() !== "") {
+        params = splitTopLevel(inner, ",")
+          .map((raw) => parseParam(raw))
+          .filter(Boolean); // drops empty entries (e.g. trailing comma)
+      }
+    }
+    return { name, params };
+  }
+
+  // Spec §2.1 <function-parameter> = <custom-property-name> <css-type>? [ : <default-value> ]?
+  // We only need the parameter name and its default value for desugaring;
+  // the optional <css-type> is captured but not otherwise used here.
+  function parseParam(raw) {
+    const s = raw.trim();
+    if (!s) return null;
+    const nameMatch = s.match(/^(--[\w-]+)/);
+    if (!nameMatch) return null;
+    const name = nameMatch[1];
+
+    // The default value (if any) follows the first top-level ':'.
+    let def = null;
+    const parts = splitTopLevel(s, ":");
+    if (parts.length > 1) def = parts.slice(1).join(":").trim();
+    return { name, default: def };
+  }
+
+  // Collect every @mixin / @macro definition into a registry keyed by name.
+  function collectDefinitions(nodes) {
+    const registry = new Map();
+    for (const node of nodes) {
+      if (node.type !== "atrule" || !node.block) continue;
+
+      if (node.name === "mixin") {
+        const head = parseMixinPrelude(node.prelude);
+        if (head) {
+          registry.set(head.name, {
+            kind: "mixin",
+            name: head.name,
+            params: head.params,
+            body: node.block, // §5.1.2 mixin body: local vars + @result rules
+          });
+        }
+      } else if (node.name === "macro") {
+        const nameMatch = node.prelude.match(/^\s*(--[\w-]+)/);
+        if (nameMatch) {
+          registry.set(nameMatch[1], {
+            kind: "macro",
+            name: nameMatch[1],
+            body: node.block, // §6.1.2 macro body == a @result-style block
+          });
+        }
+      }
+    }
+    return registry;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 4. @contents SUBSTITUTION
+   * ------------------------------------------------------------------ *
+   * Spec §5.4 "The @contents Rule".
+   *   <@contents> = @contents [ { <declaration-list> } ]? ;
+   *
+   * - If the @apply passed a contents block, every @contents is replaced by
+   *   that block (even if it is empty).
+   * - Otherwise, an @contents with a fallback block uses its fallback, and an
+   *   @contents with no fallback is replaced by nothing.
+   * `contentsNodes === null` means "no contents block was passed".
+   * ------------------------------------------------------------------ */
+  function substituteContents(nodes, contentsNodes) {
+    const out = [];
+    for (const node of nodes) {
+      if (node.type === "atrule" && node.name === "contents") {
+        if (contentsNodes !== null) {
+          out.push(...clone(contentsNodes));
+        } else if (node.block) {
+          out.push(...clone(node.block)); // fallback block
+        }
+        // else: no contents, no fallback -> substitute nothing
+      } else if (node.block) {
+        out.push({ ...node, block: substituteContents(node.block, contentsNodes) });
+      } else {
+        out.push(node);
+      }
+    }
+    return out;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 5. EXPANDING @apply
+   * ------------------------------------------------------------------ *
+   * Spec §7 "Using Mixins and Macros" / §7.1 "The @apply Rule".
+   *   <@apply> = @apply [ <dashed-ident> | <dashed-function> ]
+   *              [ { <declaration-list> } ]? ;
+   * ------------------------------------------------------------------ */
+
+  const MAX_DEPTH = 50; // guard against recursive/cyclic mixins
+
+  // Parse an @apply prelude into { name, args }, where args are the raw
+  // argument strings passed to a dashed-function (empty for a bare ident).
+  function parseApplyPrelude(prelude) {
+    const nameMatch = prelude.match(/^\s*(--[\w-]+)/);
+    if (!nameMatch) return null;
+    const name = nameMatch[1];
+
+    let args = [];
+    const open = prelude.indexOf("(");
+    if (open !== -1) {
+      const inner = prelude.slice(open + 1, prelude.lastIndexOf(")"));
+      if (inner.trim() !== "") {
+        args = splitTopLevel(inner, ",").map((a) => unwrapArg(a));
+      }
+    }
+    return { name, args };
+  }
+
+  // Spec §3: "A comma-containing value can be passed as a single argument by
+  // wrapping the value in curly braces `{}`." Strip those wrapping braces so
+  // the emitted CSS is readable.
+  function unwrapArg(arg) {
+    const t = arg.trim();
+    if (t.startsWith("{") && t.endsWith("}")) return t.slice(1, -1).trim();
+    return t;
+  }
+
+  function expandApply(applyNode, registry, depth) {
+    if (depth > MAX_DEPTH) {
+      return [{ type: "raw", text: "/* mixin expansion too deep — possible cycle */" }];
+    }
+
+    const head = parseApplyPrelude(applyNode.prelude);
+    // Spec §7.1: "If no such mixin or macro exists, the @apply does nothing."
+    if (!head) return [];
+    const def = registry.get(head.name);
+    if (!def) {
+      return [{ type: "raw", text: `/* @apply ${head.name}: no such mixin/macro */` }];
+    }
+
+    // `block === null` -> no contents passed (triggers @contents fallback).
+    // `block === []`   -> an empty contents block was explicitly passed.
+    const contentsNodes = applyNode.block; // null | Node[]
+
+    if (def.kind === "macro") {
+      // Spec §7.3: macros substitute their body literally, with only
+      // @contents substitution — no arguments, locals, or transforms.
+      const expanded = substituteContents(clone(def.body), contentsNodes);
+      return processNodes(expanded, registry, depth + 1);
+    }
+
+    // --- Mixin expansion (§7.2, using the "roughly equivalent" model) ---
+
+    // Spec §7.1: "if more arguments are passed than the length of the mixin's
+    // argument list, the @apply application does nothing." Too few is fine —
+    // the missing arguments fall back to their default values.
+    if (head.args.length > def.params.length) {
+      return [{ type: "raw", text: `/* @apply ${head.name}: too many arguments — ignored */` }];
+    }
+
+    const out = [];
+
+    // (a) Resolve each parameter to its argument value (or default). Instead
+    //     of emitting `--param: value` declarations onto the rule, we inline
+    //     these values into the var(--param) references below — so parameters
+    //     that are only *used* (never re-declared in @result) do not appear in
+    //     the output. See §2a above for the rationale.
+    const paramMap = buildParamMap(def.params, head.args);
+
+    // (b) Local variables — custom properties declared in the mixin body
+    //     *outside* @result — are PRIVATE to the mixin. The spec's own example
+    //     desugaring notes they "won't pollute the element's actual styles"
+    //     (§5 intro: "except that none of those custom properties actually show
+    //     up in the element's styles"). So, like parameters, we do NOT emit
+    //     them as declarations; we inline their (resolved) values at every
+    //     var(--local) use site. Custom properties declared *inside* @result
+    //     are different — those ARE emitted (§5.2 note), and are left alone.
+    const resultNodes = [];
+    const localRaw = {}; // local variable name -> raw declared value
+    for (const node of def.body) {
+      if (node.type === "atrule" && node.name === "result") {
+        // Spec §5.2: a mixin may contain multiple @result rules; they are
+        // concatenated in order to form the mixin result.
+        resultNodes.push(...node.block);
+      } else if (node.type === "decl" && node.prop.slice(0, 2) === "--") {
+        // A body-level custom property is a local variable (§5.1.2).
+        localRaw[node.prop] = node.value;
+      } else {
+        // Anything else at body level (e.g. conditional group rules) is kept.
+        out.push(...clone([node]));
+      }
+    }
+
+    // (c) The @result body, with @contents substituted, is inlined in place
+    //     of the @apply (§5.2 "The @result Rule").
+    const substituted = substituteContents(clone(resultNodes), contentsNodes);
+    out.push(...substituted);
+
+    // (d) Build the substitution map. Parameters resolve to their argument
+    //     values; local variables shadow parameters of the same name (§5.3
+    //     "earlier things win": local variables > parameters > call site).
+    //     Local values may reference parameters and other locals, so we resolve
+    //     them against the combined map with a bounded fixpoint (locals may be
+    //     declared before or after they are referenced — §4).
+    const combinedMap = { ...paramMap };
+    const localNames = Object.keys(localRaw);
+    for (let pass = 0; pass <= localNames.length; pass++) {
+      let changed = false;
+      for (const name of localNames) {
+        const resolved = substituteParamVars(localRaw[name], combinedMap);
+        if (resolved !== combinedMap[name]) { combinedMap[name] = resolved; changed = true; }
+      }
+      if (!changed) break;
+    }
+
+    // (e) Inline the parameter and local-variable values into var() references
+    //     across the result. Nothing private is left behind as a declaration.
+    const inlined = substituteParamsInNodes(out, combinedMap);
+
+    // Recurse so that nested @apply calls inside the result are expanded too
+    // (§7.2: "When mixins are nested ... the desugaring nests as well").
+    return processNodes(inlined, registry, depth + 1);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 6. WALK THE TREE, EXPANDING @apply EVERYWHERE
+   * ------------------------------------------------------------------ */
+  function processNodes(nodes, registry, depth) {
+    const out = [];
+    for (const node of nodes) {
+      if (node.type === "atrule" && node.name === "apply") {
+        out.push(...expandApply(node, registry, depth));
+      } else if (node.type === "rule") {
+        out.push({ ...node, block: processNodes(node.block, registry, depth) });
+      } else if (node.type === "atrule" && node.block) {
+        // Nested group rule (@media/@supports/@container, §4.1) — recurse in.
+        out.push({ ...node, block: processNodes(node.block, registry, depth) });
+      } else {
+        out.push(node);
+      }
+    }
+    return out;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 7. SERIALIZE THE NODE TREE BACK TO CSS
+   * ------------------------------------------------------------------ */
+  function serialize(nodes, level = 0) {
+    const pad = "  ".repeat(level);
+    const lines = [];
+    for (const node of nodes) {
+      if (node.type === "decl") {
+        lines.push(`${pad}${node.prop}: ${node.value};`);
+      } else if (node.type === "raw") {
+        lines.push(`${pad}${node.text}`);
+      } else if (node.type === "rule") {
+        lines.push(`${pad}${node.selector} {`);
+        lines.push(serialize(node.block, level + 1));
+        lines.push(`${pad}}`);
+      } else if (node.type === "atrule") {
+        const head = "@" + node.name + (node.prelude ? " " + node.prelude : "");
+        if (node.block) {
+          lines.push(`${pad}${head} {`);
+          lines.push(serialize(node.block, level + 1));
+          lines.push(`${pad}}`);
+        } else {
+          lines.push(`${pad}${head};`);
+        }
+      }
+    }
+    return lines.filter((l) => l !== "").join("\n");
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 8. PUBLIC ENTRY POINT
+   * ------------------------------------------------------------------ */
+  function convert(source) {
+    const tree = parse(source);
+    const registry = collectDefinitions(tree);
+
+    // Drop the @mixin / @macro definitions themselves — the whole point of
+    // desugaring is that they no longer exist in the output — then expand
+    // every @apply that remains.
+    const kept = tree.filter(
+      (node) => !(node.type === "atrule" && (node.name === "mixin" || node.name === "macro"))
+    );
+    const expanded = processNodes(kept, registry, 0);
+    return serialize(expanded);
+  }
+
+  return { convert, parse }; // `parse` exposed for debugging/tests
+})();
+</script>
+
+<!-- Pre-canned examples, mostly lifted from the spec's own examples. -->
+<script>
+const PRESETS = [
+  {
+    id: "reset-list",
+    label: "Reset a list",
+    css: `@macro --reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu {
+  @apply --reset-list;
+}`,
+  },
+  {
+    id: "center-content",
+    label: "Center content",
+    css: `@macro --center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  @apply --center;
+}`,
+  },
+  {
+    id: "visually-hidden",
+    label: "Visually hidden text",
+    css: `@macro --visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only {
+  @apply --visually-hidden;
+}`,
+  },
+  {
+    id: "square-box",
+    label: "Square box (with a parameter)",
+    css: `@mixin --square(--size: 100px) {
+  @result {
+    width: var(--size);
+    height: var(--size);
+  }
+}
+
+.avatar {
+  @apply --square(48px);
+}`,
+  },
+  {
+    id: "gradient-text",
+    label: "Gradient text",
+    css: `@mixin --gradient-text(
+  --from <color>: mediumvioletred,
+  --to <color>: teal,
+  --angle: to bottom right
+) {
+  --gradient: linear-gradient(var(--angle), var(--from), var(--to));
+  @result {
+    color: var(--from, var(--to));
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      background: var(--gradient, var(--from));
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }
+}
+
+h1 {
+  @apply --gradient-text(pink, powderblue);
+}`,
+  },
+  {
+    id: "overriding-variables",
+    label: "Overriding variables",
+    css: `@mixin --shadowed-values(--color2: green, --color3: green) {
+  --color3: blue;
+  @result {
+    background: linear-gradient(var(--color1), var(--color2), var(--color3));
+  }
+}
+
+p {
+  --color1: red;
+  --color2: red;
+  --color3: red;
+  @apply --shadowed-values();
+}`,
+  },
+  {
+    id: "responsive-columns",
+    label: "Responsive columns",
+    css: `@mixin --one-column() {
+  @result {
+    @media (width <= 800px) {
+      @contents;
+    }
+  }
+}
+
+@mixin --two-column() {
+  @result {
+    @media (width > 800px) {
+      @contents;
+    }
+  }
+}
+
+body {
+  @apply --one-column {
+    display: flex;
+    flex-flow: column;
+  }
+  @apply --two-column {
+    display: grid;
+    grid-template-columns: 60px 60px;
+  }
+}`,
+  },
+  {
+    id: "content-blocks",
+    label: "Content blocks",
+    css: `@mixin --just-contents() {
+  @result {
+    @contents {
+      color: red;
+    }
+  }
+}
+
+.uses-fallback {
+  @apply --just-contents;
+}
+
+.overrides-with-empty {
+  @apply --just-contents {};
+}
+
+.passes-block {
+  @apply --just-contents {
+    color: blue;
+  }
+}`,
+  },
+  {
+    id: "nested-mixins",
+    label: "Nested mixins",
+    css: `@mixin --squish(--left-color <color>, --right-color <color>: var(--left-color)) {
+  @result {
+    &::before {
+      content: "\\1F846";
+      background-color: var(--left-color);
+    }
+    &::after {
+      content: "\\1F844";
+      background-color: var(--right-color);
+    }
+  }
+}
+
+@mixin --colorized-squish(--color <color>) {
+  @result {
+    background-color: var(--color);
+    border: 2px solid oklch(from var(--color) calc(l - 0.1) c h);
+    @apply --squish(
+      oklch(from var(--color) calc(l - 0.3) c h),
+      oklch(from var(--color) calc(l - 0.2) c h)
+    );
+  }
+}
+
+div {
+  @apply --colorized-squish(tomato);
+}`,
+  },
+];
+</script>
+
+<!-- UI wiring — kept deliberately thin and separate from the converter. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" referrerpolicy="no-referrer"></script>
+<script>
+(() => {
+  const inputEl = document.getElementById("input");
+  const outputEl = document.getElementById("output");
+  const outputPre = outputEl.closest(".output");
+  const presetEl = document.getElementById("preset");
+
+  const indexOfId = (id) => PRESETS.findIndex((p) => p.id === id);
+
+  PRESETS.forEach((preset, idx) => {
+    const option = document.createElement("option");
+    option.value = String(idx);
+    option.textContent = preset.label;
+    presetEl.appendChild(option);
+  });
+
+  function showSource(css) {
+    inputEl.textContent = css;
+    if (window.Prism) Prism.highlightElement(inputEl);
+  }
+
+  function runConversion(css) {
+    outputPre.classList.remove("error");
+    try {
+      const result = CSSMixinConverter.convert(css);
+      outputEl.textContent = result.trim() === "" ? "/* (empty output) */" : result;
+      if (window.Prism) Prism.highlightElement(outputEl);
+    } catch (err) {
+      outputPre.classList.add("error");
+      outputEl.textContent = "Conversion error:\n" + (err && err.stack ? err.stack : err);
+    }
+  }
+
+  function loadPreset(idx) {
+    const preset = PRESETS[idx];
+    if (!preset) return;
+    presetEl.value = String(idx);
+    showSource(preset.css);
+    runConversion(preset.css);
+  }
+
+  presetEl.addEventListener("change", () => loadPreset(Number(presetEl.value)));
+
+  // When embedded with ?example=<id>, lock the tool to that single example:
+  // hide the picker and just show its source + desugared output. Otherwise the
+  // picker is shown and the first example is loaded by default.
+  const requestedId = new URLSearchParams(window.location.search).get("example");
+  const requestedIdx = requestedId != null ? indexOfId(requestedId) : -1;
+
+  if (requestedIdx !== -1) {
+    presetEl.style.display = "none";
+    loadPreset(requestedIdx);
+  } else {
+    loadPreset(0);
+  }
+})();
+</script>
+</body>
+</html>

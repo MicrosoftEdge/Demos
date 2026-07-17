@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Mixins &amp; Macros &rarr; Desugared CSS</title>
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --panel: #ffffff;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --muted: #656d76;
+    --accent: #0969da;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  header {
+    padding: 1.6rem 1.5rem 1rem;
+    max-width: 80ch;
+  }
+
+  header h1 {
+    margin: 0 0 0.4rem;
+    font-size: 1.4rem;
+  }
+
+  header p {
+    margin: 0 0 0.6rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  header a { color: var(--accent); }
+
+  code {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+    font-size: 0.85em;
+  }
+
+  .tool-frame {
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    height: 560px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel);
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>CSS Mixins &amp; Macros &rarr; Desugared CSS</h1>
+  <p>
+    Write CSS that uses the experimental
+    <a href="https://drafts.csswg.org/css-mixins-1/#mixin-rule" target="_blank" rel="noopener">CSS Functions &amp; Mixins</a>
+    features (<code>@mixin</code>, <code>@macro</code>, <code>@result</code>, <code>@contents</code>, <code>@apply</code>)
+    and see the equivalent "desugared" CSS &mdash; roughly what you would write by hand if mixins weren't supported.
+  </p>
+  <p>
+    Pick an example from the dropdown, or edit the source on the left, then press
+    <strong>Convert</strong>. The tool below is also available standalone at
+    <a href="converter-embed.html">converter-embed.html</a> so it can be embedded in an
+    <code>&lt;iframe&gt;</code> elsewhere.
+  </p>
+</header>
+
+<iframe
+  class="tool-frame"
+  src="converter-embed.html"
+  title="CSS mixins to desugared CSS converter"
+  loading="lazy"></iframe>
+</body>
+</html>
