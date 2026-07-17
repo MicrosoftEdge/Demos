@@ -96,11 +96,11 @@
   
   <p>The <code>&lt;div&gt;</code> element with the black border below is a CSS container which uses the <code>container-name: named-container-a;</code> CSS property. The card element in it uses a <code>@container</code> query to change its background to green when it is inside a container named <code>named-container-a</code>.</p>
   <p>To inspect the name-only container query in DevTools:</p>
-  <ul>
+  <ol>
     <li>Right-click the card element below and choose <strong>Inspect</strong> to open the <strong>Elements</strong> tool and select the card element in it.</li>
     <li>In the <strong>Styles</strong> pane, the <code>@container</code> query is displayed, showing the CSS rule that's applying the green background, and a link to the container element is displayed: <strong>→named-container-a</strong>.</li>
     <li>Click the link to select the container in the <strong>Elements</strong> tool.</li>
-  </ul>
+  </ol>
   
   <div id="name-only-container">
     <div class="card"></div>
@@ -110,13 +110,13 @@
   
   <p>The <code>&lt;div&gt;</code> element with the black border below is a CSS container of type inline-size because it uses the <code>container-type: inline-size;</code> CSS property. The card element in it uses a <code>@container</code> query to change its background to different colors depending on the size of its container. Resize the container by using the handle in the bottom-right corner of the container, and observe the card's background change.</p>
   <p>To inspect the inline-size container query in DevTools:</p>
-  <ul>
+  <ol>
     <li>Right-click the card element below and choose <strong>Inspect</strong> to open the <strong>Elements</strong> tool and select the card element in it.</li>
     <li>In the <strong>Styles</strong> pane, the <code>@container</code> query is displayed, showing the CSS rule that's applying the green background, and a link to the container element is displayed: <strong>→div#inline-size-container</strong>.</li>
     <li>Click the link to select the container in the <strong>Elements</strong> tool.</li>
     <li>In the DOM tree, the element with ID <code>inline-size-container</code> is selected, and an <strong>inline-size</strong> badge is displayed next to it.</li>
     <li>Click the <strong>inline-size</strong> badge: a dashed border is drawn around the content area of the container. A dashed border is also drawn around all children elements which use the container's inline-size to apply different styles. In this case, that's the card element.</li>
-  </ul>
+  </ol>
   
   <div id="inline-size-container">
     <div class="card"></div>
@@ -126,10 +126,10 @@
 
   <p>The <code>&lt;div&gt;</code> element with the black border below is a CSS container which uses the <code>container-name: named-container-b;</code> CSS property. The card element in it uses a <code>@container style()</code> query to change its background to different colors depending on the value of its container's <code>--foo</code> custom property. The container changes the value of <code>--foo</code> over time by using a CSS animation. Observe the card's background change.</p>
   <p>To inspect the style container query in DevTools:</p>
-  <ul>
+  <ol>
     <li>Right-click the card element below and choose <strong>Inspect</strong> to open the <strong>Elements</strong> tool and select the card element in it.</li>
     <li>In the <strong>Styles</strong> pane, the <code>@container style()</code> query is displayed, showing the CSS rule that's applying the current background color.</li>
-  </ul>
+  </ol>
 
   <div id="style-container">
     <div class="card"></div>
