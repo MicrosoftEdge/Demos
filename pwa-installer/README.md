@@ -6,6 +6,8 @@
 
 This demo app showcases the Web Install API.  **PWA installer** is a sample app (titled **Edge demos** ) that lets you install other PWAs on your device.
 
+The [`/pwa-pwastore/`](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-pwastore/) directory is an earlier copy of this `/pwa-installer/` directory. The Web Install API Dev Trial docs point to the earlier `/pwa-pwastore/` directory, not to this later `/pwa-installer/` directory.
+
 PWA installer uses the following features:
 
 | Feature | Description | Documentation |
