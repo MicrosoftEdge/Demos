@@ -1,6 +1,9 @@
 # Install element demos - `<install>`
 
-This directory contains demos that showcase the use of the [install element](https://aka.ms/InstallElement), a new HTML element under development by the Microsoft Edge team to allow web contents to declaratively install other web apps. The element is currently supported on Windows, MacOS, Linux, and ChromeOS.
+> [!IMPORTANT]
+> Starting in version 153, the manifest-URL design is available. See the [manifest-URL instructions](./manifest-url.md) to learn how to use it. The `installurl` design is expected to be deprecated starting in version 154.
+
+This directory contains demos that showcase the use of the [install element](https://aka.ms/InstallElement), a new HTML element under development to allow web contents to declaratively install other web apps. The element is currently supported on Windows, macOS, Linux, and ChromeOS.
 
 ## Demos
 
@@ -10,7 +13,7 @@ This directory contains demos that showcase the use of the [install element](htt
 
 ### Detect support
 
-```javascrit
+```javascript
 if ('HTMLInstallElement' in window) {
   // The <install> element is supported.
 } else {
@@ -25,9 +28,10 @@ To install the currently loaded document:
 * The document must link to a manifest file.
 * The manifest file must have an `id` field defined.
 
-```javascript
+```html
 <install id="install-button"></install>
 ```
+
 ### Install another document
 
 To install a document that's not the current document, also known as a _background_ document, use either the `installurl` attribute, or both the `installurl` and `manifestid` attributes together:
@@ -37,18 +41,18 @@ To use the `installurl` attribute:
 * The document at `installurl` must link to a manifest file.
 * The manifest file must have an `id` field defined.
 
-```javascript
+```html
 <install installurl="https://foo.com" id="install-button"></install>
 ```
 
 To use the `installurl` and `manifestid` attributes together:
 
-* The document at  `installurl` must link to a manifest file.
-* The value of the `manifestid` attribute must match the computed id after parsing the manifest.
+* The document at `installurl` must link to a manifest file.
+* The value of the `manifestid` attribute must match the computed ID after parsing the manifest.
 
-You can find the computed ID by going to **Application** > **Manifest** > **Identity** > **Computed App ID** in Microsoft Edge DevTools.
+You can find the computed ID by going to **Application** > **Manifest** > **Identity** > **Computed App ID** in DevTools.
 
-```javascript
+```html
 <install installurl="https://foo.com" manifestid="https://foo.com/someid" id="install-button"></install>
 ```
 
@@ -119,4 +123,3 @@ We look forward to hearing from you!
 * [Explainer](https://aka.ms/InstallElement)
 * [Chrome Platform Status Entry](https://chromestatus.com/feature/5152834368700416)
 * [Test experimental APIs and features by using origin trials](https://learn.microsoft.com/microsoft-edge/origin-trials/#using-the-origin-trial-token-at-your-website)
-
