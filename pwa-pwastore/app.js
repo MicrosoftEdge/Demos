@@ -10,63 +10,108 @@ const bubbleBtn = document.getElementById('installBubble');
 const appTitleBtn = document.getElementById('installappTitle');
 
 installBtn.addEventListener('click', async () => {
-  await navigator.install();
+  try {
+    const result = await navigator.install();
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 pwinterBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://diek.us/pwinter/manifest.json',
-    manifestId: 'https://diek.us/pwinter/index.html?randomize=true',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://diek.us/pwinter/manifest.json',
+      manifestId: 'https://diek.us/pwinter/index.html?randomize=true',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 pwampBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/pwamp/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/pwamp/',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/pwamp/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/pwamp/',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 bubbleBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://diek.us/bubble/manifest.json',
-    manifestId: 'https://diek.us/bubble/',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://diek.us/bubble/manifest.json',
+      manifestId: 'https://diek.us/bubble/',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 tempConvBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/temperature-converter/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/temperature-converter/',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/temperature-converter/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/temperature-converter/',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 emailClientBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/email-client/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/email-client/index.html',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/email-client/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/email-client/index.html',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 oneDivBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/1DIV/dist/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/1DIV/dist/index.html',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/1DIV/dist/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/1DIV/dist/index.html',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 wamiBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/wami/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/wami/',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/wami/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/wami/',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 appTitleBtn.addEventListener('click', async () => {
-  await navigator.install({
-    manifest: 'https://microsoftedge.github.io/Demos/pwa-application-title/manifest.json',
-    manifestId: 'https://microsoftedge.github.io/Demos/pwa-application-title/',
-  });
+  try {
+    const result = await navigator.install({
+      manifest: 'https://microsoftedge.github.io/Demos/pwa-application-title/manifest.json',
+      manifestId: 'https://microsoftedge.github.io/Demos/pwa-application-title/',
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 const init = () => {
