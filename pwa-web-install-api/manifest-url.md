@@ -6,7 +6,7 @@ This directory contains demos that showcase the use of [navigator.install](https
 
 ## Demos
 
-* [PWA Installer](https://microsoftedge.github.io/Demos/pwa-pwastore)
+* [PWA Store](https://microsoftedge.github.io/Demos/pwa-pwastore)
 * [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install-manifest-url/index.html)
 
 ## How to use it
