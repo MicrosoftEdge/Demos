@@ -101,7 +101,7 @@ The promise returned by `navigator.install()` resolves when the install flow com
 * `DataError`: The manifest couldn't be fetched or parsed, or its ID is missing or doesn't match `manifestId`.
 * `InvalidStateError`: The call was made from a sandboxed frame or cross-origin subframe.
 * `NotAllowedError`: The call lacked transient user activation or was disallowed by browser policy.
-* `NotFoundError`: The required document is missing.
+* `NotFoundError`: The `Navigator` is no longer attached to a document.
 * `TypeError`: An argument has an invalid type or URL.
 
 ```javascript

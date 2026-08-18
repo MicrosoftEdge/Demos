@@ -6,6 +6,8 @@ This is a demo app for a landing page (titled **Edge demos**) that lets you inst
 
 This demo app showcases the manifest-URL design of the Web Install API. This demo app also demonstrates CSS Masonry layout.
 
+The `/pwa-pwastore/` directory is an earlier copy of [/pwa-installer/](https://github.com/MicrosoftEdge/Demos/tree/main/pwa-installer/).  The Web Install API docs point to this earlier, `/pwa-pwastore/` directory, not to the later, `/pwa-installer/` directory.
+
 <!-- ====================================================================== -->
 
 ## Requirements
