@@ -1,4 +1,4 @@
-:root{
+:root {
     --content-padding: 0.75rem 1.25rem;
     --dark-blue: #004183;
     --dark-blue-trans: #004183aa;
@@ -25,7 +25,7 @@ html {
     width: 100dvw;
     font-family: sans-serif;
     color: var(--text);
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 * {
@@ -33,16 +33,12 @@ html {
 }
 
 body {
-    display: grid;
-    height: 100dvh;
-    width: 100dvw;
-    grid-template: min-content auto min-content / repeat(4, 1fr);
-    justify-items: stretch;
+    margin: 0;
 }
 
 header {
     padding: var(--content-padding);
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -55,19 +51,15 @@ header {
 
 main {
     padding: var(--content-padding);
+    padding-block-end: 4rem;
 
     grid-row: 2 / 3;
     grid-column: 1 / -1;
 
-    display:grid;
+    display: grid;
+    display: grid-lanes;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows:  repeat(auto-fill, 1fr);
-    grid-gap: 1rem;
-    justify-content: center;
-}
-
-@supports (display:masonry) {
-     main { display: masonry; }
+    gap: 1rem;
 }
 
 .instructions {
@@ -75,11 +67,11 @@ main {
     background-color: var(--instructions-bg);
     border-radius: 1rem;
     padding: 1.2rem;
-    border: var(--blue) solid ;
+    border: var(--blue) solid;
 }
 
 ul {
-  list-style: square inside none;
+    list-style: square inside none;
 }
 
 li {
@@ -96,7 +88,7 @@ a {
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     text-decoration: underline;
 }
 
@@ -134,7 +126,7 @@ footer {
     justify-content: center;
     align-items: center;
     align-content: center;
-    
+
 }
 
 .storeicon {
@@ -189,7 +181,8 @@ footer {
 }
 
 .category_filter_nav {
-    margin: 1rem;;
+    margin: 1rem;
+    ;
     display: flex;
     flex-wrap: wrap;
     /* backdrop-filter: blur(10px);
@@ -203,7 +196,7 @@ footer {
     background: var(--card-bg);
     border-radius: 1rem;
     padding: 1.2rem;
-    border: var(--blue) solid ;
+    border: var(--blue) solid;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -232,7 +225,7 @@ footer {
 @media only screen and (max-width: 600px) {
     main {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-template-rows:  repeat(auto-fill, auto);    
+        grid-template-rows: repeat(auto-fill, auto);
     }
 
     header {
@@ -250,7 +243,7 @@ footer {
 @media only screen and (max-width: 350px) {
     main {
         grid-template-columns: repeat(auto-fill, 100%);
-        grid-template-rows:  repeat(auto-fill, auto);    
+        grid-template-rows: repeat(auto-fill, auto);
     }
 }
 

@@ -1,15 +1,178 @@
 # Web Install API - `navigator.install()`
 
-> [!IMPORTANT]
-> Starting in version 153, the manifest-URL design is available. See the [manifest-URL instructions](./manifest-url.md) to learn how to use it. The `install_url` design is expected to be deprecated starting in version 154.
-
 This directory contains demos that showcase the use of [navigator.install](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md), an API under development to allow web contents to install other web apps.
 
 ## Demos
 
-* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install/index.html)
+* [PWA Store](https://microsoftedge.github.io/Demos/pwa-pwastore)
+* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install-manifest-url/index.html)
 
-## How to use it
+## About the deprecated `navigator.install(url)` method
+
+Starting with Microsoft Edge 153, installing PWAs by using `navigator.install(url)`, where `url` points to the web app is deprecated and replaced by `navigator.install({ manifest })`, where `manifest` points to the web app manifest instead. In Edge 153, both methods still work. Starting with Edge 154, installing by using `navigator.install(url)` will stop working.
+
+This document describes using the `manifest` option. For instructions on the deprecated `url` option, see [Deprecated - How to use `navigator.install(url)`](#deprecated---how-to-use-navigatorinstallurl), at the end of this document.
+
+## How to use `navigator.install()`
+
+### Detect support
+
+```javascript
+if ('install' in navigator) {
+  // navigator.install is supported.
+} else {
+  // navigator.install is not supported.
+}
+```
+
+### Install the currently loaded document
+
+To install the currently loaded document:
+
+* The current document must link to a web app manifest file by using `<link rel="manifest" href="manifest.json">`.
+* The web app manifest file must define an `id` member.
+
+```javascript
+const installApp = async () => {
+  if (!navigator.install) return; // API not supported.
+
+  try {
+    await navigator.install();
+    console.log('Install flow completed successfully');
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.log('Install was cancelled or could not be completed');
+    }
+  }
+};
+```
+
+### Install another document
+
+To install a document that's not the currently loaded document, use an options object with either `manifest`, or both `manifest` and `manifestId`.
+
+To install a PWA by using its web app manifest URL:
+
+* Use `navigator.install({ manifest: manifest_url })` where `manifest_url` is a string corresponding to the URL of the manifest file for the web app to install.
+* The web app manifest file must define an `id` member.
+
+```javascript
+const installApp = async (manifest_url) => {
+  if (!navigator.install) return; // API not supported.
+
+  try {
+    await navigator.install({ manifest: manifest_url });
+    console.log('Install flow completed successfully');
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.log('Install was cancelled or could not be completed');
+    } else if (err.name === 'DataError') {
+      console.log('The manifest or manifestId is invalid');
+    }
+  }
+};
+```
+
+To install a PWA by using both its web app manifest URL and manifest ID:
+
+* Use `navigator.install({ manifest: manifest_url, manifestId: manifest_id })` where:
+  * `manifest_url` is a string that corresponds to the URL of the manifest file for the web app to install.
+  * `manifest_id` is a string that matches the computed ID of the web app to install, after parsing its manifest.
+
+```javascript
+const installApp = async (manifest_url, manifest_id) => {
+  if (!navigator.install) return; // API not supported.
+
+  try {
+    await navigator.install({ manifest: manifest_url, manifestId: manifest_id });
+    console.log('Install flow completed successfully');
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.log('Install was cancelled or could not be completed');
+    } else if (err.name === 'DataError') {
+      console.log('The manifest or manifestId is invalid');
+    }
+  }
+};
+```
+
+You can find the computed ID of an app as follows:
+* Open the app in Microsoft Edge.
+* Open DevTools.
+* Open the **Application** tool.
+* Go to **Manifest** > **Identity** > **Computed App ID**.
+
+### Handle installation errors
+
+The promise returned by `navigator.install()` resolves when the install flow completes successfully. It rejects with a `DOMException` when the flow doesn't complete:
+
+* `AbortError`: The user exited the installation flow.
+* `DataError`: The manifest couldn't be fetched or parsed, or its ID is missing or doesn't match `manifestId`.
+* `InvalidStateError`: The call was made from a sandboxed frame or cross-origin subframe.
+* `NotAllowedError`: The call lacked transient user activation or was disallowed by browser policy.
+* `NotFoundError`: The `Navigator` is no longer attached to a document.
+* `TypeError`: An argument has an invalid type or URL.
+
+```javascript
+const button = document.querySelector('#install');
+
+button.addEventListener('click', async () => {
+  try {
+    await navigator.install({
+      manifest: 'https://example.com/manifest.json',
+      manifestId: 'https://example.com/home',
+    });
+    console.log('Install flow completed successfully');
+  } catch (err) {
+    switch (err.name) {
+      case 'AbortError':
+        console.log('Install was cancelled or could not be completed');
+        break;
+      case 'DataError':
+        console.log('The manifest or manifestId is invalid');
+        break;
+      case 'InvalidStateError':
+      case 'NotAllowedError':
+      case 'NotFoundError':
+      case 'TypeError':
+        console.error(`Install flow failed: ${err.name}`);
+        break;
+      default:
+        console.error('Install flow failed unexpectedly', err);
+    }
+  }
+});
+```
+
+## Test the feature locally
+
+To test `navigator.install()` locally, use Microsoft Edge 153 or later, or a matching version of another Chromium-based browser, and enable the **Web App Installation API** experiment:
+
+1. In the browser, open a new tab and go to `about://flags/#web-app-installation-api`.
+2. Enable the **Web App Installation API** flag.
+3. Click the **Restart** button in the bottom right. The browser restarts.
+
+## Provide feedback
+
+Your feedback is crucial to the development of this feature. Please share feedback to:
+
+* Report any issue you encountered.
+* Share improvement suggestions.
+* Share how you're using the Web Install API.
+
+To share feedback, [open a new issue on the MSEdgeExplainers repo](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=web-install-api.md).
+
+We look forward to hearing from you!
+
+## See also
+
+* [Web Install API explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md)
+* [Feature tracking at Chrome Platform Status](https://chromestatus.com/feature/5183481574850560)
+
+## Deprecated - How to use `navigator.install(url)`
+
+> [!IMPORTANT]
+> Starting in version 153, installing by using `navigator.install(url)` is deprecated and planned to be removed with Edge 154.
 
 ### Install the currently loaded document
 
@@ -86,33 +249,3 @@ const installApp = async (install_url, manifest_id) => {
   }
 };
 ```
-
-## Try it with origin trials
-
-The Web Install API is currently available as an [Origin Trial](https://developer.chrome.com/docs/web-platform/origin-trials/) in Chrome and Microsoft Edge versions 143-148. This allows you to use the feature on your production site and provide valuable feedback to browser vendors before it's finalized.
-
-To participate, you'll need to:
-
-1. **Register for the Origin Trial:** [Web Install registration page link](https://developer.chrome.com/origintrials/#/view_trial/2367204554136616961)
-2. **Add the Origin Trial Token:** Once you have your token, add it to your pages via a `<meta>` tag or an HTTP header.
-
-```html
-<!-- Example of adding the token via a meta tag -->
-<meta http-equiv="origin-trial" content="YOUR_TOKEN_HERE">
-```
-
-**The token obtained in step 1 will enable the trial for both Chrome and Edge.** See [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md) to learn more about Origin Trials.
-
-## Provide feedback
-
-Your feedback is crucial to the development of this feature. If you encounter any issues, have suggestions, or want to share how you're using the Web Install API, please:
-
-**Log an issue here:** [Web Install Feedback Link](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=web-install-api.md)
-
-We look forward to hearing from you!
-
-## Further reading and references
-
-* [Explainer](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md)
-* [Chrome Platform Status Entry](https://chromestatus.com/feature/5183481574850560)
-* [Origin Trials Guide for Web Developers](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md)
