@@ -182,14 +182,8 @@ footer {
 
 .category_filter_nav {
     margin: 1rem;
-    ;
     display: flex;
     flex-wrap: wrap;
-    /* backdrop-filter: blur(10px);
-    position: fixed;
-    top:1rem;
-    right: 1rem;
-    border-radius: 15px; */
 }
 
 .app_entry {
