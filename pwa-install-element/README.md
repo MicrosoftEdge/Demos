@@ -43,7 +43,7 @@ To install the currently loaded document:
 
 To install a document that's not the current document, use either the `manifest` attribute, or both the `manifest` and `manifestId` attributes together:
 
-To install another document by using the `manifest` attribute:
+To install another document by using the `manifest` attribute alone:
 
 * The value of the `manifest` attribute must be the URL of the web app manifest to install.
 * The web app manifest file must define an `id` member.
