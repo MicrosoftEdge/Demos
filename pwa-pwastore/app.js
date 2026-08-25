@@ -45,6 +45,10 @@ const APPS = [
   }
 ];
 
+const categoryFilters = document.querySelector('.category_filter_nav');
+const appEntries = document.querySelectorAll('main .app_entry');
+const installStoreBtn = document.getElementById('btnInstallStore');
+
 for (const appInstallData of APPS) {
   console.log(`Setting up install button for ${appInstallData.btnId}`);
 
@@ -72,12 +76,26 @@ for (const appInstallData of APPS) {
   });
 }
 
+categoryFilters.addEventListener('click', (event) => {
+  const filterButton = event.target.closest('.btn_category');
+  if (!filterButton || !categoryFilters.contains(filterButton)) {
+    return;
+  }
+
+  const category = filterButton.dataset.category;
+
+  for (const appEntry of appEntries) {
+    const categories = appEntry.dataset.categories.split(' ');
+    appEntry.hidden = category !== 'all' && !categories.includes(category);
+  }
+});
+
 const init = () => {
   const isInstalled = window.matchMedia('(display-mode: standalone)').matches ||
     window.matchMedia('(display-mode: window-controls-overlay)').matches;
 
   if (isInstalled) {
-    installBtn.style.display = 'none';
+    installStoreBtn.style.display = 'none';
   }
 };
 
