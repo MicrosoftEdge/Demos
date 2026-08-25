@@ -1,10 +1,8 @@
-# Install element demos - `<install>`
+# `<install>` element demo
 
-This directory contains demos that showcase the use of the [&lt;install&gt; element](https://github.com/WICG/install-element/blob/main/explainer-manifest-url.md), a new HTML element under development to allow web contents to declaratively install other web apps.
+This directory contains a demo that showcases the use of the [&lt;install&gt; element](https://github.com/WICG/install-element/blob/main/explainer-manifest-url.md), a new HTML element under development to allow web contents to declaratively install other web apps.
 
-## Demos
-
-* [The `<install>` Element Store](https://microsoftedge.github.io/Demos/pwa-install-element/)
+➡️ **[Open the demo](https://microsoftedge.github.io/Demos/pwa-install-element/)** ⬅️
 
 ## About the deprecated `installurl` attribute
 
