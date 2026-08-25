@@ -2,6 +2,27 @@ const categoryFilters = document.querySelector('.category_filter_nav');
 const appEntries = document.querySelectorAll('main .app_entry');
 const installStoreBtn = document.getElementById('btnInstallStore');
 
+const getAppCategories = (appEntry) => appEntry.dataset.categories.split(/\s+/);
+const categories = new Set([...appEntries].flatMap(getAppCategories));
+
+for (const category of [...categories].sort()) {
+  const button = document.createElement('button');
+  button.className = 'btn_category';
+  button.dataset.category = category;
+  button.textContent = category;
+  button.type = 'button';
+  button.setAttribute('aria-pressed', 'false');
+  categoryFilters.append(button);
+}
+
+const allCategoriesButton = document.createElement('button');
+allCategoriesButton.className = 'btn_category';
+allCategoriesButton.dataset.category = 'all';
+allCategoriesButton.textContent = 'all demos';
+allCategoriesButton.type = 'button';
+allCategoriesButton.setAttribute('aria-pressed', 'true');
+categoryFilters.append(allCategoriesButton);
+
 // Wire the install button for the store itself.
 installStoreBtn.addEventListener('click', async () => {
   try {
@@ -22,8 +43,6 @@ for (const appEntryEl of [...appEntries]) {
 
   const manifestUrl = appEntryEl.dataset.manifestUrl;
   const manifestId = appEntryEl.dataset.manifestId;
-
-  console.log(`Setting up install button for ${btnEl.id}`);
 
   btnEl.addEventListener('click', async () => {
     try {
@@ -51,9 +70,12 @@ categoryFilters.addEventListener('click', (event) => {
 
   const category = filterButton.dataset.category;
 
+  for (const button of categoryFilters.querySelectorAll('.btn_category')) {
+    button.setAttribute('aria-pressed', String(button === filterButton));
+  }
+
   for (const appEntry of appEntries) {
-    const categories = appEntry.dataset.categories.split(' ');
-    appEntry.hidden = category !== 'all' && !categories.includes(category);
+    appEntry.hidden = category !== 'all' && !getAppCategories(appEntry).includes(category);
   }
 });
 
