@@ -5,7 +5,6 @@ This directory contains demos that showcase the use of the [&lt;install&gt; elem
 ## Demos
 
 * [The `<install>` Element Store](https://microsoftedge.github.io/Demos/pwa-install-element/)
-* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install-manifest-url/only-elements.html)
 
 ## About the deprecated `installurl` attribute
 
@@ -33,7 +32,7 @@ if ('HTMLInstallElement' in window) {
 
 To install the currently loaded document:
 
-* The current document must link to a web app manifest file by using `<link rel="manifest" href="manifest.json">`.
+* The current document must link to a web app manifest file, for example by using `<link rel="manifest" href="manifest.json">`.
 * The web app manifest file must define an `id` member.
 
 ```html

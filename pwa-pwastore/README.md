@@ -13,7 +13,7 @@ The `/pwa-pwastore/` directory is an earlier copy of [/pwa-installer/](https://g
 
 This demo application showcases the Web Install API, and also CSS Masonry layout.
 
-* For the demo to work correctly, you must use Microsoft EDge 153 or later, and enable a flag for the Web Install API.
+* For the demo to work correctly, you must use Microsoft Edge 153 or later, and enable a flag for the Web Install API.
 
 * As a progressive enhancement, you can also enable the CSS Masonry flag.
 

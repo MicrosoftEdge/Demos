@@ -5,7 +5,6 @@ This directory contains demos that showcase the use of [navigator.install](https
 ## Demos
 
 * [PWA Store](https://microsoftedge.github.io/Demos/pwa-pwastore)
-* [Web Install Sample](https://kbhlee2121.github.io/pwa/web-install-manifest-url/index.html)
 
 ## About the deprecated `navigator.install(url)` method
 
@@ -29,7 +28,7 @@ if ('install' in navigator) {
 
 To install the currently loaded document:
 
-* The current document must link to a web app manifest file by using `<link rel="manifest" href="manifest.json">`.
+* The current document must link to a web app manifest file, for example by using `<link rel="manifest" href="manifest.json">`.
 * The web app manifest file must define an `id` member.
 
 ```javascript
