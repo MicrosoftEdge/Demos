@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="styles/reset.css" rel="stylesheet">
+  <link href="styles/pwastore.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="application-title" content="Edge Demos by the Microsoft Edge team">
+  <title>Microsoft Edge Demos</title>
+  <link rel="stylesheet" href="styles/pwastore-dark.css" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="styles/pwastore-light.css" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#FFF5E0" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#3D3D3D" media="(prefers-color-scheme: dark)" />
+
+</head>
+
+<body>
+  <div class="draggable"></div>
+  <header>
+    <img src="images/pwastore-logo.svg" width="200" height="100" class="storeicon">
+    <button class="btn_install_store" id="btnInstallStore">Install Edge Demos</button>
+    <div class="category_filter_nav" aria-label="Filter apps by category"></div>
+  </header>
+  <main>
+    <article class="instructions">
+      <h2>Instructions</h2>
+      <p>This collection contains demo webpages, apps, and sample code to demonstrate the Web Install API in Microsoft
+        Edge.</p>
+      <p>To use this demo, enable the <strong>Web App Installation API</strong> feature flag at
+        <code>about://flags/#web-app-installation-api</code>.
+      </p>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/temperature-converter/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/temperature-converter/"
+      data-categories="samples productivity">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/temperature-converter/icon512.png"
+        width="75" height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/temperature-converter/index.html" target="_blank">Temperature
+          converter</a> - PWA getting started demo app</h2>
+      <p class="app_descrip">A simple PWA demo app that converts temperatures. Used for <a
+          href="https://learn.microsoft.com/microsoft-edge/progressive-web-apps/how-to/" target="_blank">Get started
+          with Progressive Web Apps.</a></p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://diek.us/pwinter/manifest.json"
+      data-manifest-id="https://diek.us/pwinter/index.html?randomize=true"
+      data-categories="creativity media">
+      <img src="images/app-icons/pwinter.png" width="75" height="75" class="app_icon">
+      <h2><a href="https://diek.us/pwinter" target="_blank">The PWinter</a></h2>
+      <p class="app_descrip">The PWinter is your custom PWA icon generator!</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/pwamp/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/pwamp/"
+      data-categories="media">
+      <img src="images/app-icons/pwamp.png" width="75" height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/pwamp/" target="_blank">PWAmp</a></h2>
+      <p class="app_descrip">A music player PWA demo to play local audio files.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://diek.us/bubble/manifest.json"
+      data-manifest-id="https://diek.us/bubble/"
+      data-categories="media creativity">
+      <img src="images/app-icons/bubble.png" width="75" height="75" class="app_icon">
+      <h2><a href="https://diek.us/bubble" target="_blank">Bubble</a></h2>
+      <p class="app_descrip">360° equirectangular picture viewer. For images from 360 cameras.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/email-client/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/email-client/index.html"
+      data-categories="productivity samples">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/email-client/img/icon-256.png"
+        width="75" height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/email-client/" target="_blank">Email Client demo</a></h2>
+      <p class="app_descrip">A simulated email client PWA that demonstrates how to use PWA protocol handlers.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/1DIV/dist/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/1DIV/dist/index.html"
+      data-categories="creativity">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/1DIV/dist/img/icon-256.png"
+        width="75" height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/1DIV/dist/index.html" target="_blank">1DIV</a></h2>
+      <p class="app_descrip">A CSS sandbox PWA that demonstrates the Window Controls Overlay feature.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/wami/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/wami/"
+      data-categories="productivity creativity media">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/wami/favicon-256.png" width="75"
+        height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/wami/index.html" target="_blank">wami</a></h2>
+      <p class="app_descrip">An image manipulation demo app to crop, resize, or add effects to images.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/pwa-application-title/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/pwa-application-title/"
+      data-categories="samples">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/pwa-application-title/icon.png"
+        width="75" height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/pwa-application-title/" target="_blank">Application Title
+          demo</a></h2>
+      <p class="app_descrip">A demo web app to showcase the <code>application-title</code> meta tag.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+    <article class="app_entry"
+      data-manifest-url="https://microsoftedge.github.io/Demos/pwa-timer/manifest.json"
+      data-manifest-id="https://microsoftedge.github.io/Demos/pwa-timer/"
+      data-categories="samples productivity">
+      <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/refs/heads/main/pwa-timer/icon512.png" width="75"
+        height="75" class="app_icon">
+      <h2><a href="https://microsoftedge.github.io/Demos/pwa-timer/" target="_blank">Timer PWA demo</a></h2>
+      <p class="app_descrip">A demo web app to showcase Web Notifications.</p>
+      <button class="btn_install">Install</button>
+    </article>
+
+  </main>
+  <footer>
+    &copy; Microsoft Edge
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+
+</html>
