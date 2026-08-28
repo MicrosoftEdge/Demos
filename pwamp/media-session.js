@@ -7,11 +7,13 @@ export function initMediaSession(player) {
 
   function updateMediaSessionState() {
     navigator.mediaSession.playbackState = player.audio.paused ? 'paused' : 'playing';
-    navigator.mediaSession.setPositionState({
-      duration: player.audio.duration,
-      position: player.audio.currentTime,
-      playbackRate: player.audio.playbackRate
-    });
+    if (player.audio.duration && !isNaN(player.audio.duration) && isFinite(player.audio.duration)) {
+      navigator.mediaSession.setPositionState({
+        duration: player.audio.duration,
+        position: player.audio.currentTime,
+        playbackRate: player.audio.playbackRate
+      });
+    }
   }
 
   async function updateMediaSessionMetadata() {
@@ -48,7 +50,7 @@ export function initMediaSession(player) {
     }
   }
 
-  const audioEvents = ['playing', 'paused', 'durationchange', 'ratechange', 'timechange'];
+  const audioEvents = ['playing', 'paused', 'durationchange', 'ratechange', 'timechange', 'play', 'pause', 'seeked', 'ended'];
   for (const event of audioEvents) {
     player.audio.addEventListener(event, updateMediaSessionState);
   }
