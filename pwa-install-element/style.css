@@ -5,8 +5,9 @@
   --border: #ddd;
   --text: #1a1a1a;
   --accent: #EF88BE;
-  --accent-secondary: #C8C8C8;
-  --accent-hover: #e06aa3;
+  --accent-on-surface: #B03A73;
+  --accent-secondary: #4a4a4a;
+  --accent-hover: #8a2a5a;
   --success: #107c10;
   --error: #d13438;
   --muted: #616161;
@@ -21,6 +22,7 @@
     --border: #444;
     --text: #e0e0e0;
     --accent: #EF88BE;
+    --accent-on-surface: #EF88BE;
     --accent-secondary: #C8C8C8;
     --accent-hover: #f4a5d0;
     --success: #4caf50;
@@ -141,10 +143,10 @@ main {
 install {
   display: inline-block;
   padding: 0.65rem 1.2rem;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-on-surface);
   border-radius: 10px;
   background: var(--surface);
-  color: var(--accent);
+  color: var(--accent-on-surface);
   cursor: pointer;
   user-select: none;
   font-size: 1.05em;
@@ -153,8 +155,14 @@ install {
 }
 
 install:hover {
-  background: var(--accent);
+  background: var(--accent-hover);
   color: var(--surface);
+  border-color: var(--accent-hover);
+}
+
+install:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
 }
 
 .unsupported install,
@@ -164,6 +172,33 @@ install:hover {
   color: var(--error);
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+@media (forced-colors: active) {
+  install {
+    border: 1px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+    forced-color-adjust: none;
+  }
+
+  install:hover {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  install:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .unsupported install,
+  .unsupported install:hover {
+    color: GrayText;
+    border-color: GrayText;
+    background: ButtonFace;
+  }
 }
 
 .unsupported-message {
