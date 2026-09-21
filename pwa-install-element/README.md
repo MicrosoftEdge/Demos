@@ -232,6 +232,5 @@ You can find the computed ID by going to **Application** > **Manifest** > **Iden
 
 ### Handle installation success and errors
 
-Installation outcomes when using the deprecated `installurl` attribute are
-also reported through the `installresult` event. See
-[Handle installation success and errors](#handle-installation-success-and-errors).
+The result of the installation is reported through the `installresult` event.
+See [Handle installation success and errors](#handle-installation-success-and-errors), above.
