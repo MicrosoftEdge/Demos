@@ -65,6 +65,41 @@ You can find the computed ID of an app as follows:
 * Open the **Application** tool.
 * Go to **Manifest** > **Identity** > **Computed App ID**.
 
+### Diagnose a blocked `<install>` button
+
+The browser can temporarily or permanently prevent an `<install>` element from
+being activated if it doesn't meet presentation and anti-abuse requirements,
+such as being visible, unobscured, and not recently moved. Use the `isValid` and
+`invalidReason` properties to determine whether the element can currently be
+activated and why it is blocked; learn more about using these inherited
+properties and events in the [Permission Element
+API](https://wicg.github.io/PEPC/permission-elements.html) documentation. Listen
+for the `validationstatuschange` event to react when its validity changes:
+
+```javascript
+const installButton = document.getElementById('install-button');
+
+function reportValidity() {
+  if (installButton.isValid) {
+    console.log('The install element can be activated');
+  } else {
+    console.warn(`The install element is blocked: ${installButton.invalidReason}`);
+  }
+}
+
+installButton.addEventListener('validationstatuschange', reportValidity);
+reportValidity();
+```
+
+The DevTools **Issues** tab may also report activation problems.
+
+> [!NOTE]
+> `<install>` also inherits `initialPermissionStatus`, `permissionStatus`,
+> `onpromptaction`, and `onpromptdismiss`, but these properties and events do
+> not determine whether installation can proceed or report its outcome. Use the
+> validation properties and event described above before the user invokes
+> `<install>`, and `installresult` afterward.
+
 ### Handle installation success and errors
 
 To handle the result of the web app installation process, use the `installresult` event. The event's `result` is `success`, `aborted`, or `invalid_data`:
@@ -110,32 +145,6 @@ button.oninstallresult = (event) => {
 };
 ```
 
-### Diagnose installation problems
-
-The browser can temporarily or permanently prevent an `<install>` element from
-being activated if it doesn't meet presentation and anti-abuse requirements,
-such as being visible, unobscured, and not recently moved. Use the `isValid` and
-`invalidReason` properties to determine whether the element can currently be
-activated and why it is blocked; learn more about using these inherited
-properties and events in the [Permission Element
-API](https://wicg.github.io/PEPC/permission-elements.html) documentation. Listen
-for the `validationstatuschange` event to react when its validity changes:
-
-```javascript
-const installButton = document.getElementById('install-button');
-
-function reportValidity() {
-  if (installButton.isValid) {
-    console.log('The install element can be activated');
-  } else {
-    console.warn(`The install element is blocked: ${installButton.invalidReason}`);
-  }
-}
-
-installButton.addEventListener('validationstatuschange', reportValidity);
-reportValidity();
-```
-
 Installation data includes the `manifest` URL, the optional `manifestId`, and
 the fetched web app manifest. Problems such as an invalid URL, a manifest that
 can't be fetched or parsed, or a mismatched app ID are reported after the user
@@ -150,17 +159,9 @@ installButton.addEventListener('installresult', (event) => {
 });
 ```
 
-The DevTools **Issues** tab may also report activation problems and, for
-same-origin installations, provide more detailed diagnostics for
-`invalid_data`. It does not expose details about cross-origin installation
-failures.
-
-> [!NOTE]
-> `<install>` also inherits `initialPermissionStatus`, `permissionStatus`,
-> `onpromptaction`, and `onpromptdismiss`, but these properties and events do
-> not determine whether installation can proceed or report its outcome. Use the
-> validation properties and event described above before the user invokes
-> `<install>`, and `installresult` afterward.
+For same-origin installations, the DevTools **Issues** tab may provide more
+detailed diagnostics for `invalid_data`. It does not expose details about
+cross-origin installation failures.
 
 For more information, see [Results, errors, and debuggability](https://github.com/WICG/install-element/blob/main/explainer-manifest-url.md#results-errors-and-debuggability)
 in the `<install>` element explainer.
