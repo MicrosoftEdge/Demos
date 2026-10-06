@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Find CSS issues</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.1em;
+    }
+
+    body, h1, h2 {
+      margin: 0;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: white;
+      color: black;
+      padding: 1rem;
+      display: grid;
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      gap: 1rem;
+      grid-auto-rows: min-content;
+    }
+
+    section {
+      background: hsl(calc(sibling-index() * 30), 70%, 80%);
+      border-radius: 1rem;
+      corner-shape: squircle;
+      overflow: hidden;
+    }
+
+    section:first-child {
+      grid-column: 1 / -1;
+    }
+    
+    h1, h2 {
+      font-weight: normal;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .invalid {
+      color: notacolor;
+      colour: pink;
+    }
+
+    .overridden {
+      font-weight: 500;
+    }
+
+    .inactive {
+      display: block;
+      justify-content: center;
+    }
+
+    .shorthand {
+      background: transparent radial-gradient(circle, #fff 0 0.2lh, transparent 0) repeat top left/0.5lh 0.5lh;
+    }
+
+    .computed {
+      background-color: hsl(162, 18%, 72%);
+      color: blue;
+      --theme-color-1: hsl(163, 49%, 38%);
+      --theme-color-2: hsl(163, 83%, 21%);
+      --theme-color-3: hsl(164, 10%, 38%);
+      --theme-color-4: hsl(204, 76%, 37%);
+      --theme-color-5: hsl(212, 89%, 49%);
+      --theme-color-6: hsl(251, 75%, 32%);
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1>Matched and unmatched selectors</h2>
+  </section>
+
+  <section>
+    <h2 class="invalid">Invalid values and declarations</h2>
+  </section>
+
+  <section>
+    <h2 class="overridden">Overridden properties</h2>
+  </section>
+
+  <section>
+    <h2 class="inactive">Inactive properties</h2>
+  </section>
+
+  <section>
+    <h2 class="inherited">Inherited and non-inherited properties</h2>
+  </section>
+
+  <section>
+    <h2 class="shorthand">Shorthand properties</h2>
+  </section>
+
+  <section>
+    <h2 class="non-editable" align="center">Non-editable properties</h2>
+  </section>
+
+  <section>
+    <h2 class="computed">Computed properties</h2>
+  </section>
+</body>
+
+</html>
