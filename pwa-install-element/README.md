@@ -102,7 +102,11 @@ The DevTools **Issues** tab may also report activation problems.
 
 ### Handle installation success and errors
 
-To handle the result of the web app installation process, use the `installresult` event. The event's `result` is `success`, `aborted`, or `invalid_data`:
+To handle the result of the web app installation process, use the `installresult` event. The event's `result` is `success`, `aborted`, or `invalid-data`:
+
+> [!NOTE]
+> Starting in version 157, `invalid_data` was renamed to `invalid-data`. Use
+> `invalid_data` when testing version 156 or earlier.
 
 ```javascript
 const installButton = document.getElementById('install-button');
@@ -115,7 +119,7 @@ installButton.addEventListener('installresult', (event) => {
     case 'aborted':
       console.log('Install was cancelled or could not be completed');
       break;
-    case 'invalid_data':
+    case 'invalid-data':
       console.error('The installation data is invalid');
       break;
   }
@@ -149,18 +153,18 @@ Installation data includes the `manifest` URL, the optional `manifestId`, and
 the fetched web app manifest. Problems such as an invalid URL, a manifest that
 can't be fetched or parsed, or a mismatched app ID are reported after the user
 invokes the element through the `installresult` event with a result of
-`invalid_data`:
+`invalid-data`:
 
 ```javascript
 installButton.addEventListener('installresult', (event) => {
-  if (event.result === 'invalid_data') {
+  if (event.result === 'invalid-data') {
     console.error('Check the manifest URL, manifestId, and web app manifest');
   }
 });
 ```
 
 For same-origin installations, the DevTools **Issues** tab may provide more
-detailed diagnostics for `invalid_data`. It does not expose details about
+detailed diagnostics for `invalid-data`. It does not expose details about
 cross-origin installation failures.
 
 For more information, see [Results, errors, and debuggability](https://github.com/WICG/install-element/blob/main/explainer-manifest-url.md#results-errors-and-debuggability)
