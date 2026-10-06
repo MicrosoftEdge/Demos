@@ -11,7 +11,7 @@ if ('HTMLInstallElement' in window) {
                 case 'aborted':
                     console.log(`Install aborted: ${label}`);
                     break;
-                case 'invalid_data':
+                case 'invalid-data':
                     console.log(`Install data invalid: ${label}`);
                     break;
             }
