@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Badges in the Elements tool</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.1em;
+    }
+
+    body,
+    h1,
+    h2 {
+      margin: 0;
+    }
+
+    body {
+      background-color: white;
+      color: black;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1rem;
+    }
+
+    section {
+      background: hsl(calc(sibling-index() * 30), 70%, 80%);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-block-end: 1rem;
+    }
+
+    h1 {
+      margin-block-end: .5rem;
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-block-end: .5rem;
+    }
+
+    .box {
+      background: white;
+      padding: .5rem;
+      border-radius: .5rem;
+    }
+
+    /* grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+    }
+
+    /* subgrid */
+    .parent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+    }
+
+    .subgrid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+
+    /* flex */
+    .flex {
+      display: flex;
+      gap: .5rem;
+    }
+
+    /* scroll */
+    .scroll {
+      height: 4rem;
+      overflow: scroll;
+    }
+
+    /* scroll-snap */
+    .scroll-snap {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-block-end: 1rem;
+    }
+
+    .scroll-snap>.box {
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+    }
+
+    /* container */
+    .container {
+      container-type: inline-size;
+      resize: horizontal;
+      overflow: auto;
+      width: 20rem;
+      max-width: 100%;
+    }
+
+    @container (width < 15rem) {
+      .container .box {
+        background: gold;
+      }
+    }
+
+    /* starting-style */
+    #animated-popover {
+      opacity: 1;
+      transition: opacity 1s, display 1s allow-discrete, overlay 1s allow-discrete;
+    }
+
+    #animated-popover:not(:popover-open) {
+      opacity: 0;
+    }
+
+    @starting-style {
+      #animated-popover:popover-open {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1>Badges in the Elements tool</h1>
+    <p>Open DevTools, and then inspect the elements in each section below.</p>
+  </section>
+
+  <section>
+    <h2>view-source</h2>
+    <p>The <code>view-source</code> badge is next to the <code>&lt;html&gt;</code> tag.</p>
+  </section>
+
+  <section>
+    <h2>grid</h2>
+    <div class="grid">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+      <div class="box">4</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>subgrid</h2>
+    <div class="parent-grid">
+      <div class="subgrid">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>flex</h2>
+    <div class="flex">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>ad</h2>
+    <iframe src="https://tpc.googlesyndication.com/safeframe/1-0-45/html/container.html" width="200" height="100"
+      title="Ad frame"></iframe>
+  </section>
+
+  <section>
+    <h2>scroll</h2>
+    <div class="scroll box">
+      <p>Scroll me.</p>
+      <p>Scroll me.</p>
+      <p>Scroll me.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>scroll-snap</h2>
+    <div class="scroll-snap">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>container</h2>
+    <div class="container">
+      <div class="box">Resize me by dragging the bottom-right corner.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>slot</h2>
+    <slot-demo>
+      <span slot="content">Slotted content</span>
+    </slot-demo>
+  </section>
+
+  <section>
+    <h2>top-layer</h2>
+    <button onclick="document.getElementById('dialog').showModal()">Open dialog</button>
+    <dialog id="dialog">
+      <p>This dialog is in the top layer.</p>
+      <form method="dialog"><button>Close</button></form>
+    </dialog>
+  </section>
+
+  <section>
+    <h2>media</h2>
+    <video controls width="200"></video>
+  </section>
+
+  <section>
+    <h2>popover</h2>
+    <button popovertarget="popover">Toggle popover</button>
+    <div id="popover" popover>This is a popover.</div>
+  </section>
+
+  <section>
+    <h2>starting-style</h2>
+    <button popovertarget="animated-popover">Toggle animated popover</button>
+    <div id="animated-popover" popover>This popover fades in.</div>
+  </section>
+
+  <section>
+    <h2>custom-element</h2>
+    <hello-world></hello-world>
+    <p is="fancy-paragraph">A customized built-in element.</p>
+  </section>
+
+  <script>
+    customElements.define("slot-demo", class extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: "open" }).innerHTML = `<slot name="content"></slot>`;
+      }
+    });
+
+    customElements.define("hello-world", class extends HTMLElement {
+      connectedCallback() {
+        this.textContent = "Hello from a custom element.";
+      }
+    });
+
+    customElements.define("fancy-paragraph", class extends HTMLParagraphElement {
+      connectedCallback() {
+        this.style.fontStyle = "italic";
+      }
+    }, { extends: "p" });
+  </script>
+</body>
+
+</html>
