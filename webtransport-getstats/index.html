@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebTransport connection statistics demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>WebTransport connection statistics</h1>
+    <p class="intro">Connect to an echo server and inspect live <code>WebTransport.getStats()</code> results.</p>
+
+    <div class="controls">
+      <label for="server">Echo server</label>
+      <select id="server">
+        <option value="https://wt-ord.akaleapi.net:6161/echo">Chicago, US</option>
+        <option value="https://wt-ams.akaleapi.net:6161/echo">Amsterdam, NL</option>
+      </select>
+      <button id="connect" type="button">Connect</button>
+      <button id="send" type="button" disabled>Send datagram</button>
+      <button id="refresh" type="button" disabled>Refresh stats</button>
+      <button id="disconnect" type="button" disabled>Disconnect</button>
+    </div>
+
+    <div class="connection-summary">
+      <p id="status" role="status" aria-live="polite">Checking browser support...</p>
+      <p>Datagrams echoed: <output id="received">0</output></p>
+    </div>
+
+    <div class="stats-heading">
+      <h2>Statistics</h2>
+      <p id="updated">No statistics yet.</p>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Statistic</th>
+            <th scope="col">Value</th>
+            <th scope="col">This connection</th>
+          </tr>
+        </thead>
+        <tbody id="datagram-stats">
+          <tr><th class="group" colspan="3" scope="rowgroup">Datagram statistics</th></tr>
+        </tbody>
+        <tbody id="connection-stats">
+          <tr><th class="group" colspan="3" scope="rowgroup">Connection statistics</th></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>These are the spec's statistics, including fields your browser may not return. <strong>Returned</strong> includes measured <code>0</code> and <code>false</code>; <strong>Returned (null)</strong> means no estimate. <strong>Not returned</strong> means the field is absent, not necessarily unimplemented: it may be temporarily unavailable or withheld for privacy. Stats refresh about one second after sending a datagram, or when you click <strong>Refresh stats</strong>. The datagram counters are from the browser; “Datagrams echoed” is counted by this page.</p>
+    <details>
+      <summary>Raw <code>getStats()</code> response</summary>
+      <pre id="stats" aria-label="Raw WebTransport connection statistics">Connect to view statistics.</pre>
+    </details>
+    <p>Learn more about <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebTransport/getStats">WebTransport.getStats()</a> or view the <a href="https://github.com/MicrosoftEdge/Demos/tree/main/webtransport-getstats">demo source</a>.</p>
+  </main>
+</body>
+</html>
