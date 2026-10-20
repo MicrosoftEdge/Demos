@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Properties tab in the Elements tool</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.1em;
+    }
+
+    body,
+    h1,
+    h2 {
+      margin: 0;
+    }
+
+    body {
+      background-color: white;
+      color: black;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1rem;
+    }
+
+    section {
+      background: hsl(calc(sibling-index() * 30), 70%, 80%);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-block-end: 1rem;
+    }
+
+    h1 {
+      margin-block-end: .5rem;
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-block-end: .5rem;
+    }
+
+    .box {
+      background: white;
+      padding: .5rem;
+      border-radius: .5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1>Properties tab in the Elements tool</h1>
+    <p>Open DevTools, select the white box in each section below in the DOM tree, and then open the
+      <strong>Properties</strong> tab.</p>
+  </section>
+
+  <section>
+    <h2>Open the Properties tab</h2>
+    <div class="box" id="open">Select me.</div>
+  </section>
+
+  <section>
+    <h2>Spot own properties</h2>
+    <div class="box" id="own">I have own properties.</div>
+  </section>
+
+  <section>
+    <h2>Find the origin of an inherited property</h2>
+    <input class="box" id="inherited" size="10" value="size is inherited">
+  </section>
+
+  <section>
+    <h2>Filter properties</h2>
+    <a class="box" id="filter" href="#filter" title="A link">Filter my properties.</a>
+  </section>
+
+  <section>
+    <h2>Show all properties</h2>
+    <div class="box" id="show-all">I have null and undefined properties.</div>
+  </section>
+
+  <section>
+    <h2>Simple properties</h2>
+    <div class="box" id="simple">I have simple properties.</div>
+  </section>
+
+  <section>
+    <h2>Objects and arrays</h2>
+    <div class="box" id="objects">I have object and array properties.</div>
+  </section>
+
+  <section>
+    <h2>Properties that correspond to DOM nodes</h2>
+    <div class="box" id="nodes">I have a property that links to a DOM node.</div>
+  </section>
+
+  <section>
+    <h2>Own and inherited properties</h2>
+    <div class="box" id="own-inherited">I have own and inherited properties.</div>
+  </section>
+
+  <section>
+    <h2>Enumerable and non-enumerable properties</h2>
+    <div class="box" id="enumerable">I have enumerable and non-enumerable properties.</div>
+  </section>
+
+  <section>
+    <h2>Methods</h2>
+    <div class="box" id="methods">I have a method.</div>
+  </section>
+
+  <script>
+    const own = document.getElementById("own");
+    own.myOwnProperty = "I'm defined directly on this element";
+
+    const showAll = document.getElementById("show-all");
+    showAll.myNullProperty = null;
+    showAll.myUndefinedProperty = undefined;
+
+    const simple = document.getElementById("simple");
+    simple.myString = "Hello";
+    simple.myNumber = 42;
+    simple.myBoolean = true;
+
+    const objects = document.getElementById("objects");
+    objects.myObject = { name: "Edge", version: 1 };
+    objects.myArray = ["a", "b", "c"];
+
+    const nodes = document.getElementById("nodes");
+    nodes.myRelatedNode = document.querySelector("h1");
+
+    const ownInherited = document.getElementById("own-inherited");
+    ownInherited.myOwnProperty = "Own property";
+
+    const enumerable = document.getElementById("enumerable");
+    enumerable.myEnumerableProperty = "Enumerable";
+    Object.defineProperty(enumerable, "myNonEnumerableProperty", {
+      value: "Non-enumerable",
+      enumerable: false
+    });
+
+    const methods = document.getElementById("methods");
+    methods.myMethod = function () {
+      return "Hello";
+    };
+  </script>
+</body>
+
+</html>
