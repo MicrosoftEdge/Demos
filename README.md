@@ -130,6 +130,7 @@ See:
 
 | Demo name | Description and docs | Source code & Readme | Live demo page |
 |---|---|---|---|
+| ARIA Actions demo | Interactive demo for the `aria-actions` ARIA attribute, which exposes a list of secondary actions on composite-widget items (tabs, options, rows) to assistive technology. | [/aria-actions/](https://github.com/MicrosoftEdge/Demos/tree/main/aria-actions) | [ARIA Actions demo](https://microsoftedge.github.io/Demos/aria-actions/) |
 | Built-in AI playgrounds | Demo pages showing how to use the built-in Prompt and Writing Assistance AI APIs in Microsoft Edge. | [/built-in-ai/](https://github.com/MicrosoftEdge/Demos/tree/main/built-in-ai) | [Built-in AI playgrounds](https://microsoftedge.github.io/Demos/built-in-ai/) demo |
 | CSS Gap Decorations demos | Draws line decorations within gaps in CSS Grid, Flexbox, and Multi-column layouts. | [/css-gap-decorations/](https://github.com/MicrosoftEdge/Demos/tree/main/css-gap-decorations) | [CSS Gap Decorations demos](https://microsoftedge.github.io/Demos/css-gap-decorations/) (Readme) |
 | CSS Masonry demos | Showcase the implementation of CSS Masonry layout. | [/css-masonry/](https://github.com/MicrosoftEdge/Demos/tree/main/css-masonry) | [CSS Masonry demos](https://microsoftedge.github.io/Demos/css-masonry/) (Readme) |
