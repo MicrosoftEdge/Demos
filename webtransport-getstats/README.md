@@ -8,9 +8,9 @@ The **This connection** column compares each field against the actual response. 
 
 ## Requirements
 
-Use a browser that supports `WebTransport.getStats()` and a network that permits WebTransport connections. In Edge 154 and Chromium 158, the method is available with **Experimental Web Platform features** enabled (or by launching the browser with `--enable-experimental-web-platform-features`); without this setting, the demo reports that the method is unavailable.
+Use a browser that supports `WebTransport.getStats()` and a network that permits WebTransport connections. Chromium's source includes the method behind the experimental `WebTransportStats` feature as far back as milestone 124; this does **not** mean it shipped enabled by default in Chrome or Edge 124. While the method is experimental in a Chromium-based browser, enable **Experimental Web Platform features** in browser flags or launch the browser with `--enable-experimental-web-platform-features`. The demo checks for the method at runtime and reports when it is unavailable.
 
-The page is hosted on GitHub Pages, but the WebTransport connection goes to a public echo server hosted separately in Chicago or Amsterdam. The browser sends its origin to the server when connecting. The server echoes the datagrams sent by the demo; it does not provide the statistics, which come from the browser. A connection can fail if the server is unavailable or the network blocks WebTransport.
+The page is hosted on GitHub Pages, but the WebTransport connection goes to the public Chicago or Amsterdam echo servers listed in the [W3C WebTransport Basic Echo samples](https://github.com/w3c/webtransport/blob/main/README.md#samples). The [W3C echo sample page](https://github.com/w3c/webtransport/blob/main/samples/echo/index.html) uses the Chicago endpoint. The browser sends its origin to the server when connecting. The server echoes the datagrams sent by the demo; it does not provide the statistics, which come from the browser. A connection can fail if the server is unavailable or the network blocks WebTransport.
 
 ## Use the demo
 
