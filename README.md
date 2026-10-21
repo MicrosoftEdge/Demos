@@ -150,6 +150,7 @@ See:
 | `<selectmenu>` demos | OpenUI's `<selectmenu>` component was renamed to `<selectlist>`. | [/selectmenu/](https://github.com/MicrosoftEdge/Demos/tree/main/selectmenu) | [`<selectmenu>` demos](https://microsoftedge.github.io/Demos/selectmenu/), redirects to `/selectlist/` demos |
 | SVG support in the Async Clipboard API | Demo page showing how the Async Clipboard API supports SVG format. | [/svg-clipboard/](https://github.com/MicrosoftEdge/Demos/tree/main/svg-clipboard) | [SVG clipbard support demo](https://microsoftedge.github.io/Demos/svg-clipboard/) |
 | WebNN API | Uses the WebNN API to build a machine learning graph and run it on the device's hardware. | [/webnn/](https://github.com/MicrosoftEdge/Demos/tree/main/webnn) | [WebNN API demo](https://microsoftedge.github.io/Demos/webnn/) |
+| WebTransport connection statistics | Connects to an echo server to demonstrate `WebTransport.getStats()`. | [/webtransport-getstats/](https://github.com/MicrosoftEdge/Demos/tree/main/webtransport-getstats/) | [WebTransport connection statistics](https://microsoftedge.github.io/Demos/webtransport-getstats/) demo |
 <!-- "JSON dummy data" row is in DevTools & Cross-browser tables -->
 
 See also:
