@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA Actions: Interactive Demo</title>
+  <link rel="icon" type="image/png" href="https://edgestatic.azureedge.net/welcome/static/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>ARIA Actions Demo</h1>
+    <p>Expose secondary actions on elements to assistive technology using the
+      <code>aria-actions</code> attribute.</p>
+    <!-- focusgroup runtime status pill. Populated by the script once it
+         determines whether arrow-key navigation in the tablist + grid
+         is provided by native `focusgroup`, by the Microsoft polyfill,
+         or by the JS fallback. Starts hidden; revealed by JS so users
+         without JS don't see a stale "loading" string. -->
+    <p id="focusgroup-status" class="focusgroup-status" data-tone="neutral" hidden>focusgroup: loading…</p>
+  </header>
+
+  <noscript>
+    <div class="warning-banner" role="alert">
+      <strong>JavaScript is disabled.</strong>
+      The tab and grid widgets need JavaScript to handle clicks and
+      keyboard input. The layout will render but the widgets won't respond.
+    </div>
+  </noscript>
+
+  <main class="page-content">
+    <!-- Feature-detection banner: shown only when the ariaActionsElements IDL
+         is not present (i.e., the AriaActions Blink runtime flag is not on).
+         The dismiss button lets users close the banner after toggling the
+         flag, on their way to relaunching the browser. -->
+    <div id="feature-banner" class="warning-banner" role="alert" hidden>
+      <button type="button" id="feature-banner-dismiss"
+        class="banner-dismiss" aria-label="Dismiss this notice">&times;</button>
+      <strong>&#x26A0; aria-actions is not enabled in this browser.</strong>
+      The attribute is an experimental Blink feature behind a runtime flag.
+      Enable <em>Experimental Web Platform features</em> at
+      <code>about://flags/#enable-experimental-web-platform-features</code>
+      in Microsoft Edge (or another Chromium-based browser) and relaunch.
+      If you already enabled the flag and still see this banner, the relaunch
+      is what's missing.
+    </div>
+
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#what-is-aria-actions">What is aria-actions?</a>
+      <a href="#tabs-with-actions">Tabs with Actions</a>
+      <a href="#grid-with-row-actions">Grid with Row Actions</a>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- §1 - What is aria-actions? -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="what-is-aria-actions">What is <code>aria-actions</code>?</h2>
+      <p>
+        <code>aria-actions</code> is a new ARIA attribute. Authors point
+        it at a list of element IDs; each referenced element becomes a
+        secondary action that screen-reader users can invoke from the focused
+        item, without first moving focus to the action button.
+      </p>
+      <p>
+        The value is an IDREFS list (space-separated IDs). Each target needs
+        an accessible name, a click handler, and a keyboard path. See the
+        <a href="https://gist.github.com/smhigley/8dbe67f834cc472e3a14bf6b289e6f0c">explainer</a>
+        for the full authoring requirements.
+      </p>
+      <p>
+        <strong>Reference:</strong>
+        <a href="https://github.com/w3c/aria/pull/1805">w3c/aria PR 1805</a>
+        defines the attribute. The
+        <a href="https://pr-preview.s3.amazonaws.com/w3c/aria/pull/1805.html">rendered
+          preview</a> has the current normative text, and the
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-actions/">APG
+          Tabs with Action Buttons example</a> shows a working reference
+        implementation.
+      </p>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- §2 - Tabs with Actions -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="tabs-with-actions">Tabs with Actions</h2>
+      <p>
+        Each tab points at two action buttons. A screen reader can invoke
+        Close or Pin from the tab itself; keyboard users press
+        <kbd>Delete</kbd> on the focused tab as a shortcut for Close.
+      </p>
+      <pre class="attr-label"><code>aria-actions="close-tab-N pin-tab-N"</code></pre>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Tab into the tablist;
+        <kbd>&larr;</kbd>/<kbd>&rarr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+        move focus, and <kbd>Delete</kbd> closes the focused tab. With a
+        screen reader, Close and Pin appear as actions on whichever tab has
+        focus.
+      </div>
+
+      <div class="demo-container">
+        <!-- Each tab + its action buttons live in a .tab-group wrapper inside
+             the tablist (matches the APG tabs-actions example). The action
+             buttons are siblings of the role="tab" element, not children, so
+             Children Presentational on role="tab" still holds.
+
+             Action buttons set aria-controls back to the tab. Close and Pin
+             really do control the tab, so the back-reference fits here (the
+             grid section omits it because View/Archive don't "control" their
+             rows the same way). -->
+        <!-- aria-required-children note: axe-core flags this tablist for
+             having button descendants (the action buttons) that aren't
+             role="tab". This is a known axe-vs-spec tension that the APG
+             tabs-actions canonical example also triggers; the aria-actions
+             association is precisely what makes nesting them here safe.
+             We accept the warning as the cost of co-located action buttons.
+
+             focusgroup="tablist nomemory" gives this tablist declarative
+             arrow-key navigation (Left/Right with wrap) on browsers that
+             support the focusgroup attribute. The JS keeps a roving-
+             tabindex + arrow-key fallback for browsers that don't.
+             Each tab-actions-inline span carries focusgroup="none" so
+             the action buttons stay reachable by Tab but are excluded
+             from the tablist's arrow-key navigation. -->
+        <div role="tablist" aria-label="Project files" class="tablist"
+             focusgroup="tablist nomemory">
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-1" aria-selected="true"
+              aria-controls="panel-1" tabindex="0" focusgroupstart
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-1 pin-tab-1">index.html</button>
+            <span class="tab-actions-inline" focusgroup="none">
+              <button id="close-tab-1" class="icon-btn" aria-controls="tab-1"
+                aria-label="Close index.html"
+                data-action="close" data-target="index.html" data-target-id="tab-1"
+                data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+              <button id="pin-tab-1" class="icon-btn" aria-controls="tab-1"
+                aria-label="Pin index.html" aria-pressed="false"
+                data-action="pin" data-target="index.html" data-target-id="tab-1"
+                data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
+            </span>
+          </div>
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-2" aria-selected="false"
+              aria-controls="panel-2" tabindex="-1"
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-2 pin-tab-2">style.css</button>
+            <span class="tab-actions-inline" focusgroup="none">
+              <button id="close-tab-2" class="icon-btn" aria-controls="tab-2"
+                aria-label="Close style.css"
+                data-action="close" data-target="style.css" data-target-id="tab-2"
+                data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+              <button id="pin-tab-2" class="icon-btn" aria-controls="tab-2"
+                aria-label="Pin style.css" aria-pressed="false"
+                data-action="pin" data-target="style.css" data-target-id="tab-2"
+                data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
+            </span>
+          </div>
+          <div class="tab-group" role="none">
+            <button role="tab" class="tab" id="tab-3" aria-selected="false"
+              aria-controls="panel-3" tabindex="-1"
+              aria-keyshortcuts="Delete"
+              aria-actions="close-tab-3 pin-tab-3">app.js</button>
+            <span class="tab-actions-inline" focusgroup="none">
+              <button id="close-tab-3" class="icon-btn" aria-controls="tab-3"
+                aria-label="Close app.js"
+                data-action="close" data-target="app.js" data-target-id="tab-3"
+                data-icon="close"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+              <button id="pin-tab-3" class="icon-btn" aria-controls="tab-3"
+                aria-label="Pin app.js" aria-pressed="false"
+                data-action="pin" data-target="app.js" data-target-id="tab-3"
+                data-icon="pin"><svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.089 3.089 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504Z"/></svg></button>
+            </span>
+          </div>
+        </div>
+
+        <div role="tabpanel" id="panel-1" class="tabpanel"
+          aria-labelledby="tab-1" tabindex="0">
+          <p>Contents of <strong>index.html</strong>.</p>
+        </div>
+        <div role="tabpanel" id="panel-2" class="tabpanel"
+          aria-labelledby="tab-2" tabindex="0" hidden>
+          <p>Contents of <strong>style.css</strong>.</p>
+        </div>
+        <div role="tabpanel" id="panel-3" class="tabpanel"
+          aria-labelledby="tab-3" tabindex="0" hidden>
+          <p>Contents of <strong>app.js</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Per-widget status row + reset.
+           Polite live region (role=status), co-located with the widget so
+           SR users hear the result of an action and sighted users see it
+           below the widget they just operated. -->
+      <div class="action-status-bar">
+        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
+          <span class="action-status-label">Last action:</span>
+          <span class="action-status-message">(none yet)</span>
+        </p>
+        <button type="button" class="action-reset" data-reset-section="tabs">Reset section</button>
+      </div>
+
+      <ul class="notice-list">
+        <li>Each tab's <code>aria-actions</code> lists two button IDs</li>
+        <li>The action buttons sit alongside the tab inside a
+          <code>.tab-group</code> wrapper (with <code>role="none"</code> so
+          the wrapper itself doesn't pollute the tablist's child roles).
+          <code>role="tab"</code> is Children Presentational, so the buttons
+          can't be inside the tab itself; a sibling wrapper inside the
+          tablist is fine (the APG <em>tabs-actions</em> example uses the
+          same pattern). axe-core flags this with
+          <code>aria-required-children</code> because button descendants
+          aren't a recognised tablist child role; <code>aria-actions</code>
+          is precisely what makes the co-location safe, so the warning
+          is a known axe-vs-spec tension rather than a real defect</li>
+        <li>Each button also sets <code>aria-controls</code> back to its tab.
+          That fits here because Close and Pin really do control the tab
+          (the grid section omits the back-reference for that
+          reason)</li>
+        <li><kbd>Delete</kbd> on the focused tab triggers Close;
+          <code>aria-keyshortcuts</code> tells AT about the shortcut</li>
+        <li>Pin is a true toggle button: it carries
+          <code>aria-pressed</code> for persistent state and swaps its
+          accessible name between Pin and Unpin so the label reflects
+          the next action. The polite status line still narrates each
+          transition</li>
+        <li>Arrow-key navigation uses the
+          <code>focusgroup="tablist nomemory"</code> attribute on the
+          tablist when the browser supports it (declarative roving
+          tabindex). The script keeps an arrow-key + roving-tabindex
+          fallback for browsers without focusgroup. The action buttons
+          carry <code>focusgroup="none"</code> on their wrapper so they
+          stay reachable by <kbd>Tab</kbd> but are skipped by the
+          tablist's arrow keys</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- §3 - Grid with Row Actions -->
+    <!-- ============================================================ -->
+    <section class="demo-section">
+      <h2 id="grid-with-row-actions">Grid with Row Actions</h2>
+      <p>
+        Each row exposes its action buttons via <code>aria-actions</code> set
+        on the <code>&lt;tr&gt;</code>. AT users invoke View details or
+        Archive from the row, without descending into the Actions cell.
+      </p>
+      <pre class="attr-label"><code>aria-actions="view-row-N archive-row-N"</code></pre>
+
+      <div class="try-it">
+        <strong>Try it:</strong> Tab into the grid;
+        <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+        move between rows. Tab from a row to reach its action buttons, and
+        <kbd>Esc</kbd> to return. With a screen reader, View and Archive
+        appear as actions on whichever row has focus.
+      </div>
+
+      <div class="demo-container">
+        <table role="grid" aria-label="Recent orders" class="data-grid">
+          <thead>
+            <tr>
+              <th scope="col">Order</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <!-- focusgroup="toolbar block nomemory nowrap" gives this row
+               group declarative Up/Down arrow navigation. The toolbar
+               token doesn't imply any particular role (which would
+               conflict with the explicit role="grid" on the table —
+               <tr>/<th>/<td> implicitly take row/columnheader/gridcell
+               inside a grid, so no role attributes are needed on them).
+               Explicit block axis = Up/Down only;
+               nowrap matches the JS-fallback no-wrap behaviour.
+               Each .row-actions span carries focusgroup="none" so the
+               in-row View/Archive buttons stay reachable by Tab from
+               the focused row but are excluded from the row-level
+               arrow nav. -->
+          <tbody focusgroup="toolbar block nomemory nowrap">
+            <tr id="row-1" tabindex="0" focusgroupstart
+              aria-actions="view-row-1 archive-row-1">
+              <td>#1024</td>
+              <td>Alice Johnson</td>
+              <td class="status-cell">Shipped</td>
+              <td>
+                <span class="row-actions" focusgroup="none">
+                  <button id="view-row-1" tabindex="-1"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-1"
+                    aria-label="View details for order 1024"
+                    data-action="view" data-target="order 1024" data-target-id="row-1">View</button>
+                  <button id="archive-row-1" tabindex="-1"
+                    aria-label="Archive order 1024"
+                    data-action="archive" data-target="order 1024" data-target-id="row-1">Archive</button>
+                </span>
+              </td>
+            </tr>
+            <tr id="row-2" tabindex="-1"
+              aria-actions="view-row-2 archive-row-2">
+              <td>#1025</td>
+              <td>Bob Chen</td>
+              <td class="status-cell">Processing</td>
+              <td>
+                <span class="row-actions" focusgroup="none">
+                  <button id="view-row-2" tabindex="-1"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-2"
+                    aria-label="View details for order 1025"
+                    data-action="view" data-target="order 1025" data-target-id="row-2">View</button>
+                  <button id="archive-row-2" tabindex="-1"
+                    aria-label="Archive order 1025"
+                    data-action="archive" data-target="order 1025" data-target-id="row-2">Archive</button>
+                </span>
+              </td>
+            </tr>
+            <tr id="row-3" tabindex="-1"
+              aria-actions="view-row-3 archive-row-3">
+              <td>#1026</td>
+              <td>Carol Davis</td>
+              <td class="status-cell">Delivered</td>
+              <td>
+                <span class="row-actions" focusgroup="none">
+                  <button id="view-row-3" tabindex="-1"
+                    aria-haspopup="dialog" data-dialog-target="popover-row-3"
+                    aria-label="View details for order 1026"
+                    data-action="view" data-target="order 1026" data-target-id="row-3">View</button>
+                  <button id="archive-row-3" tabindex="-1"
+                    aria-label="Archive order 1026"
+                    data-action="archive" data-target="order 1026" data-target-id="row-3">Archive</button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Per-row detail dialogs (native <dialog> + showModal()).
+             Sibling of the <table> rather than inside <tbody>/<td>
+             because <dialog> is not a valid child of those elements.
+
+             <dialog> has an implicit role="dialog", so no ARIA role
+             is needed; the accessible name comes from
+             aria-labelledby. showModal() opens the dialog modally
+             (focus trap, inert background, Esc-to-close, and
+             returning focus to the trigger are all handled by the
+             browser) — matching the visual backdrop the popover
+             version already showed. This replaces the earlier
+             [popover] + popovertarget wiring, which only looked
+             modal: Tab could leak out behind the backdrop.
+
+             A small JS handler (see below) opens the dialog when
+             View is clicked, closes it via the X button
+             ([data-dialog-close]), and adds backdrop-click-to-close
+             to preserve the prior light-dismiss feel — <dialog>
+             doesn't light-dismiss by default. -->
+        <dialog id="popover-row-1" class="row-details-popover"
+             aria-labelledby="popover-row-1-title">
+          <header class="popover-header">
+            <h3 id="popover-row-1-title">Order #1024</h3>
+            <button type="button" class="popover-close"
+              data-dialog-close
+              aria-label="Close details for order 1024">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Alice Johnson</dd>
+            <dt>Status</dt><dd>Shipped</dd>
+            <dt>Ordered</dt><dd>2026-06-15</dd>
+            <dt>Items</dt><dd>3</dd>
+            <dt>Total</dt><dd>$89.95</dd>
+          </dl>
+        </dialog>
+        <dialog id="popover-row-2" class="row-details-popover"
+             aria-labelledby="popover-row-2-title">
+          <header class="popover-header">
+            <h3 id="popover-row-2-title">Order #1025</h3>
+            <button type="button" class="popover-close"
+              data-dialog-close
+              aria-label="Close details for order 1025">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Bob Chen</dd>
+            <dt>Status</dt><dd>Processing</dd>
+            <dt>Ordered</dt><dd>2026-06-18</dd>
+            <dt>Items</dt><dd>1</dd>
+            <dt>Total</dt><dd>$24.50</dd>
+          </dl>
+        </dialog>
+        <dialog id="popover-row-3" class="row-details-popover"
+             aria-labelledby="popover-row-3-title">
+          <header class="popover-header">
+            <h3 id="popover-row-3-title">Order #1026</h3>
+            <button type="button" class="popover-close"
+              data-dialog-close
+              aria-label="Close details for order 1026">&times;</button>
+          </header>
+          <dl class="popover-body">
+            <dt>Customer</dt><dd>Carol Davis</dd>
+            <dt>Status</dt><dd>Delivered</dd>
+            <dt>Ordered</dt><dd>2026-06-12</dd>
+            <dt>Delivered</dt><dd>2026-06-14</dd>
+            <dt>Items</dt><dd>5</dd>
+            <dt>Total</dt><dd>$187.20</dd>
+          </dl>
+        </dialog>
+      </div>
+
+      <div class="action-status-bar">
+        <p class="action-status" role="status" aria-live="polite" aria-atomic="true">
+          <span class="action-status-label">Last action:</span>
+          <span class="action-status-message">(none yet)</span>
+        </p>
+        <button type="button" class="action-reset" data-reset-section="grid">Reset section</button>
+      </div>
+
+      <ul class="notice-list">
+        <li><code>aria-actions</code> on each <code>&lt;tr&gt;</code>
+          (implicitly <code>role="row"</code> inside the grid) exposes
+          the row's actions</li>
+        <li>The buttons live in the Actions column. Only the focused row's
+          buttons are Tab stops; the JS swaps <code>tabindex</code> as row
+          focus moves</li>
+        <li>View opens a native <code>&lt;dialog&gt;</code> via
+          <code>showModal()</code> showing the row's details. The dialog
+          has implicit <code>role="dialog"</code> for a clean AT announce
+          on open. The browser handles the focus trap, <kbd>Esc</kbd>
+          to close, and returning focus to the View button. A small JS
+          shim adds backdrop-click-to-close so the prior
+          light-dismiss UX is preserved</li>
+        <li><kbd>Esc</kbd> from a button returns focus to its row
+          (APG grid widget-mode)</li>
+        <li>The set of roles that can carry <code>aria-actions</code>
+          is defined by <a href="https://github.com/w3c/aria/pull/1805">PR 1805</a>
+          and targets child roles of composite widgets: tabs, options, rows,
+          gridcells, treeitems, and similar</li>
+        <li>Arrow-key navigation uses
+          <code>focusgroup="toolbar block nomemory nowrap"</code> on the
+          <code>&lt;tbody&gt;</code> when supported; the script keeps a
+          roving-tabindex + arrow handler as a fallback otherwise. Each
+          <code>.row-actions</code> span carries <code>focusgroup="none"</code>
+          so the in-row buttons stay reachable by <kbd>Tab</kbd> from the
+          focused row but are excluded from the row-level arrow nav</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    /* ================================================================
+       focusgroup mode + polyfill loader
+       ----------------------------------------------------------------
+       The Microsoft focusgroup polyfill is always fetched (lazily,
+       after parse) and is also the source of truth for native-support
+       detection — we call its exported `supportsFocusGroup()` rather
+       than inlining our own probe, so we can't get out of sync with
+       the polyfill on attribute/IDL-name evolution (the property is
+       reflected as `focusGroup` IDL on current Chromium; older builds
+       may use the lowercase `focusgroup` form).
+
+       After the module loads:
+         * supportsFocusGroup() === true  → mode = "native"
+           (the polyfill's own polyfill() no-ops in this case)
+         * supportsFocusGroup() === false → mode = "polyfill" after
+           calling mod.polyfill() (no args = whole document)
+       If the module fails to load (offline, CDN blocked, error),
+       mode stays "fallback" and our JS roving-tabindex + arrow-key
+       handlers stay in charge — the initial markup already has the
+       roving pattern in place, so the page is keyboard-operable
+       throughout the brief loading window in every mode.
+
+       focusgroupMode is one of: "loading" | "native" | "polyfill" | "fallback".
+       focusgroupActive() returns true when EITHER native or polyfill
+       has taken over (i.e. our JS should not also handle arrow keys
+       or manage roving tabindex). focusgroupManagesTabindex() returns
+       true whenever focusgroup is active — in both native and polyfill
+       modes we set every item to tabindex=0 so the polyfill's item-
+       discovery walk (which requires keyboard-focusable items) sees
+       every item, and the browser/polyfill then collapses to one tab
+       stop and manages roving from there.
+       ================================================================ */
+    var focusgroupMode = "loading";
+    function focusgroupActive() {
+      return focusgroupMode === "native" || focusgroupMode === "polyfill";
+    }
+    function focusgroupManagesTabindex() {
+      return focusgroupActive();
+    }
+
+    // Registered hooks the per-widget IIFEs use to re-sync tabindex
+    // after the polyfill module loads.
+    var focusgroupReadyHooks = [];
+    function onFocusgroupReady(fn) {
+      focusgroupReadyHooks.push(fn);
+    }
+    function runFocusgroupReadyHooks() {
+      var hooks = focusgroupReadyHooks.slice();
+      focusgroupReadyHooks.length = 0;
+      hooks.forEach(function (fn) { try { fn(); } catch (e) {} });
+    }
+
+    // Dynamically import the polyfill from jsDelivr. Pinned to a major
+    // version so spec/polyfill updates don't silently change behaviour.
+    // The polyfill function is invoked after DOMContentLoaded so it can
+    // scan the rendered focusgroup="…" attributes.
+    var POLYFILL_URL =
+      "https://cdn.jsdelivr.net/npm/@microsoft/focusgroup-polyfill@1/build/index.min.mjs";
+    function loadPolyfill() {
+      var importPromise = import(POLYFILL_URL);
+      var domPromise = (document.readyState === "loading")
+        ? new Promise(function (res) {
+            document.addEventListener("DOMContentLoaded", res, { once: true });
+          })
+        : Promise.resolve();
+      Promise.all([importPromise, domPromise]).then(function (results) {
+        var mod = results[0];
+        try {
+          if (mod.supportsFocusGroup()) {
+            // Native support; mod.polyfill() would itself no-op here.
+            focusgroupMode = "native";
+          } else {
+            // No args = polyfill the whole document. Passing `document`
+            // explicitly silently no-ops because the API expects an
+            // Element subtree or no arg.
+            mod.polyfill();
+            focusgroupMode = "polyfill";
+          }
+        } catch (e) {
+          focusgroupMode = "fallback";
+        }
+        runFocusgroupReadyHooks();
+        updateFocusgroupStatus();
+      }, function () {
+        focusgroupMode = "fallback";
+        runFocusgroupReadyHooks();
+        updateFocusgroupStatus();
+      });
+    }
+
+    // Status pill in the page header. Shows the current mode in plain
+    // language so reviewers can tell at a glance whether focusgroup is
+    // native, polyfilled, or falling back to JS.
+    var STATUS_LABELS = {
+      native:   { text: "focusgroup: native",   tone: "ok"      },
+      polyfill: { text: "focusgroup: polyfill", tone: "ok"      },
+      loading:  { text: "focusgroup: loading…", tone: "neutral" },
+      fallback: { text: "focusgroup: JS fallback", tone: "warn" }
+    };
+    function updateFocusgroupStatus() {
+      var el = document.getElementById("focusgroup-status");
+      if (!el) return;
+      var s = STATUS_LABELS[focusgroupMode] || STATUS_LABELS.fallback;
+      el.textContent = s.text;
+      el.setAttribute("data-tone", s.tone);
+      el.hidden = false;
+    }
+
+    loadPolyfill();
+    document.addEventListener("DOMContentLoaded", updateFocusgroupStatus);
+
+    /* ================================================================
+       Feature detection + dismissible banner
+       ----------------------------------------------------------------
+       The ariaActionsElements IDL property is reflected onto Element
+       when the AriaActions Blink runtime flag is on. If it's missing,
+       show the flag-instructions banner. The dismiss button is there
+       so users who just toggled the flag can close the banner before
+       relaunching.
+       ================================================================ */
+    (function () {
+      var banner = document.getElementById("feature-banner");
+      if (!banner) return;
+      var supported = "ariaActionsElements" in Element.prototype;
+      if (!supported) banner.hidden = false;
+      var dismiss = document.getElementById("feature-banner-dismiss");
+      if (dismiss) {
+        dismiss.addEventListener("click", function () {
+          banner.hidden = true;
+        });
+      }
+    })();
+
+    /* ================================================================
+       Tabs: aria-selected, panel show/hide, Delete (always) +
+       roving tabindex + Arrow keys + Home/End (fallback when
+       focusgroup is unsupported). When focusgroup IS supported,
+       activate() also moves the focusgroupstart attribute so
+       re-entry via Tab lands on the active tab (focusgroup="tablist
+       nomemory" ignores history; focusgroupstart marks the entry
+       point).
+       ================================================================ */
+    (function () {
+      var tablist = document.querySelector('[role="tablist"]');
+      if (!tablist) return;
+      var tabs = Array.prototype.slice.call(
+        tablist.querySelectorAll('[role="tab"]'));
+      var panels = tabs.map(function (t) {
+        return document.getElementById(t.getAttribute("aria-controls"));
+      });
+
+      function activate(tab, setFocus) {
+        tabs.forEach(function (t, i) {
+          var selected = (t === tab);
+          t.setAttribute("aria-selected", selected ? "true" : "false");
+          if (focusgroupActive()) {
+            // focusgroup (native or polyfill) collapses tab stops; mark
+            // the re-entry point on the selected tab.
+            if (selected) t.setAttribute("focusgroupstart", "");
+            else t.removeAttribute("focusgroupstart");
+            // Every tab gets tabindex=0 so focusgroup's item-discovery
+            // walk treats them all as candidates (the polyfill rejects
+            // items with tabindex<=-1). focusgroup then collapses them
+            // into a single sequential tab stop and manages roving.
+            if (focusgroupManagesTabindex()) {
+              t.setAttribute("tabindex", "0");
+            }
+          } else {
+            // Roving tabindex fallback for non-focusgroup browsers.
+            t.setAttribute("tabindex", selected ? "0" : "-1");
+          }
+          if (panels[i]) panels[i].hidden = !selected;
+        });
+        if (setFocus) tab.focus();
+      }
+
+      // Re-apply the right tabindex regime on load so the initial
+      // roving markup matches what focusgroup expects when it IS
+      // active. Until the polyfill resolves, the initial roving markup
+      // keeps the JS fallback path keyboard-operable.
+      if (focusgroupManagesTabindex()) {
+        tabs.forEach(function (t) { t.setAttribute("tabindex", "0"); });
+      }
+      onFocusgroupReady(function () {
+        if (!focusgroupManagesTabindex()) return;
+        // After the polyfill resolves, set tabindex=0 on every tab so
+        // the polyfill can discover them all as items, and re-sync
+        // focusgroupstart to whichever tab is currently selected. This
+        // matters when the user clicked a non-default tab during the
+        // loading window: select() updated aria-selected but couldn't
+        // move focusgroupstart yet (focusgroupActive() was false), so
+        // without this re-sync `nomemory` Tab-re-entry would land on
+        // the stale start tab instead of the current selection.
+        tabs.forEach(function (t) {
+          t.setAttribute("tabindex", "0");
+          if (t.getAttribute("aria-selected") === "true") {
+            t.setAttribute("focusgroupstart", "");
+          } else {
+            t.removeAttribute("focusgroupstart");
+          }
+        });
+      });
+
+      tablist.addEventListener("click", function (e) {
+        var tab = e.target.closest('[role="tab"]');
+        if (tab) activate(tab, true);
+      });
+
+      // Selection-follows-focus: when focusgroup arrows focus a tab,
+      // activate its panel. (Without focusgroup the keydown handler
+      // below calls activate() directly; this focusin path covers the
+      // focusgroup-driven case where keydown never fires here.)
+      tablist.addEventListener("focusin", function (e) {
+        var tab = e.target.closest('[role="tab"]');
+        if (tab && tab.getAttribute("aria-selected") !== "true") {
+          activate(tab, false);
+        }
+      });
+
+      tablist.addEventListener("keydown", function (e) {
+        var current = document.activeElement;
+        if (!current || current.getAttribute("role") !== "tab") return;
+        var index = tabs.indexOf(current);
+        var target = null;
+        switch (e.key) {
+          case "ArrowRight":
+            if (focusgroupActive()) return; // focusgroup handles it
+            target = tabs[(index + 1) % tabs.length];
+            break;
+          case "ArrowLeft":
+            if (focusgroupActive()) return;
+            target = tabs[(index - 1 + tabs.length) % tabs.length];
+            break;
+          case "Home":
+            // Not bound by focusgroup; handle here either way.
+            target = tabs[0];
+            break;
+          case "End":
+            target = tabs[tabs.length - 1];
+            break;
+          case "Delete":
+            // Invoke the focused tab's "Close" action (first aria-actions ID).
+            var actions = (current.getAttribute("aria-actions") || "")
+              .split(/\s+/).filter(Boolean);
+            var closeBtn = actions.length && document.getElementById(actions[0]);
+            if (closeBtn) {
+              e.preventDefault();
+              closeBtn.click();
+            }
+            return;
+        }
+        if (target) {
+          e.preventDefault();
+          activate(target, true);
+        }
+      });
+    })();
+
+    /* ================================================================
+       Grid: aria-selected-equivalent state + in-row button tabindex
+       roving (always) + row tabindex roving + Arrow keys (fallback
+       only). When focusgroup is active the row arrow nav is handled
+       by focusgroup/polyfill via focusgroup="toolbar block nomemory
+       nowrap" on the tbody; the in-row buttons sit inside
+       focusgroup="none" wrappers so they're invisible to the arrow
+       nav while staying reachable by Tab from the focused row.
+       Escape from a focused in-row button returns focus to the row
+       in every mode (focusgroup does not bind Escape).
+       ================================================================ */
+    (function () {
+      var grid = document.querySelector('[role="grid"]');
+      if (!grid) return;
+      var rows = Array.prototype.slice.call(
+        grid.querySelectorAll('tbody > tr'));
+
+      function rowButtons(row) {
+        return Array.prototype.slice.call(row.querySelectorAll("button"));
+      }
+
+      function syncButtonTabindex(activeRow) {
+        rows.forEach(function (r) {
+          var ti = (r === activeRow) ? "0" : "-1";
+          rowButtons(r).forEach(function (b) {
+            b.setAttribute("tabindex", ti);
+          });
+        });
+      }
+
+      function focusRow(row) {
+        if (!focusgroupActive()) {
+          rows.forEach(function (r) {
+            r.setAttribute("tabindex", r === row ? "0" : "-1");
+          });
+        }
+        syncButtonTabindex(row);
+        row.focus();
+      }
+
+      // Initial sync: buttons on the initial active row become tab stops.
+      syncButtonTabindex(rows[0]);
+
+      // When focusgroup is active, all rows are tabindex=0 so focusgroup
+      // can discover them all as items (the polyfill rejects items with
+      // tabindex<=-1). Set this up front when active, and re-apply once
+      // the polyfill loads. focusgroupstart is moved to whichever row is
+      // currently active so `nomemory` Tab-re-entry lands there.
+      function activeRow() {
+        return rows.filter(function (r) {
+          return r.getAttribute("tabindex") === "0";
+        })[0] || rows[0];
+      }
+      function applyFocusgroupRowState() {
+        var active = activeRow();
+        rows.forEach(function (r) {
+          r.setAttribute("tabindex", "0");
+          if (r === active) r.setAttribute("focusgroupstart", "");
+          else r.removeAttribute("focusgroupstart");
+        });
+      }
+      if (focusgroupManagesTabindex()) applyFocusgroupRowState();
+      onFocusgroupReady(function () {
+        if (focusgroupManagesTabindex()) applyFocusgroupRowState();
+      });
+
+      grid.addEventListener("keydown", function (e) {
+        var current = document.activeElement;
+        if (!current) return;
+
+        // Escape from an in-row button returns focus to that row.
+        // Handled here in every mode — focusgroup does not bind Escape.
+        // BUT: when a row's View dialog/popover is open, the browser
+        // is the one that should handle Esc (closes the dialog and
+        // returns focus to the View button). Calling preventDefault()
+        // here in that case would suppress that, stranding the dialog
+        // open. <dialog>.showModal() moves focus into the dialog, so
+        // current.closest('.row-actions button') is normally false
+        // while a dialog is open — but we keep the guard for safety,
+        // and broaden it to recognise both <dialog open> and any
+        // [popover]:popover-open in the section.
+        if (e.key === "Escape" && current.closest(".row-actions button")) {
+          var demoSection = grid.closest(".demo-section");
+          var modalOpen = demoSection && (
+            demoSection.querySelector("dialog[open]") ||
+            demoSection.querySelector("[popover]:popover-open"));
+          if (!modalOpen) {
+            var row = current.closest('tr');
+            if (row && rows.indexOf(row) !== -1) {
+              e.preventDefault();
+              row.focus();
+              return;
+            }
+          }
+        }
+
+        // Arrow / Home / End only operate when a row itself has focus.
+        if (rows.indexOf(current) === -1) return;
+        var index = rows.indexOf(current);
+        if (index === -1) return;
+        var target = null;
+        switch (e.key) {
+          case "ArrowDown":
+            if (focusgroupActive()) return; // focusgroup handles it
+            target = rows[Math.min(index + 1, rows.length - 1)];
+            break;
+          case "ArrowUp":
+            if (focusgroupActive()) return;
+            target = rows[Math.max(index - 1, 0)];
+            break;
+          case "Home":
+            // Not bound by focusgroup; handle here in every mode.
+            target = rows[0];
+            break;
+          case "End":
+            target = rows[rows.length - 1];
+            break;
+        }
+        if (target) {
+          e.preventDefault();
+          focusRow(target);
+        }
+      });
+
+      // When focus moves into a row or one of its buttons, make sure
+      // syncButtonTabindex tracks the active row. In the JS-fallback
+      // mode we also rove row tabindex; in focusgroup mode the
+      // browser/polyfill manages row tabindex, but we still move
+      // focusgroupstart so Tab-re-entry uses the current row.
+      grid.addEventListener("focusin", function (e) {
+        var row = e.target.closest('tr');
+        if (!row || rows.indexOf(row) === -1) return;
+        if (focusgroupActive()) {
+          rows.forEach(function (r) {
+            if (r === row) r.setAttribute("focusgroupstart", "");
+            else r.removeAttribute("focusgroupstart");
+          });
+        } else {
+          rows.forEach(function (r) {
+            r.setAttribute("tabindex", r === row ? "0" : "-1");
+          });
+        }
+        syncButtonTabindex(row);
+      });
+    })();
+
+    /* ================================================================
+       Action invocation
+       ----------------------------------------------------------------
+       Each action button does a real, reversible visible change on
+       the item it targets (close strikes through the tab, archive
+       dims the row, etc.) so the demo communicates what aria-actions
+       is FOR. The change happens via a data-* attribute on the target
+       which CSS hooks into; the matching announce goes into the
+       section's polite #status region. Reset buttons restore the
+       section to its starting state.
+       ================================================================ */
+    var ACTIONS = {
+      close:   { attr: "data-closed",   on: "Closed",                off: "Reopened"     },
+      pin:     { attr: "data-pinned",   on: "Pinned",                off: "Unpinned"     },
+      // view doesn't toggle row state — performAction's view branch
+      // calls dialog.showModal() on the dialog identified by the
+      // button's data-dialog-target. We still announce via the polite
+      // status row on top of the dialog's own "dialog Order #N"
+      // announce, mirroring the original popover implementation.
+      // attr=null tells performAction to skip the data-* toggle path.
+      view:    { attr: null,            on: "Viewing details for" },
+      archive: { attr: "data-archived", on: "Archived",              off: "Unarchived"   }
+    };
+
+    function announceInto(statusEl, message) {
+      if (!statusEl) return;
+      var msgEl = statusEl.querySelector(".action-status-message");
+      if (!msgEl) return;
+      // Clear first so identical successive messages still announce —
+      // some ATs ignore live-region updates whose textContent is unchanged.
+      msgEl.textContent = "";
+      if (statusEl._setTimer) clearTimeout(statusEl._setTimer);
+      statusEl._setTimer = setTimeout(function () {
+        msgEl.textContent = message;
+        statusEl._setTimer = null;
+      }, 30);
+    }
+
+    /* Inline icon SVGs for the tab Close/Pin buttons. Re-open uses a
+       counter-clockwise arrow ("undo close"). All use currentColor so
+       theme + forced-colors propagate without extra rules. */
+    var CLOSE_SVG = '<svg class="icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+    var REOPEN_SVG = '<svg class="icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>';
+
+    function performAction(btn) {
+      var action = btn.getAttribute("data-action");
+      var targetId = btn.getAttribute("data-target-id");
+      var targetName = btn.getAttribute("data-target") || "";
+      var cfg = ACTIONS[action];
+      var target = targetId && document.getElementById(targetId);
+      if (!cfg || !target) return;
+
+      var section = btn.closest(".demo-section");
+      var statusEl = section && section.querySelector(".action-status");
+
+      // Non-toggling actions (cfg.attr === null): no data-* state to
+      // flip, no on/off duality. For View, this handler also opens the
+      // row's <dialog> via showModal() — the dialog id comes from the
+      // button's data-dialog-target attribute. The polite-status row
+      // still announces what was just opened so AT users hear it on
+      // top of the dialog's own "dialog Order #N" announce.
+      if (cfg.attr === null) {
+        if (action === "view") {
+          var dialogId = btn.getAttribute("data-dialog-target");
+          var dialog = dialogId && document.getElementById(dialogId);
+          if (dialog && typeof dialog.showModal === "function" && !dialog.open) {
+            dialog.showModal();
+          }
+        }
+        announceInto(statusEl, cfg.on + ": " + targetName);
+        return;
+      }
+
+      var nowOn = !target.hasAttribute(cfg.attr);
+      if (nowOn) target.setAttribute(cfg.attr, "true");
+      else target.removeAttribute(cfg.attr);
+
+      // Side effect: archive swaps the Status column text in/out so the
+      // grid's a11y tree reflects the change (CSS-only swap wouldn't).
+      if (action === "archive") {
+        var statusCell = target.querySelector(".status-cell");
+        if (statusCell) {
+          if (nowOn) {
+            statusCell.setAttribute("data-original", statusCell.textContent);
+            statusCell.textContent = "Archived";
+          } else if (statusCell.hasAttribute("data-original")) {
+            statusCell.textContent = statusCell.getAttribute("data-original");
+            statusCell.removeAttribute("data-original");
+          }
+        }
+      }
+
+      // Self-renaming actions: the button's label reflects what the
+      // NEXT click will do. Close ↔ Re-open swaps both the SVG icon
+      // and the accessible name; Archive ↔ Unarchive swaps just the
+      // text label. Pin keeps its pushpin icon but uses aria-pressed
+      // (the canonical toggle-button pattern) AND swaps Pin ↔ Unpin
+      // so the action verb tracks the next click — and the polite
+      // status region still announces the transition, giving AT users
+      // both the persistent state (pressed) and a one-shot narration.
+      if (action === "close") {
+        btn.innerHTML = nowOn ? REOPEN_SVG : CLOSE_SVG;
+        btn.setAttribute("data-icon", nowOn ? "reopen" : "close");
+        var closeLabel = (nowOn ? "Re-open " : "Close ") + targetName;
+        btn.setAttribute("aria-label", closeLabel);
+      } else if (action === "archive") {
+        btn.textContent = nowOn ? "Unarchive" : "Archive";
+        var archiveLabel = (nowOn ? "Unarchive " : "Archive ") + targetName;
+        btn.setAttribute("aria-label", archiveLabel);
+      } else if (action === "pin") {
+        btn.setAttribute("aria-pressed", nowOn ? "true" : "false");
+        var pinLabel = (nowOn ? "Unpin " : "Pin ") + targetName;
+        btn.setAttribute("aria-label", pinLabel);
+      }
+
+      announceInto(statusEl, (nowOn ? cfg.on : cfg.off) + ": " + targetName);
+    }
+
+    function resetSection(btn) {
+      var section = btn.closest(".demo-section");
+      if (!section) return;
+      // Clear all action state attributes on any item that might carry
+      // them. Skip entries with attr=null (non-toggling actions).
+      Object.keys(ACTIONS).forEach(function (key) {
+        var attr = ACTIONS[key].attr;
+        if (!attr) return;
+        section.querySelectorAll("[" + attr + "]").forEach(function (el) {
+          el.removeAttribute(attr);
+        });
+      });
+      // Restore any cached original status-cell text (grid archive).
+      section.querySelectorAll(".status-cell[data-original]").forEach(function (cell) {
+        cell.textContent = cell.getAttribute("data-original");
+        cell.removeAttribute("data-original");
+      });
+      // Restore Close button icon + label (only action that swaps its own SVG).
+      section.querySelectorAll('button[data-action="close"]').forEach(function (b) {
+        b.innerHTML = CLOSE_SVG;
+        b.setAttribute("data-icon", "close");
+        var lbl = "Close " + (b.getAttribute("data-target") || "");
+        b.setAttribute("aria-label", lbl);
+      });
+      // Restore Archive button text + label.
+      section.querySelectorAll('button[data-action="archive"]').forEach(function (b) {
+        b.textContent = "Archive";
+        b.setAttribute("aria-label",
+          "Archive " + (b.getAttribute("data-target") || ""));
+      });
+      // Restore Pin button toggle state + label.
+      section.querySelectorAll('button[data-action="pin"]').forEach(function (b) {
+        b.setAttribute("aria-pressed", "false");
+        b.setAttribute("aria-label",
+          "Pin " + (b.getAttribute("data-target") || ""));
+      });
+      // Close any open dialogs / popovers in this section (e.g. the
+      // grid's per-row View dialogs, or any future [popover] widgets).
+      section.querySelectorAll("dialog").forEach(function (d) {
+        if (d.open) d.close();
+      });
+      section.querySelectorAll("[popover]").forEach(function (p) {
+        if (p.matches(":popover-open")) p.hidePopover();
+      });
+      var statusEl = section.querySelector(".action-status");
+      announceInto(statusEl, "Section reset");
+    }
+
+    document.addEventListener("click", function (e) {
+      var actionBtn = e.target.closest("button[data-action]");
+      if (actionBtn) { performAction(actionBtn); return; }
+      var resetBtn = e.target.closest("button.action-reset");
+      if (resetBtn) { resetSection(resetBtn); return; }
+      // Delegated [data-dialog-close] handler — replaces the
+      // popovertargetaction="hide" wiring the X buttons used before
+      // the popover -> <dialog> conversion.
+      var dialogCloseBtn = e.target.closest("[data-dialog-close]");
+      if (dialogCloseBtn) {
+        var dialog = dialogCloseBtn.closest("dialog");
+        if (dialog && dialog.open) dialog.close();
+        return;
+      }
+    });
+
+    // Backdrop-click closes the row-details dialogs. <dialog> doesn't
+    // light-dismiss on outside click by default; the prior [popover]
+    // implementation did, so we restore that UX explicitly. The check
+    // e.target === d is true only when the click hits the dialog's
+    // own box (the ::backdrop pseudo). The dialog's children (header,
+    // dl) fill the panel completely, so panel clicks never satisfy
+    // this condition.
+    document.querySelectorAll("dialog.row-details-popover").forEach(function (d) {
+      d.addEventListener("click", function (e) {
+        if (e.target === d) d.close();
+      });
+    });
+  </script>
+</body>
+
+</html>
