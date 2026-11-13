@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>Decisions API playground</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+
+  <!-- Prompt API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AmNHs0xw9QAO2YukciI1RKhICzfn+DueUuUPFJijaUlhXbyw/XzBOxmslmw+PimfrSQ8YdtE9hZyALjnakHqFAkAAABreyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVByb21wdEFQSU11bHRpbW9kYWxJbnB1dCIsImV4cGlyeSI6MTc4MTU2ODAwMH0=">
+  <!-- Summarizer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AnmQ0jmbPIpGfZVA7KzZjGm+eqWhTVbw32p25GY5AUThwYV9mfnlRV9OFcB+rppXIcqjo9EVZo7Twi4azvQmVAIAAABjeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVN1bW1hcml6YXRpb25BUEkiLCJleHBpcnkiOjE3NjA0MDAwMDB9">
+  <!-- Writer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="Avs2en8Snsf0yWPOMv/HFHNDQPFK5BQE2fr5Jkshhp6All1GvEkWJn0zEN7qJ7ey7Hdxg7MOpM88RXupv/05FgQAAABceyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVdyaXRlckFQSSIsImV4cGlyeSI6MTc3NjcyOTYwMH0=">
+  <!-- Rewriter API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AiehW/m2LP6tGyptGkHWswW78TJWMCQoDWQNItlcEnnRlUHeRXWS3Rq4TKKe9laNLZMz0HVgbIbLTrhhX0alGAgAAABeeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVJld3JpdGVyQVBJIiwiZXhwaXJ5IjoxNzc2NzI5NjAwfQ==">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI playgrounds</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/decisions-api" class="item current">Decisions</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/decisions-api" class="item current">Decisions</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
+  
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/decisions-api.css">
+  
+
+  <main>
+    <h1>Decisions API</h1>
+    <p class="description">Experimental web API that classifies text into structured boolean, choice, and score decisions using an on-device model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api" target="_blank">the Decisions API documentation</a>.</p>
+
+    <div id="message-ui" class="message-bar"></div>
+
+    <div class="settings card-with-shadow">
+      
+<div class="settings-row">
+  <label for="preset">
+    Preset scenario
+    <span role="tooltip" id="preset-tooltip" style="anchor-name:--preset-anchor;">
+      <span class="tooltip-content" style="position-anchor:--preset-anchor;">
+        Loads an example scenario, which fills in the text, context, and questions below. You can edit them afterwards.
+      </span>
+    </span>
+  </label>
+  <select name="preset" id="preset" aria-describedby="preset-tooltip">
+    <option value="support" selected>Support triage</option>
+    <option value="security">Security risk</option>
+    <option value="feedback">Product feedback</option>
+    <option value="release">Release readiness</option>
+  </select>
+</div>
+
+<div class="settings-row">
+  <label for="input">
+    Text to classify
+    <span role="tooltip" id="input-tooltip" style="anchor-name:--input-anchor;">
+      <span class="tooltip-content" style="position-anchor:--input-anchor;">
+        The text that you want the model to make decisions about. This can be any text, such as a support ticket, a log entry, or a product review.
+        The model answers each of the questions below based on this text.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="input" aria-describedby="input-tooltip"></textarea>
+</div>
+
+<div class="settings-row">
+  <label for="context">
+    Context
+    <span role="tooltip" id="context-tooltip" style="anchor-name:--context-anchor;">
+      <span class="tooltip-content" style="position-anchor:--context-anchor;">
+        Optional instructions or rubric shared by all questions.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="context" aria-describedby="context-tooltip"></textarea>
+</div>
+
+<div class="settings-row">
+  <label for="questions">
+    Questions (JSON)
+    <span role="tooltip" id="questions-tooltip" style="anchor-name:--questions-anchor;">
+      <span class="tooltip-content" style="position-anchor:--questions-anchor;">
+        An array of questions. Each one has an id, a prompt, a type (boolean, choice, or score) and, for choice and score questions, a list of options.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="questions" aria-describedby="questions-tooltip"></textarea>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="decide">Decide</button>
+</div>
+
+    </div>
+
+    <pre id="output"></pre>
+
+    
+    <div class="metrics card-with-shadow">
+      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
+      <span class="metric">First token latency: <span class="value" id="first-token-latency-metric"></span> ms</span>
+      <span class="metric">Tokens: <span class="value" id="tokens-metric"></span></span>
+      <span class="metric">Rate: <span class="value" id="token-rate-metric"></span> token/sec</span>
+      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
+    </div>
+    
+  </main>
+
+  <script src="/Demos/built-in-ai/static/session.js"></script>
+  <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  
+  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  
+  <script src="/Demos/built-in-ai/static/slider.js"></script>
+  
+    <script src="/Demos/built-in-ai/static/decisions-api.js"></script>
+  
+
+</body>
+</html>

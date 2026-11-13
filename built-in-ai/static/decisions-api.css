@@ -1,0 +1,26 @@
+#questions {
+  height: 18rem;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: var(--small-font-size);
+}
+
+#input {
+  height: 4rem;
+}
+
+#context {
+  height: 5rem;
+}
+
+#output {
+  align-self: start;
+}
+
+#output:empty::before {
+  content: "The decisions will appear here";
+}
+
+#output summary {
+  cursor: pointer;
+  margin-block-start: 1rem;
+}

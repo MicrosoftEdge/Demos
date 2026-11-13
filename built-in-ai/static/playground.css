@@ -163,7 +163,7 @@ main .description {
   height: 8px;
   background: black;
   bottom: -8px;
-  justify-self: anchor-center;
+  left: calc(50% - 8px);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 

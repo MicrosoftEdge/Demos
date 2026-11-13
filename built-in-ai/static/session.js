@@ -33,6 +33,11 @@ const ERR_LANGUAGEDETECTOR_API_NOT_DETECTED = `The LanguageDector API is not ava
 const ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE = `The LanguageDector API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
 const INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
+const DECISIONS_ENABLE_INSTRUCTIONS = "The Decisions API is currently only available in Microsoft Edge Canary, behind a flag. Enable the \"Decisions API\" flag at edge://flags, restart the browser, and try again. Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api'>documentation</a> for more information.";
+const ERR_DECISIONMODEL_API_NOT_DETECTED = `The DecisionModel API is not available. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
+const ERR_DECISIONMODEL_MODEL_NOT_AVAILABLE = `The DecisionModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
+const INFO_DECISIONMODEL_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
+
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
 
@@ -119,6 +124,9 @@ const defaultTranslatorSessionOptions = {
 const defaultLanguageDetectorSessionOptions = {
   monitor: modelDownloadProgressMonitor
 };
+const defaultDecisionModelSessionOptions = {
+  monitor: modelDownloadProgressMonitor
+};
 
 // These APIs used to be under window.ai, but have then moved to window.
 // The following functions return the API object, depending on where it is found.
@@ -162,6 +170,12 @@ function getLanguageDetectorAPI() {
   if (window.LanguageDetector) return window.LanguageDetector;
   displaySessionMessage(ERR_LANGUAGEDETECTOR_API_NOT_DETECTED, true);
   throw ERR_LANGUAGEDETECTOR_API_NOT_DETECTED;
+}
+
+function getDecisionModelAPI() {
+  if (window.DecisionModel) return window.DecisionModel;
+  displaySessionMessage(ERR_DECISIONMODEL_API_NOT_DETECTED, true);
+  throw ERR_DECISIONMODEL_API_NOT_DETECTED;
 }
 
 // The following functions check if the  APIs and models are available, and display messages to the user.
@@ -264,6 +278,16 @@ async function checkLanguageDetectorAPIAvailability() {
   return availability;
 }
 
+async function checkDecisionModelAPIAvailability() {
+  const availability = await checkAPIAvailability(
+    getDecisionModelAPI(),
+    ERR_DECISIONMODEL_MODEL_NOT_AVAILABLE,
+    undefined,
+    INFO_DECISIONMODEL_MODEL_DOWNLOADABLE
+  );
+  return availability;
+}
+
 // The following functions create sessions for the APIs, possibly downloading the models first.
 async function getSession(api, defaultOptions, userOptions) {
   let session = null;
@@ -319,4 +343,9 @@ async function getTranslatorSession(options) {
 async function getLanguageDetectorSession(options) {
   await checkLanguageDetectorAPIAvailability();
   return await getSession(getLanguageDetectorAPI(), defaultLanguageDetectorSessionOptions, options);
+}
+
+async function getDecisionModelSession(options) {
+  await checkDecisionModelAPIAvailability();
+  return await getSession(getDecisionModelAPI(), defaultDecisionModelSessionOptions, options);
 }

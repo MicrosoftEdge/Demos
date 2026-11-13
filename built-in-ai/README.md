@@ -2,12 +2,16 @@
 
 ➡️ **[Open the playgrounds](https://microsoftedge.github.io/Demos/built-in-ai/)** ⬅️
 
-The files in this directory are playgrounds and samples for the built-in AI APIs in Microsoft Edge.
+The files in this directory are playgrounds and samples for the built-in AI APIs that are available in Microsoft Edge.
 
 To learn more, see:
 * [Prompt a built-in language model with the Prompt API](https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api)
 * [Summarize, write, and rewrite text with the Writing Assistance APIs](https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis)
-
+* [Correct grammar and spelling with the Proofreader API](https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api)
+* [Translate text with the Translator API](https://learn.microsoft.com/microsoft-edge/web-platform/translator-api)
+* [Detect languages with the Language Detector API](https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api)
+* [Convert speech to text with the SpeechRecognition API](https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api)
+* [Classify text with the Decisions API](https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api)
 
 <!-- ====================================================================== -->
 ## Contributing

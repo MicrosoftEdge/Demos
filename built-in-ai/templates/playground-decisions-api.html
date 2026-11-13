@@ -1,0 +1,67 @@
+---
+layout: playground.njk
+title: Decisions API playground
+shorttitle: Decisions API
+description: Experimental web API that classifies text into structured boolean, choice, and score decisions using an on-device model. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api" target="_blank">the Decisions API documentation</a>.
+stylesheet: decisions-api.css
+script: decisions-api.js
+permalink: decisions-api/
+---
+
+<div class="settings-row">
+  <label for="preset">
+    Preset scenario
+    <span role="tooltip" id="preset-tooltip" style="anchor-name:--preset-anchor;">
+      <span class="tooltip-content" style="position-anchor:--preset-anchor;">
+        Loads an example scenario, which fills in the text, context, and questions below. You can edit them afterwards.
+      </span>
+    </span>
+  </label>
+  <select name="preset" id="preset" aria-describedby="preset-tooltip">
+    <option value="support" selected>Support triage</option>
+    <option value="security">Security risk</option>
+    <option value="feedback">Product feedback</option>
+    <option value="release">Release readiness</option>
+  </select>
+</div>
+
+<div class="settings-row">
+  <label for="input">
+    Text to classify
+    <span role="tooltip" id="input-tooltip" style="anchor-name:--input-anchor;">
+      <span class="tooltip-content" style="position-anchor:--input-anchor;">
+        The text that you want the model to make decisions about. This can be any text, such as a support ticket, a log entry, or a product review.
+        The model answers each of the questions below based on this text.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="input" aria-describedby="input-tooltip"></textarea>
+</div>
+
+<div class="settings-row">
+  <label for="context">
+    Context
+    <span role="tooltip" id="context-tooltip" style="anchor-name:--context-anchor;">
+      <span class="tooltip-content" style="position-anchor:--context-anchor;">
+        Optional instructions or rubric shared by all questions.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="context" aria-describedby="context-tooltip"></textarea>
+</div>
+
+<div class="settings-row">
+  <label for="questions">
+    Questions (JSON)
+    <span role="tooltip" id="questions-tooltip" style="anchor-name:--questions-anchor;">
+      <span class="tooltip-content" style="position-anchor:--questions-anchor;">
+        An array of questions. Each one has an id, a prompt, a type (boolean, choice, or score) and, for choice and score questions, a list of options.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="questions" aria-describedby="questions-tooltip"></textarea>
+</div>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="decide">Decide</button>
+</div>
