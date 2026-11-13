@@ -143,8 +143,15 @@ function createDecisionBlock(questionId, decision) {
   const block = document.createElement("div");
 
   block.append(createBold(`${questionId}: ${decision.label}`));
+  const meta = [];
+  if (typeof decision.confidence === "number") {
+    meta.push(`confidence: ${(decision.confidence * 100).toFixed(1)}%`);
+  }
   if (typeof decision.expectedScore === "number") {
-    block.append(` (expected score: ${decision.expectedScore.toFixed(2)})`);
+    meta.push(`expected score: ${decision.expectedScore.toFixed(2)}`);
+  }
+  if (meta.length > 0) {
+    block.append(` (${meta.join(", ")})`);
   }
 
   if (decision.probabilities && typeof decision.probabilities === "object") {
@@ -185,6 +192,7 @@ addEventListener("load", async () => {
   }
 
   let session = null;
+  let sessionKey = "";
 
   const metrics = new PlaygroundMetrics();
   metrics.setNoStreamMode();
@@ -206,28 +214,33 @@ addEventListener("load", async () => {
     outputEl.textContent = "Deciding ...";
     outputEl.appendChild(spinnerEl);
 
-    // Destroy the previous session, if any.
-    session?.destroy();
-
     console.log(`Making decisions about "${input.substring(0, 100)}"...`);
 
-    metrics.signalOnBeforeCreateSession();
-
-    // Create a new session.
     const options = { questions };
     const context = contextEl.value.trim();
     if (context) {
       options.context = context;
     }
+    const nextSessionKey = JSON.stringify(options);
 
-    try {
-      session = await getDecisionModelSession(options);
-    } catch (e) {
-      displaySessionMessage(`Could not create the DecisionModel session: ${e}`, true);
-      console.error(e);
-      spinnerEl.remove();
-      outputEl.textContent = "";
-      return;
+    metrics.signalOnBeforeCreateSession();
+
+    // Reuse the existing session when context and questions are unchanged.
+    if (!session || sessionKey !== nextSessionKey) {
+      session?.destroy();
+      session = null;
+      sessionKey = "";
+
+      try {
+        session = await getDecisionModelSession(options);
+        sessionKey = nextSessionKey;
+      } catch (e) {
+        displaySessionMessage(`Could not create the DecisionModel session: ${e}`, true);
+        console.error(e);
+        spinnerEl.remove();
+        outputEl.textContent = "";
+        return;
+      }
     }
 
     metrics.signalOnAfterSessionCreated();
