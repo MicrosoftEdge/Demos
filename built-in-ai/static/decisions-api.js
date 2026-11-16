@@ -1,137 +1,41 @@
-const PRESETS = {
-  support: {
-    input: "Every time I click Pay Now on the checkout page, the tab freezes and I was billed twice on my credit card.",
-    context: "You are triaging incoming browser support tickets. Treat production outages, crashes, and duplicate billing charges as urgent.",
-    questions: [
-      { id: "urgent", prompt: "Does this support ticket require urgent escalation?", type: "boolean" },
-      {
-        id: "category",
-        prompt: "Which category best describes the issue?",
-        type: "choice",
-        options: [
-          { label: "bug", description: "Crash, freeze, or broken functionality" },
-          { label: "billing", description: "Duplicate charge, invoice, or payment issue" },
-          { label: "feature", description: "Request for new capability" },
-          { label: "account", description: "Password reset or login help" }
-        ]
-      },
-      {
-        id: "severity",
-        prompt: "Rate the customer impact from 1 (minimal) to 5 (critical).",
-        type: "score",
-        options: [
-          { label: "1", description: "Minimal impact" },
-          { label: "2", description: "Low impact" },
-          { label: "3", description: "Moderate impact" },
-          { label: "4", description: "High impact" },
-          { label: "5", description: "Critical impact" }
-        ]
-      }
-    ]
-  },
-  security: {
-    input: "User initiated download of invoice_update_installer.exe from http://198.51.100.42/payload/",
-    context: "Unsigned executables (.exe/.scr) from unknown or IP-literal hosts are high risk (10). Verified documentation pages are low risk (0).",
-    questions: [
-      { id: "should_warn", prompt: "Should the browser display a prominent security warning?", type: "boolean" },
-      {
-        id: "threat_type",
-        prompt: "What is the primary risk category?",
-        type: "choice",
-        options: [
-          { label: "untrusted_binary", description: "Executable from unverified origin" },
-          { label: "phishing", description: "Credential harvesting page" },
-          { label: "benign", description: "Normal safe browsing activity" }
-        ]
-      },
-      {
-        id: "risk_score",
-        prompt: "Assign a numeric risk weight (0 = safe, 5 = moderate, 10 = severe).",
-        type: "score",
-        options: [
-          { label: "0", description: "Safe" },
-          { label: "5", description: "Moderate risk" },
-          { label: "10", description: "Severe risk" }
-        ]
-      }
-    ]
-  },
-  feedback: {
-    input: "The new vertical tabs layout in Edge saves so much screen space and feels super snappy!",
-    context: "Evaluate user-submitted review comments for constructive feedback, product area, and overall satisfaction.",
-    questions: [
-      { id: "is_positive", prompt: "Is the overall feedback positive?", type: "boolean" },
-      {
-        id: "topic",
-        prompt: "Which product area is mentioned?",
-        type: "choice",
-        options: [
-          { label: "tabs_ux", description: "Tab strip, vertical tabs, or window layout" },
-          { label: "networking", description: "Proxy, DNS, or page loading errors" },
-          { label: "extensions", description: "Browser add-ons" },
-          { label: "ai_features", description: "Built-in AI or Copilot tools" }
-        ]
-      },
-      {
-        id: "satisfaction",
-        prompt: "Rate user satisfaction from 1 (very dissatisfied) to 5 (very satisfied).",
-        type: "score",
-        options: [
-          { label: "1", description: "Very dissatisfied" },
-          { label: "2", description: "Dissatisfied" },
-          { label: "3", description: "Neutral" },
-          { label: "4", description: "Satisfied" },
-          { label: "5", description: "Very satisfied" }
-        ]
-      }
-    ]
-  },
-  release: {
-    input: "Release v2.8.15 reduces translation latency by 35% and passes all 136 automated regression tests with 0 unexpected errors across 9,959 decoding steps.",
-    context: "Evaluate engineering release notes to determine whether a feature is ready for production rollout and which quality pillar it primarily advances.",
-    questions: [
-      { id: "ready_to_ship", prompt: "Does the evidence indicate this release is ready to ship?", type: "boolean" },
-      {
-        id: "pillar",
-        prompt: "Which engineering pillar is the primary focus?",
-        type: "choice",
-        options: [
-          { label: "performance", description: "Throughput, latency, or memory improvements" },
-          { label: "reliability", description: "Crash fixes, regression coverage, or stability" },
-          { label: "compliance", description: "Privacy, security, or policy governance" },
-          { label: "ux", description: "Visual design or layout polish" }
-        ]
-      },
-      {
-        id: "confidence_rating",
-        prompt: "Rate release readiness confidence from 1 (low) to 5 (high).",
-        type: "score",
-        options: [
-          { label: "1", description: "Very low confidence" },
-          { label: "2", description: "Low confidence" },
-          { label: "3", description: "Moderate confidence" },
-          { label: "4", description: "High confidence" },
-          { label: "5", description: "Very high confidence" }
-        ]
-      }
-    ]
-  }
+const EXAMPLE = {
+  input: "Every time I click Pay Now on the checkout page, the tab freezes and I was billed twice on my credit card.",
+  context: "You are triaging incoming browser support tickets. Treat production outages, crashes, and duplicate billing charges as urgent.",
+  questions: [
+    { id: "urgent", prompt: "Does this support ticket require urgent escalation?", type: "boolean" },
+    {
+      id: "category",
+      prompt: "Which category best describes the issue?",
+      type: "choice",
+      options: [
+        { label: "bug", description: "Crash, freeze, or broken functionality" },
+        { label: "billing", description: "Duplicate charge, invoice, or payment issue" },
+        { label: "feature", description: "Request for new capability" },
+        { label: "account", description: "Password reset or login help" }
+      ]
+    },
+    {
+      id: "severity",
+      prompt: "Rate the customer impact from 1 (minimal) to 5 (critical).",
+      type: "score",
+      options: [
+        { label: "1", description: "Minimal impact" },
+        { label: "2", description: "Low impact" },
+        { label: "3", description: "Moderate impact" },
+        { label: "4", description: "High impact" },
+        { label: "5", description: "Critical impact" }
+      ]
+    }
+  ]
 };
 
-const presetEl = document.querySelector("#preset");
 const inputEl = document.querySelector("#input");
 const contextEl = document.querySelector("#context");
 const questionsEl = document.querySelector("#questions");
 const outputEl = document.querySelector("#output");
 const decideBtn = document.querySelector("#decide");
+const stopBtn = document.querySelector("#stop");
 const spinnerEl = createSpinner();
-
-function loadPreset(name) {
-  const preset = PRESETS[name];
-  inputEl.value = preset.input;
-  contextEl.value = preset.context;
-  questionsEl.value = JSON.stringify(preset.questions, null, 2);
-}
 
 function createBold(text) {
   const el = document.createElement("strong");
@@ -182,8 +86,9 @@ function displayResults(results) {
 }
 
 addEventListener("load", async () => {
-  loadPreset(presetEl.value);
-  presetEl.addEventListener("change", () => loadPreset(presetEl.value));
+  inputEl.value = EXAMPLE.input;
+  contextEl.value = EXAMPLE.context;
+  questionsEl.value = JSON.stringify(EXAMPLE.questions, null, 2);
 
   try {
     await checkDecisionModelAPIAvailability();
@@ -196,6 +101,12 @@ addEventListener("load", async () => {
 
   const metrics = new PlaygroundMetrics();
   metrics.setNoStreamMode();
+
+  let abortController = null;
+
+  stopBtn.addEventListener("click", () => {
+    abortController?.abort("User stopped the decision");
+  });
 
   decideBtn.addEventListener("click", async () => {
     const input = inputEl.value.trim();
@@ -245,18 +156,30 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
+
     try {
-      const results = await session.decide(input);
+      const results = await session.decide(input, { signal: controller.signal });
+      controller.signal.throwIfAborted();
       console.log(results);
 
       spinnerEl.remove();
       metrics.signalOnAfterResult();
       displayResults(results);
     } catch (e) {
-      displaySessionMessage(`Could not make a decision about the text: ${e}`, true);
-      console.error(e);
       spinnerEl.remove();
       outputEl.textContent = "";
+      if (controller.signal.aborted) {
+        outputEl.textContent = "Stopped.";
+      } else {
+        displaySessionMessage(`Could not make a decision about the text: ${e}`, true);
+        console.error(e);
+      }
+    } finally {
+      if (abortController === controller) {
+        abortController = null;
+      }
     }
   });
 });

@@ -9,23 +9,6 @@ permalink: decisions-api/
 ---
 
 <div class="settings-row">
-  <label for="preset">
-    Preset scenario
-    <span role="tooltip" id="preset-tooltip" style="anchor-name:--preset-anchor;">
-      <span class="tooltip-content" style="position-anchor:--preset-anchor;">
-        Loads an example scenario, which fills in the text, context, and questions below. You can edit them afterwards.
-      </span>
-    </span>
-  </label>
-  <select name="preset" id="preset" aria-describedby="preset-tooltip">
-    <option value="support" selected>Support triage</option>
-    <option value="security">Security risk</option>
-    <option value="feedback">Product feedback</option>
-    <option value="release">Release readiness</option>
-  </select>
-</div>
-
-<div class="settings-row">
   <label for="input">
     Text to classify
     <span role="tooltip" id="input-tooltip" style="anchor-name:--input-anchor;">
@@ -64,4 +47,5 @@ permalink: decisions-api/
 
 <div class="settings-row submit">
   <button class="ai-button" id="decide">Decide</button>
+  <button id="stop">Stop</button>
 </div>
