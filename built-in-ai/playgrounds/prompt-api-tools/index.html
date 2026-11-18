@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/Demos/built-in-ai/static/images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <title>Prompt API tool use playground</title>
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/button.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/design.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/spinner.css">
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/app.css">
+
+  <!-- Prompt API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AmNHs0xw9QAO2YukciI1RKhICzfn+DueUuUPFJijaUlhXbyw/XzBOxmslmw+PimfrSQ8YdtE9hZyALjnakHqFAkAAABreyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVByb21wdEFQSU11bHRpbW9kYWxJbnB1dCIsImV4cGlyeSI6MTc4MTU2ODAwMH0=">
+  <!-- Summarizer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AnmQ0jmbPIpGfZVA7KzZjGm+eqWhTVbw32p25GY5AUThwYV9mfnlRV9OFcB+rppXIcqjo9EVZo7Twi4azvQmVAIAAABjeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVN1bW1hcml6YXRpb25BUEkiLCJleHBpcnkiOjE3NjA0MDAwMDB9">
+  <!-- Writer API Chrome OT -->
+  <meta http-equiv="origin-trial" content="Avs2en8Snsf0yWPOMv/HFHNDQPFK5BQE2fr5Jkshhp6All1GvEkWJn0zEN7qJ7ey7Hdxg7MOpM88RXupv/05FgQAAABceyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVdyaXRlckFQSSIsImV4cGlyeSI6MTc3NjcyOTYwMH0=">
+  <!-- Rewriter API Chrome OT -->
+  <meta http-equiv="origin-trial" content="AiehW/m2LP6tGyptGkHWswW78TJWMCQoDWQNItlcEnnRlUHeRXWS3Rq4TKKe9laNLZMz0HVgbIbLTrhhX0alGAgAAABeeyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImZlYXR1cmUiOiJBSVJld3JpdGVyQVBJIiwiZXhwaXJ5IjoxNzc2NzI5NjAwfQ==">
+</head>
+
+
+
+<body>
+  <header>
+    <button title="Toggle the menu" class="nav-anchor" popovertarget="menu-popover"><span class="sr-only">Open menu</span></button>
+    <h2 class="app-title">Built-in AI playgrounds</h2>
+    
+  <nav  id="menu">
+    <ul class="menu">
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/prompt-api">Prompt</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt API</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools" class="item current">Tool use</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools-todo" class="item">Tool use (todo)</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/decisions-api" class="item">Decisions</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  </header>
+
+  
+  <nav  id="menu-popover" popover>
+    <ul class="menu">
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/prompt-api">Prompt</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item">Prompt API</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools" class="item current">Tool use</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools-todo" class="item">Tool use (todo)</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/summarizer-api">Writing assistance</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/summarizer-api" class="item">Summarizer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/writer-api" class="item">Writer</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/rewriter-api" class="item">Rewriter</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/proofreader-api" class="item">Proofreader</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/translator-api">Translation</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/translator-api" class="item">Translator</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/languagedetector-api" class="item">LanguageDetector</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/Demos/built-in-ai/playgrounds/decisions-api" class="item">Decisions</a>
+      </li>
+      <li>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api">Speech</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/speechrecognition-api" class="item">SpeechRecognition</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+  <link rel="stylesheet" href="/Demos/built-in-ai/static/playground.css">
+  
+    <link rel="stylesheet" href="/Demos/built-in-ai/static/prompt-api-tools.css">
+  
+
+  <main>
+    <h1>Prompt API tool use</h1>
+    <p class="description">Declare tools for the on-device language model, and see which ones it calls, and with which arguments. The tools return mock results and don't do anything else. Tool use requires the <strong>Prompt API Tool Use</strong> flag at edge://flags. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api#use-tools" target="_blank">Use tools</a> in the Prompt API documentation.</p>
+
+    <div id="message-ui" class="message-bar"></div>
+
+    <div class="settings card-with-shadow">
+      
+<div class="settings-row no-separator">
+  <label for="prompt">
+    User prompt
+    <span role="tooltip" id="user-prompt-tooltip" style="anchor-name:--prompt-anchor;">
+      <span class="tooltip-content" style="position-anchor:--prompt-anchor;">
+        The user prompt is the text that you want to send to the language model. To see tool calls, ask something that
+        one of the tools below can help answer.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="prompt" placeholder="Enter text to prompt the language model">What is the weather like in Seattle, and what time is it in Tokyo? Also, what is 1234 + 5678?</textarea>
+</div>
+
+<div class="settings-row">
+  <label for="system-prompt">
+    System prompt
+    <span role="tooltip" id="system-prompt-tooltip" style="anchor-name:--system-prompt-anchor;">
+      <span class="tooltip-content" style="position-anchor:--system-prompt-anchor;">
+        The system prompt is a set of instructions or guidelines that you want the language model to follow when
+        generating a response. It can, for example, tell the model when to use tools.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="system-prompt"
+    placeholder="Enter instructions for the language model">You are a helpful assistant. You can use tools to help the user. Call a tool whenever it can help answer the question.</textarea>
+</div>
+
+<div class="settings-row">
+  <label>
+    Tools
+    <span role="tooltip" id="tools-tooltip" style="anchor-name:--tools-anchor;">
+      <span class="tooltip-content" style="position-anchor:--tools-anchor;">
+        Each tool is declared to the model with a name, a description, and a JSON schema for its arguments.
+        The mock result is what gets sent back to the model when it calls the tool. The tools don't do anything else.
+      </span>
+    </span>
+  </label>
+  <div id="tools"></div>
+  <button type="button" id="add-tool">Add a tool</button>
+</div>
+
+<details class="settings-row">
+  <summary>More settings</summary>
+  <label class="checkbox-label">
+    <input type="checkbox" id="stream" checked>
+    Stream the response
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" id="send-results" checked>
+    Send the mock results back to the model (max rounds: <input type="number" id="max-rounds" min="1" max="10" value="5">)
+  </label>
+</details>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="run">Prompt</button>
+  <button id="stop">Stop</button>
+</div>
+
+<template id="tool-template">
+  <details class="tool">
+    <summary><span class="tool-summary-name"></span> <span class="tool-summary-description"></span></summary>
+    <div class="tool-body">
+      <div class="tool-header">
+        <label>Name <input type="text" class="tool-name" spellcheck="false"></label>
+        <label>Description <input type="text" class="tool-description" spellcheck="false"></label>
+        <button type="button" class="remove-tool">Remove</button>
+      </div>
+      <div class="tool-columns">
+        <label>Input schema
+          <textarea class="code tool-schema" spellcheck="false"></textarea>
+        </label>
+        <label>Mock result (JSON)
+          <textarea class="code tool-result" spellcheck="false"></textarea>
+        </label>
+      </div>
+    </div>
+  </details>
+</template>
+
+    </div>
+
+    <pre id="output"></pre>
+
+    
+
+    
+    <div class="metrics card-with-shadow">
+      <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
+      <span class="metric">First token latency: <span class="value" id="first-token-latency-metric"></span> ms</span>
+      <span class="metric">Tokens: <span class="value" id="tokens-metric"></span></span>
+      <span class="metric">Rate: <span class="value" id="token-rate-metric"></span> token/sec</span>
+      <span class="metric">Total time: <span class="value" id="total-time-metric"></span> ms</span>
+    </div>
+    
+  </main>
+
+  <script src="/Demos/built-in-ai/static/session.js"></script>
+  <script src="/Demos/built-in-ai/static/spinner.js"></script>
+  
+  <script src="/Demos/built-in-ai/static/metrics.js"></script>
+  
+  <script src="/Demos/built-in-ai/static/slider.js"></script>
+  
+    <script src="/Demos/built-in-ai/static/prompt-api-tools.js"></script>
+  
+
+</body>
+</html>
