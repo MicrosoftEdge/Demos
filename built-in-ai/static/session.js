@@ -1,24 +1,36 @@
 // The various error messages.
-const PROMPT_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api'>documentation</a> and try again.";
-const WA_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis'>documentation</a> and try again.";
+const ALL_CHANNELS = "available in Microsoft Edge, behind a flag";
+const CANARY_ONLY = "available in Microsoft Edge Canary, behind a flag";
+const CANARY_DEV_ONLY = "available in Microsoft Edge Canary and Dev, behind a flag";
+
+function enableInstructions(apiName, availability, flagName, docsUrl) {
+  return `The ${apiName} API is ${availability}. Enable the <strong>${flagName}</strong> flag at <code>edge://flags</code>, restart the browser, and try again.<br>Please check the <a href='${docsUrl}'>documentation</a> for more information.`;
+}
+
+const PROMPT_DOCS_INSTRUCTIONS = enableInstructions("Prompt", ALL_CHANNELS, "Prompt API", "https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api");
+const SUMMARIZER_DOCS_INSTRUCTIONS = enableInstructions("Summarizer", ALL_CHANNELS, "Summarizer API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
+const WRITER_DOCS_INSTRUCTIONS = enableInstructions("Writer", ALL_CHANNELS, "Writer API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
+const REWRITER_DOCS_INSTRUCTIONS = enableInstructions("Rewriter", ALL_CHANNELS, "Rewriter API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
+const PROOFREADER_DOCS_INSTRUCTIONS = enableInstructions("Proofreader", ALL_CHANNELS, "Proofreader API", "https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api");
+const SPEECHRECOGNITION_DOCS_INSTRUCTIONS = enableInstructions("SpeechRecognition", CANARY_DEV_ONLY, "Speech Recognition with on-device model", "https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api");
+const DECISIONS_ENABLE_INSTRUCTIONS = enableInstructions("Decisions", CANARY_ONLY, "Decisions API", "https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api");
 const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-apis'>documentation</a> and try again.";
-const PROOFREADER_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api'>documentation</a> and try again.";
 const LANGUAGEDETECTOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api'>documentation</a> and try again.";
 
 const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
 const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
 const INFO_LANGUAGE_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
-const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${SUMMARIZER_DOCS_INSTRUCTIONS}`;
+const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${SUMMARIZER_DOCS_INSTRUCTIONS}`;
 const INFO_SUMMARIZER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${WA_DOCS_INSTRUCTIONS}`;
-const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${WRITER_DOCS_INSTRUCTIONS}`;
+const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WRITER_DOCS_INSTRUCTIONS}`;
 const INFO_WRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${WA_DOCS_INSTRUCTIONS}`;
-const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WA_DOCS_INSTRUCTIONS}`;
+const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${REWRITER_DOCS_INSTRUCTIONS}`;
+const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${REWRITER_DOCS_INSTRUCTIONS}`;
 const INFO_REWRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
 const ERR_PROOFREADER_API_NOT_DETECTED = `The Proofreader API is not available. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
@@ -33,10 +45,11 @@ const ERR_LANGUAGEDETECTOR_API_NOT_DETECTED = `The LanguageDector API is not ava
 const ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE = `The LanguageDector API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
 const INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
 
-const DECISIONS_ENABLE_INSTRUCTIONS = "The Decisions API is currently only available in Microsoft Edge Canary, behind a flag. Enable the \"Decisions API\" flag at edge://flags, restart the browser, and try again. Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api'>documentation</a> for more information.";
 const ERR_DECISIONMODEL_API_NOT_DETECTED = `The DecisionModel API is not available. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
 const ERR_DECISIONMODEL_MODEL_NOT_AVAILABLE = `The DecisionModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
 const INFO_DECISIONMODEL_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
+
+const ERR_SPEECHRECOGNITION_API_NOT_DETECTED = `The SpeechRecognition API is not available. ${SPEECHRECOGNITION_DOCS_INSTRUCTIONS}`;
 
 const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
 const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";

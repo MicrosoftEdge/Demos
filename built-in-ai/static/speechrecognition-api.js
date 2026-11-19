@@ -63,7 +63,7 @@ async function ensureModelReady(lang) {
   }
 
   if (!SpeechRecognitionAPI) {
-    displaySessionMessage("The SpeechRecognition API is not available in this browser.", true);
+    displaySessionMessage(ERR_SPEECHRECOGNITION_API_NOT_DETECTED, true);
     return false;
   }
 
@@ -547,7 +547,7 @@ addEventListener("load", async () => {
   updateAudioSourceUI();
 
   if (!SpeechRecognitionAPI) {
-    displaySessionMessage("The SpeechRecognition API is not available in this browser.", true);
+    displaySessionMessage(ERR_SPEECHRECOGNITION_API_NOT_DETECTED, true);
   } else {
     displaySessionMessage("SpeechRecognition API ready. Click Start to begin.");
   }
