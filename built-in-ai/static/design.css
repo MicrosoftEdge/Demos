@@ -68,6 +68,30 @@ h2, h3 {
   margin-inline-end: 12px;
 }
 
+.message-bar:has(.ai-session-retry) {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ai-session-message-content {
+  flex: 1 1 20rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ai-session-message-content details {
+  margin-block-start: .5rem;
+}
+
+.ai-session-retry {
+  flex: none;
+}
+
+.ai-session-retry[aria-disabled="true"] {
+  opacity: .6;
+  cursor: wait;
+}
+
 .message-bar.error {
   background: var(--error-background);
 }

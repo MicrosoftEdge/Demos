@@ -209,20 +209,30 @@ sourceLanguageHTML = `<option value="auto">Auto-detect</option>\n` + sourceLangu
 sourceLanguageEl.innerHTML = sourceLanguageHTML;
 targetLanguageEl.innerHTML = targetLanguageHTML;
 
-async function checkAvailability() {
-  const sourceLanguage = sourceLanguageEl.value;
-  const targetLanguage = targetLanguageEl.value;
-
-  try {
-    const avail = await checkTranslatorAPIAvailability({ sourceLanguage, targetLanguage });
-    console.log(`The model for translating from ${sourceLanguage} to ${targetLanguage} is ${avail}.`);
-  } catch (e) {
-    displaySessionMessage(`The language pair ${sourceLanguage} to ${targetLanguage} is not supported.`, true);
+async function getTranslatorOptions() {
+  if (sourceLanguageEl.value === "auto") {
+    const languages = await detectInpuLanguages();
+    if (languages.length > 0) {
+      sourceLanguageEl.value = languages[0].detectedLanguage;
+    } else {
+      displaySessionMessage("Could not confidently detect the language of the input text. Defaulting to English.", true);
+      sourceLanguageEl.value = "en";
+    }
   }
+
+  return { sourceLanguage: sourceLanguageEl.value, targetLanguage: targetLanguageEl.value };
+}
+
+async function checkAvailability() {
+  const options = await getTranslatorOptions();
+  const avail = await checkTranslatorAPIAvailability(options);
+  console.log(`The model for translating from ${options.sourceLanguage} to ${options.targetLanguage} is ${avail}.`);
 }
 
 addEventListener("load", async () => {
-  await checkAvailability();
+  const refreshAvailability = initializeAPIAvailability("Translator", checkAvailability);
+  sourceLanguageEl.addEventListener("change", refreshAvailability);
+  targetLanguageEl.addEventListener("change", refreshAvailability);
   let session = null;
 
   let abortController
@@ -247,21 +257,15 @@ addEventListener("load", async () => {
     // Destroy the previous session, if any.
     session?.destroy();
 
-    const sourceLanguage = sourceLanguageEl.value;
-    const targetLanguage = targetLanguageEl.value;
-    console.log(`Translating from ${sourceLanguage} to ${targetLanguage}.`);
-
     const metrics = new PlaygroundMetrics();
     metrics.signalOnBeforeCreateSession();
 
     // Create a new session.
     try {
-      session = await getTranslatorSession({
-        sourceLanguage,
-        targetLanguage
-      });
+      const options = await getTranslatorOptions();
+      console.log(`Translating from ${options.sourceLanguage} to ${options.targetLanguage}.`);
+      session = await getTranslatorSession(options);
     } catch (e) {
-      displaySessionMessage(`Could not create the Translator session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -269,10 +273,11 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
     try {
-      abortController = new AbortController();
       const stream = session.translateStreaming(inputEl.value, {
-        signal: abortController.signal
+        signal: controller.signal
       });
 
       metrics.signalOnBeforeStream();
@@ -290,8 +295,8 @@ addEventListener("load", async () => {
         outputEl.textContent += token;
       }
     } catch (e) {
-      displaySessionMessage(`Could not translate the text: ${e}`, true);
-      console.error(e);
+      displaySessionError("Translator", "translate the text", e, controller.signal);
+      if (!controller.signal.aborted) console.error(e);
       spinnerEl.remove();
     }
   });
@@ -299,29 +304,17 @@ addEventListener("load", async () => {
 
 let languageDetectorSession = null;
 async function detectInpuLanguages() {
-  if (!languageDetectorSession) {
-    await checkLanguageDetectorAPIAvailability();
-    languageDetectorSession = await getLanguageDetectorSession();
-  }
-
-  const results = await languageDetectorSession.detect(inputEl.value.trim());
-  return results.filter(result => result.confidence > 0.75);
-}
-
-sourceLanguageEl.addEventListener("change", async () => {
-  if (sourceLanguageEl.value === "auto") {
-    const languages = await detectInpuLanguages();
-    if (languages.length > 0) {
-      sourceLanguageEl.value = languages[0].detectedLanguage;
-    } else {
-      displaySessionMessage("Could not confidently detect the language of the input text. Defaulting to English.", true);
-      sourceLanguageEl.value = "en";
+  try {
+    if (!languageDetectorSession) {
+      languageDetectorSession = await getLanguageDetectorSession();
     }
+
+    const results = await languageDetectorSession.detect(inputEl.value.trim());
+    return results.filter(result => result.confidence > 0.75);
+  } catch (error) {
+    displaySessionError("LanguageDetector", "detect the source language", error);
+    languageDetectorSession?.destroy();
+    languageDetectorSession = null;
+    throw error;
   }
-
-  await checkAvailability();
-});
-
-targetLanguageEl.addEventListener("change", async () => {
-  await checkAvailability();
-});
+}

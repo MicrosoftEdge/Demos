@@ -90,11 +90,10 @@ addEventListener("load", async () => {
   contextEl.value = EXAMPLE.context;
   questionsEl.value = JSON.stringify(EXAMPLE.questions, null, 2);
 
-  try {
-    await checkDecisionModelAPIAvailability();
-  } catch (e) {
-    console.error(e);
-  }
+  const refreshAvailability = initializeAPIAvailability("DecisionModel", () => checkDecisionModelAPIAvailability({
+    questions: JSON.parse(questionsEl.value)
+  }));
+  questionsEl.addEventListener("change", refreshAvailability);
 
   let session = null;
   let sessionKey = "";
@@ -146,7 +145,6 @@ addEventListener("load", async () => {
         session = await getDecisionModelSession(options);
         sessionKey = nextSessionKey;
       } catch (e) {
-        displaySessionMessage(`Could not create the DecisionModel session: ${e}`, true);
         console.error(e);
         spinnerEl.remove();
         outputEl.textContent = "";
@@ -172,9 +170,13 @@ addEventListener("load", async () => {
       outputEl.textContent = "";
       if (controller.signal.aborted) {
         outputEl.textContent = "Stopped.";
+        displaySessionMessage("Stopped.");
       } else {
-        displaySessionMessage(`Could not make a decision about the text: ${e}`, true);
+        displaySessionError("DecisionModel", "make a decision about the text", e);
         console.error(e);
+        session?.destroy();
+        session = null;
+        sessionKey = "";
       }
     } finally {
       if (abortController === controller) {

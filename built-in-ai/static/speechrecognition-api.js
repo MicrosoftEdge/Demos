@@ -29,7 +29,6 @@ let fileAudioDestination = null; // Shared MediaStreamDestination
 let fileAudioVideoMeter = null; // Analyser node for video meter
 let fileAudioAudioMeter = null; // Analyser node for audio meter
 let activePreviewType = "";
-const readyLangs = new Set();
 
 let meterRafId = 0;
 let meterBuffer = null;
@@ -57,47 +56,49 @@ function setStartButtonState(state) {
   updateButtonState();
 }
 
-async function ensureModelReady(lang) {
-  if (readyLangs.has(lang)) {
-    return true;
-  }
-
+async function checkSpeechModelAvailability(lang = getRecognitionLanguage()) {
   if (!SpeechRecognitionAPI) {
-    displaySessionMessage(ERR_SPEECHRECOGNITION_API_NOT_DETECTED, true);
-    return false;
+    const error = new Error("The SpeechRecognition API is not exposed in this browser.");
+    error.name = "APIUnavailableError";
+    throw error;
   }
 
-  if (typeof SpeechRecognitionAPI.available !== "function") {
-    readyLangs.add(lang);
-    return true;
+  if (typeof SpeechRecognitionAPI.available !== "function" || !("processLocally" in SpeechRecognitionAPI.prototype)) {
+    const error = new Error("The local speech recognition methods are not exposed.");
+    error.name = "APIMethodUnavailableError";
+    throw error;
   }
 
+  const availability = await SpeechRecognitionAPI.available({
+    langs: [lang],
+    processLocally: true,
+  });
+  console.log(`Model availability for ${lang}: ${availability}`);
+  displayAPIAvailability("SpeechRecognition", availability);
+  return availability;
+}
+
+async function ensureModelReady(lang) {
   setStartButtonState("checking");
-  displaySessionMessage(`Checking availability for ${lang}...`);
 
   let availability;
   try {
-    availability = await SpeechRecognitionAPI.available({
-      langs: [lang],
-      processLocally: true,
-    });
-    console.log(`Model availability for ${lang}: ${availability}`);
+    availability = await checkSpeechModelAvailability(lang);
   } catch (error) {
-    displaySessionMessage(`Could not check model availability: ${error.message}`, true);
+    displaySessionError("SpeechRecognition", "check local model availability", error);
+    console.error(error);
     return false;
   }
 
   if (availability === "available") {
-    readyLangs.add(lang);
     return true;
   }
 
   if (availability === "downloadable" || availability === "downloading") {
     if (typeof SpeechRecognitionAPI.install !== "function") {
-      displaySessionMessage(
-        `On-device model for ${lang} needs installation, but install() is not available in this browser.`,
-        true,
-      );
+      const error = new Error("The install() method is not exposed.");
+      error.name = "APIMethodUnavailableError";
+      displaySessionError("SpeechRecognition", "install the local model", error);
       return false;
     }
 
@@ -111,20 +112,18 @@ async function ensureModelReady(lang) {
       });
 
       if (!installed) {
-        displaySessionMessage(`Failed to install on-device model for ${lang}.`, true);
+        displaySessionMessage(`Local model installation for ${lang} did not complete. Check your network connection, browser permissions, and download restrictions, then click Start to try again. The browser did not report a cause.`, true);
         return false;
       }
     } catch (error) {
-      displaySessionMessage(`Install failed: ${error.message}`, true);
+      displaySessionError("SpeechRecognition", "install the local model", error);
+      console.error(error);
       return false;
     }
 
-    readyLangs.add(lang);
     return true;
   }
 
-  displaySessionMessage(`On-device model is not available for ${lang}.`, true);
-  return false;
 }
 
 function updateAudioSourceUI() {
@@ -217,8 +216,7 @@ function stopRecognition() {
 }
 
 // Full page-state reset without reloading: stop recognition, clear the
-// transcript and file picker, tear down audio contexts, and forget cached
-// language availability so the next Start re-checks.
+// transcript and file picker, and tear down audio contexts.
 function resetAll() {
   if (recognition && isRecognizing) {
     try { recognition.abort(); } catch { /* no-op */ }
@@ -226,7 +224,6 @@ function resetAll() {
   recognition = null;
   isRecognizing = false;
   isStarting = false;
-  readyLangs.clear();
 
   finalTranscript = "";
   outputEl.textContent = "";
@@ -455,6 +452,7 @@ async function startRecognition() {
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.processLocally = true;
+  let recognitionHadError = false;
 
   recognition.onstart = () => {
     isStarting = false;
@@ -485,17 +483,28 @@ async function startRecognition() {
   };
 
   recognition.onerror = event => {
+    recognitionHadError = true;
     isStarting = false;
     console.log(`Recognition error: ${event.error}`);
     const commonErrorMessages = {
-      "no-speech": "No speech was detected.",
-      "audio-capture": "No microphone was found.",
-      "not-allowed": "Permission to use audio input was denied.",
-      "language-not-supported": "The selected language is not supported.",
+      "no-speech": "No speech was detected. Check the audio source and try again.",
+      "audio-capture": "Audio input could not be captured. Check the microphone and its permissions.",
+      "not-allowed": "Speech recognition was denied. Check microphone permissions and browser policies.",
+      "service-not-allowed": "The requested speech recognition service cannot be used. Check local model setup, permissions, and browser policies.",
+      "language-not-supported": "Local recognition cannot use the selected language. Its language pack may be missing or the language may be unsupported. Click Start to check setup again.",
+      "network": "Speech recognition failed because of a network error. Check the connection and try again.",
+      "aborted": "Stopped.",
     };
 
-    const message = commonErrorMessages[event.error] || `Speech recognition error: ${event.error}`;
-    displaySessionMessage(message, true);
+    const message = commonErrorMessages[event.error];
+    if (message) {
+      displaySessionMessage(message, event.error !== "aborted");
+      if (event.error !== "aborted") {
+        displaySessionErrorDetails("SpeechRecognition", "recognize speech", { name: event.error, message: event.message || "" });
+      }
+    } else {
+      displaySessionError("SpeechRecognition", "recognize speech", new Error(`${event.error}: ${event.message || ""}`));
+    }
   };
 
   recognition.onend = () => {
@@ -513,7 +522,7 @@ async function startRecognition() {
     }
 
     stopMeter();
-    displaySessionMessage("Recognition stopped.");
+    if (!recognitionHadError) displaySessionMessage("Recognition stopped.");
   };
 
   try {
@@ -538,7 +547,8 @@ async function startRecognition() {
     recognition = null;
     updateButtonState();
     stopMeter();
-    displaySessionMessage(`Could not start speech recognition: ${error.message}`, true);
+    displaySessionError("SpeechRecognition", "start speech recognition", error);
+    console.error(error);
   }
 }
 
@@ -546,11 +556,7 @@ addEventListener("load", async () => {
   setStartButtonState("idle");
   updateAudioSourceUI();
 
-  if (!SpeechRecognitionAPI) {
-    displaySessionMessage(ERR_SPEECHRECOGNITION_API_NOT_DETECTED, true);
-  } else {
-    displaySessionMessage("SpeechRecognition API ready. Click Start to begin.");
-  }
+  const refreshAvailability = initializeAPIAvailability("SpeechRecognition", checkSpeechModelAvailability);
 
   audioSourceEl.addEventListener("change", () => {
     updateAudioSourceUI();
@@ -562,7 +568,7 @@ addEventListener("load", async () => {
     if (isRecognizing) {
       stopRecognition();
     }
-    readyLangs.clear();
+    void refreshAvailability();
   });
 
   startBtn.addEventListener("click", async event => {

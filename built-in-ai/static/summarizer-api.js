@@ -22,7 +22,14 @@ textEl.value = DEFAULT_TEXT;
 contextEl.value = DEFAULT_CONTEXT;
 
 addEventListener("load", async () => {
-  await checkSummarizerAPIAvailability();
+  const refreshAvailability = initializeAPIAvailability("Summarizer", () => checkSummarizerAPIAvailability({
+    type: typeEl.value,
+    format: formatEl.value,
+    length: lengthEl.value
+  }));
+  for (const el of [typeEl, formatEl, lengthEl]) {
+    el.addEventListener("change", refreshAvailability);
+  }
   let session = null;
 
   let abortController
@@ -64,7 +71,6 @@ addEventListener("load", async () => {
         length,
       });
     } catch (e) {
-      displaySessionMessage(`Could not create the Summarizer session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -72,10 +78,11 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
     try {
-      abortController = new AbortController();
       const stream = session.summarizeStreaming(textEl.value, {
-        signal: abortController.signal
+        signal: controller.signal
       });
 
       metrics.signalOnBeforeStream();
@@ -93,8 +100,8 @@ addEventListener("load", async () => {
         outputEl.textContent += token;
       }
     } catch (e) {
-      displaySessionMessage(`Could not summarize the text: ${e}`, true);
-      console.error(e);
+      displaySessionError("Summarizer", "summarize the text", e, controller.signal);
+      if (!controller.signal.aborted) console.error(e);
       spinnerEl.remove();
     }
   });

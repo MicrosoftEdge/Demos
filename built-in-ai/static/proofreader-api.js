@@ -6,7 +6,10 @@ const stopBtn = document.querySelector("#stop");
 const spinnerEl = createSpinner();
 
 addEventListener("load", async () => {
-  await checkProofreaderAPIAvailability();
+  const refreshAvailability = initializeAPIAvailability("Proofreader", () => checkProofreaderAPIAvailability({
+    expectedInputLanguages: [...expectedLanguagesEl.selectedOptions].map(option => option.value)
+  }));
+  expectedLanguagesEl.addEventListener("change", refreshAvailability);
   let session = null;
 
   const metrics = new PlaygroundMetrics();
@@ -42,7 +45,6 @@ addEventListener("load", async () => {
     try {
       session = await getProofreaderSession({ expectedInputLanguages });
     } catch (e) {
-      displaySessionMessage(`Could not create the Proofreader session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -65,7 +67,7 @@ addEventListener("load", async () => {
         correctionHighlight.add(range);
       }
     } catch (e) {
-      displaySessionMessage(`Could not proofread text: ${e}`, true);
+      displaySessionError("Proofreader", "proofread text", e);
       console.error(e);
       spinnerEl.remove();
     }

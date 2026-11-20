@@ -63,7 +63,7 @@ responseSchemaExampleEl.addEventListener("click", () => {
 });
 
 addEventListener("load", async () => {
-  await checkLanguageModelAPIAvailability();
+  initializeAPIAvailability("LanguageModel", checkLanguageModelAPIAvailability);
 
   let session = null;
   let abortController;
@@ -128,7 +128,6 @@ addEventListener("load", async () => {
         initialPrompts
       });
     } catch (e) {
-      displaySessionMessage(`Could not create the LanguageModel session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -136,10 +135,11 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
     try {
-      abortController = new AbortController();
       const stream = session.promptStreaming(promptEl.value, {
-        signal: abortController.signal,
+        signal: controller.signal,
         responseConstraint
       });
 
@@ -158,8 +158,8 @@ addEventListener("load", async () => {
         outputEl.textContent += token;
       }
     } catch (e) {
-      displaySessionMessage(`Could not generate a response: ${e}`, true);
-      console.error(e);
+      displaySessionError("LanguageModel", "generate a response", e, controller.signal);
+      if (!controller.signal.aborted) console.error(e);
       spinnerEl.remove();
     }
   });

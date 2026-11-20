@@ -11,7 +11,7 @@ function prettyLanguageName(languageTag) {
 }
 
 addEventListener("load", async () => {
-  await checkLanguageDetectorAPIAvailability();
+  initializeAPIAvailability("LanguageDetector", checkLanguageDetectorAPIAvailability);
   let session = null;
 
   const metrics = new PlaygroundMetrics();
@@ -36,7 +36,6 @@ addEventListener("load", async () => {
     try {
       session = await getLanguageDetectorSession();
     } catch (e) {
-      displaySessionMessage(`Could not create the LanguageDetector session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -62,7 +61,7 @@ addEventListener("load", async () => {
         outputEl.appendChild(resultEl);
       }
     } catch (e) {
-      displaySessionMessage(`Could not detect the language of the text: ${e}`, true);
+      displaySessionError("LanguageDetector", "detect the language of the text", e);
       console.error(e);
       spinnerEl.remove();
     }

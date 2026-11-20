@@ -8,7 +8,14 @@ const stopBtn = document.querySelector("#stop");
 const spinnerEl = createSpinner();
 
 addEventListener("load", async () => {
-  await checkWriterAPIAvailability();
+  const refreshAvailability = initializeAPIAvailability("Writer", () => checkWriterAPIAvailability({
+    tone: toneEl.value,
+    format: formatEl.value,
+    length: lengthEl.value
+  }));
+  for (const el of [toneEl, formatEl, lengthEl]) {
+    el.addEventListener("change", refreshAvailability);
+  }
   let session = null;
 
   let abortController
@@ -49,7 +56,6 @@ addEventListener("load", async () => {
         length,
       });
     } catch (e) {
-      displaySessionMessage(`Could not create the Writer session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -57,10 +63,11 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
     try {
-      abortController = new AbortController();
       const stream = session.writeStreaming(taskEl.value, {
-        signal: abortController.signal
+        signal: controller.signal
       });
 
       metrics.signalOnBeforeStream();
@@ -78,8 +85,8 @@ addEventListener("load", async () => {
         outputEl.textContent += token;
       }
     } catch (e) {
-      displaySessionMessage(`Could not write text: ${e}`, true);
-      console.error(e);
+      displaySessionError("Writer", "write text", e, controller.signal);
+      if (!controller.signal.aborted) console.error(e);
       spinnerEl.remove();
     }
   });

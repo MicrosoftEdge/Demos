@@ -14,45 +14,10 @@ const REWRITER_DOCS_INSTRUCTIONS = enableInstructions("Rewriter", ALL_CHANNELS, 
 const PROOFREADER_DOCS_INSTRUCTIONS = enableInstructions("Proofreader", CANARY_DEV_ONLY, "Proofreader API", "https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api");
 const SPEECHRECOGNITION_DOCS_INSTRUCTIONS = enableInstructions("SpeechRecognition", CANARY_DEV_ONLY, "Speech Recognition with on-device model", "https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api");
 const DECISIONS_ENABLE_INSTRUCTIONS = enableInstructions("Decisions", CANARY_ONLY, "Decisions API", "https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api");
-const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-apis'>documentation</a> and try again.";
+const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-api'>documentation</a> and try again.";
 const LANGUAGEDETECTOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/languagedetector-api'>documentation</a> and try again.";
 
-const ERR_LANGUAGEMODEL_API_NOT_DETECTED = `The LanguageModel API is not available. ${PROMPT_DOCS_INSTRUCTIONS}`;
-const ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE = `The LanguageModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROMPT_DOCS_INSTRUCTIONS}`;
-const INFO_LANGUAGE_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_SUMMARIZER_API_NOT_DETECTED = `The Summarizer API is not available. ${SUMMARIZER_DOCS_INSTRUCTIONS}`;
-const ERR_SUMMARIZER_MODEL_NOT_AVAILABLE = `The Summarizer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${SUMMARIZER_DOCS_INSTRUCTIONS}`;
-const INFO_SUMMARIZER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_WRITER_API_NOT_DETECTED = `The Writer API is not available. ${WRITER_DOCS_INSTRUCTIONS}`;
-const ERR_WRITER_MODEL_NOT_AVAILABLE = `The Writer API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${WRITER_DOCS_INSTRUCTIONS}`;
-const INFO_WRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_REWRITER_API_NOT_DETECTED = `The Rewriter API is not available. ${REWRITER_DOCS_INSTRUCTIONS}`;
-const ERR_REWRITER_MODEL_NOT_AVAILABLE = `The Rewriter API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${REWRITER_DOCS_INSTRUCTIONS}`;
-const INFO_REWRITER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_PROOFREADER_API_NOT_DETECTED = `The Proofreader API is not available. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
-const ERR_PROOFREADER_MODEL_NOT_AVAILABLE = `The Proofreader API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${PROOFREADER_DOCS_INSTRUCTIONS}`;
-const INFO_PROOFREADER_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_TRANSLATOR_API_NOT_DETECTED = `The Translator API is not available. ${TRANSLATOR_DOCS_INSTRUCTIONS}`;
-const ERR_TRANSLATOR_MODEL_NOT_AVAILABLE = `The Translator API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${TRANSLATOR_DOCS_INSTRUCTIONS}`;
-const INFO_TRANSLATOR_MODEL_DOWNLOADABLE =  "The model for a specified language pair will be downloaded the first time the API is used.";
-
-const ERR_LANGUAGEDETECTOR_API_NOT_DETECTED = `The LanguageDector API is not available. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
-const ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE = `The LanguageDector API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`;
-const INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_DECISIONMODEL_API_NOT_DETECTED = `The DecisionModel API is not available. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
-const ERR_DECISIONMODEL_MODEL_NOT_AVAILABLE = `The DecisionModel API is enabled, but the model download hasn't started yet, maybe awaiting device capability check. ${DECISIONS_ENABLE_INSTRUCTIONS}`;
-const INFO_DECISIONMODEL_MODEL_DOWNLOADABLE =  "The model will be downloaded the first time the API is used.";
-
-const ERR_SPEECHRECOGNITION_API_NOT_DETECTED = `The SpeechRecognition API is not available. ${SPEECHRECOGNITION_DOCS_INSTRUCTIONS}`;
-
-const ERR_API_CAPABILITY_ERROR = "Cannot create the session now. API availability error: ";
-const ERR_FAILED_CREATING_MODEL = "Could not create the session. Error: ";
+const GENERATIVE_MODEL_INSTRUCTIONS = "Check <strong>Settings &gt; Copilot and AI &gt; On-device AI</strong> at <code>edge://settings/ai</code>. If it is off and you want to use local AI, turn it on. Unsupported options, device requirements, disk space, metered connections, or enterprise policies can also block the model. Edge does not report the exact cause. See the <a href='https://support.microsoft.com/en-us/edge/manage-on-device-generative-ai-models-with-edge'>model requirements and settings</a>.";
 
 // This session util script displays error/success/progress messages to the user.
 // If the demo page that uses this script already has its own message element, it's used.
@@ -77,11 +42,25 @@ function createSessionMessageUI() {
 
 // Display a message to the user.
 let sessionMessageEl = null;
-function displaySessionMessage(str, isError = false) {
+let sessionMessageTextEl = null;
+let sessionMessageContentEl = null;
+let sessionMessageDetailsEl = null;
+let lastSessionError = null;
+function displaySessionMessage(str, isError = false, announce = true) {
+  lastSessionError = null;
   if (!sessionMessageEl) {
     sessionMessageEl = createSessionMessageUI();
+    sessionMessageContentEl = document.createElement("div");
+    sessionMessageContentEl.className = "ai-session-message-content";
+    sessionMessageTextEl = document.createElement("span");
+    sessionMessageTextEl.setAttribute("role", "status");
+    sessionMessageContentEl.appendChild(sessionMessageTextEl);
+    sessionMessageEl.replaceChildren(sessionMessageContentEl);
   }
-  sessionMessageEl.innerHTML = `<span>${str}</span>`;
+  sessionMessageTextEl.setAttribute("aria-live", announce ? "polite" : "off");
+  sessionMessageTextEl.innerHTML = str;
+  sessionMessageDetailsEl?.remove();
+  sessionMessageDetailsEl = null;
 
   if (demoPageHasItsOwnMessage) {
     sessionMessageEl.classList.toggle("error", isError);
@@ -90,14 +69,131 @@ function displaySessionMessage(str, isError = false) {
   }
 }
 
+function displaySessionError(apiName, operation, error, signal) {
+  if (signal?.aborted || error?.name === "AbortError") {
+    displaySessionMessage("Stopped.");
+    return;
+  }
+  if (error === lastSessionError) return;
+
+  const info = API_INFO[apiName];
+  let message;
+  switch (error?.name) {
+    case "APIUnavailableError":
+      message = window.isSecureContext
+        ? `The ${apiName} API is not exposed in this browser. ${info.enableInstructions}`
+        : "This API requires a secure page. Open the playground over HTTPS or on localhost.";
+      break;
+    case "ModelUnavailableError":
+      message = `The ${apiName} API is exposed, but its model cannot be used with the current settings and options. ${info.modelInstructions}`;
+      break;
+    case "APIMethodUnavailableError":
+      message = `The browser exposes the ${apiName} API, but does not expose its on-device model methods. Check the browser version and feature support. ${info.enableInstructions}`;
+      break;
+    case "NotAllowedError":
+      message = "Access or model setup was denied. Start the action from this page. Check browser permissions and policies.";
+      if (info?.generative) message += ` ${GENERATIVE_MODEL_INSTRUCTIONS}`;
+      break;
+    case "NotSupportedError":
+      message = "The API cannot support this operation with the current settings and options. Check the selected languages and options.";
+      if (info) message += ` ${info.modelInstructions}`;
+      break;
+    case "NetworkError":
+      message = "Model setup did not complete. The download may have failed or been cancelled. Check your network connection and download restrictions, then try again.";
+      break;
+    case "OperationError":
+      message = "The model could not be loaded or the operation failed. Try again. If the problem continues, restart the browser.";
+      break;
+    case "UnknownError":
+      message = "Model availability could not be determined. Retry the check.";
+      break;
+    case "QuotaExceededError":
+      message = "The input or context exceeds the model limit. Use less text or a shorter context.";
+      break;
+    case "NotReadableError":
+      message = "The browser could not return a result. The output may have been filtered. Try different input.";
+      break;
+    case "InvalidStateError":
+      message = "The page or session is no longer active. Reload the page or start a new session.";
+      break;
+    case "TypeError":
+    case "RangeError":
+    case "SyntaxError":
+      message = "The request options or input are not valid. Check the options, language tags, and JSON input.";
+      break;
+    default:
+      message = "The operation failed. See the error details for more information.";
+  }
+
+  displaySessionMessage(message, true);
+  displaySessionErrorDetails(apiName, operation, error);
+  lastSessionError = error;
+}
+
+function displaySessionErrorDetails(apiName, operation, error) {
+  sessionMessageDetailsEl = document.createElement("details");
+  const summary = document.createElement("summary");
+  summary.textContent = "Error details";
+  const details = document.createElement("div");
+  details.textContent = `${apiName}: ${operation}. ${error?.name ? `${error.name}: ` : ""}${error?.message ?? String(error)}`;
+  sessionMessageDetailsEl.append(summary, details);
+  sessionMessageContentEl.appendChild(sessionMessageDetailsEl);
+}
+
+function initializeAPIAvailability(apiName, check) {
+  displaySessionMessage("Checking model availability...", false, false);
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.className = "ai-session-retry";
+  retry.textContent = "Retry";
+  retry.setAttribute("aria-label", "Retry model availability check");
+  sessionMessageEl.appendChild(retry);
+
+  let checking = false;
+  let pending = false;
+  async function refresh() {
+    if (checking) {
+      pending = true;
+      return;
+    }
+    checking = true;
+    retry.setAttribute("aria-disabled", "true");
+    try {
+      do {
+        pending = false;
+        displaySessionMessage("Checking model availability...", false, false);
+        try {
+          await check();
+        } catch (error) {
+          displaySessionError(apiName, "check availability", error);
+          console.error(error);
+        }
+      } while (pending);
+    } finally {
+      checking = false;
+      retry.setAttribute("aria-disabled", "false");
+    }
+  }
+
+  retry.addEventListener("click", () => {
+    if (!checking) void refresh();
+  });
+  void refresh();
+  return refresh;
+}
+
 // Utility function to display the model download progress to the user.
 // This method is passed as the `monitor` option when creating a model session.
 const modelDownloadProgressMonitor = m => {
   m.addEventListener("downloadprogress", e => {
-    const current = (e.loaded / e.total) * 100;
-    displaySessionMessage(`Model downloading (${current.toFixed(1)}%). Please wait.`);
-    if (e.loaded == e.total) {
-      displaySessionMessage("Model downloaded. You can now use the API.");
+    if (e.total > 0) {
+      const current = (e.loaded / e.total) * 100;
+      displaySessionMessage(`Model setup in progress (${current.toFixed(1)}%). Please wait.`, false, false);
+      if (e.loaded === e.total) {
+        displaySessionMessage("Model files are ready. Loading the model...");
+      }
+    } else {
+      displaySessionMessage("Model setup is in progress. Please wait.", false, false);
     }
   });
 };
@@ -141,224 +237,149 @@ const defaultDecisionModelSessionOptions = {
   monitor: modelDownloadProgressMonitor
 };
 
-// These APIs used to be under window.ai, but have then moved to window.
-// The following functions return the API object, depending on where it is found.
-function getLanguageModelAPI() {
-  if (window.LanguageModel) return window.LanguageModel;
-  displaySessionMessage(ERR_LANGUAGEMODEL_API_NOT_DETECTED, true);
-  throw ERR_LANGUAGEMODEL_API_NOT_DETECTED;
-}
+const API_INFO = {
+  LanguageModel: { defaults: defaultLanguageModelSessionOptions, enableInstructions: PROMPT_DOCS_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Run" },
+  Summarizer: { defaults: defaultSummarizerSessionOptions, enableInstructions: SUMMARIZER_DOCS_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Summarize" },
+  Writer: { defaults: defaultWriterSessionOptions, enableInstructions: WRITER_DOCS_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Write" },
+  Rewriter: { defaults: defaultRewriterSessionOptions, enableInstructions: REWRITER_DOCS_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Rewrite" },
+  Proofreader: { defaults: defaultProofreaderSessionOptions, enableInstructions: PROOFREADER_DOCS_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Proofread" },
+  Translator: { defaults: defaultTranslatorSessionOptions, enableInstructions: TRANSLATOR_DOCS_INSTRUCTIONS, modelInstructions: `The selected language pair may be unsupported, or model downloads or access may be blocked. ${TRANSLATOR_DOCS_INSTRUCTIONS}`, action: "Translate" },
+  LanguageDetector: { defaults: defaultLanguageDetectorSessionOptions, enableInstructions: LANGUAGEDETECTOR_DOCS_INSTRUCTIONS, modelInstructions: `The selected languages may be unsupported, or model downloads or access may be blocked. ${LANGUAGEDETECTOR_DOCS_INSTRUCTIONS}`, action: "Detect language" },
+  DecisionModel: { defaults: defaultDecisionModelSessionOptions, enableInstructions: DECISIONS_ENABLE_INSTRUCTIONS, modelInstructions: GENERATIVE_MODEL_INSTRUCTIONS, generative: true, action: "Decide" },
+  SpeechRecognition: { enableInstructions: SPEECHRECOGNITION_DOCS_INSTRUCTIONS, modelInstructions: "Local recognition may not support the selected language, or access and language-pack installation may be blocked. See the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api'>local speech recognition documentation</a>.", action: "Start" }
+};
 
-function getSummarizerAPI() {
-  if (window.Summarizer) return window.Summarizer;
-  displaySessionMessage(ERR_SUMMARIZER_API_NOT_DETECTED, true);
-  throw ERR_SUMMARIZER_API_NOT_DETECTED;
-}
-
-function getWriterAPI() {
-  if (window.Writer) return window.Writer;
-  displaySessionMessage(ERR_WRITER_API_NOT_DETECTED, true);
-  throw ERR_WRITER_API_NOT_DETECTED;
-}
-
-function getRewriterAPI() {
-  if (window.Rewriter) return window.Rewriter;
-  displaySessionMessage(ERR_REWRITER_API_NOT_DETECTED, true);
-  throw ERR_REWRITER_API_NOT_DETECTED;
-}
-
-function getProofreaderAPI() {
-  if (window.Proofreader) return window.Proofreader;
-  displaySessionMessage(ERR_PROOFREADER_API_NOT_DETECTED, true);
-  throw ERR_PROOFREADER_API_NOT_DETECTED;
-}
-
-function getTranslatorAPI() {
-  if (window.Translator) return window.Translator;
-  displaySessionMessage(ERR_TRANSLATOR_API_NOT_DETECTED, true);
-  throw ERR_TRANSLATOR_API_NOT_DETECTED;
-}
-
-function getLanguageDetectorAPI() {
-  if (window.LanguageDetector) return window.LanguageDetector;
-  displaySessionMessage(ERR_LANGUAGEDETECTOR_API_NOT_DETECTED, true);
-  throw ERR_LANGUAGEDETECTOR_API_NOT_DETECTED;
-}
-
-function getDecisionModelAPI() {
-  if (window.DecisionModel) return window.DecisionModel;
-  displaySessionMessage(ERR_DECISIONMODEL_API_NOT_DETECTED, true);
-  throw ERR_DECISIONMODEL_API_NOT_DETECTED;
+function getAPI(apiName) {
+  if (window[apiName]) return window[apiName];
+  const error = new Error(`The ${apiName} API is not exposed in this browser.`);
+  error.name = "APIUnavailableError";
+  throw error;
 }
 
 // The following functions check if the  APIs and models are available, and display messages to the user.
 // You can call these functions when the page loads if you want to display the status
 // to the user early, so they know what to expect (e.g. if their browser supports the APIs).
 // These functions don't trigger the model download and do not create sessions.
-async function checkAPIAvailability(api, modelError, availabilityOptions, modelDownloadableInfo) {
-  const availability = await api.availability(availabilityOptions);
-
-  // The API is available, but the model is not.
-  if (availability === "unavailable") {
-    displaySessionMessage(modelError, true);
-    throw modelError;
+async function checkAPIAvailability(apiName, options) {
+  const info = API_INFO[apiName];
+  try {
+    const api = getAPI(apiName);
+    if (typeof api.availability !== "function") {
+      const error = new Error("The availability() method is not exposed.");
+      error.name = "APIMethodUnavailableError";
+      throw error;
+    }
+    const availability = await api.availability({ ...info.defaults, ...options });
+    displayAPIAvailability(apiName, availability);
+    return availability;
+  } catch (error) {
+    displaySessionError(apiName, "check availability", error);
+    throw error;
   }
+}
 
-  // The API and model seem to be available, but the model can't be used for some reason.
-  if (availability !== "downloadable" && availability !== "downloading" && availability !== "available") {
-    displaySessionMessage(ERR_API_CAPABILITY_ERROR + availability, true);
-    throw ERR_API_CAPABILITY_ERROR + availability;
+function displayAPIAvailability(apiName, availability) {
+  switch (availability) {
+    case "unavailable": {
+      const error = new Error("The model cannot be used with the current settings and options.");
+      error.name = "ModelUnavailableError";
+      throw error;
+    }
+    case "downloadable":
+      displaySessionMessage(`Model setup is required for the selected options. Click <strong>${API_INFO[apiName].action}</strong> to continue. Edge may download model files.`);
+      break;
+    case "downloading":
+      displaySessionMessage("Model setup is in progress. Please wait.");
+      break;
+    case "available":
+      displaySessionMessage("The model is available for the selected options.");
+      break;
+    default:
+      throw new DOMException(`Unexpected availability value: ${availability}`, "UnknownError");
   }
-
-  // Everything seems to be fine.
-  let message = `On-device API and model ${availability}.`;
-  if (availability === "downloadable") {
-    message += ` ${modelDownloadableInfo}`;
-  }
-
-  displaySessionMessage(message);
-
-  return availability;
 }
 
-async function checkLanguageModelAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getLanguageModelAPI(),
-    ERR_LANGUAGEMODEL_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_LANGUAGE_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkLanguageModelAPIAvailability(options) {
+  return await checkAPIAvailability("LanguageModel", options);
 }
 
-async function checkSummarizerAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getSummarizerAPI(),
-    ERR_SUMMARIZER_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_SUMMARIZER_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkSummarizerAPIAvailability(options) {
+  return await checkAPIAvailability("Summarizer", options);
 }
 
-async function checkWriterAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getWriterAPI(),
-    ERR_WRITER_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_WRITER_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkWriterAPIAvailability(options) {
+  return await checkAPIAvailability("Writer", options);
 }
 
-async function checkRewriterAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getRewriterAPI(),
-    ERR_REWRITER_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_REWRITER_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkRewriterAPIAvailability(options) {
+  return await checkAPIAvailability("Rewriter", options);
 }
 
-async function checkProofreaderAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getProofreaderAPI(),
-    ERR_PROOFREADER_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_PROOFREADER_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkProofreaderAPIAvailability(options) {
+  return await checkAPIAvailability("Proofreader", options);
 }
 
-async function checkTranslatorAPIAvailability(availabilityOptions) {
-  const availability = await checkAPIAvailability(
-    getTranslatorAPI(),
-    ERR_TRANSLATOR_MODEL_NOT_AVAILABLE,
-    availabilityOptions,
-    INFO_TRANSLATOR_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkTranslatorAPIAvailability(options) {
+  return await checkAPIAvailability("Translator", options);
 }
 
-async function checkLanguageDetectorAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getLanguageDetectorAPI(),
-    ERR_LANGUAGEDETECTOR_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_LANGUAGEDETECTOR_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkLanguageDetectorAPIAvailability(options) {
+  return await checkAPIAvailability("LanguageDetector", options);
 }
 
-async function checkDecisionModelAPIAvailability() {
-  const availability = await checkAPIAvailability(
-    getDecisionModelAPI(),
-    ERR_DECISIONMODEL_MODEL_NOT_AVAILABLE,
-    undefined,
-    INFO_DECISIONMODEL_MODEL_DOWNLOADABLE
-  );
-  return availability;
+async function checkDecisionModelAPIAvailability(options) {
+  return await checkAPIAvailability("DecisionModel", options);
 }
 
 // The following functions create sessions for the APIs, possibly downloading the models first.
-async function getSession(api, defaultOptions, userOptions) {
-  let session = null;
-
-  // Overriding the default options with the ones passed by the demo page.
-  options = Object.assign({}, defaultOptions, userOptions)
+async function getSession(apiName, userOptions) {
+  const options = { ...API_INFO[apiName].defaults, ...userOptions };
+  await checkAPIAvailability(apiName, options);
 
   try {
-    session = await api.create(options);
-  } catch (e) {
-    displaySessionMessage(ERR_FAILED_CREATING_MODEL + e, true);
-    throw "Can't create model session: " + e;
+    const api = getAPI(apiName);
+    if (typeof api.create !== "function") {
+      const error = new Error("The create() method is not exposed.");
+      error.name = "APIMethodUnavailableError";
+      throw error;
+    }
+    const session = await api.create(options);
+    displaySessionMessage("API and model ready.");
+    return session;
+  } catch (error) {
+    displaySessionError(apiName, "create a session", error, options.signal);
+    throw error;
   }
-
-  displaySessionMessage("API and model ready.");
-
-  return session;
 }
 
 async function getLanguageModelSession(options) {
-  await checkLanguageModelAPIAvailability();
-  return await getSession(getLanguageModelAPI(), defaultLanguageModelSessionOptions, options);
+  return await getSession("LanguageModel", options);
 }
 
 async function getSummarizerSession(options) {
-  await checkSummarizerAPIAvailability();
-  return await getSession(getSummarizerAPI(), defaultSummarizerSessionOptions, options);
+  return await getSession("Summarizer", options);
 }
 
 async function getWriterSession(options) {
-  await checkWriterAPIAvailability();
-  return await getSession(getWriterAPI(), defaultWriterSessionOptions, options);
+  return await getSession("Writer", options);
 }
 
 async function getRewriterSession(options) {
-  await checkRewriterAPIAvailability();
-  return await getSession(getRewriterAPI(), defaultRewriterSessionOptions, options);
+  return await getSession("Rewriter", options);
 }
 
 async function getProofreaderSession(options) {
-  await checkProofreaderAPIAvailability();
-  return await getSession(getProofreaderAPI(), defaultProofreaderSessionOptions, options);
+  return await getSession("Proofreader", options);
 }
 
 async function getTranslatorSession(options) {
-  await checkTranslatorAPIAvailability({
-    sourceLanguage: options.sourceLanguage,
-    targetLanguage: options.targetLanguage
-  });
-  return await getSession(getTranslatorAPI(), defaultTranslatorSessionOptions, options);
+  return await getSession("Translator", options);
 }
 
 async function getLanguageDetectorSession(options) {
-  await checkLanguageDetectorAPIAvailability();
-  return await getSession(getLanguageDetectorAPI(), defaultLanguageDetectorSessionOptions, options);
+  return await getSession("LanguageDetector", options);
 }
 
 async function getDecisionModelSession(options) {
-  await checkDecisionModelAPIAvailability();
-  return await getSession(getDecisionModelAPI(), defaultDecisionModelSessionOptions, options);
+  return await getSession("DecisionModel", options);
 }

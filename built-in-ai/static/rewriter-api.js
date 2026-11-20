@@ -10,7 +10,14 @@ const stopBtn = document.querySelector("#stop");
 const spinnerEl = createSpinner();
 
 addEventListener("load", async () => {
-  await checkRewriterAPIAvailability();
+  const refreshAvailability = initializeAPIAvailability("Rewriter", () => checkRewriterAPIAvailability({
+    tone: toneEl.value,
+    format: formatEl.value,
+    length: lengthEl.value
+  }));
+  for (const el of [toneEl, formatEl, lengthEl]) {
+    el.addEventListener("change", refreshAvailability);
+  }
   let session = null;
 
   let abortController
@@ -52,7 +59,6 @@ addEventListener("load", async () => {
         sharedContext: sharedContextEl.value ? sharedContextEl.value.trim() : undefined,
       });
     } catch (e) {
-      displaySessionMessage(`Could not create the Rewriter session: ${e}`, true);
       console.error(e);
       spinnerEl.remove();
       return;
@@ -60,10 +66,11 @@ addEventListener("load", async () => {
 
     metrics.signalOnAfterSessionCreated();
 
+    const controller = new AbortController();
+    abortController = controller;
     try {
-      abortController = new AbortController();
       const stream = session.rewriteStreaming(textEl.value, {
-        signal: abortController.signal,
+        signal: controller.signal,
         context: contextEl.value ? contextEl.value.trim() : undefined,
       });
 
@@ -82,8 +89,8 @@ addEventListener("load", async () => {
         outputEl.textContent += token;
       }
     } catch (e) {
-      displaySessionMessage(`Could not rewrite text: ${e}`, true);
-      console.error(e);
+      displaySessionError("Rewriter", "rewrite text", e, controller.signal);
+      if (!controller.signal.aborted) console.error(e);
       spinnerEl.remove();
     }
   });
