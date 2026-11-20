@@ -11,7 +11,7 @@ const PROMPT_DOCS_INSTRUCTIONS = enableInstructions("Prompt", ALL_CHANNELS, "Pro
 const SUMMARIZER_DOCS_INSTRUCTIONS = enableInstructions("Summarizer", ALL_CHANNELS, "Summarizer API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
 const WRITER_DOCS_INSTRUCTIONS = enableInstructions("Writer", ALL_CHANNELS, "Writer API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
 const REWRITER_DOCS_INSTRUCTIONS = enableInstructions("Rewriter", ALL_CHANNELS, "Rewriter API", "https://learn.microsoft.com/microsoft-edge/web-platform/writing-assistance-apis");
-const PROOFREADER_DOCS_INSTRUCTIONS = enableInstructions("Proofreader", ALL_CHANNELS, "Proofreader API", "https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api");
+const PROOFREADER_DOCS_INSTRUCTIONS = enableInstructions("Proofreader", CANARY_DEV_ONLY, "Proofreader API", "https://learn.microsoft.com/microsoft-edge/web-platform/proofreader-api");
 const SPEECHRECOGNITION_DOCS_INSTRUCTIONS = enableInstructions("SpeechRecognition", CANARY_DEV_ONLY, "Speech Recognition with on-device model", "https://learn.microsoft.com/microsoft-edge/web-platform/speech-recognition-api");
 const DECISIONS_ENABLE_INSTRUCTIONS = enableInstructions("Decisions", CANARY_ONLY, "Decisions API", "https://learn.microsoft.com/microsoft-edge/web-platform/decisions-api");
 const TRANSLATOR_DOCS_INSTRUCTIONS = "Please check the <a href='https://learn.microsoft.com/microsoft-edge/web-platform/translator-apis'>documentation</a> and try again.";
