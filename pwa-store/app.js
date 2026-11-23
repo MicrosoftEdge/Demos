@@ -138,7 +138,6 @@ function renderCatalog() {
     h(
       'section',
       { class: 'hero' },
-      h('p', { class: 'eyebrow' }, 'Hand-picked web apps'),
       h('h1', {}, 'Discover and install useful apps for the web.'),
       h(
         'p',
@@ -149,7 +148,6 @@ function renderCatalog() {
     h(
       'section',
       { 'aria-labelledby': 'browse', id: 'browse-section' },
-      h('h2', { id: 'browse', tabindex: '-1' }, 'Browse all apps'),
       count,
       grid,
       empty,
