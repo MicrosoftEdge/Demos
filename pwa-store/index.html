@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contoso App – Discover and install useful apps for the web</title>
+  <meta name="description" content="A small curated demo of discovering and installing web apps in Microsoft Edge.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="assets/icon-192.png">
+  <meta name="theme-color" content="#fbf7f1">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#view">Skip to content</a>
+  <header class="site-header">
+    <div class="bar">
+      <a class="wordmark" href="#/">Contoso <span>App</span></a>
+      <form id="search-form" role="search">
+        <label for="search" class="sr-only">Search apps</label>
+        <input id="search" type="search" placeholder="Search apps" autocomplete="off">
+      </form>
+      <a class="about" href="#/about">About</a>
+      <div id="self-install" class="self-install"></div>
+    </div>
+    <nav id="categories" class="categories" aria-label="Categories"></nav>
+    <p id="self-status" class="sr-only" role="status"></p>
+  </header>
+
+  <main id="view" tabindex="-1">
+    <noscript><p>Contoso App needs JavaScript to list apps. You can still visit <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-store">the source</a>.</p></noscript>
+  </main>
+
+  <footer class="site-footer">
+    <p>Contoso App is a demo, not an official store. Listed apps aren’t endorsed, certified or vetted by Microsoft.</p>
+    <p>
+      <a href="#/about">About this demo</a> ·
+      <a href="#/how-it-works">How this works</a> ·
+      <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-store">Source on GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>
