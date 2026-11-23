@@ -176,8 +176,10 @@
       </section>
       <form class="actions" method="dialog">
         <button value="cancel">Close</button>
-        <button value="install" id="install-button">Install app</button>
+        <install id="install-element"></install>
+        <button type="button" id="install-button" hidden>Install app</button>
       </form>
+      <p id="install-status" role="status"></p>
     </dialog>
 
     <script src="popover.min.js"></script>

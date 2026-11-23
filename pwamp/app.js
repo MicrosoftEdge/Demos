@@ -450,24 +450,79 @@ playlistActionAbout.addEventListener('click', () => {
   }
 });
 
-if (!isInstalledPWA && !isSidebarPWA) {
-  window.addEventListener('beforeinstallprompt', e => {
-    // Don't let the default prompt go.
-    e.preventDefault();
+const installElement = document.getElementById("install-element");
+const installStatus = document.getElementById("install-status");
+const supportsInstallElement = "HTMLInstallElement" in window;
+const supportsWebInstall = typeof Navigator.prototype.install === "function";
+let deferredInstallPrompt;
 
-    // Instead, wait for the user to click the install button.
-    aboutDialog.addEventListener('close', () => {
-      if (aboutDialog.returnValue === "install") {
-        e.prompt();
+if (isInstalledPWA || isSidebarPWA) {
+  installElement.remove();
+} else {
+  if (supportsInstallElement) {
+    installElement.addEventListener("installresult", e => {
+      if (e.result === "success") {
+        installStatus.textContent = "The app was installed or opened.";
+      } else if (e.result === "aborted") {
+        installStatus.textContent = "Installation was canceled or could not complete.";
+      } else {
+        installStatus.textContent = "Installation could not start.";
       }
     });
-  });
-} else {
-  installButton.disabled = true;
+  } else {
+    // Fallbacks: navigator.install() first, then beforeinstallprompt.
+    installElement.remove();
+    installButton.hidden = !supportsWebInstall;
+
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (!supportsWebInstall) {
+        installButton.hidden = false;
+      }
+    });
+
+    installButton.addEventListener("click", async () => {
+      if (installButton.getAttribute("aria-disabled") === "true") {
+        return;
+      }
+      installButton.setAttribute("aria-disabled", "true");
+
+      try {
+        if (supportsWebInstall) {
+          await navigator.install();
+          installStatus.textContent = "The app was installed or opened.";
+          installButton.hidden = true;
+        } else if (deferredInstallPrompt) {
+          // The event is single-use: clear it before awaiting the user's choice.
+          const promptEvent = deferredInstallPrompt;
+          deferredInstallPrompt = undefined;
+          await promptEvent.prompt();
+          const { outcome } = await promptEvent.userChoice;
+          installStatus.textContent = outcome === "accepted"
+            ? "The app was installed."
+            : "Installation canceled.";
+          if (!deferredInstallPrompt) {
+            installButton.hidden = true;
+          }
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          installStatus.textContent = "Installation was canceled or could not complete.";
+        } else {
+          installStatus.textContent = "Installation could not start.";
+          console.error(error);
+        }
+      } finally {
+        installButton.removeAttribute("aria-disabled");
+      }
+    });
+  }
 }
 
 addEventListener('appinstalled', () => {
-  aboutDialog.close();
+  installButton.hidden = true;
+  installElement.remove();
 });
 
 // Manage drag/dropping songs from explorer to playlist.

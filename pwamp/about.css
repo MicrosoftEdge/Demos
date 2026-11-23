@@ -66,16 +66,36 @@ screen to always look the same, no matter what skin is used. */
 
 #about-dialog .actions {
   margin: 0 1rem 2rem 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: .5rem;
 }
 
 #about-dialog button {
-  font-size: .8rem;
+  font-size: 1rem;
   background: var(--primary);
   color: var(--back);
+  border: 1px solid #000;
   border-radius: .25rem;
-  padding: .3rem;
+  padding: .3rem .8rem;
   cursor: pointer;
+  line-height: 1;
+}
+
+#about-dialog install {
+  background-color: var(--primary);
+  color: var(--back);
+  border-radius: .25rem;
+  font-size: 1rem;
+}
+
+#about-dialog button[hidden] {
+  display: none;
+}
+
+#about-dialog p:empty {
+  display: none;
 }
 
 #about-dialog button[disabled] {
