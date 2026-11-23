@@ -36,7 +36,7 @@ a { color: var(--accent); }
 .skip:focus { top: .5rem; }
 
 .site-header { background: var(--bg); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
-.bar, .categories, main, .site-footer { max-width: 72rem; margin-inline: auto; padding-inline: 1.25rem; }
+.bar, .categories, main, .site-footer { max-width: 90rem; margin-inline: auto; padding-inline: 1.25rem; }
 .bar { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; padding-block: .75rem; }
 .wordmark { font-size: 1.5rem; font-weight: 700; text-decoration: none; color: var(--ink); }
 .wordmark span { color: var(--accent); }
