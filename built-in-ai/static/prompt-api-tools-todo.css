@@ -1,0 +1,340 @@
+textarea {
+  height: 4rem;
+}
+
+textarea.code {
+  font-size: .9em;
+  height: 6rem;
+  font-family: monospace;
+}
+
+#tools {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tool {
+  border: 1px solid #8884;
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  margin: 0;
+}
+
+.tool summary {
+  display: flex;
+  gap: .75rem;
+  align-items: baseline;
+  padding-inline-end: 1.5rem;
+}
+
+.settings .tool summary::after {
+  inset-inline-end: -8px;
+}
+
+.tool-summary-name {
+  font-family: monospace;
+  font-weight: bold;
+  flex: none;
+}
+
+.tool-summary-description {
+  flex: 1;
+  min-width: 0;
+  opacity: .75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tool-body {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.tool-body label {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.tool input[type="text"] {
+  font: inherit;
+  padding: .4rem;
+}
+
+.tool-header,
+.tool-columns {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+}
+
+.tool-columns {
+  align-items: stretch;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.checkbox-label input {
+  width: auto;
+  margin: 0;
+}
+
+.checkbox-label input[type="number"] {
+  width: 3.5rem;
+}
+
+#output:empty::before {
+  content: "The tool calls and the response will appear here";
+}
+
+#output {
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  font-size: .9rem;
+}
+
+#output .step {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #666;
+}
+
+#output .step .dot {
+  flex: none;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: #0a7;
+}
+
+#output .step.running .dot {
+  background: #07c;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+#output .step.error .dot {
+  background: #c33;
+}
+
+#output .step-detail {
+  margin-inline-start: auto;
+  font-size: .85em;
+  font-variant-numeric: tabular-nums;
+  opacity: .8;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .25;
+  }
+}
+
+#output .text-block {
+  margin-inline-start: 1rem;
+  padding: .4rem .6rem;
+  border-inline-start: 2px solid #8886;
+  white-space: pre-wrap;
+}
+
+#output .call {
+  margin-inline-start: 1rem;
+  border: 1px solid #8884;
+  border-radius: .4rem;
+  background: #fff8;
+  font-family: monospace;
+  font-size: .85em;
+}
+
+#output .call summary {
+  display: flex;
+  gap: .25rem;
+  align-items: baseline;
+  padding: .3rem .6rem;
+}
+
+#output .call summary::after {
+  display: none;
+}
+
+#output .call-name {
+  font-weight: bold;
+  color: #07c;
+  flex: none;
+}
+
+#output .call-args {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: .8;
+}
+
+#output .call-status {
+  flex: none;
+  color: #0a7;
+}
+
+#output .call.error .call-name,
+#output .call.error .call-status {
+  color: #c33;
+}
+
+#output .call-body {
+  padding: 0 .6rem .5rem;
+}
+
+#output .call-label {
+  margin-top: .4rem;
+  font-size: .85em;
+  opacity: .65;
+}
+
+#output .call pre {
+  margin: .15rem 0 0;
+  white-space: pre-wrap;
+}
+
+main {
+  grid-template-rows: min-content min-content min-content auto auto;
+  grid-template-areas:
+    "title title"
+    "description description"
+    "message message"
+    "form output"
+    "todos todos";
+}
+
+@media (max-width: 800px) {
+  main {
+    grid-template-rows: min-content min-content min-content auto min-content auto auto;
+    grid-template-areas:
+      "title"
+      "description"
+      "message"
+      "form"
+      "metrics"
+      "output"
+      "todos";
+  }
+}
+
+.tool-builtin-note {
+  margin: 0;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+#todo-panel {
+  grid-area: todos;
+  padding: 1rem;
+}
+
+#todo-panel .todo-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#todo-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+#todo-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.todo label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  margin: 0;
+}
+
+.todo input {
+  width: auto;
+  margin: 0;
+}
+
+.todo.done .todo-text {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-id {
+  font: 0.75em monospace;
+  opacity: 0.6;
+}
+
+.todo.flash {
+  animation: todo-flash 1.5s ease-out;
+}
+
+.todo.removing {
+  opacity: 0;
+  transform: scale(0.95);
+  text-decoration: line-through;
+}
+
+@keyframes todo-flash {
+  from { background: color-mix(in srgb, gold 60%, transparent); }
+  to { background: transparent; }
+}
+
+.metrics {
+  inset-inline-end: auto;
+  inset-inline-start: var(--padding);
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.metrics:not(.expanded) .metric {
+  display: none;
+}
+
+.metrics .metrics-toggle {
+  padding: 4px 10px;
+  font-size: inherit;
+}
+
+@media (max-width: 800px) {
+  .metrics {
+    position: static;
+  }
+}

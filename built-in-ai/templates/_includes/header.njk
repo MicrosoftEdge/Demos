@@ -32,7 +32,20 @@
   <nav {% if isPopover %} id="menu-popover" popover{% else %} id="menu"{% endif %}>
     <ul class="menu">
       <li>
-        <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item{% if shorttitle == "Prompt API" %} current{% endif %}">Prompt</a>
+        <span class="item parent">
+          <a href="/Demos/built-in-ai/playgrounds/prompt-api">Prompt</a>
+        </span>
+        <ul class="menu">
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api" class="item{% if shorttitle == "Prompt API" %} current{% endif %}">Prompt API</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools" class="item{% if shorttitle == "Prompt API tool use" %} current{% endif %}">Tool use</a>
+          </li>
+          <li>
+            <a href="/Demos/built-in-ai/playgrounds/prompt-api-tools-todo" class="item{% if shorttitle == "Prompt API tool use (todo)" %} current{% endif %}">Tool use (todo)</a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="/Demos/built-in-ai/playgrounds/decisions-api" class="item{% if shorttitle == "Decisions API" %} current{% endif %}">Decisions</a>

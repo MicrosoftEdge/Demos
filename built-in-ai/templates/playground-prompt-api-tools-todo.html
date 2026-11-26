@@ -1,0 +1,91 @@
+---
+layout: playground.njk
+title: Prompt API tool use (todo) playground
+shorttitle: Prompt API tool use (todo)
+description: Declare tools for the on-device language model, and see which ones it calls, and with which arguments. The preloaded tools read and change the todo list at the bottom of the page. Tool use requires the <strong>Prompt API Tool Use</strong> flag at edge://flags. For more information, see <a href="https://learn.microsoft.com/microsoft-edge/web-platform/prompt-api#use-tools" target="_blank">Use tools</a> in the Prompt API documentation.
+stylesheet: prompt-api-tools-todo.css
+script: prompt-api-tools-todo.js
+panel: todo-panel.njk
+permalink: prompt-api-tools-todo/
+---
+
+<div class="settings-row no-separator">
+  <label for="prompt">
+    User prompt
+    <span role="tooltip" id="user-prompt-tooltip" style="anchor-name:--prompt-anchor;">
+      <span class="tooltip-content" style="position-anchor:--prompt-anchor;">
+        The user prompt is the text that you want to send to the language model. To see tool calls, ask something that
+        one of the tools below can help answer.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="prompt" placeholder="Enter text to prompt the language model">Add "Pay rent" to my todo list, mark "Book dentist appointment" as done, and delete "Water the plants".</textarea>
+</div>
+
+<div class="settings-row">
+  <label for="system-prompt">
+    System prompt
+    <span role="tooltip" id="system-prompt-tooltip" style="anchor-name:--system-prompt-anchor;">
+      <span class="tooltip-content" style="position-anchor:--system-prompt-anchor;">
+        The system prompt is a set of instructions or guidelines that you want the language model to follow when
+        generating a response. It can, for example, tell the model when to use tools.
+      </span>
+    </span>
+  </label>
+  <textarea spellcheck="false" id="system-prompt"
+    placeholder="Enter instructions for the language model">You are a todo list assistant. Use the tools to read and change the user's todo list. Todos are identified by their id, so call list_todos first if you need to find an id. When you're done, briefly confirm what you did.</textarea>
+</div>
+
+<div class="settings-row">
+  <label>
+    Tools
+    <span role="tooltip" id="tools-tooltip" style="anchor-name:--tools-anchor;">
+      <span class="tooltip-content" style="position-anchor:--tools-anchor;">
+        Each tool is declared to the model with a name, a description, and a JSON schema for its arguments.
+        The preloaded tools really run, and change the todo list on this page. Tools that you add return the mock
+        result that you enter, and don't do anything else.
+      </span>
+    </span>
+  </label>
+  <div id="tools"></div>
+  <button type="button" id="add-tool">Add a tool</button>
+</div>
+
+<details class="settings-row">
+  <summary>More settings</summary>
+  <label class="checkbox-label">
+    <input type="checkbox" id="stream" checked>
+    Stream the response
+  </label>
+  <label class="checkbox-label">
+    <input type="checkbox" id="send-results" checked>
+    Send the tool results back to the model (max rounds: <input type="number" id="max-rounds" min="1" max="10" value="5">)
+  </label>
+</details>
+
+<div class="settings-row submit">
+  <button class="ai-button" id="run">Prompt</button>
+  <button id="stop">Stop</button>
+</div>
+
+<template id="tool-template">
+  <details class="tool">
+    <summary><span class="tool-summary-name"></span> <span class="tool-summary-description"></span></summary>
+    <div class="tool-body">
+      <div class="tool-header">
+        <label>Name <input type="text" class="tool-name" spellcheck="false"></label>
+        <label>Description <input type="text" class="tool-description" spellcheck="false"></label>
+        <button type="button" class="remove-tool">Remove</button>
+      </div>
+      <div class="tool-columns">
+        <label>Input schema
+          <textarea class="code tool-schema" spellcheck="false"></textarea>
+        </label>
+        <label class="tool-result-label">Mock result (JSON)
+          <textarea class="code tool-result" spellcheck="false"></textarea>
+        </label>
+        <p class="tool-builtin-note" hidden>This tool really runs, and changes the todo list at the bottom of the page.</p>
+      </div>
+    </div>
+  </details>
+</template>

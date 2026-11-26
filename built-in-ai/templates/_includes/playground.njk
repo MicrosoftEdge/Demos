@@ -17,6 +17,10 @@
 
     <pre id="output"></pre>
 
+    {% if panel %}
+      {% include panel %}
+    {% endif %}
+
     {% if not nometrics %}
     <div class="metrics card-with-shadow">
       <span class="metric">Initial latency: <span class="value" id="init-latency-metric"></span> ms</span>
